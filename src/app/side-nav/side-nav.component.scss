@@ -1,0 +1,21 @@
+.sidebar {
+  height: 100vh;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-right: 1px solid #eee;
+  color: grey;
+
+  :hover {
+    color: white;
+    background-color: rebeccapurple;
+  }
+
+  .active {
+    color: white;
+    background-color: rebeccapurple;
+  }
+}

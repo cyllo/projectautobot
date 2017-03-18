@@ -1,16 +1,32 @@
-<header>
-  <nav>
-    <a [routerLink]="['']">Home</a>
-    <a [routerLink]="['about']">About</a>
-  </nav>
+<header class="container-fluid">
+  <div class="row">
+    <ow-side-nav></ow-side-nav>
+    <ow-top-nav></ow-top-nav>
+  </div>
+  <!--<nav>-->
+    <!--<a [routerLink]="['']">Home</a>-->
+    <!--<a [routerLink]="['about']">About</a>-->
+  <!--</nav>-->
 </header>
-<main>
-  <h1>Hello from {{title}}!</h1>
+<main class="container-fluid nav-offset main-offset">
+  <div class="row">
+    <router-outlet></router-outlet>
+  </div>
 
-  <!-- Images (and assets) are parsed and loaded from within the public directory -->
+  <!--<div class="row">-->
+    <!--<div class="col-1-sm hidden-xs-down">-->
+      <!--<ow-side-nav></ow-side-nav>-->
+    <!--</div>-->
+    <!--<div class="col-11-sm main-offset">-->
+      <!--<ow-top-nav></ow-top-nav>-->
+      <!--<h1>Hello from {{title}}!</h1>-->
+      <!--<i class="material-icons md-48">face</i>-->
+      <!--&lt;!&ndash; Images (and assets) are parsed and loaded from within the public directory &ndash;&gt;-->
 
-  <router-outlet></router-outlet>
+      <!--<router-outlet></router-outlet>-->
+    <!--</div>-->
+  <!--</div>-->
 </main>
-<footer>
+<footer class="fixed-bottom nav-offset">
   <a [href]="url">Webpack Angular 2 Starter</a>
 </footer>

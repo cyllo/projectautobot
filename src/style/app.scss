@@ -1,1 +1,9 @@
 @import "~bootstrap/scss/bootstrap.scss";
+
+* {
+  border-radius: 0 !important;
+}
+
+a {
+  color: inherit;
+}

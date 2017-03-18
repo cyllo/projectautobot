@@ -91,13 +91,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "my",
+      "ow",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "my",
+      "ow",
       "kebab-case"
     ],
     "use-input-property-decorator": true,
@@ -112,7 +112,7 @@
     "pipe-naming": [
       true,
       "camelCase",
-      "my"
+      "ow"
     ],
     "no-attribute-parameter-decorator": true,
     "no-forward-ref": true,
