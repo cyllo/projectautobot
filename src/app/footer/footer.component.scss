@@ -1,0 +1,30 @@
+@import "../../style/colors";
+
+.footer-item {
+  border-right: 1px solid $gray-lighter;
+}
+
+.footer-nav {
+  text-align: center;
+  justify-content: center;
+}
+
+.nav-link {
+  color: $gray-light;
+  font-size: xx-small;
+}
+
+.tos {
+  font-size: small;
+  color: $brand-primary;
+}
+
+.logo {
+  color: $gray-light;
+  height: 20px;
+}
+
+.copy {
+  font-size: x-small;
+  color: $gray-light;
+}
