@@ -1,0 +1,20 @@
+<div class="card" style="width: 20rem;">
+  <img class="card-img-top" [src]="hero.playerImage" alt="Card image cap">
+  <div class="card-block row py-1">
+      <div class="media">
+        <img [src]="hero.playerImage" class="card-player-image" />
+      </div>
+      <div class="col-xs-5 x-small-text mx-auto pt-1">
+        <strong>{{ hero.playerName }}</strong>
+        <span class="badge badge-primary badge-pill">{{ hero.points }}</span> <br/>
+        {{ hero.viewers }} Viewers
+      </div>
+      <div class="col-xs-5 x-small-text">
+        MOST PLAYED HEROES <br/>
+        <img [src]="hero.playerImage" class="heroes-image" />
+        <img [src]="hero.playerImage" class="heroes-image" />
+        <img [src]="hero.playerImage" class="heroes-image" />
+        <img [src]="hero.playerImage" class="heroes-image" />
+      </div>
+  </div>
+</div>

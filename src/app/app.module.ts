@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
+import { CommonModule } from '@angular/common';
 import { routerReducer, RouterStoreModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
@@ -19,7 +20,7 @@ import {
   NewsComponent,
   FriendsComponent
 } from './pages';
-import { ApiService } from './shared';
+import { ApiService, VideoCardComponent } from './shared';
 import { routing } from './app.routing';
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
@@ -27,7 +28,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 export function instrumentOptions() {
   return {
-    monitor: useLogMonitor({ visible: true, position: 'right' })
+    monitor: useLogMonitor({ visible: false, position: 'right' })
   };
 }
 
@@ -35,6 +36,7 @@ export function instrumentOptions() {
   imports: [
     NgbModule.forRoot(),
     BrowserModule,
+    CommonModule,
     StoreDevtoolsModule.instrumentStore(instrumentOptions),
     StoreLogMonitorModule,
     StoreModule.provideStore({ router: routerReducer }),
@@ -55,7 +57,8 @@ export function instrumentOptions() {
     ESportsComponent,
     LiveComponent,
     NewsComponent,
-    FriendsComponent
+    FriendsComponent,
+    VideoCardComponent
   ],
   providers: [
     ApiService
