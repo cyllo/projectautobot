@@ -1,11 +1,7 @@
 <nav class="navbar navbar-light fixed-top">
   <div class="row">
     <div class="col-sm-7 offset-sm-2 p-0">
-      <div class="input-group">
-        <a [routerLink]="['home']"><img src="/img/stplogo.svg" class="logo mr-2"/></a>
-        <input class="form-control" type="text"
-               placeholder="Search for player by battle tag, psn or xbox live">
-      </div>
+      <ow-search></ow-search>
     </div>
 
     <div class="col offset-sm-2 my-2 input-group p-0 login">

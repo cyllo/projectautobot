@@ -20,7 +20,7 @@ import {
   NewsComponent,
   FriendsComponent
 } from './pages';
-import { ApiService, VideoCardComponent } from './shared';
+import { ApiService, VideoCardComponent, SearchComponent } from './shared';
 import { routing } from './app.routing';
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
@@ -58,7 +58,8 @@ export function instrumentOptions() {
     LiveComponent,
     NewsComponent,
     FriendsComponent,
-    VideoCardComponent
+    VideoCardComponent,
+    SearchComponent
   ],
   providers: [
     ApiService

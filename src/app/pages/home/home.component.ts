@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
       id: 1,
       playerImage: this.videoUrl,
       playerName: 'MOONMOONNOW',
-      points: 5000,
+      points: 26,
       viewers: '89,836',
     }, {
       id: 2,
@@ -24,13 +24,13 @@ export class HomeComponent implements OnInit {
       id: 3,
       playerImage: this.videoUrl,
       playerName: 'MOONMOONNOW',
-      points: 5000,
+      points: 156,
       viewers: '890,836',
     }, {
       id: 4,
       playerImage: this.videoUrl,
       playerName: 'MOONMOONNOW',
-      points: 5000,
+      points: 11567,
       viewers: '349,836',
     }
   ];
