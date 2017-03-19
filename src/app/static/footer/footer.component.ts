@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { ApiService } from '../shared';
+import { ApiService } from '../../shared';
 
 @Component({
   selector: 'ow-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  templateUrl: 'footer.component.html',
+  styleUrls: ['footer.component.scss']
 })
 export class FooterComponent {
 

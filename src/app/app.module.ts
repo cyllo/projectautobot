@@ -4,11 +4,19 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { TopNavComponent } from './top-nav/top-nav.component';
-import { SideNavComponent } from './side-nav/side-nav.component';
-import { FooterComponent } from './footer/footer.component';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
+import { TopNavComponent, SideNavComponent, FooterComponent } from './static';
+
+import {
+  HomeComponent,
+  FollowingComponent,
+  LeaderboardComponent,
+  HeroesComponent,
+  ESportsComponent,
+  LiveComponent,
+  NewsComponent,
+  FriendsComponent
+} from './pages';
+
 import { ApiService } from './shared';
 import { routing } from './app.routing';
 
@@ -29,7 +37,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SideNavComponent,
     FooterComponent,
     HomeComponent,
-    AboutComponent
+    FollowingComponent,
+    LeaderboardComponent,
+    HeroesComponent,
+    ESportsComponent,
+    LiveComponent,
+    NewsComponent,
+    FriendsComponent
   ],
   providers: [
     ApiService

@@ -9,11 +9,11 @@ describe('App', function () {
   });
 
   it('should have <header>', function () {
-    expect(element(by.css('my-app header')).isPresent()).toEqual(true);
+    expect(element(by.css('ow-app header')).isPresent()).toEqual(true);
   });
 
   it('should have <main>', function () {
-    expect(element(by.css('my-app main')).isPresent()).toEqual(true);
+    expect(element(by.css('ow-app main')).isPresent()).toEqual(true);
   });
 
   it('should have a main title', function () {
