@@ -2,10 +2,13 @@ import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { routerReducer, RouterStoreModule } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
 
 import { AppComponent } from './app.component';
 import { TopNavComponent, SideNavComponent, FooterComponent } from './static';
-
 import {
   HomeComponent,
   FollowingComponent,
@@ -16,17 +19,26 @@ import {
   NewsComponent,
   FriendsComponent
 } from './pages';
-
 import { ApiService } from './shared';
 import { routing } from './app.routing';
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+export function instrumentOptions() {
+  return {
+    monitor: useLogMonitor({ visible: true, position: 'right' })
+  };
+}
+
 @NgModule({
   imports: [
     NgbModule.forRoot(),
     BrowserModule,
+    StoreDevtoolsModule.instrumentStore(instrumentOptions),
+    StoreLogMonitorModule,
+    StoreModule.provideStore({ router: routerReducer }),
+    RouterStoreModule.connectRouter(),
     HttpModule,
     FormsModule,
     routing
