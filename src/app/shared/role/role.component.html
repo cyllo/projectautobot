@@ -1,13 +1,13 @@
 <div class="media">
-  <img class="d-flex mr-3 icon" src="https://cdn0.iconfinder.com/data/icons/military-glyph/2048/2175_-_Bullets-512.png" alt="{{ fieldName }}">
+  <img class="d-flex mx-1 icon pl-1" [src]="roles.icon" alt="{{ roles.role }}">
   <div class="media-body">
-    <h5 class="my-0">{{ fieldName }}</h5>
-    <small>{{ plays }} GAMES PLAYED ({{ percentage }}%)</small>
+    <h5 class="my-0">{{ roles.role }}</h5>
+    <small>{{ roles.plays }} GAMES PLAYED ({{ roles.percentage }}%)</small>
   </div>
 </div>
 
 <div class="ml-2">
-  <div *ngFor="let hero of heroes" class="d-inline">
-    <img [src]="hero.playerImage" class="player-image" alt="">
+  <div *ngFor="let hero of heroes; let i = index" class="d-inline">
+    <img *ngIf="i < 5" [src]="hero.playerImage" class="player-image" alt="">
   </div>
 </div>

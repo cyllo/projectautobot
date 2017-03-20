@@ -7,9 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class RoleComponent implements OnInit {
   @Input() heroes;
-  public fieldName = 'OFFENSE';
-  public plays = '43,253,891';
-  public percentage = 25;
+  @Input() roles;
 
   constructor() {
     // Do stuff

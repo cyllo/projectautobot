@@ -21,24 +21,58 @@ export class HomeComponent implements OnInit, AfterContentInit, OnDestroy {
   heroes = [
     {
       playerImage: this.videoUrl,
-      playerName: 'MOONMOONNOW',
+      playerName: 'TEST-FIRST',
       points: 26,
       viewers: '89,836',
     }, {
       playerImage: this.videoUrl,
-      playerName: 'MOONMOONNOW',
+      playerName: 'TEST-SECOND',
       points: 5000,
       viewers: '500,836',
     }, {
       playerImage: this.videoUrl,
-      playerName: 'MOONMOONNOW',
+      playerName: 'TEST-THIRD',
       points: 156,
       viewers: '890,836',
     }, {
       playerImage: this.videoUrl,
-      playerName: 'MOONMOONNOW',
+      playerName: 'TEST-FOURTH',
       points: 11567,
       viewers: '349,836',
+    }, {
+      playerImage: this.videoUrl,
+      playerName: 'TEST-FIFTH',
+      points: 11567,
+      viewers: '349,836',
+    }, {
+      playerImage: this.videoUrl,
+      playerName: 'TEST-SIXTH',
+      points: 11567,
+      viewers: '349,836',
+    }
+  ];
+
+  roleData = [
+    {
+      role: 'OFFENSE',
+      icon: '/img/OffenseIcon.svg',
+      plays: '43,125,675',
+      percentage: 25
+    }, {
+      role: 'DEFENSE',
+      icon: '/img/DefenseIcon.svg',
+      plays: '43,125,675',
+      percentage: 25
+    }, {
+      role: 'TANK',
+      icon: '/img/TankIcon.svg',
+      plays: '43,125,675',
+      percentage: 25
+    }, {
+      role: 'SUPPORT',
+      icon: '/img/SupportIcon.svg',
+      plays: '43,125,675',
+      percentage: 25
     }
   ];
 
