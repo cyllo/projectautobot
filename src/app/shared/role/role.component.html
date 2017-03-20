@@ -8,6 +8,6 @@
 
 <div class="ml-2">
   <div *ngFor="let hero of heroes; let i = index" class="d-inline">
-    <img *ngIf="i < 5" [src]="hero.playerImage" class="player-image" alt="">
+    <ow-image *ngIf="i < 5" [hero]="hero"></ow-image>
   </div>
 </div>

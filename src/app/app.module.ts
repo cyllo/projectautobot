@@ -25,7 +25,8 @@ import {
   VideoCardComponent,
   SearchComponent,
   RoleComponent,
-  NewsCardComponent
+  NewsCardComponent,
+  ImageComponent
 } from './shared';
 import { routing } from './app.routing';
 
@@ -70,7 +71,8 @@ export function instrumentOptions() {
     VideoCardComponent,
     SearchComponent,
     RoleComponent,
-    NewsCardComponent
+    NewsCardComponent,
+    ImageComponent
   ],
   providers: [
     ApiService

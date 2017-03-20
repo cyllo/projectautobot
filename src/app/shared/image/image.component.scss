@@ -1,0 +1,23 @@
+@import "../../../style/colors";
+
+.player-image {
+  height: 100px;
+  width: 100px;
+  border-radius: 5px !important;
+  display: inline-block;
+  font-size: x-small;
+  color: white;
+  background-size: cover;
+
+  span {
+    position: absolute;
+    bottom: 22px;
+  }
+}
+
+.player-name {
+  color: white;
+  position: absolute;
+  left: 20px;
+  top: 90px;
+}
