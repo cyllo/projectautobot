@@ -12,7 +12,7 @@ export class ImageComponent implements OnInit {
     // Do stuff
   }
 
-  setimage() {
+  setImage() {
     return 'url(' + this.hero.playerImage + ')';
   }
 
