@@ -1,0 +1,13 @@
+<div class="media">
+  <img class="d-flex mr-3 icon" src="https://cdn0.iconfinder.com/data/icons/military-glyph/2048/2175_-_Bullets-512.png" alt="{{ fieldName }}">
+  <div class="media-body">
+    <h5 class="my-0">{{ fieldName }}</h5>
+    <small>{{ plays }} GAMES PLAYED ({{ percentage }}%)</small>
+  </div>
+</div>
+
+<div class="ml-2">
+  <div *ngFor="let hero of heroes" class="d-inline">
+    <img [src]="hero.playerImage" class="player-image" alt="">
+  </div>
+</div>

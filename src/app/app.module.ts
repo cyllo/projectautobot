@@ -1,7 +1,7 @@
 import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { routerReducer, RouterStoreModule } from '@ngrx/router-store';
@@ -20,7 +20,13 @@ import {
   NewsComponent,
   FriendsComponent
 } from './pages';
-import { ApiService, VideoCardComponent, SearchComponent } from './shared';
+import {
+  ApiService,
+  VideoCardComponent,
+  SearchComponent,
+  RoleComponent,
+  NewsCardComponent
+} from './shared';
 import { routing } from './app.routing';
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
@@ -43,6 +49,7 @@ export function instrumentOptions() {
     RouterStoreModule.connectRouter(),
     HttpModule,
     FormsModule,
+    ReactiveFormsModule,
     routing
   ],
   declarations: [
@@ -59,7 +66,9 @@ export function instrumentOptions() {
     NewsComponent,
     FriendsComponent,
     VideoCardComponent,
-    SearchComponent
+    SearchComponent,
+    RoleComponent,
+    NewsCardComponent
   ],
   providers: [
     ApiService

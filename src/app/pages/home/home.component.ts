@@ -1,37 +1,59 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'ow-home',
   templateUrl: 'home.component.html',
   styleUrls: ['home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterContentInit, OnDestroy {
+  @ViewChild('search') search;
+  questionForm: FormGroup;
+  subscriptions: Subscription[] = [];
+
+  private player;
+  public fieldName = 'HEROES';
+  private controlName = 'search';
+  private searchPlaceholder = 'Search for a specific hero';
+
   videoUrl = 'http://img.youtube.com/vi/DWqhXWRaMmU/mqdefault.jpg';
   heroes = [
     {
-      id: 1,
       playerImage: this.videoUrl,
       playerName: 'MOONMOONNOW',
       points: 26,
       viewers: '89,836',
     }, {
-      id: 2,
       playerImage: this.videoUrl,
       playerName: 'MOONMOONNOW',
       points: 5000,
       viewers: '500,836',
     }, {
-      id: 3,
       playerImage: this.videoUrl,
       playerName: 'MOONMOONNOW',
       points: 156,
       viewers: '890,836',
     }, {
-      id: 4,
       playerImage: this.videoUrl,
       playerName: 'MOONMOONNOW',
       points: 11567,
       viewers: '349,836',
+    }
+  ];
+
+  newsData = [
+    {
+      newsImage: 'http://placehold.it/350x150',
+      newsTitle: 'META SNAPSHOT #39',
+      newsSubTitle: 'META SNAPSHOT #39',
+      newsContent: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+    },
+    {
+      newsImage: 'http://placehold.it/350x150',
+      newsTitle: 'META SNAPSHOT #39',
+      newsSubTitle: 'META SNAPSHOT #39',
+      newsContent: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
     }
   ];
 
@@ -40,7 +62,26 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Hello Home');
+    this.questionForm = new FormGroup({});
   }
 
+  ngAfterContentInit() {
+    this.search.initControl(
+      this.questionForm,
+      this.player,
+      this.fieldName,
+      this.controlName,
+      this.searchPlaceholder,
+      false
+    );
+    this.mapFormToModel();
+  }
+
+  private mapFormToModel() {
+    this.search = this.questionForm.getRawValue();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
 }
