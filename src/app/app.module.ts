@@ -31,6 +31,7 @@ import { routing } from './app.routing';
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SidebarModule } from 'ng-sidebar';
 
 export function instrumentOptions() {
   return {
@@ -50,7 +51,8 @@ export function instrumentOptions() {
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
-    routing
+    routing,
+    SidebarModule
   ],
   declarations: [
     AppComponent,

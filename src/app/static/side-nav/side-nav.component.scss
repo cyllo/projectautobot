@@ -10,6 +10,23 @@
   overflow-y: auto;
   border-right: 1px solid $gray-lighter;
   color: $gray-light;
+  background-color: white;
+
+  :hover {
+    color: white;
+    background-color: $brand-primary;
+  }
+
+  .active {
+    color: white;
+    background-color: $brand-primary;
+  }
+}
+
+.sidebar-toggle {
+  border-right: 1px solid $gray-lighter;
+  color: $gray-light;
+  background-color: white;
 
   :hover {
     color: white;
