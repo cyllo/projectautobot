@@ -37,10 +37,13 @@ export class NewsComponent implements OnInit, AfterContentInit, OnDestroy {
     newsSubTitle: 'META SNAPSHOT #39',
     newsContent: this.contentString
   };
-  newsData = Array(10).fill(this.newsArticle);
+  newsData = [];
+  sum = 4;
+  throttle = 300;
+  scrollDistance = 1;
 
   constructor() {
-    // Do stuff
+    this.addItems(0, this.sum);
   }
 
   ngOnInit() {
@@ -70,6 +73,19 @@ export class NewsComponent implements OnInit, AfterContentInit, OnDestroy {
   private mapFormToModel() {
     this.categoryInput = this.questionForm.getRawValue();
     this.archiveInput = this.questionForm.getRawValue();
+  }
+
+  addItems(startIndex, endIndex) {
+    for (let i = startIndex; i < endIndex; i++) {
+      this.newsData.push(this.newsArticle);
+    }
+  }
+
+  onScroll() {
+    const start = this.sum;
+
+    this.sum += 2;
+    this.addItems(start, this.sum);
   }
 
   ngOnDestroy() {

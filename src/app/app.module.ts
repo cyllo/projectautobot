@@ -34,6 +34,7 @@ import { routing } from './app.routing';
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SidebarModule } from 'ng-sidebar';
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 export function instrumentOptions() {
   return {
@@ -54,7 +55,8 @@ export function instrumentOptions() {
     FormsModule,
     ReactiveFormsModule,
     routing,
-    SidebarModule
+    SidebarModule,
+    InfiniteScrollModule
   ],
   declarations: [
     AppComponent,

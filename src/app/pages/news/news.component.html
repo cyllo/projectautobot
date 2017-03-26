@@ -12,7 +12,12 @@
       </div>
     </form>
     <div class="row">
-      <div class="col-6" *ngFor="let news of newsData">
+      <div class="col-6"
+           *ngFor="let news of newsData"
+           infinite-scroll
+           [infiniteScrollDistance]="scrollDistance"
+           [infiniteScrollThrottle]="throttle"
+           (scrolled)="onScroll()">
         <ow-news-card [news]="news"></ow-news-card>
       </div>
     </div>

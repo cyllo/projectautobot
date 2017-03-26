@@ -17,6 +17,11 @@ export class LiveComponent implements OnInit, AfterContentInit, OnDestroy {
   private controlName = 'sort';
   private sortList: Array<string> = ['Skill Rating', 'Offense', 'Defense', 'Tank', 'Support'];
 
+  heroes = [];
+  sum = 12;
+  throttle = 300;
+  scrollDistance = 1;
+
   videoUrl = 'http://img.youtube.com/vi/DWqhXWRaMmU/mqdefault.jpg';
   baseHero = {
     playerImage: this.videoUrl,
@@ -24,10 +29,9 @@ export class LiveComponent implements OnInit, AfterContentInit, OnDestroy {
     points: 11567,
     viewers: '349,836',
   };
-  heroes = Array(40).fill(this.baseHero);
 
   constructor() {
-    // Do stuff
+    this.addItems(0, this.sum);
   }
 
   ngOnInit() {
@@ -49,6 +53,19 @@ export class LiveComponent implements OnInit, AfterContentInit, OnDestroy {
 
   private mapFormToModel() {
     this.sortInput = this.questionForm.getRawValue();
+  }
+
+  addItems(startIndex, endIndex) {
+    for (let i = startIndex; i < endIndex; i++) {
+      this.heroes.push(this.baseHero);
+    }
+  }
+
+  onScroll() {
+    const start = this.sum;
+
+    this.sum += 4;
+    this.addItems(start, this.sum);
   }
 
   ngOnDestroy() {
