@@ -27,5 +27,6 @@ defmodule StopThePayload.Mixfile do
 
   defp aliases, do: [
     "test": ["ecto.drop --quiet", "ecto.create --quiet", "ecto.migrate", "test"],
+    "ecto.reset": ["ecto.drop", "ecto.create", "ecto.migrate"]
   ]
 end

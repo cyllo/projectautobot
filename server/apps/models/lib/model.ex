@@ -4,8 +4,7 @@ defmodule Models.Model do
       use Ecto.Schema
 
       import Ecto
-      import Ecto.Changeset
-      import Ecto.Query
+      import Ecto.{Query, Changeset}
     end
   end
 end

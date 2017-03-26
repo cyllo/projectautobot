@@ -3,6 +3,7 @@ defmodule Scraper do
 
   @max_pages_scraping 5
 
+  # returns flow of %{gamer_tag: scrape_res}
   def get_profiles_flow(gamer_tags) do
     Flow.from_enumerable(gamer_tags, max_demand: @max_pages_scraping)
       |> Flow.partition(stages: @max_pages_scraping)

@@ -1,8 +1,9 @@
-defmodule Models.Hero do
+defmodule Models.Game.Hero do
   use Models.Model
 
   schema "heroes" do
     field :name, :string
+    field :code, :string
 
     timestamps()
   end
