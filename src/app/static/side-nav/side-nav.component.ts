@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['side-nav.component.scss']
 })
 export class SideNavComponent implements OnInit {
-  private _opened: boolean = false;
+  public _opened = false;
 
   constructor() {
     // Do stuff

@@ -1,0 +1,6 @@
+<div [formGroup]="form" class="form-group">
+  <label for="select"><small class="text-muted">{{ fieldName }}</small></label>
+  <select class="form-control custom-select" id="select" formControlName="{{ controlName }}">
+    <option *ngFor="let item of items" [attr.value]="item">{{ item }}</option>
+  </select>
+</div>

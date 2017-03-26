@@ -11,7 +11,9 @@
 <br/><br/>
 <div class="row">
   <div class="col-12 pr-2">
-    <ow-search #search></ow-search>
+    <form [formGroup]="questionForm">
+      <ow-search #search></ow-search>
+    </form>
   </div>
 </div>
 <br/>

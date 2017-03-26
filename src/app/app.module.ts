@@ -26,7 +26,8 @@ import {
   SearchComponent,
   RoleComponent,
   NewsCardComponent,
-  ImageComponent
+  ImageComponent,
+  SelectComponent
 } from './shared';
 import { routing } from './app.routing';
 
@@ -72,7 +73,8 @@ export function instrumentOptions() {
     SearchComponent,
     RoleComponent,
     NewsCardComponent,
-    ImageComponent
+    ImageComponent,
+    SelectComponent
   ],
   providers: [
     ApiService
