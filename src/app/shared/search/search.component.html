@@ -1,6 +1,6 @@
 <div [formGroup]="form" class="input-group">
   <a *ngIf="image" [routerLink]="['home']"><img src="/img/stplogo.svg" class="logo mr-2"/></a>
-  <p *ngIf="!image" class="h5 mt-2 mr-3">{{ fieldName }}</p>
+  <p *ngIf="!image && fieldName" class="h5 mt-2 mr-3">{{ fieldName }}</p>
   <input type="text"
          class="form-control"
          formControlName="{{ controlName }}"
