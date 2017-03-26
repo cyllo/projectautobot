@@ -11,8 +11,5 @@ defmodule Scarper.Sorter.Helpers do
   end
 
   def is_match_award_stat?(key), do: Helpers.key_equals(key, "(cards|medals)")
-  def is_multikill_best_stat?(key), do: Helpers.key_equals(key, "multikill_best")
-  def is_most_in_game_or_life_stat?(key), do: Helpers.key_equals(key, "most_in_(game|life)")
-  def is_average_stat?(key), do: Helpers.key_equals(key, "average")
   def is_game_tracking_stat?(key), do: Helpers.key_equals(key, "games_(played|won|lost)")
 end

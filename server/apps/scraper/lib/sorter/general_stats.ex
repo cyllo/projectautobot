@@ -13,6 +13,32 @@ defmodule Scraper.Sorter.GeneralStats do
     :multikill_best
   ]
 
+  @average_statistics [
+    :eliminations_average,
+    :final_blows_average,
+    :solo_kills_average,
+    :objective_kills_average,
+    :damage_done_average,
+    :melee_final_blows_average,
+    :objective_time_average,
+    :deaths_average
+  ]
+
+  @best_statistics [
+    :eliminations_most_in_life,
+    :eliminations_most_in_game,
+    :final_blows_most_in_game,
+    :solo_kills_most_in_game,
+    :objective_kills_most_in_game,
+    :critical_hits_most_in_game,
+    :critical_hits_most_in_life,
+    :damage_done_most_in_life,
+    :damage_done_most_in_game,
+    :melee_final_blows_most_in_game,
+    :weapon_accuracy_best_in_game,
+    :objective_time_most_in_game
+  ]
+
   @doc """
   sorts a general statistic
 
@@ -42,10 +68,8 @@ defmodule Scraper.Sorter.GeneralStats do
   defp get_stats_category({key, _}) do
     cond do
       key in @lifetime_statistics -> :lifetime
-      Helpers.is_average_stat?(key) -> :average
-      Helpers.key_equals(key, "weapon_accuracy_best_in_game") -> :best
-      Helpers.is_most_in_game_or_life_stat?(key) -> :best
-      Helpers.is_multikill_best_stat?(key) -> :lifetime
+      key in @average_statistics -> :average
+      key in @best_statistics -> :best
       Helpers.is_match_award_stat?(key) -> :match_awards
       Helpers.is_game_tracking_stat?(key) -> :game
       Helpers.key_equals(key, "(time_played|win_percentage|time_spent_on_fire)") -> :game

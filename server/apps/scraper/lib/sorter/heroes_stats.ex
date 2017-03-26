@@ -11,6 +11,32 @@ defmodule Scraper.Sorter.HeroesStats do
     :environmental_kills
   ]
 
+  @average_statistics [
+    :solo_kills_average,
+    :eliminations_average,
+    :time_spent_on_fire_average,
+    :deaths_average,
+    :damage_done_average,
+    :healing_done_avergage,
+    :final_blows_average,
+    :objective_kills_average,
+    :objective_time_average,
+    :melee_final_blows_average
+  ]
+
+  @best_statistics [
+    :solo_kills_most_in_game,
+    :eliminations_most_in_game,
+    :time_spent_on_fire_most_in_game,
+    :damage_done_most_in_game,
+    :healing_done_most_in_game,
+    :multikill_best,
+    :final_blows_most_in_game,
+    :objective_kills_most_in_game,
+    :objective_time_most_in_game,
+    :melee_final_blows_most_in_game
+  ]
+
   @doc """
   organizes a hero statistic
 
@@ -55,9 +81,8 @@ defmodule Scraper.Sorter.HeroesStats do
   defp get_stats_category({key, _}) do
     cond do
       key in @lifetime_statistics -> :lifetime
-      Helpers.is_average_stat?(key) -> :average
-      Helpers.is_most_in_game_or_life_stat?(key) -> :best
-      Helpers.is_multikill_best_stat?(key) -> :best
+      key in @best_statistics -> :best
+      key in @average_statistics -> :average
       Helpers.is_match_award_stat?(key) -> :match_awards
       Helpers.is_game_tracking_stat?(key) -> :game
       Helpers.key_equals(key, "(time_played|win_percentage)") -> :game
