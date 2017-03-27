@@ -8,5 +8,8 @@ defmodule Models.Repo.Migrations.CreateHeroes do
 
       timestamps()
     end
+
+    create unique_index(:heroes, [:name])
+    create unique_index(:heroes, [:code])
   end
 end

@@ -2,6 +2,7 @@ defmodule Models.Statistics.Snapshot do
   use Models.Model
 
   schema "snapshot_statistics" do
+    field :is_competitive, :boolean
     belongs_to :gamer_tag, Models.Game.GamerTag
 
     timestamps()

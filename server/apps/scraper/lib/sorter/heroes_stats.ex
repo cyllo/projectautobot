@@ -8,33 +8,25 @@ defmodule Scraper.Sorter.HeroesStats do
     :healing_done, :multikills,
     :final_blows, :objective_kills,
     :objective_time, :melee_final_blows,
-    :environmental_kills
+    :environmental_kills, :eliminations_per_life
   ]
 
   @average_statistics [
-    :solo_kills_average,
-    :eliminations_average,
-    :time_spent_on_fire_average,
-    :deaths_average,
-    :damage_done_average,
-    :healing_done_avergage,
-    :final_blows_average,
-    :objective_kills_average,
-    :objective_time_average,
-    :melee_final_blows_average
+    :solo_kills_average, :eliminations_average,
+    :time_spent_on_fire_average, :deaths_average,
+    :damage_done_average, :self_healing_average,
+    :healing_done_avergage, :final_blows_average,
+    :objective_kills_average, :objective_time_average,
+    :melee_final_blows_average, :offensive_assists_average,
   ]
 
   @best_statistics [
-    :solo_kills_most_in_game,
-    :eliminations_most_in_game,
-    :time_spent_on_fire_most_in_game,
-    :damage_done_most_in_game,
-    :healing_done_most_in_game,
-    :multikill_best,
-    :final_blows_most_in_game,
-    :objective_kills_most_in_game,
-    :objective_time_most_in_game,
-    :melee_final_blows_most_in_game
+    :solo_kills_most_in_game, :time_spent_on_fire_most_in_game,
+    :eliminations_most_in_game, :damage_done_most_in_game,
+    :healing_done_most_in_game, :multikill_best,
+    :final_blows_most_in_game, :objective_kills_most_in_game,
+    :objective_time_most_in_game, :melee_final_blows_most_in_game,
+    :kill_streak_best, :offensive_assists_most_in_game
   ]
 
   @doc """

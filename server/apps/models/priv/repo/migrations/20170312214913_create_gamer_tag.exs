@@ -14,7 +14,7 @@ defmodule Api.Repo.Migrations.CreateGamerTags do
       add :platform, :citext, null: false
 
       add :level, :integer
-      add :rank_url, :text
+      add :level_url, :text
 
       add :total_games_won, :integer
 
@@ -23,6 +23,6 @@ defmodule Api.Repo.Migrations.CreateGamerTags do
       timestamps()
     end
 
-    create unique_index(:gamer_tags, [:tag])
+    create unique_index(:gamer_tags, [:tag, :platform], name: :tag_platform_index)
   end
 end

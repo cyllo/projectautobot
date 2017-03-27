@@ -2,6 +2,8 @@ defmodule Models.Statistics.CombatAverage do
   use Models.Model
 
   schema "combat_average_statistics" do
+    field :offensive_assists_average, :integer
+    field :self_healing_average, :decimal
     field :solo_kills_average, :decimal
     field :eliminations_average, :decimal
     field :time_spent_on_file_average, :integer

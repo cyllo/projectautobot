@@ -3,6 +3,8 @@ defmodule Models.Repo.Migrations.CreateCombatAverageStatistics do
 
   def change do
     create table(:combat_average_statistics) do
+      add :self_healing_average, :decimal
+      add :offensive_assists_average, :integer
       add :solo_kills_average, :decimal
       add :eliminations_average, :decimal
       add :time_spent_on_file_average, :integer

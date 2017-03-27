@@ -9,6 +9,18 @@ defmodule Scraper.DataProcessor.Helpers do
       |> Floki.text
   end
 
+  def find_img_src(src, query_selector) do
+    src
+      |> Floki.find(query_selector)
+      |> Floki.attribute("src")
+  end
+
+  def find_background_img_url(src, query_selector) do
+    src
+      |> Floki.find(query_selector)
+      |> Floki.attribute("background-image")
+  end
+
   def is_page_found?(page_source), do: page_source |> body_classes |> classes_has_not_found_page?
   def is_page_loaded?(page_source), do: !is_page_found?(page_source) || career_page_loaded?(page_source)
   def career_page_loaded?(page_source), do: Floki.find(page_source, @js_stats_boxes) |> Enum.any?
