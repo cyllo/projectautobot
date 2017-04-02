@@ -35,6 +35,7 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SidebarModule } from 'ng-sidebar';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 export function instrumentOptions() {
   return {
@@ -56,7 +57,8 @@ export function instrumentOptions() {
     ReactiveFormsModule,
     routing,
     SidebarModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    NgxDatatableModule
   ],
   declarations: [
     AppComponent,

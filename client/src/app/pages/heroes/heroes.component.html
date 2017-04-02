@@ -29,3 +29,55 @@
       <button (click)="logit()">click</button>
     </div>
 </div>
+
+<div class="row">
+  <div class="col-12">
+    <ngx-datatable #heroesTable [rows]="rows">
+      <ngx-datatable-column>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.$$index + 1 }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Hero">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.name }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Pick Rate">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.pickRate }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Win Rate">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.win }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="K/D Ratio">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.kills / row.deaths }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Medals / Game">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.medals.gold }} {{ row.medals.silver }} {{ row.medals.bronze }}
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+</div>
+
+<!--<div class="row">-->
+  <!--<div class="col-12">-->
+    <!--<ngx-datatable-->
+      <!--[rows]="heroes"-->
+      <!--[columns]="columns">-->
+      <!--<ng-template let-row="row">-->
+        <!--<div>-->
+          <!--<div><strong>Medals/Game</strong></div>-->
+          <!--<div>{{ row.medals.gold }} / {{ row.medals.silver }} / {{ row.medals.bronze }}</div>-->
+        <!--</div>-->
+      <!--</ng-template>-->
+    <!--</ngx-datatable>-->
+  <!--</div>-->
+<!--</div>-->

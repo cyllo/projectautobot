@@ -13,6 +13,7 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
   @ViewChild('mode') modeInput;
   @ViewChild('role') roleInput;
   @ViewChild('search') searchInput;
+  @ViewChild('heroesTable') table: any;
 
   private platform;
   public platformName = 'platform';
@@ -33,6 +34,16 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
 
   questionForm: FormGroup;
   subscriptions: Subscription[] = [];
+  rows: any[] = [];
+
+  columns = [
+    { name: '', prop: 'id' },
+    { name: 'Hero', prop: 'name' },
+    { name: 'Pick Rate', prop: 'pickRate' },
+    { name: 'Win Rate', prop: 'win' },
+    { name: 'K/D Ratio', prop: 'kills / deaths' },
+    { name: 'Medals/Game' }
+    ];
 
   roles = ['OFFENSE', 'DEFENSE', 'TANK', 'SUPPORT'];
   platforms = ['PC', 'MAC', 'X-Box', 'PlayStation'];
@@ -40,13 +51,14 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
   modes = ['Escort', 'Assault', 'Hybrid', 'Control'];
 
   hero = {
+    id: 1,
     name: 'MERCY',
     role: this.roles[Math.floor(Math.random() * this.roles.length)],
     image: 'https://pbs.twimg.com/media/CjzX5daVAAAzsIL.jpg',
     platform: this.platforms[Math.floor(Math.random() * this.platforms.length)],
     region: this.regions[Math.floor(Math.random() * this.regions.length)],
     mode: this.modes[Math.floor(Math.random() * this.modes.length)],
-    pick: 64,
+    pickRate: 64,
     win: 24,
     kills: 10,
     deaths: 5,
@@ -60,7 +72,9 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
   heroes = Array(20).fill(this.hero);
 
   constructor() {
-    // Do stuff
+    this.fetch((data) => {
+      this.rows = data;
+    });
   }
 
   ngOnInit() {
@@ -110,6 +124,17 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
     );
 
     this.mapFormToModel();
+  }
+
+  fetch(cb) {
+    const req = new XMLHttpRequest();
+    req.open('GET', `/temp/heroesData.json`);
+
+    req.onload = () => {
+      cb(JSON.parse(req.response));
+    };
+
+    req.send();
   }
 
   logit() {
