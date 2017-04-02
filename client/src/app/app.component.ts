@@ -1,4 +1,12 @@
-import { Component, Output } from '@angular/core';
+import { Component } from '@angular/core';
+import { Http } from '@angular/http';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { isEmpty } from 'lodash';
+import { AppState, PlayerData } from './models';
+import { getPlayerData, getGamerTag } from './reducers';
+
 import '../style/app.scss';
 
 @Component({
@@ -7,22 +15,25 @@ import '../style/app.scss';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  @Output() playerData: Object;
+  sub: Subscription;
+  playerData: Observable<PlayerData>;
 
-  constructor() {
-    this.fetch((data) => {
-      this.playerData = data;
-    });
+  constructor(private store: Store<AppState>, private http: Http) {
+    this.playerData = store.let(getPlayerData)
+      .distinctUntilChanged()
+      .filter(playerData => !isEmpty(playerData));
+
+    this.sub = store.let(getGamerTag)
+      .distinctUntilChanged()
+      .filter(gamerTag => Boolean(gamerTag))
+      .subscribe(gamerTag => console.log(gamerTag));
+
+    this.find().subscribe(() => {});
   }
 
-  fetch(cb) {
-    const req = new XMLHttpRequest();
-    req.open('GET', `/temp/heroesData.json`);
-
-    req.onload = () => {
-      cb(JSON.parse(req.response));
-    };
-
-    req.send();
+  find() {
+    return this.http.get(`/temp/kurtsStats.json`)
+      .map(res => res.json())
+      .do(playerData => this.store.dispatch({ type: 'GET_PLAYER_DATA', payload: playerData }));
   }
 }

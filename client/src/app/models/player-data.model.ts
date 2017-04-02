@@ -1,4 +1,6 @@
-export interface PlayerData {
+import { AppState } from './appstate.model';
+
+export interface PlayerData extends AppState{
   totalGamesWon: number;
   quickPlay: QuickPlay;
   portraitUrl: Array<string>;
