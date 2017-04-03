@@ -2,10 +2,11 @@ import { Observable } from 'rxjs/Observable';
 import { compose } from '@ngrx/core/compose';
 import { AppState } from '../models';
 import * as fromPlayerDataCollection from './playerDataCollection.reducer';
-import * as fromPlayerData from './player-data.reducer';
+import * as fromPlayerData from './playerData.reducer';
 
-export * from './player-data.reducer';
+export * from './playerData.reducer';
 export * from './playerDataCollection.reducer';
+export * from './players.reducer';
 
 export function getPlayerDataCollectionState(state$: Observable<AppState>) {
   return state$.select(state => state.playerDataCollection);
@@ -16,7 +17,7 @@ export const getPlayerDataCollectionLoading = compose(fromPlayerDataCollection.g
 export const getPlayerDataCollectionGamerTags = compose(fromPlayerDataCollection.getGamerTags, getPlayerDataCollectionState);
 
 export function getPlayerData(state$: Observable<AppState>) {
-  return state$.select(state => state.playerData);
+  return state$.select(state => state.players);
 }
 
 export const getPlayerGamerTag = compose(fromPlayerData.getGamerTag, getPlayerData);

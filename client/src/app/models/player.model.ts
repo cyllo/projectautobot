@@ -1,6 +1,6 @@
 import { AppState } from './appstate.model';
 
-export interface PlayerData extends AppState{
+export interface Player extends AppState{
   totalGamesWon: number;
   quickPlay: QuickPlay;
   portraitUrl: Array<string>;
@@ -13,11 +13,11 @@ export interface PlayerData extends AppState{
   competitive: Competitive;
 }
 
-export interface QuickPlay extends PlayerData {
+export interface QuickPlay extends Player {
   heroesStats: HeroStats[];
 }
 
-export interface Competitive extends PlayerData {
+export interface Competitive extends Player {
   heroesStats: HeroStats[];
 }
 

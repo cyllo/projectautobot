@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
-import { PlayerData } from '../models';
+import { Player } from '../models';
 
-const initialState: PlayerData = {
+const initialState: Player = {
   totalGamesWon: null,
   quickPlay: null,
   portraitUrl: null,
@@ -14,7 +14,7 @@ const initialState: PlayerData = {
   competitive: null
 };
 
-export function playerData(state: PlayerData = initialState, { type, payload }: { type: string, payload?: any }) {
+export function playerData(state: Player = initialState, { type, payload }: { type: string, payload?: any }) {
   switch (type) {
     case 'GET_PLAYER_DATA':
       return payload;
@@ -24,6 +24,6 @@ export function playerData(state: PlayerData = initialState, { type, payload }: 
   }
 }
 
-export function getGamerTag(state$: Observable<PlayerData>) {
+export function getGamerTag(state$: Observable<Player>) {
   return state$.select(state => state.gamerTag);
 }

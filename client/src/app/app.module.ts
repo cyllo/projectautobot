@@ -36,6 +36,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SidebarModule } from 'ng-sidebar';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { PlayersService } from './services';
+import { players, playerData, playerDataCollection } from './reducers';
 
 export function instrumentOptions() {
   return {
@@ -50,7 +52,16 @@ export function instrumentOptions() {
     CommonModule,
     StoreDevtoolsModule.instrumentStore(instrumentOptions),
     StoreLogMonitorModule,
-    StoreModule.provideStore({ router: routerReducer }),
+    StoreModule.provideStore({
+      playerData: playerData,
+      players: players,
+      playerDataCollection: playerDataCollection,
+      router: routerReducer
+    }, {
+      playerData: {},
+      players: [],
+      router: {}
+    }),
     RouterStoreModule.connectRouter(),
     HttpModule,
     FormsModule,
@@ -81,7 +92,8 @@ export function instrumentOptions() {
     SelectComponent
   ],
   providers: [
-    ApiService
+    ApiService,
+    PlayersService
   ],
   bootstrap: [AppComponent]
 })

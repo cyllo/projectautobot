@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Http } from '@angular/http';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { isEmpty } from 'lodash';
-import { AppState, PlayerData } from './models';
+import { AppState, Player } from './models';
 import { getPlayerData, getGamerTag } from './reducers';
 
 import '../style/app.scss';
@@ -14,14 +14,14 @@ import '../style/app.scss';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   sub: Subscription;
-  playerData: Observable<PlayerData>;
+  players: Observable<Player[]>;
 
   constructor(private store: Store<AppState>, private http: Http) {
-    this.playerData = store.let(getPlayerData)
+    this.players = store.let(getPlayerData)
       .distinctUntilChanged()
-      .filter(playerData => !isEmpty(playerData));
+      .filter(players => !isEmpty(players));
 
     this.sub = store.let(getGamerTag)
       .distinctUntilChanged()
@@ -34,6 +34,11 @@ export class AppComponent {
   find() {
     return this.http.get(`/temp/kurtsStats.json`)
       .map(res => res.json())
-      .do(playerData => this.store.dispatch({ type: 'GET_PLAYER_DATA', payload: playerData }));
+      .do(playerData => this.store.dispatch({ type: 'GET_PLAYER_DATA', payload: playerData }))
+      .do(playerData => this.store.dispatch({ type: 'ADD_PLAYER', payload: { [playerData.gamer_tag]: playerData } }));
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }

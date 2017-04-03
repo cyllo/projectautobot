@@ -1,2 +1,2 @@
 export * from './appstate.model';
-export * from './player-data.model';
+export * from './player.model';

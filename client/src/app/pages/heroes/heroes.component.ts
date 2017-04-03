@@ -1,11 +1,15 @@
 import { AfterContentInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
+import { AppState, Player } from '../../models';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { PlayersService } from '../../services';
 
 @Component({
   selector: 'ow-heroes',
   templateUrl: 'heroes.component.html',
-  styleUrls: ['heroes.component.scss']
+  styleUrls: [ 'heroes.component.scss' ]
 })
 export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
   @ViewChild('platform') platformInput;
@@ -14,6 +18,7 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
   @ViewChild('role') roleInput;
   @ViewChild('search') searchInput;
   @ViewChild('heroesTable') table: any;
+  players: Observable<Player[]>;
 
   private platform;
   public platformName = 'platform';
@@ -36,28 +41,19 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
   subscriptions: Subscription[] = [];
   rows: any[] = [];
 
-  columns = [
-    { name: '', prop: 'id' },
-    { name: 'Hero', prop: 'name' },
-    { name: 'Pick Rate', prop: 'pickRate' },
-    { name: 'Win Rate', prop: 'win' },
-    { name: 'K/D Ratio', prop: 'kills / deaths' },
-    { name: 'Medals/Game' }
-    ];
-
-  roles = ['OFFENSE', 'DEFENSE', 'TANK', 'SUPPORT'];
-  platforms = ['PC', 'MAC', 'X-Box', 'PlayStation'];
-  regions = ['US', 'Europe', 'Asia', 'South America', 'Africa', 'Australia'];
-  modes = ['Escort', 'Assault', 'Hybrid', 'Control'];
+  roles = [ 'OFFENSE', 'DEFENSE', 'TANK', 'SUPPORT' ];
+  platforms = [ 'PC', 'MAC', 'X-Box', 'PlayStation' ];
+  regions = [ 'US', 'Europe', 'Asia', 'South America', 'Africa', 'Australia' ];
+  modes = [ 'Escort', 'Assault', 'Hybrid', 'Control' ];
 
   hero = {
     id: 1,
     name: 'MERCY',
-    role: this.roles[Math.floor(Math.random() * this.roles.length)],
+    role: this.roles[ Math.floor(Math.random() * this.roles.length) ],
     image: 'https://pbs.twimg.com/media/CjzX5daVAAAzsIL.jpg',
-    platform: this.platforms[Math.floor(Math.random() * this.platforms.length)],
-    region: this.regions[Math.floor(Math.random() * this.regions.length)],
-    mode: this.modes[Math.floor(Math.random() * this.modes.length)],
+    platform: this.platforms[ Math.floor(Math.random() * this.platforms.length) ],
+    region: this.regions[ Math.floor(Math.random() * this.regions.length) ],
+    mode: this.modes[ Math.floor(Math.random() * this.modes.length) ],
     pickRate: 64,
     win: 24,
     kills: 10,
@@ -71,14 +67,19 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
 
   heroes = Array(20).fill(this.hero);
 
-  constructor() {
-    this.fetch((data) => {
-      this.rows = data;
-    });
-  }
+  constructor( private store: Store<AppState>, private service: PlayersService ) {}
 
   ngOnInit() {
     this.questionForm = new FormGroup({});
+
+    const players$ = this.store.select('players');
+
+    players$.subscribe(players => {
+      console.log('players', players);
+      if (!players) {
+        this.service.loadData();
+      }
+    });
   }
 
   ngAfterContentInit() {
@@ -126,7 +127,7 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
     this.mapFormToModel();
   }
 
-  fetch(cb) {
+  fetch( cb ) {
     const req = new XMLHttpRequest();
     req.open('GET', `/temp/heroesData.json`);
 
