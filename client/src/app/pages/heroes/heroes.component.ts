@@ -67,19 +67,16 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
 
   heroes = Array(20).fill(this.hero);
 
-  constructor( private store: Store<AppState>, private service: PlayersService ) {}
+  constructor(private store: Store<AppState>, private service: PlayersService) {}
 
   ngOnInit() {
     this.questionForm = new FormGroup({});
-
-    const players$ = this.store.select('players');
-
-    players$.subscribe(players => {
-      console.log('players', players);
-      if (!players) {
-        this.service.loadData();
-      }
-    });
+    this.store.select('players')
+      .subscribe(players => {
+        if (!players) {
+          this.service.loadData();
+        }
+      });
   }
 
   ngAfterContentInit() {
