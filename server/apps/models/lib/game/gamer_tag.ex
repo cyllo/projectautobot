@@ -6,6 +6,7 @@ defmodule Models.Game.GamerTag do
     field :tag, :string
     field :overwatch_name, :string
     field :portrait_url, :string
+    field :total_games_won, :integer
 
     field :competitive_level, :integer
     field :competitive_rank_url, :string
@@ -14,12 +15,10 @@ defmodule Models.Game.GamerTag do
     field :platform, :string, null: false
 
     field :level, :integer
-    field :level_url, :integer
-
-    field :total_games_won, :integer
+    field :level_url, :string
 
     belongs_to :user, Models.Accounts.User
-    has_many :snapshot_statistics, Models.Statistics.Snapshot
+    has_many :snapshot_statistics, Models.Statistics.Snapshots.Snapshot
 
     timestamps()
   end
@@ -45,9 +44,13 @@ defmodule Models.Game.GamerTag do
       |> cast_assoc(:user)
   end
 
+  def create_changeset(params), do: changeset(%GamerTag{}, params)
+
   defp validate_region(changeset) do
-    if changeset.platform === "pc" do
-      validate_inclusion(changeset, :region, ["us", "eu", "kr", "cn"])
+    if get_field(changeset, :platform) === "pc" do
+      changeset
+        |> validate_required(:region)
+        |> validate_inclusion(:region, ["us", "eu", "kr", "cn"], message: "region must be one of 'us', 'eu', 'kr', 'cn'")
     else
       changeset
     end

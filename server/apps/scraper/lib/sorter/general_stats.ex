@@ -6,37 +6,37 @@ defmodule Scraper.Sorter.GeneralStats do
     :solo_kills, :objective_kills,
     :shots_fired, :shots_hit,
     :critical_hits, :critical_hits_per_minute,
-    :critical_hit_accuracy, :damage_done,
+    :critical_hits_accuracy_percentage, :damage_done,
     :melee_final_blows, :eliminations_per_life,
-    :weapon_accuracy, :objective_time,
+    :weapon_accuracy_percentage, :objective_time,
     :deaths, :environmental_deaths,
-    :multikill_best
+    :multikill_best, :defensive_assists,
+    :healing_done, :environmental_kills,
+    :turrets_destroyed, :offensive_assists,
+    :multikills, :teleporter_pads_destroyed,
+    :recon_assists
   ]
 
   @average_statistics [
-    :eliminations_average,
-    :final_blows_average,
-    :solo_kills_average,
-    :objective_kills_average,
+    :eliminations_average, :final_blows_average,
+    :solo_kills_average, :objective_kills_average,
+    :melee_final_blows_average, :objective_time_average,
+    :healing_done_average, :deaths_average,
+    :time_spent_on_fire_average, :critical_hits_average_percentage,
     :damage_done_average,
-    :melee_final_blows_average,
-    :objective_time_average,
-    :deaths_average
   ]
 
   @best_statistics [
-    :eliminations_most_in_life,
-    :eliminations_most_in_game,
-    :final_blows_most_in_game,
-    :solo_kills_most_in_game,
-    :objective_kills_most_in_game,
-    :critical_hits_most_in_game,
-    :critical_hits_most_in_life,
-    :damage_done_most_in_life,
-    :damage_done_most_in_game,
-    :melee_final_blows_most_in_game,
-    :weapon_accuracy_best_in_game,
-    :objective_time_most_in_game
+    :eliminations_most_in_life, :eliminations_most_in_game,
+    :final_blows_most_in_game, :solo_kills_most_in_game,
+    :objective_kills_most_in_game, :critical_hits_most_in_game,
+    :critical_hits_most_in_life, :damage_done_most_in_life,
+    :damage_done_most_in_game, :melee_final_blows_most_in_game,
+    :weapon_accuracy_best_in_game_percentage,
+    :objective_time_most_in_game, :kill_streak_best,
+    :healing_done_most_in_game, :defensive_assists_most_in_game,
+    :offensive_assists_most_in_game, :time_spent_on_fire_most_in_game,
+    :recon_assists_most_in_game, :melee_final_blows_most_in_life
   ]
 
   @doc """
@@ -48,7 +48,7 @@ defmodule Scraper.Sorter.GeneralStats do
 
       iex> Scraper.Sorter.GeneralStats.sort_stats(%{ \
         time_spent_on_fire: 32, \
-        weapon_accuracy_best_in_game: 5, \
+        weapon_accuracy_best_in_game_percentage: 5, \
         medals_gold: 263, \
         objective_kills_average: 4.44, \
         multikill_best: 5 \
@@ -57,7 +57,7 @@ defmodule Scraper.Sorter.GeneralStats do
         match_awards: %{medals_gold: 263}, \
         average: %{objective_kills_average: 4.44}, \
         lifetime: %{multikill_best: 5}, \
-        best: %{weapon_accuracy_best_in_game: 5}, \
+        best: %{weapon_accuracy_best_in_game_percentage: 5}, \
         game: %{time_spent_on_fire: 32}
       }
 

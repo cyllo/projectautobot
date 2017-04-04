@@ -44,7 +44,8 @@ defmodule Models.Mixfile do
     [
       {:ecto, "~> 2.1.4"},
       {:postgrex, ">= 0.0.0"},
-      {:comeonin, "~> 3.0", override: true}
+      {:comeonin, "~> 3.0", override: true},
+      {:con_cache, "~> 0.12.0"}
     ]
   end
 

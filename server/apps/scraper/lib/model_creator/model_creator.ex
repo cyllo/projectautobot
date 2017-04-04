@@ -1,23 +1,23 @@
 defmodule Scraper.ModelCreator do
-  alias Scraper.ModelCreator.Heroes
+  require IEx
+  require Logger
+  alias Scraper.ModelCreator.{Heroes, UserProfile, Stats}
 
   def save_profile(profile) do
-    # %GamerTag{
-    #   tag: profile.gamertag,
-    #   level: profile.level,
-    #   level_url: profile.level_url,
-    #   total_games_won: profile.total_games_won,
-    #   overwatch_name: profile.overwatch_name,
-    #   portrait_url: profile.portrait_url,
-    #   competitive_level: profile.competitive_level,
-    #   competitive_rank_url: profile.competitive_rank_url
-    # }
-  end
+    Logger.debug "Storing #{Map.get(profile, :gamer_tag)} into database"
 
-  def create_models_from_stats(%{competitive: competitive, quickplay: quickplay}) do
-    %{heroes_stats: competitive_heroes_stats, general_stats: competitive_general_stats} = competitive
-    %{heroes_stats: quickplay_heroes_stats, general_stats: quickplay_general_stats} = quickplay
+    with heroes <- Heroes.create_from_stats(profile),
+         {:ok, gamer_tag} <- UserProfile.create_gamer_tag(profile) do
 
-    Heroes.get_new_heroes_from_stats(competitive_heroes_stats, quickplay_heroes_stats)
+      quickplay_snapshot = Map.get(profile, :quickplay) |> Stats.create_snapshot(gamer_tag, competitive?: false)
+      competitive_snapshot = Map.get(profile, :competitive) |> Stats.create_snapshot(gamer_tag, competitive?: true)
+
+      %{
+        quickplay_snapshot: quickplay_snapshot,
+        competitive_snapshot: competitive_snapshot,
+        heroes: heroes,
+        gamer_tag: gamer_tag
+      }
+    end
   end
 end

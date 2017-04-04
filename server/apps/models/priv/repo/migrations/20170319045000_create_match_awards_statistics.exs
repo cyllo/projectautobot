@@ -6,7 +6,7 @@ defmodule Models.Repo.Migrations.CreateMatchAwardsStatistics do
       add :bronze_medals, :integer
       add :silver_medals, :integer
       add :gold_medals, :integer
-      add :total_metals, :integer
+      add :total_medals, :integer
       add :cards, :integer
     end
   end

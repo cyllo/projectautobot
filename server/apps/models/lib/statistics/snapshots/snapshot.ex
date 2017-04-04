@@ -1,5 +1,6 @@
-defmodule Models.Statistics.Snapshot do
+defmodule Models.Statistics.Snapshots.Snapshot do
   use Models.Model
+  alias Models.Statistics.Snapshots.Snapshot
 
   schema "snapshot_statistics" do
     field :is_competitive, :boolean
@@ -8,16 +9,18 @@ defmodule Models.Statistics.Snapshot do
     timestamps()
   end
 
-  @required_fields [:battle_tag_id]
-  @allowed_fields Enum.concat(@required_fields, [])
+  @required_fields [:gamer_tag_id]
+  @allowed_fields Enum.concat(@required_fields, [:is_competitive])
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
-  def changeset(struct, params \\ %{}) do
+  def changeset(%Snapshot{} = struct, params \\ %{}) do
     struct
       |> cast(params, @allowed_fields)
       |> validate_required(@required_fields)
-      |> cast_assoc(:battle_tag)
+      |> cast_assoc(:gamer_tag)
   end
+
+  def create_changeset(params), do: changeset(%Snapshot{}, params)
 end

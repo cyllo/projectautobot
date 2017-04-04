@@ -4,6 +4,8 @@ defmodule Scraper.SessionServer do
   alias Scraper.DataProcessor.Helpers
 
   @check_for_loaded_interval 500
+  @retries_before_refresh 5
+  @refresh_sleep_time 2000
 
   # API
   def start_link(_), do: start_link()
@@ -42,7 +44,7 @@ defmodule Scraper.SessionServer do
   def handle_call({:navigate_to, url}, _from, state) do
     navigate_to url
 
-    sleep_till_loaded()
+    sleep_till_loaded(url)
 
     reply_ok(state)
   end
@@ -51,12 +53,20 @@ defmodule Scraper.SessionServer do
     Hound.end_session self()
   end
 
-  defp sleep_till_loaded, do: sleep_till_loaded(page_source())
-  defp sleep_till_loaded(source) do
-    unless Helpers.is_page_loaded?(source) do
-      Process.sleep @check_for_loaded_interval
+  defp sleep_till_loaded(url), do: sleep_till_loaded(url, page_source())
+  defp sleep_till_loaded(url, source, retries \\ @retries_before_refresh) do
+    cond do
+      retries < 0 ->
+        IO.puts "Refreshing Page"
+        refresh_page
+        Process.sleep @refresh_sleep_time
+        sleep_till_loaded(url, source)
 
-      sleep_till_loaded(source)
+      !Helpers.is_page_loaded?(source) ->
+        Process.sleep @check_for_loaded_interval
+        sleep_till_loaded(url, source, retries - 1)
+
+      true -> nil
     end
   end
 
