@@ -22,10 +22,11 @@ defmodule StopThePayload.Mixfile do
   # Dependencies listed here are available only for this project
   # and cannot be accessed from applications inside the apps folder
   defp deps do
-    []
+    [{:dialyxir, "~> 0.5", only: [:dev], runtime: false}]
   end
 
   defp aliases, do: [
     "test": ["ecto.drop --quiet", "ecto.create --quiet", "ecto.migrate", "test"],
+    "ecto.reset": ["ecto.drop", "ecto.create", "ecto.migrate"]
   ]
 end

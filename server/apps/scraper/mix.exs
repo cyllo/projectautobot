@@ -40,7 +40,11 @@ defmodule Scraper.Mixfile do
     [
       {:hound, "~> 1.0"},
       {:floki, "~> 0.14.0"},
-      {:flow, "~> 0.11"}
+      {:flow, "~> 0.11"},
+      {:html5ever, "~> 0.3.0"},
+      {:quantum, ">= 1.9.1"}
+
+      # {:models, in_umbrella: true}
     ]
   end
 end

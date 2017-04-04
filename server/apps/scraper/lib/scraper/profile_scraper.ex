@@ -5,7 +5,7 @@ defmodule Scraper.ProfileScraper do
   def get_profile(tag) do
     Logger.debug "Getting Tag #{tag}"
 
-    with {:ok, {gamer_tag, pid}} <- get_tag_profile(tag),
+    with {:ok, {gamer_tag, pid}} <- go_to_tag_page(tag),
          {:ok, page_source} <- SessionServer.page_source(pid) do
       SessionServer.end_session pid
 
@@ -16,7 +16,7 @@ defmodule Scraper.ProfileScraper do
   end
 
 
-  defp get_tag_profile(gamer_tag) do
+  defp go_to_tag_page(gamer_tag) do
     with {:ok, pid} <- SessionServer.start_link do
       SessionServer.start_session pid
 

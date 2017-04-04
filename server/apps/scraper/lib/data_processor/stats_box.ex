@@ -1,6 +1,10 @@
 defmodule Scraper.DataProcessor.StatsBox do
+  require IEx
   @cardbox_container "[data-group-id='stats']"
   @cardbox_cards ".data-table tbody tr"
+  @cardbox_row_stats "tr td"
+
+  alias Scraper.DataProcessor.Helpers
 
   def parse_hero_stats(%{name: name, code: code}, src) do
     stats = code
@@ -14,24 +18,24 @@ defmodule Scraper.DataProcessor.StatsBox do
 
   defp get_stats_from_table_row(table_row) do
     table_row
-      |> Floki.find("tr td")
+      |> Floki.find(@cardbox_row_stats)
       |> Enum.map(&Floki.text/1)
   end
 
 
+
   defp name_to_atom(name) do
     name
-      |> String.replace(~r/-|'/, "")
+      |> String.replace(~r/- |'|-/, "")
       |> String.downcase
-      |> String.split
-      |> Enum.join("_")
+      |> Helpers.normalize_and_snake
       |> String.to_atom
   end
 
   defp deserialize_value(value) do
     cond do
       Regex.match?(numbers_regex(), value) -> parse_time_to_seconds(value)
-      String.contains?(value, "%") -> value
+      contains_percentage?(value) -> String.replace(value, "%", "") |> String.to_integer
       String.contains?(value, ".") -> value |> String.replace(",", "") |> String.to_float
       String.contains?(value, ",") -> string_to_intenger_with_replace(value, ",")
       String.contains?(value, ":") -> parse_clock_time_to_seconds(value)
@@ -62,11 +66,17 @@ defmodule Scraper.DataProcessor.StatsBox do
       |> parse_time_to_seconds
   end
 
+  defp deserialize_statistic([name, value], acc) do
+    name = if contains_percentage?(value), do: name <> " percentage", else: name
+
+    Map.put acc, name_to_atom(name), deserialize_value(value)
+  end
+
+  defp contains_percentage?(str), do: String.contains?(str, "%")
   defp minutes_to_seconds(min), do: String.to_integer(min) * 60
   defp hours_to_seconds(hours), do: String.to_integer(hours) * 60 * 60
   defp numbers_regex, do: ~r/(?<time>\d+) (?<unit>.+)/
   defp string_to_intenger_with_replace(string, replace_char), do: string |> String.replace(replace_char, "") |> String.to_integer
-  defp deserialize_statistic([name, value], acc), do: Map.put acc, name_to_atom(name), deserialize_value(value)
   defp is_known_stat([name, _]), do: !(name =~ ~r/overwatch\.guid\..*/)
   defp hero_code_stats(code, src), do: Floki.find(src, @cardbox_container <> "[data-category-id='#{code}'] " <> @cardbox_cards)
 end
