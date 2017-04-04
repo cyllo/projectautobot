@@ -18,7 +18,7 @@ defmodule Models.Game.GamerTag do
     field :level_url, :string
 
     belongs_to :user, Models.Accounts.User
-    has_many :snapshot_statistics, Models.Statistics.Snapshots.Snapshot
+    has_many :snapshot_statistics, Models.Statistics.Snapshots.SnapshotStatistic
 
     timestamps()
   end

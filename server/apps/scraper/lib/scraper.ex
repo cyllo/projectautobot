@@ -3,6 +3,7 @@ defmodule Scraper do
   alias Models.Game
 
   @max_pages_scraping 5
+  @max_stats_storing 10
 
   # returns flow of %{gamer_tag: scrape_res}
   def snapshot_tags(gamer_tags) do
@@ -14,6 +15,8 @@ defmodule Scraper do
       |> Flow.partition(stages: @max_pages_scraping)
       |> Flow.map(&Sorter.sort_stats/1)
       |> Flow.reduce(&Map.new/0, fn(params, acc) -> Map.put(acc, params.gamer_tag, params) end)
+      |> Flow.partition(stages: @max_stats_storing)
+      |> Flow.map(fn({name, stats}) -> {name, ModelCreator.save_profile(stats)} end)
   end
 
   def get_profile(gamer_tag) do
@@ -29,8 +32,8 @@ defmodule Scraper do
       |> Enum.map(&(Map.get(&1, :tag)))
       |> snapshot_tags
       |> Enum.to_list
-      |> save_profiles
+      # |> save_profiles
   end
 
-  defp save_profiles(profiles), do: Enum.map(profiles, fn({name, stats}) -> {name, ModelCreator.save_profile(stats)} end)
+  # defp save_profiles(profiles), do: Enum.map(profiles,
 end

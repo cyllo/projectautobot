@@ -60,7 +60,7 @@ defmodule Scraper.SessionServer do
         IO.puts "Refreshing Page"
         refresh_page
         Process.sleep @refresh_sleep_time
-        sleep_till_loaded(url, source)
+        sleep_till_loaded(url)
 
       !Helpers.is_page_loaded?(source) ->
         Process.sleep @check_for_loaded_interval

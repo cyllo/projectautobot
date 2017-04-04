@@ -2,8 +2,7 @@ defmodule Models.Statistics.Snapshots do
   use Models.Model
   require IEx
   alias Models.{HeroesCache, Repo}
-  alias Models.Statistics.Snapshots.Hero, as: HeroSnapshot
-  alias Models.Statistics.Snapshots.{AllHeroes, Snapshot}
+  alias Models.Statistics.Snapshots.{HeroStatistic, AllHeroesStatistic, SnapshotStatistic}
   alias Models.Statistics.{CombatLifetime, CombatAverage, CombatBest, GameHistory, MatchAward, HeroSpecific}
 
   def create_snapshot(gamer_tag_id, heroes_stats, general_stats, is_competitive \\ false) do
@@ -15,7 +14,7 @@ defmodule Models.Statistics.Snapshots do
   end
 
 
-  def create_snapshot_for_gamer_tag(gamer_tag_id, is_competitive), do: Snapshot.create_changeset(%{gamer_tag_id: gamer_tag_id, is_competitive: is_competitive})
+  def create_snapshot_for_gamer_tag(gamer_tag_id, is_competitive), do: SnapshotStatistic.create_changeset(%{gamer_tag_id: gamer_tag_id, is_competitive: is_competitive})
 
   def create_general_stats(%{snapshot_statistic: snapshot_statistic}, general_stats), do: create_general_stats(snapshot_statistic, general_stats)
   def create_general_stats(snapshot_statistic, general_stats) do
@@ -24,7 +23,7 @@ defmodule Models.Statistics.Snapshots do
       all_heroes_snapshot = for stat <- stats, into: general_statistics, do: create_stats_id_type(stat)
 
       all_heroes_snapshot
-        |> AllHeroes.create_changeset
+        |> AllHeroesStatistic.create_changeset
         |> Repo.insert
     end
   end
@@ -40,7 +39,7 @@ defmodule Models.Statistics.Snapshots do
     hero_snapshot = for stat <- stats, into: hero_snapshot, do: create_stats_id_type(stat)
 
     hero_snapshot
-      |> HeroSnapshot.create_changeset
+      |> HeroStatistic.create_changeset
       |> Repo.insert
   end
 
