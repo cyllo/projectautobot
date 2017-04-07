@@ -74,12 +74,6 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
     this.mapFormToModel();
   }
 
-  logit() {
-    console.log(this.questionForm.getRawValue());
-  }
-
-
-
   private mapFormToModel() {
     this.platformInput = this.questionForm.getRawValue();
     this.regionInput = this.questionForm.getRawValue();
