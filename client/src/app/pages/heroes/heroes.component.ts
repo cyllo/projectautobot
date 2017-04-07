@@ -21,6 +21,9 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
   playerData$: Observable<AppState>;
   players: Player[];
   player: Player;
+  questionForm: FormGroup;
+  subscriptions: Subscription[] = [];
+  rows: any[] = [];
 
   private platform;
   public platformName = 'platform';
@@ -39,44 +42,19 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
   public searchControl = 'search';
   public searchPlaceholder = 'Search for a Hero';
 
-  questionForm: FormGroup;
-  subscriptions: Subscription[] = [];
-  rows: any[] = [];
-
   roles = [ 'OFFENSE', 'DEFENSE', 'TANK', 'SUPPORT' ];
   platforms = [ 'PC', 'MAC', 'X-Box', 'PlayStation' ];
   regions = [ 'US', 'Europe', 'Asia', 'South America', 'Africa', 'Australia' ];
   modes = [ 'Escort', 'Assault', 'Hybrid', 'Control' ];
 
-  hero = {
-    id: 1,
-    name: 'MERCY',
-    role: this.roles[ Math.floor(Math.random() * this.roles.length) ],
-    image: 'https://pbs.twimg.com/media/CjzX5daVAAAzsIL.jpg',
-    platform: this.platforms[ Math.floor(Math.random() * this.platforms.length) ],
-    region: this.regions[ Math.floor(Math.random() * this.regions.length) ],
-    mode: this.modes[ Math.floor(Math.random() * this.modes.length) ],
-    pickRate: 64,
-    win: 24,
-    kills: 10,
-    deaths: 5,
-    medals: {
-      gold: 1,
-      silver: 2,
-      bronze: 3
-    }
-  };
-
-  heroes = Array(20).fill(this.hero);
-
-  constructor(private store: Store<AppState>, private service: PlayersService) {
-    this.playerData$ = this.store.select(players => players);
-    this.playerData$.subscribe(p => this.players = p.players);
-    this.playerData$.subscribe(p => this.player = p.playerData);
-  }
+  constructor(private store: Store<AppState>, private service: PlayersService) {}
 
   ngOnInit() {
     this.questionForm = new FormGroup({});
+    this.playerData$ = this.store.select(players => players);
+    this.playerData$.subscribe(p => this.players = p.players);
+    this.playerData$.subscribe(p => this.player = p.playerData);
+
     this.playerData$.subscribe(players => {
         if (!players) {
           this.service.loadData();
@@ -86,66 +64,21 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
 
   ngAfterContentInit() {
     console.log('player', this.player);
-    this.rows = this.player.snapshotStatistics[0].heroSnapshotStatistics;
+    this.rows = this.player.snapshotStatistics[this.player.snapshotStatistics.length - 1].heroSnapshotStatistics;
 
-    this.platformInput.initControl(
-      this.questionForm,
-      this.platform,
-      this.platformName,
-      this.platformName,
-      this.platforms
-    );
-
-    this.regionInput.initControl(
-      this.questionForm,
-      this.region,
-      this.regionName,
-      this.regionName,
-      this.regions
-    );
-
-    this.modeInput.initControl(
-      this.questionForm,
-      this.mode,
-      this.modeName,
-      this.modeName,
-      this.modes
-    );
-
-    this.roleInput.initControl(
-      this.questionForm,
-      this.role,
-      this.roleName,
-      this.roleName,
-      this.roles
-    );
-
-    this.searchInput.initControl(
-      this.questionForm,
-      this.search,
-      this.searchName,
-      this.searchControl,
-      this.searchPlaceholder,
-      false
-    );
-
+    this.platformInput.initControl(this.questionForm, this.platform, this.platformName, this.platformName, this.platforms);
+    this.regionInput.initControl(this.questionForm, this.region, this.regionName, this.regionName, this.regions);
+    this.modeInput.initControl(this.questionForm, this.mode, this.modeName, this.modeName, this.modes);
+    this.roleInput.initControl(this.questionForm, this.role, this.roleName, this.roleName, this.roles);
+    this.searchInput.initControl(this.questionForm, this.search, this.searchName, this.searchControl, this.searchPlaceholder, false);
     this.mapFormToModel();
-  }
-
-  fetch( cb ) {
-    const req = new XMLHttpRequest();
-    req.open('GET', `/temp/heroesData.json`);
-
-    req.onload = () => {
-      cb(JSON.parse(req.response));
-    };
-
-    req.send();
   }
 
   logit() {
     console.log(this.questionForm.getRawValue());
   }
+
+
 
   private mapFormToModel() {
     this.platformInput = this.questionForm.getRawValue();
