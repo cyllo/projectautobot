@@ -24,7 +24,7 @@ export function playerDataCollection(state = initialState, { type, payload }): S
       return {
         loaded: true,
         loading: false,
-        gamerTags: players.map(player => player.gamerTag)
+        gamerTags: players.map(player => player.tag)
       };
 
     default:

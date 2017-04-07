@@ -40,27 +40,27 @@
       </ngx-datatable-column>
       <ngx-datatable-column name="Hero">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row.name }}
+          {{ row.hero.name }}
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column name="Pick Rate">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row.pickRate }}
+          <!--{{ row.pickRate }}-->
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column name="Win Rate">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row.win }}
+          {{ row.gameHistoryStatistic.winPercentage || row.gameHistoryStatistic.gamesWon }}
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column name="K/D Ratio">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row.kills / row.deaths }}
+          {{ row.combatAverageStatistic.deathsAverage }}
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column name="Medals / Game">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row.medals.gold }} {{ row.medals.silver }} {{ row.medals.bronze }}
+          {{ row.matchAwardsStatistic.goldMedals }} {{ row.matchAwardsStatistic.silverMedals }} {{ row.matchAwardsStatistic.bronzeMedals }}
         </ng-template>
       </ngx-datatable-column>
     </ngx-datatable>

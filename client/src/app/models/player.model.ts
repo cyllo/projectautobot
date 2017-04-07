@@ -1,117 +1,155 @@
 import { AppState } from './appstate.model';
 
 export interface Player extends AppState{
+  userId: number;
+  updatedAt: string;
   totalGamesWon: number;
-  quickPlay: QuickPlay;
-  portraitUrl: Array<string>;
+  tag: string;
+  snapshotStatistics: Array<SnapshotStats>;
+  region: string;
+  portraitUrl: string;
+  platform: string;
   overwatchName: string;
-  levelUrl: Array<string>;
-  level: string;
-  gamerTag: string;
-  competitiveRankUrl: Array<string>;
-  competitiveLevel: string;
-  competitive: Competitive;
+  levelUrl: string;
+  level: number;
+  intersectedAt: string;
+  id: number;
+  competitiveRankUrl: string;
+  competitiveLevel: number;
 }
 
-export interface QuickPlay extends Player {
-  heroesStats: HeroStats[];
+export interface SnapshotStats extends Player {
+  updatedAt: string;
+  isCompetitive: boolean;
+  insertedAt: string;
+  id: number;
+  heroSnapshotStatistics: HeroSnapshotStats[];
+  gamerTagId: number;
+  allHeroesSnapshotStatistics: HeroSnapshotStats;
 }
 
-export interface Competitive extends Player {
-  heroesStats: HeroStats[];
+export interface HeroSnapshotStats extends SnapshotStats {
+  snapshotStatisticId: number;
+  matchAwardsStatisticId: number;
+  matchAwardsStatistic: MatchAwardsStats;
+  id: number;
+  heroSpecificStatisticId: number;
+  heroId: number;
+  hero: Hero;
+  gameHistoryStatisticId: number;
+  gameHistoryStatistic: GameHistoryStats;
+  combatLifetimeStatisticId: number;
+  combatLifetimeStatistic: CombatLifetimeStats;
+  combatBestStatisticId: number;
+  combatBestStatistic: CombatBestStats;
+  combatAverageStatisticId: number;
+  combatAverageStatistic: CombatAverageStats;
 }
 
-export interface HeroStats extends QuickPlay {
-  stats: Stats;
+export interface MatchAwardsStats extends HeroSnapshotStats {
+  totalMedals: number;
+  silverMedals: number;
+  id: number;
+  goldMedals: number;
+  cards: number;
+  bronzeMedals: number;
+}
+
+export interface Hero extends HeroSnapshotStats {
+  updatedAt: string;
   name: string;
+  insertedAt: string;
+  id: number;
   code: string;
 }
 
-export interface Stats extends HeroStats {
-  matchAwards: MatchAwards;
-  lifetime: LifetimeStats;
-  heroSpecific: HeroSpecific;
-  game: Game;
-  best: Best;
-  average: Average;
-}
-
-export interface MatchAwards extends Stats {
-  medalsSilver: number;
-  medalsGold: number;
-  medalsBronze: number;
-  medals: number;
-  cards: number;
-}
-
-export interface LifetimeStats extends Stats {
+export interface GameHistoryStats extends HeroSnapshotStats {
+  winPercentage: string;
   timeSpentOnFire: number;
-  soloKills: number;
-  objectiveTime: number;
-  objectiveKills: number;
-  healingDone: number;
-  finalBlows: number;
-  eliminationsPerLife: number;
-  eliminations: number;
-  deaths: number;
-  damageDone: number;
+  timePlayed: number;
+  id: number;
+  gamesWon: number;
+  gamesPlayed: number;
+  gamesLost: number;
 }
 
-export interface HeroSpecific extends Stats {
-  weaponAccuracyBestInGame: string;
-  weaponAccuracy: string;
+export interface CombatLifetimeStats extends HeroSnapshotStats {
+  weaponAccuracyPercentage: number;
   turretsDestroyed: number;
-  soulsConsumedMostInGame: number;
-  soulsConsumedAverage: number;
-  soulsConsumed: number;
+  timeSpentOnFire: number;
+  teleporterPadsDestroyed: number;
+  soloKills: number;
   shotsHit: number;
   shotsFired: number;
-  selfHealingMostInGame: number;
-  selfHealing: number;
-  multikill: number;
-  meleeFinalBlowMostInGame: number;
-  meleeFinalBlow: number;
-  healingDoneMostInLife: number;
-  healingDoneAverage: number;
-  environmentalDeath: number;
-  eliminationsMostInLife: number;
-  deathBlossomKillsMostInGame: number;
-  deathBlossomKillsAverage: number;
-  deathBlossomKills: number;
-  damageDoneMostInLife: number;
-  criticalHitsMostInLife: number;
-  criticalHitsMostInGame: number;
-  criticalHitsAverage: number;
+  reconAssists: number;
+  offensiveAssists: number;
+  objectiveTime: number;
+  objectiveKills: number;
+  multikills: number;
+  multikillBest: number;
+  meleeKills: number;
+  meleeFinalBlows: number;
+  id: number;
+  healingDone: number;
+  finalBlows: number;
+  environmentalKills: number;
+  environmentalDeaths: number;
+  eliminationsPerLife: string;
+  eliminations: number;
+  defensiveAssists: number;
+  deaths: number;
+  damageDone: number;
+  damageBlocked: number;
+  criticalHitsPerMinute: number;
+  criticalHitsAccuracyPercentage: number;
   criticalHits: number;
-  criticalHitAccuracy: string;
+  criticalHitAccuracy: number;
 }
 
-export interface Game extends Stats {
-  timePlayed: number;
-  gamesWon: number;
-}
-
-export interface Best extends Stats {
+export interface CombatBestStats extends HeroSnapshotStats {
+  weaponAccuracyBestInGamePercentage: number;
+  timeSpentOnFireMostInGame: number;
   soloKillsMostInGame: number;
+  selfHealingMostInGame: number;
+  reconAssistsMostInGame: number;
+  offensiveAssistsMostInGame: number;
   objectiveTimeMostInGame: number;
   objectiveKillsMostInGame: number;
   multikillBest: number;
+  meleeKillsMostInGame: number;
+  meleeFinalBlowsMostInLife: number;
+  meleeFinalBlowsMostInGame: number;
   killStreakBest: number;
+  id: number;
+  healingDoneMostInLife: number;
   healingDoneMostInGame: number;
-  finalBlowsDoneMostInGame: number;
+  finalBlowsMostInGame: number;
+  eliminationsMostInLife: number;
   eliminationsMostInGame: number;
+  defensiveAssistsMostInGame: number;
+  damageDoneMostInLife: number;
   damageDoneMostInGame: number;
+  damageBlockedMostInGame: number;
+  criticalHitsMostInLife: number;
+  criticalHitsMostInGame: number;
 }
 
-export interface Average extends Stats {
+export interface CombatAverageStats extends HeroSnapshotStats {
   timeSpentOnFireAverage: number;
-  soloKillsAverage: number;
-  selfHealingAverage: number;
+  soloKillsAverage: string;
+  selfHealingAverage: string;
+  offensiveAssistsAverage: string;
   objectiveTimeAverage: number;
-  objectiveKillsAverage: number;
-  meleeFinalBlowsAverage: number;
-  finalBlowsAverage: number;
-  eliminationsAverage: number;
-  deathsAverage: number;
-  damageDoneAverage: number;
+  objectiveKillsAverage: string;
+  meleeKillsAverage: string;
+  meleeFinalBlowsAverage: string;
+  id: number;
+  healingDoneAverage: string;
+  finalBlowsAverage: string;
+  eliminationsAverage: string;
+  defensiveAssistsAverage: string;
+  deathsAverage: string;
+  damageDoneAverage: string;
+  damageBlockedAverage: string;
+  criticalHitsAveragePercentage: string;
 }

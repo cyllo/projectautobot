@@ -25,17 +25,17 @@ export class AppComponent implements OnDestroy {
 
     this.sub = store.let(getGamerTag)
       .distinctUntilChanged()
-      .filter(gamerTag => Boolean(gamerTag))
-      .subscribe(gamerTag => console.log(gamerTag));
+      .filter(tag => Boolean(tag))
+      .subscribe(tag => console.log(tag));
 
     this.find().subscribe(() => {});
   }
 
   find() {
-    return this.http.get(`/temp/kurtsStats.json`)
+    return this.http.get(`/temp/playerData.json`)
       .map(res => res.json())
       .do(playerData => this.store.dispatch({ type: 'GET_PLAYER_DATA', payload: playerData }))
-      .do(playerData => this.store.dispatch({ type: 'ADD_PLAYER', payload: { [playerData.gamer_tag]: playerData } }));
+      .do(playerData => this.store.dispatch({ type: 'ADD_PLAYER', payload: { [playerData.tag]: playerData } }));
   }
 
   ngOnDestroy() {

@@ -7,10 +7,10 @@ export function players(state: any = [], { type, payload }: { type: string, payl
       return [...state, payload];
 
     case 'UPDATE_PLAYER':
-      return state.map(player => player.gamerTag === payload.gamerTag ? Object.assign({}, player, payload) : player);
+      return state.map(player => player.tag === payload.tag ? Object.assign({}, player, payload) : player);
 
     case 'REMOVE_PLAYER':
-      return state.filter(player => player.gamerTag !== payload.gamerTag);
+      return state.filter(player => player.tag !== payload.tag);
 
     default:
       return state;

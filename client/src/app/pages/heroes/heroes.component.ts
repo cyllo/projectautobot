@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { AppState, Player } from '../../models';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { PlayersService } from '../../services';
+import { PlayersService } from '../../services/players.service';
 
 @Component({
   selector: 'ow-heroes',
@@ -18,7 +18,9 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
   @ViewChild('role') roleInput;
   @ViewChild('search') searchInput;
   @ViewChild('heroesTable') table: any;
-  players: Observable<Player[]>;
+  playerData$: Observable<AppState>;
+  players: Player[];
+  player: Player;
 
   private platform;
   public platformName = 'platform';
@@ -67,12 +69,15 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
 
   heroes = Array(20).fill(this.hero);
 
-  constructor(private store: Store<AppState>, private service: PlayersService) {}
+  constructor(private store: Store<AppState>, private service: PlayersService) {
+    this.playerData$ = this.store.select(players => players);
+    this.playerData$.subscribe(p => this.players = p.players);
+    this.playerData$.subscribe(p => this.player = p.playerData);
+  }
 
   ngOnInit() {
     this.questionForm = new FormGroup({});
-    this.store.select('players')
-      .subscribe(players => {
+    this.playerData$.subscribe(players => {
         if (!players) {
           this.service.loadData();
         }
@@ -80,6 +85,9 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   ngAfterContentInit() {
+    console.log('player', this.player);
+    this.rows = this.player.snapshotStatistics[0].heroSnapshotStatistics;
+
     this.platformInput.initControl(
       this.questionForm,
       this.platform,

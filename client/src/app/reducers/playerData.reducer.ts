@@ -2,16 +2,21 @@ import { Observable } from 'rxjs/Observable';
 import { Player } from '../models';
 
 const initialState: Player = {
+  userId: null,
+  updatedAt: null,
   totalGamesWon: null,
-  quickPlay: null,
+  tag: null,
+  snapshotStatistics: null,
+  region: null,
   portraitUrl: null,
+  platform: null,
   overwatchName: null,
   levelUrl: null,
   level: null,
-  gamerTag: null,
+  intersectedAt: null,
+  id: null,
   competitiveRankUrl: null,
   competitiveLevel: null,
-  competitive: null
 };
 
 export function playerData(state: Player = initialState, { type, payload }: { type: string, payload?: any }) {
@@ -25,5 +30,5 @@ export function playerData(state: Player = initialState, { type, payload }: { ty
 }
 
 export function getGamerTag(state$: Observable<Player>) {
-  return state$.select(state => state.gamerTag);
+  return state$.select(state => state.tag);
 }
