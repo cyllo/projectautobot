@@ -11,7 +11,7 @@ defmodule Models do
     # Define workers and child supervisors to be supervised
     children = [
       supervisor(Models.Repo, []),
-      supervisor(ConCache, [[], [name: :scraper_store]])
+      supervisor(ConCache, [[], [name: :models_store]])
       # Starts a worker by calling: A.Worker.start_link(arg1, arg2, arg3)
       # worker(A.Worker, [arg1, arg2, arg3]),
     ]

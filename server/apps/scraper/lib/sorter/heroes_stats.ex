@@ -22,7 +22,7 @@ defmodule Scraper.Sorter.HeroesStats do
     :healing_done_average, :final_blows_average,
     :objective_kills_average, :objective_time_average,
     :melee_final_blows_average, :offensive_assists_average,
-    :critical_hits_average_percentage, :defensive_assists_average,
+    :critical_hits_average, :defensive_assists_average,
     :damage_blocked_average, :melee_kills_average
   ]
 
@@ -38,7 +38,7 @@ defmodule Scraper.Sorter.HeroesStats do
     :defensive_assists_most_in_game, :eliminations_most_in_life,
     :eliminations_most_in_game, :weapon_accuracy_best_in_game_percentage,
     :damage_blocked_most_in_game, :melee_kills_most_in_game,
-    :recon_assists_most_in_game, :melee_final_blows_most_in_life
+    :recon_assists_most_in_game
   ]
 
   @doc """

@@ -14,9 +14,9 @@ defmodule Scraper do
       |> Flow.map(&DataProcessor.get_profile_info/1)
       |> Flow.partition(stages: @max_pages_scraping)
       |> Flow.map(&Sorter.sort_stats/1)
-      |> Flow.reduce(&Map.new/0, fn(params, acc) -> Map.put(acc, params.gamer_tag, params) end)
       |> Flow.partition(stages: @max_stats_storing)
-      |> Flow.map(fn({name, stats}) -> {name, ModelCreator.save_profile(stats)} end)
+      |> Flow.map(&ModelCreator.save_profile/1)
+      |> Flow.reduce(&Map.new/0, fn(params, acc) -> Map.put(acc, params.gamer_tag, params) end)
   end
 
   def get_profile(gamer_tag) do

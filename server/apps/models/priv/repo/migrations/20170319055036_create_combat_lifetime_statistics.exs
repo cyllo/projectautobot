@@ -16,8 +16,6 @@ defmodule Models.Repo.Migrations.CreateCombatLifetimeStatistics do
       add :shots_fired, :integer
       add :shots_hit, :integer
       add :critical_hits, :integer
-      add :critical_hit_accuracy, :integer
-      add :critical_hits_per_minute, :integer
       add :healing_done, :integer
       add :final_blows, :integer
       add :melee_final_blows, :integer

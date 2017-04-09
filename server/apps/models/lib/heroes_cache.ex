@@ -10,7 +10,7 @@ defmodule Models.HeroesCache do
   end
 
   def put(heroes) do
-    ConCache.put(:scraper_store, :heroes_store, heroes_name_map(heroes))
+    ConCache.put(:models_store, :heroes_store, heroes_name_map(heroes))
 
     heroes
   end
@@ -30,6 +30,7 @@ defmodule Models.HeroesCache do
   end
 
   def add_heroes_to_cache(heroes) do
+    IO.puts "Adding to DB #{inspect heroes}"
     cache_length = HeroesCache.cache_length()
     hero_names = get_hero_names(heroes)
 
@@ -51,7 +52,7 @@ defmodule Models.HeroesCache do
   def get_hero_id_by_name(hero_name), do: Map.get(get_by_name(hero_name), :id)
   def filter_not_in_cache(heroes), do: Enum.filter(heroes, &is_not_in_cache?/1)
   def cache_length, do: if (cache()), do: cache() |> Map.values |> length, else: 0
-  def cache, do: ConCache.get(:scraper_store, :heroes_store)
+  def cache, do: ConCache.get(:models_store, :heroes_store)
   def cache_names, do: cache() |> Enum.map(&(Map.get(&1, :name)))
   defp heroes_name_map(heroes), do: Enum.reduce(heroes, %{}, fn(hero, acc) -> Map.put(acc, Map.get(hero, :name), hero) end)
   defp get_hero_names(heroes), do: Enum.map(heroes, fn(hero) -> Map.get(hero, :name) end)

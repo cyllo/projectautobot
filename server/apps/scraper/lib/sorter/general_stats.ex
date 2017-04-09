@@ -5,7 +5,7 @@ defmodule Scraper.Sorter.GeneralStats do
     :eliminations, :final_blows,
     :solo_kills, :objective_kills,
     :shots_fired, :shots_hit,
-    :critical_hits, :critical_hits_per_minute,
+    :critical_hits, :recon_assists,
     :critical_hits_accuracy_percentage, :damage_done,
     :melee_final_blows, :eliminations_per_life,
     :weapon_accuracy_percentage, :objective_time,
@@ -13,8 +13,7 @@ defmodule Scraper.Sorter.GeneralStats do
     :multikill_best, :defensive_assists,
     :healing_done, :environmental_kills,
     :turrets_destroyed, :offensive_assists,
-    :multikills, :teleporter_pads_destroyed,
-    :recon_assists
+    :multikills, :teleporter_pads_destroyed
   ]
 
   @average_statistics [
@@ -22,7 +21,7 @@ defmodule Scraper.Sorter.GeneralStats do
     :solo_kills_average, :objective_kills_average,
     :melee_final_blows_average, :objective_time_average,
     :healing_done_average, :deaths_average,
-    :time_spent_on_fire_average, :critical_hits_average_percentage,
+    :time_spent_on_fire_average, :critical_hits_average,
     :damage_done_average,
   ]
 
@@ -36,7 +35,7 @@ defmodule Scraper.Sorter.GeneralStats do
     :objective_time_most_in_game, :kill_streak_best,
     :healing_done_most_in_game, :defensive_assists_most_in_game,
     :offensive_assists_most_in_game, :time_spent_on_fire_most_in_game,
-    :recon_assists_most_in_game, :melee_final_blows_most_in_life
+    :recon_assists_most_in_game
   ]
 
   @doc """

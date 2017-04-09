@@ -3,7 +3,7 @@ defmodule Models.Statistics.CombatAverage do
   alias Models.Statistics.CombatAverage
 
   schema "combat_average_statistics" do
-    field :critical_hits_average_percentage, :decimal
+    field :critical_hits_average, :decimal
     field :damage_done_average, :decimal
     field :deaths_average, :decimal
     field :defensive_assists_average, :decimal
@@ -22,7 +22,7 @@ defmodule Models.Statistics.CombatAverage do
   end
 
   @allowed_fields [
-    :critical_hits_average_percentage,
+    :critical_hits_average,
     :damage_done_average,
     :deaths_average,
     :defensive_assists_average,

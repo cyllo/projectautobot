@@ -13,7 +13,6 @@ defmodule Models.Repo.Migrations.CreateCombatBestStatistics do
       add :damage_done_most_in_life, :integer
 
       add :melee_final_blows_most_in_game, :integer
-      add :melee_final_blows_most_in_life, :integer
 
       add :weapon_accuracy_best_in_game_percentage, :integer
 

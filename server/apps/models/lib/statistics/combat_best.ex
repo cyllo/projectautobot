@@ -13,7 +13,6 @@ defmodule Models.Statistics.CombatBest do
     field :damage_done_most_in_life, :integer
 
     field :melee_final_blows_most_in_game, :integer
-    field :melee_final_blows_most_in_life, :integer
 
     field :weapon_accuracy_best_in_game_percentage, :integer
 
@@ -51,7 +50,6 @@ defmodule Models.Statistics.CombatBest do
     :damage_done_most_in_game,
     :damage_done_most_in_life,
     :melee_final_blows_most_in_game,
-    :melee_final_blows_most_in_life,
     :weapon_accuracy_best_in_game_percentage,
     :kill_streak_best,
     :defensive_assists_most_in_game,

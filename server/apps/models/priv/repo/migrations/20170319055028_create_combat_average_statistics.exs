@@ -3,7 +3,7 @@ defmodule Models.Repo.Migrations.CreateCombatAverageStatistics do
 
   def change do
     create table(:combat_average_statistics) do
-      add :critical_hits_average_percentage, :decimal
+      add :critical_hits_average, :decimal
       add :damage_done_average, :decimal
       add :deaths_average, :decimal
       add :defensive_assists_average, :decimal

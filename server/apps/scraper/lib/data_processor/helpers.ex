@@ -62,22 +62,9 @@ defmodule Scraper.DataProcessor.Helpers do
 
 
   def is_page_loaded?(page_source), do: is_page_not_found?(page_source) || career_page_loaded?(page_source)
-  def is_page_not_found?(page_source) do
-    a = page_source |> body_classes |> classes_has_not_found_page?
+  def is_page_not_found?(page_source), do: page_source |> body_classes |> classes_has_not_found_page?
 
-    IO.puts "Page Not Found #{a}"
-
-    a
-  end
-
-  defp career_page_loaded?(src) do
-    a = platforms_loaded?(src) && stats_box_loaded?(src)
-
-    IO.puts "Career Page #{a}"
-
-    a
-  end
-
+  defp career_page_loaded?(src), do: platforms_loaded?(src) && stats_box_loaded?(src)
   defp platforms_loaded?(src), do: Floki.find(src, @overwatch_player_platforms) |> Enum.any?
   defp stats_box_loaded?(src), do: Floki.find(src, @js_stats_boxes) |> Enum.any?
   defp classes_has_not_found_page?(classes_str) when is_nil(classes_str), do: false
