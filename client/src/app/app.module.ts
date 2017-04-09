@@ -38,6 +38,7 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { PlayersService } from './services';
 import { players, playerData, playerDataCollection } from './reducers';
+import { MainNavComponent } from './static/main-nav/main-nav.component';
 
 export function instrumentOptions() {
   return {
@@ -73,6 +74,7 @@ export function instrumentOptions() {
   ],
   declarations: [
     AppComponent,
+    MainNavComponent,
     TopNavComponent,
     SideNavComponent,
     FooterComponent,
