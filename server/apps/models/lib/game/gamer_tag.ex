@@ -12,7 +12,7 @@ defmodule Models.Game.GamerTag do
     field :competitive_rank_url, :string
 
     field :region, :string
-    field :platform, :string, null: false
+    field :platform, :string
 
     field :level, :integer
     field :level_url, :string

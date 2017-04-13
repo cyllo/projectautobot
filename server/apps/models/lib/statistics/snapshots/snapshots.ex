@@ -5,6 +5,40 @@ defmodule Models.Statistics.Snapshots do
   alias Models.Statistics.Snapshots.{HeroStatistic, AllHeroesStatistic, SnapshotStatistic}
   alias Models.Statistics.{CombatLifetime, CombatAverage, CombatBest, GameHistory, MatchAward, HeroSpecific}
 
+  def get_all_snapshots_statistics, do: Repo.all(SnapshotStatistic)
+  def get_all_snapshots_statistics(params), do: from(p in SnapshotStatistic, where: ^params) |> Repo.all
+
+  def get_all_of_all_heroes_statistic, do: Repo.all(AllHeroesStatistic)
+  def get_all_of_all_heroes_statistic(params), do: from(ahs in AllHeroesStatistic, where: ^params) |> Repo.all
+
+  def get_all_hero_statistics, do: Repo.all(HeroStatistic)
+  def get_all_hero_statistics(params), do: from(hs in HeroStatistic, where: ^params) |> Repo.all
+
+  def get_all_hero_statistics_by_snapshot_ids(snapshot_ids) do
+    from(p in HeroStatistic, where: p.snapshot_statistic_id in ^snapshot_ids)
+      |> Repo.all
+  end
+
+  def get_all_hero_statistics_by_id(hero_snapshot_ids) do
+    from(p in HeroStatistic, where: p.id in ^hero_snapshot_ids)
+      |> Repo.all
+  end
+
+  def get_gamer_tag_snapshot_statistics(gamer_tag_id) do
+    get_all_snapshots_statistics(gamer_tag_id: gamer_tag_id)
+      |> parse_get_all_results("#{gamer_tag_id} cannot be found")
+  end
+
+  def get_all_heroes_statistic_for_snapshot(snapshot_statistic_id) do
+    get_all_of_all_heroes_statistic(snapshot_statistic_id: snapshot_statistic_id)
+      |> parse_get_all_results("#{snapshot_statistic_id} cannot be found")
+  end
+
+  def get_hero_statistics_for_snapshot(snapshot_statistic_id) do
+    get_all_hero_statistics(snapshot_statistic_id: snapshot_statistic_id)
+      |> parse_get_all_results("#{snapshot_statistic_id} cannot be found")
+  end
+
   def create_snapshot(gamer_tag_id, heroes_stats, general_stats, is_competitive \\ false) do
     Ecto.Multi.new()
       |> Ecto.Multi.insert(:snapshot_statistic, create_snapshot_for_gamer_tag(gamer_tag_id, is_competitive))
@@ -89,4 +123,7 @@ defmodule Models.Statistics.Snapshots do
     IO.puts "HERO_CACHE: #{hero_name} #{HeroesCache.get_hero_id_by_name(hero_name)}"
     HeroSpecific.create_changeset(%{hero_id: HeroesCache.get_hero_id_by_name(hero_name), stats: stats})
   end
+
+  defp parse_get_all_results([], message), do: {:error, message}
+  defp parse_get_all_results(results, _) when is_list(results), do: {:ok, results}
 end

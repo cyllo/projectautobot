@@ -4,8 +4,17 @@ defmodule Models.Game do
   alias Models.Game.{Hero, GamerTag}
   alias Models.Repo
 
-  def get_all_gamer_tags, do: Repo.all GamerTag
-  def get_all_heroes, do: Repo.all Hero
+  def get_all_gamer_tags, do: Repo.all(GamerTag)
+  def get_all_gamer_tags(params), do: from(gt in GamerTag, where: ^params) |> Repo.all
+  def get_all_heroes, do: Repo.all(Hero)
+  def get_all_heroes_by_ids(hero_ids), do: from(h in Hero, or_where: h.id in ^hero_ids) |> Repo.all
+
+  def get_hero(hero_id) do
+    case Repo.get(Hero, hero_id) do
+      nil -> {:error, "no entries found for #{hero_id}"}
+      hero -> {:ok, hero}
+    end
+  end
 
   def create_hero(name, code) do
     Hero.create_changeset(%{name: name, code: code})
@@ -33,12 +42,12 @@ defmodule Models.Game do
   end
 
   def find_gamer_tag(params) when is_map(params), do: params |> Map.to_list |> find_gamer_tag
+  def find_gamer_tag(params) when is_list(params) and length(params) <= 0, do: {:error, "no params given for find"}
   def find_gamer_tag(params) when is_list(params) do
-    tag = GamerTag
-      |> where(^params)
-      |> Repo.one
-
-    if tag === nil, do: {:error, "no tag found"}, else: {:ok, tag}
+    case params && Repo.get_by(GamerTag, params) do
+      nil -> {:error, "where #{inspect(params)} not found"}
+      user -> {:ok, user}
+    end
   end
 
   defp add_timestamps(hero) do

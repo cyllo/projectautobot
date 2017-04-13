@@ -23,6 +23,6 @@ defmodule Api.Repo.Migrations.CreateGamerTags do
       timestamps()
     end
 
-    create unique_index(:gamer_tags, [:tag, :platform], name: :tag_platform_index)
+    create unique_index(:gamer_tags, [:tag, :platform, :region], name: :tag_platform_index)
   end
 end

@@ -1,5 +1,5 @@
 defmodule Models.Accounts.User do
-  alias Models.Accounts.{User, Follower}
+  alias Models.Accounts.{User, Follower, GamerTag}
   use Models.Model
 
   schema "users" do
@@ -9,6 +9,7 @@ defmodule Models.Accounts.User do
     field :password_hash, :string
     has_many :followers, Follower
     has_many :friends, Friendship
+    has_many :gamer_tags, GamerTag
 
     timestamps()
   end
