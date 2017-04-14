@@ -14,13 +14,18 @@ defmodule Models.Statistics.Snapshots do
   def get_all_hero_statistics, do: Repo.all(HeroStatistic)
   def get_all_hero_statistics(params), do: from(hs in HeroStatistic, where: ^params) |> Repo.all
 
+  def get_all_of_all_heroes_statistics_by_snapshot_ids(snapshot_ids) do
+    from(ahs in AllHeroesStatistic, where: ahs.snapshot_statistic_id in ^snapshot_ids)
+      |> Repo.all
+  end
+
   def get_all_hero_statistics_by_snapshot_ids(snapshot_ids) do
-    from(p in HeroStatistic, where: p.snapshot_statistic_id in ^snapshot_ids)
+    from(hs in HeroStatistic, where: hs.snapshot_statistic_id in ^snapshot_ids)
       |> Repo.all
   end
 
   def get_all_hero_statistics_by_id(hero_snapshot_ids) do
-    from(p in HeroStatistic, where: p.id in ^hero_snapshot_ids)
+    from(hs in HeroStatistic, where: hs.id in ^hero_snapshot_ids)
       |> Repo.all
   end
 
@@ -120,7 +125,6 @@ defmodule Models.Statistics.Snapshots do
   defp process_stats({:lifetime, stats}), do: CombatLifetime.create_changeset(stats)
   defp process_stats({:match_awards, stats}), do: MatchAward.create_changeset(stats)
   defp process_stats({:hero_specific, hero_name, stats}) do
-    IO.puts "HERO_CACHE: #{hero_name} #{HeroesCache.get_hero_id_by_name(hero_name)}"
     HeroSpecific.create_changeset(%{hero_id: HeroesCache.get_hero_id_by_name(hero_name), stats: stats})
   end
 
