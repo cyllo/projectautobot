@@ -40,7 +40,7 @@ defmodule Models.Game.GamerTag do
       |> validate_required(@required_fields)
       |> validate_inclusion(:platform, ["xbl", "psn", "pc"])
       |> validate_region
-      |> unique_constraint(:tag, name: :tag_platform_index)
+      |> unique_constraint(:tag, name: :tag_platform_region_index)
       |> cast_assoc(:user)
   end
 

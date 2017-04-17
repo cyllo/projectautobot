@@ -10,7 +10,7 @@ defmodule Api.Repo.Migrations.CreateGamerTags do
       add :competitive_level, :integer
       add :competitive_rank_url, :text
 
-      add :region, :text
+      add :region, :citext, null: false, default: ""
       add :platform, :citext, null: false
 
       add :level, :integer
@@ -23,6 +23,6 @@ defmodule Api.Repo.Migrations.CreateGamerTags do
       timestamps()
     end
 
-    create unique_index(:gamer_tags, [:tag, :platform, :region], name: :tag_platform_index)
+    create unique_index(:gamer_tags, [:tag, :platform, :region], name: :tag_platform_region_index)
   end
 end
