@@ -32,7 +32,7 @@ defmodule Models.Game do
     end
   end
 
-  def create_or_get_gamer_tag(params) do
+  def create_gamer_tag(params) do
     params
       |> GamerTag.create_changeset
       |> Repo.insert

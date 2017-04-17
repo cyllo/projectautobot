@@ -1,11 +1,13 @@
 defmodule Scraper.DataProcessor.Helpers do
-  require IEx
   @js_stats_boxes "body.career-detail #competitive .js-stats"
   @overwatch_player_platforms "#profile-platforms a"
+  @platform_active ".is-active"
   @plural_possibilities_blacklist ["kill streak", "multikill best"]
   @plural_possibilities ["elimination", "blow", "kill", "shot", "hit", "medal", "card", "death", "assist", "pad"]
 
   def find_html(src, container_query), do: src |> Floki.find(container_query) |> Floki.raw_html
+
+  def find_href(src), do: src |> Floki.attribute("href") |> List.first
 
   def find_text(src, query_selector) do
     src
@@ -36,6 +38,10 @@ defmodule Scraper.DataProcessor.Helpers do
       |> String.replace_trailing(")", "")
   end
 
+  def find_player_platforms(src), do: Floki.find(src, @overwatch_player_platforms)
+  def find_inactive_player_platforms(src), do: Floki.find(src, @overwatch_player_platforms <> ":not(#{@platform_active})")
+  def find_active_player_platform(src), do: find_text(src, @overwatch_player_platforms <> @platform_active)
+
   def normalize_and_snake("medal"), do: "total_medals"
   def normalize_and_snake("medals"), do: "total_medals"
   def normalize_and_snake("medal " <> tier), do: "#{tier}_medals"
@@ -44,6 +50,7 @@ defmodule Scraper.DataProcessor.Helpers do
   def normalize_and_snake("shots hit"), do: "shots_hit"
   def normalize_and_snake(str) when is_list(str), do: Enum.map(str, &normalize_and_snake/1)
   def normalize_and_snake(str), do: if should_pluralize?(str), do: pluralize_possibility(str), else: str |> String.split |> Enum.join("_")
+
   defp string_contains_plurals?(str), do: String.contains?(str, @plural_possibilities)
   defp should_pluralize?(str), do: !String.contains?(str, @plural_possibilities_blacklist) && string_contains_plurals?(str)
   defp pluralize_possibility(str) do
@@ -65,7 +72,7 @@ defmodule Scraper.DataProcessor.Helpers do
   def is_page_not_found?(page_source), do: page_source |> body_classes |> classes_has_not_found_page?
 
   defp career_page_loaded?(src), do: platforms_loaded?(src) && stats_box_loaded?(src)
-  defp platforms_loaded?(src), do: Floki.find(src, @overwatch_player_platforms) |> Enum.any?
+  defp platforms_loaded?(src), do: find_player_platforms(src) |> Enum.any?
   defp stats_box_loaded?(src), do: Floki.find(src, @js_stats_boxes) |> Enum.any?
   defp classes_has_not_found_page?(classes_str) when is_nil(classes_str), do: false
   defp classes_has_not_found_page?(classes_str), do: String.contains?(classes_str, "undefined")

@@ -1,4 +1,5 @@
 defmodule Scraper.DataProcessor.UserInfo do
+  require IEx
   alias Scraper.DataProcessor.Helpers
   @overwatch_user_info_box ".u-max-width-container.row.content-box.gutter-18"
   @overwatch_name "h1.header-masthead"
@@ -8,11 +9,10 @@ defmodule Scraper.DataProcessor.UserInfo do
   @overwatch_competitive_rank_url ".competitive-rank > img"
   @overwatch_player_level ".player-level > div"
   @overwatch_player_level_url ".player-level"
-  @overwatch_player_platforms "#profile-platforms a"
 
   def user_info(src) do
     user_info_container = Floki.find(src, @overwatch_user_info_box)
-    platform = current_profile_platform(user_info_container)
+    platform_region = current_profile_platform_region(user_info_container)
 
     info = %{
       overwatch_name: Helpers.find_text(user_info_container, @overwatch_name),
@@ -22,11 +22,15 @@ defmodule Scraper.DataProcessor.UserInfo do
       competitive_rank_url: competitive_rank_url(user_info_container),
       level: level(user_info_container),
       level_url: level_url(user_info_container),
-      all_platforms: profile_platforms(user_info_container),
+      other_platforms: inactive_profile_region_platforms(user_info_container),
     }
 
-    if (platform), do: Map.merge(info, platform), else: info
+    merge_platform_region(info, platform_region)
   end
+
+  defp merge_platform_region(data, platform_region) when is_map(platform_region), do: Map.merge(data, platform_region)
+  defp merge_platform_region(data, nil), do: data
+  defp merge_platform_region(data, platform), do: Map.put(data, :platform, platform)
 
   defp user_wins(src) do
     wins_text = Helpers.find_text(src, @overwatch_total_wins)
@@ -48,15 +52,27 @@ defmodule Scraper.DataProcessor.UserInfo do
   defp parse_platform_region(platforms) when is_list(platforms), do: Enum.map(platforms, &parse_platform_region/1)
   defp parse_platform_region(platform), do: platform
 
-  defp profile_platforms(src) do
-    platforms = Helpers.find_text(src, @overwatch_player_platforms)
-      |> parse_platform_region
+  defp process_inactive_platform(platform_src) do
+    [platform, region, tag] = Helpers.find_href(platform_src)
+      |> String.split("/")
+      |> Enum.take(-3)
 
-    if is_list(platforms), do: platforms, else: [platforms]
+    if (platform === "career") do
+      %{platform: region, tag: tag}
+    else
+      %{platform: platform, tag: tag, region: region}
+    end
   end
 
-  defp current_profile_platform(src) do
-    Helpers.find_text(src, @overwatch_player_platforms <> ".is-active")
+  defp inactive_profile_region_platforms(src) do
+    platforms = src
+      |> Helpers.find_inactive_player_platforms
+      |> Enum.map(&process_inactive_platform/1)
+  end
+
+  defp current_profile_platform_region(src) do
+    src
+      |> Helpers.find_active_player_platform
       |> parse_platform_region
   end
 end

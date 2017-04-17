@@ -1,10 +1,12 @@
 defmodule Scraper.ModelCreator.UserProfile do
+  require Logger
+  require IEx
   alias Models.Game
 
   @spec create_gamer_tag(Map) :: {:ok, Map} | {:error, String}
   def create_gamer_tag(user_profile) do
     case find_gamer_tag(user_profile) do
-      {:error, "no tag found"} -> create_new_gamer_tag(user_profile)
+      {:error, _} -> create_new_gamer_tag(user_profile)
       gamer_tag -> gamer_tag
     end
   end
@@ -13,7 +15,7 @@ defmodule Scraper.ModelCreator.UserProfile do
     %{region: region, platform: platform, gamer_tag: tag} = user_profile
       |> Map.take([:gamer_tag, :region, :platform])
 
-    Game.find_gamer_tag([region: region, platform: platform, tag: tag])
+    Game.find_gamer_tag(region: region, platform: platform, tag: tag)
   end
 
   def create_new_gamer_tag(%{
@@ -45,6 +47,14 @@ defmodule Scraper.ModelCreator.UserProfile do
       Map.put(params, :platform, platform)
     end
 
-    Game.create_or_get_gamer_tag(params)
+    Game.create_gamer_tag(params)
+  end
+  def create_new_gamer_tag(params), do: Game.create_gamer_tag(params)
+
+  def save_other_platforms(gamer_tag, %{other_platforms: other_platforms}) do
+    Logger.debug "Creating other_platforms for #{gamer_tag.tag}: #{inspect other_platforms}"
+
+    other_platforms
+      |> Enum.map(&create_new_gamer_tag/1)
   end
 end
