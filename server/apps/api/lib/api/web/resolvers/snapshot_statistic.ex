@@ -1,5 +1,4 @@
 defmodule Api.SnapshotStatisticResolver do
-  require IEx
   alias Models.Statistics.Snapshots
   alias Models.{Game, Statistics}
 

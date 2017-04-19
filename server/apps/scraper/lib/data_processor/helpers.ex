@@ -3,7 +3,12 @@ defmodule Scraper.DataProcessor.Helpers do
   @overwatch_player_platforms "#profile-platforms a"
   @platform_active ".is-active"
   @plural_possibilities_blacklist ["kill streak", "multikill best"]
-  @plural_possibilities ["elimination", "blow", "kill", "shot", "hit", "medal", "card", "death", "assist", "pad"]
+  @plural_possibilities [
+    "elimination", "blow", "kill",
+    "shot", "hit", "medal",
+    "card", "death", "assist",
+    "pad", "generator"
+  ]
 
   def find_html(src, container_query), do: src |> Floki.find(container_query) |> Floki.raw_html
 

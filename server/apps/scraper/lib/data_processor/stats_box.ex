@@ -1,5 +1,4 @@
 defmodule Scraper.DataProcessor.StatsBox do
-  require IEx
   @cardbox_container "[data-group-id='stats']"
   @cardbox_cards ".data-table tbody tr"
   @cardbox_row_stats "tr td"

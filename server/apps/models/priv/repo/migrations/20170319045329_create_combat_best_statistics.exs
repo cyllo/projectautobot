@@ -18,6 +18,11 @@ defmodule Models.Repo.Migrations.CreateCombatBestStatistics do
 
       add :kill_streak_best, :integer
 
+      add :environmental_kills_most_in_game, :integer
+      add :teleporter_pads_destroyed_most_in_game, :integer
+      add :turrets_destroyed_most_in_game, :integer
+      add :shield_generators_destroyed_most_in_game, :integer
+
       add :defensive_assists_most_in_game, :integer
       add :offensive_assists_most_in_game, :integer
 

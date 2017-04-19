@@ -1,6 +1,5 @@
 defmodule Models.Statistics.Snapshots do
   use Models.Model
-  require IEx
   alias Models.{HeroesCache, Repo}
   alias Models.Statistics.Snapshots.{HeroStatistic, AllHeroesStatistic, SnapshotStatistic}
   alias Models.Statistics.{CombatLifetime, CombatAverage, CombatBest, GameHistory, MatchAward, HeroSpecific}
@@ -106,7 +105,11 @@ defmodule Models.Statistics.Snapshots do
 
   defp create_stats_multi(hero_name \\ nil, stats) do
     Enum.reduce stats, Ecto.Multi.new(), fn({stat_type, stat}, multi_acc) ->
-      stat = if stat_type === :hero_specific, do: process_stats({stat_type, hero_name, stat}), else: process_stats({stat_type, stat})
+      stat = if stat_type === :hero_specific do
+        process_stats({stat_type, hero_name, stat})
+      else
+        process_stats({stat_type, stat})
+      end
 
       Ecto.Multi.insert(multi_acc, stat_type, stat)
     end
@@ -125,7 +128,10 @@ defmodule Models.Statistics.Snapshots do
   defp process_stats({:lifetime, stats}), do: CombatLifetime.create_changeset(stats)
   defp process_stats({:match_awards, stats}), do: MatchAward.create_changeset(stats)
   defp process_stats({:hero_specific, hero_name, stats}) do
-    HeroSpecific.create_changeset(%{hero_id: HeroesCache.get_hero_id_by_name(hero_name), stats: stats})
+    case HeroesCache.get_hero_id_by_name(hero_name) do
+      nil -> throw {:error, "#{hero_name} not found in cache #{inspect stats}"}
+      hero_id -> HeroSpecific.create_changeset(%{hero_id: hero_id, stats: stats})
+    end
   end
 
   defp parse_get_all_results([], message), do: {:error, message}

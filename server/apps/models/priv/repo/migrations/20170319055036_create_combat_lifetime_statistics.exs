@@ -22,6 +22,7 @@ defmodule Models.Repo.Migrations.CreateCombatLifetimeStatistics do
       add :multikills, :integer
       add :recon_assists, :integer
       add :teleporter_pads_destroyed, :integer
+      add :shield_generators_destroyed, :integer
       add :damage_blocked, :integer
       add :melee_kills, :integer
       add :weapon_accuracy_percentage, :integer

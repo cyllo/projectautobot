@@ -13,7 +13,8 @@ defmodule Scraper.Sorter.GeneralStats do
     :multikill_best, :defensive_assists,
     :healing_done, :environmental_kills,
     :turrets_destroyed, :offensive_assists,
-    :multikills, :teleporter_pads_destroyed
+    :multikills, :teleporter_pads_destroyed,
+    :shield_generators_destroyed
   ]
 
   @average_statistics [
@@ -35,7 +36,9 @@ defmodule Scraper.Sorter.GeneralStats do
     :objective_time_most_in_game, :kill_streak_best,
     :healing_done_most_in_game, :defensive_assists_most_in_game,
     :offensive_assists_most_in_game, :time_spent_on_fire_most_in_game,
-    :recon_assists_most_in_game
+    :recon_assists_most_in_game, :environmental_kills_most_in_game,
+    :shield_generators_destroyed_most_in_game, :teleporter_pads_destroyed_most_in_game,
+    :turrets_destroyed_most_in_game
   ]
 
   @doc """
@@ -72,7 +75,7 @@ defmodule Scraper.Sorter.GeneralStats do
       Helpers.is_match_award_stat?(key) -> :match_awards
       Helpers.is_game_tracking_stat?(key) -> :game
       Helpers.key_equals(key, "(time_played|win_percentage|time_spent_on_fire)") -> :game
-      true -> :hero_specific
+      true -> throw "#{key} is not known to general stats sorter"
     end
   end
 end

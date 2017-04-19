@@ -5,7 +5,7 @@ use Mix.Config
 config :floki, :html_parser, Floki.HTMLParser.Html5ever
 
 config :hound,
-  driver: "phantomjs",
+  driver: "phantomjs", #chrome_driver",
   http: [recv_timeout: :infinity]
 
 config :quantum, :scraper,

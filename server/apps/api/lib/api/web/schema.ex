@@ -1,6 +1,6 @@
 defmodule Api.Schema do
   use Absinthe.Schema
-  alias Api.{GamerTagResolver, HeroResolver}
+  alias Api.{GamerTagResolver, HeroResolver, ProfileSearchResolver}
 
   import_types Absinthe.Type.Custom
   import_types Api.Schema.ScalarTypes
@@ -37,6 +37,12 @@ defmodule Api.Schema do
 
     field :heroes, list_of(:hero) do
       resolve &HeroResolver.all/2
+    end
+
+    field :search_gamer_tag, list_of(:gamer_tag) do
+      arg :tag, :string
+
+      resolve &ProfileSearchResolver.find/2
     end
   end
 end

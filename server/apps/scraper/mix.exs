@@ -42,7 +42,9 @@ defmodule Scraper.Mixfile do
       {:floki, "~> 0.17.0"},
       {:flow, "~> 0.11"},
       {:html5ever, "~> 0.3.0"},
-      {:quantum, ">= 1.9.1"}
+      {:quantum, ">= 1.9.1"},
+      {:httpoison, "~> 0.10.0"},
+      {:con_cache, "~> 0.12.0"}
 
       # {:models, in_umbrella: true}
     ]

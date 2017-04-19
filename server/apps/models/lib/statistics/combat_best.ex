@@ -21,6 +21,8 @@ defmodule Models.Statistics.CombatBest do
     field :defensive_assists_most_in_game, :integer
     field :offensive_assists_most_in_game, :integer
 
+    field :environmental_kills_most_in_game, :integer
+
     field :final_blows_most_in_game, :integer
 
     field :solo_kills_most_in_game, :integer
@@ -52,6 +54,7 @@ defmodule Models.Statistics.CombatBest do
     :melee_final_blows_most_in_game,
     :weapon_accuracy_best_in_game_percentage,
     :kill_streak_best,
+    :environmental_kills_most_in_game,
     :defensive_assists_most_in_game,
     :offensive_assists_most_in_game,
     :final_blows_most_in_game,

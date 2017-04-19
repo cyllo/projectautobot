@@ -1,5 +1,7 @@
 defmodule Models.HeroesCache do
   alias Models.{HeroesCache, Game, Helpers}
+  import Logger
+  import IEx
 
   def is_not_in_cache?(%{name: name}) do
     if cache() do
@@ -18,6 +20,7 @@ defmodule Models.HeroesCache do
   def store_heroes_into_db(heroes) do
     if length(heroes) >= 1 do
       with {:ok, res} <- Game.create_heroes(heroes) do
+        if (is_tuple(res)), do: IEx.pry
         add_heroes_to_cache(res)
 
         {:ok, res}
@@ -30,7 +33,8 @@ defmodule Models.HeroesCache do
   end
 
   def add_heroes_to_cache(heroes) do
-    IO.puts "Adding to DB #{inspect heroes}"
+    Logger.debug "Adding to hero cache #{inspect heroes}"
+
     cache_length = HeroesCache.cache_length()
     hero_names = get_hero_names(heroes)
 
@@ -48,8 +52,14 @@ defmodule Models.HeroesCache do
     end
   end
 
+  def get_hero_id_by_name(hero_name) do
+    case get_by_name(hero_name) do
+      nil -> nil
+      hero -> Map.get(hero, :id)
+    end
+  end
+
   def get_by_name(hero_name), do: Map.get(cache(), hero_name)
-  def get_hero_id_by_name(hero_name), do: Map.get(get_by_name(hero_name), :id)
   def filter_not_in_cache(heroes), do: Enum.filter(heroes, &is_not_in_cache?/1)
   def cache_length, do: if (cache()), do: cache() |> Map.values |> length, else: 0
   def cache, do: ConCache.get(:models_store, :heroes_store)
