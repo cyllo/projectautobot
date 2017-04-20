@@ -5,3 +5,5 @@ export * from './role';
 export * from './news-card';
 export * from './image';
 export * from './select';
+export * from './schedule';
+export * from './tabs';

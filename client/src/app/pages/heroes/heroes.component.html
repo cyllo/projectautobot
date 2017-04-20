@@ -1,70 +1,71 @@
-<div class="row">
-  <div class="col-12">
-    <p class="h5">HEROES</p>
-    <form [formGroup]="questionForm">
-      <div class="row">
-        <div class="col-3">
-          <ow-select #platform></ow-select>
-        </div>
-        <div class="col-3">
-          <ow-select #region></ow-select>
-        </div>
-        <div class="col-3">
-          <ow-select #mode></ow-select>
-        </div>
-        <div class="col-3">
-          <ow-select #role></ow-select>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <ow-search #search></ow-search>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
+<div class="container-fluid stp-container">
 
-<div class="row">
-  <div class="col-12">
-    <ngx-datatable #heroesTable [rows]="rows">
-      <ngx-datatable-column>
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row.$$index + 1 }}
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column name="Hero">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row.hero.name }}
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column name="Pick Rate">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          <!--{{ row.pickRate }}-->
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column name="Win Rate">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row.gameHistoryStatistic.winPercentage || row.gameHistoryStatistic.gamesWon }}
-          <ngb-progressbar type="info" value="{{ row.gameHistoryStatistic.winPercentage || row.gameHistoryStatistic.gamesWon }}" max="10"></ngb-progressbar>
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column name="K/D Ratio">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row.combatAverageStatistic.deathsAverage }}
-          <ngb-progressbar type="warning" value="{{ row.combatAverageStatistic.deathsAverage }}" max="10"></ngb-progressbar>
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column name="Medals / Game">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          <span class="badge badge-warning">{{ row.matchAwardsStatistic.goldMedals }}</span>
-          <span class="badge badge-pill badge-default">{{ row.matchAwardsStatistic.silverMedals }}</span>
-          <span class="badge badge-pill badge-default">{{ row.matchAwardsStatistic.bronzeMedals }}</span>
-        </ng-template>
-      </ngx-datatable-column>
-    </ngx-datatable>
+  <div class="row my-3">
+    <div class="col-12">
+      <h3>HEROES</h3>
+      <form [formGroup]="questionForm">
+        <div class="row">
+          <div class="col-3">
+            <ow-select #platform></ow-select>
+          </div>
+          <div class="col-3">
+            <ow-select #region></ow-select>
+          </div>
+          <div class="col-3">
+            <ow-select #mode></ow-select>
+          </div>
+          <div class="col-3">
+            <ow-select #role></ow-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <ow-search #search></ow-search>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
+  <div class="row my-3">
+    <div class="col-12">
+      <ngx-datatable #heroesTable [rows]="rows">
+        <ngx-datatable-column>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.$$index + 1 }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Hero">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.hero.name }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Pick Rate">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <!--{{ row.pickRate }}-->
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Win Rate">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.gameHistoryStatistic.winPercentage || row.gameHistoryStatistic.gamesWon }}
+            <ngb-progressbar type="info" value="{{ row.gameHistoryStatistic.winPercentage || row.gameHistoryStatistic.gamesWon }}" max="10"></ngb-progressbar>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="K/D Ratio">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.combatAverageStatistic.deathsAverage }}
+            <ngb-progressbar type="warning" value="{{ row.combatAverageStatistic.deathsAverage }}" max="10"></ngb-progressbar>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Medals / Game">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <span class="badge badge-warning">{{ row.matchAwardsStatistic.goldMedals }}</span>
+            <span class="badge badge-pill badge-default">{{ row.matchAwardsStatistic.silverMedals }}</span>
+            <span class="badge badge-pill badge-default">{{ row.matchAwardsStatistic.bronzeMedals }}</span>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
 
 <!--<div class="row">-->
   <!--<div class="col-12">-->
@@ -80,3 +81,5 @@
     <!--</ngx-datatable>-->
   <!--</div>-->
 <!--</div>-->
+
+</div>

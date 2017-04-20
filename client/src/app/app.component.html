@@ -1,17 +1,11 @@
 <header class="container-fluid">
-  <div class="row">
-    <ow-main-nav></ow-main-nav>
-    <!--<ow-side-nav></ow-side-nav>-->
-    <!--<ow-top-nav></ow-top-nav>-->
-  </div>
+  <ow-main-nav></ow-main-nav>
 </header>
-<main class="container-fluid nav-offset main-offset">
-  <div class="row ml-1 mr-3 pr-3">
-    <router-outlet></router-outlet>
-  </div>
+<main class="main-offset">
+  <router-outlet></router-outlet>
 </main>
+<!--
 <footer class="container-fluid footer-offset mx-3">
   <ow-footer></ow-footer>
-</footer>
-
+</footer>-->
 <ngrx-store-log-monitor toggleCommand="ctrl-h" positionCommand="ctrl-m"></ngrx-store-log-monitor>

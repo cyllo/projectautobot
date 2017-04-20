@@ -1,0 +1,28 @@
+@import "../../../style/colors";
+
+.tab-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tab-list .tab-link {
+    display: inline-flex;
+    margin-right: 1rem;
+}
+
+.tab-list .tab-link a {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+}
+
+.tab-list .tab-link.selected a {
+    border: 1px solid $brand-primary;
+    font-weight: bold;
+}
+.tab-list .tab-link.selected a:hover {
+    background-color: $brand-primary;
+    color: $white;
+}

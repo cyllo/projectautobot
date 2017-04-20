@@ -1,8 +1,4 @@
-<div [formGroup]="form" class="input-group">
-  <a *ngIf="image" [routerLink]="['home']"><img src="/img/stplogo.svg" class="logo mr-2"/></a>
-  <p *ngIf="!image && fieldName" class="h5 mt-2 mr-3">{{ fieldName }}</p>
-  <input type="text"
-         class="form-control"
-         formControlName="{{ controlName }}"
-         placeholder="{{ placeholder }}">
+<div [formGroup]="form" class="input-group search-form">
+  <input type="text" id="player-search-form" class="form-control form-control-lg" formControlName="{{ controlName }}" placeholder="{{ placeholder }}"> 
+  <i class="material-icons icon-search">search</i>
 </div>

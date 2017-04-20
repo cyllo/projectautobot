@@ -1,6 +1,36 @@
 @import "../../../style/colors";
 
-.logo {
-  height: 38px;
-  fill: $brand-primary;
+.search-form {
+  position: relative;
+  align-items: center;
+}
+
+.search-form .icon-search {
+  left: 0;
+  position: absolute;
+  margin-left: 0.85rem;
+  z-index: 5;
+  color: $placeholdercolor;
+  -webkit-transition: all 0.5s; /* Safari */
+  transition: all 0.5s;
+  font-size: 1.5rem;
+}
+
+.search-form input[type="text"] {
+  border: 1px solid $bordercolor;
+  border-radius: 0.25rem !important;
+  padding: 1.15rem 1.15rem 1.15rem 2.85rem !important;
+  outline: none;
+  box-shadow: none;
+  -webkit-transition: all 0.5s; /* Safari */
+  transition: all 0.5s;
+  font-size: 1rem;
+}
+.search-form input[type="text"]:hover,
+.search-form input[type="text"]:focus {
+  border: 1px solid $brand-primary;
+}
+.search-form input[type="text"]:hover + .icon-search,
+.search-form input[type="text"]:focus + .icon-search {
+  color: $brand-primary !important;
 }

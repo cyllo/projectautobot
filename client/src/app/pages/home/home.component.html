@@ -1,35 +1,876 @@
-<div class="row">
-  <div class="col-12">
-    <p class="h5">LIVE STREAMS</p>
-    <div class="row pl-2">
-      <div class="col-xs-3 pl-1" *ngFor="let hero of heroes; let i = index">
-        <ow-video-card *ngIf="i < 4" [hero]="hero"></ow-video-card>
-      </div>
+<div class="container-fluid stp-container">
+
+    <div class="row news-cards my-3">
+
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 my-3">
+            <div class="card">
+                <div class="card-header">
+                  <small class="text-uppercase">Featured</small>
+                </div>
+                <div class="card-image">
+                  <img class="full-width" src="img/imgplaceholder.png" alt="">
+                </div>
+                <div class="card-block">
+                    <p class="h4 text-uppercase">Meta Snapshot #01</p>
+                    <p class="card-text">Fusce quis libero et dui vulputate varius vitae nec risus.</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        <!-- end col -->
+
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 my-3">
+            <div class="card">
+                <div class="card-header">
+                  <small class="text-uppercase">Featured</small>
+                </div>
+                <div class="card-image">
+                  <img class="full-width" src="img/imgplaceholder.png" alt="">
+                </div>
+                <div class="card-block">
+                    <p class="h4 text-uppercase">Meta Snapshot #01</p>
+                    <p class="card-text">Fusce quis libero et dui vulputate varius vitae nec risus.</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        <!-- end col -->
+
+        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 my-3">
+            <div class="card">
+                <div class="card-header">
+                  <small class="text-uppercase">Featured</small>
+                </div>
+                <div class="card-image">
+                  <img class="full-width" src="img/imgplaceholder.png" alt="">
+                </div>
+                <div class="card-block">
+                    <p class="h5 text-uppercase">Meta Snapshot #01</p>
+                    <p class="card-text">Fusce quis libero et dui vulputate varius vitae nec risus.</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        <!-- end col -->
+
+        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 my-3">
+            <div class="card">
+                <div class="card-header">
+                  <small class="text-uppercase">Featured</small>
+                </div>
+                <div class="card-image">
+                  <img class="full-width" src="img/imgplaceholder.png" alt="">
+                </div>
+                <div class="card-block">
+                    <p class="h5 text-uppercase">Meta Snapshot #01</p>
+                    <p class="card-text">Fusce quis libero et dui vulputate varius vitae nec risus.</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        <!-- end col -->
+
+        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 my-3">
+            <div class="card">
+                <div class="card-header">
+                  <small class="text-uppercase">Featured</small>
+                </div>
+                <div class="card-image">
+                  <img class="full-width" src="img/imgplaceholder.png" alt="">
+                </div>
+                <div class="card-block">
+                    <p class="h5 text-uppercase">Meta Snapshot #01</p>
+                    <p class="card-text">Fusce quis libero et dui vulputate varius vitae nec risus.</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        <!-- end col -->
+
+        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 my-3">
+            <div class="card">
+                <div class="card-header">
+                  <small class="text-uppercase">Featured</small>
+                </div>
+                <div class="card-image">
+                  <img class="full-width" src="img/imgplaceholder.png" alt="">
+                </div>
+                <div class="card-block">
+                    <p class="h5 text-uppercase">Meta Snapshot #01</p>
+                    <p class="card-text">Fusce quis libero et dui vulputate varius vitae nec risus.</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        <!-- end col -->
+
     </div>
-  </div>
-</div>
-<br/><br/>
-<div class="row">
-  <div class="col-12 pr-2">
-    <form [formGroup]="questionForm">
-      <ow-search #search></ow-search>
-    </form>
-  </div>
-</div>
-<br/>
-<div class="row">
-  <div class="col-sm-6 py-3" *ngFor="let roles of roleData">
-    <ow-role [roles]="roles" [heroes]="heroes"></ow-role>
-  </div>
-</div>
-<br/>
-<div class="row pr-3">
-  <div class="col-12">
-    <p class="h5">NEWS</p>
-    <div class="row">
-      <div class="col-6" *ngFor="let news of newsData">
-        <ow-news-card [news]="news"></ow-news-card>
+    <!-- end .news-cards -->
+
+    <div class="row heros-list my-3">
+
+      <div class="col-12 content-header my-1">
+        <div class="row">
+          <div class="col-xl-2">
+            <p class="h4 text-uppercase">Heroes</p>
+          </div>
+          <div class="col-xl-10">
+            <form [formGroup]="questionForm">
+              <ow-search #search></ow-search>
+            </form> 
+          </div>
+        </div>                                      
       </div>
+      <!-- end .content-header -->
+
+      <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 heros-set">
+        
+        <div class="row my-2">
+          <div class="col-12 content-header">
+            <img src="img/OffenseIcon.svg" class="role-icon" alt=""> 
+            <div class="role-overview">
+              <p class="role-title">Offense</p>
+              <p class="role-statistics">43,253,891 Games Played (25%)</p>
+            </div>   
+          </div>
+        </div>
+        <!-- .row -->
+
+        <div class="row my-2">
+
+          <div class="col-2">
+
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+            
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+            
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+            
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+        </div>
+        <!-- .row -->
+
+      </div>
+      <!-- end .heros-set -->
+
+      <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 heros-set">
+        
+        <div class="row my-2">
+          <div class="col-12 content-header">
+            <img src="img/OffenseIcon.svg" class="role-icon" alt=""> 
+            <div class="role-overview">
+              <p class="role-title">Offense</p>
+              <p class="role-statistics">43,253,891 Games Played (25%)</p>
+            </div>   
+          </div>
+        </div>
+        <!-- .row -->
+
+        <div class="row my-2">
+
+          <div class="col-2">
+
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+            
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+            
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+            
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+        </div>
+        <!-- .row -->
+
+      </div>
+      <!-- end .heros-set -->
+
+      <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 heros-set">
+        
+        <div class="row my-2">
+          <div class="col-12 content-header">
+            <img src="img/OffenseIcon.svg" class="role-icon" alt=""> 
+            <div class="role-overview">
+              <p class="role-title">Offense</p>
+              <p class="role-statistics">43,253,891 Games Played (25%)</p>
+            </div>   
+          </div>
+        </div>
+        <!-- .row -->
+
+        <div class="row my-2">
+
+          <div class="col-2">
+
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+            
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+            
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+            
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+        </div>
+        <!-- .row -->
+
+      </div>
+      <!-- end .heros-set -->
+
+      <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 heros-set">
+        
+        <div class="row my-2">
+          <div class="col-12 content-header">
+            <img src="img/OffenseIcon.svg" class="role-icon" alt=""> 
+            <div class="role-overview">
+              <p class="role-title">Offense</p>
+              <p class="role-statistics">43,253,891 Games Played (25%)</p>
+            </div>   
+          </div>
+        </div>
+        <!-- .row -->
+
+        <div class="row my-2">
+
+          <div class="col-2">
+
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+            
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+            
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+          <div class="col-2">
+            
+            <div class="square rounded">
+              <div class="square__content square__content--centered content">
+                <div class="img-overlay px-1 py-1">
+                  <small class="text-uppercase">Genji</small>
+                </div>
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- end .hero -->
+
+        </div>
+        <!-- .row -->
+
+      </div>
+      <!-- end .heros-set -->
+
     </div>
-  </div>
+    <!-- end .heros-list -->
+
+    <div class="row livestreams my-3">
+
+      <div class="col-12 content-header my-1">
+        <p class="h4 text-uppercase">Livestreams</p>
+      </div>
+      <!-- end .content-header -->
+
+      <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 my-3">
+
+        <div class="card livestream">
+
+          <div class="card-header">
+
+              <div class="row align-items-center">
+
+                <div class="col-5">
+                  <small class="text-uppercase">Top Heroes</small>
+                </div>
+                <!-- end .col -->
+
+                <div class="col-7">
+
+                  <div class="row">
+
+                    <div class="col-4 px-2">
+
+                      <div class="square rounded">
+                        <div class="square__content square__content--centered content">
+                          <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+                        </div>
+                      </div>
+
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-4 px-2">
+
+                      <div class="square rounded">
+                        <div class="square__content square__content--centered content">
+                          <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+                        </div>
+                      </div>
+
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-4 px-2">
+
+                      <div class="square rounded">
+                        <div class="square__content square__content--centered content">
+                          <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+                        </div>
+                      </div>
+
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row -->
+
+                </div>
+                <!-- end .col -->
+
+              </div>
+              <!-- end .row -->
+
+            </div>
+
+            <div class="card-image">
+              <img class="full-width" src="img/imgplaceholder.png" alt="">
+            </div>
+
+          <div class="card-block">
+            <img class="avatar" src="img/imgplaceholder_square.png" alt="">
+            <div class="stream-overview">
+              <p class="user-alias">MoonMoonOW <span class="skill-rating">5000</span></p>
+              <p class="viewers">59,836 viewers</p>
+            </div>
+          </div>
+
+        </div> 
+        <!-- end .card.livestream -->
+
+      </div>
+      <!-- end .col -->
+
+      <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 my-3">
+
+        <div class="card livestream">
+
+          <div class="card-header">
+
+              <div class="row align-items-center">
+
+                <div class="col-5">
+                  <small class="text-uppercase">Top Heroes</small>
+                </div>
+                <!-- end .col -->
+
+                <div class="col-7">
+
+                  <div class="row">
+
+                    <div class="col-4 px-2">
+
+                      <div class="square rounded">
+                        <div class="square__content square__content--centered content">
+                          <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+                        </div>
+                      </div>
+
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-4 px-2">
+
+                      <div class="square rounded">
+                        <div class="square__content square__content--centered content">
+                          <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+                        </div>
+                      </div>
+
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-4 px-2">
+
+                      <div class="square rounded">
+                        <div class="square__content square__content--centered content">
+                          <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+                        </div>
+                      </div>
+
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row -->
+
+                </div>
+                <!-- end .col -->
+
+              </div>
+              <!-- end .row -->
+
+            </div>
+
+            <div class="card-image">
+              <img class="full-width" src="img/imgplaceholder.png" alt="">
+            </div>
+
+          <div class="card-block">
+            <img class="avatar" src="img/imgplaceholder_square.png" alt="">
+            <div class="stream-overview">
+              <p class="user-alias">MoonMoonOW <span class="skill-rating">5000</span></p>
+              <p class="viewers">59,836 viewers</p>
+            </div>
+          </div>
+
+        </div> 
+        <!-- end .card.livestream -->
+
+      </div>
+      <!-- end .col -->
+
+      <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 my-3">
+
+        <div class="card livestream">
+
+          <div class="card-header">
+
+              <div class="row align-items-center">
+
+                <div class="col-5">
+                  <small class="text-uppercase">Top Heroes</small>
+                </div>
+                <!-- end .col -->
+
+                <div class="col-7">
+
+                  <div class="row">
+
+                    <div class="col-4 px-2">
+
+                      <div class="square rounded">
+                        <div class="square__content square__content--centered content">
+                          <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+                        </div>
+                      </div>
+
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-4 px-2">
+
+                      <div class="square rounded">
+                        <div class="square__content square__content--centered content">
+                          <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+                        </div>
+                      </div>
+
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-4 px-2">
+
+                      <div class="square rounded">
+                        <div class="square__content square__content--centered content">
+                          <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+                        </div>
+                      </div>
+
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row -->
+
+                </div>
+                <!-- end .col -->
+
+              </div>
+              <!-- end .row -->
+
+            </div>
+
+            <div class="card-image">
+              <img class="full-width" src="img/imgplaceholder.png" alt="">
+            </div>
+
+          <div class="card-block">
+            <img class="avatar" src="img/imgplaceholder_square.png" alt="">
+            <div class="stream-overview">
+              <p class="user-alias">MoonMoonOW <span class="skill-rating">5000</span></p>
+              <p class="viewers">59,836 viewers</p>
+            </div>
+          </div>
+
+        </div> 
+        <!-- end .card.livestream -->
+
+      </div>
+      <!-- end .col -->
+
+      <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 my-3">
+
+        <div class="card livestream">
+
+          <div class="card-header">
+
+              <div class="row align-items-center">
+
+                <div class="col-5">
+                  <small class="text-uppercase">Top Heroes</small>
+                </div>
+                <!-- end .col -->
+
+                <div class="col-7">
+
+                  <div class="row">
+
+                    <div class="col-4 px-2">
+
+                      <div class="square rounded">
+                        <div class="square__content square__content--centered content">
+                          <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+                        </div>
+                      </div>
+
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-4 px-2">
+
+                      <div class="square rounded">
+                        <div class="square__content square__content--centered content">
+                          <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+                        </div>
+                      </div>
+
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-4 px-2">
+
+                      <div class="square rounded">
+                        <div class="square__content square__content--centered content">
+                          <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png" alt="">
+                        </div>
+                      </div>
+
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row -->
+
+                </div>
+                <!-- end .col -->
+
+              </div>
+              <!-- end .row -->
+
+            </div>
+
+            <div class="card-image">
+              <img class="full-width" src="img/imgplaceholder.png" alt="">
+            </div>
+
+          <div class="card-block">
+            <img class="avatar" src="img/imgplaceholder_square.png" alt="">
+            <div class="stream-overview">
+              <p class="user-alias">MoonMoonOW <span class="skill-rating">5000</span></p>
+              <p class="viewers">59,836 viewers</p>
+            </div>
+          </div>
+
+        </div> 
+        <!-- end .card.livestream -->
+
+      </div>
+      <!-- end .col -->
+
+    </div>
+    <!-- end .livestreams -->
+
 </div>
+<!-- end .stp-container -->

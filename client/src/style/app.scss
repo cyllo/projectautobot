@@ -1,14 +1,206 @@
 @import "colors";
 @import "~bootstrap/scss/bootstrap.scss";
 
-* {
-  border-radius: 0 !important;
+html,
+body {
+  background-color: $bgcolor;
+  color: $textcolor;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  letter-spacing: .03rem;
+  line-height: 1.2;
+  font-family: 'Roboto', sans-serif;
+}
+
+.stp-container {
+  max-width: 1280px;
+}
+
+/* text */
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-weight: bold;
 }
 
 a {
-  color: inherit;
+  color: $gray;
+  text-decoration: none !important;
+}
+a:hover {
+  color: $brand-primary;
 }
 
-.badge-pill {
-  border-radius: 5px !important;
+p {
+  font-variant-ligatures: common-ligatures;
+  /* for up-to-date browsers, including IE10 and Opera 21 */
+  -webkit-font-variant-ligatures: common-ligatures;
+  /* for iOS and Safari 6 */
+}
+
+/* semantic colors */
+.gold {
+  background-color: $yellow;
+}
+.silver {
+  background-color: $gray-lighter;
+}
+.bronze {
+  background-color: $torch-red;  
+}
+
+/* images */
+.scaling-img {
+  width: 100%;
+}
+
+/* input */
+/* do not group these rules */
+*::-webkit-input-placeholder {
+  color: $placeholdercolor;
+}
+*:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+*:-moz-placeholder {
+  /* FF 4-18 */  
+  color: $placeholdercolor;
+}
+*:focus:-moz-placeholder {
+  color: transparent;
+}
+*::-moz-placeholder {
+  /* FF 19+ */  
+  color: $placeholdercolor;
+}
+*:focus::-moz-placeholder {
+  color: transparent;
+}
+*:-ms-input-placeholder {
+  /* IE 10+ */  
+  color: $placeholdercolor;
+}
+*:focus:-ms-input-placeholder {
+  color: transparent;
+}
+
+/* forms */
+form {
+  width: 100%;
+}
+
+/* utility */
+.square {
+  padding-bottom: 100%;
+  position: relative;
+  overflow: hidden;
+  /* Visual */  
+  background-color: $brand-primary;
+}
+.square__content {
+  /* Flexbox wrapper styles */
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.square__content--centered {
+  /* Vertical Centering */  
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  /* Horizontal Centering */  
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.square__content img {
+  height: 100%;
+}
+
+/* utility */
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+.fixed {
+  position: fixed;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.img-overlay {
+  left: 0;
+  bottom: 0;
+  position: absolute;
+}
+
+.img-overlay.light {
+  color: $white;
+}
+
+/* card */
+.card {
+  border: 0;
+}
+.card-header {
+  background-color: transparent;
+  position: absolute;
+  width: 100%;
+  border: 0;
+}
+.card-header p {
+  color: $white;
+}
+.card-block {
+  border: 1px solid $gray-lightest;
+}
+
+/* buttons */
+.btn-primary {
+  background-color: $white;
+  border: 2px solid $brand-primary;
+  color: $brand-primary;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+.btn-primary:hover {
+  background-color: $brand-primary;
+  border: 2px solid $brand-primary;
+  color: $white;
+}
+.content-header {
+  display: flex;
+  align-items: center;
+}
+.content-header > .row {
+  flex: 1;
+  align-items: center;
+}
+
+.role-icon {
+    width: 100%;
+    max-width: 1.8rem;
+    margin-right: 0.25rem;
 }

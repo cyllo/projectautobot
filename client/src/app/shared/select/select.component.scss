@@ -1,0 +1,28 @@
+@import "../../../style/colors";
+
+label[for="select"]{
+    text-transform: uppercase;
+}
+
+select {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.85rem !important;
+    text-transform: uppercase;
+    padding: 1rem 1.5rem;
+    height: auto !important;
+    outline: none;
+}
+
+select:hover {
+    border: 1px solid $brand-primary;
+}
+
+select:focus {
+    background-color: $white;
+    border: 1px solid $brand-primary !important;
+    box-shadow: none;
+}
+
+select option {
+    padding: 1rem 1.5rem;
+}

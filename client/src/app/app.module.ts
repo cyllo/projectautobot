@@ -15,26 +15,31 @@ import {
   FollowingComponent,
   LeaderboardComponent,
   HeroesComponent,
+  HeroComponent,
   ESportsComponent,
   LiveComponent,
   NewsComponent,
+  PostComponent,
   FriendsComponent
 } from './pages';
 import {
   ApiService,
   VideoCardComponent,
   SearchComponent,
+  ScheduleComponent,
   RoleComponent,
   NewsCardComponent,
   ImageComponent,
-  SelectComponent
+  SelectComponent,
+  TabsComponent,
+  TabComponent
 } from './shared';
 import { routing } from './app.routing';
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SidebarModule } from 'ng-sidebar';
-import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { PlayersService } from './services';
 import { players, playerData, playerDataCollection } from './reducers';
@@ -82,16 +87,21 @@ export function instrumentOptions() {
     FollowingComponent,
     LeaderboardComponent,
     HeroesComponent,
+    HeroComponent,
     ESportsComponent,
     LiveComponent,
     NewsComponent,
+    PostComponent,
     FriendsComponent,
     VideoCardComponent,
     SearchComponent,
+    ScheduleComponent,
     RoleComponent,
     NewsCardComponent,
     ImageComponent,
-    SelectComponent
+    SelectComponent,
+    TabsComponent,
+    TabComponent
   ],
   providers: [
     ApiService,

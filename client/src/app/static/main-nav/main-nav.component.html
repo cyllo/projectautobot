@@ -1,72 +1,96 @@
-<nav class="navbar navbar-toggleable-sm navbar-light fixed-top">
-  <div class="nav-item hidden-md-up">
-    <button class="navbar-toggler navbar-toggler-left"
-            (click)="isCollapsed = !isCollapsed"
-            [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </div>
-  <!--<a [routerLink]="['home']"><img src="/img/stplogo.svg" class="logo mr-2"/></a>-->
+<div class="fixed-top main-nav">
 
-  <div class="col-10 hidden-xs-down">
-    <form [formGroup]="questionForm">
-      <ow-search #search></ow-search>
-    </form>
-  </div>
-  <div class="col-2 my-2 input-group p-0">
-    <button class="btn btn-outline-primary btn-sm" type="submit">Sign up</button>
-    <button class="btn btn-primary btn-sm" type="submit">Login</button>
-  </div>
-</nav>
+    <div class="container-fluid">
 
-<div id="collapseExample" [ngbCollapse]="isCollapsed">
-  <div class="card">
-    <div class="card-block">
-      <ul class="nav flex-column sidebar-toggle">
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link pt-3 float-right" (click)="_toggleSidebar()"><i class="material-icons">dehaze</i></a>
-        </li>
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link pt-3" (click)="_toggleSidebar()" [routerLink]="['home']">
-            <i class="material-icons">home</i> <span class="align-top">Home</span>
-          </a>
-        </li>
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link pt-3" (click)="_toggleSidebar()" [routerLink]="['following']">
-            <i class="material-icons">favorite</i> <span class="align-top">Following</span>
-          </a>
-        </li>
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link pt-3" (click)="_toggleSidebar()" [routerLink]="['leaderboard']">
-            <i class="material-icons">filter_list</i> <span class="align-top">Leaderboard</span>
-          </a>
-        </li>
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link pt-3" (click)="_toggleSidebar()" [routerLink]="['heroes']">
-            <i class="material-icons">healing</i> <span class="align-top">Heroes</span>
-          </a>
-        </li>
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link pt-3" (click)="_toggleSidebar()" [routerLink]="['esports']">
-            <i class="material-icons">games</i> <span class="align-top">E-Sports</span>
-          </a>
-        </li>
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link pt-3" (click)="_toggleSidebar()" [routerLink]="['live']">
-            <i class="material-icons">tv</i> <span class="align-top">Live</span>
-          </a>
-        </li>
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link pt-3" (click)="_toggleSidebar()" [routerLink]="['news']">
-            <i class="material-icons">line_style</i> <span class="align-top">News</span>
-          </a>
-        </li>
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link pt-3" (click)="_toggleSidebar()" [routerLink]="['friends']">
-            <i class="material-icons">group</i> <span class="align-top">Friends</span>
-          </a>
-        </li>
-      </ul>
+        <div class="row navbar-container">
+
+            <nav class="navbar navbar-toggleable-md col-12">
+
+                <button class="navbar-toggler navbar-toggler-left" type="button" 
+                    (click)="isCollapsed = !isCollapsed; userActionCollapsed = true;" 
+                    data-toggle="collapse" 
+                    data-target="#navbarText" 
+                    aria-controls="navbarText" 
+                    aria-expanded="!isCollapsed" 
+                    aria-label="Toggle navigation">
+                    <i class="material-icons">menu</i>
+                </button>
+                <!-- end .navbar-toggle -->
+
+                <a class="navbar-brand mx-auto" [routerLink]="['home']"><img src="img/stplogo.svg" alt="logo" width="50"></a>
+
+                <div class="collapse navbar-collapse nav-menu" id="navbarText" [ngbCollapse]="isCollapsed">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" [routerLink]="['following']">Following</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['leaderboard']">Leaderboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['heroes']">Heroes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['esports']">Esports</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['live']">Live</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['news']">News</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end .navbar-collapse -->
+
+                <button class="navbar-toggler navbar-toggler-right" type="button" 
+                    (click)="userActionCollapsed = !userActionCollapsed; isCollapsed = true;" 
+                    data-toggle="collapse" 
+                    data-target="#userAction" 
+                    aria-controls="userAction" 
+                    aria-expanded="!userActionCollapsed" 
+                    aria-label="Toggle navigation">
+                    <i class="material-icons">account_box</i>
+                </button>
+                <!-- end .navbar-toggle -->
+
+                <div class="navbar-collapse collapse user-action" id="userAction" [ngbCollapse]="userActionCollapsed">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link btn-signup flex-vertical-center" href="#">Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-login flex-vertical-center" href="#"><i class="material-icons">person</i>Login</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end .navbar-collapse -->
+
+            </nav>
+            <!-- end .navbar -->
+
+        </div>
+        <!-- end .row.navbar-container -->
+
+        <div class="row">
+            <div class="col-12">
+                <ow-schedule></ow-schedule>
+            </div>
+        </div>
+        <!-- end .row -->
+
+        <div class="row">
+            <div class="col-xl-12">
+                <form [formGroup]="questionForm">
+                    <ow-search #search></ow-search>
+                    <p class="search-tooltip">Profile searching is case sensitive.</p>
+                </form>
+            </div>
+        </div>
+        <!-- end .row -->
+
     </div>
-  </div>
+    <!-- end .container-fluid -->
+
 </div>
+<!-- end .fixed-top main-nav -->
