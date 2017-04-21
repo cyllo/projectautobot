@@ -5,68 +5,11 @@
   z-index: 10;
   background-color: $white;
 }
-.main-nav > .container-fluid > .row {
-  padding: 0.5rem 0;
+
+.main-nav .nav-link {
+  font-size: 0.85rem;
 }
-.main-nav .navbar-container {
-  background-color: $white;
+
+.search-form-container {
   border-bottom: 1px solid $gray-lightest;
-}
-
-.main-nav .nav-menu .nav-item a {
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 0.85rem;
-  color: $gray-dark;
-}
-.main-nav .nav-menu .nav-item a:hover {
-  color: $brand-primary;
-}
-@include media-breakpoint-up(sm) {
-  .main-nav .nav-menu .nav-item {
-    margin: 0 1rem;
-  }  
-}
-@include media-breakpoint-down(md) {
-  .main-nav .nav-item a {
-    width: 100%;
-  }    
-}
-.main-nav .nav-menu .nav-item.active {
-  border-bottom: 4px solid $brand-primary;
-}
-.main-nav .nav-menu .nav-item.active a {
-  color: $brand-primary;
-}
-
-.btn-signup,
-.btn-login {
-  padding: 0.5rem 1.25rem !important;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  border-radius: 30rem;
-  line-height: 1.5rem;
-  display: inline-flex;
-  align-items: center;
-}
-.btn-signup {
-  font-weight: bold;
-}
-.btn-login {
-  border: 1px solid $brand-primary;
-  color: $brand-primary;
-}
-.btn-login:hover {
-  background-color: $brand-primary;
-  color: $white;
-}
-.btn-login i {
-  margin-right: 0.25rem;
-  font-size: 1rem;
-}
-
-.search-tooltip {
-  font-size: 0.7rem;
-  color: $gray-light;
-  margin: 0.25rem 0 0 0;
 }

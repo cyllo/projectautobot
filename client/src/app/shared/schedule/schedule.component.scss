@@ -1,66 +1,43 @@
 @import "../../../style/colors";
 @import "../../../../node_modules/bootstrap/scss/bootstrap-grid";
 
-.scheduled-content {
-    position: relative;
-    z-index: 1;
-}
+:host /deep/ .esports-schedule {
 
-.scheduled-content > .row {
-    flex-wrap: nowrap;
-    padding: 0 5rem;
-    overflow: hidden;
-}
+    .team-logo {
+        min-width: 1.5rem;
+        max-width: 10%;
+    }
 
-.scheduled-content p {
-    margin: 0;
-}
+    .carousel-indicators {
+        display: none;
+    }
 
-.scheduled-content .user-actions {
-    position: absolute;
-    width: 100%;
-    height: 100%;    
-    z-index: 2;
-}
+    .carousel-inner {
+        padding: 0 2.5rem;
+    }
 
-.scheduled-content .user-actions a {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    outline: none;
-    box-shadow: none;
-    background-color: $white;    
-}
+    .carousel-control-prev,
+    .carousel-control-next {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-.scheduled-content .user-actions a:hover {
-    color: $white;
-    background-color: $brand-primary;
-}
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+        background-color: $brand-primary;
+    }
 
-.scheduled-content .event-title {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    font-weight: bold;
-}
+    .carousel-control-prev {
+        background-color: black;
+        opacity: 1;
+        max-width: 2rem;
+    }
 
-.scheduled-content .event-date-time {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-}
+    .carousel-control-next {
+        background-color: black;
+        opacity: 1;
+        max-width: 2rem;
+    }
 
-.scheduled-content .team-scorecard {
-    border-top: 1px solid $gray-lightest;
-    margin-top: 0.25rem;
-    padding-top: 0.25rem;
-}
-
-.scheduled-content .team-logo {
-    width: 100%;
-    max-width: 1.5rem;
-}
-
-.scheduled-content .team-name {
-    font-size: 0.7rem;
-    text-transform: uppercase;
 }

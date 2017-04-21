@@ -5,7 +5,7 @@
   align-items: center;
 }
 
-.search-form .icon-search {
+.search-form .ico-search {
   left: 0;
   position: absolute;
   margin-left: 0.85rem;
@@ -30,7 +30,7 @@
 .search-form input[type="text"]:focus {
   border: 1px solid $brand-primary;
 }
-.search-form input[type="text"]:hover + .icon-search,
-.search-form input[type="text"]:focus + .icon-search {
+.search-form input[type="text"]:hover + .ico-search,
+.search-form input[type="text"]:focus + .ico-search {
   color: $brand-primary !important;
 }

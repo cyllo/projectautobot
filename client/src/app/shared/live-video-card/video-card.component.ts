@@ -13,7 +13,7 @@ export class VideoCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Hello video-card');
+    //console.log('Hello video-card');
   }
 
 }

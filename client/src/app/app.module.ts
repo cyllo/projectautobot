@@ -75,7 +75,7 @@ export function instrumentOptions() {
     routing,
     SidebarModule,
     InfiniteScrollModule,
-    NgxDatatableModule
+    NgxDatatableModule,
   ],
   declarations: [
     AppComponent,

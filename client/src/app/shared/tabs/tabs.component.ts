@@ -25,6 +25,9 @@ export class TabsComponent {
     });
     tab.selected = true;
     this.selected.emit({selectedTab: tab});
+    
+    // return false to prevent default behaviour
+    return false;
   }
 
 }

@@ -28,7 +28,7 @@
   </div>
   <div class="row my-3">
     <div class="col-12">
-      <ngx-datatable #heroesTable [rows]="rows">
+      <ngx-datatable class="material stp-table" #heroesTable [rows]="rows">
         <ngx-datatable-column>
           <ng-template let-row="row" ngx-datatable-cell-template>
             {{ row.$$index + 1 }}

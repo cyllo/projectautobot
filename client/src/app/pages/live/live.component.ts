@@ -25,8 +25,8 @@ export class LiveComponent implements OnInit, AfterContentInit, OnDestroy {
   videoUrl = 'http://img.youtube.com/vi/DWqhXWRaMmU/mqdefault.jpg';
   baseHero = {
     playerImage: this.videoUrl,
-    playerName: 'TEST-FOURTH',
-    points: 11567,
+    playerName: 'MoonMoonOw',
+    points: 5000,
     viewers: '349,836',
   };
 

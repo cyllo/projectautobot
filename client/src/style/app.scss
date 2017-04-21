@@ -1,5 +1,8 @@
 @import "colors";
 @import "~bootstrap/scss/bootstrap.scss";
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
 
 html,
 body {
@@ -8,7 +11,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  letter-spacing: .03rem;
+  letter-spacing: .02rem;
   line-height: 1.2;
   font-family: 'Roboto', sans-serif;
 }
@@ -18,15 +21,6 @@ body {
 }
 
 /* text */
-
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6 {
-  font-weight: bold;
-}
 
 a {
   color: $gray;
@@ -41,6 +35,15 @@ p {
   /* for up-to-date browsers, including IE10 and Opera 21 */
   -webkit-font-variant-ligatures: common-ligatures;
   /* for iOS and Safari 6 */
+}
+
+small {
+  font-size: 70%;
+}
+
+.label-light {
+  color: $white;
+  text-shadow: 0px 0px 3px rgba(0, 0, 0, 1); 
 }
 
 /* semantic colors */
@@ -100,7 +103,11 @@ form {
   position: relative;
   overflow: hidden;
   /* Visual */  
-  background-color: $brand-primary;
+  background-color: $gray;
+}
+.square.empty {
+  background-color: $gray-lightest;
+  border: 1px solid $gray-lighter;
 }
 .square__content {
   /* Flexbox wrapper styles */
@@ -135,7 +142,6 @@ form {
   height: 100%;
 }
 
-/* utility */
 .relative {
   position: relative;
 }
@@ -150,6 +156,10 @@ form {
   width: 100%;
 }
 
+.full-height {
+  height: 100%;
+}
+
 .img-overlay {
   left: 0;
   bottom: 0;
@@ -158,6 +168,10 @@ form {
 
 .img-overlay.light {
   color: $white;
+}
+
+.bottom-in-shadow {
+  box-shadow: inset 0 -0.8rem 0.8rem rgba(0, 0, 0, 0.75);
 }
 
 /* card */
@@ -177,30 +191,19 @@ form {
   border: 1px solid $gray-lightest;
 }
 
-/* buttons */
-.btn-primary {
-  background-color: $white;
-  border: 2px solid $brand-primary;
-  color: $brand-primary;
-  text-transform: uppercase;
-  font-size: 0.85rem;
+/* misc */
+.progress {
+  background-color: $gray-lightest;
 }
-.btn-primary:hover {
-  background-color: $brand-primary;
-  border: 2px solid $brand-primary;
-  color: $white;
-}
-.content-header {
-  display: flex;
-  align-items: center;
-}
-.content-header > .row {
-  flex: 1;
-  align-items: center;
+.progress-bar {
+  height: 0.25rem;
 }
 
-.role-icon {
-    width: 100%;
-    max-width: 1.8rem;
-    margin-right: 0.25rem;
+.skill-rating {
+  background-color: $brand-primary;
+  color: $white;
+}
+
+.carousel {
+  outline: none;
 }

@@ -1,4 +1,4 @@
-<div class="fixed-top main-nav">
+<div class="fixed-top main-nav" #mainnav>
 
     <div class="container-fluid">
 
@@ -21,23 +21,23 @@
 
                 <div class="collapse navbar-collapse nav-menu" id="navbarText" [ngbCollapse]="isCollapsed">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" [routerLink]="['following']">Following</a>
+                        <li class="nav-item mx-2 active">
+                            <a class="nav-link text-uppercase font-weight-bold" [routerLink]="['following']">Following</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" [routerLink]="['leaderboard']">Leaderboard</a>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-uppercase font-weight-bold" [routerLink]="['leaderboard']">Leaderboard</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" [routerLink]="['heroes']">Heroes</a>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-uppercase font-weight-bold" [routerLink]="['heroes']">Heroes</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" [routerLink]="['esports']">Esports</a>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-uppercase font-weight-bold" [routerLink]="['esports']">Esports</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" [routerLink]="['live']">Live</a>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-uppercase font-weight-bold" [routerLink]="['live']">Live</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" [routerLink]="['news']">News</a>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-uppercase font-weight-bold" [routerLink]="['news']">News</a>
                         </li>
                     </ul>
                 </div>
@@ -55,12 +55,12 @@
                 <!-- end .navbar-toggle -->
 
                 <div class="navbar-collapse collapse user-action" id="userAction" [ngbCollapse]="userActionCollapsed">
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link btn-signup flex-vertical-center" href="#">Sign Up</a>
+                    <ul class="nav navbar-nav ml-auto align-items-center">
+                        <li class="nav-item mx-2">
+                            <a class="nav-link btn text-uppercase" href="#">Sign Up</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn-login flex-vertical-center" href="#"><i class="material-icons">person</i>Login</a>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link d-flex align-items-center btn btn-primary text-uppercase" href="#"><i class="material-icons mr-1">person</i>Login</a>
                         </li>
                     </ul>
                 </div>
@@ -79,11 +79,11 @@
         </div>
         <!-- end .row -->
 
-        <div class="row">
+        <div class="row my-2 py-2 search-form-container">
             <div class="col-xl-12">
                 <form [formGroup]="questionForm">
                     <ow-search #search></ow-search>
-                    <p class="search-tooltip">Profile searching is case sensitive.</p>
+                    <small>Profile searching is case sensitive.</small>
                 </form>
             </div>
         </div>

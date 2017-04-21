@@ -16,8 +16,8 @@ $purple:    #613d7c !default;
 $gray-dark:                 #262626 !default;
 $gray:                      #4d4d4d !default;
 $gray-light:                #808080 !default;
-$gray-lighter:              #cccccc !default;
-$gray-lightest:             #f5f5f5 !default;
+$gray-lighter:              #e5e5e5 !default;
+$gray-lightest:             #fafafa !default;
 
 // Reassign color vars to semantic color scheme
 $brand-primary:             $torch-red !default;
@@ -30,7 +30,7 @@ $brand-inverse:             $gray-dark !default;
 
 $headerbg:                  $white;
 
-$bgcolor:                   $white;
+$bgcolor:                   $gray-lightest;
 $textcolor:                 $gray;
 $placeholdercolor:          $gray-light;
 $bordercolor:               $gray-lighter;

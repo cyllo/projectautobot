@@ -1,3 +1,105 @@
+<div class="card">
+
+    <div class="card-header">
+
+        <div class="row align-items-center">
+
+            <div class="col-5">
+                <small class="text-uppercase font-weight-bold label-light">Top Heroes</small>
+            </div>
+            <!-- end .col -->
+
+            <div class="col-7">
+
+                <div class="row">
+
+                    <div class="col-4 px-2">
+                        <div class="square rounded">
+                            <div class="square__content square__content--centered">
+                                <div class="img-overlay px-1 py-1 hidden-lg-up">
+                                    <small class="text-uppercase">Genji</small>
+                                </div>
+                                <img [src]="hero.playerImage" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-4 px-2">
+                        <div class="square rounded">
+                            <div class="square__content square__content--centered">
+                                <div class="img-overlay px-1 py-1 hidden-lg-up">
+                                    <small class="text-uppercase">Genji</small>
+                                </div>
+                                <img [src]="hero.playerImage" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-4 px-2">
+                        <div class="square rounded">
+                            <div class="square__content square__content--centered">
+                                <div class="img-overlay px-1 py-1 hidden-lg-up">
+                                    <small class="text-uppercase">Genji</small>
+                                </div>
+                                <img [src]="hero.playerImage" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end .col -->
+
+                </div>
+                <!-- end .row -->
+
+            </div>
+            <!-- end .col -->
+
+        </div>
+        <!-- end .row -->
+
+    </div>
+    <!-- end .card-header -->
+
+    <div class="card-image">
+        <img class="full-width" [src]="hero.playerImage" alt="">
+    </div>
+    <!-- end .card-image -->
+
+    <div class="card-block d-flex px-3 py-3">
+
+        <div class="row">
+
+            <div class="col-4">
+                <div class="square rounded">
+                    <div class="square__content square__content--centered">
+                        <img [src]="hero.playerImage" alt="">
+                    </div>
+                </div>
+            </div>
+            <!-- end .col -->
+
+            <div class="col-8 align-items-center">
+                <p class="d-flex text-uppercase font-weight-bold mb-0 align-items-center">
+                  {{ hero.playerName }}
+                  <small class="skill-rating rounded mx-2 px-1 py-1">{{ hero.points }}</small>
+                </p>
+                <small class="text-uppercase">{{ hero.viewers }} viewers</small>
+            </div>
+            <!-- end .col -->
+
+        </div>
+        <!-- end .row -->
+
+    </div>
+    <!-- end .card-block -->
+
+</div>
+<!-- end .card -->
+
+            
+<!--
+
 <div class="card" style="width: 20rem;">
   <img class="card-img-top" [src]="hero.playerImage" alt="Card image cap">
   <div class="card-block row py-1">
@@ -18,3 +120,4 @@
       </div>
   </div>
 </div>
+-->

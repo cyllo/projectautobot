@@ -1,192 +1,944 @@
-<div class="esports-schedule" #esportsschedule>
-  <tabs (selected)="$event.selectedTab">
-    <tab [tabTitle]="'All'">
-      <div class="scheduled-content">
-        <div class="user-actions">
-          <a href="#" class="btn prev float-left"><i class="material-icons">chevron_left</i></a>
-          <a href="#" class="btn next float-right"><i class="material-icons">chevron_right</i></a>
-        </div>      
-        <div class="row">
-          <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12 col-12">
-            <p class="event-title">OGN Overwatch APEX</p>
-            <p class="event-date-time">SAT APR 5 2017, 9:20PM (PST)</p>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
+<div class="row my-2" #esportsschedule>
+
+  <div class="col-12">
+
+    <tabs (selected)="$event.selectedTab">
+      
+      <tab [tabTitle]="'All'">
+
+        <ngb-carousel class="esports-schedule">
+
+          <template ngbSlide>
+
+            <div class="d-flex full-width">
+
+              <div class="row full-width flex-nowrap">
+
+                <div class="col-2">
+
+                  <div class="row align-items-center">
+
+                    <div class="col-12">
+                      <small class="text-uppercase font-weight-bold">OGN Overwatch APEX</small>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-12">
+                      <small class="text-uppercase">June 15, 2017 1:45 PM (PST)</small>
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+                  
+                </div>
+                <!-- end .col -->
+
+                <div class="col-2">
+
+                  <div class="row align-items-center">
+
+                    <div class="col-12">
+                      <small class="text-uppercase font-weight-bold">OGN Overwatch APEX</small>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-12">
+                      <small class="text-uppercase">June 15, 2017 1:45 PM (PST)</small>
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+                  
+                </div>
+                <!-- end .col -->
+
+                <div class="col-2">
+
+                  <div class="row align-items-center">
+
+                    <div class="col-12">
+                      <small class="text-uppercase font-weight-bold">OGN Overwatch APEX</small>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-12">
+                      <small class="text-uppercase">June 15, 2017 1:45 PM (PST)</small>
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+                  
+                </div>
+                <!-- end .col -->
+
+                <div class="col-2">
+
+                  <div class="row align-items-center">
+
+                    <div class="col-12">
+                      <small class="text-uppercase font-weight-bold">OGN Overwatch APEX</small>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-12">
+                      <small class="text-uppercase">June 15, 2017 1:45 PM (PST)</small>
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+                  
+                </div>
+                <!-- end .col -->
+
+                <div class="col-2">
+
+                  <div class="row align-items-center">
+
+                    <div class="col-12">
+                      <small class="text-uppercase font-weight-bold">Overwatch Premier Series 2017</small>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-12">
+                      <small class="text-uppercase">June 15, 2017 1:45 PM (PST)</small>
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+                  
+                </div>
+                <!-- end .col -->
+
+                <div class="col-2">
+
+                  <div class="row align-items-center">
+
+                    <div class="col-12">
+                      <small class="text-uppercase font-weight-bold">Overwatch Premier Series 2017</small>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-12">
+                      <small class="text-uppercase">June 15, 2017 1:45 PM (PST)</small>
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+                  
+                </div>
+                <!-- end .col -->
+
+              </div>
+              <!-- end .row -->              
+
             </div>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
+            <!-- end .d-flex -->
+            
+          </template>
+          <!-- end slide -->
+
+          <template ngbSlide>
+
+            <div class="d-flex full-width">
+
+              <div class="row full-width flex-nowrap">
+
+                <div class="col-2">
+
+                  <div class="row align-items-center">
+
+                    <div class="col-12">
+                      <small class="text-uppercase font-weight-bold">Overwatch Premier Series 2017</small>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-12">
+                      <small class="text-uppercase">June 15, 2017 1:45 PM (PST)</small>
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+                  
+                </div>
+                <!-- end .col -->
+
+                <div class="col-2">
+
+                  <div class="row align-items-center">
+
+                    <div class="col-12">
+                      <small class="text-uppercase font-weight-bold">Overwatch Premier Series 2017</small>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-12">
+                      <small class="text-uppercase">June 15, 2017 1:45 PM (PST)</small>
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+                  
+                </div>
+                <!-- end .col -->
+
+                <div class="col-2">
+
+                  <div class="row align-items-center">
+
+                    <div class="col-12">
+                      <small class="text-uppercase font-weight-bold">Overwatch Premier Series 2017</small>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-12">
+                      <small class="text-uppercase">June 15, 2017 1:45 PM (PST)</small>
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+                  
+                </div>
+                <!-- end .col -->
+
+                <div class="col-2">
+
+                  <div class="row align-items-center">
+
+                    <div class="col-12">
+                      <small class="text-uppercase font-weight-bold">Overwatch Premier Series 2017</small>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-12">
+                      <small class="text-uppercase">June 15, 2017 1:45 PM (PST)</small>
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+                  
+                </div>
+                <!-- end .col -->
+
+                <div class="col-2">
+
+                  <div class="row align-items-center">
+
+                    <div class="col-12">
+                      <small class="text-uppercase font-weight-bold">Overwatch Premier Series 2017</small>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-12">
+                      <small class="text-uppercase">June 15, 2017 1:45 PM (PST)</small>
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+                  
+                </div>
+                <!-- end .col -->
+
+                <div class="col-2">
+
+                  <div class="row align-items-center">
+
+                    <div class="col-12">
+                      <small class="text-uppercase font-weight-bold">Overwatch Premier Series 2017</small>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-12">
+                      <small class="text-uppercase">June 15, 2017 1:45 PM (PST)</small>
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+                  
+                </div>
+                <!-- end .col -->
+
+              </div>
+              <!-- end .row -->              
+
             </div>
-          </div><!-- end col -->
-          <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12 col-12">
-            <p class="event-title">OGN Overwatch APEX</p>
-            <p class="event-date-time">SAT APR 5 2017, 9:20PM (PST)</p>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
+            <!-- end .d-flex -->
+            
+          </template>
+          <!-- end slide -->
+
+        </ngb-carousel>
+        <!-- end ngb-carousel -->
+      
+      </tab>
+      <!-- end tab -->
+
+      <tab [tabTitle]="'Overwatch Premier Series 2017'">
+
+        <ngb-carousel class="esports-schedule">
+
+          <template ngbSlide>
+
+            <div class="d-flex full-width">
+
+              <div class="row full-width flex-nowrap">
+
+                <div class="col-2">
+
+                  <div class="row align-items-center">
+
+                    <div class="col-12">
+                      <small class="text-uppercase font-weight-bold">Overwatch Premier Series 2017</small>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-12">
+                      <small class="text-uppercase">June 15, 2017 1:45 PM (PST)</small>
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+                  
+                </div>
+                <!-- end .col -->
+
+                <div class="col-2">
+
+                  <div class="row align-items-center">
+
+                    <div class="col-12">
+                      <small class="text-uppercase font-weight-bold">Overwatch Premier Series 2017</small>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-12">
+                      <small class="text-uppercase">June 15, 2017 1:45 PM (PST)</small>
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+                  
+                </div>
+                <!-- end .col -->
+
+                <div class="col-2">
+
+                  <div class="row align-items-center">
+
+                    <div class="col-12">
+                      <small class="text-uppercase font-weight-bold">Overwatch Premier Series 2017</small>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-12">
+                      <small class="text-uppercase">June 15, 2017 1:45 PM (PST)</small>
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+                  
+                </div>
+                <!-- end .col -->
+
+                <div class="col-2">
+
+                  <div class="row align-items-center">
+
+                    <div class="col-12">
+                      <small class="text-uppercase font-weight-bold">Overwatch Premier Series 2017</small>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-12">
+                      <small class="text-uppercase">June 15, 2017 1:45 PM (PST)</small>
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+                  
+                </div>
+                <!-- end .col -->
+
+                <div class="col-2">
+
+                  <div class="row align-items-center">
+
+                    <div class="col-12">
+                      <small class="text-uppercase font-weight-bold">Overwatch Premier Series 2017</small>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-12">
+                      <small class="text-uppercase">June 15, 2017 1:45 PM (PST)</small>
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+                  
+                </div>
+                <!-- end .col -->
+
+                <div class="col-2">
+
+                  <div class="row align-items-center">
+
+                    <div class="col-12">
+                      <small class="text-uppercase font-weight-bold">Overwatch Premier Series 2017</small>
+                    </div>
+                    <!-- end .col -->
+
+                    <div class="col-12">
+                      <small class="text-uppercase">June 15, 2017 1:45 PM (PST)</small>
+                    </div>
+                    <!-- end .col -->
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+
+                  <div class="row my-1 align-items-center">
+
+                    <div class="col-xl-10 col-md-8">
+                      <img class="d-inline-flex full-width team-logo hidden-md-down" src="img/stplogo.svg" alt="">
+                      <small class="d-inline-flex text-uppercase">Energy Esports</small>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 text-center">
+                      <small class="d-inline-flex mr-auto text-uppercase">12</small>
+                    </div>                        
+
+                  </div>
+                  <!-- end .row --> 
+                  
+                </div>
+                <!-- end .col -->
+
+              </div>
+              <!-- end .row -->              
+
             </div>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-          </div><!-- end col -->
-          <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12 col-12">
-            <p class="event-title">OGN Overwatch APEX</p>
-            <p class="event-date-time">SAT APR 5 2017, 9:20PM (PST)</p>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-          </div><!-- end col -->
-          <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12 col-12">
-            <p class="event-title">OGN Overwatch APEX</p>
-            <p class="event-date-time">SAT APR 5 2017, 9:20PM (PST)</p>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-          </div><!-- end col -->
-          <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12 col-12">
-            <p class="event-title">OGN Overwatch APEX</p>
-            <p class="event-date-time">SAT APR 5 2017, 9:20PM (PST)</p>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-          </div><!-- end col -->
-          <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12 col-12">
-            <p class="event-title">OGN Overwatch APEX</p>
-            <p class="event-date-time">SAT APR 5 2017, 9:20PM (PST)</p>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-          </div><!-- end col -->
-        </div>      
-      </div>
-    </tab>
-    <tab [tabTitle]="'OGN Overwatch APEX'">
-      <div class="scheduled-content">
-        <div class="user-actions">
-          <a href="#" class="btn prev float-left"><i class="material-icons">chevron_left</i></a>
-          <a href="#" class="btn next float-right"><i class="material-icons">chevron_right</i></a>
-        </div>      
-        <div class="row">
-          <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12 col-12">
-            <p class="event-title">OGN Overwatch APEX</p>
-            <p class="event-date-time">SAT APR 5 2017, 9:20PM (PST)</p>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-          </div><!-- end col -->
-          <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12 col-12">
-            <p class="event-title">OGN Overwatch APEX</p>
-            <p class="event-date-time">SAT APR 5 2017, 9:20PM (PST)</p>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-          </div><!-- end col -->
-          <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12 col-12">
-            <p class="event-title">OGN Overwatch APEX</p>
-            <p class="event-date-time">SAT APR 5 2017, 9:20PM (PST)</p>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-          </div><!-- end col -->
-          <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12 col-12">
-            <p class="event-title">OGN Overwatch APEX</p>
-            <p class="event-date-time">SAT APR 5 2017, 9:20PM (PST)</p>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-          </div><!-- end col -->
-          <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12 col-12">
-            <p class="event-title">OGN Overwatch APEX</p>
-            <p class="event-date-time">SAT APR 5 2017, 9:20PM (PST)</p>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-          </div><!-- end col -->
-          <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12 col-12">
-            <p class="event-title">OGN Overwatch APEX</p>
-            <p class="event-date-time">SAT APR 5 2017, 9:20PM (PST)</p>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-            <div class="team-scorecard">
-              <img src="img/stplogo.svg" class="team-logo" alt="">
-              <span class="team-name">Energy Esports</span>
-              <span class="team-score float-right">-</span>
-            </div>
-          </div><!-- end col -->
-        </div>      
-      </div>
-    </tab>
-  </tabs>
+            <!-- end .d-flex -->
+            
+          </template>
+          <!-- end slide -->
+
+        </ngb-carousel>
+        <!-- end ngb-carousel -->
+      
+      </tab>
+      <!-- end tab -->
+    
+    </tabs>
+    <!-- end tabs -->
+
+  </div>
+  <!-- end .col -->
+
 </div>
+<!-- end .row -->
+  
