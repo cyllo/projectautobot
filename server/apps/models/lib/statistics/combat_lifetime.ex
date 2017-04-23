@@ -16,7 +16,6 @@ defmodule Models.Statistics.CombatLifetime do
     field :shots_fired, :integer
     field :shots_hit, :integer
     field :critical_hits, :integer
-    field :critical_hit_accuracy, :integer
     field :healing_done, :integer
     field :final_blows, :integer
     field :melee_final_blows, :integer
@@ -47,7 +46,6 @@ defmodule Models.Statistics.CombatLifetime do
     :shots_fired,
     :shots_hit,
     :critical_hits,
-    :critical_hit_accuracy,
     :healing_done,
     :final_blows,
     :melee_final_blows,

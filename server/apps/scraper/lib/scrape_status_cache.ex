@@ -1,26 +1,38 @@
 defmodule Scraper.ScrapeStatusCache do
-  def mark_tag_scraped(gamer_tag_id) do
-    ConCache.put(:scraper_store, :tags_scraped, get_tags_scraped() ++ [gamer_tag_id])
-
-    gamer_tag_id
-  end
+  def search_cache_ttl, do: :timer.minutes(30)
+  def scrape_cache_ttl, do: :timer.minutes(60)
 
   def mark_tag_searched(tag) do
-    ConCache.put(:scraper_store, :tags_searched, get_tags_searched() ++ [tag])
+    ConCache.put(:scraper_tag_search_store, tag, NaiveDateTime.utc_now())
 
     tag
   end
 
-  def has_searched_tag?(tag) do
-    get_tags_searched()
-      |> Enum.any?(&(tag === &1))
+  def mark_tag_scraped(gamer_tag_id) do
+    ConCache.put(:scraper_profile_scrape_store, gamer_tag_id, NaiveDateTime.utc_now())
+
+    gamer_tag_id
   end
 
-  def has_scraped_gamer_tag(gamer_tag_id) do
-    get_tags_scraped()
-      |> Enum.any?(&(gamer_tag_id === &1))
+  def ms_before_next_search(tag), do: tag |> get_tag_searched |> process_cache_to_time_til_search(search_cache_ttl())
+  def ms_before_next_scrape(gamer_tag_id), do: gamer_tag_id |> get_tag_scraped |> process_cache_to_time_til_search(scrape_cache_ttl())
+
+  def has_searched_tag?(tag), do: !!get_tag_searched(tag)
+  def has_scraped_gamer_tag?(gamer_tag_id),  do: !!get_tag_scraped(gamer_tag_id)
+
+  defp get_tag_searched(tag), do: ConCache.get(:scraper_tag_search_store, tag)
+  defp get_tag_scraped(gamer_tag_id), do: ConCache.get(:scraper_profile_scrape_store, gamer_tag_id)
+
+  defp process_cache_to_time_til_search(res, search_ttl) do
+    case res do
+      nil -> 0
+      last_scrape_time -> ms_till_can_scrape(last_scrape_time, search_ttl)
+    end
   end
 
-  defp get_tags_scraped, do: ConCache.get(:scraper_store, :tags_scraped) || []
-  defp get_tags_searched, do: ConCache.get(:scraper_store, :tags_searched) || []
+  defp ms_till_can_scrape(last_scrape, ms_ttl) do
+    last_scrape
+      |> NaiveDateTime.add(ms_ttl, :millisecond)
+      |> NaiveDateTime.diff(NaiveDateTime.utc_now(), :millisecond)
+  end
 end

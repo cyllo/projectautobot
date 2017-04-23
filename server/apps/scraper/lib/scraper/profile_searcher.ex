@@ -1,19 +1,11 @@
 defmodule Scraper.ProfileSearcher do
-  # use GenServer
   alias Scraper.ProfileUrl
   alias Scraper.DataProcessor.{Helpers, UserInfo}
   alias Models.Game
 
   @platform_possibilities ["xbl", "psn", "pc"]
   @pc_regions ["us", "eu", "kr"]
-
-  # # Api
-  # def start_link(_), do: start_link()
-  # def start_link do
-  #   GenServer.start_link(__MODULE__, [])
-  # end
-
-  # Server
+  @search_timeout :timer.seconds(10)
 
   def find_profile_tag(tag) do
     tag
@@ -27,15 +19,13 @@ defmodule Scraper.ProfileSearcher do
   def find_saved_tag(tag), do: Game.get_all_gamer_tags(tag: tag)
 
   defp fetch_profile_possibility(profile_url) do
-    IO.puts "Fetching #{profile_url}"
-
-    case HTTPoison.get(profile_url) do
+    case HTTPoison.get(profile_url, [], timeout: @search_timeout) do
       {:ok, %{body: res}} -> {profile_url, res}
       {:error, _} -> fetch_profile_possibility(profile_url)
     end
   end
 
-  defp fetch_profile_possibilities(profile_urls), do: Task.async_stream(profile_urls, &fetch_profile_possibility/1)
+  defp fetch_profile_possibilities(profile_urls), do: Task.async_stream(profile_urls, &fetch_profile_possibility/1, timeout: @search_timeout)
 
   defp process_response({:ok, {profile_url, html_src}}) do
     if (Helpers.is_page_not_found?(html_src)), do: nil, else: parse_profile(html_src, profile_url)
@@ -50,9 +40,7 @@ defmodule Scraper.ProfileSearcher do
   defp parse_profile(html_src, profile_url), do: Map.merge(UserInfo.user_info(html_src), ProfileUrl.get_info_from_url(profile_url))
 
   defp load_gamer_tag(params) do
-    %{tag: tag} = params
-
-    case Game.find_gamer_tag(tag: tag) do
+    case params |> Map.take([:tag, :platform, :region]) |> Game.find_gamer_tag do
       {:error, _} ->
         {:ok, gamer_tag} = Game.create_gamer_tag(params)
         gamer_tag
@@ -60,6 +48,7 @@ defmodule Scraper.ProfileSearcher do
       {:ok, gamer_tag} -> gamer_tag
     end
   end
+
   defp load_gamer_tags(profiles), do: Enum.map(profiles, &load_gamer_tag/1)
 
   defp deserialize_profiles_response(res) do

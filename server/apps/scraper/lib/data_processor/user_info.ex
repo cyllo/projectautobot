@@ -65,7 +65,7 @@ defmodule Scraper.DataProcessor.UserInfo do
   end
 
   defp inactive_profile_region_platforms(src) do
-    platforms = src
+    src
       |> Helpers.find_inactive_player_platforms
       |> Enum.map(&process_inactive_platform/1)
   end

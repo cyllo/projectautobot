@@ -5,8 +5,6 @@ defmodule Models.Model do
 
       import Ecto
       import Ecto.{Query, Changeset}
-
-      # import Models.Model, [create_model_methods: 1]
     end
   end
 
@@ -15,6 +13,7 @@ defmodule Models.Model do
       unquote(create_get_for_model(model))
       unquote(create_find_for_model(model))
       unquote(create_get_by_ids_for_model(model))
+      unquote(create_get_all_for_model(model))
     end
   end
 
@@ -35,13 +34,38 @@ defmodule Models.Model do
 
   defp get_and_pluralize_model_name(model), do: model |> get_model_name |> pluralize_model_name
 
+  defp create_get_all_for_model(model) do
+    fn_name = :"get_all_#{get_and_pluralize_model_name(model)}"
+
+    quote do
+      import Ecto.Query, only: [from: 2]
+
+      @spec unquote(fn_name)() :: [unquote(model)]
+      def unquote(fn_name)(), do: Models.Repo.all(unquote(model))
+
+      @spec unquote(fn_name)(params :: map) :: [unquote(model)]
+      def unquote(fn_name)(params) when is_map(params) do
+        params = Map.to_list(params)
+
+        apply(__MODULE__, unquote(fn_name), [params])
+      end
+
+      @spec unquote(fn_name)(where :: Keyword.t, preload :: Keyword.t) :: [unquote(model)]
+      def unquote(fn_name)(where, preload \\ []) do
+        from(unquote(model), where: ^where, preload: ^preload) |> Models.Repo.all
+      end
+    end
+  end
+
   defp create_get_for_model(model) do
     fn_name = :"get_#{get_model_name(model)}"
 
     quote do
-      @spec unquote(fn_name)(id :: String.t) :: unquote(model)
-      def unquote(fn_name)(id) do
-        case Models.Repo.get(unquote(model), id) do
+      import Ecto.Query, only: [from: 2]
+
+      @spec unquote(fn_name)(id :: String.t, preloads :: Keyword.t) :: unquote(model)
+      def unquote(fn_name)(id, preloads \\ []) do
+        case from(unquote(model), preload: ^preloads) |> Models.Repo.get(id) do
           nil -> {:error, "#{id} not found"}
           model -> {:ok, model}
         end
@@ -53,7 +77,7 @@ defmodule Models.Model do
     fn_name = :"find_#{get_model_name(model)}"
 
     quote do
-      # @spec unquote(fn_name)(params) :: unquote(model)
+      @spec unquote(fn_name)(params :: map) :: unquote(model)
       def unquote(fn_name)(params), do: Models.Model.find_model(unquote(model), params)
     end
   end

@@ -17,7 +17,7 @@ defmodule Scraper.ProfileScraper do
     end
   end
 
-  defp go_to_tag_page(tag, platform \\ nil, region \\ nil) do
+  defp go_to_tag_page(tag, platform, region) do
     with {:ok, pid} <- SessionServer.start_link do
       SessionServer.start_session pid
       params = %{platform: platform, region: region}

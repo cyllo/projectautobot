@@ -10,14 +10,16 @@ defmodule Api.Web.Router do
   scope "/" do
     pipe_through :graphql
 
-    forward "/graphiql", Absinthe.Plug.GraphiQL,
-      schema: Api.Schema,
-      max_complexity: @max_complexity,
-      analyze_complexity: true
-
     forward "/graphql", Absinthe.Plug,
       schema: Api.Schema,
       max_complexity: @max_complexity,
       analyze_complexity: true
+
+    if Mix.env() === :dev do
+      forward "/graphiql", Absinthe.Plug.GraphiQL,
+        schema: Api.Schema,
+        max_complexity: @max_complexity,
+        analyze_complexity: true
+    end
   end
 end

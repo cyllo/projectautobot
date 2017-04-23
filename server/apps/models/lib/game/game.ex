@@ -1,17 +1,26 @@
 defmodule Models.Game do
   use Models.Model
-
-  require IEx
   alias Models.Game.{Hero, GamerTag}
   alias Models.{Repo, Model}
+
+  @statistic_relations [
+    :combat_average_statistic, :game_history_statistic,
+    :combat_best_statistic, :combat_lifetime_statistic,
+    :match_awards_statistic
+  ]
+
+  @all_heroes_snapshot_relations @statistic_relations
+  @hero_snapshot_relations [:hero, :hero_specific_statistic] ++ @statistic_relations
 
   Model.create_model_methods(Hero)
   Model.create_model_methods(GamerTag)
 
-  def get_all_gamer_tags, do: Repo.all(GamerTag)
-  def get_all_gamer_tags(params), do: from(gt in GamerTag, where: ^params) |> Repo.all
-  def get_all_heroes, do: Repo.all(Hero)
-  def get_all_heroes(params), do: from(gt in Hero, where: ^params) |> Repo.all
+  def get_gamer_tag_with_snapshots(id) do
+    get_gamer_tag(id, snapshot_statistics: [
+      all_heroes_snapshot_statistics: @all_heroes_snapshot_relations,
+      hero_snapshot_statistics: @hero_snapshot_relations
+    ])
+  end
 
   def create_hero(name, code) do
     Hero.create_changeset(%{name: name, code: code})
