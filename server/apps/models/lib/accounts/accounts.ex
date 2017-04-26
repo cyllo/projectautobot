@@ -1,7 +1,9 @@
 defmodule Models.Accounts do
   alias Models.Accounts.User
-  alias Models.Repo
+  alias Models.{Repo, Model}
   use Models.Model
+
+  Model.create_model_methods(User)
 
   @doc """
   Creates a user from params
@@ -11,10 +13,10 @@ defmodule Models.Accounts do
   ## Examples
 
       iex> {:ok, _} = Models.Accounts.create_user(%{username: "Test", password: "password", email: "eamil@g.ca"})
-      iex> {:error, errors} = Models.Accounts.create_user(%{username: "test", password: "password", email: "eamil2@g.ca"})
+      iex> {:error, %{errors: errors}} = Models.Accounts.create_user(%{username: "test", password: "password", email: "eamil2@g.ca"})
       iex> {:username, {"has already been taken", []}} in errors
       true
-      iex> {:error, errors} = Models.Accounts.create_user(%{username: "tobias", password: "password", email: "eamil@g.ca"})
+      iex> {:error, %{errors: errors}} = Models.Accounts.create_user(%{username: "tobias", password: "password", email: "eamil@g.ca"})
       iex> {:email, {"has already been taken", []}} in errors
       true
 
@@ -22,16 +24,7 @@ defmodule Models.Accounts do
   def create_user(params) do
     changeset = User.create_changeset params
 
-    if (changeset.valid?) do
-      {status, res} = Repo.insert(changeset)
-
-      case status do
-        :ok -> {:ok, res}
-        :error -> {:error, res.errors}
-      end
-    else
-      {:error, changeset.errors}
-    end
+    if (changeset.valid?), do: Repo.insert(changeset), else: {:error, changeset}
   end
 
   @doc """
@@ -58,50 +51,45 @@ defmodule Models.Accounts do
   end
 
   @doc """
-  Finds user by username
-
-  Returns `{:ok, user}` or `{:error, error}`.
-
-  ## Examples
-
-      iex> {:ok, _} = Models.Accounts.create_user(%{username: "Test", password: "password", email: "eamil@g.ca"})
-      iex> {:ok, user} = Models.Accounts.find_user_by_username("test")
-      iex> user.username
-      "Test"
-
-      iex> {:error, errors} = Models.Accounts.find_user_by_username("test")
-      iex> {:username, "not found"} in errors
-      true
-
-  """
-  def find_user_by_username(username) do
-    res = Repo.get_by User, username: username
-
-    if (res), do: {:ok, res}, else: {:error, [username: "not found"]}
-  end
-
-  @doc """
   Finds user by `user_name` and verifies `password`
 
   Returns `{:ok, user}` or `{:error, error}`.
 
   ## Examples
 
-      iex> {:error, errors} = Models.Accounts.find_user_and_confirm_password("test", "pass")
-      iex> {:username, "not found"} in errors
+      iex> {:error, error} = Models.Accounts.find_user_and_confirm_password("test", "pass")
+      iex> "where username not found" === errors
       true
       iex> Models.Accounts.create_user(%{username: "bill", password: "password", email: "email@email.com"})
-      iex> {:error, errors} = Models.Accounts.find_user_and_confirm_password("bill", "pass")
-      iex> {:password, "is not correct"} in errors
+      iex> {:error, error} = Models.Accounts.find_user_and_confirm_password("bill", "pass")
+      iex> "password is not correct" === error
       true
       iex> {:ok, user} = Models.Accounts.find_user_and_confirm_password("bill", "password")
       iex> user.username
       "bill"
+      iex> {:ok, user} = Models.Accounts.find_user_and_confirm_password("email@email.com", "password")
+      iex> user.username
+      "bill"
 
   """
-  def find_user_and_confirm_password(username, password) do
-    with {:ok, user} <- find_user_by_username username do
-      if User.has_correct_pw?(user, password), do: {:ok, user}, else: {:error, [password: "is not correct"]}
+  def find_user_and_confirm_password(identifier, password) do
+    with {:ok, user} <- find_user_by_email_or_username(identifier) do
+      check_user_password(user, password)
+    end
+  end
+
+  def find_user_by_email_or_username(identifier) do
+    case from(User, where: [username: ^identifier], or_where: [email: ^identifier]) |> Repo.one do
+      nil -> {:error, "no user found with identifier: #{identifier}"}
+      user -> {:ok, user}
+    end
+  end
+
+  defp check_user_password(user, password) do
+    if User.has_correct_pw?(user, password) do
+      {:ok, user}
+    else
+      {:error, "password is not correct"}
     end
   end
 

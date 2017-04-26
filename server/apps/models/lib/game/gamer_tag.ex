@@ -11,7 +11,7 @@ defmodule Models.Game.GamerTag do
     field :competitive_level, :integer
     field :competitive_rank_url, :string
 
-    field :region, :string
+    field :region, :string, default: "" # empty string default to satisfy null region for unique
     field :platform, :string
 
     field :level, :integer

@@ -36,9 +36,10 @@ defmodule Api.Mixfile do
       {:phoenix_pubsub, "~> 1.0"},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:absinthe, "~> 1.3.0-beta", override: true},
-      {:absinthe_plug, "~> 1.3.0-beta"},
-      {:proper_case, "~> 1.0.0"}
+      {:absinthe, "~> 1.3.0"},
+      {:absinthe_plug, "~> 1.3.0"},
+      {:joken, "~> 1.4.0"},
+      {:libsodium, "~> 0.0.3"}
     ]
   end
 end

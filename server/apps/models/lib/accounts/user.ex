@@ -1,5 +1,6 @@
 defmodule Models.Accounts.User do
-  alias Models.Accounts.{User, Follower, GamerTag}
+  alias Models.Accounts.{User, Follower, Friendship}
+  alias Models.Game.GamerTag
   use Models.Model
 
   schema "users" do
@@ -49,8 +50,12 @@ defmodule Models.Accounts.User do
   def has_correct_pw?(%User{} = user, password), do: Comeonin.Pbkdf2.checkpw(password, user.password_hash)
 
   defp put_password(changeset) do
-    password_hash = Comeonin.Pbkdf2.hashpwsalt(changeset.params["password"])
+    if (changeset.valid?) do
+      password_hash = Comeonin.Pbkdf2.hashpwsalt(changeset.params["password"])
 
-    put_change(changeset, :password_hash, password_hash)
+      put_change(changeset, :password_hash, password_hash)
+    else
+      changeset
+    end
   end
 end

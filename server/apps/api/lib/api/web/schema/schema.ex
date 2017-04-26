@@ -1,6 +1,6 @@
 defmodule Api.Schema do
   use Absinthe.Schema
-  alias Api.{GamerTagResolver, HeroResolver, ProfileSearchResolver}
+  alias Api.{GamerTagResolver, HeroResolver, UserResolver, SessionResolver}
 
   import_types Absinthe.Type.Custom
   import_types Api.Schema.ScalarTypes
@@ -8,6 +8,7 @@ defmodule Api.Schema do
   import_types Api.Schema.GameTypes
   import_types Api.Schema.SnapshotTypes
   import_types Api.Schema.StatisticTypes
+  import_types Api.Schema.SessionTypes
 
   query do
     field :gamer_tag, :gamer_tag do
@@ -41,7 +42,7 @@ defmodule Api.Schema do
 
     @desc "Search gamer tag by tag name"
     field :search_gamer_tag, list_of(:gamer_tag) do
-      arg :tag, :string
+      arg :tag, non_null(:string)
 
       resolve &GamerTagResolver.search/2
     end
@@ -50,9 +51,33 @@ defmodule Api.Schema do
   mutation do
     @desc "Scrapes a gamer_tag"
     field :scrape_gamer_tag, :gamer_tag do
-      arg :id, :integer
+      arg :id, non_null(:integer)
 
       resolve &GamerTagResolver.scrape/2
     end
+
+    @desc "Creates a user account"
+    field :create_user, :user do
+      arg :username, non_null(:string)
+      arg :email, non_null(:string)
+      arg :password, non_null(:string)
+
+      resolve &UserResolver.create/2
+    end
+
+    field :login_user, :current_session do
+      arg :identifier, non_null(:string)
+      arg :password, non_null(:string)
+
+      resolve &SessionResolver.login/2
+    end
+  end
+
+  def middleware(middleware, _field, %{identifier: :mutation}) do
+    middleware ++ [Api.Middleware.ChangesetErrorFormatter]
+  end
+
+  def middleware(middleware, _, _) do
+    middleware
   end
 end
