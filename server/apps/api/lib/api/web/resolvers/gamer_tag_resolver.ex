@@ -1,5 +1,4 @@
 defmodule Api.GamerTagResolver do
-  import IEx
   alias Models.Game
   alias Scraper.ScrapeStatusCache
   alias Api.Helpers

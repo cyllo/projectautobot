@@ -1,6 +1,6 @@
 defmodule Api.Schema do
   use Absinthe.Schema
-  alias Api.{GamerTagResolver, HeroResolver, UserResolver, SessionResolver}
+  alias Api.{GamerTagResolver, HeroResolver, UserResolver, SessionResolver, BlogResolver}
 
   import_types Absinthe.Type.Custom
   import_types Api.Schema.ScalarTypes
@@ -40,6 +40,19 @@ defmodule Api.Schema do
       resolve &HeroResolver.all/2
     end
 
+    field :blog_post, :blog_post do
+      arg :id, non_null(:integer)
+
+      resolve &BlogResolver.find/2
+    end
+
+    field :blog_posts, list_of(:blog_post) do
+      arg :title, :string
+
+      resolve &BlogResolver.all/2
+    end
+
+
     @desc "Search gamer tag by tag name"
     field :search_gamer_tag, list_of(:gamer_tag) do
       arg :tag, non_null(:string)
@@ -70,6 +83,13 @@ defmodule Api.Schema do
       arg :password, non_null(:string)
 
       resolve &SessionResolver.login/2
+    end
+
+    field :create_blog_post, :blog_post do
+      arg :title, non_null(:string)
+      arg :content, non_null(:string)
+
+      resolve &BlogResolver.all/2
     end
   end
 
