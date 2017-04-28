@@ -1,30 +1,10 @@
 @import "../../../style/colors";
 
-.search-form {
-  position: relative;
-  align-items: center;
-}
-
-.search-form .ico-search {
-  left: 0;
-  position: absolute;
-  margin-left: 0.85rem;
-  z-index: 5;
-  color: $placeholdercolor;
-  -webkit-transition: all 0.5s; /* Safari */
-  transition: all 0.5s;
-  font-size: 1.5rem;
-}
-
 .search-form input[type="text"] {
   border: 1px solid $bordercolor;
-  border-radius: 0.25rem !important;
-  padding: 1.15rem 1.15rem 1.15rem 2.85rem !important;
   outline: none;
   box-shadow: none;
-  -webkit-transition: all 0.5s; /* Safari */
-  transition: all 0.5s;
-  font-size: 1rem;
+  font-size: 0.85rem;
 }
 .search-form input[type="text"]:hover,
 .search-form input[type="text"]:focus {
@@ -33,4 +13,14 @@
 .search-form input[type="text"]:hover + .ico-search,
 .search-form input[type="text"]:focus + .ico-search {
   color: $brand-primary !important;
+}
+
+.search-form .ico-search {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(50%, -50%);
+  color: $placeholdercolor;
+  font-size: 125%;
+  z-index: 5;
 }

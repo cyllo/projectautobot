@@ -11,13 +11,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  letter-spacing: .02rem;
-  line-height: 1.2;
-  font-family: 'Roboto', sans-serif;
-}
-
-.stp-container {
-  max-width: 1280px;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 /* text */
@@ -31,14 +25,9 @@ a:hover {
 }
 
 p {
-  font-variant-ligatures: common-ligatures;
-  /* for up-to-date browsers, including IE10 and Opera 21 */
-  -webkit-font-variant-ligatures: common-ligatures;
-  /* for iOS and Safari 6 */
-}
-
-small {
-  font-size: 70%;
+  font-variant-ligatures: common-ligatures; /* for up-to-date browsers, including IE10 and Opera 21 */
+  -webkit-font-variant-ligatures: common-ligatures; /* for iOS and Safari 6 */
+  
 }
 
 .label-light {
@@ -142,15 +131,15 @@ form {
   height: 100%;
 }
 
-.relative {
-  position: relative;
-}
-.absolute {
-  position: absolute;
-}
-.fixed {
-  position: fixed;
-}
+/* positioning */
+
+.relative   { position: relative; }
+.absolute   { position: absolute; }
+.fixed      { position: fixed;    }
+.pos-top    { top: 0;    }
+.pos-bot    { bottom: 0; }
+.pos-left   { left: 0;   }
+.pos-right  { right: 0;  }
 
 .full-width {
   width: 100%;
@@ -191,19 +180,10 @@ form {
   border: 1px solid $gray-lightest;
 }
 
-/* misc */
+/* progress bars */
 .progress {
-  background-color: $gray-lightest;
+  background-color: $gray-dark;
 }
 .progress-bar {
   height: 0.25rem;
-}
-
-.skill-rating {
-  background-color: $brand-primary;
-  color: $white;
-}
-
-.carousel {
-  outline: none;
 }

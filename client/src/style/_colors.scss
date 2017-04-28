@@ -10,7 +10,7 @@ $blue:      #0275d8 !default;
 $athensgray: #e9eaee !default;
 $teal:      #5bc0de !default;
 $pink:      #ff5b77 !default;
-$purple:    #613d7c !default;
+$purple:    #414457 !default;
 
 // Create grayscale
 $gray-dark:                 #262626 !default;
@@ -29,8 +29,10 @@ $brand-danger:              $red !default;
 $brand-inverse:             $gray-dark !default;
 
 $headerbg:                  $white;
+$navbarbg:                  $purple;
+$navbar-text:               $white;
 
-$bgcolor:                   $gray-lightest;
+$bgcolor:                   $white;
 $textcolor:                 $gray;
 $placeholdercolor:          $gray-light;
 $bordercolor:               $gray-lighter;

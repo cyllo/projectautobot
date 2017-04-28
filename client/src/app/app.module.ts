@@ -9,7 +9,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
 
 import { AppComponent } from './app.component';
-import { TopNavComponent, SideNavComponent, FooterComponent } from './static';
+import { TopNavComponent, SideBarLeftComponent, FooterComponent } from './static';
 import {
   HomeComponent,
   FollowingComponent,
@@ -30,9 +30,7 @@ import {
   RoleComponent,
   NewsCardComponent,
   ImageComponent,
-  SelectComponent,
-  TabsComponent,
-  TabComponent
+  SelectComponent
 } from './shared';
 import { routing } from './app.routing';
 
@@ -81,7 +79,7 @@ export function instrumentOptions() {
     AppComponent,
     MainNavComponent,
     TopNavComponent,
-    SideNavComponent,
+    SideBarLeftComponent,
     FooterComponent,
     HomeComponent,
     FollowingComponent,
@@ -99,9 +97,7 @@ export function instrumentOptions() {
     RoleComponent,
     NewsCardComponent,
     ImageComponent,
-    SelectComponent,
-    TabsComponent,
-    TabComponent
+    SelectComponent
   ],
   providers: [
     ApiService,

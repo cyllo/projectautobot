@@ -1,12 +1,14 @@
-import { AfterContentInit, Component, OnDestroy, OnInit, ViewChild, Renderer2 } from '@angular/core';
+import { AfterContentInit, AfterViewInit, AfterViewChecked, Component, OnDestroy, OnInit, ViewChild, Renderer2 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
+
 @Component({
   selector: 'ow-main-nav',
   templateUrl: 'main-nav.component.html',
   styleUrls: ['main-nav.component.scss']
 })
-export class MainNavComponent implements OnInit, AfterContentInit, OnDestroy {
+
+export class MainNavComponent implements OnInit, AfterContentInit, AfterViewInit, AfterViewChecked, OnDestroy {
   @ViewChild('search') search;
   @ViewChild('mainnav') elNav;
 
@@ -27,14 +29,17 @@ export class MainNavComponent implements OnInit, AfterContentInit, OnDestroy {
   constructor(private renderer: Renderer2) {}
 
   ngOnInit() {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
     this.questionForm = new FormGroup({});
-    this.renderer.listen('window' , 'scroll' , (event) => {
-      this.onScroll(event);
-    });
-    this.renderer.listen('window' , 'DOMContentLoaded' , () => {this.updateBodyNavOffset();});
+    this.renderer.listen('window' , 'scroll' , (event) => {this.onScroll(event);});
+    this.renderer.listen('window' , 'resize' , (event) => {this.onResize(event);});
+    this.renderer.listen('window' , 'DOMContentLoaded' , (event) => {this.onDOMLoaded(event);});
   }
-
+  
   ngAfterContentInit() {
+    //Called after ngOnInit when the component's or directive's content has been initialized.
+    //Add 'implements AfterContentInit' to the class.
     this.search.initControl(
       this.questionForm,
       this.player,
@@ -51,26 +56,43 @@ export class MainNavComponent implements OnInit, AfterContentInit, OnDestroy {
     //Add 'implements AfterViewInit' to the class.
     this.lastScrollY = 0;
     this.currScrollY = 0;
-    this.elBody = document.getElementsByClassName('stp-container');
+    this.elBody = document.getElementsByTagName('body');
+  }
+
+  ngAfterViewChecked() {
+    //Called after every check of the component's view. Applies to components only.
+    //Add 'implements AfterViewChecked' to the class.
+    this.updateMainNavOffset();
+  }
+
+  ngOnDestroy() {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   private mapFormToModel() {
     this.search = this.questionForm.getRawValue();
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
-
   onScroll(event) {
-    this.updateBodyNavOffset();       
+    this.updateMainNavOffset();       
     event.preventDefault();
   }
 
-  updateBodyNavOffset(){
+  onResize(event) {
+    this.updateMainNavOffset();       
+    event.preventDefault();
+  }
+
+  onDOMLoaded(event) {
+    this.updateMainNavOffset();       
+    event.preventDefault();
+  }
+
+  updateMainNavOffset(){
     var mainNavHeight = this.elNav.nativeElement.offsetHeight;
-    var mainNavOffSet = 40; // px
-    this.elBody[0].style.paddingTop = mainNavHeight + mainNavOffSet + 'px';
+    this.elBody[0].style.paddingTop = mainNavHeight + 'px';
   }
 
 }

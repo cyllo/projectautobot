@@ -4,7 +4,7 @@
 
         <div class="row navbar-container">
 
-            <nav class="navbar navbar-toggleable-md col-12">
+            <nav class="navbar navbar-toggleable-md col-12 px-0 py-0">
 
                 <button class="navbar-toggler navbar-toggler-left" type="button" 
                     (click)="isCollapsed = !isCollapsed; userActionCollapsed = true;" 
@@ -17,27 +17,27 @@
                 </button>
                 <!-- end .navbar-toggle -->
 
-                <a class="navbar-brand mx-auto" [routerLink]="['home']"><img src="img/stplogo.svg" alt="logo" width="50"></a>
+                <a class="navbar-brand mx-auto" [routerLink]="['home']"><img src="img/stplogo.svg" alt="logo" width="50" class="px-2 py-1"></a>
 
                 <div class="collapse navbar-collapse nav-menu" id="navbarText" [ngbCollapse]="isCollapsed">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item mx-2 active">
-                            <a class="nav-link text-uppercase font-weight-bold" [routerLink]="['following']">Following</a>
+                            <a class="nav-link" [routerLink]="['following']">Following</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="nav-link text-uppercase font-weight-bold" [routerLink]="['leaderboard']">Leaderboard</a>
+                            <a class="nav-link" [routerLink]="['leaderboard']">Leaderboard</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="nav-link text-uppercase font-weight-bold" [routerLink]="['heroes']">Heroes</a>
+                            <a class="nav-link" [routerLink]="['heroes']">Heroes</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="nav-link text-uppercase font-weight-bold" [routerLink]="['esports']">Esports</a>
+                            <a class="nav-link" [routerLink]="['esports']">Esports</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="nav-link text-uppercase font-weight-bold" [routerLink]="['live']">Live</a>
+                            <a class="nav-link" [routerLink]="['live']">Live</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="nav-link text-uppercase font-weight-bold" [routerLink]="['news']">News</a>
+                            <a class="nav-link" [routerLink]="['news']">News</a>
                         </li>
                     </ul>
                 </div>
@@ -73,13 +73,13 @@
         <!-- end .row.navbar-container -->
 
         <div class="row">
-            <div class="col-12">
+            <div class="col">
                 <ow-schedule></ow-schedule>
             </div>
         </div>
         <!-- end .row -->
 
-        <div class="row my-2 py-2 search-form-container">
+        <div class="row search-form-container">
             <div class="col-xl-12">
                 <form [formGroup]="questionForm">
                     <ow-search #search></ow-search>

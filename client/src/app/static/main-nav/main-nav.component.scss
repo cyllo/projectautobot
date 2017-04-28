@@ -3,13 +3,22 @@
 
 .main-nav {
   z-index: 10;
-  background-color: $white;
+  background-color: $headerbg;
 }
 
-.main-nav .nav-link {
-  font-size: 0.85rem;
+.main-nav .navbar-container {
+  background-color: $navbarbg;
 }
 
-.search-form-container {
-  border-bottom: 1px solid $gray-lightest;
+.main-nav .navbar-container .nav-link {
+  color: $navbar-text;
+  font-size: 0.75rem;
+}
+
+.main-nav .navbar-container .nav-link:hover {
+  color: $brand-primary;
+}
+
+.main-nav .navbar-brand {
+  background-color: $brand-primary;
 }
