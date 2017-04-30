@@ -2,7 +2,7 @@
 
     <div class="container-fluid">
 
-        <div class="row navbar-container">
+        <div class="row navbar-container mb-2">
 
             <nav class="navbar navbar-toggleable-md col-12 px-0 py-0">
 
@@ -17,7 +17,9 @@
                 </button>
                 <!-- end .navbar-toggle -->
 
-                <a class="navbar-brand mx-auto" [routerLink]="['home']"><img src="img/stplogo.svg" alt="logo" width="50" class="px-2 py-1"></a>
+                <a class="navbar-brand px-3 py-2 mx-auto" [routerLink]="['home']">
+                    <img src="img/stplogo.svg" alt="logo" width="40">
+                </a>
 
                 <div class="collapse navbar-collapse nav-menu" id="navbarText" [ngbCollapse]="isCollapsed">
                     <ul class="navbar-nav mr-auto">
@@ -54,13 +56,13 @@
                 </button>
                 <!-- end .navbar-toggle -->
 
-                <div class="navbar-collapse collapse user-action" id="userAction" [ngbCollapse]="userActionCollapsed">
-                    <ul class="nav navbar-nav ml-auto align-items-center">
-                        <li class="nav-item mx-2">
-                            <a class="nav-link btn text-uppercase" href="#">Sign Up</a>
+                <div class="navbar-collapse collapse user-action full-height" id="userAction" [ngbCollapse]="userActionCollapsed">
+                    <ul class="nav navbar-nav ml-auto full-height">
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center align-items-center full-height btn signup px-md-4" href="#">Sign Up</a>
                         </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link d-flex align-items-center btn btn-primary text-uppercase" href="#"><i class="material-icons mr-1">person</i>Login</a>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center full-height btn login px-md-4" href="#">Login</a>
                         </li>
                     </ul>
                 </div>
@@ -72,18 +74,12 @@
         </div>
         <!-- end .row.navbar-container -->
 
-        <div class="row">
-            <div class="col">
-                <ow-schedule></ow-schedule>
-            </div>
-        </div>
-        <!-- end .row -->
+       <ow-schedule></ow-schedule>
 
-        <div class="row search-form-container">
+        <div class="row search-form-container mb-2">
             <div class="col-xl-12">
                 <form [formGroup]="questionForm">
                     <ow-search #search></ow-search>
-                    <small>Profile searching is case sensitive.</small>
                 </form>
             </div>
         </div>

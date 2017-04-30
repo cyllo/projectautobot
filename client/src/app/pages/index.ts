@@ -8,3 +8,4 @@ export * from './live';
 export * from './news';
 export * from './post';
 export * from './friends';
+export * from './profile';

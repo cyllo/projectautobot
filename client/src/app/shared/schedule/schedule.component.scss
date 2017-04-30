@@ -1,43 +1,32 @@
 @import "../../../style/colors";
 @import "../../../../node_modules/bootstrap/scss/bootstrap-grid";
 
-:host /deep/ .esports-schedule {
+.btn-dropdown {
+    background-color: $white;
+    border: 1px solid $gray-lighter;
+    color: $gray-light;
+    box-shadow: none !important;
+}
 
-    .team-logo {
-        min-width: 1.5rem;
-        max-width: 10%;
-    }
+.btn-dropdown:hover {
+    background-color: $white;
+    border: 1px solid $brand-primary;
+    color: $brand-primary !important;
+}
 
-    .carousel-indicators {
-        display: none;
-    }
+.toggleable-content .primary {
+    display: flex;
+}
+.toggleable-content .secondary {
+    display: none;
+}
+.toggleable-content:hover .primary {
+    display: none;
+}
+.toggleable-content:hover .secondary {
+    display: flex;
+}
 
-    .carousel-inner {
-        padding: 0 2.5rem;
-    }
-
-    .carousel-control-prev,
-    .carousel-control-next {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .carousel-control-prev:hover,
-    .carousel-control-next:hover {
-        background-color: $brand-primary;
-    }
-
-    .carousel-control-prev {
-        background-color: black;
-        opacity: 1;
-        max-width: 2rem;
-    }
-
-    .carousel-control-next {
-        background-color: black;
-        opacity: 1;
-        max-width: 2rem;
-    }
-
+.toggleable-content .fixed-line-height {
+    line-height: 90%;
 }

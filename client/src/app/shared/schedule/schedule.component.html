@@ -1,8 +1,48 @@
-<div class="row my-2" #esportsschedule>
+<div class="row mb-2 esports-schedule" #esportsschedule>
+  
+  <div class="col-auto px-3">
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-dropdown" id="dropdownBasic1" ngbDropdownToggle><small class="text-uppercase">Top Events</small></button>
+      <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
+        <button class="dropdown-item"><small>OGN Overwatch APEX</small></button>
+      </div>
+    </div>
+  </div>
+  <!-- end .col -->
 
-<div class="col-12">
-  content goes here
-</div>
+  <div class="col">
+
+    <div class="row full-height">
+
+      <div class="col-auto px-3">
+
+        <div class="d-flex flex-column full-height toggleable-content">
+          <div class="primary full-height align-items-center text-center">
+            <small class="text-uppercase font-weight-bold">Top Events</small>
+          </div>
+          <div class="secondary full-height align-items-center text-center fixed-line-height">
+            <a href="#" class="d-flex align-items-center full-height">
+              <small>
+                <div >View All</div>
+                <div class="text-uppercase font-weight-bold">Top Events</div>
+              </small>
+            </a>
+          </div>
+        </div>
+
+      </div>
+      <!-- end .col -->
+
+      <div class="col">
+      
+      </div>
+      <!-- end .col -->
+
+    </div>
+    <!-- end .row -->
+
+  </div>
+  <!-- end .col -->
 
 </div>
 <!-- end .row -->

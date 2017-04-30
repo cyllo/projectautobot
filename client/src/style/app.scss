@@ -11,7 +11,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  height: 100%;
 }
 
 /* text */
@@ -30,6 +32,14 @@ p {
   
 }
 
+small {
+  font-size: 70%;
+}
+
+.x-small {
+  font-size: 60%;
+}
+
 .label-light {
   color: $white;
   text-shadow: 0px 0px 3px rgba(0, 0, 0, 1); 
@@ -44,11 +54,6 @@ p {
 }
 .bronze {
   background-color: $torch-red;  
-}
-
-/* images */
-.scaling-img {
-  width: 100%;
 }
 
 /* input */
@@ -86,7 +91,16 @@ form {
   width: 100%;
 }
 
+/** TWEAKS TO GLOBAL BOOTSTRAP STYLES **/
+.btn {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 /* utility */
+img.circle {
+  border-radius: 50%;
+}
 .square {
   padding-bottom: 100%;
   position: relative;
@@ -128,7 +142,7 @@ form {
   justify-content: center;
 }
 .square__content img {
-  height: 100%;
+  width: 110%;
 }
 
 /* positioning */
@@ -164,20 +178,8 @@ form {
 }
 
 /* card */
-.card {
-  border: 0;
-}
-.card-header {
-  background-color: transparent;
-  position: absolute;
-  width: 100%;
-  border: 0;
-}
-.card-header p {
+.stp-card .header {
   color: $white;
-}
-.card-block {
-  border: 1px solid $gray-lightest;
 }
 
 /* progress bars */
@@ -186,4 +188,30 @@ form {
 }
 .progress-bar {
   height: 0.25rem;
+}
+
+i.match-font-size {
+  font-size: 100%;
+}
+
+.role-icon {
+  width: 100%;
+  max-width: 1rem;
+}
+
+.content {
+  background-color: $white;
+}
+
+.content-header {
+  border-radius: 0.25rem 0.25rem 0 0;
+  border-bottom: 1px solid $bordercolor;
+}
+
+.content-body {
+  border-radius: 0 0 0.25rem 0.25rem;
+}
+
+.base-line-height {
+  line-height: 1;
 }

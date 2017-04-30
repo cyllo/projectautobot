@@ -9,7 +9,8 @@ import {
   LiveComponent,
   NewsComponent,
   PostComponent,
-  FriendsComponent
+  FriendsComponent,
+  ProfileComponent
 } from './pages';
 
 const routes: Routes = [
@@ -22,7 +23,8 @@ const routes: Routes = [
   { path: 'live', component: LiveComponent },
   { path: 'news', component: NewsComponent },
   { path: 'post', component: PostComponent },
-  { path: 'friends', component: FriendsComponent }
+  { path: 'friends', component: FriendsComponent },
+  { path: 'profile', component: ProfileComponent }
 ];
 
 export const routing = RouterModule.forRoot(routes);

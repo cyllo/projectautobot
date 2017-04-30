@@ -1,1 +1,49 @@
 @import "../../../style/colors";
+
+.sidebar {
+    z-index: 9999;
+    max-width: 300px;  
+}
+
+.sidebar-left {
+    background-color: $white;
+    border-right: 1px solid $bordercolor;
+}
+
+.sidebar-left section {
+    border-bottom: 1px solid $bordercolor;
+}
+
+.btn-collapse {
+    background-color: $white;
+    border-radius: 0;
+    color: $gray-light;
+}
+
+.btn-collapse:hover {
+    color: $brand-primary;
+}
+
+.btn-collapse[aria-expanded="true"] {
+    border-bottom: 1px solid $bordercolor;
+}
+
+.btn-collapse[aria-expanded="false"] {
+    border-bottom: none ;
+}
+
+.btn-collapse[aria-expanded="true"] i {
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
+}
+
+.btn-collapse[aria-expanded="false"] i {
+    -ms-transform: rotate(0deg); /* IE 9 */
+    -webkit-transform: rotate(0deg); /* Chrome, Safari, Opera */
+    transform: rotate(0deg);
+}
+
+small i {
+    font-size: 100%;
+}

@@ -20,7 +20,8 @@ import {
   LiveComponent,
   NewsComponent,
   PostComponent,
-  FriendsComponent
+  FriendsComponent,
+  ProfileComponent
 } from './pages';
 import {
   ApiService,
@@ -97,7 +98,8 @@ export function instrumentOptions() {
     RoleComponent,
     NewsCardComponent,
     ImageComponent,
-    SelectComponent
+    SelectComponent,
+    ProfileComponent
   ],
   providers: [
     ApiService,

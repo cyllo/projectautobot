@@ -1,5 +1,67 @@
-<div class="col-sm-2 col-md-2 hidden-md-down fixed pos-left pos-bot px-0 py-2 sidebar" 
-      [style.top]="mainNavOffset + 'px'" #sidebarleft>
-  content goes here
+<div class="col-sm-2 col-md-2 hidden-md-down fixed pos-left pos-bot px-0 py-3 sidebar sidebar-left" #sidebarleft>
+
+  <div class="row flex-column px-3">
+
+    <section class="col-12 px-2 py-2">
+
+      <div class="row flex-column">
+
+        <div class="col-12">
+          <button type="button" class="btn btn-collapse full-width text-left px-1" 
+            (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed" 
+            aria-controls="collapseExample">
+            <small class="d-flex align-items-center text-uppercase"><i class="material-icons mr-1">chevron_right</i> General (3)</small>
+          </button>
+        </div>
+        <!-- end .col -->
+
+        <div class="col-12 px-4 py-1" id="collapseExample" [ngbCollapse]="isCollapsed">
+        
+            <div class="row my-4">
+              <div class="col-9">
+                <img src="img/imgplaceholder_square.png" alt="" width="32" class="circle float-left mr-2">       
+                <div class="d-inline-flex float-left">
+                  <div>
+                    <small class="d-block text-uppercase font-weight-bold">MoonMoonOw</small>
+                    <small class="d-block skill-rating">5000</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <a href="#" class="d-flex full-height full-width align-items-center justify-content-center"><i class="d-flex material-icons">chevron_right</i></a> 
+              </div>
+            </div>
+            <!-- end .row -->
+
+            <div class="row my-4">
+              <div class="col-9">
+                <img src="img/imgplaceholder_square.png" alt="" width="32" class="circle float-left mr-2">       
+                <div class="d-inline-flex float-left">
+                  <div>
+                    <small class="d-block text-uppercase font-weight-bold">MoonMoonOw</small>
+                    <small class="d-block skill-rating">5000</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <a href="#" class="d-flex full-height full-width align-items-center justify-content-center"><i class="d-flex material-icons">chevron_right</i></a> 
+              </div>
+            </div>
+            <!-- end .row -->
+
+        </div>
+        <!-- end .col -->
+
+      </div> 
+      <!-- end .row -->
+
+    </section>
+    <!-- end section -->
+
+
+  </div>
+  <!-- end .row -->
+
 </div>
 <!-- end .sidebar -->

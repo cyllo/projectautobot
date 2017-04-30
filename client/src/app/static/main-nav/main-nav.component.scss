@@ -4,6 +4,12 @@
 .main-nav {
   z-index: 10;
   background-color: $headerbg;
+  border-bottom: 1px solid $bordercolor;
+  box-shadow: 0 0 24px 0 rgba(63, 66, 87, 0.1);
+}
+
+.main-nav .navbar-brand {
+  background-color: $brand-primary;
 }
 
 .main-nav .navbar-container {
@@ -19,6 +25,22 @@
   color: $brand-primary;
 }
 
-.main-nav .navbar-brand {
-  background-color: $brand-primary;
+.main-nav .btn.login,
+.main-nav .btn.signup {
+  border-radius: 0;
+}
+
+.main-nav .btn.login {
+  background-color: $navbar-btn-primary;
+  color: $navbar-link !important;
+}
+.main-nav .btn.login:hover {
+  background-color: $navbar-btn-secondary;
+  color: $navbar-link-hover !important;
+}
+.main-nav .btn.signup {
+  color: $navbar-link !important;
+}
+.main-nav .btn.signup:hover {
+  color: $navbar-link-hover !important;
 }

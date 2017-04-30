@@ -27,7 +27,7 @@ export class ScheduleComponent {
     if((this.currScrollY = window.scrollY) > this.lastScrollY){
       this.el.nativeElement.style.display = 'none';
     } else {
-      this.el.nativeElement.style.display = 'block';
+      this.el.nativeElement.style.display = 'flex';
     }
     this.lastScrollY = this.currScrollY;
     event.preventDefault();
