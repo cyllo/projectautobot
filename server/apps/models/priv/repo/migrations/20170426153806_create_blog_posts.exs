@@ -3,10 +3,13 @@ defmodule Models.Repo.Migrations.CreateBlogPosts do
 
   def change do
     create table(:blog_posts) do
-      add :title, :text
-      add :content, :text
+      add :title, :text, null: false
+      add :content, :text, null: false
 
-      timestamps
+      timestamps()
     end
+
+
+    create unique_index(:blog_posts, [:title])
   end
 end

@@ -20,8 +20,8 @@ defmodule Api.Schema.AccountTypes do
   end
 
   @desc "followers 1 => 1 for user"
-  object :follower do
-    field :follower, :user
+  object :following_result do
+    field :following, :user
     field :user, :user
     timestamp_types
   end

@@ -1,5 +1,5 @@
 defmodule Models.Accounts do
-  alias Models.Accounts.User
+  alias Models.Accounts.{User, Follower}
   alias Models.{Repo, Model}
   use Models.Model
 
@@ -36,16 +36,16 @@ defmodule Models.Accounts do
 
       iex> {:ok, user} = Models.Accounts.create_user(%{username: "Test", password: "password", email: "eamil@g.ca"})
       iex> {:ok, new_user} = Models.Accounts.create_user(%{username: "Tester", password: "password", email: "email@g.ca"})
-      iex> {:ok, user} = Models.Accounts.create_user_follower user, new_user.id
+      iex> {:ok, user} = Models.Accounts.create_user_follower user, new_user
       iex> length(user.followers)
       1
 
 
   """
-  def create_user_follower(user, follower_id) do
-    follower = build_assoc(user, :followers, follower_id: follower_id)
+  def create_user_follower(user, user_follower) do
+    with follower <- build_assoc(user, :followers, follower_id: user_follower.id),
+         {:ok, _} <- follower |> Follower.changeset |> Repo.insert do
 
-    with {:ok, _} <- Repo.insert follower do
       {:ok, Repo.preload(user, :followers)}
     end
   end
@@ -58,7 +58,7 @@ defmodule Models.Accounts do
   ## Examples
 
       iex> {:error, error} = Models.Accounts.find_user_and_confirm_password("test", "pass")
-      iex> "where username not found" === errors
+      iex> is_bitstring(error)
       true
       iex> Models.Accounts.create_user(%{username: "bill", password: "password", email: "email@email.com"})
       iex> {:error, error} = Models.Accounts.find_user_and_confirm_password("bill", "pass")
@@ -104,9 +104,9 @@ defmodule Models.Accounts do
       iex> {:ok, %{id: requesting_user_id}} = Models.Accounts.create_user(%{username: "tom", password: "password", email: "tom@email.com"})
       iex> {:ok, _} = Models.Accounts.send_friend_request(friend_id, requesting_user_id)
       iex> Models.Accounts.send_friend_request(friend_id, requesting_user_id)
-      {:error, {:friend_id, "already sent"}}
+      {:error, "friend request already exists"}
       iex> Models.Accounts.send_friend_request(requesting_user_id, friend_id)
-      {:error, {:friend_id, "already sent"}}
+      {:error, "friend request already exists"}
       iex> {:ok, friendship} = Models.Accounts.accept_friend_request(requesting_user_id, friend_id)
       iex> friendship.is_accepted
       true
@@ -128,9 +128,9 @@ defmodule Models.Accounts do
       iex> {:ok, %{id: user_id_not_involved}} = Models.Accounts.create_user(%{username: "toms2", password: "password", email: "tom@em3ail.com"})
       iex> {:ok, _} = Models.Accounts.send_friend_request(user_id, requesting_user_id)
       iex> Models.Accounts.accept_friend_request(requesting_user_id, user_id)
-      {:error, {:user_id, "request sent from this user"}}
+      {:error, "friend request sent from this user"}
       iex> Models.Accounts.accept_friend_request(user_id_not_involved, requesting_user_id)
-      {:error, {:user_id, "no request exists"}}
+      {:error, "no friend request exists between these users"}
       iex> {:ok, friendship} = Models.Accounts.accept_friend_request(user_id, requesting_user_id)
       iex> friendship.is_accepted
       true

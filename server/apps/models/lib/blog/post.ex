@@ -19,6 +19,7 @@ defmodule Models.Blog.Post do
     struct
       |> cast(params, @allowed_fields)
       |> validate_required(@required_fields)
+      |> unique_constraint(:title)
   end
 
   def create_changeset(params), do: changeset(%Post{}, params)

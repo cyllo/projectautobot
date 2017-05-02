@@ -11,7 +11,7 @@ defmodule Models.Accounts.Follower do
     timestamps()
   end
 
-  @required_fields [:follwer_id, :user_id]
+  @required_fields [:follower_id, :user_id]
   @allowed_fields Enum.concat(@required_fields, [])
 
   @doc """
@@ -21,6 +21,7 @@ defmodule Models.Accounts.Follower do
     struct
       |> cast(params, @allowed_fields)
       |> validate_required(@required_fields)
+      |> unique_constraint(:user_id, name: :followers_pkey, message: "#{struct.user_id} is already following #{struct.follower_id}")
       |> cast_assoc(:follower)
       |> cast_assoc(:user)
   end

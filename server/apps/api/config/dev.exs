@@ -35,3 +35,6 @@ config :logger, :console, format: "[$level] $message\n"
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
+
+config :api,
+  joken_secret: "LU6G8pi3EwS9vo25JSKMjlOIn6pVjpvu4lhP1olT3v6JTR0XL7S/PY+Hw/hQkDYO"

@@ -1,16 +1,19 @@
 defmodule Api.Middleware.ChangesetErrorFormatter do
-  import IEx
-
   def call(%{errors: []} = res, _), do: res
   def call(%{errors: errors} = res, _), do: %{res | errors: format_changeset_error(errors)}
 
-  defp format_changeset_error(error) do
-    Enum.flat_map(error, fn
-      %Ecto.Changeset{} = changeset -> format_changeset(changeset)
-      error -> error
-    end)
+  def format_changeset_error(errors) when is_list(errors) do
+    if Enum.all?(errors, &is_bitstring/1) do
+      errors
+    else
+      Enum.flat_map(errors, &format_changeset_error/1)
+    end
   end
 
+  def format_changeset_error(%Ecto.Changeset{} = changeset), do: format_changeset(changeset)
+  def format_changeset_error(error), do: error
+
+  defp format_changeset(str) when is_bitstring(str), do: str
   defp format_changeset(changeset) do
     changeset
       |> interpolate_errors

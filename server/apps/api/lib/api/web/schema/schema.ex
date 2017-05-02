@@ -1,11 +1,12 @@
 defmodule Api.Schema do
   use Absinthe.Schema
-  alias Api.{GamerTagResolver, HeroResolver, UserResolver, SessionResolver, BlogResolver}
+  alias Api.{GamerTagResolver, HeroResolver, UserResolver, SessionResolver, BlogResolver, Middleware}
 
   import_types Absinthe.Type.Custom
   import_types Api.Schema.ScalarTypes
   import_types Api.Schema.AccountTypes
   import_types Api.Schema.GameTypes
+  import_types Api.Schema.BlogTypes
   import_types Api.Schema.SnapshotTypes
   import_types Api.Schema.StatisticTypes
   import_types Api.Schema.SessionTypes
@@ -14,7 +15,6 @@ defmodule Api.Schema do
     field :gamer_tag, :gamer_tag do
       arg :id, :integer
       arg :tag, :string
-      arg :snapshot_statistics, list_of(:snapshot_statistic)
 
       resolve &GamerTagResolver.find/2
     end
@@ -52,7 +52,6 @@ defmodule Api.Schema do
       resolve &BlogResolver.all/2
     end
 
-
     @desc "Search gamer tag by tag name"
     field :search_gamer_tag, list_of(:gamer_tag) do
       arg :tag, non_null(:string)
@@ -78,6 +77,7 @@ defmodule Api.Schema do
       resolve &UserResolver.create/2
     end
 
+    @desc "Login a user and return token and user info"
     field :login_user, :current_session do
       arg :identifier, non_null(:string)
       arg :password, non_null(:string)
@@ -85,6 +85,16 @@ defmodule Api.Schema do
       resolve &SessionResolver.login/2
     end
 
+    @desc "Follows a user"
+    field :follow_user, :following_result do
+      arg :id, non_null(:integer)
+      arg :following_id, non_null(:integer)
+
+      middleware Middleware.Auth
+      resolve &UserResolver.follow/2
+    end
+
+    @desc "Create a Blog Post"
     field :create_blog_post, :blog_post do
       arg :title, non_null(:string)
       arg :content, non_null(:string)
@@ -94,7 +104,7 @@ defmodule Api.Schema do
   end
 
   def middleware(middleware, _field, %{identifier: :mutation}) do
-    middleware ++ [Api.Middleware.ChangesetErrorFormatter]
+    middleware ++ [Middleware.ChangesetErrorFormatter]
   end
 
   def middleware(middleware, _, _) do

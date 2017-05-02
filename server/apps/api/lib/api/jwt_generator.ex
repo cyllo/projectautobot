@@ -1,24 +1,27 @@
 defmodule Api.JWTGenerator do
   import Joken
 
-  def generate_token_for_user(user) do
+  @day_in_sec 86400
+  @secret Application.get_env(:api, :joken_secret)
+
+  def generate_token_for_user(%{id: id}) do
     exp = get_exp()
 
-    token = Map.merge(user, create_claims(exp))
+    jwt_token = %{user_id: id}
       |> token
-      |> with_signer(ed25519ph("MyToken"))
+      |> with_exp(exp)
+      |> with_iss("STP")
+      |> with_signer(hs512(@secret))
       |> sign
       |> get_compact
 
-    %{token: token, exp: exp}
+    {jwt_token, exp}
   end
 
-  defp create_claims(exp) do
-    %{
-      exp: exp,
-      iss: "STP"
-    }
+  def get_user_from_token(token) do
+    with {:ok, %{"user_id" => id}} <- verify_token(token), do: Models.Accounts.get_user(id)
   end
 
-  defp get_exp, do: NaiveDateTime.utc_now() |> NaiveDateTime.add(1, :day)
+  defp verify_token(jwt_token), do: verify!(token(jwt_token), hs512(@secret))
+  defp get_exp, do: NaiveDateTime.utc_now() |> NaiveDateTime.add(@day_in_sec, :second)
 end
