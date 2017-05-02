@@ -12,8 +12,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
-  font-size: 1rem;
+  font-size: 13px;
   height: 100%;
+  line-height: 1.2;
 }
 
 /* text */
@@ -29,20 +30,6 @@ a:hover {
 p {
   font-variant-ligatures: common-ligatures; /* for up-to-date browsers, including IE10 and Opera 21 */
   -webkit-font-variant-ligatures: common-ligatures; /* for iOS and Safari 6 */
-  
-}
-
-small {
-  font-size: 70%;
-}
-
-.x-small {
-  font-size: 60%;
-}
-
-.label-light {
-  color: $white;
-  text-shadow: 0px 0px 3px rgba(0, 0, 0, 1); 
 }
 
 /* semantic colors */
@@ -184,14 +171,14 @@ img.circle {
 
 /* progress bars */
 .progress {
-  background-color: $gray-dark;
+  background-color: $gray-lighter;
 }
 .progress-bar {
   height: 0.25rem;
 }
 
 i.match-font-size {
-  font-size: 100%;
+  font-size: 150%;
 }
 
 .role-icon {
@@ -214,4 +201,22 @@ i.match-font-size {
 
 .base-line-height {
   line-height: 1;
+}
+
+.skill-rating {
+  background-color: $torch-red;
+  color: $white;
+  padding: 0.15rem 0.25rem;
+}
+
+.stp-tile {
+  background: url('/img/stp-tile.jpg') repeat;
+}
+
+a.none {
+  color: inherit !important;
+}
+
+.hero-avatar {
+  color: $white;
 }

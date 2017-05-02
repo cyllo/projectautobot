@@ -1,49 +1,629 @@
-<div class="row mb-2 esports-schedule" #esportsschedule>
-  
-  <div class="col-auto px-3">
-    <div ngbDropdown class="d-inline-block">
-      <button class="btn btn-dropdown" id="dropdownBasic1" ngbDropdownToggle><small class="text-uppercase">Top Events</small></button>
-      <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
-        <button class="dropdown-item"><small>OGN Overwatch APEX</small></button>
+<div class="row esports-schedule align-items-center" #esportsschedule>
+
+  <div class="col-lg-auto col-md-2 col-sm-3 col-3 px-3 py-3 full-height schedule-selection">
+    <div ngbDropdown class="d-flex">
+      <button class="btn btn-outline-scehdule" id="dropdownBasic1" ngbDropdownToggle><small class="text-uppercase">Top Events</small></button>
+      <div class="dropdown-menu px-2 py-1" aria-labelledby="dropdownBasic1">
+        <button class="dropdown-item rounded pl-3 pr-5 py-3 my-2">E-League</button>
+        <button class="dropdown-item rounded pl-3 pr-5 py-3 my-2">OGN Overwatch APEX</button>
+        <button class="dropdown-item rounded pl-3 pr-5 py-3 my-2">Overwatch League</button>
+        <button class="dropdown-item rounded pl-3 pr-5 py-3 my-2">Overwatch Premier</button>
       </div>
     </div>
   </div>
   <!-- end .col -->
 
-  <div class="col">
+  <div class="col-lg col-md-10 col-sm-9 col-9 pl-0">
 
-    <div class="row full-height">
-
-      <div class="col-auto px-3">
-
-        <div class="d-flex flex-column full-height toggleable-content">
-          <div class="primary full-height align-items-center text-center">
-            <small class="text-uppercase font-weight-bold">Top Events</small>
-          </div>
-          <div class="secondary full-height align-items-center text-center fixed-line-height">
-            <a href="#" class="d-flex align-items-center full-height">
-              <small>
-                <div >View All</div>
-                <div class="text-uppercase font-weight-bold">Top Events</div>
-              </small>
-            </a>
-          </div>
-        </div>
-
-      </div>
-      <!-- end .col -->
-
-      <div class="col">
-      
-      </div>
-      <!-- end .col -->
-
+    <div class="d-flex flex-column user-actions absolute pos-top pos-right full-height">
+      <button class="d-flex align-items-center justify-content-center prev"><i class="material-icons">chevron_left</i></button> 
+      <button class="d-flex align-items-center justify-content-center next"><i class="material-icons">chevron_right</i></button>
     </div>
-    <!-- end .row -->
+
+    <ngb-tabset>
+
+      <ngb-tab title="Simple">
+
+        <ng-template ngbTabContent>
+
+          <div class="container-fluid full-height full-width px-0">
+            <div class="row full-height mx-0 league-schedule relative">
+              <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4 col-4 league-label px-3 hidden-md-down">
+
+                <a href="#">
+                  <div class="toggleable-content d-flex flex-column full-height">
+                    <div class="primary full-height align-items-center text-center">
+                      <p class="small text-uppercase full-width font-weight-bold mb-0">Overwatch League</p>
+                    </div>
+                    <!-- end .primary -->
+                    <div class="secondary full-height align-items-center text-center">
+                      <div class="full-width text-center">
+                        <p class="small full-width mb-0">View All</p>
+                        <p class="small text-uppercase full-width font-weight-bold mb-0">Overwatch League</p>
+                      </div>
+                    </div>
+                    <!-- end .secondary -->
+                  </div>
+                  <!-- end .toggleable-content -->
+                </a>
+
+              </div>
+              <!-- end .col -->
+
+              <div class="col-xl-11 col-lg-10 col-md-9 col-sm-8 col-8 px-0">
+                <div class="row mx-0 flex-nowrap">
+
+                  <div class="col-xl-1 col-lg-4 col-md-6 col-sm-10 col-10 px-0 py-0 league-item">
+                    <div class="container-fluid toggleable-content full-height px-0">
+                      <div class="primary flex-column full-height px-3 py-3">
+                        <div class="row">
+                          <div class="col-6">
+                            <small>12:23PM</small>
+                          </div>
+                          <div class="col-6 text-right">
+                            <small class="d-flex align-items-center text-uppercase"><i class="material-icons match-font-size mr-1">live_tv</i>Live</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>4</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>3</small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="secondary flex-column full-height justify-content-center align-items-center">
+                        <div class="row full-width align-items-center mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Watch Live</a>
+                          </div>
+                        </div>
+                        <div class="row full-width align-items-center  mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Summary</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end .col -->
+
+                  <div class="col-xl-1 col-lg-4 col-md-6 col-sm-10 col-10 px-0 py-0 league-item">
+                    <div class="container-fluid toggleable-content full-height px-0">
+                      <div class="primary flex-column full-height px-3 py-3">
+                        <div class="row">
+                          <div class="col-6">
+                            <small>12:23PM</small>
+                          </div>
+                          <div class="col-6 text-right">
+                            <small class="d-flex align-items-center text-uppercase"><i class="material-icons match-font-size mr-1">live_tv</i>Live</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>4</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>3</small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="secondary flex-column full-height justify-content-center align-items-center">
+                        <div class="row full-width align-items-center mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Watch Live</a>
+                          </div>
+                        </div>
+                        <div class="row full-width align-items-center  mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Summary</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end .col -->
+
+                  <div class="col-xl-1 col-lg-4 col-md-6 col-sm-10 col-10 px-0 py-0 league-item">
+                    <div class="container-fluid toggleable-content full-height px-0">
+                      <div class="primary flex-column full-height px-3 py-3">
+                        <div class="row">
+                          <div class="col-6">
+                            <small>12:23PM</small>
+                          </div>
+                          <div class="col-6 text-right">
+                            <small class="d-flex align-items-center text-uppercase"><i class="material-icons match-font-size mr-1">live_tv</i>Live</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>4</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>3</small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="secondary flex-column full-height justify-content-center align-items-center">
+                        <div class="row full-width align-items-center mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Watch Live</a>
+                          </div>
+                        </div>
+                        <div class="row full-width align-items-center  mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Summary</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end .col -->
+
+                  <div class="col-xl-1 col-lg-4 col-md-6 col-sm-10 col-10 px-0 py-0 league-item">
+                    <div class="container-fluid toggleable-content full-height px-0">
+                      <div class="primary flex-column full-height px-3 py-3">
+                        <div class="row">
+                          <div class="col-6">
+                            <small>12:23PM</small>
+                          </div>
+                          <div class="col-6 text-right">
+                            <small class="d-flex align-items-center text-uppercase"><i class="material-icons match-font-size mr-1">live_tv</i>Live</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>4</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>3</small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="secondary flex-column full-height justify-content-center align-items-center">
+                        <div class="row full-width align-items-center mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Watch Live</a>
+                          </div>
+                        </div>
+                        <div class="row full-width align-items-center  mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Summary</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end .col -->
+
+                  <div class="col-xl-1 col-lg-4 col-md-6 col-sm-10 col-10 px-0 py-0 league-item">
+                    <div class="container-fluid toggleable-content full-height px-0">
+                      <div class="primary flex-column full-height px-3 py-3">
+                        <div class="row">
+                          <div class="col-6">
+                            <small>12:23PM</small>
+                          </div>
+                          <div class="col-6 text-right">
+                            <small class="d-flex align-items-center text-uppercase"><i class="material-icons match-font-size mr-1">live_tv</i>Live</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>4</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>3</small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="secondary flex-column full-height justify-content-center align-items-center">
+                        <div class="row full-width align-items-center mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Watch Live</a>
+                          </div>
+                        </div>
+                        <div class="row full-width align-items-center  mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Summary</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end .col -->
+
+                  <div class="col-xl-1 col-lg-4 col-md-6 col-sm-10 col-10 px-0 py-0 league-item">
+                    <div class="container-fluid toggleable-content full-height px-0">
+                      <div class="primary flex-column full-height px-3 py-3">
+                        <div class="row">
+                          <div class="col-6">
+                            <small>12:23PM</small>
+                          </div>
+                          <div class="col-6 text-right">
+                            <small class="d-flex align-items-center text-uppercase"><i class="material-icons match-font-size mr-1">live_tv</i>Live</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>4</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>3</small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="secondary flex-column full-height justify-content-center align-items-center">
+                        <div class="row full-width align-items-center mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Watch Live</a>
+                          </div>
+                        </div>
+                        <div class="row full-width align-items-center  mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Summary</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end .col -->
+
+                  <div class="col-xl-1 col-lg-4 col-md-6 col-sm-10 col-10 px-0 py-0 league-item">
+                    <div class="container-fluid toggleable-content full-height px-0">
+                      <div class="primary flex-column full-height px-3 py-3">
+                        <div class="row">
+                          <div class="col-6">
+                            <small>12:23PM</small>
+                          </div>
+                          <div class="col-6 text-right">
+                            <small class="d-flex align-items-center text-uppercase"><i class="material-icons match-font-size mr-1">live_tv</i>Live</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>4</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>3</small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="secondary flex-column full-height justify-content-center align-items-center">
+                        <div class="row full-width align-items-center mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Watch Live</a>
+                          </div>
+                        </div>
+                        <div class="row full-width align-items-center  mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Summary</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end .col -->
+
+                  <div class="col-xl-1 col-lg-4 col-md-6 col-sm-10 col-10 px-0 py-0 league-item">
+                    <div class="container-fluid toggleable-content full-height px-0">
+                      <div class="primary flex-column full-height px-3 py-3">
+                        <div class="row">
+                          <div class="col-6">
+                            <small>12:23PM</small>
+                          </div>
+                          <div class="col-6 text-right">
+                            <small class="d-flex align-items-center text-uppercase"><i class="material-icons match-font-size mr-1">live_tv</i>Live</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>4</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>3</small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="secondary flex-column full-height justify-content-center align-items-center">
+                        <div class="row full-width align-items-center mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Watch Live</a>
+                          </div>
+                        </div>
+                        <div class="row full-width align-items-center  mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Summary</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end .col -->
+
+                  <div class="col-xl-1 col-lg-4 col-md-6 col-sm-10 col-10 px-0 py-0 league-item">
+                    <div class="container-fluid toggleable-content full-height px-0">
+                      <div class="primary flex-column full-height px-3 py-3">
+                        <div class="row">
+                          <div class="col-6">
+                            <small>12:23PM</small>
+                          </div>
+                          <div class="col-6 text-right">
+                            <small class="d-flex align-items-center text-uppercase"><i class="material-icons match-font-size mr-1">live_tv</i>Live</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>4</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>3</small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="secondary flex-column full-height justify-content-center align-items-center">
+                        <div class="row full-width align-items-center mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Watch Live</a>
+                          </div>
+                        </div>
+                        <div class="row full-width align-items-center  mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Summary</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end .col -->
+
+                  <div class="col-xl-1 col-lg-4 col-md-6 col-sm-10 col-10 px-0 py-0 league-item">
+                    <div class="container-fluid toggleable-content full-height px-0">
+                      <div class="primary flex-column full-height px-3 py-3">
+                        <div class="row">
+                          <div class="col-6">
+                            <small>12:23PM</small>
+                          </div>
+                          <div class="col-6 text-right">
+                            <small class="d-flex align-items-center text-uppercase"><i class="material-icons match-font-size mr-1">live_tv</i>Live</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>4</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>3</small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="secondary flex-column full-height justify-content-center align-items-center">
+                        <div class="row full-width align-items-center mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Watch Live</a>
+                          </div>
+                        </div>
+                        <div class="row full-width align-items-center  mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Summary</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end .col -->
+
+                  <div class="col-xl-1 col-lg-4 col-md-6 col-sm-10 col-10 px-0 py-0 league-item">
+                    <div class="container-fluid toggleable-content full-height px-0">
+                      <div class="primary flex-column full-height px-3 py-3">
+                        <div class="row">
+                          <div class="col-6">
+                            <small>12:23PM</small>
+                          </div>
+                          <div class="col-6 text-right">
+                            <small class="d-flex align-items-center text-uppercase"><i class="material-icons match-font-size mr-1">live_tv</i>Live</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>4</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>3</small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="secondary flex-column full-height justify-content-center align-items-center">
+                        <div class="row full-width align-items-center mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Watch Live</a>
+                          </div>
+                        </div>
+                        <div class="row full-width align-items-center  mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Summary</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end .col -->
+
+                  <div class="col-xl-1 col-lg-4 col-md-6 col-sm-10 col-10 px-0 py-0 league-item">
+                    <div class="container-fluid toggleable-content full-height px-0">
+                      <div class="primary flex-column full-height px-3 py-3">
+                        <div class="row">
+                          <div class="col-6">
+                            <small>12:23PM</small>
+                          </div>
+                          <div class="col-6 text-right">
+                            <small class="d-flex align-items-center text-uppercase"><i class="material-icons match-font-size mr-1">live_tv</i>Live</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>4</small>
+                          </div>
+                        </div>
+                        <div class="row mt-1">
+                          <div class="col-9">
+                            <img src="img/imgplaceholder_square.png" alt="" width="14" class="rounded">
+                            <small>Lunatic Hai</small>
+                          </div>
+                          <div class="col-3 text-right">
+                            <small>3</small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="secondary flex-column full-height justify-content-center align-items-center">
+                        <div class="row full-width align-items-center mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Watch Live</a>
+                          </div>
+                        </div>
+                        <div class="row full-width align-items-center  mx-0">
+                          <div class="col-12 full-height px-0">
+                            <a href="#" class="d-flex full-height align-items-center justify-content-center small">Summary</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end .col -->
+
+                </div>
+              </div>
+
+            </div>
+            <!-- end .row -->
+          </div>
+          <!-- end .container-fluid -->
+
+        </ng-template>
+        <!-- end ng-template -->
+
+      </ngb-tab>
+      <!-- end ngb-tab -->
+
+    </ngb-tabset>
+    <!-- end ngb-tabset -->
 
   </div>
-  <!-- end .col -->
+  <!-- .col -->
 
 </div>
 <!-- end .row -->
-  

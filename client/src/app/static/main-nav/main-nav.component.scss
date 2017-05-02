@@ -2,10 +2,9 @@
 @import "../../../../node_modules/bootstrap/scss/bootstrap-grid";
 
 .main-nav {
-  z-index: 10;
+  z-index: 9999;
   background-color: $headerbg;
   border-bottom: 1px solid $bordercolor;
-  box-shadow: 0 0 24px 0 rgba(63, 66, 87, 0.1);
 }
 
 .main-nav .navbar-brand {
@@ -16,9 +15,8 @@
   background-color: $navbarbg;
 }
 
-.main-nav .navbar-container .nav-link {
+.main-nav .nav-link {
   color: $navbar-text;
-  font-size: 0.75rem;
 }
 
 .main-nav .navbar-container .nav-link:hover {

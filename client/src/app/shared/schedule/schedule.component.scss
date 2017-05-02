@@ -1,19 +1,6 @@
 @import "../../../style/colors";
 @import "../../../../node_modules/bootstrap/scss/bootstrap-grid";
 
-.btn-dropdown {
-    background-color: $white;
-    border: 1px solid $gray-lighter;
-    color: $gray-light;
-    box-shadow: none !important;
-}
-
-.btn-dropdown:hover {
-    background-color: $white;
-    border: 1px solid $brand-primary;
-    color: $brand-primary !important;
-}
-
 .toggleable-content .primary {
     display: flex;
 }
@@ -27,6 +14,100 @@
     display: flex;
 }
 
-.toggleable-content .fixed-line-height {
-    line-height: 90%;
+.esports-schedule {
+    background-color: $gray-lightest;
+    border-bottom: 1px solid $bordercolor;
+}
+
+.esports-schedule .schedule-selection {
+    border-right: 1px solid $bordercolor;
+}
+
+.esports-schedule .league-label {
+    border-right: 1px solid $bordercolor;
+    min-width: 5%;
+}
+
+.league-item {
+    min-width: 10%;
+}
+
+.esports-schedule .league-item {
+    border-right: 1px solid $bordercolor;
+    background-color: $white;
+}
+.esports-schedule .league-item:last-child {
+    border: 0 !important;
+}
+
+.league-item .secondary .row {
+    height: 50%;
+    border-bottom: 1px solid $bordercolor;
+}
+.league-item .secondary .row:last-child {
+    border-bottom: 0 !important;
+}
+
+.esports-schedule .user-actions{
+    z-index: 50;
+    background-color: $gray-lightest;
+}
+
+.esports-schedule .user-actions button {
+    height: 50%;
+    border: 0 !important;
+    background-color: $gray-lightest;
+    border-left: 1px solid $bordercolor !important;
+}
+.esports-schedule .user-actions button:hover {
+    background-color: $brand-primary;
+    border-left: 1px solid $brand-primary !important;
+    color: $white;
+}
+
+.btn-outline-scehdule {
+    border: 1px solid $gray-lighter;
+    background-color: transparent !important;
+}
+
+.btn-outline-scehdule:hover {
+    border: 1px solid $gray-lighter;
+    background-color: $white !important;
+}
+
+.dropdown-toggle[aria-expanded="true"] {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border: 1px solid $gray-lighter;
+    background-color: $white !important;
+}
+
+.dropdown-menu {
+    margin: -1px 0 0 0;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border: 1px solid $bordercolor;
+}
+
+.dropdown-item {
+    background-color: transparent;
+    font-size: 90%;
+}
+
+.dropdown-item:hover {
+    background-color: $brand-primary;
+    color: $white;
+}
+
+:host /deep/ .esports-schedule {
+    .nav-tabs {
+        display: none !important;
+    }
+    .tab-content,
+    .tab-pane {
+        display: flex;
+        flex: 1;
+        height: 100%;
+        align-items: center;
+    }
 }
