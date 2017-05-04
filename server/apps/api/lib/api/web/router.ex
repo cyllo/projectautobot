@@ -3,6 +3,12 @@ defmodule Api.Web.Router do
 
   @max_complexity 200
 
+  pipeline :browser do
+    plug :accepts, ["html"]
+    # plug :protect_from_forgery
+    # plug :put_secure_browser_headers
+  end
+
   pipeline :graphql do
     plug Api.Context
   end
@@ -21,5 +27,11 @@ defmodule Api.Web.Router do
         max_complexity: @max_complexity,
         analyze_complexity: true
     end
+  end
+
+  scope "/" do
+    pipe_through :browser
+
+    get "/*path", StaticPageController, :index
   end
 end

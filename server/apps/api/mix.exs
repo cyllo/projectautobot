@@ -33,6 +33,7 @@ defmodule Api.Mixfile do
   defp deps do
     [
       {:phoenix, "~> 1.3.0-rc", override: true},
+      {:phoenix_html, "~> 2.9.3"},
       {:phoenix_pubsub, "~> 1.0"},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
