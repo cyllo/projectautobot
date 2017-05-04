@@ -1,3 +1,4 @@
 .DS_Store
 server/apps/**/web/templates/**
 server/**/priv/static/
+erlang-release/
