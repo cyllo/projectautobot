@@ -1,7 +1,6 @@
 @import "../../../style/colors";
 .sidebar-left {
   background-color: $purple_dark;
-  max-width: 300px;
   color: $purple_lightest;
   z-index: 100;
 }
@@ -9,8 +8,6 @@
 .sidebar-left section {
   border-bottom: 1px solid $purple;
   max-height: 50%;
-  overflow-y: scroll;
-  overflow-x: hidden;
 }
 
 .sidebar-left section .section-header {
@@ -108,7 +105,7 @@ small i {
   transform: rotate(0deg);
 }
 
-.sidebar-left {
+:host /deep/ .sidebar-left {
    ::-webkit-scrollbar {
     width: 0.5rem;
   }
@@ -119,9 +116,6 @@ small i {
     background-color: $purple;
     border-radius: 4rem;
   }
-}
-
-:host /deep/ .sidebar-left {
   .nav-tabs {
     border-bottom: 1px solid $purple;
   }
@@ -137,28 +131,37 @@ small i {
   .nav-link.active {
     border: 1px solid $purple;
   }
+  .tab-content,
+  .tab-pane {
+    height: 100%;
+  }
+  .scrolled-content {
+    margin-top: 0.25rem;
+    max-height: 78%;
+    overflow-y: scroll;
+  }
+  section {
+    overflow: hidden;
+  }
 }
 
-.user-action-request .btn-accept {
-    background-color: transparent;
-    border: 1px solid $purple;
-    color: $purple-lightest;
+.btn-accept {
+  background-color: transparent;
+  border: 1px solid $purple;
+  color: $purple-lightest;
 }
-
-.user-action-request .btn-accept:hover {
-    background-color: $brand-success;
-    border-color: $brand-success;
-    color: $white;
+.btn-accept:hover {
+  background-color: $brand-success;
+  border-color: $brand-success;
+  color: $white;
 }
-
-.user-action-request .btn-decline {
-    background-color: transparent;
-    border: 1px solid $purple;
-    color: $purple-lightest;
+.btn-decline {
+  background-color: transparent;
+  border: 1px solid $purple;
+  color: $purple-lightest;
 }
-
-.user-action-request .btn-decline:hover {
-    background-color: $brand-danger;
-    border-color: $brand-danger;
-    color: $white;
+.btn-decline:hover {
+  background-color: $brand-danger;
+  border-color: $brand-danger;
+  color: $white;
 }

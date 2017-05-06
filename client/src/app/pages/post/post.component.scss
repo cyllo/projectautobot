@@ -1,0 +1,23 @@
+@import "../../../style/colors";
+
+.post {
+
+    .sidebar {
+        background-color: $white;
+    }
+
+    .sidebar section {
+        height: 100%;
+        max-height: 25%;
+        overflow: hidden;
+    }
+
+    .post-category-card {
+
+        .post-title {
+            color: $white;
+        }
+
+    }
+
+}

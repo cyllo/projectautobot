@@ -8,23 +8,43 @@
         <ngb-tab>
           <ng-template ngbTabTitle><small class="text-uppercase">Friends (3)</small></ng-template>
           <ng-template ngbTabContent>
-            <div class="container-fluid px-0">
+
+            <div class="container-fluid mt-3">
+              <div class="row mx-0">
+                <div class="col-auto px-0">
+                  <button type="button" class="btn btn-outline-primary base-line-height"> 
+                    <i class="material-icons match-font-size">group_add</i>
+                  </button>
+                </div>
+                <div class="col">
+
+                </div>
+              </div>
+            </div>
+
+            <div class="container-fluid px-0 scrolled-content">
+
               <div class="row mx-0">
 
                 <div class="col-12 px-3 py-1">
 
-                  <div class="row mx-0 my-4">
+                  <div class="row mx-0 my-3">
 
                     <div class="col-12">
                       <div class="row align-items-center">
-                        <div class="col-9 pl-0 pr-1">
-                          <button type="button" class="d-flex btn-friends-group full-width py-2" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
-                            aria-controls="collapseExample">
-            <small class="d-flex align-items-center text-uppercase"><i class="material-icons mr-1">chevron_right</i>Pro Players</small>
-          </button>
+                        <div class="col-8 pl-0 pr-1">
+                          <button type="button" class="d-flex btn-friends-group full-width py-2" 
+                                (click)="isCollapsed = !isCollapsed" 
+                                [attr.aria-expanded]="!isCollapsed"
+                                aria-controls="collapseExample">
+                              <small class="d-flex align-items-center text-uppercase"><i class="material-icons mr-1">chevron_right</i>Pro Players</small>
+                          </button>
                         </div>
-                        <div class="col-3 pr-0 pl-1 text-right">
-                          <button class="d-flex btn-compare full-width justify-content-center py-2 rounded"><i class="material-icons match-font-size">compare_arrows</i></button>
+                        <div class="col-2 pr-0 pl-1 text-right">
+                          <button class="d-flex btn-compare full-width justify-content-center px-1 py-1 rounded"><i class="material-icons match-font-size">compare_arrows</i></button>
+                        </div>
+                        <div class="col-2 pr-0 pl-1 text-right">
+                          <button class="d-flex btn-compare full-width justify-content-center px-1 py-1 rounded"><i class="material-icons match-font-size">close</i></button>
                         </div>
                       </div>
                     </div>
@@ -99,18 +119,23 @@
 
                   </div>
 
-                  <div class="row mx-0 my-4">
+                  <div class="row mx-0 my-3">
 
                     <div class="col-12">
                       <div class="row align-items-center">
-                        <div class="col-9 pl-0 pr-1">
-                          <button type="button" class="d-flex btn-friends-group full-width py-2" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
-                            aria-controls="collapseExample">
-            <small class="d-flex align-items-center text-uppercase"><i class="material-icons mr-1">chevron_right</i>General</small>
-          </button>
+                        <div class="col-8 pl-0 pr-1">
+                          <button type="button" class="d-flex btn-friends-group full-width py-2" 
+                                (click)="isCollapsed = !isCollapsed" 
+                                [attr.aria-expanded]="!isCollapsed"
+                                aria-controls="collapseExample">
+                              <small class="d-flex align-items-center text-uppercase"><i class="material-icons mr-1">chevron_right</i>General</small>
+                          </button>
                         </div>
-                        <div class="col-3 pr-0 pl-1 text-right">
-                          <button class="d-flex btn-compare full-width justify-content-center py-2 rounded"><i class="material-icons match-font-size">compare_arrows</i></button>
+                        <div class="col-2 pr-0 pl-1 text-right">
+                          <button class="d-flex btn-compare full-width justify-content-center px-1 py-1 rounded"><i class="material-icons match-font-size">compare_arrows</i></button>
+                        </div>
+                        <div class="col-2 pr-0 pl-1 text-right">
+                          <button class="d-flex btn-compare full-width justify-content-center px-1 py-1 rounded"><i class="material-icons match-font-size">close</i></button>
                         </div>
                       </div>
                     </div>
@@ -138,75 +163,157 @@
                   </div>
 
                 </div>
+                <!-- end .col -->
 
               </div>
+              <!-- end .row -->
+
             </div>
+            <!-- end .container-fluid -->
+
           </ng-template>
         </ngb-tab>
 
         <ngb-tab>
-          <ng-template ngbTabTitle><small class="text-uppercase">Requests</small></ng-template>
+          <ng-template ngbTabTitle><small class="text-uppercase">Requests (6)</small></ng-template>
           <ng-template ngbTabContent>
 
             <div class="container-fluid px-0">
+
               <div class="row mx-0">
+
                 <div class="col-12 px-3 py-1">
 
-                  <div class="row align-items-center mt-3 friend-item">
-                    <div class="col-auto pl-0 pr-1">
-                      <img src="img/imgplaceholder_square.png" width="36" alt="" class="circle">
-                    </div>
-                    <div class="col pl-1">
-                      <p class="mb-0">Cyllo</p>
-                      <div class="mt-1">
-                        <small class="skill-rating rounded mx-1">5000</small>
-                      </div>
-                    </div>
-                    <div class="col-2 px-0">
-                      <a href="#" class="btn btn-view-profile d-flex justify-content-center full-height rounded"><i class="material-icons">chevron_right</i></a>
-                    </div>
-                    <div class="col-12 px-0 mt-2 user-action-request">
-                      <div class="row">
-                        <div class="col-6">
-                          <button class="d-flex full-width justify-content-center btn-accept rounded py-2"><small class="text-uppercase">Accept</small></button>
-                        </div>
-                        <div class="col-6  text-center">
-                          <button class="d-flex full-width justify-content-center btn-decline rounded py-2"><small class="text-uppercase">Decline</small></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- end .friend-item -->
+                  <div class="row mx-0 my-2">
 
-                  <div class="row align-items-center mt-3 friend-item">
-                    <div class="col-auto pl-0 pr-1">
-                      <img src="img/imgplaceholder_square.png" width="36" alt="" class="circle">
-                    </div>
-                    <div class="col pl-1">
-                      <p class="mb-0">Cyllo</p>
-                      <div class="mt-1">
-                        <small class="skill-rating rounded mx-1">5000</small>
-                      </div>
-                    </div>
-                    <div class="col-2 px-0">
-                      <a href="#" class="btn btn-view-profile d-flex justify-content-center full-height rounded"><i class="material-icons">chevron_right</i></a>
-                    </div>
-                    <div class="col-12 px-0 mt-2 user-action-request">
-                      <div class="row">
-                        <div class="col-6">
-                          <button class="d-flex full-width justify-content-center btn-accept rounded py-2"><small class="text-uppercase">Accept</small></button>
+                    <div class="col-12" id="collapseExample" [ngbCollapse]="isCollapsed">
+
+                      <div class="row align-items-center friend-item mt-3">
+                        <div class="col-auto pl-0 pr-1">
+                          <img src="img/imgplaceholder_square.png" width="36" alt="" class="circle">
                         </div>
-                        <div class="col-6  text-center">
-                          <button class="d-flex full-width justify-content-center btn-decline rounded py-2"><small class="text-uppercase">Decline</small></button>
+                        <div class="col pl-1">
+                          <p class="mb-0">Seagull</p>
+                          <div class="mt-1">
+                            <small class="skill-rating rounded mx-1">5000</small>
+                          </div>
+                        </div>
+                        <div class="col-2 px-1">
+                          <a href="#" class="btn btn-accept d-flex justify-content-center full-height rounded"><i class="material-icons">check</i></a>
+                        </div>
+                        <div class="col-2 px-1">
+                          <a href="#" class="btn btn-decline d-flex justify-content-center full-height rounded"><i class="material-icons">close</i></a>
                         </div>
                       </div>
+                      <!-- end .friend-item -->
+
+                      <div class="row align-items-center friend-item mt-3">
+                        <div class="col-auto pl-0 pr-1">
+                          <img src="img/imgplaceholder_square.png" width="36" alt="" class="circle">
+                        </div>
+                        <div class="col pl-1">
+                          <p class="mb-0">Seagull</p>
+                          <div class="mt-1">
+                            <small class="skill-rating rounded mx-1">5000</small>
+                          </div>
+                        </div>
+                        <div class="col-2 px-1">
+                          <a href="#" class="btn btn-accept d-flex justify-content-center full-height rounded"><i class="material-icons">check</i></a>
+                        </div>
+                        <div class="col-2 px-1">
+                          <a href="#" class="btn btn-decline d-flex justify-content-center full-height rounded"><i class="material-icons">close</i></a>
+                        </div>
+                      </div>
+                      <!-- end .friend-item -->
+
+                      <div class="row align-items-center friend-item mt-3">
+                        <div class="col-auto pl-0 pr-1">
+                          <img src="img/imgplaceholder_square.png" width="36" alt="" class="circle">
+                        </div>
+                        <div class="col pl-1">
+                          <p class="mb-0">Seagull</p>
+                          <div class="mt-1">
+                            <small class="skill-rating rounded mx-1">5000</small>
+                          </div>
+                        </div>
+                        <div class="col-2 px-1">
+                          <a href="#" class="btn btn-accept d-flex justify-content-center full-height rounded"><i class="material-icons">check</i></a>
+                        </div>
+                        <div class="col-2 px-1">
+                          <a href="#" class="btn btn-decline d-flex justify-content-center full-height rounded"><i class="material-icons">close</i></a>
+                        </div>
+                      </div>
+                      <!-- end .friend-item -->
+
+                      <div class="row align-items-center friend-item mt-3">
+                        <div class="col-auto pl-0 pr-1">
+                          <img src="img/imgplaceholder_square.png" width="36" alt="" class="circle">
+                        </div>
+                        <div class="col pl-1">
+                          <p class="mb-0">Seagull</p>
+                          <div class="mt-1">
+                            <small class="skill-rating rounded mx-1">5000</small>
+                          </div>
+                        </div>
+                        <div class="col-2 px-1">
+                          <a href="#" class="btn btn-accept d-flex justify-content-center full-height rounded"><i class="material-icons">check</i></a>
+                        </div>
+                        <div class="col-2 px-1">
+                          <a href="#" class="btn btn-decline d-flex justify-content-center full-height rounded"><i class="material-icons">close</i></a>
+                        </div>
+                      </div>
+                      <!-- end .friend-item -->
+
+                      <div class="row align-items-center friend-item mt-3">
+                        <div class="col-auto pl-0 pr-1">
+                          <img src="img/imgplaceholder_square.png" width="36" alt="" class="circle">
+                        </div>
+                        <div class="col pl-1">
+                          <p class="mb-0">Seagull</p>
+                          <div class="mt-1">
+                            <small class="skill-rating rounded mx-1">5000</small>
+                          </div>
+                        </div>
+                        <div class="col-2 px-1">
+                          <a href="#" class="btn btn-accept d-flex justify-content-center full-height rounded"><i class="material-icons">check</i></a>
+                        </div>
+                        <div class="col-2 px-1">
+                          <a href="#" class="btn btn-decline d-flex justify-content-center full-height rounded"><i class="material-icons">close</i></a>
+                        </div>
+                      </div>
+                      <!-- end .friend-item -->
+
+                      <div class="row align-items-center friend-item mt-3">
+                        <div class="col-auto pl-0 pr-1">
+                          <img src="img/imgplaceholder_square.png" width="36" alt="" class="circle">
+                        </div>
+                        <div class="col pl-1">
+                          <p class="mb-0">Seagull</p>
+                          <div class="mt-1">
+                            <small class="skill-rating rounded mx-1">5000</small>
+                          </div>
+                        </div>
+                        <div class="col-2 px-1">
+                          <a href="#" class="btn btn-accept d-flex justify-content-center full-height rounded"><i class="material-icons">check</i></a>
+                        </div>
+                        <div class="col-2 px-1">
+                          <a href="#" class="btn btn-decline d-flex justify-content-center full-height rounded"><i class="material-icons">close</i></a>
+                        </div>
+                      </div>
+                      <!-- end .friend-item -->
+
                     </div>
+
                   </div>
-                  <!-- end .friend-item -->
 
                 </div>
+                <!-- end .col -->
+                
               </div>
+              <!-- end .row -->
+
             </div>
+            <!-- end .container-fluid -->
 
           </ng-template>
         </ngb-tab>
