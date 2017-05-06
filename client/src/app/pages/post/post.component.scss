@@ -9,15 +9,18 @@
     .sidebar section {
         height: 100%;
         max-height: 25%;
-        overflow: hidden;
     }
 
-    .post-category-card {
+    .post-card.category .post-card-block {
+        box-shadow: none !important;
+    }
 
-        .post-title {
-            color: $white;
-        }
+    .post-content-title {
+        font-size: 4rem;
+    }
 
+    .post-body p {
+        line-height: 1.5;
     }
 
 }
