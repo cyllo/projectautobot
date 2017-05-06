@@ -10,5 +10,5 @@ config :hound,
 
 config :quantum, :scraper,
   cron: [
-    "@daily": &Scraper.refetch_profiles_in_db/0
+    "@daily": {Scraper, :refetch_profiles_in_db, []}
   ]

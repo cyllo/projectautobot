@@ -100,19 +100,19 @@ defmodule Models.Accounts do
 
   ## Examples
 
-      iex> {:ok, %{id: friend_id}} = Models.Accounts.create_user(%{username: "bill", password: "password", email: "email@email.com"})
-      iex> {:ok, %{id: requesting_user_id}} = Models.Accounts.create_user(%{username: "tom", password: "password", email: "tom@email.com"})
-      iex> {:ok, _} = Models.Accounts.send_friend_request(friend_id, requesting_user_id)
-      iex> Models.Accounts.send_friend_request(friend_id, requesting_user_id)
+      iex> {:ok, friend} = Models.Accounts.create_user(%{username: "bill", password: "password", email: "email@email.com"})
+      iex> {:ok, user} = Models.Accounts.create_user(%{username: "tom", password: "password", email: "tom@email.com"})
+      iex> {:ok, _} = Models.Accounts.send_friend_request(friend, requesting_user)
+      iex> Models.Accounts.send_friend_request(friend, requesting_user)
       {:error, "friend request already exists"}
-      iex> Models.Accounts.send_friend_request(requesting_user_id, friend_id)
+      iex> Models.Accounts.send_friend_request(requesting_user, friend)
       {:error, "friend request already exists"}
-      iex> {:ok, friendship} = Models.Accounts.accept_friend_request(requesting_user_id, friend_id)
+      iex> {:ok, friendship} = Models.Accounts.accept_friend_request(requesting_user, friend)
       iex> friendship.is_accepted
       true
 
   """
-  def send_friend_request(user_id, requesting_user_id) do
+  def send_friend_request(requested_user, requesting_user) do
 
   end
 
@@ -123,15 +123,15 @@ defmodule Models.Accounts do
 
   ## Examples
 
-      iex> {:ok, %{id: user_id}} = Models.Accounts.create_user(%{username: "bill", password: "password", email: "email@email.com"})
-      iex> {:ok, %{id: requesting_user_id}} = Models.Accounts.create_user(%{username: "tom", password: "password", email: "tom@email.com"})
-      iex> {:ok, %{id: user_id_not_involved}} = Models.Accounts.create_user(%{username: "toms2", password: "password", email: "tom@em3ail.com"})
-      iex> {:ok, _} = Models.Accounts.send_friend_request(user_id, requesting_user_id)
-      iex> Models.Accounts.accept_friend_request(requesting_user_id, user_id)
+      iex> {:ok, user} = Models.Accounts.create_user(%{username: "bill", password: "password", email: "email@email.com"})
+      iex> {:ok, requesting_user} = Models.Accounts.create_user(%{username: "tom", password: "password", email: "tom@email.com"})
+      iex> {:ok, user_id_not_involved} = Models.Accounts.create_user(%{username: "toms2", password: "password", email: "tom@em3ail.com"})
+      iex> {:ok, _} = Models.Accounts.send_friend_request(user, requesting_user)
+      iex> Models.Accounts.accept_friend_request(requesting_user, user)
       {:error, "friend request sent from this user"}
-      iex> Models.Accounts.accept_friend_request(user_id_not_involved, requesting_user_id)
+      iex> Models.Accounts.accept_friend_request(user_not_involved, requesting_user)
       {:error, "no friend request exists between these users"}
-      iex> {:ok, friendship} = Models.Accounts.accept_friend_request(user_id, requesting_user_id)
+      iex> {:ok, friendship} = Models.Accounts.accept_friend_request(user, requesting_user)
       iex> friendship.is_accepted
       true
 

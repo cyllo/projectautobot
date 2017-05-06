@@ -7,6 +7,37 @@ defmodule Api.Schema.AccountTypes do
     field :id, :integer
     field :username, :string
     field :email, :string
+
+    field :friends, list_of(:friendship) do
+      resolve fn user, _, _ ->
+        batch(
+          {UserResolver, :get_friends_by_ids},
+          user,
+          &{:ok, Map.get(&1, user.id)}
+        )
+      end
+    end
+
+    field :followers, list_of(:user) do
+      resolve fn user, _, _ ->
+        batch(
+          {UserResolver, :get_followers},
+          user,
+          &{:ok, Map.get(&1, user.id)}
+        )
+      end
+    end
+
+    field :following, list_of(:user) do
+      resolve fn user, _, _ ->
+        batch(
+          {UserResolver, :get_following},
+          user,
+          &{:ok, Map.get(&1, user.id)}
+        )
+      end
+    end
+
     timestamp_types
   end
 

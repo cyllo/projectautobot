@@ -28,6 +28,15 @@ defmodule Api.Schema do
       resolve &GamerTagResolver.all/2
     end
 
+    field :user, :user do
+      arg :id, :integer
+      arg :identifier, :string
+      arg :email, :string
+      arg :username, :string
+
+      resolve &UserResolver.find/2
+    end
+
     field :hero, :hero do
       arg :id, :integer
       arg :name, :string
