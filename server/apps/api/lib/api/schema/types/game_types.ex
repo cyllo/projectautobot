@@ -1,6 +1,7 @@
 defmodule Api.Schema.GameTypes do
   require IEx
   use Absinthe.Schema.Notation
+  import Api.Schema.ScalarTypes, only: [timestamp_types: 0]
   alias Api.SnapshotStatisticResolver
 
   @desc "A gamer tag profile that's region/platform specific"
@@ -21,6 +22,8 @@ defmodule Api.Schema.GameTypes do
     field :level, :integer
     field :level_url, :string
 
+    timestamp_types
+
     field :snapshot_statistics, list_of(:snapshot_statistic) do
       resolve fn gamer_tag, _, _ ->
         batch({SnapshotStatisticResolver, :get_gamer_tag_snapshot_statistics}, gamer_tag.id, &(&1))
@@ -33,5 +36,6 @@ defmodule Api.Schema.GameTypes do
     field :id, :integer
     field :name, :string
     field :code, :string
+    timestamp_types
   end
 end

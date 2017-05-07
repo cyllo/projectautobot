@@ -261,7 +261,11 @@ module.exports = function makeWebpackConfig() {
     contentBase: './src/public',
     historyApiFallback: true,
     quiet: true,
-    stats: 'minimal' // none (or false), errors-only, minimal, normal (or true) and verbose
+    stats: 'minimal', // none (or false), errors-only, minimal, normal (or true) and verbose,
+    proxy: [{
+      path: '/graphql',
+      target: 'http://localhost:4000'
+    }]
   };
 
   return config;

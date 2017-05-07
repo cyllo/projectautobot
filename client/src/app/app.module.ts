@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { routerReducer, RouterStoreModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
+import { ApolloModule } from 'apollo-angular'
+import { ApolloClient } from 'apollo-client';
 
 import { AppComponent } from './app.component';
 import { TopNavComponent, SideBarLeftComponent, FooterComponent } from './static';
@@ -71,6 +73,7 @@ export function instrumentOptions() {
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
+    ApolloModule.forRoot(() => new ApolloClient()),
     routing,
     SidebarModule,
     InfiniteScrollModule,
