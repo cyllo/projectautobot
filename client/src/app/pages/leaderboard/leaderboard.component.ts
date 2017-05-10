@@ -8,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 
 export class LeaderboardComponent implements OnInit {
 
-  private columns;
-  private rows;
+  public columns;
+  public rows;
 
   constructor() {
     // Do stuff

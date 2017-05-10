@@ -1,30 +1,30 @@
-import { Component, Renderer2, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, OnInit, Renderer2, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'ow-schedule',
   templateUrl: './schedule.component.html',
-  styleUrls: ['schedule.component.scss']
+  styleUrls: [ 'schedule.component.scss' ]
 })
 
-export class ScheduleComponent {
-@ViewChild('esportsschedule') el;
+export class ScheduleComponent implements OnInit, AfterContentInit {
+  @ViewChild('esportsschedule') el;
 
   private lastScrollY;
   private currScrollY;
 
-  constructor(private renderer: Renderer2) {}
+  constructor( private renderer: Renderer2 ) {}
 
   ngOnInit() {
-    this.renderer.listen('window' , 'scroll' , (event) => {this.onScroll(event);});
+    this.renderer.listen('window', 'scroll', ( event ) => { this.onScroll(event); });
   }
 
-  ngAfterViewInit(){
+  ngAfterContentInit() {
     this.lastScrollY = 0;
     this.currScrollY = 0;
   }
 
-  onScroll(event) {
-    if((this.currScrollY = window.scrollY) > this.lastScrollY){
+  onScroll( event ) {
+    if ((this.currScrollY = window.scrollY) > this.lastScrollY) {
       this.el.nativeElement.style.display = 'none';
     } else {
       this.el.nativeElement.style.display = 'flex';

@@ -12,8 +12,8 @@ import { getPlayerData, getGamerTag } from './reducers';
 import '../style/app.scss';
 
 interface GamerTagSearchResponse {
-  searchGamerTag: Player[]
-  loading: boolean
+  searchGamerTag: Player[];
+  loading: boolean;
 }
 
 @Component({
