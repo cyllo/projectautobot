@@ -19,10 +19,4 @@ export class PlayersService {
       .do(() => this.store.dispatch({ type: 'LOAD' }));
   }
 
-  searchPlayer() {
-    return this.http.put()
-    .map(res => res.json())
-    .do(() => this.store.dispatch({ type: 'GET_PLAYER_TAG' }));
-  }
-
 }

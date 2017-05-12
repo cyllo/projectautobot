@@ -84,7 +84,7 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   searchPlayer() {
-    if(this.questionForm.dirty && this.questionForm.valid)
+    
   }
 
   ngOnDestroy() {
