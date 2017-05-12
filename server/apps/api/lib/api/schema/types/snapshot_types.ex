@@ -55,7 +55,7 @@ defmodule Api.Schema.SnapshotTypes do
       resolve &batch_get_hero_specifics/3
     end
 
-    field :match_awards_statistic, :match_award_statistic do
+    field :match_awards_statistic, :match_awards_statistic do
       resolve &batch_get_match_awards/3
     end
 
@@ -91,7 +91,7 @@ defmodule Api.Schema.SnapshotTypes do
       resolve &batch_get_hero_specifics/3
     end
 
-    field :match_award_statistic, :match_award_statistic do
+    field :match_awards_statistic, :match_awards_statistic do
       resolve &batch_get_match_awards/3
     end
 

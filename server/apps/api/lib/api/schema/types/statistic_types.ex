@@ -82,7 +82,7 @@ defmodule Api.Schema.StatisticTypes do
     field :offensive_assists, :integer
   end
 
-  object :match_award_statistic do
+  object :match_awards_statistic do
     field :id, :integer
 
     field :bronze_medals, :integer
