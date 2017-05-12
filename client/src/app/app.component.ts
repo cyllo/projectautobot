@@ -24,6 +24,7 @@ interface GamerTagSearchResponse {
 export class AppComponent implements OnDestroy {
   sub: Subscription;
   players: Observable<Player[]>;
+  tag: String;
 
   constructor(private store: Store<AppState>, private apollo: Apollo) {
     this.players = store.let(getPlayerData)
@@ -56,7 +57,7 @@ export class AppComponent implements OnDestroy {
                 id
                 snapshotStatisticId
                 matchAwardsStatisticId
-                matchAwardsStatistics {
+                matchAwardsStatistic {
                   id
                   totalMedals
                   goldMedals
@@ -74,7 +75,7 @@ export class AppComponent implements OnDestroy {
                   updatedAt
                 }
                 gameHistoryStatisticId
-                gameHistoryStatistics {
+                gameHistoryStatistic {
                   id
                   winPercentage
                   timeSpentOnFire
@@ -84,7 +85,7 @@ export class AppComponent implements OnDestroy {
                   gamesLost
                 }
                 combatLifetimeStatisticId
-                combatLifetimeStatistics {
+                combatLifetimeStatistic {
                   id
                   weaponAccuracyPercentage
                   turretsDestroyed
@@ -117,7 +118,7 @@ export class AppComponent implements OnDestroy {
                   criticalHitAccuracy
                 }
                 combatBestStatisticId
-                combatBestStatistics {
+                combatBestStatistic {
                   id
                   weaponAccuracyBestInGamePercentage
                   timeSpentOnFireMostInGame
@@ -145,7 +146,7 @@ export class AppComponent implements OnDestroy {
                   criticalHitsMostInGame
                 }
                 combatAverageStatisticId
-                combatAverageStatistics {
+                combatAverageStatistic {
                   id
                   timeSpentOnFireAverage
                   soloKillsAverage
@@ -179,7 +180,7 @@ export class AppComponent implements OnDestroy {
         }
       `,
       variables: {
-        tag: 'cyllo-2112'
+        tag: this.tag || 'cyllo-2112'
       }
     })
       .map(({data}) => data.searchGamerTag[0])

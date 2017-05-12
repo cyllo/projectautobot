@@ -83,6 +83,10 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
     this.searchInput = this.questionForm.getRawValue();
   }
 
+  searchPlayer() {
+    if(this.questionForm.dirty && this.questionForm.valid)
+  }
+
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
