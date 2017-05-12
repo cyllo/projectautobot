@@ -44,6 +44,7 @@ RUN /home/release_scripts/move-client.sh
 
 # SERVER
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+ENV PATH $HOME/.cargo/bin:$PATH
 
 RUN mix local.hex --force
 RUN mix local.rebar --force

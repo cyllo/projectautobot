@@ -26,7 +26,7 @@ defmodule Models.Repo.Migrations.CreateCombatLifetimeStatistics do
       add :damage_blocked, :integer
       add :melee_kills, :integer
       add :weapon_accuracy_percentage, :integer
-      add :critical_hit_accuracy_percentage, :integer
+      add :critical_hits_accuracy_percentage, :integer
       add :multikill_best, :integer
       add :turrets_destroyed, :integer
       add :defensive_assists, :integer

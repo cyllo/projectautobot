@@ -9,11 +9,16 @@ docker create --name stp-container stp &&
 docker cp stp-container:/home/server/_build/prod/rel/server/releases/0.1.0/server.tar.gz ./ &&
 scp server.tar.gz root@45.58.35.81:/root &&
 rm server.tar.gz &&
-ssh root@45.58.35.81 << EOF
-  cd ~ &&
+ssh -t root@45.58.35.81 /bin/bash << EOF
+  PORT=4000
+  cd /root &&
   tar -xzf server.tar.gz &&
-  PORT 4000 bin/server stop &&
-  PORT 4000 bin/server migrate &&
-  PORT 4000 bin/server start &&
+  echo "Stoping Server..." &&
+  ./bin/server stop || true &&
+  echo "Migrating..." &&
+  ./bin/server migrate &&
+  echo "Starting Server..." &&
+  PORT=4000 ./bin/server start &&
+  echo "Server Started!"
 EOF
 popd
