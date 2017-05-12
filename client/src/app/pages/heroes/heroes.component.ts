@@ -64,7 +64,6 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
 
   ngAfterContentInit() {
     console.log('player', this.player);
-    this.rows = this.player.snapshotStatistics[this.player.snapshotStatistics.length - 1].heroSnapshotStatistics;
 
     this.platformInput.initControl(this.questionForm, this.platform, this.platformName, this.platformName, this.platforms);
     this.regionInput.initControl(this.questionForm, this.region, this.regionName, this.regionName, this.regions);
@@ -72,6 +71,8 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
     this.roleInput.initControl(this.questionForm, this.role, this.roleName, this.roleName, this.roles);
     this.searchInput.initControl(this.questionForm, this.search, this.searchName, this.searchControl, this.searchPlaceholder, false);
     this.mapFormToModel();
+
+    this.rows = this.player.snapshotStatistics[this.player.snapshotStatistics.length - 1].heroSnapshotStatistics;
   }
 
   private mapFormToModel() {

@@ -2,7 +2,6 @@ import { Observable } from 'rxjs/Observable';
 import { Player } from '../models';
 
 const initialState: Player = {
-  userId: null,
   updatedAt: null,
   totalGamesWon: null,
   tag: null,
@@ -13,7 +12,7 @@ const initialState: Player = {
   overwatchName: null,
   levelUrl: null,
   level: null,
-  intersectedAt: null,
+  insertedAt: null,
   id: null,
   competitiveRankUrl: null,
   competitiveLevel: null,

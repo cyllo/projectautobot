@@ -1,7 +1,7 @@
 import { AppState } from './appstate.model';
 
 export interface Player extends AppState{
-  userId: number;
+  id: number;
   updatedAt: string;
   totalGamesWon: number;
   tag: string;
@@ -12,8 +12,7 @@ export interface Player extends AppState{
   overwatchName: string;
   levelUrl: string;
   level: number;
-  intersectedAt: string;
-  id: number;
+  insertedAt: string;
   competitiveRankUrl: string;
   competitiveLevel: number;
 }
@@ -31,19 +30,19 @@ export interface SnapshotStats extends Player {
 export interface HeroSnapshotStats extends SnapshotStats {
   snapshotStatisticId: number;
   matchAwardsStatisticId: number;
-  matchAwardsStatistic: MatchAwardsStats;
+  matchAwardsStatistics: MatchAwardsStats;
   id: number;
   heroSpecificStatisticId: number;
   heroId: number;
   hero: Hero;
   gameHistoryStatisticId: number;
-  gameHistoryStatistic: GameHistoryStats;
+  gameHistoryStatistics: GameHistoryStats;
   combatLifetimeStatisticId: number;
-  combatLifetimeStatistic: CombatLifetimeStats;
+  combatLifetimeStatistics: CombatLifetimeStats;
   combatBestStatisticId: number;
-  combatBestStatistic: CombatBestStats;
+  combatBestStatistics: CombatBestStats;
   combatAverageStatisticId: number;
-  combatAverageStatistic: CombatAverageStats;
+  combatAverageStatistics: CombatAverageStats;
 }
 
 export interface MatchAwardsStats extends HeroSnapshotStats {

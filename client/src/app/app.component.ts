@@ -45,18 +45,136 @@ export class AppComponent implements OnDestroy {
         query GamerTagSearch($tag: String!) {
           searchGamerTag(tag: $tag) {
             id
-            tag
-            overwatchName
-            portraitUrl
-            totalGamesWon
-            competitiveLevel
-            competitiveRankUrl
-            region
-            platform
-            level
-            levelUrl
-            insertedAt
             updatedAt
+            totalGamesWon
+            tag
+            snapshotStatistics {
+              id
+              isCompetitive
+              gamerTagId
+              heroSnapshotStatistics {
+                id
+                snapshotStatisticId
+                matchAwardsStatisticId
+                matchAwardsStatistics {
+                  id
+                  totalMedals
+                  goldMedals
+                  silverMedals
+                  bronzeMedals
+                  cards
+                }
+                heroSpecificStatisticId
+                heroId
+                hero {
+                  id
+                  code
+                  name
+                  insertedAt
+                  updatedAt
+                }
+                gameHistoryStatisticId
+                gameHistoryStatistics {
+                  id
+                  winPercentage
+                  timeSpentOnFire
+                  timePlayed
+                  gamesWon
+                  gamesPlayed
+                  gamesLost
+                }
+                combatLifetimeStatisticId
+                combatLifetimeStatistics {
+                  id
+                  weaponAccuracyPercentage
+                  turretsDestroyed
+                  timeSpentOnFire
+                  teleporterPadsDestroyed
+                  soloKills
+                  shotsHit
+                  shotsFired
+                  reconAssists
+                  offensiveAssists
+                  objectiveTime
+                  objectiveKills
+                  multikills
+                  multikillBest
+                  meleeKills
+                  meleeFinalBlows
+                  healingDone
+                  finalBlows
+                  environmentalKills
+                  environmentalDeaths
+                  eliminationsPerLife
+                  eliminations
+                  defensiveAssists
+                  deaths
+                  damageDone
+                  damageBlocked
+                  criticalHitsPerMinute
+                  criticalHitsAccuracyPercentage
+                  criticalHits
+                  criticalHitAccuracy
+                }
+                combatBestStatisticId
+                combatBestStatistics {
+                  id
+                  weaponAccuracyBestInGamePercentage
+                  timeSpentOnFireMostInGame
+                  soloKillsMostInGame
+                  selfHealingMostInGame
+                  reconAssistsMostInGame
+                  offensiveAssistsMostInGame
+                  objectiveTimeMostInGame
+                  objectiveKillsMostInGame
+                  multikillBest
+                  meleeKillsMostInGame
+                  meleeFinalBlowsMostInLife
+                  meleeFinalBlowsMostInGame
+                  killStreakBest
+                  healingDoneMostInLife
+                  healingDoneMostInGame
+                  finalBlowsMostInGame
+                  eliminationsMostInLife
+                  eliminationsMostInGame
+                  defensiveAssistsMostInGame
+                  damageDoneMostInLife
+                  damageDoneMostInGame
+                  damageBlockedMostInGame
+                  criticalHitsMostInLife
+                  criticalHitsMostInGame
+                }
+                combatAverageStatisticId
+                combatAverageStatistics {
+                  id
+                  timeSpentOnFireAverage
+                  soloKillsAverage
+                  selfHealingAverage
+                  offensiveAssistsAverage
+                  objectiveTimeAverage
+                  objectiveKillsAverage
+                  meleeKillsAverage
+                  meleeFinalBlowsAverage
+                  healingDoneAverage
+                  finalBlowsAverage
+                  eliminationsAverage
+                  defensiveAssistsAverage
+                  deathsAverage
+                  damageDoneAverage
+                  damageBlockedAverage
+                  criticalHitsAveragePercentage
+                }
+              }
+            }
+            region
+            portraitUrl
+            platform
+            overwatchName
+            levelUrl
+            level
+            insertedAt
+            competitiveRankUrl
+            competitiveLevel
           }
         }
       `,
