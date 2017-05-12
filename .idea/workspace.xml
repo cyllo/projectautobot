@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="06729a47-1479-4879-8205-53159370311d" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/app.component.ts" afterPath="$PROJECT_DIR$/client/src/app/app.component.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/pages/heroes/heroes.component.ts" afterPath="$PROJECT_DIR$/client/src/app/pages/heroes/heroes.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/services/players.service.ts" afterPath="$PROJECT_DIR$/client/src/app/services/players.service.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -36,8 +37,8 @@
           <file leaf-file-name="heroes.component.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client/src/app/pages/heroes/heroes.component.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="696">
-                  <caret line="86" column="4" lean-forward="false" selection-start-line="86" selection-start-column="4" selection-end-line="86" selection-end-column="4" />
+                <state relative-caret-position="180">
+                  <caret line="18" column="20" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -47,7 +48,7 @@
             <entry file="file://$PROJECT_DIR$/client/src/app/services/players.service.ts">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="240">
-                  <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+                  <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -70,8 +71,8 @@
           <file leaf-file-name="app.component.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client/src/app/app.component.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="396">
-                  <caret line="135" column="39" lean-forward="true" selection-start-line="135" selection-start-column="39" selection-end-line="135" selection-end-column="39" />
+                <state relative-caret-position="628">
+                  <caret line="153" column="35" lean-forward="true" selection-start-line="153" selection-start-column="35" selection-end-line="153" selection-end-column="35" />
                   <folding />
                 </state>
               </provider>
@@ -202,9 +203,9 @@
         <option value="$PROJECT_DIR$/client/src/app/reducers/search.reducer.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pages/heroes/heroes.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/services/search.service.ts" />
-        <option value="$PROJECT_DIR$/client/src/app/app.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/services/players.service.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pages/heroes/heroes.component.ts" />
+        <option value="$PROJECT_DIR$/client/src/app/app.component.ts" />
       </list>
     </option>
   </component>
@@ -599,12 +600,12 @@
       <workItem from="1493734872083" duration="1489000" />
       <workItem from="1494186929924" duration="9798000" />
       <workItem from="1494605129441" duration="157000" />
-      <workItem from="1494605298799" duration="5183000" />
+      <workItem from="1494605298799" duration="6157000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="102303000" />
+    <option name="totallyTimeSpent" value="103277000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="390" width="2329" height="1050" extended-state="0" />
@@ -985,26 +986,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/app.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="135" column="39" lean-forward="true" selection-start-line="135" selection-start-column="39" selection-end-line="135" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/app/services/players.service.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/app/pages/heroes/heroes.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="696">
-          <caret line="86" column="4" lean-forward="false" selection-start-line="86" selection-start-column="4" selection-end-line="86" selection-end-column="4" />
+        <state relative-caret-position="180">
+          <caret line="18" column="20" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/app.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="628">
+          <caret line="153" column="35" lean-forward="true" selection-start-line="153" selection-start-column="35" selection-end-line="153" selection-end-column="35" />
           <folding />
         </state>
       </provider>

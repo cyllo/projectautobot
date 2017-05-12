@@ -112,10 +112,8 @@ export class AppComponent implements OnDestroy {
                   deaths
                   damageDone
                   damageBlocked
-                  criticalHitsPerMinute
                   criticalHitsAccuracyPercentage
                   criticalHits
-                  criticalHitAccuracy
                 }
                 combatBestStatisticId
                 combatBestStatistic {
@@ -130,7 +128,6 @@ export class AppComponent implements OnDestroy {
                   objectiveKillsMostInGame
                   multikillBest
                   meleeKillsMostInGame
-                  meleeFinalBlowsMostInLife
                   meleeFinalBlowsMostInGame
                   killStreakBest
                   healingDoneMostInLife
@@ -163,7 +160,6 @@ export class AppComponent implements OnDestroy {
                   deathsAverage
                   damageDoneAverage
                   damageBlockedAverage
-                  criticalHitsAveragePercentage
                 }
               }
             }
