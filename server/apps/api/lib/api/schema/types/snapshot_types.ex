@@ -51,15 +51,15 @@ defmodule Api.Schema.SnapshotTypes do
       resolve &batch_get_combat_lifetimes/3
     end
 
-    field :hero_specific, :hero_specific do
+    field :hero_specific_statistic, :hero_specific_statistic do
       resolve &batch_get_hero_specifics/3
     end
 
-    field :match_award, :match_award do
+    field :match_awards_statistic, :match_award_statistic do
       resolve &batch_get_match_awards/3
     end
 
-    field :game_history, :game_history do
+    field :game_history_statistic, :game_history_statistic do
       resolve &batch_get_game_histories/3
     end
   end
@@ -87,15 +87,15 @@ defmodule Api.Schema.SnapshotTypes do
       resolve &batch_get_combat_lifetimes/3
     end
 
-    field :hero_specific, :hero_specific do
+    field :hero_specific_statistic, :hero_specific_statistic do
       resolve &batch_get_hero_specifics/3
     end
 
-    field :match_award, :match_award do
+    field :match_award_statistic, :match_award_statistic do
       resolve &batch_get_match_awards/3
     end
 
-    field :game_history, :game_history do
+    field :game_history_statistic, :game_history_statistic do
       resolve &batch_get_game_histories/3
     end
 

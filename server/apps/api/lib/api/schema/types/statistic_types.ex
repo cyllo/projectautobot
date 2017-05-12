@@ -82,7 +82,7 @@ defmodule Api.Schema.StatisticTypes do
     field :offensive_assists, :integer
   end
 
-  object :match_award do
+  object :match_award_statistic do
     field :id, :integer
 
     field :bronze_medals, :integer
@@ -92,7 +92,7 @@ defmodule Api.Schema.StatisticTypes do
     field :cards, :integer
   end
 
-  object :game_history do
+  object :game_history_statistic do
     field :id, :integer
 
     field :games_played, :integer
@@ -103,7 +103,7 @@ defmodule Api.Schema.StatisticTypes do
     field :win_percentage, :integer
   end
 
-  object :hero_specific do
+  object :hero_specific_statistic do
     field :id, :integer
 
     field :stats, :map
