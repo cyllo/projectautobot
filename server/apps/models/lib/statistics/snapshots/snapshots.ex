@@ -30,17 +30,17 @@ defmodule Models.Statistics.Snapshots do
 
   def get_gamer_tag_snapshot_statistics(gamer_tag_id) do
     get_all_snapshots_statistics(gamer_tag_id: gamer_tag_id)
-      |> parse_get_all_results("#{gamer_tag_id} cannot be found")
+      |> parse_get_all_results("GamerTagId: #{gamer_tag_id} has no snapshotStatistics")
   end
 
   def get_all_heroes_statistic_for_snapshot(snapshot_statistic_id) do
     get_all_of_all_heroes_statistic(snapshot_statistic_id: snapshot_statistic_id)
-      |> parse_get_all_results("#{snapshot_statistic_id} cannot be found")
+      |> parse_get_all_results("SnapshotStatisticsId: #{snapshot_statistic_id} has no allHeroesStatistics")
   end
 
   def get_hero_statistics_for_snapshot(snapshot_statistic_id) do
     get_all_hero_statistics(snapshot_statistic_id: snapshot_statistic_id)
-      |> parse_get_all_results("#{snapshot_statistic_id} cannot be found")
+      |> parse_get_all_results("GetHeroStatistics - SnapshotStatisticId: #{snapshot_statistic_id} has no hero statistics")
   end
 
   def create_snapshot(gamer_tag_id, heroes_stats, general_stats, is_competitive \\ false) do
@@ -134,6 +134,6 @@ defmodule Models.Statistics.Snapshots do
     end
   end
 
-  defp parse_get_all_results([], message), do: {:error, message}
   defp parse_get_all_results(results, _) when is_list(results), do: {:ok, results}
+  defp parse_get_all_results(meta, message), do: {:error, %{message: message, metadata: meta}}
 end
