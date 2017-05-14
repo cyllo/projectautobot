@@ -43,7 +43,7 @@ import { SidebarModule } from 'ng-sidebar';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { PlayersService } from './services';
-import { players, playerData, playerDataCollection } from './reducers';
+import { players, playerData, playerDataCollection, searchPlayerTag } from './reducers';
 import { MainNavComponent } from './static/main-nav/main-nav.component';
 
 export function instrumentOptions() {
@@ -63,11 +63,13 @@ export function instrumentOptions() {
       playerData: playerData,
       players: players,
       playerDataCollection: playerDataCollection,
-      router: routerReducer
+      router: routerReducer,
+      search: searchPlayerTag
     }, {
       playerData: {},
       players: [],
-      router: {}
+      router: {},
+      search: ''
     }),
     RouterStoreModule.connectRouter(),
     HttpModule,

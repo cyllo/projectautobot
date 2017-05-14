@@ -35,7 +35,7 @@
             </div>
             <div class="row">
               <div class="col-12">
-                <ow-search #search (keypress)="submit(searchInput)"></ow-search>
+                <ow-search #search></ow-search>
               </div>
             </div>
           </form>
@@ -50,8 +50,8 @@
 
         <div class="col-12">
 
-          <ngx-datatable class="material" 
-            [rows]="rows" 
+          <ngx-datatable class="material"
+            [rows]="rows | async"
             [columnMode]="'flex'"
             [headerHeight]="40"
             [rowHeight]="'auto'"

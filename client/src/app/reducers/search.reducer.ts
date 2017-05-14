@@ -1,10 +1,11 @@
 import { Search } from '../models';
+import { Observable } from 'rxjs/Observable';
 
 const initialState: Search = {
   tag: null
 };
 
-export function playerTag(state: Search = initialState, { type, payload }: { type: string, payload?: any }) {
+export function searchPlayerTag(state: Search = initialState, { type, payload }: { type: string, payload?: any }) {
   switch (type) {
     case 'GET_PLAYER_TAG':
       return payload;
@@ -12,4 +13,8 @@ export function playerTag(state: Search = initialState, { type, payload }: { typ
     default:
       return state;
   }
+}
+
+export function searchGamerTag(state$: Observable<Search>) {
+  return state$.select(state => state.search);
 }

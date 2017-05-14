@@ -7,7 +7,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
 import { AppState, Player } from './models';
-import { getPlayerData, getGamerTag } from './reducers';
+import { getPlayerData, searchGamerTag } from './reducers';
 
 import '../style/app.scss';
 
@@ -24,17 +24,25 @@ interface GamerTagSearchResponse {
 export class AppComponent implements OnDestroy {
   sub: Subscription;
   players: Observable<Player[]>;
-  tag: String;
+  tag;
+  $state: Observable<AppState>;
 
   constructor(private store: Store<AppState>, private apollo: Apollo) {
+    this.$state = this.store.select(s => s);
+
     this.players = store.let(getPlayerData)
       .distinctUntilChanged()
       .filter(players => !isEmpty(players));
 
-    this.sub = store.let(getGamerTag)
+    this.sub = store.let(searchGamerTag)
       .distinctUntilChanged()
       .filter(tag => Boolean(tag))
       .subscribe(tag => console.log(tag));
+
+    this.$state.subscribe(s => {
+      this.tag = s.search;
+      this.find();
+    });
 
     this.find()
       .subscribe(() => {});

@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
-import { AppState, Player } from '../../models';
+import { AppState, Player, Search } from '../../models';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { PlayersService } from '../../services/players.service';
@@ -37,7 +37,7 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
   private role;
   public roleName = 'role';
 
-  private search;
+  private search: Search;
   public searchName = '';
   public searchControl = 'search';
   public searchPlaceholder = 'Search for a Hero';
@@ -54,6 +54,14 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
     this.playerData$ = this.store.select(players => players);
     this.playerData$.subscribe(p => this.players = p.players);
     this.playerData$.subscribe(p => this.player = p.playerData);
+    this.playerData$.subscribe(p => {
+      this.rows = p.playerData.snapshotStatistics[p.playerData.snapshotStatistics.length - 1].heroSnapshotStatistics;
+      console.log(this.rows);
+    });
+
+    this.questionForm.valueChanges.subscribe(value => {
+      this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: value.search });
+    });
 
     this.playerData$.subscribe(players => {
         if (!players) {
@@ -63,16 +71,12 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   ngAfterContentInit() {
-    console.log('player', this.player);
-
     this.platformInput.initControl(this.questionForm, this.platform, this.platformName, this.platformName, this.platforms);
     this.regionInput.initControl(this.questionForm, this.region, this.regionName, this.regionName, this.regions);
     this.modeInput.initControl(this.questionForm, this.mode, this.modeName, this.modeName, this.modes);
     this.roleInput.initControl(this.questionForm, this.role, this.roleName, this.roleName, this.roles);
     this.searchInput.initControl(this.questionForm, this.search, this.searchName, this.searchControl, this.searchPlaceholder, false);
     this.mapFormToModel();
-
-    this.rows = this.player.snapshotStatistics[this.player.snapshotStatistics.length - 1].heroSnapshotStatistics;
   }
 
   private mapFormToModel() {
