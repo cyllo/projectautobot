@@ -26,7 +26,11 @@ defmodule Api.Schema.GameTypes do
 
     field :snapshot_statistics, list_of(:snapshot_statistic) do
       resolve fn gamer_tag, _, _ ->
-        batch({SnapshotStatisticResolver, :get_gamer_tag_snapshot_statistics}, gamer_tag.id, &(&1))
+        batch(
+          {SnapshotStatisticResolver, :get_gamer_tag_snapshot_statistics},
+          gamer_tag.id,
+          &{:ok, Map.get(&1, gamer_tag.id)}
+        )
       end
     end
   end

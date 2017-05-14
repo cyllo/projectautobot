@@ -1,17 +1,13 @@
 defmodule Models.Statistics.Snapshots do
-  use Models.Model
+  alias Models.Model
   alias Models.{HeroesCache, Repo}
   alias Models.Statistics.Snapshots.{HeroStatistic, AllHeroesStatistic, SnapshotStatistic}
   alias Models.Statistics.{CombatLifetime, CombatAverage, CombatBest, GameHistory, MatchAward, HeroSpecific}
+  use Model
 
-  def get_all_snapshots_statistics, do: Repo.all(SnapshotStatistic)
-  def get_all_snapshots_statistics(params), do: from(p in SnapshotStatistic, where: ^params) |> Repo.all
-
-  def get_all_of_all_heroes_statistic, do: Repo.all(AllHeroesStatistic)
-  def get_all_of_all_heroes_statistic(params), do: from(ahs in AllHeroesStatistic, where: ^params) |> Repo.all
-
-  def get_all_hero_statistics, do: Repo.all(HeroStatistic)
-  def get_all_hero_statistics(params), do: from(hs in HeroStatistic, where: ^params) |> Repo.all
+  Model.create_model_methods(SnapshotStatistic)
+  Model.create_model_methods(AllHeroesStatistic)
+  Model.create_model_methods(HeroStatistic)
 
   def get_all_of_all_heroes_statistics_by_snapshot_ids(snapshot_ids) do
     from(ahs in AllHeroesStatistic, where: ahs.snapshot_statistic_id in ^snapshot_ids)
@@ -28,13 +24,18 @@ defmodule Models.Statistics.Snapshots do
       |> Repo.all
   end
 
+  def get_gamer_tags_snapshot_statistics_by_ids(gamer_tag_ids) do
+    from(ss in SnapshotStatistic, where: ss.gamer_tag_id in ^gamer_tag_ids)
+      |> Repo.all
+  end
+
   def get_gamer_tag_snapshot_statistics(gamer_tag_id) do
-    get_all_snapshots_statistics(gamer_tag_id: gamer_tag_id)
+    get_all_snapshot_statistics(gamer_tag_id: gamer_tag_id)
       |> parse_get_all_results("GamerTagId: #{gamer_tag_id} has no snapshotStatistics")
   end
 
   def get_all_heroes_statistic_for_snapshot(snapshot_statistic_id) do
-    get_all_of_all_heroes_statistic(snapshot_statistic_id: snapshot_statistic_id)
+    get_all_all_heroes_statistics(snapshot_statistic_id: snapshot_statistic_id)
       |> parse_get_all_results("SnapshotStatisticsId: #{snapshot_statistic_id} has no allHeroesStatistics")
   end
 

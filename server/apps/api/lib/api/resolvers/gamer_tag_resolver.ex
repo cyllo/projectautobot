@@ -9,10 +9,11 @@ defmodule Api.GamerTagResolver do
 
   def scrape(%{id: gamer_tag_id}, _info) do
     with {:ok, gamer_tag} <- get_gamer_tag_for_scrape(gamer_tag_id),
+         _ <- ScrapeStatusCache.mark_tag_scraped(gamer_tag_id),
          %{competitive_snapshot: _} <- Scraper.get_profile(gamer_tag) do
-      ScrapeStatusCache.mark_tag_scraped(gamer_tag_id)
-
-      Game.get_gamer_tag_with_snapshots(gamer_tag_id)
+       Game.get_gamer_tag_with_snapshots(gamer_tag_id)
+     else
+       _ -> ScrapeStatusCache.unmark_tag_scraped(gamer_tag_id)
     end
   end
 
@@ -21,12 +22,17 @@ defmodule Api.GamerTagResolver do
   defp get_gamer_tag_for_scrape(gamer_tag_id) do
     if ScrapeStatusCache.has_scraped_gamer_tag?(gamer_tag_id) do
       time_till_can_scrape = ScrapeStatusCache.ms_before_next_scrape(gamer_tag_id)
-      {:error, %{
-        message: "must wait #{Helpers.ms_to_min(time_till_can_scrape)} min (#{Helpers.ms_to_sec(time_till_can_scrape)} seconds) before scraping",
-        time_till_can_scrape: time_till_can_scrape
-      }}
+
+      {:error, create_error(time_till_can_scrape)}
     else
       Game.get_gamer_tag(gamer_tag_id)
     end
+  end
+
+  defp create_error(time_till_can_scrape) do
+    %{
+      message: "must wait #{Helpers.ms_to_min(time_till_can_scrape)} min (#{Helpers.ms_to_sec(time_till_can_scrape)} seconds) before scraping",
+      time_till_can_scrape: time_till_can_scrape
+    }
   end
 end
