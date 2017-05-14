@@ -42,7 +42,7 @@ export class AppComponent implements OnDestroy {
     this.$state
       .do(({search}) => this.tag = search)
       .debounceTime(300)
-      .subscribe(() => this.find());
+      .subscribe(() => this.find().subscribe(() => {}));
 
     this.find()
       .subscribe(() => {});
