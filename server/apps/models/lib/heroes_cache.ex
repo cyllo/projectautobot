@@ -1,7 +1,6 @@
 defmodule Models.HeroesCache do
   alias Models.{HeroesCache, Game, Helpers}
   import Logger
-  import IEx
 
   def is_not_in_cache?(%{name: name}) do
     if cache() do
@@ -20,7 +19,6 @@ defmodule Models.HeroesCache do
   def store_heroes_into_db(heroes) do
     if length(heroes) >= 1 do
       with {:ok, res} <- Game.create_heroes(heroes) do
-        if (is_tuple(res)), do: IEx.pry
         add_heroes_to_cache(res)
 
         {:ok, res}
@@ -37,6 +35,8 @@ defmodule Models.HeroesCache do
 
     cache_length = HeroesCache.cache_length()
     hero_names = get_hero_names(heroes)
+    IO.inspect(cache_length)
+    IO.inspect(hero_names)
 
     cond do
       length(hero_names) <= 0 -> heroes

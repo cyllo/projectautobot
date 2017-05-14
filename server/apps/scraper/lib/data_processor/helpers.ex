@@ -7,7 +7,7 @@ defmodule Scraper.DataProcessor.Helpers do
     "elimination", "blow", "kill",
     "shot", "hit", "medal",
     "card", "death", "assist",
-    "pad", "generator"
+    "pad", "generator", "turret"
   ]
 
   def find_html(src, container_query), do: src |> Floki.find(container_query) |> Floki.raw_html
@@ -15,32 +15,32 @@ defmodule Scraper.DataProcessor.Helpers do
   def find_href(src), do: src |> Floki.attribute("href") |> List.first
 
   def find_text(src, query_selector) do
-    src
-      |> Floki.find(query_selector)
-      |> Floki.text
+    res = Floki.find(src, query_selector)
+
+    unless res === nil, do: Floki.text(res), else: nil
   end
 
   def find_first_text(src, query_selector) do
-    src
-      |> Floki.find(query_selector)
-      |> List.first
-      |> Floki.text
+    res = src |> Floki.find(query_selector) |> List.first
+
+    unless res === nil, do: Floki.text(res), else: nil
   end
 
   def find_img_src(src, query_selector) do
-    src
-      |> Floki.find(query_selector)
-      |> Floki.attribute("src")
-      |> List.first
+    res = Floki.find(src, query_selector)
+
+    unless res === nil, do: res |> Floki.attribute("src") |> List.first, else: nil
   end
 
   def find_background_img_url(src, query_selector) do
-    src
-      |> Floki.find(query_selector)
-      |> Floki.attribute("style")
-      |> List.first
-      |> String.replace(~r/background-image:url\(/, "")
-      |> String.replace_trailing(")", "")
+    case Floki.find(src, query_selector) do
+      [] -> nil
+      res -> res
+        |> Floki.attribute("style")
+        |> List.first
+        |> String.replace(~r/background-image:url\(/, "")
+        |> String.replace_trailing(")", "")
+    end
   end
 
   def find_player_platforms(src), do: Floki.find(src, @overwatch_player_platforms)

@@ -24,24 +24,21 @@ defmodule Models.Statistics.Snapshots do
       |> Repo.all
   end
 
-  def get_gamer_tags_snapshot_statistics_by_ids(gamer_tag_ids) do
+  def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids) do
     from(ss in SnapshotStatistic, where: ss.gamer_tag_id in ^gamer_tag_ids)
       |> Repo.all
   end
 
   def get_gamer_tag_snapshot_statistics(gamer_tag_id) do
     get_all_snapshot_statistics(gamer_tag_id: gamer_tag_id)
-      |> parse_get_all_results("GamerTagId: #{gamer_tag_id} has no snapshotStatistics")
   end
 
   def get_all_heroes_statistic_for_snapshot(snapshot_statistic_id) do
     get_all_all_heroes_statistics(snapshot_statistic_id: snapshot_statistic_id)
-      |> parse_get_all_results("SnapshotStatisticsId: #{snapshot_statistic_id} has no allHeroesStatistics")
   end
 
   def get_hero_statistics_for_snapshot(snapshot_statistic_id) do
     get_all_hero_statistics(snapshot_statistic_id: snapshot_statistic_id)
-      |> parse_get_all_results("GetHeroStatistics - SnapshotStatisticId: #{snapshot_statistic_id} has no hero statistics")
   end
 
   def create_snapshot(gamer_tag_id, heroes_stats, general_stats, is_competitive \\ false) do
@@ -134,7 +131,4 @@ defmodule Models.Statistics.Snapshots do
       hero_id -> HeroSpecific.create_changeset(%{hero_id: hero_id, stats: stats})
     end
   end
-
-  defp parse_get_all_results(results, _) when is_list(results), do: {:ok, results}
-  defp parse_get_all_results(meta, message), do: {:error, %{message: message, metadata: meta}}
 end

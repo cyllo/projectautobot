@@ -22,6 +22,7 @@ defmodule Api.Schema.StatisticTypes do
     field :time_spent_on_fire_most_in_game, :integer
     field :healing_done_most_in_game, :integer
     field :healing_done_most_in_life, :integer
+    field :turrets_destroyed_most_in_game, :integer
     field :self_healing_most_in_game, :integer
     field :multikill_best, :integer
     field :recon_assists_most_in_game, :integer

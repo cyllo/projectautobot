@@ -8,7 +8,7 @@ defmodule Scraper.ScrapeStatusCache do
     tag
   end
 
-  def ummark_tag_scraped(gamer_tag_id) do
+  def unmark_tag_scraped(gamer_tag_id) do
     ConCache.delete(:scraper_profile_scrape_store, gamer_tag_id)
 
     gamer_tag_id

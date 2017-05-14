@@ -40,6 +40,7 @@ defmodule Models.Statistics.CombatBest do
     field :multikill_best, :integer
     field :recon_assists_most_in_game, :integer
 
+    field :turrets_destroyed_most_in_game, :integer
     field :damage_blocked_most_in_game, :integer
     field :melee_kills_most_in_game, :integer
   end
@@ -61,6 +62,7 @@ defmodule Models.Statistics.CombatBest do
     :solo_kills_most_in_game,
     :objective_kills_most_in_game,
     :objective_time_most_in_game,
+    :turrets_destroyed_most_in_game,
     :time_spent_on_fire_most_in_game,
     :healing_done_most_in_game,
     :healing_done_most_in_life,
