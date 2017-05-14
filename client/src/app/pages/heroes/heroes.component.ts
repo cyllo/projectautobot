@@ -55,7 +55,8 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
     this.playerData$.subscribe(p => this.players = p.players);
     this.playerData$.subscribe(p => this.player = p.playerData);
     this.playerData$.subscribe(p => {
-      this.rows = p.playerData.snapshotStatistics[p.playerData.snapshotStatistics.length - 1].heroSnapshotStatistics;
+      let data = p.playerData.snapshotStatistics[p.playerData.snapshotStatistics.length - 1].heroSnapshotStatistics;
+      this.rows = JSON.parse(JSON.stringify(data));
       console.log(this.rows);
     });
 
