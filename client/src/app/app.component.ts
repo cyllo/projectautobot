@@ -37,12 +37,12 @@ export class AppComponent implements OnDestroy {
     this.sub = store.let(searchGamerTag)
       .distinctUntilChanged()
       .filter(tag => Boolean(tag))
-      .subscribe(tag => console.log(tag));
+      .subscribe(() => {});
 
-    this.$state.subscribe(s => {
-      this.tag = s.search;
-      this.find();
-    });
+    this.$state
+      .do(({search}) => this.tag = search)
+      .debounceTime(300)
+      .subscribe(() => this.find());
 
     this.find()
       .subscribe(() => {});
