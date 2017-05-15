@@ -30,6 +30,11 @@ RUN \
   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
   echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+ENV PATH $HOME/.cargo/bin:$PATH
+
+RUN mix local.hex --force
+RUN mix local.rebar --force
 
 # Client
 RUN apt-get update && apt-get install yarn
@@ -39,16 +44,10 @@ RUN cd /home/client && NODE_ENV=development yarn
 COPY ./client /home/client
 RUN cd /home/client && npm run build
 
-COPY ./release_scripts/move-client.sh home/release_scripts/
-RUN /home/release_scripts/move-client.sh
+COPY ./scripts/move-client.sh home/scripts/
+RUN /home/scripts/move-client.sh
 
 # SERVER
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
-ENV PATH $HOME/.cargo/bin:$PATH
-
-RUN mix local.hex --force
-RUN mix local.rebar --force
-
 COPY ./server /home/server
 RUN cd /home/server && mix deps.get
 RUN cd /home/server && PATH=$HOME/.cargo/bin:$PATH mix release --env=prod

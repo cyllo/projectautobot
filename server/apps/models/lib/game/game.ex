@@ -15,6 +15,11 @@ defmodule Models.Game do
   Model.create_model_methods(Hero)
   Model.create_model_methods(GamerTag)
 
+  def get_all_gamer_tags_by_tag(tag) do
+    from(gt in GamerTag, where: gt.tag == ^tag or gt.tag == ^slug_gamer_tag(tag))
+      |> Repo.all
+  end
+
   def get_gamer_tag_with_snapshots(id) do
     get_gamer_tag(id, snapshot_statistics: [
       all_heroes_snapshot_statistics: @all_heroes_snapshot_relations,
@@ -51,4 +56,6 @@ defmodule Models.Game do
     Map.put(hero, :inserted_at, NaiveDateTime.utc_now)
       |> Map.put(:updated_at, NaiveDateTime.utc_now)
   end
+
+  defp slug_gamer_tag(gamer_tag), do: String.replace(~r/(.*)#(.*)/, gamer_tag, "\0-\1")
 end
