@@ -133,7 +133,10 @@
 
           <div class="row">
             <div class="col-12">
-              <span class="h3 font-weight-bold mb-0">209 - 64</span>
+              <span class="h3 font-weight-bold mb-0">
+                {{ player.snapshotStatistics[0].allHeroesSnapshotStatistic.gameHistoryStatistic.gamesWon }} -
+                {{ player.snapshotStatistics[0].allHeroesSnapshotStatistic.gameHistoryStatistic.gamesLost }}
+              </span>
             </div>
           </div>
           <!-- end .row -->
@@ -231,10 +234,15 @@
                     <div class="col-2 mb-2">
                       <div class="row">
                         <div class="col-12 text-center mb-2">
-                          <span>1.67</span>
+                          <span>
+                            {{ player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatAverageStatistic.eliminationsAverage }}
+                          </span>
                         </div>
                         <div class="col-12 mb-2">
-                          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+                          <ngb-progressbar
+                            type="stp"
+                            [value]="player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatAverageStatistic.eliminationsAverage"
+                            [max]="100"></ngb-progressbar>
                         </div>
                         <div class="col-12 text-center mb-2">
                           <p class="small text-uppercase mb-0">Kills</p>
@@ -246,13 +254,18 @@
                     <div class="col-2 mb-2">
                       <div class="row">
                         <div class="col-12 text-center mb-2">
-                          <span>1.67</span>
+                          <span>
+                            {{ player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatLifetimeStatistic.multikills }}
+                          </span>
                         </div>
                         <div class="col-12 mb-2">
-                          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+                          <ngb-progressbar
+                            type="stp"
+                            [value]="player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatLifetimeStatistic.multikills"
+                            [max]="100"></ngb-progressbar>
                         </div>
                         <div class="col-12 text-center mb-2">
-                          <p class="small text-uppercase mb-0">Kills</p>
+                          <p class="small text-uppercase mb-0">Multi Kills</p>
                           <p class="small text-uppercase mb-0">Top 0.1%</p>
                         </div>
                       </div>
@@ -261,13 +274,18 @@
                     <div class="col-2 mb-2">
                       <div class="row">
                         <div class="col-12 text-center mb-2">
-                          <span>1.67</span>
+                          <span>
+                            {{ player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatAverageStatistic.soloKillsAverage }}
+                          </span>
                         </div>
                         <div class="col-12 mb-2">
-                          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+                          <ngb-progressbar
+                            type="stp"
+                            [value]="player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatAverageStatistic.soloKillsAverage"
+                            [max]="100"></ngb-progressbar>
                         </div>
                         <div class="col-12 text-center mb-2">
-                          <p class="small text-uppercase mb-0">Kills</p>
+                          <p class="small text-uppercase mb-0">Solo Kills</p>
                           <p class="small text-uppercase mb-0">Top 0.1%</p>
                         </div>
                       </div>
@@ -276,13 +294,18 @@
                     <div class="col-2 mb-2">
                       <div class="row">
                         <div class="col-12 text-center mb-2">
-                          <span>1.67</span>
+                          <span>
+                            {{ player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatLifetimeStatistic.offensiveAssists + player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatLifetimeStatistic.defensiveAssists }}
+                          </span>
                         </div>
                         <div class="col-12 mb-2">
-                          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+                          <ngb-progressbar
+                            type="stp"
+                            [value]="player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatAverageStatistic.offensiveAssistsAverage + player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatAverageStatistic.defensiveAssistsAverage"
+                            [max]="100"></ngb-progressbar>
                         </div>
                         <div class="col-12 text-center mb-2">
-                          <p class="small text-uppercase mb-0">Kills</p>
+                          <p class="small text-uppercase mb-0">Assists</p>
                           <p class="small text-uppercase mb-0">Top 0.1%</p>
                         </div>
                       </div>
@@ -291,13 +314,18 @@
                     <div class="col-2 mb-2">
                       <div class="row">
                         <div class="col-12 text-center mb-2">
-                          <span>1.67</span>
+                          <span>
+                            {{ player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatAverageStatistic.damageDoneAverage }}
+                          </span>
                         </div>
                         <div class="col-12 mb-2">
-                          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+                          <ngb-progressbar
+                            type="stp"
+                            [value]="player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatAverageStatistic.damageDoneAverage"
+                            [max]="10000"></ngb-progressbar>
                         </div>
                         <div class="col-12 text-center mb-2">
-                          <p class="small text-uppercase mb-0">Kills</p>
+                          <p class="small text-uppercase mb-0">Damage Done</p>
                           <p class="small text-uppercase mb-0">Top 0.1%</p>
                         </div>
                       </div>
@@ -306,13 +334,18 @@
                     <div class="col-2 mb-2">
                       <div class="row">
                         <div class="col-12 text-center mb-2">
-                          <span>1.67</span>
+                          <span>
+                            {{ player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatAverageStatistic.healingDoneAverage }}
+                          </span>
                         </div>
                         <div class="col-12 mb-2">
-                          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+                          <ngb-progressbar
+                            type="stp"
+                            [value]="player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatAverageStatistic.healingDoneAverage"
+                            [max]="1000"></ngb-progressbar>
                         </div>
                         <div class="col-12 text-center mb-2">
-                          <p class="small text-uppercase mb-0">Kills</p>
+                          <p class="small text-uppercase mb-0">Healing Done</p>
                           <p class="small text-uppercase mb-0">Top 0.1%</p>
                         </div>
                       </div>
@@ -321,13 +354,18 @@
                     <div class="col-2 mb-2">
                       <div class="row">
                         <div class="col-12 text-center mb-2">
-                          <span>1.67</span>
+                          <span>
+                            {{ player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatAverageStatistic.objectiveTimeAverage }}
+                          </span>
                         </div>
                         <div class="col-12 mb-2">
-                          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+                          <ngb-progressbar
+                            type="stp"
+                            [value]="player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatAverageStatistic.objectiveTimeAverage"
+                            [max]="100"></ngb-progressbar>
                         </div>
                         <div class="col-12 text-center mb-2">
-                          <p class="small text-uppercase mb-0">Kills</p>
+                          <p class="small text-uppercase mb-0">Objective Time</p>
                           <p class="small text-uppercase mb-0">Top 0.1%</p>
                         </div>
                       </div>
@@ -336,13 +374,18 @@
                     <div class="col-2 mb-2">
                       <div class="row">
                         <div class="col-12 text-center mb-2">
-                          <span>1.67</span>
+                          <span>
+                            {{ player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatAverageStatistic.objectiveKillsAverage }}
+                          </span>
                         </div>
                         <div class="col-12 mb-2">
-                          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+                          <ngb-progressbar
+                            type="stp"
+                            [value]="player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatAverageStatistic.objectiveKillsAverage"
+                            [max]="100"></ngb-progressbar>
                         </div>
                         <div class="col-12 text-center mb-2">
-                          <p class="small text-uppercase mb-0">Kills</p>
+                          <p class="small text-uppercase mb-0">Objective Kills Average</p>
                           <p class="small text-uppercase mb-0">Top 0.1%</p>
                         </div>
                       </div>
@@ -351,13 +394,18 @@
                     <div class="col-2 mb-2">
                       <div class="row">
                         <div class="col-12 text-center mb-2">
-                          <span>1.67</span>
+                          <span>
+                            {{ player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatAverageStatistic.timeSpentOnFireAverage }}
+                          </span>
                         </div>
                         <div class="col-12 mb-2">
-                          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+                          <ngb-progressbar
+                            type="stp"
+                            [value]="player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatAverageStatistic.timeSpentOnFireAverage"
+                            [max]="100"></ngb-progressbar>
                         </div>
                         <div class="col-12 text-center mb-2">
-                          <p class="small text-uppercase mb-0">Kills</p>
+                          <p class="small text-uppercase mb-0">Time on Fire</p>
                           <p class="small text-uppercase mb-0">Top 0.1%</p>
                         </div>
                       </div>
@@ -366,13 +414,18 @@
                     <div class="col-2 mb-2">
                       <div class="row">
                         <div class="col-12 text-center mb-2">
-                          <span>1.67</span>
+                          <span>
+                            {{ player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatAverageStatistic.deathsAverage }}
+                          </span>
                         </div>
                         <div class="col-12 mb-2">
-                          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+                          <ngb-progressbar
+                            type="stp"
+                            [value]="player.snapshotStatistics[0].allHeroesSnapshotStatistic.combatAverageStatistic.deathsAverage"
+                            [max]="100"></ngb-progressbar>
                         </div>
                         <div class="col-12 text-center mb-2">
-                          <p class="small text-uppercase mb-0">Kills</p>
+                          <p class="small text-uppercase mb-0">Deaths</p>
                           <p class="small text-uppercase mb-0">Top 0.1%</p>
                         </div>
                       </div>
