@@ -1,4 +1,14 @@
-import { AfterContentInit, AfterViewInit, AfterViewChecked, Component, OnDestroy, OnInit, ViewChild, Renderer2, EventEmitter, Output } from '@angular/core';
+import {
+  AfterContentInit,
+  AfterViewInit,
+  AfterViewChecked,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  Renderer2,
+  EventEmitter,
+  Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { Action } from '@ngrx/store';
@@ -78,7 +88,7 @@ export class MainNavComponent implements OnInit, AfterContentInit, AfterViewInit
   }
 
   onSearch(tag) {
-    this.searchTag.emit({ type: 'GET_PLAYER_TAG', payload: tag })
+    this.searchTag.emit({ type: 'GET_PLAYER_TAG', payload: tag });
   }
 
   onScroll(event) {

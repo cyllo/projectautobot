@@ -12,7 +12,7 @@ export class SearchComponent implements OnDestroy {
   @Output() search = new EventEmitter();
 
   public subscriptions: Subscription[] = [];
-  public value
+  public value;
   public form: FormGroup;
   public control: FormControl;
   public controlName = 'search';
@@ -44,7 +44,7 @@ export class SearchComponent implements OnDestroy {
   }
 
   onKeyUp() {
-    this.search.emit(trim(this.control.value))
+    this.search.emit(trim(this.control.value));
   }
 
   blur() {

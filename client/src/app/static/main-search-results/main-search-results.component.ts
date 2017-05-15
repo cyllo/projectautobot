@@ -11,15 +11,15 @@ export class MainSearchResultsComponent {
   @Input() searchResults;
   @Input()
   @HostBinding('class.open')
-  isOpen = false
+  isOpen = false;
   @Output() resultSelect = new EventEmitter<Player>();
-  @Output() close = new EventEmitter()
+  @Output() close = new EventEmitter();
 
   onClose() {
-    this.isOpen = false
+    this.isOpen = false;
   }
 
   onSelect(result) {
-    this.resultSelect.emit(result)
+    this.resultSelect.emit(result);
   }
 }

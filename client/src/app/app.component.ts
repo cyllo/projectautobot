@@ -42,12 +42,12 @@ export class AppComponent implements OnDestroy {
       .do(() => this.searchResults.next([]))
       .mergeMap((tag) => this.find(tag))
       .map(players => Object.values(players))
-      .subscribe(this.searchResults)
+      .subscribe(this.searchResults);
   }
 
   onSearch(action) {
-    this.isResultsOpen = !!action.payload
-    this.store.dispatch(action)
+    this.isResultsOpen = !!action.payload;
+    this.store.dispatch(action);
   }
 
   find(tag) {
