@@ -14,7 +14,7 @@ import {
 } from './pages';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent },
   { path: 'following', component: FollowingComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'heroes', component: HeroesComponent },
