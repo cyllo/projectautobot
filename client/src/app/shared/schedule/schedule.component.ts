@@ -24,12 +24,13 @@ export class ScheduleComponent implements OnInit, AfterContentInit {
   }
 
   onScroll( event ) {
+    /*
     if ((this.currScrollY = window.scrollY) > this.lastScrollY) {
       this.el.nativeElement.style.display = 'none';
     } else {
       this.el.nativeElement.style.display = 'flex';
     }
-    this.lastScrollY = this.currScrollY;
+    this.lastScrollY = this.currScrollY;*/
     event.preventDefault();
   }
 
