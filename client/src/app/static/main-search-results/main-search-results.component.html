@@ -1,0 +1,8 @@
+<i class='material-icons' (click)='onClose()'>close</i>
+
+<div *ngFor='let player of searchResults'>
+  Tag: <a (click)='onSelect(player)'>{{ player.tag }}</a>
+  Overwatch Name: {{ player.overwatchName }}
+  Region: {{ player.region }}
+  Platform: {{ player.platform }}
+</div>

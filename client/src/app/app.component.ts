@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { Subject } from 'rxjs/Subject';
 import { isEmpty } from 'lodash';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -24,8 +25,10 @@ interface GamerTagSearchResponse {
 export class AppComponent implements OnDestroy {
   sub: Subscription;
   players: Observable<Player[]>;
-  tag;
   $state: Observable<AppState>;
+  searchResults = new Subject<Player[]>();
+  isResultsOpen = false;
+
 
   constructor(private store: Store<AppState>, private apollo: Apollo) {
     this.$state = this.store.select(s => s);
@@ -35,20 +38,19 @@ export class AppComponent implements OnDestroy {
       .filter(players => !isEmpty(players));
 
     this.sub = store.let(searchGamerTag)
-      .distinctUntilChanged()
       .filter(tag => Boolean(tag))
-      .subscribe(() => {});
-
-    this.$state
-      .do(({search}) => this.tag = search)
-      .debounceTime(300)
-      .subscribe(() => this.find());
-
-    this.find()
-      .subscribe(() => {});
+      .do(() => this.searchResults.next([]))
+      .mergeMap((tag) => this.find(tag))
+      .map(players => Object.values(players))
+      .subscribe(this.searchResults)
   }
 
-  find() {
+  onSearch(action) {
+    this.isResultsOpen = !!action.payload
+    this.store.dispatch(action)
+  }
+
+  find(tag) {
     return this.apollo.query<GamerTagSearchResponse>({
       query: gql`
         query GamerTagSearch($tag: String!) {
@@ -184,12 +186,14 @@ export class AppComponent implements OnDestroy {
         }
       `,
       variables: {
-        tag: this.tag || 'cyllo-2112'
+        tag: tag
       }
     })
-      .map(({data}) => data.searchGamerTag[0])
-      .do(playerData => this.store.dispatch({ type: 'GET_PLAYER_DATA', payload: playerData }))
-      .do(playerData => this.store.dispatch({ type: 'ADD_PLAYER', payload: { [playerData.tag]: playerData } }));
+      .map(({data}) => data.searchGamerTag)
+      .filter(data => data.length > 0)
+      .map((playersData) => playersData.reduce((acc, player) => Object.assign(acc, {[player.tag]: player}), {}))
+      .do((players) => this.store.dispatch({ type: 'ADD_PLAYER', payload: players }));
+      // .do(playersData => this.store.dispatch({ type: 'GET_PLAYER_DATA', payload: playerData })) //not needed
   }
 
   ngOnDestroy() {

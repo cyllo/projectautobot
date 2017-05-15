@@ -45,6 +45,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { PlayersService } from './services';
 import { players, playerData, playerDataCollection, searchPlayerTag } from './reducers';
 import { MainNavComponent } from './static/main-nav/main-nav.component';
+import { MainSearchResultsComponent } from './static/main-search-results/main-search-results.component';
 
 export function instrumentOptions() {
   return {
@@ -84,6 +85,7 @@ export function instrumentOptions() {
   declarations: [
     AppComponent,
     MainNavComponent,
+    MainSearchResultsComponent,
     TopNavComponent,
     SideBarLeftComponent,
     FooterComponent,

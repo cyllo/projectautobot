@@ -9,9 +9,10 @@ import { trim } from 'lodash';
   styleUrls: ['search.component.scss']
 })
 export class SearchComponent implements OnDestroy {
-  @Output() save = new EventEmitter();
+  @Output() search = new EventEmitter();
 
   public subscriptions: Subscription[] = [];
+  public value
   public form: FormGroup;
   public control: FormControl;
   public controlName = 'search';
@@ -34,9 +35,16 @@ export class SearchComponent implements OnDestroy {
     this.form.addControl(this.controlName, this.control);
 
     // subscribe to value changes on the control to emit the save event
-    const controlSub = this.control.valueChanges.debounceTime(500).subscribe(() => this.save.emit());
+    const controlSub = this.control.valueChanges
+      .debounceTime(500)
+      .map(str => trim(str))
+      .subscribe((str) => this.search.emit(str));
 
     this.subscriptions.push(controlSub);
+  }
+
+  onKeyUp() {
+    this.search.emit(trim(this.control.value))
   }
 
   blur() {

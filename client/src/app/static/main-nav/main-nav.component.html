@@ -6,12 +6,12 @@
 
             <nav class="navbar navbar-toggleable-md col-12 px-0 py-0">
 
-                <button class="navbar-toggler navbar-toggler-left" type="button" 
-                    (click)="isCollapsed = !isCollapsed; userActionCollapsed = true;" 
-                    data-toggle="collapse" 
-                    data-target="#navbarText" 
-                    aria-controls="navbarText" 
-                    aria-expanded="!isCollapsed" 
+                <button class="navbar-toggler navbar-toggler-left" type="button"
+                    (click)="isCollapsed = !isCollapsed; userActionCollapsed = true;"
+                    data-toggle="collapse"
+                    data-target="#navbarText"
+                    aria-controls="navbarText"
+                    aria-expanded="!isCollapsed"
                     aria-label="Toggle navigation">
                     <i class="material-icons">menu</i>
                 </button>
@@ -45,12 +45,12 @@
                 </div>
                 <!-- end .navbar-collapse -->
 
-                <button class="navbar-toggler navbar-toggler-right" type="button" 
-                    (click)="userActionCollapsed = !userActionCollapsed; isCollapsed = true;" 
-                    data-toggle="collapse" 
-                    data-target="#userAction" 
-                    aria-controls="userAction" 
-                    aria-expanded="!userActionCollapsed" 
+                <button class="navbar-toggler navbar-toggler-right" type="button"
+                    (click)="userActionCollapsed = !userActionCollapsed; isCollapsed = true;"
+                    data-toggle="collapse"
+                    data-target="#userAction"
+                    aria-controls="userAction"
+                    aria-expanded="!userActionCollapsed"
                     aria-label="Toggle navigation">
                     <i class="material-icons">account_box</i>
                 </button>
@@ -79,7 +79,7 @@
         <div class="row search-form-container mb-2">
             <div class="col-xl-12 py-3">
                 <form [formGroup]="questionForm">
-                    <ow-search #search></ow-search>
+                    <ow-search #search (search)='onSearch($event)'></ow-search>
                 </form>
             </div>
         </div>

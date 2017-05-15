@@ -1,6 +1,7 @@
-import { AfterContentInit, AfterViewInit, AfterViewChecked, Component, OnDestroy, OnInit, ViewChild, Renderer2 } from '@angular/core';
+import { AfterContentInit, AfterViewInit, AfterViewChecked, Component, OnDestroy, OnInit, ViewChild, Renderer2, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
+import { Action } from '@ngrx/store';
 
 @Component({
   selector: 'ow-main-nav',
@@ -11,6 +12,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class MainNavComponent implements OnInit, AfterContentInit, AfterViewInit, AfterViewChecked, OnDestroy {
   @ViewChild('search') search;
   @ViewChild('mainnav') elNav;
+  @Output() searchTag = new EventEmitter<Action>();
 
   questionForm: FormGroup;
   subscriptions: Subscription[] = [];
@@ -73,6 +75,10 @@ export class MainNavComponent implements OnInit, AfterContentInit, AfterViewInit
 
   private mapFormToModel() {
     this.search = this.questionForm.getRawValue();
+  }
+
+  onSearch(tag) {
+    this.searchTag.emit({ type: 'GET_PLAYER_TAG', payload: tag })
   }
 
   onScroll(event) {

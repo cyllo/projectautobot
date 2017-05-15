@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  height: 65vh;
+  width: 100%;
+  background: white;
+  transform: translateY(-100%); // needed-for-slidedown
+  transition: transform 1s ease-in-out;
+}
+
+:host.open { // needed-for-slidedown
+  transform: translateY(0); // needed-for-slidedown
+}

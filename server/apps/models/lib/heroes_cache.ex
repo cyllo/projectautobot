@@ -35,8 +35,6 @@ defmodule Models.HeroesCache do
 
     cache_length = HeroesCache.cache_length()
     hero_names = get_hero_names(heroes)
-    IO.inspect(cache_length)
-    IO.inspect(hero_names)
 
     cond do
       length(hero_names) <= 0 -> heroes
