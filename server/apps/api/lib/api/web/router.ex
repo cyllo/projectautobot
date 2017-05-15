@@ -1,7 +1,7 @@
 defmodule Api.Web.Router do
   use Api.Web, :router
 
-  @max_complexity 200
+  @max_complexity 300
 
   pipeline :browser do
     plug :accepts, ["html"]
