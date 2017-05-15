@@ -24,25 +24,25 @@ export interface SnapshotStats extends Player {
   id: number;
   heroSnapshotStatistics: HeroSnapshotStats[];
   gamerTagId: number;
-  allHeroesSnapshotStatistics: HeroSnapshotStats;
+  allHeroesSnapshotStatistic: HeroSnapshotStats;
 }
 
 export interface HeroSnapshotStats extends SnapshotStats {
   snapshotStatisticId: number;
   matchAwardsStatisticId: number;
-  matchAwardsStatistics: MatchAwardsStats;
+  matchAwardsStatistic: MatchAwardsStats;
   id: number;
   heroSpecificStatisticId: number;
   heroId: number;
   hero: Hero;
   gameHistoryStatisticId: number;
-  gameHistoryStatistics: GameHistoryStats;
+  gameHistoryStatistic: GameHistoryStats;
   combatLifetimeStatisticId: number;
-  combatLifetimeStatistics: CombatLifetimeStats;
+  combatLifetimeStatistic: CombatLifetimeStats;
   combatBestStatisticId: number;
-  combatBestStatistics: CombatBestStats;
+  combatBestStatistic: CombatBestStats;
   combatAverageStatisticId: number;
-  combatAverageStatistics: CombatAverageStats;
+  combatAverageStatistic: CombatAverageStats;
 }
 
 export interface MatchAwardsStats extends HeroSnapshotStats {

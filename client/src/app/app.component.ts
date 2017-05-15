@@ -65,8 +65,6 @@ export class AppComponent implements OnDestroy {
               gamerTagId
               heroSnapshotStatistics {
                 id
-                snapshotStatisticId
-                matchAwardsStatisticId
                 matchAwardsStatistic {
                   id
                   totalMedals
@@ -75,7 +73,6 @@ export class AppComponent implements OnDestroy {
                   bronzeMedals
                   cards
                 }
-                heroSpecificStatisticId
                 heroId
                 hero {
                   id
@@ -94,7 +91,6 @@ export class AppComponent implements OnDestroy {
                   gamesPlayed
                   gamesLost
                 }
-                combatLifetimeStatisticId
                 combatLifetimeStatistic {
                   id
                   weaponAccuracyPercentage
@@ -125,7 +121,6 @@ export class AppComponent implements OnDestroy {
                   criticalHitsAccuracyPercentage
                   criticalHits
                 }
-                combatBestStatisticId
                 combatBestStatistic {
                   id
                   weaponAccuracyBestInGamePercentage
@@ -152,7 +147,100 @@ export class AppComponent implements OnDestroy {
                   criticalHitsMostInLife
                   criticalHitsMostInGame
                 }
-                combatAverageStatisticId
+                combatAverageStatistic {
+                  id
+                  timeSpentOnFireAverage
+                  soloKillsAverage
+                  selfHealingAverage
+                  offensiveAssistsAverage
+                  objectiveTimeAverage
+                  objectiveKillsAverage
+                  meleeKillsAverage
+                  meleeFinalBlowsAverage
+                  healingDoneAverage
+                  finalBlowsAverage
+                  eliminationsAverage
+                  defensiveAssistsAverage
+                  deathsAverage
+                  damageDoneAverage
+                  damageBlockedAverage
+                }
+              }
+              allHeroesSnapshotStatistic {
+                matchAwardsStatistic {
+                  id
+                  totalMedals
+                  goldMedals
+                  silverMedals
+                  bronzeMedals
+                  cards
+                }
+                gameHistoryStatisticId
+                gameHistoryStatistic {
+                  id
+                  winPercentage
+                  timeSpentOnFire
+                  timePlayed
+                  gamesWon
+                  gamesPlayed
+                  gamesLost
+                }
+                combatLifetimeStatistic {
+                  id
+                  weaponAccuracyPercentage
+                  turretsDestroyed
+                  timeSpentOnFire
+                  teleporterPadsDestroyed
+                  soloKills
+                  shotsHit
+                  shotsFired
+                  reconAssists
+                  offensiveAssists
+                  objectiveTime
+                  objectiveKills
+                  multikills
+                  multikillBest
+                  meleeKills
+                  meleeFinalBlows
+                  healingDone
+                  finalBlows
+                  environmentalKills
+                  environmentalDeaths
+                  eliminationsPerLife
+                  eliminations
+                  defensiveAssists
+                  deaths
+                  damageDone
+                  damageBlocked
+                  criticalHitsAccuracyPercentage
+                  criticalHits
+                }
+                combatBestStatistic {
+                  id
+                  weaponAccuracyBestInGamePercentage
+                  timeSpentOnFireMostInGame
+                  soloKillsMostInGame
+                  selfHealingMostInGame
+                  reconAssistsMostInGame
+                  offensiveAssistsMostInGame
+                  objectiveTimeMostInGame
+                  objectiveKillsMostInGame
+                  multikillBest
+                  meleeKillsMostInGame
+                  meleeFinalBlowsMostInGame
+                  killStreakBest
+                  healingDoneMostInLife
+                  healingDoneMostInGame
+                  finalBlowsMostInGame
+                  eliminationsMostInLife
+                  eliminationsMostInGame
+                  defensiveAssistsMostInGame
+                  damageDoneMostInLife
+                  damageDoneMostInGame
+                  damageBlockedMostInGame
+                  criticalHitsMostInLife
+                  criticalHitsMostInGame
+                }
                 combatAverageStatistic {
                   id
                   timeSpentOnFireAverage
