@@ -1,48 +1,32 @@
 // Start with assigning color names to specific hex values.
-$white:     #fff !default;
-$black:     #000 !default;
-$red:       #d9534f !default;
-$torch-red: #ff1440 !default;
-$orange:    #f0ad4e !default;
-$yellow:    #ffbd3f !default;
-$green:     #5cb85c !default;
-$blue:      #0275d8 !default;
-$athensgray: #e9eaee !default;
-$teal:      #5bc0de !default;
-$pink:      #ff5b77 !default;
-$purple:    #414457 !default;
+$white:                     #ffffff         !default;
+$black:                     #000000         !default;
+$red:                       #ff2d2d         !default;
+$yellow:                    #ffd428         !default;
+$orange:                    #f39c12         !default;
+$green:                     #2ecc71         !default;
+$blue:                      #3498db         !default;
+$purple:                    #9b59b6         !default;
 
 // Create grayscale
-$gray-dark:                 #262626 !default;
-$gray:                      #4d4d4d !default;
-$gray-light:                #808080 !default;
-$gray-lighter:              #e5e5e5 !default;
-$gray-lightest:             #fafafa !default;
+$gray-dark:                 #262626         !default;
+$gray:                      #4d4d4d         !default;
+$gray-light:                #808080         !default;
+$gray-lighter:              #e5e5e5         !default;
+$gray-lightest:             #fafafa         !default;
 
-// Color Shades
-$purple-dark:               #2f3141 !default;
-$purple-light:              #4a4d62 !default;
-$purple-lighter:            #56596e !default;
-$purple-lightest:           #8b8fa6 !default;
+// Color Shades **DO NOT DEFINE BASE COLORS HERE**
+$purple-darker:             #373a4d         !default;
+$purple-dark:               #3f4257         !default;
+$purple-light:              #494c62         !default;
+$purple-lighter:            #9a9fbf         !default;
+
+$blue-light:                #ecf2f5         !default;
 
 // Reassign color vars to semantic color scheme
-$brand-primary:             $torch-red !default;
-$brand-secondary:           $gray-dark !default;
-$brand-success:             $green !default;
-$brand-info:                $teal !default;
-$brand-warning:             $orange !default;
-$brand-danger:              $red !default;
-$brand-inverse:             $gray-dark !default;
-
-$headerbg:                  $white;
-$navbarbg:                  $purple;
-$navbar-btn-primary:        $purple-light;
-$navbar-btn-secondary:      $purple-lighter;
-$navbar-link:               $purple-lightest;
-$navbar-link-hover:         $white;
-$navbar-text:               $white;
-
-$bgcolor:                   #ecf2f5;
-$textcolor:                 $gray;
-$placeholdercolor:          $gray-light;
-$bordercolor:               $gray-lighter;
+$brand-primary:             $red            !default;
+$brand-inverse:             $purple-dark    !default;
+$brand-success:             $green          !default;
+$brand-info:                $yellow         !default;
+$brand-warning:             $orange         !default;
+$brand-danger:              $red            !default;

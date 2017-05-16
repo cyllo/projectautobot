@@ -1,26 +1,33 @@
 <header class="container-fluid">
   <ow-main-nav (searchTag)='onSearch($event)'></ow-main-nav>
+  <!-- ow-main-nav -->
+  <ow-main-search-results [isOpen]='isResultsOpen'
+  [searchResults]='searchResults | async'></ow-main-search-results>
+  <!-- ow-main-search-results -->
 </header>
 <!-- end header -->
-
-<div class="container-fluid full-height">
-
-  <div class="row relative full-height">
-
-    <ow-sidebar-left></ow-sidebar-left>
-    <!-- end ow-sidebar-left -->
-
-    <main class="col-xl-8 offset-xl-2 col-lg-9 offset-lg-3 col-md-12 offset-md-0">
-      <!--<ow-main-search-results [isOpen]='isResultsOpen' [searchResults]='searchResults | async'></ow-main-search-results>-->
-      <router-outlet></router-outlet>
-    </main>
-    <!-- end main -->
-
+<main class="container-fluid">
+  <div class="row">
+    <!-- <ow-sidebar-left></ow-sidebar-left> -->
+    <!-- ow-sidebar-left -->
+    <div class="col-xl-8 offset-xl-2 col-lg-8 offset-lg-2 col-md-12">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 main-body">
+            <router-outlet></router-outlet>
+            <!-- router-outlet -->
+          </div>
+          <!-- end .col -->
+        </div>
+        <!-- end .row -->
+      </div>
+      <!-- end .container-fluid -->
+    </div>
+    <!-- end .col -->
   </div>
   <!-- end .row -->
-
-</div>
-<!-- end .container-fluid -->
+</main>
+<!-- end main -->
 
 <!--
 <footer class="container-fluid footer-offset mx-3">

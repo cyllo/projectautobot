@@ -1,92 +1,94 @@
-<div class="fixed-top main-nav" #mainnav>
+<section class="fixed-top main-nav" #mainnav>
+  <div class="container-fluid px-0">
+    <div class="row align-items-center mx-0">
+      <div class="col-12 px-0">
 
-    <div class="container-fluid">
+        <nav class="navbar navbar-toggleable-md">
 
-        <div class="row navbar-container">
+          <a class="navbar-brand mr-auto" [routerLink]="['home']">
+            <img src="img/stplogo.svg" alt="logo">
+          </a>
 
-            <nav class="navbar navbar-toggleable-md col-12 px-0 py-0">
-
-                <button class="navbar-toggler navbar-toggler-left" type="button"
-                    (click)="isCollapsed = !isCollapsed; userActionCollapsed = true;"
-                    data-toggle="collapse"
-                    data-target="#navbarText"
-                    aria-controls="navbarText"
-                    aria-expanded="!isCollapsed"
-                    aria-label="Toggle navigation">
-                    <i class="material-icons">menu</i>
+          <ul class="navbar-nav mr-auto align-items-center ml-2 hidden-md-down">
+            <li class="nav-item px-1 active">
+              <a class="nav-link" href="#">News <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item px-1">
+              <a class="nav-link" href="#">Leaderboard</a>
+            </li>
+            <li class="nav-item px-1">
+              <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>
+                  <i class="material-icons">more_horiz</i>
                 </button>
-                <!-- end .navbar-toggle -->
-
-                <a class="navbar-brand px-3 py-2 mx-auto" [routerLink]="['home']">
-                    <img src="img/stplogo.svg" alt="logo" width="40">
-                </a>
-
-                <div class="collapse navbar-collapse nav-menu" id="navbarText" [ngbCollapse]="isCollapsed">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item mx-2 active">
-                            <a class="nav-link" [routerLink]="['following']">Following</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link" [routerLink]="['leaderboard']">Leaderboard</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link" [routerLink]="['heroes']">Heroes</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link" [routerLink]="['esports']">Esports</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link" [routerLink]="['live']">Live</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link" [routerLink]="['news']">News</a>
-                        </li>
-                    </ul>
+                <div class="dropdown-menu px-3 py-3" aria-labelledby="dropdownBasic1">
+                  <i class="material-icons arrow-up">arrow_drop_up</i>
+                  <a href="#" class="dropdown-item pl-2 pr-4 py-1">Heroes</a>
+                  <a href="#" class="dropdown-item pl-2 pr-4 py-1">Following</a>
+                  <a href="#" class="dropdown-item pl-2 pr-4 py-1">Esports</a>
+                  <a href="#" class="dropdown-item pl-2 pr-4 py-1">Live</a>
                 </div>
-                <!-- end .navbar-collapse -->
+              </div>
+            </li>
+          </ul>
+          <!-- end .navbar-nav -->
 
-                <button class="navbar-toggler navbar-toggler-right" type="button"
-                    (click)="userActionCollapsed = !userActionCollapsed; isCollapsed = true;"
-                    data-toggle="collapse"
-                    data-target="#userAction"
-                    aria-controls="userAction"
-                    aria-expanded="!userActionCollapsed"
-                    aria-label="Toggle navigation">
-                    <i class="material-icons">account_box</i>
+          <form [formGroup]="questionForm" class="search-form">
+            <ow-search #search (search)='onSearch($event)'></ow-search>
+          </form>
+          <!-- end .search-form -->
+
+          <button class="navbar-toggler ml-auto"
+                  type="button"
+                  (click)="isCollapsed = !isCollapsed"
+                  data-toggle="collapse"
+                  data-target="#toggled-navigation"
+                  aria-controls="toggled-navigation"
+                  aria-expanded="!isCollapsed"
+                  aria-label="Toggle Navigation">
+                  <i class="material-icons">menu</i>
                 </button>
-                <!-- end .navbar-toggle -->
+          <!-- end .navbar-toggle -->
 
-                <div class="navbar-collapse collapse user-action full-height" id="userAction" [ngbCollapse]="userActionCollapsed">
-                    <ul class="nav navbar-nav ml-auto full-height">
-                        <li class="nav-item">
-                            <a class="nav-link d-flex align-items-center align-items-center full-height btn signup px-md-4" href="#">Sign Up</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link d-flex align-items-center full-height btn login px-md-4" href="#">Login</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- end .navbar-collapse -->
+          <div class="navbar-collapse collapse py-2" id="toggled-navigation" [ngbCollapse]="isCollapsed">
+            <ul class="nav navbar-nav ml-auto">
+              <li class="nav-item my-1">
+                <a class="nav-link btn btn-primary px-3 py-2 mx-2" href="#">Sign Up</a>
+              </li>
+              <li class="nav-item my-1">
+                <a class="nav-link btn btn-primary px-3 py-2 mx-2" href="#">Login</a>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav hidden-lg-up">
+              <li class="nav-item my-1">
+                <a class="nav-link px-3 py-2 mx-2" href="#">News</a>
+              </li>
+              <li class="nav-item my-1">
+                <a class="nav-link px-3 py-2 mx-2" href="#">Leaderboard</a>
+              </li>
+              <li class="nav-item my-1">
+                <a class="nav-link px-3 py-2 mx-2" href="#">Heroes</a>
+              </li>
+              <li class="nav-item my-1">
+                <a class="nav-link px-3 py-2 mx-2" href="#">Following</a>
+              </li>
+              <li class="nav-item my-1">
+                <a class="nav-link px-3 py-2 mx-2" href="#">Esports</a>
+              </li>
+              <li class="nav-item my-1">
+                <a class="nav-link px-3 py-2 mx-2" href="#">Live</a>
+              </li>
+            </ul>
+          </div>
+          <!-- end .navbar-collapse -->
 
-            </nav>
-            <!-- end .navbar -->
-
-        </div>
-        <!-- end .row.navbar-container -->
-
-       <ow-schedule></ow-schedule>
-
-        <div class="row search-form-container mb-2">
-            <div class="col-xl-12 py-3">
-                <form [formGroup]="questionForm">
-                    <ow-search #search (search)='onSearch($event)'></ow-search>
-                </form>
-            </div>
-        </div>
-        <!-- end .row -->
-
+        </nav>
+        <!-- end nav -->
+      </div>
+      <!-- end .col-12 -->
     </div>
-    <!-- end .container-fluid -->
-
-</div>
-<!-- end .fixed-top main-nav -->
+    <!-- end .row -->
+  </div>
+  <!-- end .container-fluid -->
+</section>
+<!-- end .main-nav #mainnav -->

@@ -1,44 +1,118 @@
 @import "../../../style/colors";
-@import "../../../../node_modules/bootstrap/scss/bootstrap-grid";
 
 .main-nav {
-  z-index: 9999;
-  background-color: $headerbg;
-  border-bottom: 1px solid $bordercolor;
+
+  background-color: $brand-inverse;
+
+  .navbar-brand img {
+    width: 100%;
+    max-width: 2.5rem;
+  }
+
+  .nav-link {
+    color: $purple-lighter;
+    font-size: 0.85rem;
+  }
+
+  .nav-link:hover {
+    color: $white;
+  }
+
+  .navbar-collapse {
+    width: 100%;
+  }
+
+  .search-form {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 45%;
+    height: 100% !important;
+  }
+
+  .btn-dropdown-toggle {
+    background-color: transparent;
+    color: $white;
+  }
+
+  .btn-dropdown-toggle:hover {
+    cursor: pointer;
+  }
+
+  .dropdown-menu {
+    font-size: 0.8rem;
+    border: 1px solid $purple-lighter;
+  }
+
+  .dropdown-menu .arrow-up {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(3.5%, -50%);
+    font-size: 3.5rem;
+    color: $white;
+  }
+
+  .dropdown-item:hover {
+    background-color: $brand-inverse;
+    color: $white;
+  }
+
+  .navbar-toggler {
+    color: $white;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  // Medium devices (tablets, less than 992px)
+  @media (max-width: 991px) {
+    .search-form {
+      max-width: 60%;
+    }
+    .navbar-collapse {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transform: translateY(100%);
+      background-color: $purple-darker;
+    }
+  }
+
 }
 
-.main-nav .navbar-brand {
-  background-color: $brand-primary;
-}
+:host /deep/ .main-nav {
 
-.main-nav .navbar-container {
-  background-color: $navbarbg;
-}
+  .form-group,
+  .form-group > .form-control {
+    height: 100% !important;
+  }
 
-.main-nav .nav-link {
-  color: $navbar-text;
-}
+  .form-group {
 
-.main-nav .navbar-container .nav-link:hover {
-  color: $brand-primary;
-}
+    .form-control {
+      border: 0 !important;
+      border-radius: 0 !important;
+      background-color: $purple-light;
+      font-size: 0.85rem;
+      color: $purple-lighter;
+    }
 
-.main-nav .btn.login,
-.main-nav .btn.signup {
-  border-radius: 0;
-}
+    i {
+      color: $purple-lighter;
+    }
 
-.main-nav .btn.login {
-  background-color: $navbar-btn-primary;
-  color: $navbar-link !important;
-}
-.main-nav .btn.login:hover {
-  background-color: $navbar-btn-secondary;
-  color: $navbar-link-hover !important;
-}
-.main-nav .btn.signup {
-  color: $navbar-link !important;
-}
-.main-nav .btn.signup:hover {
-  color: $navbar-link-hover !important;
+  }
+
+  .dropdown-toggle {
+    line-height: 1;
+  }
+
+  .dropdown-toggle::after {
+    display: none !important;
+  }
+
 }

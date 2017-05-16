@@ -1,25 +1,101 @@
 @import "../../../style/colors";
 
-.search-form input[type="text"] {
-  border: 1px solid $bordercolor;
-  outline: none;
-  box-shadow: none;
-}
-.search-form input[type="text"]:hover,
-.search-form input[type="text"]:focus {
-  border: 1px solid $brand-primary;
-}
-.search-form input[type="text"]:hover + .ico-search,
-.search-form input[type="text"]:focus + .ico-search {
-  color: $brand-primary !important;
-}
+.form-group {
 
-.search-form .ico-search {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translate(50%, -50%);
-  color: $placeholdercolor;
-  font-size: 125%;
-  z-index: 5;
+  position: relative;
+
+  .form-control {
+    padding-right: 4.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .form-icon {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100%;
+    min-width: 4rem;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  @keyframes searchanimation_first {
+    0% {
+      font-size: 125%;
+    }
+    25% {
+      font-size: 175%;
+    }
+    50% {
+      font-size: 125%;
+    }
+    75% {
+      font-size: 125%;
+    }
+    100% {
+      font-size: 125%;
+    }
+  }
+  @keyframes searchanimation_second {
+    0% {
+      font-size: 125%;
+    }
+    25% {
+      font-size: 125%;
+    }
+    50% {
+      font-size: 175%;
+    }
+    75% {
+      font-size: 125%;
+    }
+    100% {
+      font-size: 125%;
+    }
+  }
+  @keyframes searchanimation_third {
+    0% {
+      font-size: 125%;
+    }
+    25% {
+      font-size: 125%;
+    }
+    50% {
+      font-size: 125%;
+    }
+    75% {
+      font-size: 175%;
+    }
+    100% {
+      font-size: 125%;
+    }
+  }
+
+  #search-animation {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  #search-animation i {
+    font-size: 0.85rem;
+    margin: 0 -0.10rem;
+  }
+
+  #search-animation i:first-child {
+    animation: searchanimation_first 1s infinite;
+  }
+
+  #search-animation i:nth-child(2) {
+    animation: searchanimation_second 1s infinite;
+  }
+
+  #search-animation i:last-child {
+    animation: searchanimation_third 1s infinite;
+  }
+
 }

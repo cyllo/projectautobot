@@ -1,12 +1,8 @@
-:host {
-  display: block;
-  height: 65vh;
-  width: 100%;
-  background: white;
-  transform: translateY(-100%); // needed-for-slidedown
-  transition: transform 1s ease-in-out;
-}
+@import "../../../style/colors";
 
-:host.open { // needed-for-slidedown
-  transform: translateY(0); // needed-for-slidedown
+.main-search-results {
+  background-color: $purple-darker;
+  top:100%;
+  left: 0;
+  position: absolute;
 }
