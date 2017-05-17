@@ -1,19 +1,19 @@
 <header class="container-fluid">
   <ow-main-nav (searchTag)='onSearch($event)'></ow-main-nav>
   <!-- ow-main-nav -->
-  <ow-main-search-results [isOpen]='isResultsOpen'
-  [searchResults]='searchResults | async'></ow-main-search-results>
+  <!--<ow-main-search-results [isOpen]='isResultsOpen'
+  [searchResults]='searchResults | async'></ow-main-search-results> -->
   <!-- ow-main-search-results -->
 </header>
 <!-- end header -->
 <main class="container-fluid">
   <div class="row">
-    <!-- <ow-sidebar-left></ow-sidebar-left> -->
+    <!--<ow-sidebar-left></ow-sidebar-left> -->
     <!-- ow-sidebar-left -->
     <div class="col-xl-8 offset-xl-2 col-lg-8 offset-lg-2 col-md-12">
-      <div class="container-fluid">
+      <div class="container-fluid main-body">
         <div class="row">
-          <div class="col-12 main-body">
+          <div class="col-12">
             <router-outlet></router-outlet>
             <!-- router-outlet -->
           </div>

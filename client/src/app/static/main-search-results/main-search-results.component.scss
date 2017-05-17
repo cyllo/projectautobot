@@ -1,8 +1,30 @@
 @import "../../../style/colors";
 
 .main-search-results {
+
   background-color: $purple-darker;
-  top:100%;
   left: 0;
-  position: absolute;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  margin-top: -1px;
+  color: $purple-lighter;
+
+  .player-card {
+    border: 1px solid $purple-light;
+  }
+  .player-card:hover {
+    border-color: $purple-lighter;
+    cursor: pointer;
+  }
+
+  .player-tag {
+    color: $white;
+  }
+
+  .profile-hyperlink {
+    text-decoration: none;
+    color: inherit;
+  }
+
 }

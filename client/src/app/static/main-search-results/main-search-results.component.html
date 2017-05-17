@@ -1,10 +1,60 @@
 <div class="main-search-results">
-  <i class='material-icons' (click)='onClose()'>close</i>
-  <div *ngFor='let player of searchResults'>
-    Tag: <a (click)='onSelect(player)'>{{ player.tag }}</a>
-    Overwatch Name: {{ player.overwatchName }}
-    Region: {{ player.region }}
-    Platform: {{ player.platform }}
+  <div class="container-fluid">
+    <div class="row align-items-center mt-3">
+      <div class="col-12">
+        <button class="btn btn-outline-secondarynav px-2 py-1 mr-2" (click)='onClose()' type="button" name="button">
+          <span class="d-flex align-items-center small text-uppercase"><i class='material-icons mr-1'>close</i> Close</span>
+        </button>
+        <!-- <span class="main-search-results-label" #mainsearchresultslabel>Searching, Please wait...</span> -->
+      </div>
+      <!-- end .col -->
+    </div>
+    <!-- end .row -->
+    <div class="row align-items-center mt-3">
+
+      <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-12 mb-2" *ngFor='let player of searchResults'>
+        <a class="profile-hyperlink" (click)='onSelect(player)'>
+          <div class="container-fluid py-1 rounded player-card">
+            <div class="row">
+              <div class="col-12 px-4">
+                <div class="row align-items-center justify-content-center">
+                  <div class="col-auto px-xl-2 px-lg-0 px-md-3 px-3 py-2">
+                    <img src="img/imgplaceholder_square.png" alt="" class="avatar rounded">
+                  </div>
+                  <!-- end .col-auto -->
+                  <div class="col py-2">
+                    <div class="row">
+                      <div class="col-12">
+                        <p class="small mb-0">{{ player.tag }}</p>
+                        <p class="h5 mb-1 player-tag">{{ player.overwatchName }}</p>
+                      </div>
+                      <!-- end .col -->
+                    </div>
+                    <!-- end .row -->
+                    <div class="row">
+                      <div class="col-12">
+                        <span class="small content-secondary rounded px-2 py-1">{{ player.platform }}</span>
+                        <span class="small content-secondary rounded px-2 py-1">{{ player.region }}</span>
+                      </div>
+                      <!-- end .col -->
+                    </div>
+                    <!-- end .row -->
+                  </div>
+                  <!-- end .col -->
+                </div>
+              </div>
+            </div>
+            <!-- end .row -->
+          </div>
+          <!-- end .container-fluid -->
+        </a>
+      </div>
+      <!-- end .col -->
+
+    </div>
+    <!-- end .row -->
   </div>
+  <!-- end .container-fluid -->
+
 </div>
 <!-- end .main-search-results -->

@@ -1,5 +1,57 @@
 @import "../../../style/colors";
 
-.season-badge {
-    margin-top: -4.5%;
+.profile {
+
+  section {
+    border-bottom: 1px dotted $gray-lighter;
+  }
+  section:last-child{
+    border: 0;
+  }
+
+  .sidebar {
+
+    font-size: 0.85rem;
+    border-left: 1px solid $gray-lighter;
+
+    table {
+
+      font-size: 0.7rem;
+      width: 100%;
+
+      th {
+        background-color: $gray-lightest;
+        border: 0;
+        font-weight: normal;
+      }
+
+      th, td {
+        padding: 0.5rem;
+      }
+
+      td {
+        border: 0;
+      }
+
+    }
+
+  }
+
+  // Large devices (desktops, less than 1200px)
+  @media (max-width: 1199px) {
+    .sidebar {
+      border: 0;
+    }
+  }
+
+}
+
+:host /deep/ .ngb-tabset {
+  .nav-tabs {
+    .nav-link.active {
+      border: 0;
+      border-bottom: 1px solid $brand-primary;
+      color: $brand-primary;
+    }
+  }
 }
