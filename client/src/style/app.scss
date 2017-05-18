@@ -68,13 +68,8 @@ button:hover {
 
 .btn-radio.active {
   background-color: $purple-dark;
-  color: $purple-lighter;
-  border-color: $purple-dark;
-}
-.btn-radio.active:hover {
-  background-color: $purple-light;
-  border-color: $purple-light;
   color: $white;
+  border-color: $purple-dark;
 }
 
 /** IMAGES **/

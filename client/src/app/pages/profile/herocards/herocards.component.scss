@@ -1,0 +1,44 @@
+@import "../../../../style/colors";
+
+:host /deep/ .hero-cards {
+
+  .nav-link {
+    color: $gray-light;
+    border-radius: 0;
+  }
+
+  .nav-link:hover {
+    color: $brand-primary;
+  }
+
+  .nav-link.active {
+    background-color: $brand-primary;
+    color: $white;
+  }
+
+  .nav-item {
+    border: 1px solid $gray-lighter;
+  }
+
+  .nav-item:hover {
+    border-color: $brand-primary;
+  }
+
+  .nav-item:first-child {
+    border-color: $brand-primary;
+    border-radius: 0.25rem 0 0 0.25rem;
+  }
+
+  .nav-item:last-child {
+    border-radius: 0 0.25rem 0.25rem 0;
+  }
+
+  .nav-item:not(:last-child) {
+    border-right: 0;
+  }
+
+  .nav-item:not(:last-child):hover + .nav-item {
+    border-left-color: $brand-primary;
+  }
+
+}

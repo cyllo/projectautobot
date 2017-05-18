@@ -23,7 +23,8 @@ import {
   NewsComponent,
   PostComponent,
   FriendsComponent,
-  ProfileComponent
+  ProfileComponent,
+  HeroCardsComponent
 } from './pages';
 import {
   ApiService,
@@ -33,7 +34,8 @@ import {
   RoleComponent,
   NewsCardComponent,
   ImageComponent,
-  SelectComponent
+  SelectComponent,
+  HeroCardComponent
 } from './shared';
 import { routing } from './app.routing';
 
@@ -106,7 +108,9 @@ export function instrumentOptions() {
     NewsCardComponent,
     ImageComponent,
     SelectComponent,
-    ProfileComponent
+    ProfileComponent,
+    HeroCardsComponent,
+    HeroCardComponent
   ],
   providers: [
     ApiService,
