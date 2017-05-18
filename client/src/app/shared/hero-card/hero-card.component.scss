@@ -2,4 +2,8 @@
 
 .hero-card {
     border: 1px solid $gray-lighter;
+
+    section {
+      border-bottom: 1px solid $gray-lighter;
+    }
 }

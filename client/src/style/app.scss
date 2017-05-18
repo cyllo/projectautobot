@@ -8,6 +8,7 @@ html,
 body {
   background-color: $blue-light;
   font-family: 'Roboto';
+  line-height: 1;
 }
 
 header {
@@ -88,7 +89,7 @@ button:hover {
 }
 .role-icon-sm {
   width: 100%;
-  max-width: 1rem;
+  max-width: 0.8rem;
 }
 
 /** UTILITIES **/
@@ -106,10 +107,6 @@ button:hover {
 .content-outline {
   color: $purple-dark;
   border: 1px solid $purple-dark;
-}
-
-.line-height-1 {
-  line-height: 1;
 }
 
 small,
@@ -150,4 +147,14 @@ ngb-progressbar[type="stp"]{
     padding-left: 0;
     padding-right: 0;
   }
+}
+
+.medal.gold {
+  background-color: $yellow;
+}
+.medal.silver {
+  background-color: $gray-lighter;
+}
+.medal.bronze {
+  background-color: $brown;
 }
