@@ -1,4 +1,4 @@
-<div class="profile">
+<div class="profile" *ngIf="player">
   <div class="row my-3">
     <div class="col-12 px-3">
       <div class="content rounded px-3 py-1">
@@ -52,21 +52,21 @@
           <div class="col-xl-4 col-lg-12 col-md-12">
             <div class="row align-items-center mb-1">
               <div class="col-auto pl-xl-4 pr-xl-1 pl-lg-4 pr-lg-1 pl-md-4 pr-md-1 pl-4 pr-0 py-2">
-                <img src="img/imgplaceholder_square.png" alt="" class="avatar rounded">
+                <img src="{{ player.portraitUrl }}" alt="" class="avatar rounded">
               </div>
               <!-- end .col-auto -->
               <div class="col py-2">
                 <div class="row mb-1">
                   <div class="col-12">
-                    <span class="small content-outline rounded px-2 py-1">PC</span>
-                    <span class="small content-outline rounded px-2 py-1">US</span>
+                    <span class="small content-outline rounded px-2 py-1">{{ player.platform }}</span>
+                    <span class="small content-outline rounded px-2 py-1">{{ player.region }}</span>
                   </div>
                   <!-- end .col -->
                 </div>
                 <!-- end .row -->
                 <div class="row">
                   <div class="col-12 pt-1">
-                    <p class="h2 font-weight-bold mb-0 text-uppercase">Cyllo</p>
+                    <p class="h2 font-weight-bold mb-0 text-uppercase">{{ player.overwatchName }}</p>
                   </div>
                   <!-- end .col -->
                 </div>
@@ -135,7 +135,11 @@
                 <!-- end .row -->
                 <div class="row my-1">
                   <div class="col-12">
-                    <span class="h4 font-weight-bold">245-168</span>
+                    <span class="h4 font-weight-bold">
+                      {{ player.snapshotStatistics[player.snapshotStatistics.length - 1].allHeroesSnapshotStatistic.gameHistoryStatistic.gamesWon }}
+                      -
+                      {{ player.snapshotStatistics[player.snapshotStatistics.length - 1].allHeroesSnapshotStatistic.gameHistoryStatistic.gamesLost }}
+                    </span>
                   </div>
                   <!-- end .col -->
                 </div>
@@ -771,96 +775,7 @@
                         </div>
                         <!-- end .col -->
                         <div class="col-xl-3 col-md-12 sidebar py-3">
-                          <section class="row">
-                            <div class="col-12 mb-3">
-                              <span class="text-uppercase font-weight-bold">Lifetime Statistics</span>
-                            </div>
-                            <!-- end .col -->
-                            <div class="col-12">
-                              <table class="table" class="mb-2">
-                                <thead class="thead-default">
-                                  <tr>
-                                    <th class="text-uppercase">Combat</th>
-                                    <th></th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td>Kills</td>
-                                    <td class="text-right">238</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Assists</td>
-                                    <td class="text-right">114</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Deaths</td>
-                                    <td class="text-right">29</td>
-                                  </tr>
-                                  <tr>
-                                    <td>K/D Ratio</td>
-                                    <td class="text-right">2.63:1 (886/223)</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Melee Kills</td>
-                                    <td class="text-right">7</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Multi Kills</td>
-                                    <td class="text-right">23</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Damage Dealt</td>
-                                    <td class="text-right">2,486,951</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Damage Blocked</td>
-                                    <td class="text-right">541</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Healing Done</td>
-                                    <td class="text-right">20</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Accuracy</td>
-                                    <td class="text-right">24</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                              <table class="table">
-                                <thead class="thead-default">
-                                  <tr>
-                                    <th class="text-uppercase">Game</th>
-                                    <th></th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td>Games Played</td>
-                                    <td class="text-right">238</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Games Won</td>
-                                    <td class="text-right">114</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Total Time Played</td>
-                                    <td class="text-right">29 Hrs</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Time Spent on Fire</td>
-                                    <td class="text-right">7 Mins</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Objective Time</td>
-                                    <td class="text-right">7 Mins</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                            <!-- end .col -->
-                          </section>
-                          <!-- end section -->
+                          <ow-lifetime-stats [player]="player"></ow-lifetime-stats>
                         </div>
                         <!-- end .sidebar -->
                       </div>

@@ -24,7 +24,8 @@ import {
   PostComponent,
   FriendsComponent,
   ProfileComponent,
-  HeroCardsComponent
+  HeroCardsComponent,
+  LifetimeStatsComponent
 } from './pages';
 import {
   ApiService,
@@ -110,7 +111,8 @@ export function instrumentOptions() {
     SelectComponent,
     ProfileComponent,
     HeroCardsComponent,
-    HeroCardComponent
+    HeroCardComponent,
+    LifetimeStatsComponent
   ],
   providers: [
     ApiService,
