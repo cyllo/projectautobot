@@ -32,32 +32,11 @@
     height: 100% !important;
   }
 
-  .btn-dropdown-toggle {
-    background-color: transparent;
-    color: $white;
-  }
-
-  .btn-dropdown-toggle:hover {
-    cursor: pointer;
-  }
-
   .dropdown-menu {
-    font-size: 0.8rem;
-    border: 1px solid $purple-lighter;
+    border-color: $brand-inverse;
   }
-
-  .dropdown-menu .arrow-up {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translate(3.5%, -50%);
-    font-size: 3.5rem;
-    color: $white;
-  }
-
   .dropdown-item:hover {
     background-color: $brand-inverse;
-    color: $white;
   }
 
   .navbar-toggler {

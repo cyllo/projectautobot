@@ -92,6 +92,43 @@ button:hover {
   max-width: 0.8rem;
 }
 
+/** BOOTSTRAP COMPONENTS **/
+.btn-dropdown-toggle {
+  background-color: transparent;
+  color: $white;
+}
+
+.btn-dropdown-toggle:hover {
+  cursor: pointer;
+}
+
+.dropdown-toggle[aria-expanded="true"] {
+  border-radius: 0.25rem 0.25rem 0 0 !important;
+}
+
+.dropdown-menu {
+  font-size: 0.8rem;
+  border: 1px solid $purple-lighter;
+  border-color: $brand-primary;
+  border-radius: 0 0 0.25rem 0.25rem;
+  margin-top: -1px;
+  background-color: $white;
+}
+
+.dropdown-menu .arrow-up {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(3.5%, -50%);
+  font-size: 3.5rem;
+  color: $white;
+}
+
+.dropdown-item:hover {
+  background-color: $brand-primary;
+  color: $white;
+}
+
 /** UTILITIES **/
 .text-light {
   color: $gray-light;
