@@ -92,6 +92,10 @@ button:hover {
   max-width: 0.8rem;
 }
 
+.scaling-img {
+  width: 100%;
+}
+
 /** BOOTSTRAP COMPONENTS **/
 .btn-dropdown-toggle {
   background-color: transparent;
@@ -194,4 +198,47 @@ ngb-progressbar[type="stp"]{
 }
 .medal.bronze {
   background-color: $brown;
+}
+
+section {
+  border-bottom: 1px dotted $gray-lighter;
+}
+section:last-child{
+  border: 0;
+}
+
+.video-preview {
+  position: relative;
+
+  .play-icon {
+
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    color: $white;
+
+    i {
+      font-size: calc(4.5rem + 1vw);
+    }
+
+  }
+
+}
+
+.hero-portrait {
+  position: relative;
+  .header {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    word-wrap: break-word;
+    color: $white;
+  }
+  .thumbnail img {
+    background-color: $brand-inverse;
+    object-fit: cover;
+    object-position: center center;
+  }
 }

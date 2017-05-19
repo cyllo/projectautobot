@@ -7,3 +7,4 @@ export * from './image';
 export * from './select';
 export * from './schedule';
 export * from './hero-card';
+export * from './chart';

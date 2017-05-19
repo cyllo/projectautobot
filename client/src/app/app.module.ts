@@ -9,6 +9,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
 import { ApolloModule } from 'apollo-angular';
 import { ApolloClient } from 'apollo-client';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { TopNavComponent, SideBarLeftComponent, FooterComponent } from './static';
@@ -37,7 +38,8 @@ import {
   NewsCardComponent,
   ImageComponent,
   SelectComponent,
-  HeroCardComponent
+  HeroCardComponent,
+  ChartComponent
 } from './shared';
 import { routing } from './app.routing';
 
@@ -85,6 +87,7 @@ export function instrumentOptions() {
     SidebarModule,
     InfiniteScrollModule,
     NgxDatatableModule,
+    ChartsModule
   ],
   declarations: [
     AppComponent,
@@ -114,7 +117,8 @@ export function instrumentOptions() {
     HeroCardsComponent,
     HeroCardComponent,
     LifetimeStatsComponent,
-    CareerComponent
+    CareerComponent,
+    ChartComponent
   ],
   providers: [
     ApiService,

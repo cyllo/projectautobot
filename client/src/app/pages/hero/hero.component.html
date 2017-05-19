@@ -179,596 +179,501 @@
   <div class="row my-3">
     <div class="col-12 px-3">
       <div class="content rounded px-3 py-3">
-        <div class="row align-items-center">
-          <div class="col-lg-12 col-md-12 text-md-left col-sm-12 text-center pb-3">
-            <div class="btn-group" role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-radio active">
-                <span class="small">Competitive Play</span>
-              </button>
-              <button type="button" class="btn btn-radio">
-                <span class="small">Quick Play</span>
-              </button>
+        <section class="row mb-3 pb-3">
+          <div class="col-12 mb-2">
+            <span class="text-uppercase font-weight-bold mb-1">Skills</span>
+          </div>
+          <div class="col-xl-3 col-md-6 col-sm-6 col-12 mb-2">
+            <div class="row">
+              <div class="col-12">
+                <div class="video-preview">
+                  <div class="play-icon"><i class="material-icons">play_circle_filled</i></div>
+                  <div class="thumbnail"><img src="img/videoplaceholder.png" alt="" class="scaling-img rounded mb-1"></div>
+                </div>
+                <!-- end .video-preview -->
+              </div>
+              <!-- end .col -->
+              <div class="col-auto pl-3 py-1">
+                <img src="img/imgplaceholder_square.png" alt="" class="avatar-md rounded">
+              </div>
+              <!-- end .col -->
+              <div class="col py-1">
+                <div class="row">
+                  <div class="col pb-1">
+                    <span class="text-uppercase font-weight-bold">Reaper</span>
+                  </div>
+                  <!-- end .col -->
+                </div>
+                <!-- end .row -->
+                <div class="row">
+                  <div class="col">
+                    <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus purus libero, auctor id faucibus vitae,
+                      varius ac diam. In hac habitasse platea dictumst.</p>
+                  </div>
+                  <!-- end .col -->
+                </div>
+                <!-- end .row -->
+              </div>
+              <!-- end .col -->
             </div>
+            <!-- end .row -->
           </div>
           <!-- end .col -->
-        </div>
-        <!-- end .row -->
-        <div class="row mt-1">
-          <div class="col-12">
-            <div class="ngb-tabset">
-              <ngb-tabset #t="ngbTabset">
-                <ngb-tab id="tab-overview" title="Overview">
-                  <ng-template ngbTabContent>
-                    <div class="container-fluid">
-                      <div class="row">
-                        <div class="col-xl-12 col-md-12">
-                          <section class="row my-3 py-3">
-                            <div class="col-12 mb-2">
-                              <span class="text-uppercase font-weight-bold mb-1">Career</span>
-                              <span class="small">All statistics are per min averages.</span>
-                            </div>
-                            <!-- end .col -->
-                            <div class="col-12">
-                              <div class="row">
-                                <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-                                  <p class="mb-0 font-weight-bold">1.67</p>
-                                  <div class="my-1">
-                                    <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-                                  </div>
-                                  <p class="x-small mb-0 text-uppercase">Kills</p>
-                                  <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-                                  <p class="mb-0 font-weight-bold">1.67</p>
-                                  <div class="my-1">
-                                    <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-                                  </div>
-                                  <p class="x-small mb-0 text-uppercase">Kills</p>
-                                  <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-                                  <p class="mb-0 font-weight-bold">1.67</p>
-                                  <div class="my-1">
-                                    <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-                                  </div>
-                                  <p class="x-small mb-0 text-uppercase">Kills</p>
-                                  <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-                                  <p class="mb-0 font-weight-bold">1.67</p>
-                                  <div class="my-1">
-                                    <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-                                  </div>
-                                  <p class="x-small mb-0 text-uppercase">Kills</p>
-                                  <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-                                  <p class="mb-0 font-weight-bold">1.67</p>
-                                  <div class="my-1">
-                                    <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-                                  </div>
-                                  <p class="x-small mb-0 text-uppercase">Kills</p>
-                                  <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-                                  <p class="mb-0 font-weight-bold">1.67</p>
-                                  <div class="my-1">
-                                    <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-                                  </div>
-                                  <p class="x-small mb-0 text-uppercase">Kills</p>
-                                  <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-                                  <p class="mb-0 font-weight-bold">1.67</p>
-                                  <div class="my-1">
-                                    <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-                                  </div>
-                                  <p class="x-small mb-0 text-uppercase">Kills</p>
-                                  <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-                                  <p class="mb-0 font-weight-bold">1.67</p>
-                                  <div class="my-1">
-                                    <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-                                  </div>
-                                  <p class="x-small mb-0 text-uppercase">Kills</p>
-                                  <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-                                  <p class="mb-0 font-weight-bold">1.67</p>
-                                  <div class="my-1">
-                                    <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-                                  </div>
-                                  <p class="x-small mb-0 text-uppercase">Kills</p>
-                                  <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-                                  <p class="mb-0 font-weight-bold">1.67</p>
-                                  <div class="my-1">
-                                    <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-                                  </div>
-                                  <p class="x-small mb-0 text-uppercase">Kills</p>
-                                  <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-                                  <p class="mb-0 font-weight-bold">1.67</p>
-                                  <div class="my-1">
-                                    <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-                                  </div>
-                                  <p class="x-small mb-0 text-uppercase">Kills</p>
-                                  <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-                                  <p class="mb-0 font-weight-bold">1.67</p>
-                                  <div class="my-1">
-                                    <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-                                  </div>
-                                  <p class="x-small mb-0 text-uppercase">Kills</p>
-                                  <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-                                </div>
-                                <!-- end .col -->
-                              </div>
-                              <!-- end .row -->
-                            </div>
-                            <!-- end .col -->
-                          </section>
-                          <!-- end section -->
-                          <section class="row my-3 py-3">
-                            <div class="col-xl col-md-12 mb-2">
-                              <span class="text-uppercase font-weight-bold mb-1">Most Played Heroes</span>
-                              <a href="#" class="btn btn-outline-primary small mx-2 my-1">See All Heroes</a>
-                            </div>
-                            <!-- end .col -->
-                            <div class="col-xl-auto col-md-12 mb-2">
-                              <div ngbDropdown class="d-inline-block">
-                                <button class="btn btn-outline-primary small" id="dropdownBasic1" ngbDropdownToggle>Time Played</button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
-                                  <button class="dropdown-item pl-2 pr-4 py-2">Win Rate</button>
-                                  <button class="dropdown-item pl-2 pr-4 py-2">Another Stat</button>
-                                  <button class="dropdown-item pl-2 pr-4 py-2">Another Stat</button>
-                                </div>
-                              </div>
-                              <!-- end ngbDropdown -->
-                            </div>
-                            <!-- end .col -->
-                            <div class="col-12">
-                              <div class="row">
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 my-2">
-                                  <div class="row align-items-center">
-                                    <div class="col-auto pl-3 py-1">
-                                      <img src="img/imgplaceholder_square.png" alt="" class="avatar-md rounded">
-                                    </div>
-                                    <div class="col py-1">
-                                      <div class="row">
-                                        <div class="col pb-1">
-                                          <span class="text-uppercase font-weight-bold">Reaper</span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col">
-                                          <span class="small text-uppercase d-flex align-items-center font-weight-bold">
-                                            <img src="img/OffenseIcon.svg" alt="" class="role-icon-sm mr-2">offense
-                                          </span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col pt-1">
-                                          <ngb-progressbar type="stp" [value]="75" [max]="100"></ngb-progressbar>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Game Time</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">6 Hrs</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Games Played</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">28.8% (96)</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">K/D Ratio</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">2.12:1</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 my-2">
-                                  <div class="row align-items-center">
-                                    <div class="col-auto pl-3 py-1">
-                                      <img src="img/imgplaceholder_square.png" alt="" class="avatar-md rounded">
-                                    </div>
-                                    <div class="col py-1">
-                                      <div class="row">
-                                        <div class="col pb-1">
-                                          <span class="text-uppercase font-weight-bold">Reaper</span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col">
-                                          <span class="small text-uppercase d-flex align-items-center font-weight-bold">
-                                            <img src="img/OffenseIcon.svg" alt="" class="role-icon-sm mr-2">offense
-                                          </span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col pt-1">
-                                          <ngb-progressbar type="stp" [value]="75" [max]="100"></ngb-progressbar>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Game Time</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">6 Hrs</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Games Played</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">28.8% (96)</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">K/D Ratio</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">2.12:1</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 my-2">
-                                  <div class="row align-items-center">
-                                    <div class="col-auto pl-3 py-1">
-                                      <img src="img/imgplaceholder_square.png" alt="" class="avatar-md rounded">
-                                    </div>
-                                    <div class="col py-1">
-                                      <div class="row">
-                                        <div class="col pb-1">
-                                          <span class="text-uppercase font-weight-bold">Reaper</span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col">
-                                          <span class="small text-uppercase d-flex align-items-center font-weight-bold">
-                                            <img src="img/OffenseIcon.svg" alt="" class="role-icon-sm mr-2">offense
-                                          </span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col pt-1">
-                                          <ngb-progressbar type="stp" [value]="75" [max]="100"></ngb-progressbar>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Game Time</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">6 Hrs</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Games Played</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">28.8% (96)</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">K/D Ratio</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">2.12:1</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 my-2">
-                                  <div class="row align-items-center">
-                                    <div class="col-auto pl-3 py-1">
-                                      <img src="img/imgplaceholder_square.png" alt="" class="avatar-md rounded">
-                                    </div>
-                                    <div class="col py-1">
-                                      <div class="row">
-                                        <div class="col pb-1">
-                                          <span class="text-uppercase font-weight-bold">Reaper</span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col">
-                                          <span class="small text-uppercase d-flex align-items-center font-weight-bold">
-                                            <img src="img/OffenseIcon.svg" alt="" class="role-icon-sm mr-2">offense
-                                          </span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col pt-1">
-                                          <ngb-progressbar type="stp" [value]="75" [max]="100"></ngb-progressbar>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Game Time</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">6 Hrs</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Games Played</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">28.8% (96)</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">K/D Ratio</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">2.12:1</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- end .col -->
-                              </div>
-                              <!-- end .row -->
-                            </div>
-                            <!-- end .col -->
-                          </section>
-                          <!-- end section -->
-                          <section class="row my-3 py-3">
-                            <div class="col-12 mb-2">
-                              <span class="text-uppercase font-weight-bold mb-1">Role Performance</span>
-                            </div>
-                            <!-- end .col -->
-                            <div class="col-12">
-                              <div class="row">
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 my-2">
-                                  <div class="row align-items-center">
-                                    <div class="col-auto pl-3 py-1">
-                                      <img src="img/OffenseIcon.svg" alt="" class="role-icon-md">
-                                    </div>
-                                    <div class="col py-1">
-                                      <div class="row">
-                                        <div class="col">
-                                          <span class="text-uppercase font-weight-bold mb-0">Offense</span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col pt-1">
-                                          <ngb-progressbar type="stp" [value]="75" [max]="100"></ngb-progressbar>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Game Time</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">6 Hrs</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Games Played</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">28.8% (96)</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">K/D Ratio</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">2.12:1</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 my-2">
-                                  <div class="row align-items-center">
-                                    <div class="col-auto pl-3 py-1">
-                                      <img src="img/DefenseIcon.svg" alt="" class="role-icon-md">
-                                    </div>
-                                    <div class="col py-1">
-                                      <div class="row">
-                                        <div class="col">
-                                          <span class="text-uppercase font-weight-bold mb-0">Defense</span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col pt-1">
-                                          <ngb-progressbar type="stp" [value]="75" [max]="100"></ngb-progressbar>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Game Time</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">6 Hrs</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Games Played</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">28.8% (96)</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">K/D Ratio</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">2.12:1</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 my-2">
-                                  <div class="row align-items-center">
-                                    <div class="col-auto pl-3 py-1">
-                                      <img src="img/TankIcon.svg" alt="" class="role-icon-md">
-                                    </div>
-                                    <div class="col py-1">
-                                      <div class="row">
-                                        <div class="col">
-                                          <span class="text-uppercase font-weight-bold mb-0">Tank</span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col pt-1">
-                                          <ngb-progressbar type="stp" [value]="75" [max]="100"></ngb-progressbar>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Game Time</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">6 Hrs</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Games Played</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">28.8% (96)</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">K/D Ratio</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">2.12:1</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 my-2">
-                                  <div class="row align-items-center">
-                                    <div class="col-auto pl-3 py-1">
-                                      <img src="img/SupportIcon.svg" alt="" class="role-icon-md">
-                                    </div>
-                                    <div class="col py-1">
-                                      <div class="row">
-                                        <div class="col">
-                                          <span class="text-uppercase font-weight-bold mb-0">Support</span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col pt-1">
-                                          <ngb-progressbar type="stp" [value]="75" [max]="100"></ngb-progressbar>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Game Time</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">6 Hrs</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Games Played</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">28.8% (96)</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">K/D Ratio</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">2.12:1</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- end .col -->
-                              </div>
-                              <!-- end .row -->
-                            </div>
-                            <!-- end .col -->
-                          </section>
-                          <!-- end section -->
-                          <section class="row my-3 py3">
-                            <div class="col-12">
-                              <ow-hero-cards></ow-hero-cards>
-                              <!-- end ow-hero-cards -->
-                            </div>
-                            <!-- end .col -->
-                          </section>
-                          <!-- end .section -->
-                        </div>
-                        <!-- end .col -->
+          <div class="col-xl-3 col-md-6 col-sm-6 col-12 mb-2">
+            <div class="row">
+              <div class="col-12">
+                <div class="video-preview">
+                  <div class="play-icon"><i class="material-icons">play_circle_filled</i></div>
+                  <div class="thumbnail"><img src="img/videoplaceholder.png" alt="" class="scaling-img rounded mb-1"></div>
+                </div>
+                <!-- end .video-preview -->
+              </div>
+              <!-- end .col -->
+              <div class="col-auto pl-3 py-1">
+                <img src="img/imgplaceholder_square.png" alt="" class="avatar-md rounded">
+              </div>
+              <!-- end .col -->
+              <div class="col py-1">
+                <div class="row">
+                  <div class="col pb-1">
+                    <span class="text-uppercase font-weight-bold">Reaper</span>
+                  </div>
+                  <!-- end .col -->
+                </div>
+                <!-- end .row -->
+                <div class="row">
+                  <div class="col">
+                    <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus purus libero, auctor id faucibus vitae,
+                      varius ac diam. In hac habitasse platea dictumst.</p>
+                  </div>
+                  <!-- end .col -->
+                </div>
+                <!-- end .row -->
+              </div>
+              <!-- end .col -->
+            </div>
+            <!-- end .row -->
+          </div>
+          <!-- end .col -->
+          <div class="col-xl-3 col-md-6 col-sm-6 col-12 mb-2">
+            <div class="row">
+              <div class="col-12">
+                <div class="video-preview">
+                  <div class="play-icon"><i class="material-icons">play_circle_filled</i></div>
+                  <div class="thumbnail"><img src="img/videoplaceholder.png" alt="" class="scaling-img rounded mb-1"></div>
+                </div>
+                <!-- end .video-preview -->
+              </div>
+              <!-- end .col -->
+              <div class="col-auto pl-3 py-1">
+                <img src="img/imgplaceholder_square.png" alt="" class="avatar-md rounded">
+              </div>
+              <!-- end .col -->
+              <div class="col py-1">
+                <div class="row">
+                  <div class="col pb-1">
+                    <span class="text-uppercase font-weight-bold">Reaper</span>
+                  </div>
+                  <!-- end .col -->
+                </div>
+                <!-- end .row -->
+                <div class="row">
+                  <div class="col">
+                    <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus purus libero, auctor id faucibus vitae,
+                      varius ac diam. In hac habitasse platea dictumst.</p>
+                  </div>
+                  <!-- end .col -->
+                </div>
+                <!-- end .row -->
+              </div>
+              <!-- end .col -->
+            </div>
+            <!-- end .row -->
+          </div>
+          <!-- end .col -->
+          <div class="col-xl-3 col-md-6 col-sm-6 col-12 mb-2">
+            <div class="row">
+              <div class="col-12">
+                <div class="video-preview">
+                  <div class="play-icon"><i class="material-icons">play_circle_filled</i></div>
+                  <div class="thumbnail"><img src="img/videoplaceholder.png" alt="" class="scaling-img rounded mb-1"></div>
+                </div>
+                <!-- end .video-preview -->
+              </div>
+              <!-- end .col -->
+              <div class="col-auto pl-3 py-1">
+                <img src="img/imgplaceholder_square.png" alt="" class="avatar-md rounded">
+              </div>
+              <!-- end .col -->
+              <div class="col py-1">
+                <div class="row">
+                  <div class="col pb-1">
+                    <span class="text-uppercase font-weight-bold">Reaper</span>
+                  </div>
+                  <!-- end .col -->
+                </div>
+                <!-- end .row -->
+                <div class="row">
+                  <div class="col">
+                    <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus purus libero, auctor id faucibus vitae,
+                      varius ac diam. In hac habitasse platea dictumst.</p>
+                  </div>
+                  <!-- end .col -->
+                </div>
+                <!-- end .row -->
+              </div>
+              <!-- end .col -->
+            </div>
+            <!-- end .row -->
+          </div>
+          <!-- end .col -->
+        </section>
+        <!-- end section -->
+        <section class="row my-3 pt-1 pb-3">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-12 mb-2">
+                <span class="text-uppercase font-weight-bold mb-1">Synergies</span>
+              </div>
+              <!-- end .col -->
+            </div>
+            <!-- end .row -->
+            <div class="row">
+              <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 mb-2">
+                <div class="hero-portrait">
+                  <div class="header px-1 py-1">
+                    <span class="x-small">Soldier: 76</span>
+                  </div>
+                  <div class="thumbnail">
+                    <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000006E.png" alt="" class="avatar rounded">
+                  </div>
+                </div>
+                <!-- end .hero-portrait -->
+              </div>
+              <!-- end .col -->
+              <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 mb-2">
+                <div class="hero-portrait">
+                  <div class="header px-1 py-1">
+                    <span class="x-small">Soldier: 76</span>
+                  </div>
+                  <div class="thumbnail">
+                    <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000006E.png" alt="" class="avatar rounded">
+                  </div>
+                </div>
+                <!-- end .hero-portrait -->
+              </div>
+              <!-- end .col -->
+              <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 mb-2">
+                <div class="hero-portrait">
+                  <div class="header px-1 py-1">
+                    <span class="x-small">Soldier: 76</span>
+                  </div>
+                  <div class="thumbnail">
+                    <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000006E.png" alt="" class="avatar rounded">
+                  </div>
+                </div>
+                <!-- end .hero-portrait -->
+              </div>
+              <!-- end .col -->
+              <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 mb-2">
+                <div class="hero-portrait">
+                  <div class="header px-1 py-1">
+                    <span class="x-small">Soldier: 76</span>
+                  </div>
+                  <div class="thumbnail">
+                    <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000006E.png" alt="" class="avatar rounded">
+                  </div>
+                </div>
+                <!-- end .hero-portrait -->
+              </div>
+              <!-- end .col -->
+              <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 mb-2">
+                <div class="hero-portrait">
+                  <div class="header px-1 py-1">
+                    <span class="x-small">Soldier: 76</span>
+                  </div>
+                  <div class="thumbnail">
+                    <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000006E.png" alt="" class="avatar rounded">
+                  </div>
+                </div>
+                <!-- end .hero-portrait -->
+              </div>
+              <!-- end .col -->
+              <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 mb-2">
+                <div class="hero-portrait">
+                  <div class="header px-1 py-1">
+                    <span class="x-small">Soldier: 76</span>
+                  </div>
+                  <div class="thumbnail">
+                    <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000006E.png" alt="" class="avatar rounded">
+                  </div>
+                </div>
+                <!-- end .hero-portrait -->
+              </div>
+              <!-- end .col -->
+            </div>
+            <!-- end .row -->
+          </div>
+          <!-- end .col -->
+          <div class="col-6">
+            <div class="row">
+              <div class="col-12 mb-2">
+                <span class="text-uppercase font-weight-bold mb-1">Counters</span>
+              </div>
+              <!-- end .col -->
+            </div>
+            <!-- end .row -->
+            <div class="row">
+              <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 mb-2">
+                <div class="hero-portrait">
+                  <div class="header px-1 py-1">
+                    <span class="x-small">Soldier: 76</span>
+                  </div>
+                  <div class="thumbnail">
+                    <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000006E.png" alt="" class="avatar rounded">
+                  </div>
+                </div>
+                <!-- end .hero-portrait -->
+              </div>
+              <!-- end .col -->
+              <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 mb-2">
+                <div class="hero-portrait">
+                  <div class="header px-1 py-1">
+                    <span class="x-small">Soldier: 76</span>
+                  </div>
+                  <div class="thumbnail">
+                    <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000006E.png" alt="" class="avatar rounded">
+                  </div>
+                </div>
+                <!-- end .hero-portrait -->
+              </div>
+              <!-- end .col -->
+              <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 mb-2">
+                <div class="hero-portrait">
+                  <div class="header px-1 py-1">
+                    <span class="x-small">Soldier: 76</span>
+                  </div>
+                  <div class="thumbnail">
+                    <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000006E.png" alt="" class="avatar rounded">
+                  </div>
+                </div>
+                <!-- end .hero-portrait -->
+              </div>
+              <!-- end .col -->
+              <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 mb-2">
+                <div class="hero-portrait">
+                  <div class="header px-1 py-1">
+                    <span class="x-small">Soldier: 76</span>
+                  </div>
+                  <div class="thumbnail">
+                    <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000006E.png" alt="" class="avatar rounded">
+                  </div>
+                </div>
+                <!-- end .hero-portrait -->
+              </div>
+              <!-- end .col -->
+              <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 mb-2">
+                <div class="hero-portrait">
+                  <div class="header px-1 py-1">
+                    <span class="x-small">Soldier: 76</span>
+                  </div>
+                  <div class="thumbnail">
+                    <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000006E.png" alt="" class="avatar rounded">
+                  </div>
+                </div>
+                <!-- end .hero-portrait -->
+              </div>
+              <!-- end .col -->
+              <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 mb-2">
+                <div class="hero-portrait">
+                  <div class="header px-1 py-1">
+                    <span class="x-small">Soldier: 76</span>
+                  </div>
+                  <div class="thumbnail">
+                    <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000006E.png" alt="" class="avatar rounded">
+                  </div>
+                </div>
+                <!-- end .hero-portrait -->
+              </div>
+              <!-- end .col -->
+            </div>
+            <!-- end .row -->
+          </div>
+          <!-- end .col -->
+        </section>
+        <!-- end section -->
+        <section class="row">
+          <div class="col-12 ngb-tabset">
+            <ngb-tabset #t="ngbTabset">
+              <ngb-tab id="tab-overview">
+                <ng-template ngbTabTitle>Overview</ng-template>
+                <ng-template ngbTabContent>
+                  <div class="container-fluid py-3">
+                    <section class="row">
+                      <div class="col-3">
+                        <ow-chart></ow-chart>
                       </div>
-                      <!-- end .row -->
-                    </div>
-                    <!-- end .container-fluid -->
-                  </ng-template>
-                  <!-- end ng-template -->
-                </ngb-tab>
-                <!-- end ngb-tab -->
-              </ngb-tabset>
-              <!-- end ngb-tabset -->
-            </div>
-            <!-- end .ngb-tabset -->
+                      <!-- end .col -->
+                    </section>
+                    <!-- end .section -->
+                  </div>
+                  <!-- end .container-fluid -->
+                </ng-template>
+              </ngb-tab>
+              <!-- end ngb-tab -->
+            </ngb-tabset>
+            <!-- end ngb-tabset -->
           </div>
           <!-- end .col -->
-        </div>
-        <!-- end .row -->
+        </section>
+        <!-- end section -->
+        <section class="row mt-2">
+          <div class="col-xl-1 col-lg-2 col-md-3 col-sm-3 col-3 my-1">
+            <div class="hero-portrait">
+              <div class="header px-1 py-1">
+                <span class="x-small">Junkrat</span>
+              </div>
+              <div class="thumbnail">
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000065.png" alt="" class="avatar rounded">
+              </div>
+            </div>
+            <!-- end .hero-portrait -->
+          </div>
+          <!-- end .col -->
+          <div class="col-xl-1 col-lg-2 col-md-3 col-sm-3 col-3 my-1">
+            <div class="hero-portrait">
+              <div class="header px-1 py-1">
+                <span class="x-small">Junkrat</span>
+              </div>
+              <div class="thumbnail">
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000065.png" alt="" class="avatar rounded">
+              </div>
+            </div>
+            <!-- end .hero-portrait -->
+          </div>
+          <!-- end .col -->
+          <div class="col-xl-1 col-lg-2 col-md-3 col-sm-3 col-3 my-1">
+            <div class="hero-portrait">
+              <div class="header px-1 py-1">
+                <span class="x-small">Junkrat</span>
+              </div>
+              <div class="thumbnail">
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000065.png" alt="" class="avatar rounded">
+              </div>
+            </div>
+            <!-- end .hero-portrait -->
+          </div>
+          <!-- end .col -->
+          <div class="col-xl-1 col-lg-2 col-md-3 col-sm-3 col-3 my-1">
+            <div class="hero-portrait">
+              <div class="header px-1 py-1">
+                <span class="x-small">Junkrat</span>
+              </div>
+              <div class="thumbnail">
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000065.png" alt="" class="avatar rounded">
+              </div>
+            </div>
+            <!-- end .hero-portrait -->
+          </div>
+          <!-- end .col -->
+          <div class="col-xl-1 col-lg-2 col-md-3 col-sm-3 col-3 my-1">
+            <div class="hero-portrait">
+              <div class="header px-1 py-1">
+                <span class="x-small">Junkrat</span>
+              </div>
+              <div class="thumbnail">
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000065.png" alt="" class="avatar rounded">
+              </div>
+            </div>
+            <!-- end .hero-portrait -->
+          </div>
+          <!-- end .col -->
+          <div class="col-xl-1 col-lg-2 col-md-3 col-sm-3 col-3 my-1">
+            <div class="hero-portrait">
+              <div class="header px-1 py-1">
+                <span class="x-small">Junkrat</span>
+              </div>
+              <div class="thumbnail">
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000065.png" alt="" class="avatar rounded">
+              </div>
+            </div>
+            <!-- end .hero-portrait -->
+          </div>
+          <!-- end .col -->
+          <div class="col-xl-1 col-lg-2 col-md-3 col-sm-3 col-3 my-1">
+            <div class="hero-portrait">
+              <div class="header px-1 py-1">
+                <span class="x-small">Junkrat</span>
+              </div>
+              <div class="thumbnail">
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000065.png" alt="" class="avatar rounded">
+              </div>
+            </div>
+            <!-- end .hero-portrait -->
+          </div>
+          <!-- end .col -->
+          <div class="col-xl-1 col-lg-2 col-md-3 col-sm-3 col-3 my-1">
+            <div class="hero-portrait">
+              <div class="header px-1 py-1">
+                <span class="x-small">Junkrat</span>
+              </div>
+              <div class="thumbnail">
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000065.png" alt="" class="avatar rounded">
+              </div>
+            </div>
+            <!-- end .hero-portrait -->
+          </div>
+          <!-- end .col -->
+          <div class="col-xl-1 col-lg-2 col-md-3 col-sm-3 col-3 my-1">
+            <div class="hero-portrait">
+              <div class="header px-1 py-1">
+                <span class="x-small">Junkrat</span>
+              </div>
+              <div class="thumbnail">
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000065.png" alt="" class="avatar rounded">
+              </div>
+            </div>
+            <!-- end .hero-portrait -->
+          </div>
+          <!-- end .col -->
+          <div class="col-xl-1 col-lg-2 col-md-3 col-sm-3 col-3 my-1">
+            <div class="hero-portrait">
+              <div class="header px-1 py-1">
+                <span class="x-small">Junkrat</span>
+              </div>
+              <div class="thumbnail">
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000065.png" alt="" class="avatar rounded">
+              </div>
+            </div>
+            <!-- end .hero-portrait -->
+          </div>
+          <!-- end .col -->
+          <div class="col-xl-1 col-lg-2 col-md-3 col-sm-3 col-3 my-1">
+            <div class="hero-portrait">
+              <div class="header px-1 py-1">
+                <span class="x-small">Junkrat</span>
+              </div>
+              <div class="thumbnail">
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000065.png" alt="" class="avatar rounded">
+              </div>
+            </div>
+            <!-- end .hero-portrait -->
+          </div>
+          <!-- end .col -->
+          <div class="col-xl-1 col-lg-2 col-md-3 col-sm-3 col-3 my-1">
+            <div class="hero-portrait">
+              <div class="header px-1 py-1">
+                <span class="x-small">Junkrat</span>
+              </div>
+              <div class="thumbnail">
+                <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000065.png" alt="" class="avatar rounded">
+              </div>
+            </div>
+            <!-- end .hero-portrait -->
+          </div>
+          <!-- end .col -->
+        </section>
+        <!-- end section -->
       </div>
       <!-- end .content -->
     </div>
