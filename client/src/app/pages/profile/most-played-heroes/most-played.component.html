@@ -19,58 +19,60 @@
   <div class="col-12">
     <div class="row">
       <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 my-2"
-           *ngFor="let hero of heroSnapshotStats">
-        <div class="row align-items-center">
-          <div class="col-auto pl-3 py-1">
-            <img src="img/imgplaceholder_square.png" alt="" class="avatar-md rounded">
-          </div>
-          <div class="col py-1">
-            <div class="row">
-              <div class="col pb-1">
-                <span class="text-uppercase font-weight-bold">{{ hero.hero.name }}</span>
-              </div>
+           *ngFor="let hero of heroSnapshotStats; let i = index">
+        <div *ngIf="i < 4">
+          <div class="row align-items-center">
+            <div class="col-auto pl-3 py-1">
+              <img src="img/imgplaceholder_square.png" alt="" class="avatar-md rounded">
             </div>
-            <div class="row">
-              <div class="col">
+            <div class="col py-1">
+              <div class="row">
+                <div class="col pb-1">
+                  <span class="text-uppercase font-weight-bold">{{ hero.hero.name }}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
                 <span class="small text-uppercase d-flex align-items-center font-weight-bold">
                   <img src="img/OffenseIcon.svg" alt="" class="role-icon-sm mr-2">offense
                 </span>
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col pt-1">
-                <ngb-progressbar type="stp" [value]="75" [max]="100"></ngb-progressbar>
+              <div class="row">
+                <div class="col pt-1">
+                  <ngb-progressbar type="stp" [value]="75" [max]="100"></ngb-progressbar>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row align-items-center my-1">
-          <div class="col-sm col-12">
-            <span class="x-small text-uppercase">Game Time</span>
-          </div>
-          <div class="col-sm-auto col-12 pr-3">
+          <div class="row align-items-center my-1">
+            <div class="col-sm col-12">
+              <span class="x-small text-uppercase">Game Time</span>
+            </div>
+            <div class="col-sm-auto col-12 pr-3">
             <span class="x-small text-uppercase">
               {{ hero.gameHistoryStatistic.timePlayed / allHeroSnapshotStats.gameHistoryStatistic.timePlayed | percent:'1.2-2' }}
               ({{ hero.gameHistoryStatistic.timePlayed }})
             </span>
+            </div>
           </div>
-        </div>
-        <div class="row align-items-center my-1">
-          <div class="col-sm col-12">
-            <span class="x-small text-uppercase">Games Played</span>
+          <div class="row align-items-center my-1">
+            <div class="col-sm col-12">
+              <span class="x-small text-uppercase">Games Played</span>
+            </div>
+            <div class="col-sm-auto col-12 pr-3">
+              <span class="x-small text-uppercase">{{ hero.gameHistoryStatistic.gamesPlayed }}</span>
+            </div>
           </div>
-          <div class="col-sm-auto col-12 pr-3">
-            <span class="x-small text-uppercase">{{ hero.gameHistoryStatistic.gamesPlayed }}</span>
-          </div>
-        </div>
-        <div class="row align-items-center my-1">
-          <div class="col-sm col-12">
-            <span class="x-small text-uppercase">K/D Ratio</span>
-          </div>
-          <div class="col-sm-auto col-12 pr-3">
+          <div class="row align-items-center my-1">
+            <div class="col-sm col-12">
+              <span class="x-small text-uppercase">K/D Ratio</span>
+            </div>
+            <div class="col-sm-auto col-12 pr-3">
             <span class="x-small text-uppercase">
               {{ hero.combatLifetimeStatistic.finalBlows / hero.combatLifetimeStatistic.deaths | number:'1.2-2' || 0 }}:1
             </span>
+            </div>
           </div>
         </div>
       </div>
