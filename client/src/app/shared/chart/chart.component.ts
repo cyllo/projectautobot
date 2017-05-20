@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'ow-chart',
@@ -7,64 +7,39 @@ import { Component } from '@angular/core';
 })
 
 export class ChartComponent {
+  @ViewChild('owChart') owChart;
 
-  public chartType = 'lineChartType';
+  //  6 types of charts: line, bar, radar, pie, polarArea, doughnut
+  public chartType:string = 'line';
 
-  public lineChartData: Array<any> = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
-    { data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C' }
+  // X axis labels. It's necessary for charts: line, bar and radar. 
+  // And just labels (on hover) for charts: polarArea, pie and doughnut
+  public chartLabels: Array<string> = ['05-19', '05-20', '05-21', '05-22', '05-23', '05-24', '05-25'];
+ 
+  // Set of points of the chart, it should be Array<number[]> only for 
+  // line, bar and radar, otherwise number[]
+  // eg:
+  // public chartData: Array<any> = [
+  //   {data: [65, 59, 90, 81, 56, 55, 40], label: 'Series A'},
+  //   {data: [28, 48, 40, 19, 96, 27, 100], label: 'Series B'}
+  // ];
+  public chartData: Array<any> = [
+    {data: [2300, 2818, 1920, 3498, 4200, 4220, 4786], label: 'Series A'},
+    {data: [1300, 1818, 2400, 1992, 3800, 3890, 4200], label: 'Series B'}
   ];
-  public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChartOptions: any = {
-    responsive: true
+  
+  // Common Chart Configuration
+  public chartOptions:any = {
+    responsive: true, // Resizes the chart canvas when its container does.
   };
-  public lineChartColors: Array<any> = [
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    { // dark grey
-      backgroundColor: 'rgba(77,83,96,0.2)',
-      borderColor: 'rgba(77,83,96,1)',
-      pointBackgroundColor: 'rgba(77,83,96,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(77,83,96,1)'
-    },
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }
-  ];
-  public lineChartLegend: boolean = false;
-  public lineChartType: string = 'line';
-
-  public randomize(): void {
-    let _lineChartData: Array<any> = new Array(this.lineChartData.length);
-    for (let i = 0; i < this.lineChartData.length; i++) {
-      _lineChartData[i] = { data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label };
-      for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-        _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
-      }
-    }
-    this.lineChartData = _lineChartData;
-  }
 
   // events
-  public chartClicked(e: any): void {
+  public chartClicked(e:any):void {
+    console.log(e);
+  }
+ 
+  public chartHovered(e:any):void {
     console.log(e);
   }
 
-  public chartHovered(e: any): void {
-    console.log(e);
-  }
 }

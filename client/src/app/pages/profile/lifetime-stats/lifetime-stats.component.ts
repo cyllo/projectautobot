@@ -7,7 +7,7 @@ import { Player, SnapshotStats, HeroSnapshotStats } from '../../../models';
   styleUrls: [ 'lifetime-stats.component.scss' ]
 })
 
-export class LifetimeStatsComponent implements AfterContentInit{
+export class LifetimeStatsComponent implements AfterContentInit {
   @Input() player: Player;
   snapshotStats: SnapshotStats;
   allHeroSnapshotStats: HeroSnapshotStats;
@@ -16,6 +16,7 @@ export class LifetimeStatsComponent implements AfterContentInit{
 
   ngAfterContentInit() {
     this.snapshotStats = this.player.snapshotStatistics[this.player.snapshotStatistics.length - 1];
-    this.allHeroSnapshotStats= this.snapshotStats.allHeroesSnapshotStatistic;
+    this.allHeroSnapshotStats = this.snapshotStats.allHeroesSnapshotStatistic;
   }
+  
 }

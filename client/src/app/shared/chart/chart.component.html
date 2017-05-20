@@ -1,9 +1,16 @@
-<canvas baseChart width="400" height="400"
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [colors]="lineChartColors"
-                [legend]="lineChartLegend"
-                [chartType]="lineChartType"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)"></canvas>
+<div class="ow-chart">
+    <div class="base-chart mb-2 py-2">
+        <canvas baseChart 
+            [datasets]="chartData" 
+            [labels]="chartLabels" 
+            [chartType]="chartType" 
+            [options]="chartOptions" 
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)" #owChart></canvas>
+    </div>
+    <!-- end div -->
+    <div class="chart-label">
+        <span class="x-small text-uppercase font-weight-bold">Kills</span>
+    </div>
+    <!-- end div -->
+</div>
