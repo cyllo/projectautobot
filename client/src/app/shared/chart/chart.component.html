@@ -1,16 +1,17 @@
-<div class="ow-chart">
-    <div class="base-chart mb-2 py-2">
+<div class="ow-chart mb-3">
+    <div class="base-chart pb-2">
         <canvas baseChart 
-            [datasets]="chartData" 
+            [datasets]="chartDatasets" 
             [labels]="chartLabels" 
             [chartType]="chartType" 
             [options]="chartOptions" 
+            [legend] = "chartShowLegend"
             (chartHover)="chartHovered($event)"
             (chartClick)="chartClicked($event)" #owChart></canvas>
     </div>
     <!-- end div -->
-    <div class="chart-label">
-        <span class="small text-uppercase">Kills</span>
+    <div class="chart-label py-2">
+        <span class="small font-weight-bold">Eliminations</span>
     </div>
     <!-- end div -->
 </div>

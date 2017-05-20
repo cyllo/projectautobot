@@ -1,7 +1,8 @@
 @import "../../../style/colors";
 
 .ow-chart {
-    .base-chart {
+    .base-chart,
+    .chart-label {
         border-bottom: 1px solid $gray-lighter;
     }
 }
