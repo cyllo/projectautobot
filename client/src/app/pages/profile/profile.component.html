@@ -7,13 +7,13 @@
             <div>
               <div class="d-block small text-uppercase mb-1 btn-group-label">Platform</div>
               <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-radio active">
+                <button type="button" class="btn btn-radio" [class.active]="player.platform === 'pc'">
                   <span class="small text-uppercase">PC</span>
                 </button>
-                <button type="button" class="btn btn-radio">
+                <button type="button" class="btn btn-radio" [class.active]="player.platform === 'xbl'">
                   <span class="small text-uppercase">XBL</span>
                 </button>
-                <button type="button" class="btn btn-radio">
+                <button type="button" class="btn btn-radio" [class.active]="player.platform === 'psn'">
                   <span class="small text-uppercase">PSN</span>
                 </button>
               </div>
@@ -24,13 +24,13 @@
             <div>
               <div class="d-block small text-uppercase mb-1 btn-group-label">Region</div>
               <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-radio active">
+                <button type="button" class="btn btn-radio" [class.active]="player.region === 'us'">
                   <span class="small text-uppercase">US</span>
                 </button>
-                <button type="button" class="btn btn-radio">
+                <button type="button" class="btn btn-radio" [class.active]="player.region === 'eu'">
                   <span class="small text-uppercase">EU</span>
                 </button>
-                <button type="button" class="btn btn-radio">
+                <button type="button" class="btn btn-radio" [class.active]="player.region === 'kr'">
                   <span class="small text-uppercase">KR</span>
                 </button>
               </div>
@@ -225,235 +225,7 @@
                         <div class="col-xl-9 col-md-12">
                           <ow-career [player]="player"></ow-career>
                           <!-- end section -->
-                          <section class="row my-3 py-3">
-                            <div class="col-xl col-md-12 mb-2">
-                              <span class="text-uppercase font-weight-bold mb-1">Most Played Heroes</span>
-                              <a href="#" class="btn btn-outline-primary small mx-2 my-1">See All Heroes</a>
-                            </div>
-                            <!-- end .col -->
-                            <div class="col-xl-auto col-md-12 mb-2">
-                              <div ngbDropdown class="d-inline-block">
-                                <button class="btn btn-outline-primary small" id="dropdownBasic1" ngbDropdownToggle>Time Played</button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
-                                  <button class="dropdown-item pl-2 pr-4 py-2">Win Rate</button>
-                                  <button class="dropdown-item pl-2 pr-4 py-2">Another Stat</button>
-                                  <button class="dropdown-item pl-2 pr-4 py-2">Another Stat</button>
-                                </div>
-                              </div>
-                              <!-- end ngbDropdown -->
-                            </div>
-                            <!-- end .col -->
-                            <div class="col-12">
-                              <div class="row">
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 my-2">
-                                  <div class="row align-items-center">
-                                    <div class="col-auto pl-3 py-1">
-                                      <img src="img/imgplaceholder_square.png" alt="" class="avatar-md rounded">
-                                    </div>
-                                    <div class="col py-1">
-                                      <div class="row">
-                                        <div class="col pb-1">
-                                          <span class="text-uppercase font-weight-bold">Reaper</span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col">
-                                          <span class="small text-uppercase d-flex align-items-center font-weight-bold">
-                                            <img src="img/OffenseIcon.svg" alt="" class="role-icon-sm mr-2">offense
-                                          </span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col pt-1">
-                                          <ngb-progressbar type="stp" [value]="75" [max]="100"></ngb-progressbar>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Game Time</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">6 Hrs</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Games Played</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">28.8% (96)</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">K/D Ratio</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">2.12:1</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 my-2">
-                                  <div class="row align-items-center">
-                                    <div class="col-auto pl-3 py-1">
-                                      <img src="img/imgplaceholder_square.png" alt="" class="avatar-md rounded">
-                                    </div>
-                                    <div class="col py-1">
-                                      <div class="row">
-                                        <div class="col pb-1">
-                                          <span class="text-uppercase font-weight-bold">Reaper</span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col">
-                                          <span class="small text-uppercase d-flex align-items-center font-weight-bold">
-                                            <img src="img/OffenseIcon.svg" alt="" class="role-icon-sm mr-2">offense
-                                          </span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col pt-1">
-                                          <ngb-progressbar type="stp" [value]="75" [max]="100"></ngb-progressbar>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Game Time</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">6 Hrs</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Games Played</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">28.8% (96)</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">K/D Ratio</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">2.12:1</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 my-2">
-                                  <div class="row align-items-center">
-                                    <div class="col-auto pl-3 py-1">
-                                      <img src="img/imgplaceholder_square.png" alt="" class="avatar-md rounded">
-                                    </div>
-                                    <div class="col py-1">
-                                      <div class="row">
-                                        <div class="col pb-1">
-                                          <span class="text-uppercase font-weight-bold">Reaper</span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col">
-                                          <span class="small text-uppercase d-flex align-items-center font-weight-bold">
-                                            <img src="img/OffenseIcon.svg" alt="" class="role-icon-sm mr-2">offense
-                                          </span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col pt-1">
-                                          <ngb-progressbar type="stp" [value]="75" [max]="100"></ngb-progressbar>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Game Time</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">6 Hrs</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Games Played</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">28.8% (96)</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">K/D Ratio</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">2.12:1</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- end .col -->
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 my-2">
-                                  <div class="row align-items-center">
-                                    <div class="col-auto pl-3 py-1">
-                                      <img src="img/imgplaceholder_square.png" alt="" class="avatar-md rounded">
-                                    </div>
-                                    <div class="col py-1">
-                                      <div class="row">
-                                        <div class="col pb-1">
-                                          <span class="text-uppercase font-weight-bold">Reaper</span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col">
-                                          <span class="small text-uppercase d-flex align-items-center font-weight-bold">
-                                            <img src="img/OffenseIcon.svg" alt="" class="role-icon-sm mr-2">offense
-                                          </span>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col pt-1">
-                                          <ngb-progressbar type="stp" [value]="75" [max]="100"></ngb-progressbar>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Game Time</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">6 Hrs</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">Games Played</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">28.8% (96)</span>
-                                    </div>
-                                  </div>
-                                  <div class="row align-items-center my-1">
-                                    <div class="col-sm col-12">
-                                      <span class="x-small text-uppercase">K/D Ratio</span>
-                                    </div>
-                                    <div class="col-sm-auto col-12 pr-3">
-                                      <span class="x-small text-uppercase">2.12:1</span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- end .col -->
-                              </div>
-                              <!-- end .row -->
-                            </div>
-                            <!-- end .col -->
-                          </section>
+                          <ow-most-played [player]="player"></ow-most-played>
                           <!-- end section -->
                           <section class="row my-3 py-3">
                             <div class="col-12 mb-2">

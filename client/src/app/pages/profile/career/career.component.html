@@ -7,108 +7,156 @@
   <div class="col-12">
     <div class="row">
       <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-        <p class="mb-0 font-weight-bold">1.67</p>
+        <p class="mb-0 font-weight-bold text-truncate">
+          {{ combatLifetimeStats.finalBlows || '-' }}
+        </p>
         <div class="my-1">
-          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+          <ngb-progressbar type="stp"
+                           [value]="combatLifetimeStats.finalBlows || 0"
+                           [max]="5000"></ngb-progressbar>
         </div>
         <p class="x-small mb-0 text-uppercase">Kills</p>
         <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
       </div>
       <!-- end .col -->
       <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-        <p class="mb-0 font-weight-bold">1.67</p>
+        <p class="mb-0 font-weight-bold text-truncate">
+          {{ combatLifetimeStats.defensiveAssists + combatLifetimeStats.offensiveAssists || '-' }}
+        </p>
         <div class="my-1">
-          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+          <ngb-progressbar type="stp"
+                           [value]="combatLifetimeStats.defensiveAssists + combatLifetimeStats.offensiveAssists || 0"
+                           [max]="500"></ngb-progressbar>
+        </div>
+        <p class="x-small mb-0 text-uppercase">Assists</p>
+        <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
+      </div>
+      <!-- end .col -->
+      <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
+        <p class="mb-0 font-weight-bold text-truncate">
+          {{ combatLifetimeStats.finalBlows / combatLifetimeStats.deaths | number:'1.2-2' || '-' }}
+        </p>
+        <div class="my-1">
+          <ngb-progressbar type="stp"
+                           [value]="combatLifetimeStats.finalBlows / combatLifetimeStats.deaths || 0"
+                           [max]="10"></ngb-progressbar>
+        </div>
+        <p class="x-small mb-0 text-uppercase">K/D Ratio</p>
+        <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
+      </div>
+      <!-- end .col -->
+      <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
+        <p class="mb-0 font-weight-bold text-truncate">
+          {{ combatLifetimeStats.damageDone || '-' }}
+        </p>
+        <div class="my-1">
+          <ngb-progressbar type="stp"
+                           [value]="combatLifetimeStats.damageDone || 0"
+                           [max]="10000000"></ngb-progressbar>
+        </div>
+        <p class="x-small mb-0 text-uppercase">Damage Done</p>
+        <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
+      </div>
+      <!-- end .col -->
+      <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
+        <p class="mb-0 font-weight-bold text-truncate">
+          {{ combatLifetimeStats.damageBlocked || '-' }}
+        </p>
+        <div class="my-1">
+          <ngb-progressbar type="stp"
+                           [value]="combatLifetimeStats.damageBlocked || 0"
+                           [max]="1000"></ngb-progressbar>
+        </div>
+        <p class="x-small mb-0 text-uppercase">Damage Blocked</p>
+        <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
+      </div>
+      <!-- end .col -->
+      <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
+        <p class="mb-0 font-weight-bold text-truncate">
+          {{ combatLifetimeStats.healingDone || '-' }}
+        </p>
+        <div class="my-1">
+          <ngb-progressbar type="stp"
+                           [value]="combatLifetimeStats.healingDone || 0"
+                           [max]="500000"></ngb-progressbar>
+        </div>
+        <p class="x-small mb-0 text-uppercase">Healing Done</p>
+        <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
+      </div>
+      <!-- end .col -->
+      <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
+        <p class="mb-0 font-weight-bold text-truncate">
+          {{ matchAwardsStats.goldMedals || '-' }}
+        </p>
+        <div class="my-1">
+          <ngb-progressbar type="stp"
+                           [value]="matchAwardsStats.goldMedals || 0"
+                           [max]="500"></ngb-progressbar>
+        </div>
+        <p class="x-small mb-0 text-uppercase">Medals (Gold)</p>
+        <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
+      </div>
+      <!-- end .col -->
+      <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
+        <p class="mb-0 font-weight-bold text-truncate">
+          {{ matchAwardsStats.silverMedals || '-' }}
+        </p>
+        <div class="my-1">
+          <ngb-progressbar type="stp"
+                           [value]="matchAwardsStats.silverMedals || 0"
+                           [max]="500"></ngb-progressbar>
+        </div>
+        <p class="x-small mb-0 text-uppercase">Medals (Silver)</p>
+        <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
+      </div>
+      <!-- end .col -->
+      <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
+        <p class="mb-0 font-weight-bold text-truncate">
+          {{ matchAwardsStats.bronzeMedals || '-' }}
+        </p>
+        <div class="my-1">
+          <ngb-progressbar type="stp"
+                           [value]="matchAwardsStats.bronzeMedals || 0"
+                           [max]="500"></ngb-progressbar>
+        </div>
+        <p class="x-small mb-0 text-uppercase">Medals (Bronze)</p>
+        <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
+      </div>
+      <!-- end .col -->
+      <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
+        <p class="mb-0 font-weight-bold text-truncate">
+
+        </p>
+        <div class="my-1">
+          <ngb-progressbar type="stp"
+                           [value]="25"
+                           [max]="100"></ngb-progressbar>
         </div>
         <p class="x-small mb-0 text-uppercase">Kills</p>
         <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
       </div>
       <!-- end .col -->
       <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-        <p class="mb-0 font-weight-bold">1.67</p>
+        <p class="mb-0 font-weight-bold text-truncate">
+
+        </p>
         <div class="my-1">
-          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+          <ngb-progressbar type="stp"
+                           [value]="25"
+                           [max]="100"></ngb-progressbar>
         </div>
         <p class="x-small mb-0 text-uppercase">Kills</p>
         <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
       </div>
       <!-- end .col -->
       <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-        <p class="mb-0 font-weight-bold">1.67</p>
+        <p class="mb-0 font-weight-bold text-truncate">
+
+        </p>
         <div class="my-1">
-          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-        </div>
-        <p class="x-small mb-0 text-uppercase">Kills</p>
-        <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-      </div>
-      <!-- end .col -->
-      <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-        <p class="mb-0 font-weight-bold">1.67</p>
-        <div class="my-1">
-          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-        </div>
-        <p class="x-small mb-0 text-uppercase">Kills</p>
-        <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-      </div>
-      <!-- end .col -->
-      <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-        <p class="mb-0 font-weight-bold">1.67</p>
-        <div class="my-1">
-          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-        </div>
-        <p class="x-small mb-0 text-uppercase">Kills</p>
-        <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-      </div>
-      <!-- end .col -->
-      <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-        <p class="mb-0 font-weight-bold">1.67</p>
-        <div class="my-1">
-          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-        </div>
-        <p class="x-small mb-0 text-uppercase">Kills</p>
-        <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-      </div>
-      <!-- end .col -->
-      <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-        <p class="mb-0 font-weight-bold">1.67</p>
-        <div class="my-1">
-          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-        </div>
-        <p class="x-small mb-0 text-uppercase">Kills</p>
-        <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-      </div>
-      <!-- end .col -->
-      <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-        <p class="mb-0 font-weight-bold">1.67</p>
-        <div class="my-1">
-          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-        </div>
-        <p class="x-small mb-0 text-uppercase">Kills</p>
-        <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-      </div>
-      <!-- end .col -->
-      <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-        <p class="mb-0 font-weight-bold">1.67</p>
-        <div class="my-1">
-          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-        </div>
-        <p class="x-small mb-0 text-uppercase">Kills</p>
-        <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-      </div>
-      <!-- end .col -->
-      <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-        <p class="mb-0 font-weight-bold">1.67</p>
-        <div class="my-1">
-          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-        </div>
-        <p class="x-small mb-0 text-uppercase">Kills</p>
-        <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>
-      </div>
-      <!-- end .col -->
-      <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 my-2 text-center">
-        <p class="mb-0 font-weight-bold">1.67</p>
-        <div class="my-1">
-          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+          <ngb-progressbar type="stp"
+                           [value]="25"
+                           [max]="100"></ngb-progressbar>
         </div>
         <p class="x-small mb-0 text-uppercase">Kills</p>
         <p class="x-small mb-0 text-uppercase">(Top 0.01%)</p>

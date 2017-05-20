@@ -27,7 +27,8 @@ import {
   ProfileComponent,
   HeroCardsComponent,
   LifetimeStatsComponent,
-  CareerComponent
+  CareerComponent,
+  MostPlayedComponent
 } from './pages';
 import {
   ApiService,
@@ -42,6 +43,7 @@ import {
   ChartComponent
 } from './shared';
 import { routing } from './app.routing';
+import { OrderByPipe } from './pipes';
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -118,7 +120,9 @@ export function instrumentOptions() {
     HeroCardComponent,
     LifetimeStatsComponent,
     CareerComponent,
-    ChartComponent
+    ChartComponent,
+    MostPlayedComponent,
+    OrderByPipe
   ],
   providers: [
     ApiService,
