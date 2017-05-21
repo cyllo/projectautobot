@@ -19,6 +19,7 @@ import {
   LeaderboardComponent,
   HeroesComponent,
   HeroComponent,
+  HeroHeaderComponent,
   ESportsComponent,
   LiveComponent,
   NewsComponent,
@@ -28,7 +29,10 @@ import {
   HeroCardsComponent,
   LifetimeStatsComponent,
   CareerComponent,
-  MostPlayedComponent
+  MostPlayedComponent,
+  HeroSkillsComponent,
+  HeroPageTabsComponent,
+  HeroCareerComponent
 } from './pages';
 import {
   ApiService,
@@ -40,7 +44,13 @@ import {
   ImageComponent,
   SelectComponent,
   HeroCardComponent,
-  ChartComponent
+  ChartComponent,
+  PlatformRegionComponent,
+  HeroSkillVideoComponent,
+  HeroSkillDescriptionComponent,
+  HeroSynergyCounterComponent,
+  HeroPortraitComponent,
+  HeroCatalogComponent
 } from './shared';
 import { routing } from './app.routing';
 import { OrderByPipe } from './pipes';
@@ -122,6 +132,16 @@ export function instrumentOptions() {
     CareerComponent,
     ChartComponent,
     MostPlayedComponent,
+    HeroHeaderComponent,
+    HeroSkillsComponent,
+    PlatformRegionComponent,
+    HeroSkillDescriptionComponent,
+    HeroSkillVideoComponent,
+    HeroSynergyCounterComponent,
+    HeroPortraitComponent,
+    HeroCatalogComponent,
+    HeroPageTabsComponent,
+    HeroCareerComponent,
     OrderByPipe
   ],
   providers: [

@@ -1,0 +1,9 @@
+<section class="row">
+  <div class="col-xl-3 col-md-6 col-12 mb-3" *ngFor='let i of chartdatasets'>
+    <ow-chart 
+      [owChartTitle]="i.chartTitle"
+      [owChartDatasets]="i.datasets"></ow-chart>
+  </div>
+  <!-- end .col -->
+</section>
+<!-- end .section -->
