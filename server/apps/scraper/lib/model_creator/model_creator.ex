@@ -11,9 +11,9 @@ defmodule Scraper.ModelCreator do
 
       Task.async(fn -> UserProfile.save_other_platforms(gamer_tag, profile) end)
 
-      quickplay_snapshot = profile.quickplay
-      #   |> Map.get(:quickplay)
-      #   |> Stats.create_snapshot(gamer_tag, competitive?: false)
+      quickplay_snapshot = profile
+        |> Map.get(:quickplay)
+        |> Stats.create_snapshot(gamer_tag, competitive?: false)
 
       competitive_snapshot = profile
         |> Map.get(:competitive)
