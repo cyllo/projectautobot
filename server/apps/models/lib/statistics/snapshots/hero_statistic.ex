@@ -16,8 +16,7 @@ defmodule Models.Statistics.Snapshots.HeroStatistic do
   @required_fields [
     :combat_average_statistic_id, :combat_best_statistic_id,
     :combat_lifetime_statistic_id, :game_history_statistic_id,
-    :hero_specific_statistic_id, :match_awards_statistic_id,
-    :snapshot_statistic_id, :hero_id
+    :hero_specific_statistic_id, :snapshot_statistic_id, :hero_id
   ]
 
   @doc """

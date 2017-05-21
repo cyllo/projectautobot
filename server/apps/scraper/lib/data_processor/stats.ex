@@ -2,7 +2,7 @@ defmodule Scraper.DataProcessor.Stats do
   alias Scraper.DataProcessor.{Helpers,StatsBox}
 
   @quickplay_identifier "#quickplay"
-  @competitive_stats_identifier "#quickplay"
+  @competitive_stats_identifier "#competitive"
   @hero_names_selector ".career-stats-section select[data-js='career-select'] option"
 
   def get_stats(src) do

@@ -90,7 +90,9 @@ defmodule Models.Statistics.Snapshots do
 
           multi_acc
             |> Ecto.Multi.run(stats_name, fn(_) ->
-              hero_name |> create_stats_multi(hero_stats) |> Repo.transaction
+              hero_name
+                |> create_stats_multi(hero_stats)
+                |> Repo.transaction
             end)
             |> Ecto.Multi.run(snapshot_name, fn(stats) ->
               stats
