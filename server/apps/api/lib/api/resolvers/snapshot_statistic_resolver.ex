@@ -3,9 +3,11 @@ defmodule Api.SnapshotStatisticResolver do
   alias Models.{Game, Statistics}
   import IEx
 
-  def get_gamer_tag_snapshot_statistics(_, gamer_tag_ids) do
+  def get_gamer_tag_snapshot_statistics(info, gamer_tag_ids) do
+    limit = Map.get(info, :first, nil)
+
     gamer_tag_ids
-      |> Snapshots.get_snapshot_statistics_by_gamer_tag_ids
+      |> Snapshots.get_snapshot_statistics_by_gamer_tag_ids(limit)
       |> convert_to_id_map(gamer_tag_ids, :gamer_tag_id)
   end
 

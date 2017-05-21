@@ -25,9 +25,11 @@ defmodule Api.Schema.GameTypes do
     timestamp_types
 
     field :snapshot_statistics, list_of(:snapshot_statistic) do
-      resolve fn gamer_tag, _, _ ->
+      arg :first, :integer
+
+      resolve fn gamer_tag, args, _ ->
         batch(
-          {SnapshotStatisticResolver, :get_gamer_tag_snapshot_statistics},
+          {SnapshotStatisticResolver, :get_gamer_tag_snapshot_statistics, args},
           gamer_tag.id,
           &{:ok, Map.get(&1, gamer_tag.id)}
         )

@@ -9,8 +9,12 @@ defmodule Models.Statistics.Snapshots do
   Model.create_model_methods(AllHeroesStatistic)
   Model.create_model_methods(HeroStatistic)
 
-  def get_all_of_all_heroes_statistics_by_snapshot_ids(snapshot_ids) do
-    from(ahs in AllHeroesStatistic, where: ahs.snapshot_statistic_id in ^snapshot_ids)
+  def get_all_of_all_heroes_statistics_by_snapshot_ids(snapshot_ids, limit \\ nil) do
+    from(
+      ahs in AllHeroesStatistic,
+      where: ahs.id in ^snapshot_ids,
+      limit: ^limit
+    )
       |> Repo.all
   end
 
@@ -24,8 +28,12 @@ defmodule Models.Statistics.Snapshots do
       |> Repo.all
   end
 
-  def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids) do
-    from(ss in SnapshotStatistic, where: ss.gamer_tag_id in ^gamer_tag_ids)
+  def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, limit \\ nil) do
+    from(
+       ss in SnapshotStatistic,
+       where: ss.gamer_tag_id in ^gamer_tag_ids,
+       limit: ^limit
+     )
       |> Repo.all
   end
 
