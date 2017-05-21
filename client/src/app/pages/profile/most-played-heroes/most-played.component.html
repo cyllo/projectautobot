@@ -1,51 +1,58 @@
-<section class="row my-3 py-3">
-  <div class="col-xl col-md-12 mb-2">
-    <span class="text-uppercase font-weight-bold mb-1">Most Played Heroes</span>
-    <a href="#" class="btn btn-outline-primary small mx-2 my-1">See All Heroes</a>
-  </div>
-  <!-- end .col -->
-  <div class="col-xl-auto col-md-12 mb-2">
-    <div ngbDropdown class="d-inline-block">
-      <button class="btn btn-outline-primary small" id="dropdownBasic1" ngbDropdownToggle>Time Played</button>
-      <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
-        <button class="dropdown-item pl-2 pr-4 py-2">Win Rate</button>
-        <button class="dropdown-item pl-2 pr-4 py-2">Another Stat</button>
-        <button class="dropdown-item pl-2 pr-4 py-2">Another Stat</button>
+<section class="row mb-3">
+  <div class="col-12">  
+    <div class="row align-items-center">
+      <div class="col">
+        <span class="text-uppercase font-weight-bold mb-2">Favorite Heroes</span>
       </div>
+      <!-- end .col -->
+      <div class="col-auto px-3 text-right mb-2">
+        <div ngbDropdown class="d-inline-block">
+          <button class="btn btn-outline-primary small" id="dropdownBasic1" ngbDropdownToggle>Time Played</button>
+          <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
+            <button class="dropdown-item pl-2 pr-4 py-2">Win Rate</button>
+            <button class="dropdown-item pl-2 pr-4 py-2">Another Stat</button>
+            <button class="dropdown-item pl-2 pr-4 py-2">Another Stat</button>
+          </div>
+        </div>
+        <!-- end ngbDropdown -->
+      </div>
+      <!-- end .col -->
     </div>
-    <!-- end ngbDropdown -->
+    <!-- end .row -->
   </div>
   <!-- end .col -->
+  
+  
   <div class="col-12">
     <div class="row">
-      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 my-2"
+      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 mb-3"
            *ngFor="let hero of heroSnapshotStats; let i = index">
         <div *ngIf="i < 4">
           <div class="row align-items-center">
-            <div class="col-auto pl-3 py-1">
+            <div class="col-auto pl-3 mb-2">
               <img src="img/imgplaceholder_square.png" alt="" class="avatar-md rounded">
             </div>
-            <div class="col py-1">
-              <div class="row">
-                <div class="col pb-1">
+            <div class="col mb-2">
+              <div class="row mb-1">
+                <div class="col">
                   <span class="text-uppercase font-weight-bold">{{ hero.hero.name }}</span>
                 </div>
               </div>
-              <div class="row">
+              <div class="row mb-1">
                 <div class="col">
-                <span class="small text-uppercase d-flex align-items-center font-weight-bold">
+                <span class="small text-uppercase d-flex align-items-center">
                   <img src="img/OffenseIcon.svg" alt="" class="role-icon-sm mr-2">offense
                 </span>
                 </div>
               </div>
               <div class="row">
-                <div class="col pt-1">
+                <div class="col">
                   <ngb-progressbar type="stp" [value]="75" [max]="100"></ngb-progressbar>
                 </div>
               </div>
             </div>
           </div>
-          <div class="row align-items-center my-1">
+          <div class="row align-items-center mb-2">
             <div class="col-sm col-12">
               <span class="x-small text-uppercase">Game Time</span>
             </div>
@@ -56,7 +63,7 @@
             </span>
             </div>
           </div>
-          <div class="row align-items-center my-1">
+          <div class="row align-items-center mb-2">
             <div class="col-sm col-12">
               <span class="x-small text-uppercase">Games Played</span>
             </div>
@@ -64,7 +71,7 @@
               <span class="x-small text-uppercase">{{ hero.gameHistoryStatistic.gamesPlayed }}</span>
             </div>
           </div>
-          <div class="row align-items-center my-1">
+          <div class="row align-items-center mb-2">
             <div class="col-sm col-12">
               <span class="x-small text-uppercase">K/D Ratio</span>
             </div>

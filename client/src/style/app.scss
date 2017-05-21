@@ -166,7 +166,10 @@ small,
 
 sup {
   font-size: 65%;
-  vertical-align: super;
+  vertical-align: baseline;
+  top: -0.5rem;
+  position: relative;
+  line-height: 0;
 }
 
 /** OTHERS **/

@@ -1,9 +1,9 @@
 <div class="profile" *ngIf="player">
-  <div class="row my-3">
-    <div class="col-12 px-3">
-      <div class="content rounded px-3 py-1">
+  <div class="row mb-3">
+    <div class="col-12">
+      <div class="content rounded px-3 pt-3">
         <div class="row align-items-center">
-          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 py-2 text-left">
+          <div class="col-sm-6 col-12 mb-3">
             <div>
               <div class="d-block small text-uppercase mb-1 btn-group-label">Platform</div>
               <div class="btn-group" role="group" aria-label="Basic example">
@@ -20,7 +20,7 @@
             </div>
           </div>
           <!-- end .col -->
-          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 py-2 text-right">
+          <div class="col-sm-6 text-sm-right col-12 mb-3">
             <div>
               <div class="d-block small text-uppercase mb-1 btn-group-label">Region</div>
               <div class="btn-group" role="group" aria-label="Basic example">
@@ -45,13 +45,13 @@
     <!-- end .col -->
   </div>
   <!-- end .row -->
-  <div class="row my-3">
-    <div class="col-12 px-3">
-      <div class="content rounded px-3 py-3">
+  <div class="row mb-3">
+    <div class="col-12">
+      <div class="content rounded px-3 pt-3">
         <div class="row align-items-center">
-          <div class="col-xl-4 col-lg-12 col-md-12">
-            <div class="row align-items-center mb-1">
-              <div class="col-auto pl-xl-4 pr-xl-1 pl-lg-4 pr-lg-1 pl-md-4 pr-md-1 pl-4 pr-0 py-2">
+          <div class="col-xl-4 col-lg-12 col-md-12 mb-3">
+            <div class="row align-items-center">
+              <div class="col-auto pl-3 pr-0">
                 <img src="{{ player.portraitUrl }}" alt="" class="avatar rounded">
               </div>
               <!-- end .col-auto -->
@@ -65,7 +65,7 @@
                 </div>
                 <!-- end .row -->
                 <div class="row">
-                  <div class="col-12 pt-1">
+                  <div class="col-12">
                     <p class="h2 font-weight-bold mb-0 text-uppercase">{{ player.overwatchName }}</p>
                   </div>
                   <!-- end .col -->
@@ -79,8 +79,8 @@
           <!-- end .col -->
           <div class="col-xl-8 col-lg-12 col-md-12">
             <div class="row">
-              <div class="col-xl-3 col-md-6 col-6">
-                <div class="row align-items-center my-1">
+              <div class="col-xl-3 col-md-6 col-6 mb-3">
+                <div class="row align-items-center">
                   <div class="col-sm col-12">
                     <span class="small">Skill Rating</span>
                   </div>
@@ -91,7 +91,7 @@
                   <!-- end .col -->
                 </div>
                 <!-- end .row -->
-                <div class="row my-1">
+                <div class="row">
                   <div class="col-12">
                     <span class="h4 font-weight-bold">2219</span>
                     <sup class="text-uppercase mx-1">99th</sup>
@@ -100,8 +100,8 @@
                 </div>
               </div>
               <!-- end .col -->
-              <div class="col-xl-3 col-md-6 col-6">
-                <div class="row align-items-center my-1">
+              <div class="col-xl-3 col-md-6 col-6 mb-3">
+                <div class="row align-items-center">
                   <div class="col-sm col-12">
                     <span class="small">US Ranking</span>
                   </div>
@@ -112,7 +112,7 @@
                   <!-- end .col -->
                 </div>
                 <!-- end .row -->
-                <div class="row my-1">
+                <div class="row">
                   <div class="col-12">
                     <span class="h4 font-weight-bold">1,099</span>
                     <sup class="text-uppercase mx-1">99th</sup>
@@ -121,8 +121,8 @@
                 </div>
               </div>
               <!-- end .col -->
-              <div class="col-xl-3 col-md-6 col-6">
-                <div class="row align-items-center my-1">
+              <div class="col-xl-3 col-md-6 col-6 mb-3">
+                <div class="row align-items-center">
                   <div class="col-sm col-12">
                     <span class="small text-u">Win - Loss</span>
                   </div>
@@ -133,7 +133,7 @@
                   <!-- end .col -->
                 </div>
                 <!-- end .row -->
-                <div class="row my-1">
+                <div class="row">
                   <div class="col-12">
                     <span class="h4 font-weight-bold">
                       {{ player.snapshotStatistics[player.snapshotStatistics.length - 1].allHeroesSnapshotStatistic.gameHistoryStatistic.gamesWon }}
@@ -145,8 +145,8 @@
                 </div>
               </div>
               <!-- end .col -->
-              <div class="col-xl-3 col-md-6 col-6">
-                <div class="row align-items-center my-1">
+              <div class="col-xl-3 col-md-6 col-6 mb-3">
+                <div class="row align-items-center">
                   <div class="col-sm col-12">
                     <span class="small text-u">Win Rate</span>
                   </div>
@@ -157,7 +157,7 @@
                   <!-- end .col -->
                 </div>
                 <!-- end .row -->
-                <div class="row my-1">
+                <div class="row">
                   <div class="col-12">
                     <span class="h4 font-weight-bold">68.4%</span>
                   </div>
@@ -171,15 +171,15 @@
           <!-- end .col -->
         </div>
         <!-- row -->
-        <div class="row mt-lg-2 mt-4">
-          <div class="col-12 text-lg-left text-center">
-            <button class="btn btn-outline-primary mx-2 mb-2" type="button" name="button">
+        <div class="row">
+          <div class="col-12 text-lg-left text-center mb-3">
+            <button class="btn btn-outline-primary mr-2" type="button" name="button">
               <span class="small">Renew</span>
             </button>
-            <button class="btn btn-outline-primary mx-2 mb-2" type="button" name="button">
+            <button class="btn btn-outline-primary mr-2" type="button" name="button">
               <span class="small">Share</span>
             </button>
-            <button class="btn btn-outline-primary mx-2 mb-2" type="button" name="button">
+            <button class="btn btn-outline-primary mr-2" type="button" name="button">
               <span class="small">Follow</span>
             </button>
           </div>
@@ -191,11 +191,11 @@
     <!-- end .col -->
   </div>
   <!-- end .row -->
-  <div class="row my-3">
-    <div class="col-12 px-3">
+  <div class="row mb-3">
+    <div class="col-12">
       <div class="content rounded px-3 py-3">
         <div class="row align-items-center">
-          <div class="col-lg-6 col-md-4 text-md-left col-sm-12 text-center pb-3">
+          <div class="col-lg-6 col-md-4 text-md-left col-sm-12 text-center mb-3">
             <div class="btn-group" role="group" aria-label="Basic example">
               <button type="button" class="btn btn-radio active">
                 <span class="small">Competitive Play</span>
@@ -206,7 +206,7 @@
             </div>
           </div>
           <!-- end .col -->
-          <div class="col-lg-6 col-md-8 text-md-right col-sm-12 text-center pb-3">
+          <div class="col-lg-6 col-md-8 text-md-right col-sm-12 text-center mb-3">
             <button type="button" class="btn btn-outline-primary">
               <span class="small d-flex align-items-center"><i class="material-icons mr-1">link</i>Connect your Battle.net to claim.</span>
             </button>
@@ -214,32 +214,32 @@
           <!-- end .col -->
         </div>
         <!-- end .row -->
-        <div class="row mt-1">
+        <div class="row">
           <div class="col-12">
             <div class="ngb-tabset">
               <ngb-tabset #t="ngbTabset">
                 <ngb-tab id="tab-overview" title="Overview">
                   <ng-template ngbTabContent>
-                    <div class="container-fluid">
+                    <div class="container-fluid pt-3">
                       <div class="row">
                         <div class="col-xl-9 col-md-12">
                           <ow-career [player]="player"></ow-career>
                           <!-- end section -->
                           <ow-most-played [player]="player"></ow-most-played>
                           <!-- end section -->
-                          <section class="row my-3 py-3">
+                          <section class="row mb-3">
                             <div class="col-12 mb-2">
                               <span class="text-uppercase font-weight-bold mb-1">Role Performance</span>
                             </div>
                             <!-- end .col -->
                             <div class="col-12">
                               <div class="row">
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 my-2">
+                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 mb-3">
                                   <div class="row align-items-center">
-                                    <div class="col-auto pl-3 py-1">
+                                    <div class="col-auto pl-3 mb-2">
                                       <img src="img/OffenseIcon.svg" alt="" class="role-icon-md">
                                     </div>
-                                    <div class="col py-1">
+                                    <div class="col mb-2">
                                       <div class="row">
                                         <div class="col">
                                           <span class="text-uppercase font-weight-bold mb-0">Offense</span>
@@ -252,7 +252,7 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="row align-items-center my-1">
+                                  <div class="row align-items-center mb-2">
                                     <div class="col-sm col-12">
                                       <span class="x-small text-uppercase">Game Time</span>
                                     </div>
@@ -260,7 +260,7 @@
                                       <span class="x-small text-uppercase">6 Hrs</span>
                                     </div>
                                   </div>
-                                  <div class="row align-items-center my-1">
+                                  <div class="row align-items-center mb-2">
                                     <div class="col-sm col-12">
                                       <span class="x-small text-uppercase">Games Played</span>
                                     </div>
@@ -268,7 +268,7 @@
                                       <span class="x-small text-uppercase">28.8% (96)</span>
                                     </div>
                                   </div>
-                                  <div class="row align-items-center my-1">
+                                  <div class="row align-items-center mb-2">
                                     <div class="col-sm col-12">
                                       <span class="x-small text-uppercase">K/D Ratio</span>
                                     </div>
@@ -278,15 +278,15 @@
                                   </div>
                                 </div>
                                 <!-- end .col -->
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 my-2">
+                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 mb-3">
                                   <div class="row align-items-center">
-                                    <div class="col-auto pl-3 py-1">
-                                      <img src="img/DefenseIcon.svg" alt="" class="role-icon-md">
+                                    <div class="col-auto pl-3 mb-2">
+                                      <img src="img/OffenseIcon.svg" alt="" class="role-icon-md">
                                     </div>
-                                    <div class="col py-1">
+                                    <div class="col mb-2">
                                       <div class="row">
                                         <div class="col">
-                                          <span class="text-uppercase font-weight-bold mb-0">Defense</span>
+                                          <span class="text-uppercase font-weight-bold mb-0">Offense</span>
                                         </div>
                                       </div>
                                       <div class="row">
@@ -296,7 +296,7 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="row align-items-center my-1">
+                                  <div class="row align-items-center mb-2">
                                     <div class="col-sm col-12">
                                       <span class="x-small text-uppercase">Game Time</span>
                                     </div>
@@ -304,7 +304,7 @@
                                       <span class="x-small text-uppercase">6 Hrs</span>
                                     </div>
                                   </div>
-                                  <div class="row align-items-center my-1">
+                                  <div class="row align-items-center mb-2">
                                     <div class="col-sm col-12">
                                       <span class="x-small text-uppercase">Games Played</span>
                                     </div>
@@ -312,7 +312,7 @@
                                       <span class="x-small text-uppercase">28.8% (96)</span>
                                     </div>
                                   </div>
-                                  <div class="row align-items-center my-1">
+                                  <div class="row align-items-center mb-2">
                                     <div class="col-sm col-12">
                                       <span class="x-small text-uppercase">K/D Ratio</span>
                                     </div>
@@ -322,15 +322,15 @@
                                   </div>
                                 </div>
                                 <!-- end .col -->
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 my-2">
+                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 mb-3">
                                   <div class="row align-items-center">
-                                    <div class="col-auto pl-3 py-1">
-                                      <img src="img/TankIcon.svg" alt="" class="role-icon-md">
+                                    <div class="col-auto pl-3 mb-2">
+                                      <img src="img/OffenseIcon.svg" alt="" class="role-icon-md">
                                     </div>
-                                    <div class="col py-1">
+                                    <div class="col mb-2">
                                       <div class="row">
                                         <div class="col">
-                                          <span class="text-uppercase font-weight-bold mb-0">Tank</span>
+                                          <span class="text-uppercase font-weight-bold mb-0">Offense</span>
                                         </div>
                                       </div>
                                       <div class="row">
@@ -340,7 +340,7 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="row align-items-center my-1">
+                                  <div class="row align-items-center mb-2">
                                     <div class="col-sm col-12">
                                       <span class="x-small text-uppercase">Game Time</span>
                                     </div>
@@ -348,7 +348,7 @@
                                       <span class="x-small text-uppercase">6 Hrs</span>
                                     </div>
                                   </div>
-                                  <div class="row align-items-center my-1">
+                                  <div class="row align-items-center mb-2">
                                     <div class="col-sm col-12">
                                       <span class="x-small text-uppercase">Games Played</span>
                                     </div>
@@ -356,7 +356,7 @@
                                       <span class="x-small text-uppercase">28.8% (96)</span>
                                     </div>
                                   </div>
-                                  <div class="row align-items-center my-1">
+                                  <div class="row align-items-center mb-2">
                                     <div class="col-sm col-12">
                                       <span class="x-small text-uppercase">K/D Ratio</span>
                                     </div>
@@ -366,15 +366,15 @@
                                   </div>
                                 </div>
                                 <!-- end .col -->
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 my-2">
+                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 mb-3">
                                   <div class="row align-items-center">
-                                    <div class="col-auto pl-3 py-1">
-                                      <img src="img/SupportIcon.svg" alt="" class="role-icon-md">
+                                    <div class="col-auto pl-3 mb-2">
+                                      <img src="img/OffenseIcon.svg" alt="" class="role-icon-md">
                                     </div>
-                                    <div class="col py-1">
+                                    <div class="col mb-2">
                                       <div class="row">
                                         <div class="col">
-                                          <span class="text-uppercase font-weight-bold mb-0">Support</span>
+                                          <span class="text-uppercase font-weight-bold mb-0">Offense</span>
                                         </div>
                                       </div>
                                       <div class="row">
@@ -384,7 +384,7 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="row align-items-center my-1">
+                                  <div class="row align-items-center mb-2">
                                     <div class="col-sm col-12">
                                       <span class="x-small text-uppercase">Game Time</span>
                                     </div>
@@ -392,7 +392,7 @@
                                       <span class="x-small text-uppercase">6 Hrs</span>
                                     </div>
                                   </div>
-                                  <div class="row align-items-center my-1">
+                                  <div class="row align-items-center mb-2">
                                     <div class="col-sm col-12">
                                       <span class="x-small text-uppercase">Games Played</span>
                                     </div>
@@ -400,7 +400,7 @@
                                       <span class="x-small text-uppercase">28.8% (96)</span>
                                     </div>
                                   </div>
-                                  <div class="row align-items-center my-1">
+                                  <div class="row align-items-center mb-2">
                                     <div class="col-sm col-12">
                                       <span class="x-small text-uppercase">K/D Ratio</span>
                                     </div>
@@ -416,7 +416,7 @@
                             <!-- end .col -->
                           </section>
                           <!-- end section -->
-                          <section class="row my-3 py3">
+                          <section class="row mb-3">
                             <div class="col-12">
                               <ow-hero-card [player]="player"></ow-hero-card>
                               <!-- end ow-hero-cards -->
@@ -426,7 +426,7 @@
                           <!-- end .section -->
                         </div>
                         <!-- end .col -->
-                        <div class="col-xl-3 col-md-12 sidebar py-3">
+                        <div class="col-xl-3 col-md-12 sidebar pt-3">
                           <ow-lifetime-stats [player]="player"></ow-lifetime-stats>
                         </div>
                         <!-- end .sidebar -->
