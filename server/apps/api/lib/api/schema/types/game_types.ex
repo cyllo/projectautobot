@@ -26,6 +26,7 @@ defmodule Api.Schema.GameTypes do
 
     field :snapshot_statistics, list_of(:snapshot_statistic) do
       arg :first, :integer
+      arg :last, :integer
 
       resolve fn gamer_tag, args, _ ->
         batch(

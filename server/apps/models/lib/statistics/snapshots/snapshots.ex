@@ -28,11 +28,25 @@ defmodule Models.Statistics.Snapshots do
       |> Repo.all
   end
 
-  def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, limit \\ nil) do
+  # opts [limit: 1, last: 2=
+  def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, [limit: nil, last: last]) do
+    IO.puts last
     from(
        ss in SnapshotStatistic,
        where: ss.gamer_tag_id in ^gamer_tag_ids,
-       limit: ^limit
+       order_by: [desc: :inserted_at],
+       limit: ^last
+     )
+      |> Repo.all
+      |> Enum.reverse
+  end
+
+  def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, opts \\ []) do
+    IO.inspect opts
+    from(
+       ss in SnapshotStatistic,
+       where: ss.gamer_tag_id in ^gamer_tag_ids,
+       limit: ^Keyword.get(opts, :limit, nil)
      )
       |> Repo.all
   end

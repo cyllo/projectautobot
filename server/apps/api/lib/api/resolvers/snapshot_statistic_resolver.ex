@@ -5,9 +5,10 @@ defmodule Api.SnapshotStatisticResolver do
 
   def get_gamer_tag_snapshot_statistics(info, gamer_tag_ids) do
     limit = Map.get(info, :first, nil)
+    last = Map.get(info, :last, nil)
 
     gamer_tag_ids
-      |> Snapshots.get_snapshot_statistics_by_gamer_tag_ids(limit)
+      |> Snapshots.get_snapshot_statistics_by_gamer_tag_ids(limit: limit, last: last)
       |> convert_to_id_map(gamer_tag_ids, :gamer_tag_id)
   end
 
@@ -33,7 +34,9 @@ defmodule Api.SnapshotStatisticResolver do
   def get_heroes_by_ids(_, hero_ids), do: hero_ids |> Game.get_heroes_by_ids |> convert_to_id_map(hero_ids)
 
   defp convert_to_id_map([], ids, _), do: Enum.reduce(ids, %{}, fn(id, acc) -> Map.put(acc, id, []) end)
-  defp convert_to_id_map(models, ids, id_prop \\ :id) when is_list(models) and is_list(ids) do
+
+  defp convert_to_id_map(models, ids, id_prop \\ :id)
+  defp convert_to_id_map(models, ids, id_prop) when is_list(models) and is_list(ids) do
     for id <- ids, into: %{} do
       {id, get_models_by_id_prop(models, id, id_prop)}
     end
