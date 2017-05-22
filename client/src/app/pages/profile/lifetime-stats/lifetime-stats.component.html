@@ -14,43 +14,43 @@
       <tbody>
       <tr>
         <td>Kills</td>
-        <td class="text-right text-truncate">0</td>
+        <td class="text-right text-truncate">{{ combatLifetimeStats.finalBlows || '-' }}</td>
       </tr>
       <tr>
         <td>Assists</td>
-        <td class="text-right text-truncate">0</td>
+        <td class="text-right text-truncate">{{ assists || '-' }}</td>
       </tr>
       <tr>
         <td>Deaths</td>
-        <td class="text-right text-truncate">0</td>
+        <td class="text-right text-truncate">{{ combatLifetimeStats.deaths || '-' }}</td>
       </tr>
       <tr>
         <td>K/D Ratio</td>
-        <td class="text-right text-truncate">0</td>
+        <td class="text-right text-truncate">{{ kdRatio | number : '1.2-2' || '-' }}:1</td>
       </tr>
       <tr>
         <td>Melee Kills</td>
-        <td class="text-right text-truncate">0</td>
+        <td class="text-right text-truncate">{{ combatLifetimeStats.meleeKills || '-' }}</td>
       </tr>
       <tr>
         <td>Multi Kills</td>
-        <td class="text-right text-truncate">0</td>
+        <td class="text-right text-truncate">{{ combatLifetimeStats.multikills || '-' }}</td>
       </tr>
       <tr>
         <td>Damage Dealt</td>
-        <td class="text-right text-truncate">0</td>
+        <td class="text-right text-truncate">{{ combatLifetimeStats.damageDone || '-' }}</td>
       </tr>
       <tr>
         <td>Damage Blocked</td>
-        <td class="text-right text-truncate">0</td>
+        <td class="text-right text-truncate">{{ combatLifetimeStats.damageBlocked || '-' }}</td>
       </tr>
       <tr>
         <td>Healing Done</td>
-        <td class="text-right text-truncate">0</td>
+        <td class="text-right text-truncate">{{ combatLifetimeStats.healingDone || '-' }}</td>
       </tr>
       <tr>
         <td>Accuracy</td>
-        <td class="text-right text-truncate">24</td>
+        <td class="text-right text-truncate">{{ combatLifetimeStats.weaponAccuracyPercentage || '-' }}</td>
       </tr>
       </tbody>
     </table>
@@ -64,23 +64,25 @@
       <tbody>
       <tr>
         <td>Games Played</td>
-        <td class="text-right">238</td>
+        <td class="text-right">{{ allHeroSnapshotStats.gameHistoryStatistic.gamesPlayed || '-' }}</td>
       </tr>
       <tr>
         <td>Games Won</td>
-        <td class="text-right">114</td>
+        <td class="text-right">{{ allHeroSnapshotStats.gameHistoryStatistic.gamesWon || '-' }}</td>
       </tr>
       <tr>
         <td>Total Time Played</td>
-        <td class="text-right">29 Hrs</td>
+        <td class="text-right">
+          {{ allHeroSnapshotStats.gameHistoryStatistic.timePlayed / 60 | number : '1.0-1' || '-' }} minutes</td>
       </tr>
       <tr>
         <td>Time Spent on Fire</td>
-        <td class="text-right">7 Mins</td>
+        <td class="text-right">
+          {{ allHeroSnapshotStats.gameHistoryStatistic.timeSpentOnFire / 60 | number : '1.0-1' || '-' }} minutes</td>
       </tr>
       <tr>
         <td>Objective Time</td>
-        <td class="text-right">7 Mins</td>
+        <td class="text-right">{{ combatLifetimeStats.objectiveTime / 60 | number : '1.0-1' || '-' }} minutes</td>
       </tr>
       </tbody>
     </table>

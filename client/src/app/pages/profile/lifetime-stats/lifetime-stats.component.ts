@@ -14,6 +14,9 @@ export class LifetimeStatsComponent implements AfterContentInit {
   combatLifetimeStats: CombatLifetimeStats;
   matchAwardsStats: MatchAwardsStats;
 
+  assists;
+  kdRatio;
+
   constructor() {}
 
   ngAfterContentInit() {
@@ -21,5 +24,8 @@ export class LifetimeStatsComponent implements AfterContentInit {
     this.allHeroSnapshotStats = this.snapshotStats.allHeroesSnapshotStatistic;
     this.combatLifetimeStats = this.allHeroSnapshotStats.combatLifetimeStatistic;
     this.matchAwardsStats = this.allHeroSnapshotStats.matchAwardsStatistic;
+
+    this.assists = this.combatLifetimeStats.defensiveAssists + this.combatLifetimeStats.offensiveAssists;
+    this.kdRatio = this.combatLifetimeStats.finalBlows / this.combatLifetimeStats.deaths;
   }
 }
