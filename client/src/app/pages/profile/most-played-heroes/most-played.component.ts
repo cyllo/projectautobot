@@ -28,7 +28,7 @@ export class MostPlayedComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit() {
     // create a copy of the array and sort it by timeplayed (high > low )
-    let x = this.heroSnapshotStats.slice().sort(function(a: HeroSnapshotStats, b: HeroSnapshotStats){
+    this.sortedHeroes = this.heroSnapshotStats.slice().sort(function(a: HeroSnapshotStats, b: HeroSnapshotStats){
       if( a.gameHistoryStatistic.timePlayed > b.gameHistoryStatistic.timePlayed ){
         return -1;
       } else if ( a.gameHistoryStatistic.timePlayed < b.gameHistoryStatistic.timePlayed ) {
@@ -37,6 +37,5 @@ export class MostPlayedComponent implements OnInit, AfterContentInit {
         return 0;
       }
     });
-    this.sortedHeroes = x;
   }
 }
