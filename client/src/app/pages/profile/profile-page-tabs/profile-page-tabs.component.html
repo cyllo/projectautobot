@@ -1,0 +1,36 @@
+<section class="row mb-3">
+  <div class="col-12 ngb-tabset">
+    <ngb-tabset #t="ngbTabset">
+
+      <ngb-tab id="tab-overview">
+        <ng-template ngbTabTitle>Overview</ng-template>
+        <ng-template ngbTabContent>
+          <div class="container-fluid pt-3">
+            <div class="row">
+              <div class="col-xl-9 col-md-12">
+                <ow-career [player]="player"></ow-career>
+                <!-- end section -->
+                <ow-most-played [player]="player"></ow-most-played>
+                <!-- end section -->
+                <ow-hero-cards></ow-hero-cards>
+                <!-- end ow-hero-cards -->
+              </div>
+              <!-- end .col -->
+              <div class="col-xl-3 col-md-12 sidebar pt-3">
+                <ow-lifetime-stats [player]="player"></ow-lifetime-stats>
+              </div>
+              <!-- end .sidebar -->
+            </div>
+            <!-- end .row -->
+          </div>
+          <!-- end .container-fluid -->
+        </ng-template>
+      </ngb-tab>
+      <!-- end ngb-tab -->
+
+    </ngb-tabset>
+    <!-- end ngb-tabset -->
+  </div>
+  <!-- end .col -->
+</section>
+<!-- end section -->

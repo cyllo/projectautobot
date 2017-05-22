@@ -32,7 +32,9 @@ import {
   MostPlayedComponent,
   HeroSkillsComponent,
   HeroPageTabsComponent,
-  HeroCareerComponent
+  HeroCareerComponent,
+  ProfileHeaderComponent,
+  ProfilePageTabsComponent
 } from './pages';
 import {
   ApiService,
@@ -142,6 +144,8 @@ export function instrumentOptions() {
     HeroCatalogComponent,
     HeroPageTabsComponent,
     HeroCareerComponent,
+    ProfileHeaderComponent,
+    ProfilePageTabsComponent,
     OrderByPipe
   ],
   providers: [
