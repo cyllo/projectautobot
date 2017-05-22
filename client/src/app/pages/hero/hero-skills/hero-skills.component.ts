@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class HeroSkillsComponent {
 
-  public skills: Array<any> = [0,1,2,3];
+  public skills: Array<any> = [0, 1, 2, 3];
 
   constructor() { }
 

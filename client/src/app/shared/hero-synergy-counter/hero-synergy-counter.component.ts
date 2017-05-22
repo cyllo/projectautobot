@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
 })
 export class HeroSynergyCounterComponent {
 
-  public synergies: Array<any> = [0,1,2,3,4,5];
-  public counters: Array<any> = [0,1,2,3,4,5];
+  public synergies: Array<any> = [0, 1, 2, 3, 4, 5];
+  public counters: Array<any> = [0, 1, 2, 3, 4, 5];
 
   constructor() { }
 

@@ -9,21 +9,21 @@ export class HeroCareerComponent {
 
   public chartdatasets: Array<any> = [
     {
-      chartTitle: "Kills",
+      chartTitle: 'Kills',
       datasets: [
         { data: [2300, 2818, 1920, 3498, 4200, 4220, 4786], label: 'You' },
         { data: [1300, 1818, 2400, 1992, 3800, 3890, 4200], label: 'Others' }
       ]
     },
     {
-      chartTitle: "Assists",
+      chartTitle: 'Assists',
       datasets: [
         { data: [2300, 2818, 1920, 3498, 4200, 4220, 4786], label: 'You' },
         { data: [1300, 1818, 2400, 1992, 3800, 3890, 4200], label: 'Others' }
       ]
     },
     {
-      chartTitle: "K/D Ratio",
+      chartTitle: 'K/D Ratio',
       datasets: [
         { data: [2300, 2818, 1920, 3498, 4200, 4220, 4786], label: 'You' },
         { data: [1300, 1818, 2400, 1992, 3800, 3890, 4200], label: 'Others' }

@@ -8,7 +8,7 @@ import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 
 export class ChartComponent implements OnInit {
   @ViewChild('owChart') owChart: ElementRef;
-  @Input() owChartTitle: String;  
+  @Input() owChartTitle: String;
   @Input() owChartDatasets: Array<any>;
 
   //  6 types of charts: line, bar, radar, pie, polarArea, doughnut
@@ -37,7 +37,7 @@ export class ChartComponent implements OnInit {
   };
 
   // if true show legend below the chart, otherwise not be shown
-  public chartShowLegend: boolean = false;
+  public chartShowLegend = false;
 
   private chartStyles: Array<any> = [
     {
@@ -50,7 +50,7 @@ export class ChartComponent implements OnInit {
               drawTicks: true
             },
             ticks: {
-              fontFamily: "'Arial'",
+              fontFamily: 'Arial',
               fontSize: '11',
               fontWeight: 'lighter',
               fontStyle: 'normal'
@@ -63,7 +63,7 @@ export class ChartComponent implements OnInit {
               drawTicks: true
             },
             ticks: {
-              fontFamily: "'Arial'",
+              fontFamily: 'Arial',
               fontSize: '11',
               fontWeight: 'lighter',
               fontStyle: 'normal'
