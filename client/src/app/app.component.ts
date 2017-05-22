@@ -46,7 +46,6 @@ export class AppComponent implements OnDestroy {
   }
 
   onSearch(action) {
-    console.log(action);
     this.isResultsOpen = !!action.payload;
     this.store.dispatch(action);
   }

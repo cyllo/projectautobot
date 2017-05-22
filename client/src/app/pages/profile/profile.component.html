@@ -24,14 +24,16 @@
           <!-- end .col -->
           <div class="col-lg-6 col-md-8 text-md-right col-sm-12 text-center mb-3">
             <button type="button" class="btn btn-outline-primary">
-              <span class="small d-flex align-items-center"><i class="material-icons mr-1">link</i>Connect your Battle.net to claim.</span>
+              <span class="small d-flex align-items-center">
+                <i class="material-icons mr-1">link</i>Connect your Battle.net to claim.
+              </span>
             </button>
           </div>
           <!-- end .col -->
         </div>
         <!-- end .row -->
 
-        <ow-profile-page-tabs></ow-profile-page-tabs>
+        <ow-profile-page-tabs [player]="player"></ow-profile-page-tabs>
         <!-- end ow-profile-page-tabs -->
         
       </div>
