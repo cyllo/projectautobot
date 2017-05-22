@@ -7,65 +7,26 @@ import { CommonModule } from '@angular/common';
 import { routerReducer, RouterStoreModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
-import { ApolloModule } from 'apollo-angular';
-import { ApolloClient } from 'apollo-client';
-import { ChartsModule } from 'ng2-charts';
-
-import { AppComponent } from './app.component';
-import { TopNavComponent, SideBarLeftComponent, FooterComponent } from './static';
-import {
-  HomeComponent,
-  FollowingComponent,
-  LeaderboardComponent,
-  HeroesComponent,
-  HeroComponent,
-  HeroHeaderComponent,
-  ESportsComponent,
-  LiveComponent,
-  NewsComponent,
-  PostComponent,
-  FriendsComponent,
-  ProfileComponent,
-  HeroCardsComponent,
-  LifetimeStatsComponent,
-  CareerComponent,
-  MostPlayedComponent,
-  HeroSkillsComponent,
-  HeroPageTabsComponent,
-  HeroCareerComponent,
-  ProfileHeaderComponent,
-  ProfilePageTabsComponent
-} from './pages';
-import {
-  ApiService,
-  VideoCardComponent,
-  SearchComponent,
-  ScheduleComponent,
-  RoleComponent,
-  NewsCardComponent,
-  ImageComponent,
-  SelectComponent,
-  HeroCardComponent,
-  ChartComponent,
-  PlatformRegionComponent,
-  HeroSkillVideoComponent,
-  HeroSkillDescriptionComponent,
-  HeroSynergyCounterComponent,
-  HeroPortraitComponent,
-  HeroCatalogComponent
-} from './shared';
-import { routing } from './app.routing';
-import { OrderByPipe } from './pipes';
-
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { ApolloModule } from 'apollo-angular';
+import { ApolloClient } from 'apollo-client';
 import { SidebarModule } from 'ng-sidebar';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
+import { AppComponent } from './app.component';
+import {
+  TopNavComponent,
+  SideBarLeftComponent,
+  FooterComponent,
+  MainNavComponent,
+  MainSearchResultsComponent } from './static';
+import { routing } from './app.routing';
+import { OrderByPipe } from './pipes';
 import { PlayersService } from './services';
 import { players, playerData, playerDataCollection, searchPlayerTag } from './reducers';
-import { MainNavComponent } from './static/main-nav/main-nav.component';
-import { MainSearchResultsComponent } from './static/main-search-results/main-search-results.component';
+import { SharedModule } from './shared';
+import { PagesModule } from './pages';
 
 export function instrumentOptions() {
   return {
@@ -76,10 +37,10 @@ export function instrumentOptions() {
 @NgModule({
   imports: [
     NgbModule.forRoot(),
-    BrowserModule,
-    CommonModule,
+    SharedModule.forRoot(),
+    PagesModule.forRoot(),
+    ApolloModule.forRoot(() => new ApolloClient()),
     StoreDevtoolsModule.instrumentStore(instrumentOptions),
-    StoreLogMonitorModule,
     StoreModule.provideStore({
       playerData: playerData,
       players: players,
@@ -93,15 +54,14 @@ export function instrumentOptions() {
       search: ''
     }),
     RouterStoreModule.connectRouter(),
+    BrowserModule,
+    CommonModule,
+    StoreLogMonitorModule,
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
-    ApolloModule.forRoot(() => new ApolloClient()),
     routing,
     SidebarModule,
-    InfiniteScrollModule,
-    NgxDatatableModule,
-    ChartsModule
   ],
   declarations: [
     AppComponent,
@@ -110,46 +70,9 @@ export function instrumentOptions() {
     TopNavComponent,
     SideBarLeftComponent,
     FooterComponent,
-    HomeComponent,
-    FollowingComponent,
-    LeaderboardComponent,
-    HeroesComponent,
-    HeroComponent,
-    ESportsComponent,
-    LiveComponent,
-    NewsComponent,
-    PostComponent,
-    FriendsComponent,
-    VideoCardComponent,
-    SearchComponent,
-    ScheduleComponent,
-    RoleComponent,
-    NewsCardComponent,
-    ImageComponent,
-    SelectComponent,
-    ProfileComponent,
-    HeroCardsComponent,
-    HeroCardComponent,
-    LifetimeStatsComponent,
-    CareerComponent,
-    ChartComponent,
-    MostPlayedComponent,
-    HeroHeaderComponent,
-    HeroSkillsComponent,
-    PlatformRegionComponent,
-    HeroSkillDescriptionComponent,
-    HeroSkillVideoComponent,
-    HeroSynergyCounterComponent,
-    HeroPortraitComponent,
-    HeroCatalogComponent,
-    HeroPageTabsComponent,
-    HeroCareerComponent,
-    ProfileHeaderComponent,
-    ProfilePageTabsComponent,
     OrderByPipe
   ],
   providers: [
-    ApiService,
     PlayersService
   ],
   bootstrap: [AppComponent]

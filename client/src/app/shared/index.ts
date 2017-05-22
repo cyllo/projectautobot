@@ -14,3 +14,4 @@ export * from './hero-skill-video';
 export * from './hero-synergy-counter';
 export * from './hero-catalog';
 export * from './hero-portrait';
+export * from './shared.module';
