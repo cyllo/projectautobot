@@ -88,7 +88,7 @@ export class MainNavComponent implements OnInit, AfterContentInit, AfterViewInit
   }
 
   onSearch(tag) {
-    this.searchTag.emit({ type: 'GET_PLAYER_TAG', payload: tag });
+    this.searchTag.emit({ type: 'GET_PLAYER_TAG', payload: { tag: tag, searching: true } });
   }
 
   onScroll(event) {

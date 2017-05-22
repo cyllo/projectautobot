@@ -50,8 +50,7 @@ export function instrumentOptions() {
     }, {
       playerData: {},
       players: [],
-      router: {},
-      search: ''
+      router: {}
     }),
     RouterStoreModule.connectRouter(),
     BrowserModule,
