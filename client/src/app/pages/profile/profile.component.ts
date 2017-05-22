@@ -15,8 +15,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   players: Player[];
   player: Player;
 
-  region: string;
   platform: string;
+  region: string;
   tag: string;
   paramsSub;
 
@@ -33,8 +33,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.paramsSub = this.activatedRoute.params.subscribe((params) => {
-      this.region = params['region'];
       this.platform = params['platform'];
+      this.region = params['region'];
       this.tag = params['tag'];
     });
   }

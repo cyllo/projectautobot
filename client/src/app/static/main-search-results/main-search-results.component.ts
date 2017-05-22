@@ -1,4 +1,4 @@
-import { HostBinding, Component, Output, Input, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, Output, Input, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Player, Search } from '../../models';
 import { AppState } from '../../models/appstate.model';
 import { Store } from '@ngrx/store';
@@ -12,10 +12,7 @@ import { Router } from '@angular/router';
 })
 export class MainSearchResultsComponent {
   @Input() searchResults;
-  @Input()
-  @HostBinding('class.open')
-  isOpen: boolean;
-  @Output() resultSelect = new EventEmitter<Player>();
+  @Input() isOpen: boolean;
   @Output() close = new EventEmitter();
 
   data$: Observable<AppState>;
@@ -31,15 +28,15 @@ export class MainSearchResultsComponent {
   }
 
   onClose() {
-    this.isOpen = false;
+    this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: { searching: false } });
   }
 
   onSelect(result: Player) {
+    this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: { searching: false } });
     this.redirect(result);
-    this.resultSelect.emit(result);
   }
 
   redirect(data: Player) {
-    this.router.navigate(['./profile', data.region, data.platform, data.tag]);
+    this.router.navigate(['./profile', data.platform, data.region, data.tag]);
   }
 }
