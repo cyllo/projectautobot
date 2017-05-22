@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="06729a47-1479-4879-8205-53159370311d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/pages/profile/lifetime-stats/lifetime-stats.component.html" afterPath="$PROJECT_DIR$/client/src/app/pages/profile/lifetime-stats/lifetime-stats.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/pages/profile/lifetime-stats/lifetime-stats.component.ts" afterPath="$PROJECT_DIR$/client/src/app/pages/profile/lifetime-stats/lifetime-stats.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.html" afterPath="$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.ts" afterPath="$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,18 +27,28 @@
           <file leaf-file-name="profile.component.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile.component.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="645">
-                  <caret line="43" column="19" lean-forward="true" selection-start-line="43" selection-start-column="19" selection-end-line="43" selection-end-column="19" />
+                <state relative-caret-position="690">
+                  <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="lifetime-stats.component.ts" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/lifetime-stats/lifetime-stats.component.ts">
+          <file leaf-file-name="most-played.component.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="405">
-                  <caret line="28" column="89" lean-forward="false" selection-start-line="28" selection-start-column="89" selection-end-line="28" selection-end-column="89" />
+                <state relative-caret-position="495">
+                  <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="career.component.ts" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="675">
+                  <caret line="46" column="3" lean-forward="true" selection-start-line="46" selection-start-column="3" selection-end-line="46" selection-end-column="3" />
                   <folding />
                 </state>
               </provider>
@@ -50,18 +61,28 @@
           <file leaf-file-name="profile.component.ts" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile.component.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="315">
-                  <caret line="25" column="31" lean-forward="true" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
+                <state relative-caret-position="615">
+                  <caret line="45" column="1" lean-forward="true" selection-start-line="45" selection-start-column="1" selection-end-line="45" selection-end-column="1" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="lifetime-stats.component.html" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/lifetime-stats/lifetime-stats.component.html">
+          <file leaf-file-name="most-played.component.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="676">
-                  <caret line="75" column="88" lean-forward="false" selection-start-line="75" selection-start-column="88" selection-end-line="75" selection-end-column="88" />
+                <state relative-caret-position="810">
+                  <caret line="54" column="10" lean-forward="true" selection-start-line="54" selection-start-column="10" selection-end-line="54" selection-end-column="10" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="career.component.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="330">
+                  <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -134,14 +155,12 @@
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/career/index.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/index.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/index.ts" />
-        <option value="$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pipes/index.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pipes/orderby.pipe.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.html" />
-        <option value="$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/shared/hero-synergy-counter/hero-synergy-counter.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/shared/chart/chart.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pages/hero/index.ts" />
@@ -173,6 +192,8 @@
         <option value="$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/lifetime-stats/lifetime-stats.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/lifetime-stats/lifetime-stats.component.html" />
+        <option value="$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.html" />
+        <option value="$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.ts" />
       </list>
     </option>
   </component>
@@ -364,7 +385,41 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="lifetime-stats" />
+              <option name="myItemId" value="most-played-heroes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="overwatch" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="overwatch" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="profile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="career" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -529,12 +584,12 @@
       <workItem from="1495131977427" duration="1355000" />
       <workItem from="1495135980586" duration="829000" />
       <workItem from="1495201053663" duration="14815000" />
-      <workItem from="1495421087537" duration="16602000" />
+      <workItem from="1495421087537" duration="17591000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="172711000" />
+    <option name="totallyTimeSpent" value="173700000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1440" y="35" width="2315" height="1050" extended-state="0" />
@@ -640,32 +695,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="18" lean-forward="true" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="40" lean-forward="false" selection-start-line="0" selection-start-column="40" selection-end-line="0" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="563">
-          <caret line="88" column="41" lean-forward="false" selection-start-line="88" selection-start-column="41" selection-end-line="88" selection-end-column="41" />
         </state>
       </provider>
     </entry>
@@ -820,14 +853,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="10" column="12" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -943,7 +968,7 @@
         <state relative-caret-position="630">
           <caret line="42" column="0" lean-forward="true" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding>
-            <element signature="e#0#90#0" expanded="true" />
+            <element signature="e#0#90#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -953,7 +978,7 @@
         <state relative-caret-position="375">
           <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding>
-            <element signature="e#0#67#0" expanded="true" />
+            <element signature="e#0#67#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -963,24 +988,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="114" />
           <folding>
-            <element signature="e#0#67#0" expanded="true" />
+            <element signature="e#0#67#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="43" column="19" lean-forward="true" selection-start-line="43" selection-start-column="19" selection-end-line="43" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="25" column="31" lean-forward="true" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -994,8 +1003,56 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/lifetime-stats/lifetime-stats.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="676">
-          <caret line="75" column="88" lean-forward="false" selection-start-line="75" selection-start-column="88" selection-end-line="75" selection-end-column="88" />
+        <state relative-caret-position="811">
+          <caret line="84" column="54" lean-forward="false" selection-start-line="84" selection-start-column="54" selection-end-line="84" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="45" column="1" lean-forward="true" selection-start-line="45" selection-start-column="1" selection-end-line="45" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="54" column="10" lean-forward="true" selection-start-line="54" selection-start-column="10" selection-end-line="54" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="46" column="3" lean-forward="true" selection-start-line="46" selection-start-column="3" selection-end-line="46" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
         </state>
       </provider>

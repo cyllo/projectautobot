@@ -13,6 +13,7 @@ export class CareerComponent implements AfterContentInit {
   allHeroSnapshotStats: HeroSnapshotStats;
   combatLifetimeStats: CombatLifetimeStats;
   matchAwardsStats: MatchAwardsStats;
+  careerData;
 
   constructor() {}
 
@@ -21,5 +22,27 @@ export class CareerComponent implements AfterContentInit {
     this.allHeroSnapshotStats = this.snapshotStats.allHeroesSnapshotStatistic;
     this.combatLifetimeStats = this.allHeroSnapshotStats.combatLifetimeStatistic;
     this.matchAwardsStats = this.allHeroSnapshotStats.matchAwardsStatistic;
+
+    this.careerData = [
+      {
+        title: 'Kills',
+        value: this.combatLifetimeStats.finalBlows
+      }, {
+        title: 'Assists',
+        value: this.combatLifetimeStats.offensiveAssists + this.combatLifetimeStats.defensiveAssists
+      }, {
+        title: 'Damage Done',
+        value: this.combatLifetimeStats.damageDone
+      }, {
+        title: 'Damage Blocked',
+        value: this.combatLifetimeStats.damageBlocked
+      }, {
+        title: 'Healing Done',
+        value: this.combatLifetimeStats.healingDone
+      }, {
+        title: 'Medals',
+        value: this.matchAwardsStats.totalMedals
+      }
+    ]
   }
 }

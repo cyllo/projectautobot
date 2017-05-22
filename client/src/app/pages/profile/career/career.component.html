@@ -6,12 +6,12 @@
   <!-- end .col -->
   <div class="col-12">
     <div class="row">
-      <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 mb-3 text-center">
-        <span class="d-block mb-1 font-weight-bold text-truncate"> 2.67</span>
+      <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 mb-3 text-center" *ngFor="let data of careerData">
+        <span class="d-block mb-1 font-weight-bold text-truncate">{{ data.value || '-' }}</span>
         <div class="mb-1">
-          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+          <ngb-progressbar type="stp" [value]="data.value || 0" [max]="data.value * 2"></ngb-progressbar>
         </div>
-        <span class="d-block x-small text-uppercase">Kills</span>
+        <span class="d-block x-small text-uppercase">{{ data.title }}</span>
         <span class="d-block x-small text-uppercase">(Top 0.01%)</span>
       </div>
       <!-- end .col -->
