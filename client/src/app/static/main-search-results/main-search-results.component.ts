@@ -32,7 +32,7 @@ export class MainSearchResultsComponent {
   }
 
   onSelect(result: Player) {
-    this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: { searching: false } });
+    this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: { tag: this.search.tag,searching: false } });
     this.redirect(result);
   }
 

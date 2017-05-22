@@ -11,6 +11,7 @@ export class HeroCardsComponent implements AfterContentInit {
   @Input() player: Player;
   snapshotStats: SnapshotStats;
   allHeroSnapshotStats: HeroSnapshotStats;
+  heroSnapshotStats: HeroSnapshotStats[];
   combatLifetimeStats: CombatLifetimeStats;
   matchAwardsStats: MatchAwardsStats;
 
@@ -19,6 +20,7 @@ export class HeroCardsComponent implements AfterContentInit {
   ngAfterContentInit() {
     this.snapshotStats = this.player.snapshotStatistics[this.player.snapshotStatistics.length - 1];
     this.allHeroSnapshotStats = this.snapshotStats.allHeroesSnapshotStatistic;
+    this.heroSnapshotStats = this.snapshotStats.heroSnapshotStatistics;
     this.combatLifetimeStats = this.allHeroSnapshotStats.combatLifetimeStatistic;
     this.matchAwardsStats = this.allHeroSnapshotStats.matchAwardsStatistic;
   }
