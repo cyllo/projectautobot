@@ -23,25 +23,32 @@ export class CareerComponent implements AfterContentInit {
     this.combatLifetimeStats = this.allHeroSnapshotStats.combatLifetimeStatistic;
     this.matchAwardsStats = this.allHeroSnapshotStats.matchAwardsStatistic;
 
+    let totalTimePlayedInMins = this.allHeroSnapshotStats.gameHistoryStatistic.timePlayed / 60;
+
     this.careerData = [
       {
         title: 'Kills',
-        value: this.combatLifetimeStats.finalBlows
-      }, {
+        value: this.combatLifetimeStats.finalBlows / totalTimePlayedInMins
+      },
+      {
         title: 'Assists',
-        value: this.combatLifetimeStats.offensiveAssists + this.combatLifetimeStats.defensiveAssists
-      }, {
+        value: (this.combatLifetimeStats.offensiveAssists + this.combatLifetimeStats.defensiveAssists) / totalTimePlayedInMins
+      },
+      {
         title: 'Damage Done',
-        value: this.combatLifetimeStats.damageDone
-      }, {
+        value: this.combatLifetimeStats.damageDone / totalTimePlayedInMins
+      },
+      {
         title: 'Damage Blocked',
-        value: this.combatLifetimeStats.damageBlocked
-      }, {
+        value: this.combatLifetimeStats.damageBlocked / totalTimePlayedInMins
+      },
+      {
         title: 'Healing Done',
-        value: this.combatLifetimeStats.healingDone
-      }, {
+        value: this.combatLifetimeStats.healingDone / totalTimePlayedInMins
+      },
+      {
         title: 'Medals',
-        value: this.matchAwardsStats.totalMedals
+        value: this.matchAwardsStats.totalMedals / totalTimePlayedInMins
       }
     ];
   }
