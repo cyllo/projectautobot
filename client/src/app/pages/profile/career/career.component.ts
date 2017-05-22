@@ -43,6 +43,6 @@ export class CareerComponent implements AfterContentInit {
         title: 'Medals',
         value: this.matchAwardsStats.totalMedals
       }
-    ]
+    ];
   }
 }
