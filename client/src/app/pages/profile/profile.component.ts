@@ -2,7 +2,7 @@ import { Component, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { AppState, Player } from '../../models';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'ow-profile',
@@ -20,7 +20,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   tag: string;
   paramsSub;
 
-  constructor(private store: Store<AppState>, private cd: ChangeDetectorRef, private activatedRoute: ActivatedRoute) {
+  constructor(private store: Store<AppState>,
+    private cd: ChangeDetectorRef,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {
     this.playerData$ = this.store.select(players => players);
     this.playerData$.subscribe(p => {
       let tag = Object.keys(p.players);
@@ -37,6 +41,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.region = params['region'];
       this.tag = params['tag'];
     });
+  }
+
+  ngAfterContentInit() {
+    if (this.tag) {
+      this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: { tag: this.tag, searching: true } });
+    } else {
+      this.router.navigate(['./']);
+    }
   }
 
   ngOnDestroy() {
