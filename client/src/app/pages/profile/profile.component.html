@@ -1,9 +1,9 @@
 <div class="profile pt-3">
   <!-- *ngIf="player" -->
 
-  <ow-platform-region></ow-platform-region>
+  <ow-platform-region [player]="player"></ow-platform-region>
   <!-- end ow-platform-region -->
-  <ow-profile-header></ow-profile-header>
+  <ow-profile-header [player]="player"></ow-profile-header>
   <!-- end ow-profile-header -->
 
   <div class="row mb-3">
