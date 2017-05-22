@@ -1,50 +1,48 @@
 @import "../../../style/colors";
-
 .profile {
-
   .sidebar {
-
     font-size: 0.85rem;
     border-left: 1px solid $gray-lighter;
-
     table {
-
       font-size: 0.7rem;
       width: 100%;
-
       th {
         background-color: $gray-lighter;
         border: 0;
         font-weight: normal;
       }
-
-      th, td {
+      th,
+      td {
         padding: 0.5rem;
       }
-
       td {
         border: 0;
       }
-
     }
-
-  }
-
-  // Large devices (desktops, less than 1200px)
+  } // Large devices (desktops, less than 1200px)
   @media (max-width: 1199px) {
     .sidebar {
       border: 0;
     }
   }
-
 }
 
-:host /deep/ .ngb-tabset {
-  .nav-tabs {
-    .nav-link.active {
-      border: 0;
-      border-bottom: 1px solid $brand-primary;
-      color: $brand-primary;
+:host /deep/ .profile {
+  .hero-portrait {
+    .header {
+      display: none;
+    }
+    .thumbnail img {
+      max-width: 4rem;
+    }
+  }
+  .ngb-tabset {
+    .nav-tabs {
+      .nav-link.active {
+        border: 0;
+        border-bottom: 1px solid $brand-primary;
+        color: $brand-primary;
+      }
     }
   }
 }
