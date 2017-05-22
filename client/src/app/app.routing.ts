@@ -24,7 +24,8 @@ const routes: Routes = [
   { path: 'news', component: NewsComponent },
   { path: 'post', component: PostComponent },
   { path: 'friends', component: FriendsComponent },
-  { path: 'profile/:platform/:region/:tag', component: ProfileComponent }
+  { path: 'profile/:platform/:region/:tag', component: ProfileComponent },
+  { path: 'profile/:platform/:tag', component: ProfileComponent }
 ];
 
 export const routing = RouterModule.forRoot(routes);

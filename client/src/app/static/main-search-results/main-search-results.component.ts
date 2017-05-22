@@ -32,11 +32,15 @@ export class MainSearchResultsComponent {
   }
 
   onSelect(result: Player) {
-    this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: { tag: this.search.tag,searching: false } });
+    this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: { tag: this.search.tag, searching: false } });
     this.redirect(result);
   }
 
   redirect(data: Player) {
-    this.router.navigate(['./profile', data.platform, data.region, data.tag]);
+    if (data.region) {
+      this.router.navigate(['./profile', data.platform, data.region, data.tag]);
+    } else {
+      this.router.navigate(['./profile', data.platform, data.tag]);
+    }
   }
 }

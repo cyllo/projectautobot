@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="06729a47-1479-4879-8205-53159370311d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/pages/profile/profile.component.html" afterPath="$PROJECT_DIR$/client/src/app/pages/profile/profile.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/pages/profile/profile.component.ts" afterPath="$PROJECT_DIR$/client/src/app/pages/profile/profile.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/app.routing.ts" afterPath="$PROJECT_DIR$/client/src/app/app.routing.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.ts" afterPath="$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.html" afterPath="$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.ts" afterPath="$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,66 +26,32 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
-          <file leaf-file-name="profile.component.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="app.routing.ts" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/client/src/app/app.routing.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="270">
+                  <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="profile.component.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile.component.html">
               <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="120">
+                  <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="profile-header.component.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile-header/profile-header.component.ts">
+              <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="360">
-                  <caret line="24" column="71" lean-forward="true" selection-start-line="24" selection-start-column="71" selection-end-line="24" selection-end-column="71" />
+                  <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
                   <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="main-search-results.component.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="465">
-                  <caret line="36" column="3" lean-forward="true" selection-start-line="36" selection-start-column="3" selection-end-line="36" selection-end-column="3" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="main-search-results.component.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="570">
-                  <caret line="40" column="39" lean-forward="true" selection-start-line="40" selection-start-column="39" selection-end-line="40" selection-end-column="39" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="most-played.component.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="510">
-                  <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#0#75#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="herocards.component.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/herocards/herocards.component.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="315">
-                  <caret line="22" column="26" lean-forward="false" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="26" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="hero-card.component.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="240">
-                  <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#0#67#0" expanded="true" />
-                  </folding>
                 </state>
               </provider>
             </entry>
@@ -91,11 +60,11 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="profile.component.ts" pinned="false" current-in-tab="true">
+          <file leaf-file-name="profile.component.ts" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile.component.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="870">
-                  <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+                <state relative-caret-position="330">
+                  <caret line="22" column="30" lean-forward="true" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
                   <folding>
                     <element signature="e#0#80#0" expanded="true" />
                   </folding>
@@ -103,11 +72,21 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="app.component.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/src/app/app.component.ts">
+          <file leaf-file-name="most-played.component.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="540">
-                  <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+                <state relative-caret-position="450">
+                  <caret line="31" column="7" lean-forward="false" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="main-search-results.component.ts" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="225">
+                  <caret line="20" column="53" lean-forward="false" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
                   <folding />
                 </state>
               </provider>
@@ -116,28 +95,8 @@
           <file leaf-file-name="most-played.component.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="645">
-                  <caret line="43" column="20" lean-forward="true" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="20" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="herocards.component.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/herocards/herocards.component.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="98">
-                  <caret line="7" column="19" lean-forward="true" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="hero-card.component.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="360">
-                  <caret line="24" column="12" lean-forward="true" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
+                <state relative-caret-position="390">
+                  <caret line="26" column="20" lean-forward="true" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
                   <folding />
                 </state>
               </provider>
@@ -234,20 +193,20 @@
         <option value="$PROJECT_DIR$/client/src/app/shared/platform-region/platform-region.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/shared/platform-region/platform-region.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/profile-header/profile-header.component.html" />
-        <option value="$PROJECT_DIR$/client/src/app/app.routing.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/lifetime-stats/lifetime-stats.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/lifetime-stats/lifetime-stats.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.ts" />
-        <option value="$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.ts" />
-        <option value="$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.html" />
-        <option value="$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/herocards/herocards.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/herocards/herocards.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/profile.component.ts" />
+        <option value="$PROJECT_DIR$/client/src/app/app.routing.ts" />
+        <option value="$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.ts" />
+        <option value="$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.ts" />
+        <option value="$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/profile.component.html" />
       </list>
     </option>
@@ -406,7 +365,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="main-nav" />
+              <option name="myItemId" value="main-search-results" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -729,12 +688,12 @@
       <workItem from="1495131977427" duration="1355000" />
       <workItem from="1495135980586" duration="829000" />
       <workItem from="1495201053663" duration="14815000" />
-      <workItem from="1495421087537" duration="21287000" />
+      <workItem from="1495421087537" duration="25473000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177396000" />
+    <option name="totallyTimeSpent" value="181582000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1440" y="35" width="2315" height="1050" extended-state="0" />
@@ -1017,29 +976,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/app.routing.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/app/reducers/search.reducer.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="10" column="24" lean-forward="false" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="24" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile-header/profile-header.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#67#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1075,14 +1016,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="43" column="20" lean-forward="true" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/app/shared/platform-region/platform-region.component.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
@@ -1099,18 +1032,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/herocards/herocards.component.ts">
+    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile-header/profile-header.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="22" column="26" lean-forward="false" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="26" />
+        <state relative-caret-position="1395">
+          <caret line="93" column="20" lean-forward="false" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/herocards/herocards.component.html">
+    <entry file="file://$PROJECT_DIR$/client/src/app/static/main-nav/main-nav.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="7" column="19" lean-forward="true" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+        <state relative-caret-position="1098">
+          <caret line="94" column="31" lean-forward="true" selection-start-line="94" selection-start-column="31" selection-end-line="94" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/herocards/herocards.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="22" column="26" lean-forward="false" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="26" />
           <folding />
         </state>
       </provider>
@@ -1125,29 +1066,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile-header/profile-header.component.html">
+    <entry file="file://$PROJECT_DIR$/client/src/app/app.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1395">
-          <caret line="93" column="20" lean-forward="false" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="20" />
+        <state relative-caret-position="540">
+          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.html">
+    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/herocards/herocards.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="40" column="39" lean-forward="true" selection-start-line="40" selection-start-column="39" selection-end-line="40" selection-end-column="39" />
+        <state relative-caret-position="488">
+          <caret line="32" column="136" lean-forward="true" selection-start-line="32" selection-start-column="136" selection-end-line="32" selection-end-column="136" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#75#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1159,44 +1090,68 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/static/main-nav/main-nav.component.ts">
+    <entry file="file://$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="653">
-          <caret line="90" column="81" lean-forward="true" selection-start-line="90" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+        <state relative-caret-position="480">
+          <caret line="32" column="39" lean-forward="true" selection-start-line="32" selection-start-column="39" selection-end-line="32" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/app.component.ts">
+    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+        <state relative-caret-position="390">
+          <caret line="26" column="20" lean-forward="true" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile.component.ts">
+    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile-header/profile-header.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="870">
-          <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#80#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="36" column="3" lean-forward="true" selection-start-line="36" selection-start-column="3" selection-end-line="36" selection-end-column="3" />
+        <state relative-caret-position="360">
+          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="71" lean-forward="true" selection-start-line="24" selection-start-column="71" selection-end-line="24" selection-end-column="71" />
+        <state relative-caret-position="120">
+          <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="30" lean-forward="true" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#80#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/app.routing.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/most-played-heroes/most-played.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="31" column="7" lean-forward="false" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="20" column="53" lean-forward="false" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
           <folding />
         </state>
       </provider>
