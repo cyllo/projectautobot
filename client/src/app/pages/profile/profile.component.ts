@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngAfterContentInit() {
     if (this.tag) {
-      this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: { tag: this.tag, searching: true } });
+      this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: { tag: this.tag, searching: false } });
     } else {
       this.router.navigate(['./']);
     }
