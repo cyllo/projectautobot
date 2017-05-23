@@ -19,12 +19,20 @@ defmodule Models.Statistics.Snapshots.HeroStatistic do
     :hero_id
   ]
 
+  @available_fields Enum.concat(@required_fields, [
+    :combat_average_statistic_id,
+    :combat_best_statistic_id,
+    :combat_lifetime_statistic_id,
+    :hero_specific_statistic_id,
+    :match_awards_statistic_id
+  ])
+
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(%HeroStatistic{} = struct, params \\ %{}) do
     struct
-      |> cast(params, @required_fields)
+      |> cast(params, @available_fields)
       |> validate_required(@required_fields)
   end
 

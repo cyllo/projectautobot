@@ -66,7 +66,7 @@ defmodule Models.Model do
       @spec unquote(fn_name)(id :: String.t, preloads :: Keyword.t) :: unquote(model)
       def unquote(fn_name)(id, preloads \\ []) do
         case from(unquote(model), preload: ^preloads) |> Models.Repo.get(id) do
-          nil -> {:error, "#{id} not found"}
+          nil -> {:error, "#{unquote(get_display_model_name(model))} #{id} not found"}
           model -> {:ok, model}
         end
       end
@@ -94,5 +94,13 @@ defmodule Models.Model do
           |> Models.Repo.all
       end
     end
+  end
+
+  defp get_display_model_name(model) do
+    model
+      |> get_model_name
+      |> String.split("_")
+      |> Enum.map(&String.capitalize/1)
+      |> Enum.join(" ")
   end
 end

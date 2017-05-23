@@ -14,7 +14,9 @@ defmodule Api.GamerTagResolver do
        Game.get_gamer_tag_with_snapshots(gamer_tag_id)
      else
        {:error, %{time_till_can_scrape: _}} = error -> error
-       _ -> ScrapeStatusCache.unmark_tag_scraped(gamer_tag_id)
+       error ->
+         ScrapeStatusCache.unmark_tag_scraped(gamer_tag_id)
+         error
     end
   end
 

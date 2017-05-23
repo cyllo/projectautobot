@@ -30,7 +30,6 @@ defmodule Models.Statistics.Snapshots do
 
   # opts [limit: 1, last: 2=
   def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, [limit: nil, last: last]) do
-    IO.puts last
     from(
        ss in SnapshotStatistic,
        where: ss.gamer_tag_id in ^gamer_tag_ids,
@@ -42,7 +41,6 @@ defmodule Models.Statistics.Snapshots do
   end
 
   def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, opts \\ []) do
-    IO.inspect opts
     from(
        ss in SnapshotStatistic,
        where: ss.gamer_tag_id in ^gamer_tag_ids,
