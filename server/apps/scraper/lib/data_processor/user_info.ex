@@ -1,5 +1,4 @@
 defmodule Scraper.DataProcessor.UserInfo do
-  require IEx
   alias Scraper.DataProcessor.Helpers
   @overwatch_user_info_box ".u-max-width-container.row.content-box.gutter-18"
   @overwatch_name "h1.header-masthead"

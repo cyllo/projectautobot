@@ -1,6 +1,7 @@
 defmodule Scraper.DataProcessor.Helpers do
   @js_stats_boxes "body.career-detail #competitive .js-stats"
   @overwatch_player_platforms "#profile-platforms a"
+  @page_not_found "body > section.u-nav-offset > div > h1"
   @platform_active ".is-active"
   @plural_possibilities_blacklist ["kill streak", "multikill best"]
   @plural_possibilities [
@@ -74,12 +75,11 @@ defmodule Scraper.DataProcessor.Helpers do
 
 
   def is_page_loaded?(page_source), do: is_page_not_found?(page_source) || career_page_loaded?(page_source)
-  def is_page_not_found?(page_source), do: page_source |> body_classes |> classes_has_not_found_page?
+  def is_page_not_found?(page_source), do: page_source |> find_text(@page_not_found) |> classes_has_not_found_page?
 
   defp career_page_loaded?(src), do: platforms_loaded?(src) && stats_box_loaded?(src)
   defp platforms_loaded?(src), do: find_player_platforms(src) |> Enum.any?
   defp stats_box_loaded?(src), do: Floki.find(src, @js_stats_boxes) |> Enum.any?
-  defp classes_has_not_found_page?(classes_str) when is_nil(classes_str), do: false
-  defp classes_has_not_found_page?(classes_str), do: String.contains?(classes_str, "undefined")
-  defp body_classes(page_source), do: Floki.attribute(page_source, "body", "class") |> List.first
+  defp classes_has_not_found_page?(text) when is_nil(text), do: false
+  defp classes_has_not_found_page?(text), do: text |> String.upcase |> String.contains?("PAGE NOT FOUND")
 end

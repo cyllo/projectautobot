@@ -1,5 +1,4 @@
 defmodule Api.Schema.GameTypes do
-  require IEx
   use Absinthe.Schema.Notation
   import Api.Schema.ScalarTypes, only: [timestamp_types: 0]
   alias Api.SnapshotStatisticResolver
@@ -43,6 +42,7 @@ defmodule Api.Schema.GameTypes do
     field :id, :integer
     field :name, :string
     field :code, :string
+
     timestamp_types
   end
 end
