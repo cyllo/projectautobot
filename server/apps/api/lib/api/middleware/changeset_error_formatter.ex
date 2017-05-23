@@ -3,10 +3,10 @@ defmodule Api.Middleware.ChangesetErrorFormatter do
   def call(%{errors: errors} = res, _), do: %{res | errors: format_changeset_error(errors)}
 
   def format_changeset_error(errors) when is_list(errors) do
-    if Enum.all?(errors, &is_bitstring/1) do
-      errors
-    else
-      Enum.flat_map(errors, &format_changeset_error/1)
+    cond do
+      Enum.all?(errors, &is_bitstring/1) -> errors
+      Enum.all?(errors, &is_map/1) -> errors
+      true -> Enum.flat_map(errors, &format_changeset_error/1)
     end
   end
 

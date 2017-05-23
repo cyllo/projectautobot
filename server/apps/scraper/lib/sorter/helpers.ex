@@ -9,5 +9,5 @@ defmodule Scarper.Sorter.Helpers do
   end
 
   def is_match_award_stat?(key), do: key_equals(key, "(cards|medals)")
-  def is_game_tracking_stat?(key), do: key_equals(key, "games_(played|won|lost)")
+  def is_game_tracking_stat?(key), do: key_equals(key, "games_(played|won|lost|tied)")
 end

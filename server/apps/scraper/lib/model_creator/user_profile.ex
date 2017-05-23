@@ -11,11 +11,12 @@ defmodule Scraper.ModelCreator.UserProfile do
     end
   end
 
-  def find_gamer_tag(user_profile) do
-    %{region: region, platform: platform, gamer_tag: tag} = user_profile
-      |> Map.take([:gamer_tag, :region, :platform])
-
+  def find_gamer_tag(%{platform: platform, region: region, gamer_tag: tag}) do
     Game.find_gamer_tag(region: region, platform: platform, tag: tag)
+  end
+
+  def find_gamer_tag(%{platform: platform, gamer_tag: tag}) do
+    Game.find_gamer_tag(platform: platform, tag: tag)
   end
 
   def create_new_gamer_tag(%{

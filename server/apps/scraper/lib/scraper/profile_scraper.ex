@@ -1,7 +1,6 @@
 defmodule Scraper.ProfileScraper do
   alias Scraper.{SessionServer, ProfileUrl}
   require Logger
-  import IEx
 
   def get_profile(%{tag: tag, platform: platform, region: region}), do: get_profile(tag, platform, region)
   def get_profile(tag, platform \\ nil, region \\ nil) do

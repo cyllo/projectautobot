@@ -3,6 +3,7 @@ defmodule Models.Statistics.GameHistory do
   alias Models.Statistics.GameHistory
 
   schema "game_history_statistics" do
+    field :games_tied, :integer
     field :games_played, :integer, null: false, default: 0
     field :games_won, :integer, null: false, default: 0
     field :games_lost, :integer, null: false, default: 0
@@ -15,6 +16,7 @@ defmodule Models.Statistics.GameHistory do
     :games_played,
     :games_won,
     :games_lost,
+    :games_tied,
     :time_played,
     :time_spent_on_fire,
     :win_percentage
