@@ -1,0 +1,44 @@
+{
+  "roles": [
+    "Offense",
+    "Defense",
+    "Tank",
+    "Support"
+  ],
+  "heroes": [{
+    "0x02E000000000006E": [{
+      "code": "0x02E000000000006E",
+      "name": "Soldier: 76",
+      "role": 0,
+      "synergy": [
+        "0x02E000000000006E",
+        "0x02E000000000006E"
+      ],
+      "counter": [
+        "0x02E000000000006E",
+        "0x02E000000000006E"
+      ],
+      "skills": [{
+          "name": "Heavy Pulse Rifle",
+          "description": "Soldier: 76\u2019s rifle remains particularly steady while unloading fully-automatic pulse fire."
+        },
+        {
+          "name": "Helix Rockets",
+          "description": "Tiny rockets spiral out of Soldier: 76\u2019s Pulse Rifle in a single burst. The rockets\u2019 explosion damages enemies in a small radius."
+        },
+        {
+          "name": "Sprint",
+          "description": "Whether he needs to evade a firefight or get back into one, Soldier: 76 can rush ahead in a burst of speed. His sprint ends if he takes an action other than charging forward."
+        },
+        {
+          "name": "Biotic Field",
+          "description": "Soldier: 76 plants a biotic emitter on the ground. Its energy projection restores health to 76 and any of his squadmates within the field."
+        },
+        {
+          "name": "Tactical Visor",
+          "description": "Soldier: 76\u2019s pinpoint targeting visor \u201Clocks\u201D his aim on the threat closest to his crosshairs. If an enemy leaves his line of sight, Soldier: 76 can quickly switch to another target."
+        }
+      ]
+    }]
+  }]
+}
