@@ -1,7 +1,6 @@
 import { RouterState } from '@ngrx/router-store';
-import { Player } from './player.model';
-import { Search } from './search.model';
-import * as fromCollection from '../reducers/playerDataCollection.reducer';
+import { Player, SnapshotStats, Search } from './index';
+import * as fromCollection from '../reducers';
 
 export interface AppState {
   players?: Player[];
@@ -9,4 +8,5 @@ export interface AppState {
   playerDataCollection?: fromCollection.State;
   router?: RouterState;
   search?: Search;
+  snapshotStats?: SnapshotStats;
 }

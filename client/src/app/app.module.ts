@@ -27,6 +27,7 @@ import { PlayersService } from './services';
 import { players, playerData, playerDataCollection, searchPlayerTag } from './reducers';
 import { SharedModule } from './shared';
 import { PagesModule } from './pages';
+import { snapshotData } from './reducers/snapshot.reducer';
 
 export function instrumentOptions() {
   return {
@@ -46,11 +47,13 @@ export function instrumentOptions() {
       players: players,
       playerDataCollection: playerDataCollection,
       router: routerReducer,
-      search: searchPlayerTag
+      search: searchPlayerTag,
+      snapshotStats: snapshotData
     }, {
       playerData: {},
       players: [],
-      router: {}
+      router: {},
+      snapshotStats: {}
     }),
     RouterStoreModule.connectRouter(),
     BrowserModule,

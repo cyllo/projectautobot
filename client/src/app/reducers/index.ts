@@ -8,6 +8,7 @@ export * from './playerData.reducer';
 export * from './playerDataCollection.reducer';
 export * from './players.reducer';
 export * from './search.reducer';
+export * from './snapshot.reducer';
 
 export function getPlayerDataCollectionState(state$: Observable<AppState>) {
   return state$.select(state => state.playerDataCollection);

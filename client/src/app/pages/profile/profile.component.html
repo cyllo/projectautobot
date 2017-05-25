@@ -6,17 +6,21 @@
   <ow-profile-header [player]="player"></ow-profile-header>
   <!-- end ow-profile-header -->
 
-  <div class="row mb-3">
+  <div class="row mb-3" *ngIf="snapshotStats">
     <div class="col-12">
       <div class="content rounded px-3 py-3">
 
         <div class="row align-items-center">
           <div class="col-lg-6 col-md-4 text-md-left col-sm-12 text-center mb-3">
             <div class="btn-group" role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-radio active" (click)="toggleSnapshotStats()">
+              <button type="button" class="btn btn-radio"
+                      [class.active]="snapshotStats.isCompetitive"
+                      (click)="toggleSnapshotStats(1)">
                 <span class="small">Competitive Play</span>
               </button>
-              <button type="button" class="btn btn-radio" (click)="toggleSnapshotStats()">
+              <button type="button" class="btn btn-radio"
+                      [class.active]="!snapshotStats.isCompetitive"
+                      (click)="toggleSnapshotStats(2)">
                 <span class="small">Quick Play</span>
               </button>
             </div>

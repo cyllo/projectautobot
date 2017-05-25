@@ -20,13 +20,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   region: string;
   tag: string;
   paramsSub;
-
-  lastSnapshot: SnapshotStats;
-  secondToLastSnapshot: SnapshotStats;
-  competitivePlay: SnapshotStats;
-  quickPlay: SnapshotStats;
-  snapshotStats: SnapshotStats = this.competitivePlay;
-  isCompetitive = true;
+  snapshotStats: SnapshotStats;
 
 
   constructor(private store: Store<AppState>,
@@ -34,17 +28,16 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
-    this.playerData$ = this.store.select(players => players);
-    this.playerData$.subscribe(p => {
-      let tag = Object.keys(p.players);
+    this.playerData$ = this.store.select(state => state);
+    this.playerData$.subscribe(s => {
+      let tag = Object.keys(s.players);
 
-      this.players = p.players;
+      this.players = s.players;
       this.player = this.players[tag[0]];
+      this.snapshotStats = s.snapshotStats;
+      console.log(s.snapshotStats);
       this.cd.markForCheck();
     });
-    this.lastSnapshot = this.player.snapshotStatistics[this.player.snapshotStatistics.length - 1];
-    this.secondToLastSnapshot = this.player.snapshotStatistics[this.player.snapshotStatistics.length - 2];
-    this.sortSnapshotData(this.lastSnapshot);
   }
 
   ngOnInit() {
@@ -63,19 +56,11 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
     }
   }
 
-  sortSnapshotData(data) {
-    if (data.isCompetitive === true) {
-      this.competitivePlay = data;
-      this.quickPlay = this.secondToLastSnapshot;
-    } else {
-      this.quickPlay = data;
-      this.competitivePlay = this.secondToLastSnapshot;
-    }
-  }
-
-  toggleSnapshotStats() {
-    this.isCompetitive ? this.snapshotStats = this.competitivePlay : this.snapshotStats = this.quickPlay;
-    this.isCompetitive ? this.isCompetitive = false : this.isCompetitive = true;
+  toggleSnapshotStats(num: number) {
+    this.store.dispatch({
+      type: 'GET_SNAPSHOT_DATA',
+      payload: this.player.snapshotStatistics[this.player.snapshotStatistics.length - num]
+    });
   }
 
   ngOnDestroy() {
