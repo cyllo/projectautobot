@@ -3,6 +3,7 @@ import { AppState, Player } from '../../models';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SnapshotStats } from '../../models/player.model';
 
 @Component({
   selector: 'ow-profile',
@@ -20,6 +21,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
   tag: string;
   paramsSub;
 
+  lastSnapshot: SnapshotStats;
+  secondToLastSnapshot: SnapshotStats;
+  competitivePlay: SnapshotStats;
+  quickPlay: SnapshotStats;
+  snapshotStats: SnapshotStats = this.competitivePlay;
+  isCompetitive = true;
+
+
   constructor(private store: Store<AppState>,
     private cd: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
@@ -33,6 +42,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.player = this.players[tag[0]];
       this.cd.markForCheck();
     });
+    this.lastSnapshot = this.player.snapshotStatistics[this.player.snapshotStatistics.length - 1];
+    this.secondToLastSnapshot = this.player.snapshotStatistics[this.player.snapshotStatistics.length - 2];
+    this.sortSnapshotData(this.lastSnapshot);
   }
 
   ngOnInit() {
@@ -49,6 +61,21 @@ export class ProfileComponent implements OnInit, OnDestroy {
     } else {
       this.router.navigate(['./']);
     }
+  }
+
+  sortSnapshotData(data) {
+    if (data.isCompetitive === true) {
+      this.competitivePlay = data;
+      this.quickPlay = this.secondToLastSnapshot;
+    } else {
+      this.quickPlay = data;
+      this.competitivePlay = this.secondToLastSnapshot;
+    }
+  }
+
+  toggleSnapshotStats() {
+    this.isCompetitive ? this.snapshotStats = this.competitivePlay : this.snapshotStats = this.quickPlay;
+    this.isCompetitive ? this.isCompetitive = false : this.isCompetitive = true;
   }
 
   ngOnDestroy() {

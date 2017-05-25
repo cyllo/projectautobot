@@ -1,5 +1,5 @@
 import { AfterContentInit, Component, Input, OnInit } from '@angular/core';
-import { Player, SnapshotStats, HeroSnapshotStats, CombatLifetimeStats, MatchAwardsStats } from '../../../models';
+import { SnapshotStats, HeroSnapshotStats, CombatLifetimeStats, MatchAwardsStats } from '../../../models';
 
 @Component({
   selector: 'ow-most-played',
@@ -8,8 +8,7 @@ import { Player, SnapshotStats, HeroSnapshotStats, CombatLifetimeStats, MatchAwa
 })
 
 export class MostPlayedComponent implements OnInit, AfterContentInit {
-  @Input() player: Player;
-  snapshotStats: SnapshotStats;
+  @Input() snapshotStats: SnapshotStats;
   allHeroSnapshotStats: HeroSnapshotStats;
   heroSnapshotStats: HeroSnapshotStats[];
   combatLifetimeStats: CombatLifetimeStats;
@@ -19,7 +18,6 @@ export class MostPlayedComponent implements OnInit, AfterContentInit {
   constructor() {}
 
   ngOnInit() {
-    this.snapshotStats = this.player.snapshotStatistics[this.player.snapshotStatistics.length - 1];
     this.allHeroSnapshotStats = this.snapshotStats.allHeroesSnapshotStatistic;
     this.heroSnapshotStats = this.snapshotStats.heroSnapshotStatistics;
     this.combatLifetimeStats = this.allHeroSnapshotStats.combatLifetimeStatistic;

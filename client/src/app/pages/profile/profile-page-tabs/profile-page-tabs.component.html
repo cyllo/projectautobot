@@ -8,16 +8,16 @@
           <div class="container-fluid pt-3">
             <div class="row">
               <div class="col-xl-9 col-md-12">
-                <ow-career [player]="player"></ow-career>
+                <ow-career [snapshotStats]="snapshotStats"></ow-career>
                 <!-- end section -->
-                <ow-most-played [player]="player"></ow-most-played>
+                <ow-most-played [snapshotStats]="snapshotStats"></ow-most-played>
                 <!-- end section -->
-                <ow-hero-cards [player]="player"></ow-hero-cards>
+                <ow-hero-cards [snapshotStats]="snapshotStats"></ow-hero-cards>
                 <!-- end ow-hero-cards -->
               </div>
               <!-- end .col -->
               <div class="col-xl-3 col-md-12 sidebar pt-3">
-                <ow-lifetime-stats [player]="player"></ow-lifetime-stats>
+                <ow-lifetime-stats [snapshotStats]="snapshotStats"></ow-lifetime-stats>
               </div>
               <!-- end .sidebar -->
             </div>

@@ -13,10 +13,10 @@
         <div class="row align-items-center">
           <div class="col-lg-6 col-md-4 text-md-left col-sm-12 text-center mb-3">
             <div class="btn-group" role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-radio active">
+              <button type="button" class="btn btn-radio active" (click)="toggleSnapshotStats()">
                 <span class="small">Competitive Play</span>
               </button>
-              <button type="button" class="btn btn-radio">
+              <button type="button" class="btn btn-radio" (click)="toggleSnapshotStats()">
                 <span class="small">Quick Play</span>
               </button>
             </div>
@@ -33,7 +33,7 @@
         </div>
         <!-- end .row -->
 
-        <ow-profile-page-tabs [player]="player"></ow-profile-page-tabs>
+        <ow-profile-page-tabs [snapshotStats]="snapshotStats"></ow-profile-page-tabs>
         <!-- end ow-profile-page-tabs -->
         
       </div>
