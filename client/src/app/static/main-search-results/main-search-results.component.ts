@@ -17,16 +17,12 @@ export class MainSearchResultsComponent {
 
   data$: Observable<AppState>;
   search: Search;
-  player;
 
   constructor(private store: Store<AppState>, private cd: ChangeDetectorRef, private router: Router) {
     this.data$ = this.store.select(search => search);
     this.data$.subscribe(s => {
       this.search = s.search;
       this.isOpen = this.search.searching;
-      let tag = Object.keys(s.players);
-
-      this.player = s.players[tag[0]];
       this.cd.markForCheck();
     });
   }
@@ -37,10 +33,6 @@ export class MainSearchResultsComponent {
 
   onSelect(result: Player) {
     this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: { tag: this.search.tag, searching: false } });
-    this.store.dispatch({
-      type: 'GET_SNAPSHOT_DATA',
-      payload: this.player.snapshotStatistics[this.player.snapshotStatistics.length - 1]
-    });
     this.redirect(result);
   }
 
