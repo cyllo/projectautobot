@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="06729a47-1479-4879-8205-53159370311d" name="Default" comment="Merge branch 'master' of https://github.com/cyllo/projectautobot&#10;&#10;# Conflicts:&#10;#&#9;client/src/app/pages/profile/most-played-heroes/most-played.component.ts">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/app/reducers/snapshot.reducer.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/app.component.ts" afterPath="$PROJECT_DIR$/client/src/app/app.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/app.module.ts" afterPath="$PROJECT_DIR$/client/src/app/app.module.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/models/appstate.model.ts" afterPath="$PROJECT_DIR$/client/src/app/models/appstate.model.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/pages/profile/profile-page-tabs/profile-page-tabs.component.ts" afterPath="$PROJECT_DIR$/client/src/app/pages/profile/profile-page-tabs/profile-page-tabs.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/pages/profile/profile.component.html" afterPath="$PROJECT_DIR$/client/src/app/pages/profile/profile.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/pages/profile/profile.component.ts" afterPath="$PROJECT_DIR$/client/src/app/pages/profile/profile.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/reducers/index.ts" afterPath="$PROJECT_DIR$/client/src/app/reducers/index.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.ts" afterPath="$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -73,35 +64,13 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="app.component.ts" pinned="false" current-in-tab="false">
+          <file leaf-file-name="app.component.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client/src/app/app.component.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="530">
-                  <caret line="51" column="0" lean-forward="true" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+                <state relative-caret-position="712">
+                  <caret line="287" column="66" lean-forward="true" selection-start-line="287" selection-start-column="66" selection-end-line="287" selection-end-column="66" />
                   <folding>
                     <element signature="e#0#53#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="app.component.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/src/app/app.component.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="15">
-                  <caret line="1" column="28" lean-forward="false" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="profile-page-tabs.component.ts" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile-page-tabs/profile-page-tabs.component.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="420">
-                  <caret line="28" column="30" lean-forward="false" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
-                  <folding>
-                    <element signature="e#0#67#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -148,8 +117,8 @@
           <file leaf-file-name="main-search-results.component.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="405">
-                  <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+                <state relative-caret-position="750">
+                  <caret line="50" column="67" lean-forward="true" selection-start-line="50" selection-start-column="67" selection-end-line="50" selection-end-column="67" />
                   <folding>
                     <element signature="e#0#90#0" expanded="true" />
                   </folding>
@@ -262,8 +231,8 @@
         <option value="$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/models/appstate.model.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/profile.component.ts" />
-        <option value="$PROJECT_DIR$/client/src/app/app.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/profile-page-tabs/profile-page-tabs.component.ts" />
+        <option value="$PROJECT_DIR$/client/src/app/app.component.ts" />
       </list>
     </option>
   </component>
@@ -623,12 +592,12 @@
       <workItem from="1495421087537" duration="27080000" />
       <workItem from="1495528473511" duration="4282000" />
       <workItem from="1495555294797" duration="5782000" />
-      <workItem from="1495733126399" duration="8415000" />
+      <workItem from="1495733126399" duration="8703000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="201668000" />
+    <option name="totallyTimeSpent" value="201956000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1440" y="34" width="2314" height="1051" extended-state="0" />
@@ -996,14 +965,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/app.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="28" lean-forward="false" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile.component.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
@@ -1046,26 +1007,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#90#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/app.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="51" column="0" lean-forward="true" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#53#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="712">
@@ -1082,6 +1023,34 @@
           <caret line="28" column="30" lean-forward="false" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
           <folding>
             <element signature="e#0#67#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="750">
+          <caret line="50" column="67" lean-forward="true" selection-start-line="50" selection-start-column="67" selection-end-line="50" selection-end-column="67" />
+          <folding>
+            <element signature="e#0#90#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/app.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="28" lean-forward="false" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/app.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="712">
+          <caret line="287" column="66" lean-forward="true" selection-start-line="287" selection-start-column="66" selection-end-line="287" selection-end-column="66" />
+          <folding>
+            <element signature="e#0#53#0" expanded="true" />
           </folding>
         </state>
       </provider>
