@@ -6,10 +6,10 @@
     <div class="base-chart mt-3">
         <canvas baseChart 
             [datasets]="owChartDatasets" 
-            [labels]="chartLabels" 
-            [chartType]="chartType" 
+            [labels]="owChartXAxisLabels" 
+            [chartType]="owChartType" 
             [options]="chartOptions" 
-            [legend] = "chartShowLegend"
+            [legend] = "owChartShowLegend"
             (chartHover)="chartHovered($event)"
             (chartClick)="chartClicked($event)" #owChart></canvas>
     </div>

@@ -1,0 +1,86 @@
+{
+  "roles": [
+    "Offense",
+    "Defense",
+    "Tank",
+    "Support"
+  ],
+  "heroes": [
+    {
+      "code": "0x02E000000000006E",
+      "name": "Soldier: 76",
+      "role": 0,
+      "synergy": [
+        "0x02E0000000000068"
+      ],
+      "counter": [
+        "0x02E0000000000068"
+      ],
+      "skills": [
+        {
+          "name": "Heavy Pulse Rifle",
+          "isUltimateAbility": false,
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+        },
+        {
+          "name": "Helix Rockets",
+          "isUltimateAbility": false,
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+        },
+        {
+          "name": "Sprint",
+          "isUltimateAbility": false,
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+        },
+        {
+          "name": "Biotic Field",
+          "isUltimateAbility": false,
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+        },
+        {
+          "name": "Tactical Visor",
+          "isUltimateAbility": true,
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+        }
+      ]
+    },
+    {
+      "code": "0x02E0000000000068",
+      "name": "Zarya",
+      "role": 2,
+      "synergy": [
+        "0x02E000000000006E"
+      ],
+      "counter": [
+        "0x02E000000000006E"
+      ],
+      "skills": [
+        {
+          "name": "Heavy Pulse Rifle",
+          "isUltimateAbility": false,
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+        },
+        {
+          "name": "Helix Rockets",
+          "isUltimateAbility": false,
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+        },
+        {
+          "name": "Sprint",
+          "isUltimateAbility": false,
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+        },
+        {
+          "name": "Biotic Field",
+          "isUltimateAbility": false,
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+        },
+        {
+          "name": "Tactical Visor",
+          "isUltimateAbility": true,
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+        }
+      ]
+    }
+  ]
+}

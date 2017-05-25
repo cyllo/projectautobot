@@ -1,9 +1,11 @@
 <div class="hero-portrait">
-  <div class="header px-1 py-1">
-    <span class="x-small">Soldier: 76</span>
-  </div>
-  <div class="thumbnail">
-    <img src="https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000006E.png" alt="" class="rounded">
-  </div>
+  <a href="{{ heroRouteUrl }}">
+    <div class="header px-1 py-1">
+      <span class="x-small">{{ heroName }}</span>
+    </div>
+    <div class="thumbnail">
+      <img src="{{ heroThumbnailUrl }}" alt="" class="rounded">
+    </div>
+  </a>
 </div>
 <!-- end .hero-portrait -->

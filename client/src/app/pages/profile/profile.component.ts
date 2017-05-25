@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
 import { AppState, Player } from '../../models';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -11,7 +11,7 @@ import { SnapshotStats } from '../../models/player.model';
   styleUrls: [ 'profile.component.scss' ]
 })
 
-export class ProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   playerData$: Observable<AppState>;
   players: Player[];
   player: Player;

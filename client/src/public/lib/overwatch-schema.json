@@ -1,0 +1,76 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {},
+    "id": "http://example.com/example.json",
+    "properties": {
+        "heroes": {
+            "id": "/properties/heroes",
+            "items": {
+                "id": "/properties/heroes/items",
+                "properties": {
+                    "code": {
+                        "id": "/properties/heroes/items/properties/code",
+                        "type": "string"
+                    },
+                    "counter": {
+                        "id": "/properties/heroes/items/properties/counter",
+                        "items": {
+                            "id": "/properties/heroes/items/properties/counter/items",
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "name": {
+                        "id": "/properties/heroes/items/properties/name",
+                        "type": "string"
+                    },
+                    "role": {
+                        "id": "/properties/heroes/items/properties/role",
+                        "type": "integer"
+                    },
+                    "skills": {
+                        "id": "/properties/heroes/items/properties/skills",
+                        "items": {
+                            "id": "/properties/heroes/items/properties/skills/items",
+                            "properties": {
+                                "description": {
+                                    "id": "/properties/heroes/items/properties/skills/items/properties/description",
+                                    "type": "string"
+                                },
+                                "isUltimateAbility": {
+                                    "id": "/properties/heroes/items/properties/skills/items/properties/isUltimateAbility",
+                                    "type": "boolean"
+                                },
+                                "name": {
+                                    "id": "/properties/heroes/items/properties/skills/items/properties/name",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "synergy": {
+                        "id": "/properties/heroes/items/properties/synergy",
+                        "items": {
+                            "id": "/properties/heroes/items/properties/synergy/items",
+                            "type": "string"
+                        },
+                        "type": "array"
+                    }
+                },
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "roles": {
+            "id": "/properties/roles",
+            "items": {
+                "id": "/properties/roles/items",
+                "type": "string"
+            },
+            "type": "array"
+        }
+    },
+    "type": "object"
+}
