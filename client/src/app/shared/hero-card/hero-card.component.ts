@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CombatLifetimeStats, HeroSnapshotStats, MatchAwardsStats } from '../../models/player.model';
+import { Store } from '@ngrx/store';
+import { AppState, CombatLifetimeStats, HeroSnapshotStats, MatchAwardsStats } from '../../models';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ow-hero-card',
@@ -9,23 +11,35 @@ import { CombatLifetimeStats, HeroSnapshotStats, MatchAwardsStats } from '../../
 
 export class HeroCardComponent implements OnInit {
   @Input() heroSnap: HeroSnapshotStats;
+  state$: Observable<AppState>;
   combatLifetimeStats: CombatLifetimeStats;
   matchAwardsStats: MatchAwardsStats;
   statsData;
-  winRate;
-  totalTimeMins;
-  timeOnFire;
+  winRate: number;
+  totalTimeMins: number;
+  timeOnFire: number;
+  heroPlayedPercentage: number;
+  totalTimePlayed: number;
+  gamesPlayed: number;
 
-  constructor() {
-    // console.log(this.hero);
+  constructor(private store: Store<AppState>) {
+    this.state$ = this.store.select(state => state);
+    this.state$.subscribe(s => {
+      let tag = Object.keys(s.players);
+      const snapStats = s.players[tag[0]].snapshotStatistics[s.players[tag[0]].snapshotStatistics.length - 1];
+
+      this.totalTimePlayed = snapStats.allHeroesSnapshotStatistic.gameHistoryStatistic.timePlayed;
+      this.gamesPlayed = snapStats.allHeroesSnapshotStatistic.gameHistoryStatistic.gamesPlayed;
+    });
   }
 
   ngOnInit() {
     this.combatLifetimeStats = this.heroSnap.combatLifetimeStatistic;
     this.matchAwardsStats = this.heroSnap.matchAwardsStatistic;
-    this.winRate = this.heroSnap.gameHistoryStatistic.gamesWon / this.heroSnap.gameHistoryStatistic.gamesPlayed;
+    this.winRate = this.heroSnap.gameHistoryStatistic.gamesWon / this.heroSnap.gameHistoryStatistic.gamesPlayed * 100;
     this.totalTimeMins = this.heroSnap.gameHistoryStatistic.timePlayed / 60;
     this.timeOnFire = this.combatLifetimeStats ? this.combatLifetimeStats.timeSpentOnFire / 60 : 0;
+    this.heroPlayedPercentage = (this.heroSnap.gameHistoryStatistic.timePlayed / this.totalTimePlayed) * 100;
 
     this.statsData = [
       {

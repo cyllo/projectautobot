@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="06729a47-1479-4879-8205-53159370311d" name="Default" comment="Merge branch 'master' of https://github.com/cyllo/projectautobot&#10;&#10;# Conflicts:&#10;#&#9;client/src/app/pages/profile/most-played-heroes/most-played.component.ts">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/pages/profile/herocards/herocards.component.ts" afterPath="$PROJECT_DIR$/client/src/app/pages/profile/herocards/herocards.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.html" afterPath="$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.ts" afterPath="$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -33,31 +34,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="herocards.component.ts" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/herocards/herocards.component.ts">
+          <file leaf-file-name="profile-page-tabs.component.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile-page-tabs/profile-page-tabs.component.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="330">
-                  <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="herocards.component.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/herocards/herocards.component.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-50">
-                  <caret line="19" column="32" lean-forward="false" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="career.component.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="330">
-                  <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+                <state relative-caret-position="180">
+                  <caret line="14" column="37" lean-forward="true" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
                   <folding />
                 </state>
               </provider>
@@ -75,11 +56,21 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="career.component.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.ts">
+          <file leaf-file-name="profile-page-tabs.component.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile-page-tabs/profile-page-tabs.component.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="675">
-                  <caret line="46" column="3" lean-forward="true" selection-start-line="46" selection-start-column="3" selection-end-line="46" selection-end-column="3" />
+                <state relative-caret-position="210">
+                  <caret line="14" column="62" lean-forward="false" selection-start-line="14" selection-start-column="62" selection-end-line="14" selection-end-column="62" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="profile.component.ts" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile.component.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="43">
+                  <caret line="14" column="12" lean-forward="true" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="36" />
                   <folding />
                 </state>
               </provider>
@@ -93,7 +84,7 @@
             <entry file="file://$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.ts">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="555">
-                  <caret line="37" column="10" lean-forward="false" selection-start-line="37" selection-start-column="10" selection-end-line="37" selection-end-column="10" />
+                  <caret line="38" column="117" lean-forward="false" selection-start-line="38" selection-start-column="117" selection-end-line="38" selection-end-column="117" />
                   <folding>
                     <element signature="e#0#57#0" expanded="true" />
                   </folding>
@@ -104,8 +95,8 @@
           <file leaf-file-name="hero-card.component.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="299">
-                  <caret line="114" column="63" lean-forward="false" selection-start-line="114" selection-start-column="63" selection-end-line="114" selection-end-column="63" />
+                <state relative-caret-position="674">
+                  <caret line="49" column="63" lean-forward="false" selection-start-line="49" selection-start-column="63" selection-end-line="49" selection-end-column="63" />
                   <folding />
                 </state>
               </provider>
@@ -207,17 +198,17 @@
         <option value="$PROJECT_DIR$/client/src/app/reducers/snapshot.reducer.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/profile.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/models/appstate.model.ts" />
-        <option value="$PROJECT_DIR$/client/src/app/pages/profile/profile-page-tabs/profile-page-tabs.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/app.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/static/main-search-results/main-search-results.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/profile.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.ts" />
-        <option value="$PROJECT_DIR$/client/src/app/pages/profile/profile-page-tabs/profile-page-tabs.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/profile-header/profile-header.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/pages/profile/herocards/herocards.component.html" />
+        <option value="$PROJECT_DIR$/client/src/app/pages/profile/herocards/herocards.component.ts" />
+        <option value="$PROJECT_DIR$/client/src/app/pages/profile/profile-page-tabs/profile-page-tabs.component.html" />
+        <option value="$PROJECT_DIR$/client/src/app/pages/profile/profile-page-tabs/profile-page-tabs.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.ts" />
-        <option value="$PROJECT_DIR$/client/src/app/pages/profile/herocards/herocards.component.ts" />
       </list>
     </option>
   </component>
@@ -436,142 +427,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="overwatch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="overwatch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="profile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="profile-page-tabs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="overwatch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="overwatch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="profile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="profile-header" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="overwatch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="overwatch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="profile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="herocards" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="overwatch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="overwatch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="profile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="career" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -735,12 +590,12 @@
       <workItem from="1495421087537" duration="27080000" />
       <workItem from="1495528473511" duration="4282000" />
       <workItem from="1495555294797" duration="5782000" />
-      <workItem from="1495733126399" duration="13036000" />
+      <workItem from="1495733126399" duration="14451000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="206289000" />
+    <option name="totallyTimeSpent" value="207704000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1440" y="34" width="2314" height="1051" extended-state="0" />
@@ -1095,86 +950,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="46" column="3" lean-forward="true" selection-start-line="46" selection-start-column="3" selection-end-line="46" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="43" column="27" lean-forward="true" selection-start-line="43" selection-start-column="27" selection-end-line="43" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile-page-tabs/profile-page-tabs.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="28" column="30" lean-forward="true" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile-page-tabs/profile-page-tabs.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="61" lean-forward="false" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="39" column="3" lean-forward="true" selection-start-line="39" selection-start-column="3" selection-end-line="39" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile-header/profile-header.component.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1025">
           <caret line="23" column="96" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/public/lib/overwatch.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="32" column="272" lean-forward="true" selection-start-line="32" selection-start-column="272" selection-end-line="32" selection-end-column="272" />
-          <folding>
-            <element signature="e#2159#4212#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="114" column="63" lean-forward="false" selection-start-line="114" selection-start-column="63" selection-end-line="114" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" column="10" lean-forward="false" selection-start-line="37" selection-start-column="10" selection-end-line="37" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1189,9 +968,85 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/herocards/herocards.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        <state relative-caret-position="360">
+          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="43" column="27" lean-forward="true" selection-start-line="43" selection-start-column="27" selection-end-line="43" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/career/career.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="46" column="3" lean-forward="true" selection-start-line="46" selection-start-column="3" selection-end-line="46" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/public/lib/overwatch.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="32" column="272" lean-forward="true" selection-start-line="32" selection-start-column="272" selection-end-line="32" selection-end-column="272" />
+          <folding>
+            <element signature="e#2159#4212#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile-page-tabs/profile-page-tabs.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="62" lean-forward="false" selection-start-line="14" selection-start-column="62" selection-end-line="14" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile-page-tabs/profile-page-tabs.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="14" column="37" lean-forward="true" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/pages/profile/profile.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="43">
+          <caret line="14" column="12" lean-forward="true" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="674">
+          <caret line="49" column="63" lean-forward="false" selection-start-line="49" selection-start-column="63" selection-end-line="49" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/shared/hero-card/hero-card.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="38" column="117" lean-forward="false" selection-start-line="38" selection-start-column="117" selection-end-line="38" selection-end-column="117" />
+          <folding>
+            <element signature="e#0#57#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

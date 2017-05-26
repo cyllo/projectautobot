@@ -1,7 +1,7 @@
 <div class="hero-card rounded px-3 pt-3 mb-3">
   <div class="row mb-3">
     <div class="col-12">
-      <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+      <ngb-progressbar type="stp" [value]="heroPlayedPercentage" [max]="100"></ngb-progressbar>
     </div>
     <!-- end .col -->
   </div>
@@ -26,7 +26,7 @@
       </div>
       <div class="row">
         <div class="col">
-          <span class="x-small text-uppercase">54 Games Analyzed</span>
+          <span class="x-small text-uppercase">{{ gamesPlayed || 0 }} Games Analyzed</span>
         </div>
       </div>
     </div>
@@ -47,7 +47,7 @@
           <!-- end .row -->
           <div class="row">
             <div class="col-12">
-              <span class="h4 font-weight-bold">42.8%</span>
+              <span class="h4 font-weight-bold">{{ winRate || 0 }}%</span>
             </div>
             <!-- end .col -->
           </div>
