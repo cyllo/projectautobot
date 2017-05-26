@@ -14,7 +14,7 @@
     <div class="col mb-3">
       <div class="row">
         <div class="col pb-1">
-          <span class="text-uppercase font-weight-bold">{{ hero.hero.name }}</span>
+          <span class="text-uppercase font-weight-bold">{{ heroSnap.hero.name }}</span>
         </div>
       </div>
       <div class="row">
@@ -67,8 +67,8 @@
           <!-- end .row -->
           <div class="row">
             <div class="col-12">
-              <span class="h4 font-weight-bold">~7</span>
-              <span class="small mx-1">hrs</span>
+              <span class="h4 font-weight-bold">~{{ totalTimeMins | number : '1.0-2' || '-' }}</span>
+              <span class="small mx-1">mins</span>
             </div>
             <!-- end .col -->
           </div>
@@ -88,7 +88,7 @@
           <!-- end .row -->
           <div class="row">
             <div class="col-12">
-              <span class="h4 font-weight-bold">245</span>
+              <span class="h4 font-weight-bold">{{ timeOnFire | number : '1.0-2' || '-' }}</span>
               <span class="small mx-1">min</span>
             </div>
             <!-- end .col -->
@@ -108,10 +108,16 @@
           </div>
           <!-- end .row -->
           <div class="row">
-            <div class="col-12">
-              <span class="d-inline-block small px-2 py-1 mr-1 mb-1 rounded medal gold">1.69</span>
-              <span class="d-inline-block small px-2 py-1 mr-1 mb-1 rounded medal silver">1.69</span>
-              <span class="d-inline-block small px-2 py-1 mr-1 mb-1 rounded medal bronze">1.69</span>
+            <div class="col-12" *ngIf="matchAwardsStats">
+              <span class="d-inline-block small px-2 py-1 mr-1 mb-1 rounded medal gold">
+                {{ matchAwardsStats.goldMedals }}
+              </span>
+              <span class="d-inline-block small px-2 py-1 mr-1 mb-1 rounded medal silver">
+                {{ matchAwardsStats.silverMedals }}
+              </span>
+              <span class="d-inline-block small px-2 py-1 mr-1 mb-1 rounded medal bronze">
+                {{ matchAwardsStats.bronzeMedals }}
+              </span>
             </div>
             <!-- end .col -->
           </div>
@@ -125,10 +131,10 @@
   <!-- end .row -->
   <div class="row mt-3">
 
-    <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 mb-3">
+    <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 mb-3" *ngFor="let data of statsData">
       <div class="row mb-1">
         <div class="col-12">
-          <span class="small font-weight-bold">2.27</span>
+          <span class="small font-weight-bold">{{ data.value | number : '1.0-2' || '-' }}</span>
           <span class="small ml-1">min</span>
         </div>
         <!-- end .col -->
@@ -136,151 +142,20 @@
       <!-- end .row -->
       <div class="row mb-1">
         <div class="col-12">
-          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+          <ngb-progressbar type="stp" [value]="data.value || 0" [max]="data.value * 2"></ngb-progressbar>
         </div>
         <!-- end .col -->
       </div>
       <!-- end .row -->
       <div class="row">
         <div class="col-12">
-          <span class="small">Eliminations</span>
+          <span class="small">{{ data.title }}</span>
         </div>
         <!-- end .col -->
       </div>
       <!-- end .row -->
     </div>
     <!-- end .col -->
-
-    <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 mb-3">
-      <div class="row mb-1">
-        <div class="col-12">
-          <span class="small font-weight-bold">2.27</span>
-          <span class="small ml-1">min</span>
-        </div>
-        <!-- end .col -->
-      </div>
-      <!-- end .row -->
-      <div class="row mb-1">
-        <div class="col-12">
-          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-        </div>
-        <!-- end .col -->
-      </div>
-      <!-- end .row -->
-      <div class="row">
-        <div class="col-12">
-          <span class="small">Eliminations</span>
-        </div>
-        <!-- end .col -->
-      </div>
-      <!-- end .row -->
-    </div>
-    <!-- end .col -->
-
-    <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 mb-3">
-      <div class="row mb-1">
-        <div class="col-12">
-          <span class="small font-weight-bold">2.27</span>
-          <span class="small ml-1">min</span>
-        </div>
-        <!-- end .col -->
-      </div>
-      <!-- end .row -->
-      <div class="row mb-1">
-        <div class="col-12">
-          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-        </div>
-        <!-- end .col -->
-      </div>
-      <!-- end .row -->
-      <div class="row">
-        <div class="col-12">
-          <span class="small">Eliminations</span>
-        </div>
-        <!-- end .col -->
-      </div>
-      <!-- end .row -->
-    </div>
-    <!-- end .col -->
-
-    <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 mb-3">
-      <div class="row mb-1">
-        <div class="col-12">
-          <span class="small font-weight-bold">2.27</span>
-          <span class="small ml-1">min</span>
-        </div>
-        <!-- end .col -->
-      </div>
-      <!-- end .row -->
-      <div class="row mb-1">
-        <div class="col-12">
-          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-        </div>
-        <!-- end .col -->
-      </div>
-      <!-- end .row -->
-      <div class="row">
-        <div class="col-12">
-          <span class="small">Eliminations</span>
-        </div>
-        <!-- end .col -->
-      </div>
-      <!-- end .row -->
-    </div>
-    <!-- end .col -->
-
-    <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 mb-3">
-      <div class="row mb-1">
-        <div class="col-12">
-          <span class="small font-weight-bold">2.27</span>
-          <span class="small ml-1">min</span>
-        </div>
-        <!-- end .col -->
-      </div>
-      <!-- end .row -->
-      <div class="row mb-1">
-        <div class="col-12">
-          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-        </div>
-        <!-- end .col -->
-      </div>
-      <!-- end .row -->
-      <div class="row">
-        <div class="col-12">
-          <span class="small">Eliminations</span>
-        </div>
-        <!-- end .col -->
-      </div>
-      <!-- end .row -->
-    </div>
-    <!-- end .col -->
-
-    <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 mb-3">
-      <div class="row mb-1">
-        <div class="col-12">
-          <span class="small font-weight-bold">2.27</span>
-          <span class="small ml-1">min</span>
-        </div>
-        <!-- end .col -->
-      </div>
-      <!-- end .row -->
-      <div class="row mb-1">
-        <div class="col-12">
-          <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-        </div>
-        <!-- end .col -->
-      </div>
-      <!-- end .row -->
-      <div class="row">
-        <div class="col-12">
-          <span class="small">Eliminations</span>
-        </div>
-        <!-- end .col -->
-      </div>
-      <!-- end .row -->
-    </div>
-    <!-- end .col -->
-
   </div>
 </div>
 <!-- end .hero-card -->

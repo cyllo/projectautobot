@@ -13,7 +13,7 @@
                 <div class="col-12">
                   <span class="d-inline-block small text-uppercase content-outline rounded px-2 py-1">
                     {{ player.platform }}</span>
-                  <span class="d-inline-block small text-uppercase content-outline rounded px-2 py-1">
+                  <span class="d-inline-block small text-uppercase content-outline rounded px-2 py-1" *ngIf="player.region">
                     {{ player.region }}</span>
                 </div>
                 <!-- end .col -->

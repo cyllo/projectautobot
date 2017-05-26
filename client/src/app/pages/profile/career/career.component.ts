@@ -27,24 +27,19 @@ export class CareerComponent implements AfterContentInit {
       {
         title: 'Kills',
         value: this.combatLifetimeStats.finalBlows / totalTimePlayedInMins
-      },
-      {
+      }, {
         title: 'Assists',
         value: (this.combatLifetimeStats.offensiveAssists + this.combatLifetimeStats.defensiveAssists) / totalTimePlayedInMins
-      },
-      {
+      }, {
         title: 'Damage Done',
         value: this.combatLifetimeStats.damageDone / totalTimePlayedInMins
-      },
-      {
+      }, {
         title: 'Damage Blocked',
         value: this.combatLifetimeStats.damageBlocked / totalTimePlayedInMins
-      },
-      {
+      }, {
         title: 'Healing Done',
         value: this.combatLifetimeStats.healingDone / totalTimePlayedInMins
-      },
-      {
+      }, {
         title: 'Medals',
         value: this.matchAwardsStats.totalMedals / totalTimePlayedInMins
       }

@@ -35,7 +35,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
       this.players = s.players;
       this.player = this.players[tag[0]];
       this.snapshotStats = s.snapshotStats;
-      console.log(s.snapshotStats);
       this.cd.markForCheck();
     });
   }
@@ -66,5 +65,4 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   ngOnDestroy() {
     this.paramsSub.unsubscribe();
   }
-
 }
