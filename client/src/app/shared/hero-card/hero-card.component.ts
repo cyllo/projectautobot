@@ -33,7 +33,9 @@ export class HeroCardComponent implements OnInit {
         value: this.combatLifetimeStats ? this.combatLifetimeStats.finalBlows / this.totalTimeMins : 0
       }, {
         title: 'Assists',
-        value: this.combatLifetimeStats ? (this.combatLifetimeStats.offensiveAssists + this.combatLifetimeStats.defensiveAssists) / this.totalTimeMins : 0
+        value: this.combatLifetimeStats ?
+          (this.combatLifetimeStats.offensiveAssists + this.combatLifetimeStats.defensiveAssists) / this.totalTimeMins :
+          0
       }, {
         title: 'Damage Done',
         value: this.combatLifetimeStats ? this.combatLifetimeStats.damageDone / this.totalTimeMins : 0

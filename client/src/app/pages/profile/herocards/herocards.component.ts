@@ -21,6 +21,5 @@ export class HeroCardsComponent implements AfterContentInit {
     this.heroSnapshotStats = this.snapshotStats.heroSnapshotStatistics;
     this.combatLifetimeStats = this.allHeroSnapshotStats.combatLifetimeStatistic;
     this.matchAwardsStats = this.allHeroSnapshotStats.matchAwardsStatistic;
-    console.log(this.heroSnapshotStats);
   }
 }
