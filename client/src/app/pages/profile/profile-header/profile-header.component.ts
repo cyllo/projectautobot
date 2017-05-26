@@ -13,6 +13,7 @@ export class ProfileHeaderComponent implements AfterContentInit {
   allHeroSnapshotStats: HeroSnapshotStats;
   combatLifetimeStats: CombatLifetimeStats;
   matchAwardsStats: MatchAwardsStats;
+  winRate: number;
 
   constructor() {}
 
@@ -21,5 +22,8 @@ export class ProfileHeaderComponent implements AfterContentInit {
     this.allHeroSnapshotStats = this.snapshotStats.allHeroesSnapshotStatistic;
     this.combatLifetimeStats = this.allHeroSnapshotStats.combatLifetimeStatistic;
     this.matchAwardsStats = this.allHeroSnapshotStats.matchAwardsStatistic;
+    this.winRate = this.allHeroSnapshotStats.gameHistoryStatistic.gamesWon /
+      this.allHeroSnapshotStats.gameHistoryStatistic.gamesPlayed * 100;
+
   }
 }
