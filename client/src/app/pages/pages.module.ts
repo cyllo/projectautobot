@@ -29,7 +29,8 @@ import {
   HeroPageTabsComponent,
   HeroCareerComponent,
   ProfileHeaderComponent,
-  ProfilePageTabsComponent
+  ProfilePageTabsComponent,
+  HeroWallCatalogComponent
 } from './index';
 
 @NgModule({
@@ -65,7 +66,8 @@ import {
     HeroPageTabsComponent,
     HeroCareerComponent,
     ProfileHeaderComponent,
-    ProfilePageTabsComponent
+    ProfilePageTabsComponent,
+    HeroWallCatalogComponent
   ],
   exports: [
     HomeComponent,
