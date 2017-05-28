@@ -7,7 +7,7 @@ defmodule Models.Repo.Migrations.CreateGameHistoryStatistics do
       add :games_played, :integer, null: false, default: 0
       add :games_won, :integer, null: false, default: 0
       add :games_lost, :integer, null: false, default: 0
-      add :time_played, :bigint, null: false, default: 0
+      add :time_played, :integer, null: false, default: 0
       add :time_spent_on_fire, :integer
       add :win_percentage, :integer
     end

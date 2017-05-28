@@ -53,12 +53,21 @@ defmodule Scraper.DataProcessor.StatsBox do
     minutes_to_seconds(minutes) + String.to_integer(seconds)
   end
 
+  def parse_seconds(str) do
+    if String.contains?(str, ".") do
+      str |> String.to_float |> round
+    else
+      String.to_integer(str)
+    end
+  end
+
   def parse_time_to_seconds(%{"time" => duration, "unit" => "minutes"}), do: minutes_to_seconds(duration)
   def parse_time_to_seconds(%{"time" => duration, "unit" => "minute"}), do: minutes_to_seconds(duration)
   def parse_time_to_seconds(%{"time" => duration, "unit" => "hours"}), do: hours_to_seconds(duration)
   def parse_time_to_seconds(%{"time" => duration, "unit" => "hour"}), do: hours_to_seconds(duration)
-  def parse_time_to_seconds(%{"time" => duration, "unit" => "seconds"}), do: duration
-  def parse_time_to_seconds(%{"time" => duration, "unit" => "second"}), do: duration
+  def parse_time_to_seconds(%{"time" => duration, "unit" => "seconds"}), do: parse_seconds(duration)
+  def parse_time_to_seconds(%{"time" => duration, "unit" => "second"}), do: parse_seconds(duration)
+
   def parse_time_to_seconds(string) do
     numbers_regex()
       |> Regex.named_captures(string)
@@ -74,7 +83,7 @@ defmodule Scraper.DataProcessor.StatsBox do
   defp contains_percentage?(str), do: String.contains?(str, "%")
   defp minutes_to_seconds(min), do: String.to_integer(min) * 60
   defp hours_to_seconds(hours), do: String.to_integer(hours) * 60 * 60
-  defp numbers_regex, do: ~r/(?<time>\d+) (?<unit>.+)/
+  defp numbers_regex, do: ~r/(?<time>\d+(\.\d+)?) (?<unit>.+)/
   defp string_to_intenger_with_replace(string, replace_char), do: string |> String.replace(replace_char, "") |> String.to_integer
   defp is_known_stat([name, _]), do: !(name =~ ~r/overwatch\.guid\..*/)
   defp hero_code_stats(code, src), do: Floki.find(src, @cardbox_container <> "[data-category-id='#{code}'] " <> @cardbox_cards)
