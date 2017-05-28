@@ -1,6 +1,6 @@
 defmodule Api.Schema do
   use Absinthe.Schema
-  alias Api.{GamerTagResolver, HeroResolver, UserResolver, SessionResolver, BlogResolver, Middleware, HeroGlobalStatisticResolver}
+  alias Api.{GamerTagResolver, HeroResolver, UserResolver, SessionResolver, BlogResolver, Middleware, HeroGlobalAggregateResolver, SnapshotStatisticResolver}
 
   import_types Absinthe.Type.Custom
   import_types Api.Schema.ScalarTypes
@@ -10,7 +10,7 @@ defmodule Api.Schema do
   import_types Api.Schema.SnapshotTypes
   import_types Api.Schema.StatisticTypes
   import_types Api.Schema.SessionTypes
-  import_types Api.Schema.HeroGlobalStatisticsTypes
+  import_types Api.Schema.HeroGlobalAggregateTypes
 
   query do
     field :gamer_tag, :gamer_tag do
@@ -69,11 +69,17 @@ defmodule Api.Schema do
       resolve &GamerTagResolver.search/2
     end
 
-    field :hero_global_statistics, :hero_global_statistics do
+    field :hero_global_aggregate, :hero_snapshot_statistic do
       arg :hero_id, :integer
       arg :name, :string
 
-      resolve &HeroGlobalStatisticResolver.find_hero_and_agregate/2
+      resolve &HeroGlobalAggregateResolver.find_hero_and_agregate/2
+    end
+
+    field :snapshots_aggrigate, :snapshot_statistic do
+      arg :is_competitive, :boolean
+
+      resolve &SnapshotStatisticResolver.aggrigate/2
     end
   end
 

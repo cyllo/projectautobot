@@ -1,7 +1,7 @@
 defmodule Models.Statistics.Snapshots do
   alias Models.Model
   alias Models.{HeroesCache, Repo}
-  alias Models.Statistics.Snapshots.{HeroStatistic, AllHeroesStatistic, SnapshotStatistic}
+  alias Models.Statistics.Snapshots.{HeroStatistic, AllHeroesStatistic, SnapshotStatistic, LatestSnapshotStatistic}
   alias Models.Statistics.{CombatLifetime, CombatAverage, CombatBest, GameHistory, MatchAward, HeroSpecific}
   use Model
 
@@ -28,7 +28,12 @@ defmodule Models.Statistics.Snapshots do
       |> Repo.all
   end
 
-  # opts [limit: 1, last: 2=
+  def get_latest_snapshots_for_gamer_tag(gamer_tag_id) do
+    from(lss in LatestSnapshotStatistic, where: lss.gamer_tag_id == ^gamer_tag_id)
+      |> Repo.all
+  end
+
+  def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, opts \\ [])
   def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, [limit: nil, last: last]) do
     from(
        ss in SnapshotStatistic,
@@ -40,7 +45,8 @@ defmodule Models.Statistics.Snapshots do
       |> Enum.reverse
   end
 
-  def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, opts \\ []) do
+  # opts [limit: 1, last: 2=
+  def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, opts) do
     from(
        ss in SnapshotStatistic,
        where: ss.gamer_tag_id in ^gamer_tag_ids,

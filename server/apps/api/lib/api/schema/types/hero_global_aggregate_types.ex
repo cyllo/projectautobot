@@ -1,8 +1,8 @@
-defmodule Api.Schema.HeroGlobalStatisticsTypes do
+defmodule Api.Schema.HeroGlobalAggregateTypes do
   use Absinthe.Schema.Notation
 
   @desc "Global stats for playable heroes"
-  object :hero_global_statistics do
+  object :hero_global_aggregate do
     field :hero, :hero
   end
 end

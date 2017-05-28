@@ -17,6 +17,17 @@ defmodule Models.Model do
     end
   end
 
+  # @spec create_field_averages(Ecto.Schema.t) :: Ecto.Queryable.t
+  # def create_field_averages(model) do
+  #   import Ecto.Query
+
+  #   fields = model.__struct__(:field) -- [:id]
+
+  #   Enum.reduce(fields, from(model), fn field ->
+
+  #   end)
+  # end
+
   def find_model(model, params) when is_map(params), do: find_model(model, Map.to_list(params))
   def find_model(_, params) when is_list(params) and length(params) <= 0, do: {:error, "no params given for find"}
   def find_model(model, params) when is_list(params) do

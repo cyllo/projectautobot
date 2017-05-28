@@ -1,5 +1,6 @@
 defmodule Api.SnapshotStatisticResolver do
   alias Models.Statistics.Snapshots
+  alias Models.Statistics.Snapshots.LatestSnapshotStatistic
   alias Models.{Game, Statistics}
   import IEx
 
@@ -11,6 +12,10 @@ defmodule Api.SnapshotStatisticResolver do
       |> Snapshots.get_snapshot_statistics_by_gamer_tag_ids(limit: limit, last: last)
       |> convert_to_id_map(gamer_tag_ids, :gamer_tag_id)
   end
+
+  def aggrigate(%{is_competitive: competitive}, _info), do: {:ok, LatestSnapshotStatistic.aggrigate(competitive?: competitive)}
+
+  def aggrigate(_, _info), do: {:ok, LatestSnapshotStatistic.aggrigate(competitive?: true)}
 
   def get_all_heroes_statistics_by_snapshot_ids(_, snapshot_ids) do
     snapshot_ids
