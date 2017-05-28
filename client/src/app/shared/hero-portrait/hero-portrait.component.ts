@@ -19,7 +19,7 @@ export class HeroPortraitComponent implements OnInit {
   public ngOnInit() {
 
     if (this.owCode == null) {
-      console.error('No code passed to hero portrait component');
+      console.log('No code passed to hero portrait component');
       return this.failed();
     }
 

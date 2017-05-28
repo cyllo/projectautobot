@@ -14,17 +14,17 @@ export class ProfilePageTabsComponent implements AfterContentInit {
   combatLifetimeStats: CombatLifetimeStats;
   matchAwardsStats: MatchAwardsStats;
 
-  private owJsonData: any;
+  private owHeroData: any;
 
   constructor(private http: Http) {
     this.getRoleData().subscribe(
-      value => this.owJsonData = value,
+      value => this.owHeroData = value,
       error => console.log(error),
       () => {
-        console.log(this.owJsonData);
-        let x = this.snapshotStats.heroSnapshotStatistics.map(function(currentValue, index, arr){
-          //console.log(this.owJsonData.find(currentValue.hero.code));
-          console.log(currentValue, index, arr);
+        let x = this.snapshotStats.heroSnapshotStatistics.map((val) => {
+          return Object.assign({}, val).hero = 
+            this.owHeroData.heroes.find((e) => { 
+              return e.code === val.hero.code });
         });
         console.log(x);
       }
