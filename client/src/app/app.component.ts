@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { isEmpty } from 'lodash';
 import { Apollo } from 'apollo-angular';
+import { Http } from '@angular/http';
 import gql from 'graphql-tag';
 
 import { AppState, Player } from './models';
@@ -29,8 +30,8 @@ export class AppComponent implements OnDestroy {
   searchResults = new Subject<Player[]>();
   isResultsOpen = false;
 
+  constructor(private store: Store<AppState>, private apollo: Apollo, private http: Http) {
 
-  constructor(private store: Store<AppState>, private apollo: Apollo) {
     this.$state = this.store.select(s => s);
 
     this.players = store.let(getPlayerData)
@@ -43,6 +44,8 @@ export class AppComponent implements OnDestroy {
       .mergeMap((tag) => this.find(tag))
       .map(players => Object.values(players))
       .subscribe(this.searchResults);
+
+
   }
 
   onSearch(action) {
@@ -279,6 +282,13 @@ export class AppComponent implements OnDestroy {
     })
       .map(({data}) => data.searchGamerTag)
       .filter(data => data.length > 0)
+      .switchMap((playerData) => Observable.forkJoin([Observable.of(playerData), this.getOverwatchHeroData()]))
+      .map(([_playerdata, owHeroData]) => {
+          return _playerdata.map(player => Object.assign({}, player, {
+            snapshotStatistics: player.snapshotStatistics
+              .map(this.addHeroDataToSnapshot(owHeroData))
+          }))
+        })
       .map((playersData) => playersData.reduce((acc, player) => Object.assign(acc, {[player.tag]: player}), {}))
       .do((players) => this.store.dispatch({ type: 'ADD_PLAYER', payload: players }))
       .do((players) => this.store.dispatch({
@@ -291,4 +301,24 @@ export class AppComponent implements OnDestroy {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
+  getOverwatchHeroData(){
+    return this.http.get('/lib/overwatch.json')
+      .map(res => res.json());
+  }
+
+  addHeroesToHeroSnapshot(heroes) {
+    return function(heroSnapshot) {
+      return Object.assign({}, heroSnapshot, { hero: heroes.heroes.find( ({code}) => code === heroSnapshot.hero.code ) } )
+    }
+  }
+
+  addHeroDataToSnapshot(heroes) {
+    return (snapshot) => {
+      return Object.assign({}, snapshot, {
+        heroSnapshotStatistics: snapshot.heroSnapshotStatistics.map(this.addHeroesToHeroSnapshot(heroes))
+      })
+    }
+  }
+
 }
