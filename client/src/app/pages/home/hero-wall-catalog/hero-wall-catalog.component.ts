@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['hero-wall-catalog.component.scss']
 })
 export class HeroWallCatalogComponent {
-  
+
   constructor() { }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'ow-hero-portrait',
@@ -8,24 +9,28 @@ import { Component, OnInit, Input } from '@angular/core';
 export class HeroPortraitComponent implements OnInit {
   @Input() owCode: String;
 
-  private blizzard_image_cdn_url: String = 'https://blzgdapipro-a.akamaihd.net/game/heroes/small/';
-
   public heroName: String;
   public heroRouteUrl: String;
   public heroThumbnailUrl: String;
 
-  constructor() { }
+  constructor(private http: Http) { }
 
   public ngOnInit() {
 
-    if (this.owCode == null) {
-      console.log('No code passed to hero portrait component');
-      return this.failed();
-    }
-
-    this.heroName = 'Not Implemented';
-    this.heroThumbnailUrl = this.blizzard_image_cdn_url.toString() + this.owCode + '.png';
-    this.heroRouteUrl = './404';
+    // if no code is passed exit func
+    if (this.owCode == null) { return this.failed(); }
+    let heroData: JSON;
+    this.getOverwatchHeroData().subscribe(
+      res => heroData = res,
+      error => console.log(error),
+      () => {
+        let hero: any;
+        hero = heroData['heroes'].find( ({code}) => code === this.owCode );
+        this.heroName = hero.name;
+        this.heroThumbnailUrl = hero.portraitUrl;
+        this.heroRouteUrl = './hero/' + hero.name; 
+      }
+    );
 
   }
 
@@ -33,6 +38,11 @@ export class HeroPortraitComponent implements OnInit {
     this.heroName = 'Unknown';
     this.heroThumbnailUrl = '/img/unknown_hero.jpg';
     this.heroRouteUrl = './404';
+  }
+
+  getOverwatchHeroData() {
+    return this.http.get('/lib/overwatch.json')
+      .map(res => res.json());
   }
 
 }
