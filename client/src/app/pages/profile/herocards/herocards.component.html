@@ -10,9 +10,9 @@
     <div class="col-12">
       <ngb-tabset type="pills">
 
-        <ngb-tab >
+        <ngb-tab *ngFor="let role of heroRoles; let i = index" [attr.data-index]="i">
           <ng-template ngbTabTitle>
-            <span class="small d-flex align-items-center">All</span>
+            <span class="small d-flex align-items-center">{{ role }}</span>
           </ng-template>
           <ng-template ngbTabContent>
             <div class="container-fluid px-0 pt-3">

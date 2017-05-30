@@ -12,6 +12,7 @@ export class HeroCardsComponent implements OnInit, AfterContentInit {
   @Input() owHeroData: any;
 
   heroData: any;
+  heroRoles: any[];
 
   allHeroSnapshotStats: HeroSnapshotStats;
   heroSnapshotStats: HeroSnapshotStats[];
@@ -22,6 +23,7 @@ export class HeroCardsComponent implements OnInit, AfterContentInit {
 
   ngOnInit() {
     this.heroData = this.owHeroData;
+    this.heroRoles = this.heroData['roles'];
   }
 
   ngAfterContentInit() {
