@@ -9,9 +9,13 @@ import { SnapshotStats, HeroSnapshotStats, CombatLifetimeStats, MatchAwardsStats
 
 export class ProfilePageTabsComponent implements AfterContentInit {
   @Input() snapshotStats: SnapshotStats;
+  @Input() owHeroData: any;
+
   allHeroSnapshotStats: HeroSnapshotStats;
   combatLifetimeStats: CombatLifetimeStats;
   matchAwardsStats: MatchAwardsStats;
+
+  heroData: any;
 
   constructor() {}
 
@@ -19,7 +23,7 @@ export class ProfilePageTabsComponent implements AfterContentInit {
     this.allHeroSnapshotStats = this.snapshotStats.allHeroesSnapshotStatistic;
     this.combatLifetimeStats = this.allHeroSnapshotStats.combatLifetimeStatistic;
     this.matchAwardsStats = this.allHeroSnapshotStats.matchAwardsStatistic;
-    console.log(this.snapshotStats);
+    this.heroData = this.owHeroData;
   }
 
 

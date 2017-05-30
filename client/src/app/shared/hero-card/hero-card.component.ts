@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState, CombatLifetimeStats, HeroSnapshotStats, MatchAwardsStats } from '../../models';
 import { Observable } from 'rxjs/Observable';
-import { Http } from '@angular/http';
 
 @Component({
   selector: 'ow-hero-card',
@@ -12,6 +11,10 @@ import { Http } from '@angular/http';
 
 export class HeroCardComponent implements OnInit {
   @Input() heroSnap: HeroSnapshotStats;
+  @Input() owHeroData: any;
+
+  heroData: any;
+
   state$: Observable<AppState>;
   combatLifetimeStats: CombatLifetimeStats;
   matchAwardsStats: MatchAwardsStats;
@@ -23,9 +26,7 @@ export class HeroCardComponent implements OnInit {
   totalTimePlayed: number;
   gamesPlayed: number;
 
-  heroData: JSON;
-
-  constructor(private store: Store<AppState>, private http: Http) {
+  constructor(private store: Store<AppState>) {
     this.state$ = this.store.select(state => state);
     this.state$.subscribe(s => {
       let tag = Object.keys(s.players);
@@ -38,10 +39,7 @@ export class HeroCardComponent implements OnInit {
 
   ngOnInit() {
 
-    this.getOverwatchHeroData().subscribe(
-      res => this.heroData = res,
-      error => console.log(error)
-    );
+    this.heroData = this.owHeroData;
 
     this.combatLifetimeStats = this.heroSnap.combatLifetimeStatistic;
     this.matchAwardsStats = this.heroSnap.matchAwardsStatistic;
@@ -73,15 +71,6 @@ export class HeroCardComponent implements OnInit {
         value: this.matchAwardsStats ? this.matchAwardsStats.totalMedals / this.totalTimeMins : 0
       }
     ];
-  }
-
-  getOverwatchHeroData() {
-    return this.http.get('/lib/overwatch.json')
-      .map(res => res.json());
-  }
-
-  roleToString(role){
-    return this.heroData['roles'][role];
   }
 
 }

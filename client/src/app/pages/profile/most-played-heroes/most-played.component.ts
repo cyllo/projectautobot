@@ -1,5 +1,4 @@
 import { AfterContentInit, Component, Input, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
 import { SnapshotStats, HeroSnapshotStats, CombatLifetimeStats, MatchAwardsStats } from '../../../models';
 
 @Component({
@@ -10,27 +9,25 @@ import { SnapshotStats, HeroSnapshotStats, CombatLifetimeStats, MatchAwardsStats
 
 export class MostPlayedComponent implements OnInit, AfterContentInit {
   @Input() snapshotStats: SnapshotStats;
+  @Input() owHeroData: any;
+
   allHeroSnapshotStats: HeroSnapshotStats;
   heroSnapshotStats: HeroSnapshotStats[];
   combatLifetimeStats: CombatLifetimeStats;
   matchAwardsStats: MatchAwardsStats;
   sortedHeroes: HeroSnapshotStats[];
 
-  heroData: JSON;
 
-  constructor(private http: Http) {}
+  heroData: any;
+
+  constructor() {}
 
   ngOnInit() {
-
-    this.getOverwatchHeroData().subscribe(
-      res => this.heroData = res,
-      error => console.log(error)
-    );
-
     this.allHeroSnapshotStats = this.snapshotStats.allHeroesSnapshotStatistic;
     this.heroSnapshotStats = this.snapshotStats.heroSnapshotStatistics;
     this.combatLifetimeStats = this.allHeroSnapshotStats.combatLifetimeStatistic;
     this.matchAwardsStats = this.allHeroSnapshotStats.matchAwardsStatistic;
+    this.heroData = this.owHeroData;
   }
 
   ngAfterContentInit() {
@@ -39,14 +36,7 @@ export class MostPlayedComponent implements OnInit, AfterContentInit {
     });
   }
 
-  getOverwatchHeroData() {
-    return this.http.get('/lib/overwatch.json')
-      .map(res => res.json());
-  }
-
-  roleToString(role){
-    return this.heroData['roles'][role];
-  }
+ 
 
 
 }

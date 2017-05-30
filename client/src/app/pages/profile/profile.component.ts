@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnapshotStats } from '../../models/player.model';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'ow-profile',
@@ -22,11 +23,13 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   paramsSub;
   snapshotStats: SnapshotStats;
 
+  heroData: JSON;
 
   constructor(private store: Store<AppState>,
     private cd: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private http: Http
   ) {
     this.playerData$ = this.store.select(state => state);
     this.playerData$.subscribe(s => {
@@ -40,6 +43,10 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   ngOnInit() {
+    this.getOverwatchHeroData().subscribe(
+      res => this.heroData = res,
+      error => console.log(error)
+    );
     this.paramsSub = this.activatedRoute.params.subscribe((params) => {
       this.platform = params['platform'];
       this.region = params['region'];
@@ -65,4 +72,10 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   ngOnDestroy() {
     this.paramsSub.unsubscribe();
   }
+
+   getOverwatchHeroData() {
+    return this.http.get('/lib/overwatch.json')
+      .map(res => res.json());
+  }
+
 }
