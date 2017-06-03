@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SnapshotStats, HeroSnapshotStats, CombatLifetimeStats, MatchAwardsStats } from '../../../models';
 
 @Component({
@@ -7,8 +7,8 @@ import { SnapshotStats, HeroSnapshotStats, CombatLifetimeStats, MatchAwardsStats
   styleUrls: [ 'lifetime-stats.component.scss' ]
 })
 
-export class LifetimeStatsComponent implements AfterContentInit {
-  @Input() snapshotStats: SnapshotStats;
+export class LifetimeStatsComponent {
+  _snapshotStats: SnapshotStats;
   allHeroSnapshotStats: HeroSnapshotStats;
   combatLifetimeStats: CombatLifetimeStats;
   matchAwardsStats: MatchAwardsStats;
@@ -18,12 +18,22 @@ export class LifetimeStatsComponent implements AfterContentInit {
 
   constructor() {}
 
-  ngAfterContentInit() {
-    this.allHeroSnapshotStats = this.snapshotStats.allHeroesSnapshotStatistic;
+  @Input()
+  set snapshotStats(snapshotStats) {
+    if (!snapshotStats) {
+      return;
+    }
+
+    this._snapshotStats = snapshotStats;
+    this.allHeroSnapshotStats = this._snapshotStats.allHeroesSnapshotStatistic;
     this.combatLifetimeStats = this.allHeroSnapshotStats.combatLifetimeStatistic;
     this.matchAwardsStats = this.allHeroSnapshotStats.matchAwardsStatistic;
 
     this.assists = this.combatLifetimeStats.defensiveAssists + this.combatLifetimeStats.offensiveAssists;
     this.kdRatio = this.combatLifetimeStats.finalBlows / this.combatLifetimeStats.deaths;
+  }
+
+  get snapshotStats() {
+    return this._snapshotStats;
   }
 }

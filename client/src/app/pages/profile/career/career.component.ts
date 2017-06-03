@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SnapshotStats, HeroSnapshotStats, CombatLifetimeStats, MatchAwardsStats } from '../../../models';
 
 @Component({
@@ -7,8 +7,8 @@ import { SnapshotStats, HeroSnapshotStats, CombatLifetimeStats, MatchAwardsStats
   styleUrls: [ 'career.component.scss' ]
 })
 
-export class CareerComponent implements AfterContentInit {
-  @Input() snapshotStats: SnapshotStats;
+export class CareerComponent {
+  _snapshotStats: SnapshotStats;
   allHeroSnapshotStats: HeroSnapshotStats;
   combatLifetimeStats: CombatLifetimeStats;
   matchAwardsStats: MatchAwardsStats;
@@ -16,8 +16,14 @@ export class CareerComponent implements AfterContentInit {
 
   constructor() {}
 
-  ngAfterContentInit() {
-    this.allHeroSnapshotStats = this.snapshotStats.allHeroesSnapshotStatistic;
+  @Input()
+  set snapshotStats(snapshotStats) {
+    if (!snapshotStats) {
+      return;
+    }
+
+    this._snapshotStats = snapshotStats;
+    this.allHeroSnapshotStats = this._snapshotStats.allHeroesSnapshotStatistic;
     this.combatLifetimeStats = this.allHeroSnapshotStats.combatLifetimeStatistic;
     this.matchAwardsStats = this.allHeroSnapshotStats.matchAwardsStatistic;
 
@@ -44,5 +50,9 @@ export class CareerComponent implements AfterContentInit {
         value: this.matchAwardsStats.totalMedals / totalTimePlayedInMins
       }
     ];
+  }
+
+  get snapshotStats() {
+    return this._snapshotStats;
   }
 }

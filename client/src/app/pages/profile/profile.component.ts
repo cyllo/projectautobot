@@ -1,10 +1,11 @@
-import { Component, ChangeDetectorRef, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
 import { AppState, Player } from '../../models';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SnapshotStats } from '../../models/player.model';
 import { Http } from '@angular/http';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { SnapshotStats } from '../../models/player.model';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ow-profile',
@@ -13,32 +14,32 @@ import { Http } from '@angular/http';
 })
 
 export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
-  playerData$: Observable<AppState>;
   players: Player[];
-  player: Player;
+  player;
 
   platform: string;
   region: string;
   tag: string;
   paramsSub;
-  snapshotStats: SnapshotStats;
-
+  selectedSnapshot = new BehaviorSubject('competitive');
+  selectedSnapshotData: Observable<SnapshotStats>;
   heroData: JSON;
 
   constructor(private store: Store<AppState>,
-    private cd: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private http: Http
   ) {
-    this.playerData$ = this.store.select(state => state);
-    this.playerData$.subscribe(s => {
-      let tag = Object.keys(s.players);
-
-      this.players = s.players;
-      this.player = this.players[tag[0]];
-      this.snapshotStats = s.snapshotStats;
-      this.cd.markForCheck();
+    this.player = this.activatedRoute.params.flatMap((params) => {
+      return store.select('players').map(players => players[params.tag]);
+    }).filter(state => !!state).map((player: Player) => {
+      return Object.assign({}, player, {
+        competitive: player.snapshotStatistics[player.snapshotStatistics.length - 1],
+        quickPlay: player.snapshotStatistics[player.snapshotStatistics.length - 2]
+      });
+    });
+    this.selectedSnapshotData = this.player.combineLatest(this.selectedSnapshot, (player, selectedSnapshot) => {
+      return player[selectedSnapshot];
     });
   }
 
@@ -62,11 +63,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
     }
   }
 
-  toggleSnapshotStats(num: number) {
-    this.store.dispatch({
-      type: 'GET_SNAPSHOT_DATA',
-      payload: this.player.snapshotStatistics[this.player.snapshotStatistics.length - num]
-    });
+  toggleSnapshotStats(type: string) {
+    this.selectedSnapshot.next(type);
   }
 
   ngOnDestroy() {

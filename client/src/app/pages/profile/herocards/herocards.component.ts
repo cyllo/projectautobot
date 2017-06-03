@@ -1,4 +1,4 @@
-import { OnInit, AfterContentInit, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SnapshotStats, HeroSnapshotStats, CombatLifetimeStats, MatchAwardsStats } from '../../../models';
 
 @Component({
@@ -7,32 +7,37 @@ import { SnapshotStats, HeroSnapshotStats, CombatLifetimeStats, MatchAwardsStats
   styleUrls: [ 'herocards.component.scss' ]
 })
 
-export class HeroCardsComponent implements OnInit, AfterContentInit {
-  @Input() snapshotStats: SnapshotStats;
+export class HeroCardsComponent {
   @Input() owHeroData: any;
-
-  heroData: any;
-
+  _snapshotStats: SnapshotStats;
   allHeroSnapshotStats: HeroSnapshotStats;
   heroSnapshotStats: HeroSnapshotStats[];
   combatLifetimeStats: CombatLifetimeStats;
   matchAwardsStats: MatchAwardsStats;
-
+  heroData: any;
   public heroesByRoles: any[];
 
   constructor() {}
 
-  ngOnInit() {
-    this.heroData = this.owHeroData;
-    this.allHeroSnapshotStats = this.snapshotStats.allHeroesSnapshotStatistic;
-    this.heroSnapshotStats = this.snapshotStats.heroSnapshotStatistics;
+  @Input()
+  set snapshotStats(snapshotStats) {
+    if (!snapshotStats) {
+      return;
+    }
+
+    this._snapshotStats = snapshotStats;
+    this.allHeroSnapshotStats = this._snapshotStats.allHeroesSnapshotStatistic;
+    this.heroSnapshotStats = this._snapshotStats.heroSnapshotStatistics;
     this.combatLifetimeStats = this.allHeroSnapshotStats.combatLifetimeStatistic;
     this.matchAwardsStats = this.allHeroSnapshotStats.matchAwardsStatistic;
+    this.heroData = this.owHeroData;
+
     this.heroesByRoles = this.allHeroesByRole();
-    console.log("X: " , this.heroesByRoles);
   }
 
-  ngAfterContentInit() {}
+  get snapshotStats() {
+    return this._snapshotStats;
+  }
 
   allHeroesByRole(){
     let data: any[] = [];

@@ -15,6 +15,8 @@ export interface Player extends AppState {
   insertedAt: string;
   competitiveRankUrl: string;
   competitiveLevel: number;
+  competitive: SnapshotStats;
+  quickPlay: SnapshotStats;
 }
 
 export interface SnapshotStats extends Player {
