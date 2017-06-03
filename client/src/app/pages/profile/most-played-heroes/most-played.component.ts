@@ -60,6 +60,12 @@ export class MostPlayedComponent implements OnInit, AfterContentInit {
     });
   }
 
+  getRoleIcon(id: any) {
+    return this.heroData.roles.find((x) => {
+      return x.id === id;
+    }).iconUrl;
+  }
+
   roleToString(id: any): String {
     return this.heroData.roles.find((x) => {
       return x.id === id;

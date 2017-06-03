@@ -36,7 +36,7 @@
           <!-- end .col -->
         </div>
         <!-- end .row -->
-        <ow-profile-page-tabs
+        <ow-profile-page-tabs *ngIf="heroData"
           [snapshotStats]="snapshotStats"
           [owHeroData]="heroData"></ow-profile-page-tabs>
         <!-- end ow-profile-page-tabs -->
