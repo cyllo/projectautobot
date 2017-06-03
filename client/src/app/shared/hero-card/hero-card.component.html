@@ -47,7 +47,7 @@
           <!-- end .row -->
           <div class="row">
             <div class="col-12">
-              <span class="h4 font-weight-bold">{{ winRate || 0 }}%</span>
+              <span class="h4 font-weight-bold">{{ winRate > 100 ? '-' : winRate || 0 }}%</span>
             </div>
             <!-- end .col -->
           </div>
