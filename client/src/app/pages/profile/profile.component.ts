@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   paramsSub;
   selectedSnapshot = new BehaviorSubject('competitive');
   selectedSnapshotData: Observable<SnapshotStats>;
-  heroData: JSON;
+  heroData: Observable<any>;
 
   constructor(private store: Store<AppState>,
     private activatedRoute: ActivatedRoute,
@@ -71,7 +71,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
     this.paramsSub.unsubscribe();
   }
 
-   getOverwatchHeroData() {
+   getOverwatchHeroData(): Observable<any> {
     return this.http.get('/lib/overwatch.json')
       .map(res => res.json());
   }
