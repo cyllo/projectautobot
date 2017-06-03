@@ -8,6 +8,8 @@ import { Component, OnInit, AfterContentInit } from '@angular/core';
 
 export class HomeComponent implements OnInit, AfterContentInit {
 
+  public heroData: any;
+
   constructor() {}
 
   ngOnInit() {

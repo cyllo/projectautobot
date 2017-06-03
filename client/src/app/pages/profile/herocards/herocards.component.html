@@ -9,15 +9,15 @@
   <div class="row">
     <div class="col-12">
       <ngb-tabset type="pills">
-
-        <ngb-tab *ngFor="let role of heroRoles; let i = index" [attr.data-index]="i">
+        <ngb-tab *ngFor="let heroes of heroesByRoles; let i = index" [attr.data-index]="i">
           <ng-template ngbTabTitle>
-            <span class="small d-flex align-items-center">{{ role }}</span>
+            <span class="small d-flex align-items-center">{{ roleToString(i - 1) }}</span>
           </ng-template>
+          <!-- end ng-template -->
           <ng-template ngbTabContent>
             <div class="container-fluid px-0 pt-3">
               <div class="row">
-                <div class="col-12" *ngFor="let heroSnap of heroSnapshotStats">
+                <div class="col-12" *ngFor="let heroSnap of heroes">
                   <ow-hero-card [heroSnap]="heroSnap" [owHeroData]="heroData"></ow-hero-card>
                   <!-- end ow-hero-card -->
                 </div>
@@ -27,9 +27,9 @@
             </div>
             <!-- end .container-fluid -->
           </ng-template>
+          <!-- end ng-template -->
         </ngb-tab>
         <!-- end ngb-tab -->
-
       </ngb-tabset>
       <!-- end ngb-tabset -->
     </div>

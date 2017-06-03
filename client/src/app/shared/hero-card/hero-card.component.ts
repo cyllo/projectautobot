@@ -73,4 +73,10 @@ export class HeroCardComponent implements OnInit {
     ];
   }
 
+  roleToString(id: number): String {
+    return this.heroData.roles.find((x) => {
+      return x.id === id;
+    }).name;
+  }
+
 }

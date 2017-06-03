@@ -28,7 +28,7 @@ export class HeroPortraitComponent implements OnInit {
         hero = heroData['heroes'].find( ({code}) => code === this.owCode );
         this.heroName = hero.name;
         this.heroThumbnailUrl = hero.portraitUrl;
-        this.heroRouteUrl = './hero/' + hero.name; 
+        this.heroRouteUrl = './hero/' + hero.name;
       }
     );
 

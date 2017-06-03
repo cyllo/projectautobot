@@ -1,20 +1,46 @@
-<section class="row mb-3">
+<div class="hero-wall-catalog" *ngIf="heroData">
 
-  <div class="col-12">
+  <section class="row">
 
-    <div class="content rounded px-3 pt-3">
+    <div class="col-12">
 
-      <div class="row">
-        <div class="col-md-6 col-12">
+      <div class="content rounded px-3 pt-3">
+
+        <div class="row">
+          
+          <div class="col-md-6 col-12" *ngFor="let role of heroData.roles; let i = index" [attr.data-index]="i">
+      
+            <div class="row">
+              <div class="col-12 mb-1">
+                <span class="h5 text-uppercase font-weight-bold mb-0">{{ role.name }}</span>
+                <span class="small mb-0">10,000 games played</span>
+              </div>
+              <!-- end .col -->
+
+              <div class="col-12 mb-3">
+                <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+              </div>
+              <!-- end .col -->
+
+              <div class="col-md-2 col-3 mb-3" *ngFor="let hero of getHeroesOfRole(i);">
+                <ow-hero-portrait [owCode]="hero.code"></ow-hero-portrait>
+                <!-- ow-hero-portrait -->
+              </div>
+              <!-- end .col -->
+
+            </div>
+            <!-- end .row -->
+
+          </div>
+          <!-- end .col -->
 
         </div>
-      </div>
-      <!-- end .row -->
+        <!-- end .row -->
 
-    </div>
-    <!-- end .content -->
+      </div><!-- end .content -->
 
-  </div>
+    </div><!-- end .col -->
 
-</section>
-<!-- end .row -->
+  </section><!-- end .row -->
+
+</div><!-- end .hero-wall-catalog -->

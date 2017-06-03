@@ -1,9 +1,25 @@
 {
   "roles": [
-    "Offense",
-    "Defense",
-    "Tank",
-    "Support"
+    { 
+      "name" : "Offense" ,
+      "id": 0,
+      "iconUrl" : "img/OffenseIcon.svg"
+    },
+    { 
+      "name" : "Defense" ,
+      "id": 1,
+      "iconUrl" : "img/DefenseIcon.svg"
+    },
+    { 
+      "name" : "Tank" ,
+      "id": 2,
+      "iconUrl" : "img/TankIcon.svg"
+    },
+    { 
+      "name" : "Support" ,
+      "id": 3,
+      "iconUrl" : "img/SupportIcon.svg"
+    }
   ],
   "heroes": [
     {

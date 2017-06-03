@@ -27,16 +27,20 @@ export class MostPlayedComponent implements OnInit, AfterContentInit {
     this.heroSnapshotStats = this.snapshotStats.heroSnapshotStatistics;
     this.combatLifetimeStats = this.allHeroSnapshotStats.combatLifetimeStatistic;
     this.matchAwardsStats = this.allHeroSnapshotStats.matchAwardsStatistic;
-    this.heroData = this.owHeroData;
-  }
 
-  ngAfterContentInit() {
+    this.heroData = this.owHeroData;
     this.sortedHeroes = this.heroSnapshotStats.slice().sort(function(a: any, b: any) {
       return b.gameHistoryStatistic.timePlayed - a.gameHistoryStatistic.timePlayed;
     });
+
   }
 
- 
+  ngAfterContentInit() {}
 
+  roleToString(id: any): String {
+    return this.heroData.roles.find((x) => {
+      return x.id === id;
+    }).name;
+  }
 
 }
