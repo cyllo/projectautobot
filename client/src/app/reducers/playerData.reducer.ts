@@ -2,6 +2,8 @@ import { Observable } from 'rxjs/Observable';
 import { Player } from '../models';
 
 const initialState: Player = {
+  competitive: null,
+  quickPlay: null,
   updatedAt: null,
   totalGamesWon: null,
   tag: null,
