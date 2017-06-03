@@ -356,9 +356,9 @@
       ]
     },
     {
-      "code": "0x02E0000000000005",
+      "code": "0x02E0000000000065",
       "name": "Junkrat",
-      "portraitUrl": "https:\/\/blzgdapipro-a.akamaihd.net\/game\/heroes\/small\/0x02E0000000000005.png",
+      "portraitUrl": "https:\/\/blzgdapipro-a.akamaihd.net\/game\/heroes\/small\/0x02E0000000000065.png",
       "description": "Junkrat\u2019s area-denying armaments include a Frag Launcher that lobs bouncing grenades, Concussion Mines that send enemies flying, and Steel Traps that stop foes dead in their tracks.",
       "role": 1,
       "synergy": [],
