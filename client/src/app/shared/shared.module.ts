@@ -22,7 +22,7 @@ import {
   HeroSynergyCounterComponent,
   HeroPortraitComponent,
   HeroCatalogComponent,
-  NewsCollageComponent
+  NewsReelComponent
 } from './index';
 import { ChartsModule } from 'ng2-charts';
 
@@ -52,13 +52,14 @@ import { ChartsModule } from 'ng2-charts';
     HeroSynergyCounterComponent,
     HeroPortraitComponent,
     HeroCatalogComponent,
-    NewsCollageComponent
+    NewsReelComponent 
   ],
   exports: [
     VideoCardComponent,
     SearchComponent,
     ScheduleComponent,
     RoleComponent,
+    NewsReelComponent,
     NewsCardComponent,
     ImageComponent,
     SelectComponent,
