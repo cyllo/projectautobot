@@ -37,8 +37,8 @@ defmodule Models.Statistics.Snapshots.LatestSnapshotStatistic do
       ]
     )
       |> Repo.all
-      |> List.first # HACK need to remove this and aggregate all the tables
       |> Enum.flat_map(&Map.get(&1, :hero_snapshot_statistics))
+      |> List.first # HACK need to remove this and aggregate all the tables
   end
 
   defp hero_specific_table_query do
