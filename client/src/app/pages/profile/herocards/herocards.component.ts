@@ -39,7 +39,7 @@ export class HeroCardsComponent {
     return this._snapshotStats;
   }
 
-  allHeroesByRole(){
+  allHeroesByRole() {
     let data: any[] = [];
     data.push(this.sortHeroesByTimePlayed(this.heroSnapshotStats));
     this.heroData.roles.forEach((role) => {
@@ -48,7 +48,7 @@ export class HeroCardsComponent {
     return data;
   }
 
-  sortHeroesByTimePlayed(i: any){
+  sortHeroesByTimePlayed(i: any) {
     return i.sort(function(a: any, b: any){
       return b.gameHistoryStatistic.timePlayed - a.gameHistoryStatistic.timePlayed;
     });
@@ -61,8 +61,8 @@ export class HeroCardsComponent {
   }
 
   roleToString(id: number): String {
-    if(id < 0) {
-      return 'All Heroes';
+    if (id < 0) {
+      return String('All Heroes');
     } else {
       return this.heroData['roles'].find((x) => {
         return x.id === id;

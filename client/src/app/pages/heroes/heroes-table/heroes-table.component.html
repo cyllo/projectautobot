@@ -33,11 +33,11 @@
             [loadingIndicator]="showLoadingIndicator" 
             [reorderable]="allowReorder">
 
-              <ngx-datatable-column prop="index" name="" [flexGrow]="1">
+              <ngx-datatable-column prop="index" name="#" [flexGrow]="1">
                 <ng-template let-value="value" ngx-datatable-cell-template>
                   <div class="row align-items-center">
                     <div class="col-12">
-                      #{{ value }}
+                      {{ value }}
                     </div>
                   </div>
                 </ng-template>

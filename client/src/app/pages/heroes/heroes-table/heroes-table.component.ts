@@ -8,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 
 export class HeroesTableComponent implements OnInit {
 
-  showLoadingIndicator: boolean = true;
-  allowReorder: boolean = true;
+  showLoadingIndicator = true;
+  allowReorder = true;
 
   rows = [
     {

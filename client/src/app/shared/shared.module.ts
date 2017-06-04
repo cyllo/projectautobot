@@ -52,7 +52,7 @@ import { ChartsModule } from 'ng2-charts';
     HeroSynergyCounterComponent,
     HeroPortraitComponent,
     HeroCatalogComponent,
-    NewsReelComponent 
+    NewsReelComponent
   ],
   exports: [
     VideoCardComponent,

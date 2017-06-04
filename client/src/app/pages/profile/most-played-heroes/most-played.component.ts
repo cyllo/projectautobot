@@ -54,8 +54,8 @@ export class MostPlayedComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit() {}
 
-  sortHeroesByTimePlayed(i: any){
-    return i.sort(function(a: any, b: any){
+  sortHeroesByTimePlayed(i: any) {
+    return i.sort(function(a: any, b: any) {
       return b.gameHistoryStatistic.timePlayed - a.gameHistoryStatistic.timePlayed;
     });
   }
