@@ -1,6 +1,11 @@
 defmodule Api.Schema do
   use Absinthe.Schema
-  alias Api.{GamerTagResolver, HeroResolver, UserResolver, SessionResolver, BlogResolver, Middleware, HeroGlobalAggregateResolver, SnapshotStatisticResolver}
+  alias Api.{
+    SnapshotStatisticsAverageResolver,
+    GamerTagResolver, HeroResolver, UserResolver,
+    SessionResolver, BlogResolver, Middleware,
+    HeroStatisticsAverageResolver, SnapshotStatisticResolver
+  }
 
   import_types Absinthe.Type.Custom
   import_types Api.Schema.ScalarTypes
@@ -10,7 +15,9 @@ defmodule Api.Schema do
   import_types Api.Schema.SnapshotTypes
   import_types Api.Schema.StatisticTypes
   import_types Api.Schema.SessionTypes
-  import_types Api.Schema.HeroGlobalAggregateTypes
+  import_types Api.Schema.StatisticAverageTypes
+  import_types Api.Schema.HeroStatisticsAverageTypes
+  import_types Api.Schema.SnapshotStatisticsAverageTypes
 
   query do
     field :gamer_tag, :gamer_tag do
@@ -69,17 +76,17 @@ defmodule Api.Schema do
       resolve &GamerTagResolver.search/2
     end
 
-    field :hero_global_aggregate, :hero_snapshot_statistic do
+    field :hero_statistics_average, :hero_statistics_average do
       arg :hero_id, :integer
-      arg :name, :string
+      # arg :name, :string
 
-      resolve &HeroGlobalAggregateResolver.find_hero_and_agregate/2
+      resolve &HeroStatisticsAverageResolver.find_hero_and_average/2
     end
 
-    field :snapshots_aggrigate, :snapshot_statistic do
+    field :snapshots_statistics_average, :snapshot_statistics_average do
       arg :is_competitive, :boolean
 
-      resolve &SnapshotStatisticResolver.aggrigate/2
+      resolve &SnapshotStatisticsAverageResolver.average/2
     end
   end
 
@@ -88,7 +95,7 @@ defmodule Api.Schema do
     field :scrape_gamer_tag, :gamer_tag do
       arg :id, non_null(:integer)
 
-      resolve &GamerTagResolver.scrape/2
+      resolve &async(fn -> GamerTagResolver.scrape(&1, &2) end)
     end
 
     @desc "Creates a user account"
@@ -122,7 +129,7 @@ defmodule Api.Schema do
       arg :title, non_null(:string)
       arg :content, non_null(:string)
 
-      resolve &BlogResolver.all/2
+      resolve &BlogResolver.create/2
     end
   end
 

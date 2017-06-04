@@ -3,6 +3,7 @@ defmodule Api.Schema.BlogTypes do
   import Api.Schema.ScalarTypes, only: [timestamp_types: 0]
 
   object :blog_post do
+    field :id, :integer
     field :title, :string
     field :content, :string
 
