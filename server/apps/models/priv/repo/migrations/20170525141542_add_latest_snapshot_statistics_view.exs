@@ -28,7 +28,7 @@ defmodule Models.Repo.Migrations.AddLatestSnapshotStatisticsView do
     execute """
       /* Create Refresh Trigger */
       CREATE TRIGGER refresh_latest_snapshots_trg
-      AFTER INSERT OR DELETE
+      AFTER INSERT
       ON snapshot_statistics
       FOR EACH STATEMENT
       EXECUTE PROCEDURE refresh_latest_snapshots();
