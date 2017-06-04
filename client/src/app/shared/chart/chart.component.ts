@@ -9,8 +9,8 @@ import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 export class ChartComponent implements OnInit {
   @ViewChild('owChart') owChart: ElementRef;
   @Input() owChartTitle: String;
-  @Input() owChartDatasets: Array<any>;
-  @Input() owChartXAxisLabels: Array<string>;
+  @Input() owChartDatasets: Array < any > ;
+  @Input() owChartXAxisLabels: Array < string > ;
   @Input() owChartType: String;
   @Input() owChartShowLegend: Boolean;
 
@@ -34,11 +34,7 @@ export class ChartComponent implements OnInit {
   ];*/
 
   // Common Chart Configuration
-  public chartOptions: any = {
-    responsive: true, // Resizes the chart canvas when its container does.
-    responsiveAnimationDuration: 250, // Duration in milliseconds it takes to animate to new size after a resize event.
-    maintainAspectRatio: true // Maintain the original canvas aspect ratio (width / height) when resizing
-  };
+  public chartOptions: any;
 
   /*private chartStyles: Array<any> = [
     {
@@ -75,9 +71,54 @@ export class ChartComponent implements OnInit {
     }
   ];*/
 
-  constructor() { }
+  constructor() {}
 
   public ngOnInit() {
+
+    this.chartOptions = {
+      responsive: true, // Resizes the chart canvas when its container does.
+      responsiveAnimationDuration: 250, // Duration in milliseconds it takes to animate to new size after a resize event.
+      maintainAspectRatio: true // Maintain the original canvas aspect ratio (width / height) when resizing
+    };
+
+    switch (this.owChartType) {
+      case ("line"):
+        this.chartOptions = Object.assign({}, this.chartOptions, {
+          scales: {
+            yAxes: [{
+              display: true,
+              gridLines: {
+                display: true,
+                drawTicks: true
+              },
+              ticks: {
+                fontFamily: 'Arial',
+                fontSize: '11',
+                fontWeight: 'lighter',
+                fontStyle: 'normal'
+              }
+            }],
+            xAxes: [{
+              display: true,
+              gridLines: {
+                display: true,
+                drawTicks: true
+              },
+              ticks: {
+                fontFamily: 'Arial',
+                fontSize: '11',
+                fontWeight: 'lighter',
+                fontStyle: 'normal'
+              }
+            }]
+          }
+        });
+      default:
+        // do nothing
+    }
+
+    console.log(this.chartOptions);
+
   }
 
   // events

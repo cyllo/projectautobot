@@ -1,0 +1,13 @@
+@import "../../../../style/colors";
+.stat-category-block {
+    .header {
+        background-color: $brand-inverse;
+        color: $white;
+    }
+    .options {
+        .row:nth-child(even) {
+            background-color: $gray-lightest;
+            border-color: $gray-lighter;
+        }
+    }
+}

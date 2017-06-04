@@ -38,6 +38,29 @@ button:focus {
   line-height: 1 !important;
 }
 
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: $white;
+  border: 1px solid $gray-lighter;
+  border-radius: 0.25rem;
+  box-shadow: none;
+  min-width: 1.25rem;
+  min-height: 1.25rem;
+}
+input[type="checkbox"]:hover {
+  border-color: $brand-primary;
+}
+input[type="checkbox"]:checked {
+  background-color: $brand-primary;
+  border-color: $brand-primary;
+}
+input[type="checkbox"].active,
+input[type="checkbox"]:checked.active {
+  border-color: $brand-primary;
+  background-color: $brand-primary;
+}
+
 button:hover {
   cursor: pointer;
 }
@@ -85,6 +108,10 @@ button:hover {
 .avatar-md {
   width: 100%;
   max-width: 3rem;
+}
+.avatar-sm {
+  width: 100%;
+  max-width: 1.5rem;
 }
 
 .role-icon-md {

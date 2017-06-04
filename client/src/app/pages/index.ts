@@ -9,4 +9,5 @@ export * from './news';
 export * from './post';
 export * from './friends';
 export * from './profile';
+export * from './compare';
 export * from './pages.module';

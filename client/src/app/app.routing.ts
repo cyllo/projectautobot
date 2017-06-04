@@ -10,7 +10,8 @@ import {
   NewsComponent,
   PostComponent,
   FriendsComponent,
-  ProfileComponent
+  ProfileComponent,
+  CompareComponent
 } from './pages';
 
 const routes: Routes = [
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'post', component: PostComponent },
   { path: 'friends', component: FriendsComponent },
   { path: 'profile/:platform/:region/:tag', component: ProfileComponent },
-  { path: 'profile/:platform/:tag', component: ProfileComponent }
+  { path: 'profile/:platform/:tag', component: ProfileComponent },
+  { path: 'compare' , component: CompareComponent }
 ];
 
 export const routing = RouterModule.forRoot(routes);

@@ -30,7 +30,12 @@ import {
   HeroCareerComponent,
   ProfileHeaderComponent,
   ProfilePageTabsComponent,
-  HeroWallCatalogComponent
+  HeroWallCatalogComponent,
+  CompareComponent,
+  CompareHeaderComponent,
+  CompareProfileListComponent,
+  CompareChartCategoryComponent,
+  StatCategoryBlockComponent
 } from './index';
 
 @NgModule({
@@ -67,7 +72,12 @@ import {
     HeroCareerComponent,
     ProfileHeaderComponent,
     ProfilePageTabsComponent,
-    HeroWallCatalogComponent
+    HeroWallCatalogComponent,
+    CompareComponent,
+    CompareHeaderComponent,
+    CompareProfileListComponent,
+    CompareChartCategoryComponent,
+    StatCategoryBlockComponent,
   ],
   exports: [
     HomeComponent,

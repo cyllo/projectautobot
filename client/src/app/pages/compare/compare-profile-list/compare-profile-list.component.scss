@@ -1,0 +1,11 @@
+@import "../../../../style/colors";
+.compare-profile-list {
+    .profile-card {
+        color: $white;
+        background-color: $brand-inverse;
+        .skill-rating {
+            color: $gray-lighter;
+        }
+    }
+    
+}
