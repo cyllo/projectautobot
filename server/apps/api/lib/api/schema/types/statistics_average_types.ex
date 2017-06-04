@@ -1,7 +1,7 @@
-defmodule Api.Schema.StatisticAggregateTypes do
+defmodule Api.Schema.StatisticAverageTypes do
   use Absinthe.Schema.Notation
 
-  object :combat_best_statistic_aggregate do
+  object :combat_best_statistic_average do
     field :eliminations_most_in_life, :decimal
     field :eliminations_most_in_game, :decimal
     field :critical_hits_most_in_game, :decimal
@@ -28,7 +28,7 @@ defmodule Api.Schema.StatisticAggregateTypes do
     field :melee_kills_most_in_game, :decimal
   end
 
-  object :combat_average_statistic_aggregate do
+  object :combat_average_statistic_average do
     field :critical_hits_average, :decimal
     field :damage_done_average, :decimal
     field :deaths_average, :decimal
@@ -47,7 +47,7 @@ defmodule Api.Schema.StatisticAggregateTypes do
     field :melee_kills_average, :decimal
   end
 
-  object :combat_lifetime_statistic_aggregate do
+  object :combat_lifetime_statistic_average do
     field :solo_kills, :decimal
     field :eliminations, :decimal
     field :eliminations_per_life, :decimal
@@ -77,7 +77,7 @@ defmodule Api.Schema.StatisticAggregateTypes do
     field :offensive_assists, :decimal
   end
 
-  object :match_awards_statistic_aggregate do
+  object :match_awards_statistic_average do
     field :bronze_medals, :decimal
     field :silver_medals, :decimal
     field :gold_medals, :decimal
@@ -85,7 +85,7 @@ defmodule Api.Schema.StatisticAggregateTypes do
     field :cards, :decimal
   end
 
-  object :game_history_statistic_aggregate do
+  object :game_history_statistic_average do
     field :games_played, :decimal
     field :games_won, :decimal
     field :games_lost, :decimal
@@ -94,7 +94,7 @@ defmodule Api.Schema.StatisticAggregateTypes do
     field :win_percentage, :decimal
   end
 
-  object :hero_specific_statistic_aggregate do
+  object :hero_specific_statistic_average do
     field :stats, :map
   end
 end

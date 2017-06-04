@@ -13,7 +13,7 @@ defmodule Models.Statistics.Snapshots.LatestSnapshotStatistic do
     timestamps()
   end
 
-  def aggregate(opts \\ [competitive?: true]) do
+  def average(opts \\ [competitive?: true]) do
     is_competitive = Keyword.get(opts, :competitive?)
     ahs_query = from(ahs in AllHeroesStatistic, preload: ^statistics_table_query())
 
@@ -24,11 +24,11 @@ defmodule Models.Statistics.Snapshots.LatestSnapshotStatistic do
         all_heroes_snapshot_statistics: ^ahs_query
       ]
     ) |> Repo.all
-      |> List.first # HACK need to remove this and aggregate all the tables
+      |> List.first # HACK need to remove this and average all the tables
   end
 
-  def get_hero_aggregate(hero_id, opts \\ [competitive?: true])
-  def get_hero_aggregate(hero_id, opts) do
+  def get_hero_average(hero_id, opts \\ [competitive?: true])
+  def get_hero_average(hero_id, opts) do
     is_competitive = Keyword.get(opts, :competitive?, false)
 
     from(lss in LatestSnapshotStatistic,
@@ -39,7 +39,7 @@ defmodule Models.Statistics.Snapshots.LatestSnapshotStatistic do
     )
       |> Repo.all
       |> Enum.flat_map(&Map.get(&1, :hero_snapshot_statistics))
-      |> List.first # HACK need to remove this and aggregate all the tables
+      |> List.first # HACK need to remove this and average all the tables
   end
 
   defp hero_statistics_table_query(query \\ []) do
