@@ -10,6 +10,6 @@ defmodule Models.Repo.Migrations.CreateBlogPosts do
     end
 
 
-    create unique_index(:blog_posts, [:title])
+    create unique_index(:blog_posts, [:title], name: :blog_post_title_index)
   end
 end

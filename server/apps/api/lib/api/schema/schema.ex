@@ -122,7 +122,7 @@ defmodule Api.Schema do
       arg :title, non_null(:string)
       arg :content, non_null(:string)
 
-      resolve &BlogResolver.all/2
+      resolve &BlogResolver.create/2
     end
   end
 

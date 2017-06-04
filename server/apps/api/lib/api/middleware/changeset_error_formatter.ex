@@ -4,6 +4,7 @@ defmodule Api.Middleware.ChangesetErrorFormatter do
 
   def format_changeset_error(errors) when is_list(errors) do
     cond do
+      Enum.all?(errors, &is_changeset/1) -> Enum.flat_map(errors, &format_changeset_error/1)
       Enum.all?(errors, &is_bitstring/1) -> errors
       Enum.all?(errors, &is_map/1) -> errors
       true -> Enum.flat_map(errors, &format_changeset_error/1)
@@ -47,4 +48,7 @@ defmodule Api.Middleware.ChangesetErrorFormatter do
       :error -> nil
     end
   end
+
+  defp is_changeset(%Ecto.Changeset{} = _), do: true
+  defp is_changeset(error), do: false
 end
