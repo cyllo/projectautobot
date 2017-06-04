@@ -1,10 +1,13 @@
-import { AfterContentInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
+/*import { AfterContentInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { AppState, Player, Search } from '../../models';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { PlayersService } from '../../services/players.service';
+*/
 
 @Component({
   selector: 'ow-heroes',
@@ -12,6 +15,25 @@ import { PlayersService } from '../../services/players.service';
   styleUrls: [ 'heroes.component.scss' ]
 })
 export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
+
+  constructor() {}
+
+  ngOnInit() {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+  }
+
+  ngAfterContentInit() {
+    //Called after ngOnInit when the component's or directive's content has been initialized.
+    //Add 'implements AfterContentInit' to the class.
+  }
+
+  ngOnDestroy() {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+  }
+  
+  /*
   @ViewChild('platform') platformInput;
   @ViewChild('region') regionInput;
   @ViewChild('mode') modeInput;
@@ -92,6 +114,6 @@ export class HeroesComponent implements OnInit, AfterContentInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
+  }*/
 
 }

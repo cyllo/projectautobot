@@ -1,0 +1,107 @@
+<div class="heroes-table">
+  <div class="row mb-3">
+    <div class="col-12">
+      <div class="content rounded px-3 py-3">
+
+        <div class="row align-items-center mb-3">
+          <div class="col-4">
+            <span class="h5 text-uppercase font-weight-bold">Heroes</span>
+          </div>
+          <div class="col-8 text-right">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-radio">
+                <span class="small">Overview</span>
+              </button>
+              <button type="button" class="btn btn-radio">
+                <span class="small">Combat</span>
+              </button>
+              <button type="button" class="btn btn-radio">
+                <span class="small">Game</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <ngx-datatable class="material" 
+            [rows]="rows" 
+            [columnMode]="'flex'" 
+            [headerHeight]="'auto'" 
+            [footerHeight]="0" 
+            [rowHeight]="'auto'"
+            [loadingIndicator]="showLoadingIndicator" 
+            [reorderable]="allowReorder">
+
+              <ngx-datatable-column prop="index" name="" [flexGrow]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="row align-items-center">
+                    <div class="col-12">
+                      #{{ value }}
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column prop="name" name="Name" [flexGrow]="3">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="row align-items-center">
+                    <div class="col-auto pl-3">
+                      <ow-hero-portrait class="d-inline-block pr-2"></ow-hero-portrait>
+                    </div>
+                    <div class="col">
+                      <p class="font-weight-bold mb-0">{{ value }}</p>
+                      <p class="text-uppercase small mb-0">Support</p>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column prop="popularity" name="Popularity" [flexGrow]="2">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="row align-items-center">
+                    <div class="col-12">
+                      {{ value }}
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column prop="winrate" name="Win Rate" [flexGrow]="2">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="row align-items-center">
+                    <div class="col-12">
+                      {{ value }}
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column prop="kdratio" name="K/D Ratio" [flexGrow]="2">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="row align-items-center">
+                    <div class="col-12">
+                      {{ value }}
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column prop="medals" name="Medals/game" [flexGrow]="2">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="row align-items-center">
+                    <div class="col-12">
+                      {{ value }}
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+
+            </ngx-datatable>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

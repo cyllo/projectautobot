@@ -1,0 +1,36 @@
+@import "../../../../style/colors";
+:host /deep/ .heroes-header {
+  .dropdown-toggle::after {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-right: 8%;
+    transform: translateY(-50%);
+  }
+  .dropdown,
+  .dropdown-menu {
+    width: 100%;
+  }
+  button {
+    width: 100%;
+  }
+}
+
+:host /deep/ .ngx-datatable {
+  box-shadow: none;
+  font-size: 0.85rem;
+  .datatable-header-cell {
+    background-color: $brand-inverse;
+    color: $white !important;
+  }
+  .datatable-body-cell {
+    display: flex;
+    align-items: center;
+  }
+  .hero-portrait {
+    max-width: 2.5rem;
+    .header {
+      display: none;
+    }
+  }
+}
