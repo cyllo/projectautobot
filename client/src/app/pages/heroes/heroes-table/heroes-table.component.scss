@@ -23,9 +23,9 @@
     background-color: $brand-inverse;
     color: $white !important;
   }
-  .datatable-body-cell {
-    display: flex;
-    align-items: center;
+  .datatable-body-cell-label,
+  .datatable-body-cell-label > .row {
+    height: 100%;
   }
   .hero-portrait {
     max-width: 2.5rem;
