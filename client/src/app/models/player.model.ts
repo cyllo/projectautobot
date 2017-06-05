@@ -1,6 +1,4 @@
-import { AppState } from './appstate.model';
-
-export interface Player extends AppState {
+export interface Player {
   id?: number;
   updatedAt: string;
   totalGamesWon: number;
@@ -19,7 +17,7 @@ export interface Player extends AppState {
   quickPlay: SnapshotStats;
 }
 
-export interface SnapshotStats extends Player {
+export interface SnapshotStats {
   updatedAt: string;
   isCompetitive: boolean;
   insertedAt: string;
@@ -29,7 +27,7 @@ export interface SnapshotStats extends Player {
   allHeroesSnapshotStatistic: HeroSnapshotStats;
 }
 
-export interface HeroSnapshotStats extends SnapshotStats {
+export interface HeroSnapshotStats {
   snapshotStatisticId: number;
   matchAwardsStatisticId: number;
   matchAwardsStatistic: MatchAwardsStats;
@@ -47,7 +45,7 @@ export interface HeroSnapshotStats extends SnapshotStats {
   combatAverageStatistic: CombatAverageStats;
 }
 
-export interface MatchAwardsStats extends HeroSnapshotStats {
+export interface MatchAwardsStats {
   totalMedals: number;
   silverMedals: number;
   id?: number;
@@ -56,7 +54,7 @@ export interface MatchAwardsStats extends HeroSnapshotStats {
   bronzeMedals: number;
 }
 
-export interface Hero extends HeroSnapshotStats {
+export interface Hero {
   updatedAt: string;
   name: string;
   insertedAt: string;
@@ -64,7 +62,7 @@ export interface Hero extends HeroSnapshotStats {
   code: string;
 }
 
-export interface GameHistoryStats extends HeroSnapshotStats {
+export interface GameHistoryStats {
   winPercentage: string;
   timeSpentOnFire: number;
   timePlayed: number;
@@ -74,7 +72,7 @@ export interface GameHistoryStats extends HeroSnapshotStats {
   gamesLost: number;
 }
 
-export interface CombatLifetimeStats extends HeroSnapshotStats {
+export interface CombatLifetimeStats {
   weaponAccuracyPercentage: number;
   turretsDestroyed: number;
   timeSpentOnFire: number;
@@ -107,7 +105,7 @@ export interface CombatLifetimeStats extends HeroSnapshotStats {
   criticalHitAccuracy: number;
 }
 
-export interface CombatBestStats extends HeroSnapshotStats {
+export interface CombatBestStats {
   weaponAccuracyBestInGamePercentage: number;
   timeSpentOnFireMostInGame: number;
   soloKillsMostInGame: number;
@@ -135,7 +133,7 @@ export interface CombatBestStats extends HeroSnapshotStats {
   criticalHitsMostInGame: number;
 }
 
-export interface CombatAverageStats extends HeroSnapshotStats {
+export interface CombatAverageStats {
   timeSpentOnFireAverage: number;
   soloKillsAverage: string;
   selfHealingAverage: string;
