@@ -65,6 +65,7 @@ defmodule Api.Schema do
 
     field :blog_posts, list_of(:blog_post) do
       arg :title, :string
+      arg :last, :integer
 
       resolve &BlogResolver.all/2
     end

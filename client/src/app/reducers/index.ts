@@ -11,6 +11,7 @@ export * from './search.reducer';
 export * from './snapshot.reducer';
 export * from './heroes.reducer';
 export * from './current-hero.reducer';
+export * from './blog-post.reducer'
 
 export function getPlayerDataCollectionState(state$: Observable<AppState>) {
   return state$.select(state => state.playerDataCollection);

@@ -1,11 +1,14 @@
-<div class="card mb-3 border-0">
-  <img class="card-img-top" [src]="news.newsImage" alt="Card image cap">
-  <div class="card-block px-0">
-    <h4 class="card-title mb-0">{{ news.newsTitle }}</h4>
-    <span class="badge badge-primary badge-pill"><small>{{ news.newsSubTitle }}</small></span>
-    <p class="card-text">{{ news.newsContent }}</p>
-    <button type="button" class="btn btn-secondary btn-lg btn-block">
-      <small class="text-muted">READ MORE</small>
-    </button>
+<div class="col-6 px-0">
+  <div class="news-card h-100">
+    <a [routerLink]='["post", post.id]'>
+      <div class="banner h-100">
+        <img [src]="post.imageUrl" alt="Blog Image">
+      </div>
+
+      <div class="body px-3 py-3">
+        <p class="title-lg text-uppercase font-weight-bold mb-0">{{ post.title }}</p>
+        <p class="small mb-0">{{ post.description }}</p>
+      </div>
+    </a>
   </div>
 </div>

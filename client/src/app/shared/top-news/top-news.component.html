@@ -1,0 +1,42 @@
+<div class="news-reel">
+
+  <section class="row mb-3">
+
+    <div class="col-12">
+
+      <div class="row mx-0">
+
+        <div class="col-md-6 col-12 px-0">
+
+          <div class="row h-100 mx-0">
+            <ow-news-card
+              *ngFor='let post of firstTwoPosts'
+              [post]='post'
+            ></ow-news-card>
+
+          </div>
+
+        </div>
+
+        <div class="col-md-6 col-12 h-100 px-0">
+
+          <div class="row mx-0">
+
+            <ow-news-card
+              *ngFor='let post of restOfPosts'
+              [post]='post'
+            ></ow-news-card>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+    <!-- end .col -->
+
+  </section>
+  <!-- end .row -->
+
+</div>
+<!-- end .hero-wall-catalog -->
