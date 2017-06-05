@@ -8,7 +8,6 @@ import { CurrentHero } from '../../../models';
 })
 
 export class HeroesTableComponent implements OnInit {
-
   showLoadingIndicator = true;
   allowReorder = true;
   rows: Array<CurrentHero>;
@@ -21,15 +20,14 @@ export class HeroesTableComponent implements OnInit {
       return;
     }
     this.rows = JSON.parse(JSON.stringify($heroes));
-    console.log(this.rows);
   }
 
   get heroes() {
-    return this.rows
+    return this.rows;
   }
 
   getWinRate(row) {
-    return (row.gameHistoryStatistic.gamesWon / row.gameHistoryStatistic.gamesPlayed) * 100;
+    return parseInt(row.gameHistoryStatistic.gamesWon || 0) / parseInt(row.gameHistoryStatistic.gamesPlayed || 0) * 100;
   }
 
   getKDRatio(row) {
