@@ -22,35 +22,35 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row" *ngIf="rows">
           <div class="col-12">
-            <ngx-datatable class="material" 
-            [rows]="rows" 
-            [columnMode]="'flex'" 
-            [headerHeight]="'auto'" 
-            [footerHeight]="0" 
-            [rowHeight]="'auto'"
-            [loadingIndicator]="showLoadingIndicator" 
-            [reorderable]="allowReorder">
+            <ngx-datatable class="material"
+                           [rows]="rows"
+                           [columnMode]="'flex'"
+                           [headerHeight]="'auto'"
+                           [footerHeight]="0"
+                           [rowHeight]="'auto'"
+                           [loadingIndicator]="showLoadingIndicator"
+                           [reorderable]="allowReorder">
 
-              <ngx-datatable-column prop="index" name="#" [flexGrow]="1">
-                <ng-template let-value="value" ngx-datatable-cell-template>
+              <ngx-datatable-column name="#" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
                   <div class="row align-items-center">
                     <div class="col-12">
-                      {{ value }}
+                      {{ row.$$index + 1 }}
                     </div>
                   </div>
                 </ng-template>
               </ngx-datatable-column>
 
-              <ngx-datatable-column prop="name" name="Name" [flexGrow]="3">
-                <ng-template let-value="value" ngx-datatable-cell-template>
+              <ngx-datatable-column name="Name" [flexGrow]="3">
+                <ng-template let-row="row" ngx-datatable-cell-template>
                   <div class="row align-items-center">
                     <div class="col-auto pl-3">
                       <ow-hero-portrait class="d-inline-block pr-2"></ow-hero-portrait>
                     </div>
                     <div class="col">
-                      <p class="font-weight-bold mb-0">{{ value }}</p>
+                      <p class="font-weight-bold mb-0">{{ row.hero.name }}</p>
                       <p class="text-uppercase small mb-0">Support</p>
                     </div>
                   </div>
@@ -70,40 +70,40 @@
                 </ng-template>
               </ngx-datatable-column>
 
-              <ngx-datatable-column prop="winrate" name="Win Rate" [flexGrow]="2">
-                <ng-template let-value="value" ngx-datatable-cell-template>
+              <ngx-datatable-column name="Win Rate" [flexGrow]="2">
+                <ng-template let-row="row" ngx-datatable-cell-template>
                   <div class="row align-items-center">
                     <div class="col-12">
-                      {{ value }}
+                      {{ getWinRate(row)  || 0 }}
                     </div>
                     <div class="col-12">
-                      <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+                      <ngb-progressbar type="stp" [value]="getWinRate(row) || 0" [max]="100"></ngb-progressbar>
                     </div>
                   </div>
                 </ng-template>
               </ngx-datatable-column>
 
-              <ngx-datatable-column prop="kdratio" name="K/D Ratio" [flexGrow]="2">
-                <ng-template let-value="value" ngx-datatable-cell-template>
+              <ngx-datatable-column name="K/D Ratio" [flexGrow]="2">
+                <ng-template let-row="row" ngx-datatable-cell-template>
                   <div class="row align-items-center">
                     <div class="col-12">
-                      {{ value }}
+                      {{ getKDRatio(row) | number : '1.2-2' || 0 }}:1
                     </div>
                     <div class="col-12">
-                      <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+                      <ngb-progressbar type="stp" [value]="getKDRatio(row) | number : '1.2-2' || 0" [max]="1"></ngb-progressbar>
                     </div>
                   </div>
                 </ng-template>
               </ngx-datatable-column>
 
-              <ngx-datatable-column prop="medals" name="Medals/game" [flexGrow]="2">
-                <ng-template let-value="value" ngx-datatable-cell-template>
+              <ngx-datatable-column name="Medals/game" [flexGrow]="2">
+                <ng-template let-row="row" ngx-datatable-cell-template>
                   <div class="row align-items-center">
                     <div class="col-12">
-                      {{ value }}
+                      {{ getMedalsPerGame(row) || 0 }}
                     </div>
                     <div class="col-12">
-                      <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
+                      <ngb-progressbar type="stp" [value]="getMedalsPerGame(row) || 0" [max]="100"></ngb-progressbar>
                     </div>
                   </div>
                 </ng-template>

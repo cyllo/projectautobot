@@ -11,19 +11,7 @@ export class HeroesTableComponent implements OnInit {
 
   showLoadingIndicator = true;
   allowReorder = true;
-
-  rows = [
-    {
-      index: '1',
-      name : 'Mercy' ,
-      popularity: '7.32',
-      winrate: '1',
-      kdratio: '0',
-      medals: '2'
-    }
-  ];
-
-  _heroes: Array<CurrentHero>;
+  rows: Array<CurrentHero>;
 
   constructor() {}
 
@@ -32,11 +20,24 @@ export class HeroesTableComponent implements OnInit {
     if (!$heroes) {
       return;
     }
-    this._heroes = $heroes;
+    this.rows = JSON.parse(JSON.stringify($heroes));
+    console.log(this.rows);
   }
 
   get heroes() {
-    return this._heroes
+    return this.rows
+  }
+
+  getWinRate(row) {
+    return (row.gameHistoryStatistic.gamesWon / row.gameHistoryStatistic.gamesPlayed) * 100;
+  }
+
+  getKDRatio(row) {
+    return parseInt(row.combatLifetimeStatistic.finalBlows || 0) / parseInt(row.combatLifetimeStatistic.deaths || 0);
+  }
+
+  getMedalsPerGame(row) {
+    return parseInt(row.gameHistoryStatistic.gamesWon || 0) / parseInt(row.gameHistoryStatistic.gamesPlayed || 0) * 100;
   }
 
   ngOnInit() {

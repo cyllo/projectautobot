@@ -29,7 +29,6 @@ export class HeroesComponent {
     .filter(s => !!s.data)
     .subscribe(s => {
       this.heroes = s.data.snapshotsStatisticsAverage.heroSnapshotStatistics;
-      console.log(this.heroes);
     });
   }
 }
