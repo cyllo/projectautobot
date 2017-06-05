@@ -156,10 +156,11 @@ export interface CombatAverageStats extends HeroSnapshotStats {
 }
 
 export interface CurrentHero {
-  matchAwardsStatistic: MatchAwardsStats;
-  hero: Hero;
-  gameHistoryStatistic: GameHistoryStats;
-  combatLifetimeStatistic: CombatLifetimeStats;
-  combatBestStatistic: CombatBestStats;
-  combatAverageStatistic: CombatAverageStats;
+  heroSnapshotStatistics?: HeroSnapshotStats;
+  matchAwardsStatistic?: MatchAwardsStats;
+  hero?: Hero;
+  gameHistoryStatistic?: GameHistoryStats;
+  combatLifetimeStatistic?: CombatLifetimeStats;
+  combatBestStatistic?: CombatBestStats;
+  combatAverageStatistic?: CombatAverageStats;
 }

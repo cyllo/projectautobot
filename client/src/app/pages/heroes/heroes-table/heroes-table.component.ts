@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { CurrentHero } from '../../../models';
 
 @Component({
   selector: 'ow-heroes-table',
@@ -22,7 +23,21 @@ export class HeroesTableComponent implements OnInit {
     }
   ];
 
+  _heroes: Array<CurrentHero>;
+
   constructor() {}
+
+  @Input()
+  set heroes($heroes) {
+    if (!$heroes) {
+      return;
+    }
+    this._heroes = $heroes;
+  }
+
+  get heroes() {
+    return this._heroes
+  }
 
   ngOnInit() {
     // turn off loading indicator after all the data is loaded
