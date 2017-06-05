@@ -1,4 +1,4 @@
-import {User} from './user.model'
+import { User } from './user.model'
 
 export interface BlogPost {
   id: number
@@ -6,4 +6,8 @@ export interface BlogPost {
   title: string
   imageUrl: string
   author: User
+}
+
+export interface BlogPostState {
+  [key: number]: BlogPost
 }

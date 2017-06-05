@@ -18,4 +18,7 @@ export class NewsCardComponent implements OnInit {
     console.log('Hello news-card');
   }
 
+  public titleToSlug(title) {
+    return title.toLowerCase().split(' ').join('-')
+  }
 }

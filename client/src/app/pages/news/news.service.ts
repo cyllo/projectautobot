@@ -4,7 +4,7 @@ import {Apollo} from 'apollo-angular'
 import {Store, Dispatcher} from '@ngrx/store'
 import {Observable} from 'rxjs/Observable'
 
-import {map, merge, complement, isEmpty, reverse} from 'ramda'
+import {map, merge, complement, reverse, isNil} from 'ramda'
 
 import {getBlogPosts} from '../../reducers'
 import {BlogPost, AppState} from '../../models'
@@ -16,9 +16,9 @@ export class NewsService {
   constructor(private apollo: Apollo, private store: Store<AppState>, private dispatcher: Dispatcher) {
     this.posts$ = this.store
       .select('blogPosts')
+      .filter(complement(isNil))
       .map(Object.values)
       .map(reverse)
-      .filter(complement(isEmpty))
   }
 
   public getLatestPosts(last = 6) {

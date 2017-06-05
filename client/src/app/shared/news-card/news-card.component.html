@@ -1,6 +1,6 @@
 <div class="col-6 px-0">
   <div class="news-card h-100">
-    <a [routerLink]='["post", post.id]'>
+    <a [routerLink]='["/post", titleToSlug(post.title)]'>
       <div class="banner h-100">
         <img [src]="post.imageUrl" alt="Blog Image">
       </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import {BlogPost} from '../../models'
 
@@ -7,7 +7,7 @@ import {BlogPost} from '../../models'
   templateUrl: 'top-news.component.html',
   styleUrls: ['top-news.component.scss']
 })
-export class TopNewsComponent implements OnInit {
+export class TopNewsComponent {
   @Input() public set posts(posts) {
     if (posts) {
       this.firstTwoPosts = posts.slice(0, 2)
@@ -20,13 +20,4 @@ export class TopNewsComponent implements OnInit {
 
   public firstTwoPosts: BlogPost[]
   public restOfPosts: BlogPost[]
-
-  constructor() {
-    // Do stuff
-  }
-
-  ngOnInit() {
-    console.log('Hello news-collage');
-  }
-
 }

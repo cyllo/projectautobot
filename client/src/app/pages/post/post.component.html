@@ -21,7 +21,7 @@
           <div class="post-card full-height relative">
 
             <div class="post-card-image">
-              <img src="img/cardplaceholder4.png" alt="">
+              <img [src]="post.imageUrl" alt="Post Image">
             </div>
             <!-- end .post-card-image -->
 
@@ -32,8 +32,8 @@
 
             <div class="post-card-block absolute pos-bot pos-left">
               <div class="px-3 py-3">
-                <p class="post-title text-uppercase font-weight-bold large">Lorem ipsum dolor sit amet</p>
-                <p class="post-summary mb-0">Fusce a faucibus magna. Ut sed sollicitudin metus. Fusce sit amet hendrerit ex.</p>
+                <p class="post-title text-uppercase font-weight-bold large">{{post.title}}</p>
+                <p class="post-summary mb-0">{{post.content}}</p>
               </div>
             </div>
             <!-- end .post-card-block -->

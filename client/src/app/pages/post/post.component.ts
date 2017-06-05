@@ -1,16 +1,36 @@
-import { HostListener, Component, ViewChild, Renderer2, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { HostListener, Component, ViewChild, Renderer2, AfterViewInit, AfterViewChecked, OnInit, OnDestroy} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription'
+
+import { BlogPost } from '../../models'
+
+import { PostService } from './post.service'
 
 @Component({
   selector: 'ow-post',
   templateUrl: 'post.component.html',
-  styleUrls: [ 'post.component.scss' ]
+  styleUrls: [ 'post.component.scss' ],
+  providers: [PostService]
 })
-export class PostComponent implements AfterViewInit, AfterViewChecked {
+export class PostComponent implements AfterViewInit, AfterViewChecked, OnDestroy, OnInit {
   @ViewChild('postsidebar') elPostSideBar;
 
+  public post: BlogPost
   private elMainNav;
+  private sub: Subscription
 
-  constructor( private renderer: Renderer2 ) {}
+  constructor(
+    public postService: PostService,
+    private renderer: Renderer2,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit() {
+    this.sub = this.route.params
+      .mergeMap(({title}) => this.postService.getPost(title))
+      .mergeMapTo(this.postService.post$)
+      .subscribe((post) => this.post = post)
+  }
 
   ngAfterViewInit() {
     // Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
@@ -22,6 +42,10 @@ export class PostComponent implements AfterViewInit, AfterViewChecked {
     // Called after every check of the component's view. Applies to components only.
     // Add 'implements AfterViewChecked' to the class.
     this.updateMainNavOffset();
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe()
   }
 
   @HostListener('window.scroll')
@@ -45,5 +69,4 @@ export class PostComponent implements AfterViewInit, AfterViewChecked {
   updateMainNavOffset() {
     this.renderer.setStyle(this.elPostSideBar.nativeElement, 'top', this.elMainNav.offsetHeight + 'px');
   }
-
 }
