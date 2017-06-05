@@ -47,7 +47,7 @@
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   <div class="row align-items-center">
                     <div class="col-auto pl-3">
-                      <ow-hero-portrait class="d-inline-block pr-2"></ow-hero-portrait>
+                      <ow-hero-portrait [owCode]='row.hero.code' class="d-inline-block pr-2"></ow-hero-portrait>
                     </div>
                     <div class="col">
                       <p class="font-weight-bold mb-0">{{ row.hero.name }}</p>
