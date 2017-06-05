@@ -6,16 +6,21 @@ import { Subject } from 'rxjs/Subject';
 import { isEmpty } from 'lodash';
 import { Apollo } from 'apollo-angular';
 import { Http } from '@angular/http';
-import gql from 'graphql-tag';
 
-import { AppState, Player } from './models';
+import { AppState, Player, Heroes } from './models';
 import { getPlayerData, searchGamerTag } from './reducers';
 
 import '../style/app.scss';
+import { gamerTagSearchQuery, heroSearchQuery } from './queries';
 
 interface GamerTagSearchResponse {
   searchGamerTag: Player[];
   loading: boolean;
+}
+
+interface HeroesSearchResponse {
+  heroes: Heroes[],
+  loading: boolean
 }
 
 @Component({
@@ -45,7 +50,7 @@ export class AppComponent implements OnDestroy {
       .map(players => Object.values(players))
       .subscribe(this.searchResults);
 
-
+    this.getHeroes();
   }
 
   onSearch(action) {
@@ -54,232 +59,7 @@ export class AppComponent implements OnDestroy {
   }
 
   find(tag) {
-    return this.apollo.query<GamerTagSearchResponse>({
-      query: gql`
-        query GamerTagSearch($tag: String!) {
-          searchGamerTag(tag: $tag) {
-            id
-            updatedAt
-            totalGamesWon
-            tag
-            snapshotStatistics {
-              id
-              isCompetitive
-              gamerTagId
-              heroSnapshotStatistics {
-                id
-                matchAwardsStatistic {
-                  id
-                  totalMedals
-                  goldMedals
-                  silverMedals
-                  bronzeMedals
-                  cards
-                }
-                heroId
-                hero {
-                  id
-                  code
-                  name
-                  insertedAt
-                  updatedAt
-                }
-                gameHistoryStatisticId
-                gameHistoryStatistic {
-                  id
-                  winPercentage
-                  timeSpentOnFire
-                  timePlayed
-                  gamesWon
-                  gamesPlayed
-                  gamesLost
-                }
-                combatLifetimeStatistic {
-                  id
-                  weaponAccuracyPercentage
-                  turretsDestroyed
-                  timeSpentOnFire
-                  teleporterPadsDestroyed
-                  soloKills
-                  shotsHit
-                  shotsFired
-                  reconAssists
-                  offensiveAssists
-                  objectiveTime
-                  objectiveKills
-                  multikills
-                  multikillBest
-                  meleeKills
-                  meleeFinalBlows
-                  healingDone
-                  finalBlows
-                  environmentalKills
-                  environmentalDeaths
-                  eliminationsPerLife
-                  eliminations
-                  defensiveAssists
-                  deaths
-                  damageDone
-                  damageBlocked
-                  criticalHitsAccuracyPercentage
-                  criticalHits
-                }
-                combatBestStatistic {
-                  id
-                  weaponAccuracyBestInGamePercentage
-                  timeSpentOnFireMostInGame
-                  soloKillsMostInGame
-                  selfHealingMostInGame
-                  reconAssistsMostInGame
-                  offensiveAssistsMostInGame
-                  objectiveTimeMostInGame
-                  objectiveKillsMostInGame
-                  multikillBest
-                  meleeKillsMostInGame
-                  meleeFinalBlowsMostInGame
-                  killStreakBest
-                  healingDoneMostInLife
-                  healingDoneMostInGame
-                  finalBlowsMostInGame
-                  eliminationsMostInLife
-                  eliminationsMostInGame
-                  defensiveAssistsMostInGame
-                  damageDoneMostInLife
-                  damageDoneMostInGame
-                  damageBlockedMostInGame
-                  criticalHitsMostInLife
-                  criticalHitsMostInGame
-                }
-                combatAverageStatistic {
-                  id
-                  timeSpentOnFireAverage
-                  soloKillsAverage
-                  selfHealingAverage
-                  offensiveAssistsAverage
-                  objectiveTimeAverage
-                  objectiveKillsAverage
-                  meleeKillsAverage
-                  meleeFinalBlowsAverage
-                  healingDoneAverage
-                  finalBlowsAverage
-                  eliminationsAverage
-                  defensiveAssistsAverage
-                  deathsAverage
-                  damageDoneAverage
-                  damageBlockedAverage
-                }
-              }
-              allHeroesSnapshotStatistic {
-                matchAwardsStatistic {
-                  id
-                  totalMedals
-                  goldMedals
-                  silverMedals
-                  bronzeMedals
-                  cards
-                }
-                gameHistoryStatisticId
-                gameHistoryStatistic {
-                  id
-                  winPercentage
-                  timeSpentOnFire
-                  timePlayed
-                  gamesWon
-                  gamesPlayed
-                  gamesLost
-                }
-                combatLifetimeStatistic {
-                  id
-                  weaponAccuracyPercentage
-                  turretsDestroyed
-                  timeSpentOnFire
-                  teleporterPadsDestroyed
-                  soloKills
-                  shotsHit
-                  shotsFired
-                  reconAssists
-                  offensiveAssists
-                  objectiveTime
-                  objectiveKills
-                  multikills
-                  multikillBest
-                  meleeKills
-                  meleeFinalBlows
-                  healingDone
-                  finalBlows
-                  environmentalKills
-                  environmentalDeaths
-                  eliminationsPerLife
-                  eliminations
-                  defensiveAssists
-                  deaths
-                  damageDone
-                  damageBlocked
-                  criticalHitsAccuracyPercentage
-                  criticalHits
-                }
-                combatBestStatistic {
-                  id
-                  weaponAccuracyBestInGamePercentage
-                  timeSpentOnFireMostInGame
-                  soloKillsMostInGame
-                  selfHealingMostInGame
-                  reconAssistsMostInGame
-                  offensiveAssistsMostInGame
-                  objectiveTimeMostInGame
-                  objectiveKillsMostInGame
-                  multikillBest
-                  meleeKillsMostInGame
-                  meleeFinalBlowsMostInGame
-                  killStreakBest
-                  healingDoneMostInLife
-                  healingDoneMostInGame
-                  finalBlowsMostInGame
-                  eliminationsMostInLife
-                  eliminationsMostInGame
-                  defensiveAssistsMostInGame
-                  damageDoneMostInLife
-                  damageDoneMostInGame
-                  damageBlockedMostInGame
-                  criticalHitsMostInLife
-                  criticalHitsMostInGame
-                }
-                combatAverageStatistic {
-                  id
-                  timeSpentOnFireAverage
-                  soloKillsAverage
-                  selfHealingAverage
-                  offensiveAssistsAverage
-                  objectiveTimeAverage
-                  objectiveKillsAverage
-                  meleeKillsAverage
-                  meleeFinalBlowsAverage
-                  healingDoneAverage
-                  finalBlowsAverage
-                  eliminationsAverage
-                  defensiveAssistsAverage
-                  deathsAverage
-                  damageDoneAverage
-                  damageBlockedAverage
-                }
-              }
-            }
-            region
-            portraitUrl
-            platform
-            overwatchName
-            levelUrl
-            level
-            insertedAt
-            competitiveRankUrl
-            competitiveLevel
-          }
-        }
-      `,
-      variables: {
-        tag: tag
-      }
-    })
+    return this.apollo.query<GamerTagSearchResponse>({ query: gamerTagSearchQuery, variables: { tag: tag } })
       .map(({data}) => data.searchGamerTag)
       .filter(data => data.length > 0)
       .switchMap((playerData) => Observable.forkJoin([Observable.of(playerData), this.getOverwatchHeroData()]))
@@ -295,7 +75,12 @@ export class AppComponent implements OnDestroy {
         type: 'GET_SNAPSHOT_DATA',
         payload: players[tag].snapshotStatistics[players[tag].snapshotStatistics.length - 1]
       }));
-      // .do(playersData => this.store.dispatch({ type: 'GET_PLAYER_DATA', payload: playerData })) //not needed
+  }
+
+  getHeroes() {
+    return this.apollo.query<HeroesSearchResponse>({ query: heroSearchQuery })
+      .filter(s => !!s.data.heroes)
+      .subscribe(s => this.store.dispatch({ type: 'GET_HEROES_DATA', payload: s.data.heroes }));
   }
 
   ngOnDestroy() {

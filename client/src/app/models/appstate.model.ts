@@ -1,5 +1,5 @@
 import { RouterState } from '@ngrx/router-store';
-import { Player, SnapshotStats, Search } from './index';
+import { Player, SnapshotStats, Search, Heroes, CurrentHero } from './index';
 import * as fromCollection from '../reducers';
 
 export interface AppState {
@@ -9,4 +9,6 @@ export interface AppState {
   router?: RouterState;
   search?: Search;
   snapshotStats?: SnapshotStats;
+  heroes?: Heroes;
+  currentHero?: CurrentHero;
 }

@@ -1,7 +1,7 @@
 import { AppState } from './appstate.model';
 
 export interface Player extends AppState {
-  id: number;
+  id?: number;
   updatedAt: string;
   totalGamesWon: number;
   tag: string;
@@ -23,7 +23,7 @@ export interface SnapshotStats extends Player {
   updatedAt: string;
   isCompetitive: boolean;
   insertedAt: string;
-  id: number;
+  id?: number;
   heroSnapshotStatistics: HeroSnapshotStats[];
   gamerTagId: number;
   allHeroesSnapshotStatistic: HeroSnapshotStats;
@@ -33,7 +33,7 @@ export interface HeroSnapshotStats extends SnapshotStats {
   snapshotStatisticId: number;
   matchAwardsStatisticId: number;
   matchAwardsStatistic: MatchAwardsStats;
-  id: number;
+  id?: number;
   heroSpecificStatisticId: number;
   heroId: number;
   hero: Hero;
@@ -50,7 +50,7 @@ export interface HeroSnapshotStats extends SnapshotStats {
 export interface MatchAwardsStats extends HeroSnapshotStats {
   totalMedals: number;
   silverMedals: number;
-  id: number;
+  id?: number;
   goldMedals: number;
   cards: number;
   bronzeMedals: number;
@@ -60,7 +60,7 @@ export interface Hero extends HeroSnapshotStats {
   updatedAt: string;
   name: string;
   insertedAt: string;
-  id: number;
+  id?: number;
   code: string;
 }
 
@@ -68,7 +68,7 @@ export interface GameHistoryStats extends HeroSnapshotStats {
   winPercentage: string;
   timeSpentOnFire: number;
   timePlayed: number;
-  id: number;
+  id?: number;
   gamesWon: number;
   gamesPlayed: number;
   gamesLost: number;
@@ -121,7 +121,7 @@ export interface CombatBestStats extends HeroSnapshotStats {
   meleeFinalBlowsMostInLife: number;
   meleeFinalBlowsMostInGame: number;
   killStreakBest: number;
-  id: number;
+  id?: number;
   healingDoneMostInLife: number;
   healingDoneMostInGame: number;
   finalBlowsMostInGame: number;
@@ -144,7 +144,7 @@ export interface CombatAverageStats extends HeroSnapshotStats {
   objectiveKillsAverage: string;
   meleeKillsAverage: string;
   meleeFinalBlowsAverage: string;
-  id: number;
+  id?: number;
   healingDoneAverage: string;
   finalBlowsAverage: string;
   eliminationsAverage: string;
@@ -153,4 +153,13 @@ export interface CombatAverageStats extends HeroSnapshotStats {
   damageDoneAverage: string;
   damageBlockedAverage: string;
   criticalHitsAveragePercentage: string;
+}
+
+export interface CurrentHero {
+  matchAwardsStatistic: MatchAwardsStats;
+  hero: Hero;
+  gameHistoryStatistic: GameHistoryStats;
+  combatLifetimeStatistic: CombatLifetimeStats;
+  combatBestStatistic: CombatBestStats;
+  combatAverageStatistic: CombatAverageStats;
 }

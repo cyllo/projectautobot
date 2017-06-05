@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CurrentHero } from '../../../models';
 
 @Component({
   selector: 'ow-hero-page-tabs',
@@ -7,7 +8,20 @@ import { Component } from '@angular/core';
 })
 
 export class HeroPageTabsComponent {
+  _currentHero: CurrentHero;
 
-  constructor() { }
+  constructor() {}
+
+  @Input()
+  set currentHero($currentHero) {
+    if (!$currentHero) {
+      return;
+    }
+    this._currentHero = $currentHero;
+  }
+
+  get currentHero() {
+    return this._currentHero
+  }
 
 }

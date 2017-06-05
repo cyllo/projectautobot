@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'following', component: FollowingComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'heroes', component: HeroesComponent },
-  { path: 'hero', component: HeroComponent },
+  { path: 'hero/:hero', component: HeroComponent },
   { path: 'esports', component: ESportsComponent },
   { path: 'live', component: LiveComponent },
   { path: 'news', component: NewsComponent },

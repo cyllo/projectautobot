@@ -24,7 +24,7 @@ import {
 import { routing } from './app.routing';
 import { OrderByPipe } from './pipes';
 import { PlayersService } from './services';
-import { players, playerData, playerDataCollection, searchPlayerTag } from './reducers';
+import { players, playerData, playerDataCollection, searchPlayerTag, heroesData, currentHeroData } from './reducers';
 import { SharedModule } from './shared';
 import { PagesModule } from './pages';
 import { snapshotData } from './reducers/snapshot.reducer';
@@ -48,7 +48,9 @@ export function instrumentOptions() {
       playerDataCollection: playerDataCollection,
       router: routerReducer,
       search: searchPlayerTag,
-      snapshotStats: snapshotData
+      snapshotStats: snapshotData,
+      heroes: heroesData,
+      currentHero: currentHeroData
     }, {
       playerData: {},
       players: [],

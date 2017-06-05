@@ -1,4 +1,4 @@
-<div class="row mb-3">
+<div class="row mb-3" *ngIf="_currentHero.hero">
   <div class="col-12">
     <div class="content rounded px-3 pt-3">
       <div class="row align-items-center">
@@ -20,7 +20,7 @@
               <!-- end .row -->
               <div class="row">
                 <div class="col-12">
-                  <span class="h2 font-weight-bold mb-0 text-uppercase">Widowmaker</span>
+                  <span class="h2 font-weight-bold mb-0 text-uppercase">{{ _currentHero.hero.name }}</span>
                 </div>
                 <!-- end .col -->
               </div>
@@ -109,9 +109,15 @@
               <!-- end .row -->
               <div class="row">
                 <div class="col-12">
-                  <span class="d-inline-block small px-2 py-1 mr-1 mb-1 rounded medal gold">1.69</span>
-                  <span class="d-inline-block small px-2 py-1 mr-1 mb-1 rounded medal silver">1.69</span>
-                  <span class="d-inline-block small px-2 py-1 mr-1 mb-1 rounded medal bronze">1.69</span>
+                  <span class="d-inline-block small px-2 py-1 mr-1 mb-1 rounded medal gold">
+                    {{ _currentHero.matchAwardsStatistic.goldMedals }}
+                  </span>
+                  <span class="d-inline-block small px-2 py-1 mr-1 mb-1 rounded medal silver">
+                    {{ _currentHero.matchAwardsStatistic.silverMedals }}
+                  </span>
+                  <span class="d-inline-block small px-2 py-1 mr-1 mb-1 rounded medal bronze">
+                    {{ _currentHero.matchAwardsStatistic.bronzeMedals }}
+                  </span>
                 </div>
                 <!-- end .col -->
               </div>

@@ -1,18 +1,18 @@
-<div class="hero mt-3">
+<div class="hero mt-3" *ngIf="$currentHero">
   <!--<ow-platform-region></ow-platform-region>-->
   <!-- end ow-platform-region -->
-  <ow-hero-header></ow-hero-header>
+  <ow-hero-header [currentHero]="$currentHero"></ow-hero-header>
   <!-- end ow-hero-header -->
   <div class="row mb-3">
     <div class="col-12">
       <div class="content rounded px-3 pt-3">
-        <ow-hero-skills></ow-hero-skills>
+        <ow-hero-skills [currentHero]="$currentHero"></ow-hero-skills>
         <!-- end ow-hero-skills -->
-        <ow-hero-synergy-counter></ow-hero-synergy-counter>
+        <ow-hero-synergy-counter [currentHero]="$currentHero"></ow-hero-synergy-counter>
         <!-- end ow-hero-synergy-counter -->
-        <ow-hero-page-tabs></ow-hero-page-tabs>
+        <ow-hero-page-tabs [currentHero]="$currentHero"></ow-hero-page-tabs>
         <!-- end ow-hero-page-tabs -->
-        <ow-hero-catalog></ow-hero-catalog>
+        <ow-hero-catalog [currentHero]="$currentHero"></ow-hero-catalog>
         <!-- end ow-hero-catalog-->
       </div>
       <!-- end .content -->

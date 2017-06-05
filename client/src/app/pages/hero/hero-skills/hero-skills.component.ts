@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CurrentHero } from '../../../models';
 
 @Component({
   selector: 'ow-hero-skills',
@@ -9,6 +10,20 @@ export class HeroSkillsComponent {
 
   public skills: Array<any> = [0, 1, 2, 3];
 
-  constructor() { }
+  _currentHero: CurrentHero;
+
+  constructor() {}
+
+  @Input()
+  set currentHero($currentHero) {
+    if (!$currentHero) {
+      return;
+    }
+    this._currentHero = $currentHero;
+  }
+
+  get currentHero() {
+    return this._currentHero
+  }
 
 }
