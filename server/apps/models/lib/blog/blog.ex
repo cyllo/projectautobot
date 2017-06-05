@@ -11,6 +11,13 @@ defmodule Models.Blog do
       |> Enum.reverse
   end
 
+  def find_post(%{title: title}) do
+    case from(p in Post, where: fragment("lower(?)", p.title) == ^String.downcase(title)) |> Repo.one do
+      post -> {:ok, post}
+      nil -> {:error, "post with title \"#{title}\" not found"}
+    end
+  end
+
   Models.Model.create_model_methods(Post)
 
   def create_post(title, content) do

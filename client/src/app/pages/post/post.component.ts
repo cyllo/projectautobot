@@ -13,9 +13,9 @@ import { PostService } from './post.service'
   providers: [PostService]
 })
 export class PostComponent implements AfterViewInit, AfterViewChecked, OnDestroy, OnInit {
-  @ViewChild('postsidebar') elPostSideBar;
+  @ViewChild('postsidebar') public elPostSideBar;
 
-  public post: BlogPost
+  public post: BlogPost = <BlogPost>{}
   private elMainNav;
   private sub: Subscription
 
@@ -28,7 +28,6 @@ export class PostComponent implements AfterViewInit, AfterViewChecked, OnDestroy
   ngOnInit() {
     this.sub = this.route.params
       .mergeMap(({title}) => this.postService.getPost(title))
-      .mergeMapTo(this.postService.post$)
       .subscribe((post) => this.post = post)
   }
 

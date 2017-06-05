@@ -58,13 +58,13 @@ defmodule Api.Schema do
     end
 
     field :blog_post, :blog_post do
-      arg :id, non_null(:integer)
+      arg :id, :integer
+      arg :title, :string
 
       resolve &BlogResolver.find/2
     end
 
     field :blog_posts, list_of(:blog_post) do
-      arg :title, :string
       arg :last, :integer
 
       resolve &BlogResolver.all/2
