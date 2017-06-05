@@ -17,5 +17,5 @@ export function searchPlayerTag(state: Search = initialState, { type, payload })
 }
 
 export function searchGamerTag(state$: Observable<Search>) {
-  return state$.select(state => state.search.tag);
+  return state$.select(search => search.tag);
 }

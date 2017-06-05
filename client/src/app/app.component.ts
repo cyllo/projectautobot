@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash';
 import { Apollo } from 'apollo-angular';
 import { Http } from '@angular/http';
 
-import { AppState, Player, Heroes } from './models';
+import { Player, Heroes } from './models';
 import { getPlayerData, searchGamerTag } from './reducers';
 
 import '../style/app.scss';
@@ -31,11 +31,11 @@ interface HeroesSearchResponse {
 export class AppComponent implements OnDestroy {
   sub: Subscription;
   players: Observable<Player[]>;
-  $state: Observable<AppState>;
+  $state: Observable<any>;
   searchResults = new Subject<Player[]>();
   isResultsOpen = false;
 
-  constructor(private store: Store<AppState>, private apollo: Apollo, private http: Http) {
+  constructor(private store: Store<any>, private apollo: Apollo, private http: Http) {
 
     this.$state = this.store.select(s => s);
 
