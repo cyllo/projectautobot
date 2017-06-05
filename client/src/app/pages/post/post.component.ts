@@ -1,24 +1,16 @@
-import { Component, ViewChild, Renderer2, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { HostListener, Component, ViewChild, Renderer2, AfterViewInit, AfterViewChecked } from '@angular/core';
 
 @Component({
   selector: 'ow-post',
   templateUrl: 'post.component.html',
   styleUrls: [ 'post.component.scss' ]
 })
-export class PostComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export class PostComponent implements AfterViewInit, AfterViewChecked {
   @ViewChild('postsidebar') elPostSideBar;
 
   private elMainNav;
 
   constructor( private renderer: Renderer2 ) {}
-
-  ngOnInit() {
-    // Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    // Add 'implements OnInit' to the class.
-    this.renderer.listen('window', 'scroll', ( event ) => { this.onScroll(event); });
-    this.renderer.listen('window', 'resize', ( event ) => { this.onResize(event); });
-    this.renderer.listen('window', 'DOMContentLoaded', ( event ) => { this.onDOMLoaded(event); });
-  }
 
   ngAfterViewInit() {
     // Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
@@ -32,16 +24,19 @@ export class PostComponent implements OnInit, AfterViewInit, AfterViewChecked {
     this.updateMainNavOffset();
   }
 
+  @HostListener('window.scroll')
   onScroll( event ) {
     this.updateMainNavOffset();
     event.preventDefault();
   }
 
+  @HostListener('window.resize')
   onResize( event ) {
     this.updateMainNavOffset();
     event.preventDefault();
   }
 
+  @HostListener('window.DOMContentLoaded')
   onDOMLoaded( event ) {
     this.updateMainNavOffset();
     event.preventDefault();

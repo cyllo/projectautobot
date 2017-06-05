@@ -24,7 +24,7 @@ import {
 import { routing } from './app.routing';
 import { OrderByPipe } from './pipes';
 import { PlayersService } from './services';
-import { players, playerData, playerDataCollection, searchPlayerTag, heroesData, currentHeroData } from './reducers';
+import { players, playerData, playerDataCollection, searchPlayerTag, heroesData, currentHeroData, blogPosts } from './reducers';
 import { SharedModule } from './shared';
 import { PagesModule } from './pages';
 import { snapshotData } from './reducers/snapshot.reducer';
@@ -43,15 +43,17 @@ export function instrumentOptions() {
     ApolloModule.forRoot(() => new ApolloClient()),
     StoreDevtoolsModule.instrumentStore(instrumentOptions),
     StoreModule.provideStore({
-      playerData: playerData,
-      players: players,
-      playerDataCollection: playerDataCollection,
+      blogPosts,
+      playerData,
+      players,
+      playerDataCollection,
       router: routerReducer,
       search: searchPlayerTag,
       snapshotStats: snapshotData,
       heroes: heroesData,
       currentHero: currentHeroData
     }, {
+      blogPost: {},
       playerData: {},
       players: [],
       router: {},
