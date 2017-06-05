@@ -1,5 +1,6 @@
 defmodule Models.Accounts.User do
   alias Models.Accounts.{User, Follower, Friendship}
+  alias Models.Game
   alias Models.Game.GamerTag
   alias Comeonin.Pbkdf2
 
@@ -10,17 +11,23 @@ defmodule Models.Accounts.User do
     field :email, :string
     field :password, :string, virtual: true
     field :password_hash, :string
+    field :is_admin, :boolean, default: false
     has_many :friends, Friendship
     has_many :gamer_tags, GamerTag
     many_to_many :followers, User, join_through: "followers",
                                    join_keys: [user_id: :id, follower_id: :id],
                                    unique: true
 
+    many_to_many :gamer_tags_following, GamerTag, join_through: "gamer_tag_user_followers",
+                                                  join_keys: [user_id: :id, gamer_tag_id: :id],
+                                                  on_delete: :delete_all,
+                                                  unique: true
+
     timestamps()
   end
 
-  @required_fields [:username, :email, :password]
-  @allowed_fields Enum.concat(@required_fields, [])
+  @required_fields [:username, :email]
+  @allowed_fields Enum.concat(@required_fields, [:password])
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -32,6 +39,7 @@ defmodule Models.Accounts.User do
       |> unique_constraint(:username, name: :users_username_index)
       |> unique_constraint(:email, name: :users_email_index)
       |> validate_length(:password, min: 3, max: 100)
+      |> put_gamer_tags_following
       |> put_password
   end
 
@@ -53,9 +61,24 @@ defmodule Models.Accounts.User do
   """
   def has_correct_pw?(%User{} = user, password), do: Pbkdf2.checkpw(password, user.password_hash)
 
+  defp put_gamer_tags_following(changeset) do
+    gamer_tags_following_ids = changeset.params["gamer_tags_following"]
+
+    if gamer_tags_following_ids do
+      import IEx
+      IEx.pry
+      changeset
+        |> put_assoc(:gamer_tags_following, Game.get_gamer_tags_by_ids(gamer_tags_following_ids))
+    else
+      changeset
+    end
+  end
+
   defp put_password(changeset) do
-    if (changeset.valid?) do
-      password_hash = Pbkdf2.hashpwsalt(changeset.params["password"])
+    password = changeset.params["password"]
+
+    if (password && changeset.valid?) do
+      password_hash = Pbkdf2.hashpwsalt(password)
 
       put_change(changeset, :password_hash, password_hash)
     else

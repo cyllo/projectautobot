@@ -18,6 +18,8 @@ defmodule Models.Game.ConnectedGamerTag do
     struct
       |> cast(params, @required_fields)
       |> validate_required(@required_fields)
+      |> unique_constraint(:gamer_tag1_id, name: :connected_gamer_tags_pkey,
+                                           message: "#{params.gamer_tag1_id} is already connected to gamer_tag_id #{params.gamer_tag2_id}")
   end
 
   def create_changeset(params), do: changeset(%ConnectedGamerTag{}, params)

@@ -1,5 +1,5 @@
 defmodule Api.UserResolver do
-  alias Models.Accounts
+  alias Models.{Accounts, Game}
 
   def create(params, _info), do: Accounts.create_user(params)
   def find(%{identifier: identifier}, _info), do: Accounts.find_user_by_email_or_username(identifier)
@@ -14,6 +14,9 @@ defmodule Api.UserResolver do
       {:error, "cannot setup followers for other user"}
     end
   end
+
+  def follow_gamer_tag(%{gamer_tag_id: id}, %{context: %{current_user: current_user}}), do: Game.create_gamer_tag_follower(current_user, id)
+  def follow_gamer_tag(_, _), do: {:error, "Must be logged in and provider gamer_tag_id"}
 
   defp get_and_follow_user(id, following_id) do
     with [user, following_user] <- Accounts.get_users_by_ids([id, following_id]),

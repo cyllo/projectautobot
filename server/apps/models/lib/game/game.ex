@@ -1,6 +1,6 @@
 defmodule Models.Game do
   use Models.Model
-  alias Models.Game.{Hero, GamerTag, ConnectedGamerTag}
+  alias Models.Game.{Hero, GamerTag, ConnectedGamerTag, GamerTagUserFollower}
   alias Models.{Repo, Model}
 
   @statistic_relations [
@@ -46,6 +46,30 @@ defmodule Models.Game do
       end)
   end
 
+  def create_gamer_tag_follower(user, gamer_tag_id) do
+    with {:ok, gamer_tag} <- get_gamer_tag(gamer_tag_id),
+         {:ok, _} <- create_gamer_tag_user_follower(gamer_tag.id, user.id) do
+      {:ok, %{user: user, gamer_tag: gamer_tag}}
+    end
+  end
+
+  def get_gamer_tag_user_follower(gamer_tag_id, user_id) do
+    from(gtuf in GamerTagUserFollower, preload: [:gamer_tag, :user],
+                                       where: gtuf.gamer_tag_id == ^gamer_tag_id and gtuf.user_id == ^user_id)
+      |> Repo.one
+  end
+
+  defp create_gamer_tag_user_follower(gamer_tag_id, user_id) do
+    #HACK Need to get rid of check with unique constraint fix
+    # case get_gamer_tag_user_follower(gamer_tag_id, user_id) do
+    #   nil ->
+        GamerTagUserFollower.create_changeset(%{gamer_tag_id: gamer_tag_id, user_id: user_id})
+          |> Repo.insert
+      # _ -> {:error, "User ID #{user_id} is already following Gamer Tag ID #{gamer_tag_id}"}
+    # end
+  end
+
+
   def get_or_insert_connected_gamer_tag(gamer_tag, connected_tag) do
     {:ok, connected_tag} = case find_gamer_tag(connected_tag) do
       {:error, _} -> create_gamer_tag(connected_tag)
@@ -71,9 +95,16 @@ defmodule Models.Game do
   end
 
   def get_all_gamer_tags_with_platform_region([head|tail]) when is_map(head) do
-    Enum.reduce(tail, Ecto.Query.where(GamerTag, ^Map.to_list(head)), fn params, query ->
-      query |> Ecto.Query.or_where(^Map.to_list(params))
+    Enum.reduce(tail, Ecto.Query.where(GamerTag, ^platform_region_to_list(head)), fn params, query ->
+      query |> Ecto.Query.or_where(^platform_region_to_list(params))
     end) |> Ecto.Query.order_by(asc: :id) |> Repo.all
+  end
+
+  defp platform_region_to_list(%{platform: platform, region: region}), do: [platform: platform, region: region]
+
+  def get_all_gamer_tags_by_ids(ids) do
+    from(gt in GamerTag, where: gt.id in ^ids)
+      |> Repo.all
   end
 
   def get_gamer_tag_with_snapshots(id) do

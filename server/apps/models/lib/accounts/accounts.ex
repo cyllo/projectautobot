@@ -1,6 +1,7 @@
 defmodule Models.Accounts do
   alias Models.Accounts.{User, Follower}
-  alias Models.{Repo, Model}
+  alias Models.{Game, Repo, Model}
+  alias Models.Game.GamerTagUserFollower
   use Models.Model
 
   Model.create_model_methods(User)

@@ -118,7 +118,7 @@ defmodule Api.Schema do
     end
 
     @desc "Follows a user"
-    field :follow_user, :following_result do
+    field :follow_user, :follow_user_result do
       arg :id, non_null(:integer)
       arg :following_id, non_null(:integer)
 
@@ -131,7 +131,15 @@ defmodule Api.Schema do
       arg :title, non_null(:string)
       arg :content, non_null(:string)
 
+      middleware Middleware.Auth, admin_only: true
       resolve &BlogResolver.create/2
+    end
+
+    field :follow_gamer_tag, :follow_gamer_tag_result do
+      arg :gamer_tag_id, non_null(:integer)
+
+      middleware Middleware.Auth
+      resolve &UserResolver.follow_gamer_tag/2
     end
   end
 
