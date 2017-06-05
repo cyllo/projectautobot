@@ -81,8 +81,13 @@ export class ChartComponent implements OnInit {
       maintainAspectRatio: true // Maintain the original canvas aspect ratio (width / height) when resizing
     };
 
+    this.setStyle();
+
+  }
+
+  setStyle() {
     switch (this.owChartType) {
-      case ("line"):
+      case ('line'):
         this.chartOptions = Object.assign({}, this.chartOptions, {
           scales: {
             yAxes: [{
@@ -113,19 +118,19 @@ export class ChartComponent implements OnInit {
             }]
           }
         });
+        break;
       default:
         // do nothing
     }
-
-    console.log(this.chartOptions);
-
   }
 
   // events
   public chartClicked(e: any): void {
     console.log(e);
   }
+
   public chartHovered(e: any): void {
     console.log(e);
   }
+
 }

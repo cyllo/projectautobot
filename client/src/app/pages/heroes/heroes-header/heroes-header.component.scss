@@ -1,0 +1,16 @@
+:host /deep/ .heroes-header {
+  .dropdown-toggle::after {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-right: 8%;
+    transform: translateY(-50%);
+  }
+  .dropdown,
+  .dropdown-menu {
+    width: 100%;
+  }
+  button {
+    width: 100%;
+  }
+}

@@ -35,7 +35,9 @@ import {
   CompareHeaderComponent,
   CompareProfileListComponent,
   CompareChartCategoryComponent,
-  StatCategoryBlockComponent
+  StatCategoryBlockComponent,
+  HeroesHeaderComponent,
+  HeroesTableComponent
 } from './index';
 
 @NgModule({
@@ -78,6 +80,8 @@ import {
     CompareProfileListComponent,
     CompareChartCategoryComponent,
     StatCategoryBlockComponent,
+    HeroesHeaderComponent,
+    HeroesTableComponent
   ],
   exports: [
     HomeComponent,
