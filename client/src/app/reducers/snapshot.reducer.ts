@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs/Observable';
-import { SnapshotStats } from '../models';
+import { AppState, SnapshotStats } from '../models';
 
 export function snapshotData(state: SnapshotStats, { type, payload }: { type: string, payload?: any }) {
   switch (type) {
@@ -11,6 +11,6 @@ export function snapshotData(state: SnapshotStats, { type, payload }: { type: st
   }
 }
 
-export function getSnapshot(state$: Observable<SnapshotStats>) {
+export function getSnapshot(state$: Observable<AppState>) {
   return state$.select(state => state.players[0].snapshotStatistics);
 }
