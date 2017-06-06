@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash';
 import { Apollo } from 'apollo-angular';
 import { Http } from '@angular/http';
 
-import { Player, Heroes } from './models';
+import { AppState, Player, Heroes } from './models';
 import { getPlayerData, searchGamerTag } from './reducers';
 
 import '../style/app.scss';
@@ -31,11 +31,11 @@ interface HeroesSearchResponse {
 export class AppComponent implements OnDestroy {
   sub: Subscription;
   players: Observable<Player[]>;
-  $state: Observable<any>;
+  $state: Observable<AppState>;
   searchResults = new Subject<Player[]>();
   isResultsOpen = false;
 
-  constructor(private store: Store<any>, private apollo: Apollo, private http: Http) {
+  constructor(private store: Store<AppState>, private apollo: Apollo, private http: Http) {
 
     this.$state = this.store.select(s => s);
 
@@ -64,11 +64,11 @@ export class AppComponent implements OnDestroy {
       .filter(data => data.length > 0)
       .switchMap((playerData) => Observable.forkJoin([Observable.of(playerData), this.getOverwatchHeroData()]))
       .map(([_playerdata, owHeroData]) => {
-          return _playerdata.map(player => Object.assign({}, player, {
-            snapshotStatistics: player.snapshotStatistics
-              .map(this.addHeroDataToSnapshot(owHeroData))
-          }));
-        })
+        return _playerdata.map(player => Object.assign({}, player, {
+          snapshotStatistics: player.snapshotStatistics
+          .map(this.addHeroDataToSnapshot(owHeroData))
+        }));
+      })
       .map((playersData) => playersData.reduce((acc, player) => Object.assign(acc, {[player.tag]: player}), {}))
       .do((players) => this.store.dispatch({ type: 'ADD_PLAYER', payload: players }))
       .do((players) => this.store.dispatch({

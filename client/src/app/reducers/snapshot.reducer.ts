@@ -12,5 +12,5 @@ export function snapshotData(state: SnapshotStats, { type, payload }: { type: st
 }
 
 export function getSnapshot(state$: Observable<SnapshotStats>) {
-  return state$.select(players => players[0].snapshotStatistics);
+  return state$.select(state => state.players[0].snapshotStatistics);
 }

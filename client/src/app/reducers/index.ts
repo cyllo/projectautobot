@@ -14,7 +14,7 @@ export * from './current-hero.reducer';
 export * from './blog-post.reducer'
 
 export function getPlayerDataCollectionState(state$: Observable<AppState>) {
-  return state$.select(state => state.playerDataCollection);
+  return state$.select(playerDataCollection => playerDataCollection);
 }
 
 export const getPlayerDataCollectionLoaded = compose(fromPlayerDataCollection.getLoaded, getPlayerDataCollectionState);
@@ -22,7 +22,7 @@ export const getPlayerDataCollectionLoading = compose(fromPlayerDataCollection.g
 export const getPlayerDataCollectionGamerTags = compose(fromPlayerDataCollection.getGamerTags, getPlayerDataCollectionState);
 
 export function getPlayerData(state$: Observable<AppState>) {
-  return state$.select(state => state.players);
+  return state$.select(players => players);
 }
 
 export const getPlayerGamerTag = compose(fromPlayerData.getGamerTag, getPlayerData);
