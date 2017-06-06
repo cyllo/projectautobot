@@ -16,7 +16,7 @@ defmodule Scraper.ProfileSearcher do
       |> deserialize_profiles_response
   end
 
-  def find_saved_tag(tag), do: Game.get_all_gamer_tags(tag: tag)
+  def find_saved_tag(tag), do: Game.get_all_gamer_tags(tag: Scraper.Helpers.normalize_gamer_tag(tag))
 
   defp fetch_profile_possibility(profile_url) do
     case HTTPoison.get(profile_url, [], timeout: @search_timeout) do
