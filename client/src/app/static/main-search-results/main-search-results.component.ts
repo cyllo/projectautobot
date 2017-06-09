@@ -32,13 +32,16 @@ export class MainSearchResultsComponent {
   }
 
   onSelect(result: Player) {
-    this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: { tag: this.search.tag, searching: false } });
+    console.log(result);
+    let newPayload = Object.assign({}, {[result.tag]: result});
+    this.store.dispatch({ type: 'ADD_PLAYER', payload: newPayload });
+    // this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: { tag: this.search.tag, searching: false } });
     this.redirect(result);
   }
 
   redirect(data: Player) {
     if (data.region) {
-      this.router.navigate(['./profile', data.platform, data.region, data.tag]);
+      this.router.navigate(['./profile', data.platform, data.region, data.tag, data.id]);
     } else {
       this.router.navigate(['./profile', data.platform, data.tag]);
     }

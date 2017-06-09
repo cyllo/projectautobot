@@ -69,12 +69,12 @@ export class AppComponent implements OnDestroy {
           .map(this.addHeroDataToSnapshot(owHeroData))
         }));
       })
-      .map((playersData) => playersData.reduce((acc, player) => Object.assign(acc, {[player.tag]: player}), {}))
-      .do((players) => this.store.dispatch({ type: 'ADD_PLAYER', payload: players }))
-      .do((players) => this.store.dispatch({
-        type: 'GET_SNAPSHOT_DATA',
-        payload: players[tag].snapshotStatistics[players[tag].snapshotStatistics.length - 1]
-      }));
+      .map((playersData) => playersData.reduce((acc, player) => Object.assign(acc, {[player.id]: player}), {}))
+      .do((players) => this.store.dispatch({ type: 'ADD_PLAYER', payload: players }));
+      // .do((players) => this.store.dispatch({
+      //   type: 'GET_SNAPSHOT_DATA',
+      //   payload: players[tag].snapshotStatistics[players[tag].snapshotStatistics.length - 1]
+      // }));
   }
 
   getHeroes() {
