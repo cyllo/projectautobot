@@ -1,6 +1,6 @@
 defmodule Models.HeroesCache do
   alias Models.{HeroesCache, Game, Helpers}
-  import Logger
+  import Logger, only: [debug: 1]
 
   def is_not_in_cache?(%{name: name}) do
     if cache() do
@@ -31,7 +31,7 @@ defmodule Models.HeroesCache do
   end
 
   def add_heroes_to_cache(heroes) do
-    Logger.debug "Adding to hero cache #{inspect heroes}"
+    debug "Adding to hero cache #{inspect heroes}"
 
     cache_length = HeroesCache.cache_length()
     hero_names = get_hero_names(heroes)

@@ -57,5 +57,5 @@ defmodule Models.Game do
       |> Map.put(:updated_at, NaiveDateTime.utc_now)
   end
 
-  defp slug_gamer_tag(gamer_tag), do: String.replace(~r/(.*)#(.*)/, gamer_tag, "\0-\1")
+  defp slug_gamer_tag(gamer_tag), do: String.replace(~r/(.*)-(.*)/, gamer_tag, "\0#\1")
 end

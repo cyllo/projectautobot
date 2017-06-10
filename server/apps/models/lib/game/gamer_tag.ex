@@ -1,6 +1,7 @@
 defmodule Models.Game.GamerTag do
   use Models.Model
   alias Models.Game.GamerTag
+  alias Models.Helpers
 
   schema "gamer_tags" do
     field :tag, :string
@@ -42,6 +43,7 @@ defmodule Models.Game.GamerTag do
       |> validate_region
       |> unique_constraint(:tag, name: :tag_platform_region_index)
       |> cast_assoc(:user)
+      |> update_change(:tag, &Helpers.normalize_gamer_tag/1)
   end
 
   def create_changeset(params), do: changeset(%GamerTag{}, params)

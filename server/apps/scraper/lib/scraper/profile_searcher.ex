@@ -2,6 +2,7 @@ defmodule Scraper.ProfileSearcher do
   alias Scraper.ProfileUrl
   alias Scraper.DataProcessor.{Helpers, UserInfo}
   alias Models.Game
+  alias Models.Helpers, as: ModelHelpers
 
   @platform_possibilities ["xbl", "psn", "pc"]
   @pc_regions ["us", "eu", "kr"]
@@ -16,7 +17,7 @@ defmodule Scraper.ProfileSearcher do
       |> deserialize_profiles_response
   end
 
-  def find_saved_tag(tag), do: Game.get_all_gamer_tags(tag: Scraper.Helpers.normalize_gamer_tag(tag))
+  def find_saved_tag(tag), do: Game.get_all_gamer_tags(tag: ModelHelpers.normalize_gamer_tag(tag))
 
   defp fetch_profile_possibility(profile_url) do
     case HTTPoison.get(profile_url, [], timeout: @search_timeout) do
@@ -39,10 +40,17 @@ defmodule Scraper.ProfileSearcher do
 
   defp parse_profile(html_src, profile_url), do: Map.merge(UserInfo.user_info(html_src), ProfileUrl.get_info_from_url(profile_url))
 
+  defp get_gamer_tag_find_params(%{tag: tag, platform: platform, region: region}), do: [
+    tag: ModelHelpers.normalize_gamer_tag(tag),
+    platform: platform,
+    region: region
+  ]
+
   defp load_gamer_tag(params) do
-    case params |> Map.take([:tag, :platform, :region]) |> Game.find_gamer_tag do
+    case params |> get_gamer_tag_find_params |> Game.find_gamer_tag do
       {:error, _} ->
         {:ok, gamer_tag} = Game.create_gamer_tag(params)
+
         gamer_tag
 
       {:ok, gamer_tag} -> gamer_tag

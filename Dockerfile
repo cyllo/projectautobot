@@ -21,34 +21,14 @@ RUN \
   apt-get update && \
   apt-get install -y esl-erlang elixir build-essential openssh-server git
 
-RUN \
-  apt-get update && \
-  curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
-  apt-get install -y nodejs
-
-RUN \
-  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-  echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 ENV PATH $HOME/.cargo/bin:$PATH
 
 RUN mix local.hex --force
 RUN mix local.rebar --force
 
-# Client
-RUN apt-get update && apt-get install yarn
-
-COPY ./client/package.json /home/client/package.json
-RUN cd /home/client && NODE_ENV=development yarn
-COPY ./client /home/client
-RUN cd /home/client && npm run build
-
-COPY ./scripts/move-client.sh home/scripts/
-RUN /home/scripts/move-client.sh
-
 # SERVER
 COPY ./server /home/server
 RUN cd /home/server && mix deps.get
-RUN cd /home/server && PATH=$HOME/.cargo/bin:$PATH mix release --env=prod
+RUN cd /home/server && PATH=$HOME/.cargo/bin:$PATH MIX_ENV=prod mix release --env=prod
 

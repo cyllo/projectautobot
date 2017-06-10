@@ -1,8 +1,10 @@
 #! /usr/bin/env bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT_DIR=$DIR/..
+NODE_ENV='development'
 
 pushd $ROOT_DIR &&
+cd client && npm i && npm run build && cd .. && ./scripts/move-client.sh &&
 docker build -t stp . &&
 docker rm stp-container || true &&
 docker create --name stp-container stp &&

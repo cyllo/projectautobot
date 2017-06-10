@@ -8,8 +8,8 @@ defmodule Api.Web.Endpoint do
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :api, gzip: false,
-    only: ~w(css fonts img js favicon.ico temp service-worker.js)
+    at: "/", from: :api, gzip: true,
+    only: ~w(css fonts img js lib favicon.ico temp service-worker.js)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
