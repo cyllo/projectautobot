@@ -1,0 +1,18 @@
+@import "../../../style/colors";
+.news {
+    ul.news-posts-categories {
+        list-style-type: none;
+        padding: 0;
+        li {
+            border-bottom: 1px dotted $gray-lighter;
+            a {
+                color: $brand-primary;
+            }
+        }
+    }
+    .sidebar {
+        border-left: 1px solid $gray-lighter;
+    }
+
+
+}

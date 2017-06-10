@@ -24,6 +24,7 @@ export class MainSearchResultsComponent {
       this.search = s.search;
       this.isOpen = this.search.searching;
       this.cd.markForCheck();
+      console.log('search: ', s);
     });
   }
 
@@ -46,4 +47,5 @@ export class MainSearchResultsComponent {
       this.router.navigate(['./profile', data.platform, data.tag]);
     }
   }
+
 }

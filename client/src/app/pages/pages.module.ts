@@ -37,7 +37,9 @@ import {
   CompareChartCategoryComponent,
   StatCategoryBlockComponent,
   HeroesHeaderComponent,
-  HeroesTableComponent
+  HeroesTableComponent,
+  NewsPostCardComponent,
+  PageNotFoundComponent
 } from './index';
 
 @NgModule({
@@ -81,7 +83,9 @@ import {
     CompareChartCategoryComponent,
     StatCategoryBlockComponent,
     HeroesHeaderComponent,
-    HeroesTableComponent
+    HeroesTableComponent,
+    NewsPostCardComponent,
+    PageNotFoundComponent
   ],
   exports: [
     HomeComponent,

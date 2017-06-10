@@ -11,7 +11,8 @@ import {
   PostComponent,
   FriendsComponent,
   ProfileComponent,
-  CompareComponent
+  CompareComponent,
+  PageNotFoundComponent
 } from './pages';
 
 const routes: Routes = [
@@ -27,7 +28,9 @@ const routes: Routes = [
   { path: 'friends', component: FriendsComponent },
   { path: 'profile/:platform/:region/:tag/:id', component: ProfileComponent },
   { path: 'profile/:platform/:tag', component: ProfileComponent },
-  { path: 'compare' , component: CompareComponent }
+  { path: 'compare' , component: CompareComponent },
+  { path: '404' , component: PageNotFoundComponent },
+  { path: '**', redirectTo: '/404' }
 ];
 
 export const routing = RouterModule.forRoot(routes);

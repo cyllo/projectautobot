@@ -1,35 +1,53 @@
 <div class="news pt-3">
 
-  <ow-top-news [posts]='news.posts$ | async'></ow-top-news>
-  <!-- ow-news-reel -->
+  <ow-top-news></ow-top-news>
+  <!-- ow-top-news -->
 
-</div>
-<!-- end .home -->
+  <div class="row mb-3">
+    <div class="col-12">
+      <div class="content rounded px-3 pt-3">
+      
+        <div class="row">
 
-<!--
-<div class="row pr-3">
-  <div class="col-12">
-    <p class="h5">NEWS</p>
-    <form [formGroup]="questionForm">
-      <div class="row">
-        <div class="col-2">
-          <ow-select #category></ow-select>
+
+          <div class="col-lg-8 col-12">
+          
+            <ow-news-post-card></ow-news-post-card>
+            <!-- end ow-news-post-card -->
+
+          </div>
+          <!-- end .col -->
+
+          <div class="col-md-4 hidden-md-down sidebar mb-3">
+
+            <section class="row">
+              <div class="col-12 mb-1">
+                <span class="h5 text-uppercase font-weight-bold">Categories</span>
+              </div>
+              <!-- end .col -->
+              <div class="col-12">
+                <ul class="news-posts-categories">
+                  <li class="px-3 py-3 small">
+                    <a href="#">Patch Notes</a>
+                  </li>
+                  <li class="px-3 py-3 small">
+                    <a href="#">News</a>
+                  </li>
+                </ul>
+              </div>
+              <!-- end .col -->
+            </section>
+            <!-- end section -->
+
+          </div>
         </div>
-        <div class="col-2">
-          <ow-select #archive></ow-select>
-        </div>
+
       </div>
-    </form>
-    <div class="row">
-      <div class="col-6"
-           *ngFor="let news of newsData"
-           infinite-scroll
-           [infiniteScrollDistance]="scrollDistance"
-           [infiniteScrollThrottle]="throttle"
-           (scrolled)="onScroll()">
-        <ow-news-card [news]="news"></ow-news-card>
-      </div>
+      <!-- end .content -->
     </div>
+    <!-- end .col -->
   </div>
+  <!-- end .row -->
+
 </div>
--->
+<!-- end .news -->

@@ -14,7 +14,8 @@ export class CompareChartCategoryComponent implements OnInit {
       datasets: [
         { data: [2300, 2818, 1920, 3498, 4200, 4220, 4786], label: 'cyllo#2112' },
         { data: [1300, 1818, 2400, 1992, 3800, 3890, 4200], label: 'seagull#1894' },
-        { data: [1600, 2518, 1420, 2498, 3200, 3220, 1786], label: 'shayed#1758' }
+        { data: [1600, 2518, 1420, 2498, 3200, 3220, 1786], label: 'shayed#1758' },
+        { data: [1200, 1518, 3420, 2098, 1700, 2220, 3786], label: 'shayed#1758' }
       ]
     }
   ];
