@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Http } from '@angular/http';
+
+import { OverwatchHeroDataService, OverwatchStaticData } from '../../services';
 
 @Component({
   selector: 'ow-hero-portrait',
@@ -13,15 +14,16 @@ export class HeroPortraitComponent implements OnInit {
   public heroRouteUrl: String;
   public heroThumbnailUrl: String;
 
-  constructor(private http: Http) {}
+  constructor(private owHeroData: OverwatchHeroDataService) {}
 
   public ngOnInit() {
     // if no code is passed exit func
     if (this.owCode == null) {
       return this.failed();
     }
-    let heroData: JSON;
-    this.getOverwatchHeroData().subscribe(
+    let heroData: OverwatchStaticData;
+
+    this.owHeroData.data$.subscribe(
       res => heroData = res,
       error => console.log(error),
       () => {
@@ -48,11 +50,6 @@ export class HeroPortraitComponent implements OnInit {
     this.heroName = 'Unknown';
     this.heroThumbnailUrl = '/img/unknown_hero.jpg';
     this.heroRouteUrl = './404';
-  }
-
-  getOverwatchHeroData() {
-    return this.http.get('/lib/overwatch.json')
-      .map(res => res.json());
   }
 
   /**

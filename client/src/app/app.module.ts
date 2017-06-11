@@ -23,7 +23,7 @@ import {
   MainSearchResultsComponent } from './static';
 import { routing } from './app.routing';
 import { OrderByPipe } from './pipes';
-import { PlayersService } from './services';
+import { PlayersService, OverwatchHeroDataService } from './services';
 import { players, playerData, playerDataCollection, searchPlayerTag, heroesData, currentHeroData, blogPosts } from './reducers';
 import { SharedModule } from './shared';
 import { PagesModule } from './pages';
@@ -79,7 +79,8 @@ export function instrumentOptions() {
     OrderByPipe
   ],
   providers: [
-    PlayersService
+    PlayersService,
+    OverwatchHeroDataService
   ],
   bootstrap: [AppComponent]
 })

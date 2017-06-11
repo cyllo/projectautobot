@@ -2,10 +2,11 @@ import { Component, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
 import { AppState, Player } from '../../models';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Http } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { SnapshotStats } from '../../models/player.model';
 import { Observable } from 'rxjs/Observable';
+
+import { OverwatchHeroDataService, OverwatchStaticData } from '../../services';
 
 @Component({
   selector: 'ow-profile',
@@ -24,12 +25,12 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   paramsSub;
   selectedSnapshot = new BehaviorSubject('competitive');
   selectedSnapshotData: Observable<SnapshotStats>;
-  heroData: Observable<any>;
+  heroData: OverwatchStaticData;
 
   constructor(private store: Store<AppState>,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private http: Http
+    private owHeroData: OverwatchHeroDataService
   ) {
     this.player = this.activatedRoute.params.flatMap((params) => {
       return store.select('players').map(players => players[params.tag]);
@@ -45,7 +46,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   ngOnInit() {
-    this.getOverwatchHeroData().subscribe(
+    this.owHeroData.data$.subscribe(
       res => this.heroData = res,
       error => console.log(error)
     );
@@ -71,11 +72,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
 
   ngOnDestroy() {
     this.paramsSub.unsubscribe();
-  }
-
-   getOverwatchHeroData(): Observable<any> {
-    return this.http.get('/lib/overwatch.json')
-      .map(res => res.json());
   }
 
 }

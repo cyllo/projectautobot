@@ -5,10 +5,10 @@ import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { isEmpty } from 'lodash';
 import { Apollo } from 'apollo-angular';
-import { Http } from '@angular/http';
 
 import { AppState, Player, Heroes } from './models';
 import { getPlayerData, searchGamerTag } from './reducers';
+import { OverwatchHeroDataService } from './services';
 
 import '../style/app.scss';
 import { gamerTagSearchQuery, heroSearchQuery } from './queries';
@@ -19,8 +19,8 @@ interface GamerTagSearchResponse {
 }
 
 interface HeroesSearchResponse {
-  heroes: Heroes[],
-  loading: boolean
+  heroes: Heroes[];
+  loading: boolean;
 }
 
 @Component({
@@ -35,7 +35,7 @@ export class AppComponent implements OnDestroy {
   searchResults = new Subject<Player[]>();
   isResultsOpen = false;
 
-  constructor(private store: Store<AppState>, private apollo: Apollo, private http: Http) {
+  constructor(private store: Store<AppState>, private apollo: Apollo, private owHeroData: OverwatchHeroDataService) {
 
     this.$state = this.store.select(s => s);
 
@@ -51,6 +51,8 @@ export class AppComponent implements OnDestroy {
       .subscribe(this.searchResults);
 
     this.getHeroes();
+
+    this.owHeroData.load();
   }
 
   onSearch(action) {
@@ -62,7 +64,7 @@ export class AppComponent implements OnDestroy {
     return this.apollo.query<GamerTagSearchResponse>({ query: gamerTagSearchQuery, variables: { tag: tag } })
       .map(({data}) => data.searchGamerTag)
       .filter(data => data.length > 0)
-      .switchMap((playerData) => Observable.forkJoin([Observable.of(playerData), this.getOverwatchHeroData()]))
+      .switchMap((playerData) => Observable.forkJoin([Observable.of(playerData), this.owHeroData.data$ ]))
       .map(([_playerdata, owHeroData]) => {
         return _playerdata.map(player => Object.assign({}, player, {
           snapshotStatistics: player.snapshotStatistics
@@ -85,11 +87,6 @@ export class AppComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
-  }
-
-  getOverwatchHeroData() {
-    return this.http.get('/lib/overwatch.json')
-      .map(res => res.json());
   }
 
   addHeroesToHeroSnapshot(heroes) {

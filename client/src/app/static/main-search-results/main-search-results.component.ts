@@ -24,7 +24,7 @@ export class MainSearchResultsComponent {
       this.search = s.search;
       this.isOpen = this.search.searching;
       this.cd.markForCheck();
-      console.log('search: ', s);
+      //console.log('search: ', s);
     });
   }
 
@@ -33,7 +33,7 @@ export class MainSearchResultsComponent {
   }
 
   onSelect(result: Player) {
-    console.log(result);
+    //console.log(result);
     let newPayload = Object.assign({}, {[result.tag]: result});
     this.store.dispatch({ type: 'ADD_PLAYER', payload: newPayload });
     // this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: { tag: this.search.tag, searching: false } });

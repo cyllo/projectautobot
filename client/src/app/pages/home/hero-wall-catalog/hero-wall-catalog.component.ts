@@ -1,6 +1,6 @@
-import { Component, OnInit, AfterContentInit, Input } from '@angular/core';
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Component, OnInit, AfterContentInit } from '@angular/core';
+
+import { OverwatchHeroDataService, OverwatchStaticData } from '../../../services';
 
 @Component({
   selector: 'ow-hero-wall-catalog',
@@ -8,14 +8,13 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['hero-wall-catalog.component.scss']
 })
 export class HeroWallCatalogComponent implements OnInit, AfterContentInit {
-@Input() owHeroData: any;
 
-  public heroData: Observable<any>;
+  public heroData: OverwatchStaticData;
 
-  constructor(private http: Http) {}
+  constructor(private owHeroData: OverwatchHeroDataService) {}
 
   ngOnInit() {
-    this.getOverwatchHeroData().subscribe(
+    this.owHeroData.data$.subscribe(
       value => this.heroData = value,
       error => console.log(error)
     );
@@ -24,11 +23,6 @@ export class HeroWallCatalogComponent implements OnInit, AfterContentInit {
   ngAfterContentInit() {
     // Called after ngOnInit when the component's or directive's content has been initialized.
     // Add 'implements AfterContentInit' to the class.
-  }
-
-  getOverwatchHeroData(): Observable<any> {
-    return this.http.get('/lib/overwatch.json')
-      .map(res => res.json());
   }
 
   getHeroesOfRole(role: any) {
