@@ -4,6 +4,7 @@ import { AppState } from '../../models/appstate.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import { clone } from 'ramda';
 
 @Component({
   selector: 'ow-main-search-results',
@@ -24,7 +25,6 @@ export class MainSearchResultsComponent {
       this.search = s.search;
       this.isOpen = this.search.searching;
       this.cd.markForCheck();
-      //console.log('search: ', s);
     });
   }
 
@@ -33,8 +33,11 @@ export class MainSearchResultsComponent {
   }
 
   onSelect(result: Player) {
-    //console.log(result);
+    result = clone(result);
+    result.tag = String(result.tag).replace('#', '-');
+    console.log(result);
     let newPayload = Object.assign({}, {[result.tag]: result});
+    console.log('payload: ' , newPayload);
     this.store.dispatch({ type: 'ADD_PLAYER', payload: newPayload });
     // this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: { tag: this.search.tag, searching: false } });
     this.redirect(result);
@@ -47,5 +50,7 @@ export class MainSearchResultsComponent {
       this.router.navigate(['./profile', data.platform, data.tag]);
     }
   }
+
+
 
 }

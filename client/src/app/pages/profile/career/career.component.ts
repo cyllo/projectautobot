@@ -41,12 +41,12 @@ export class CareerComponent implements OnInit {
 
     let _timePlayedInMins  = this._snapshotStats.allHeroesSnapshotStatistic.gameHistoryStatistic.timePlayed / 60;
 
-    console.log(this._snapshotStats);
+    // console.log(this._snapshotStats);
     // This portrion of the data is calculated this way because on playoverwatch.com the 'All Heroes'
     // tab does not show all stat types. For eg: Damage Blocked does not exist on the 'All Heroes' tab even
     // if you have played a champion like Reinhardt that has a Damaged Blocked value. So the function
     // calTotalFromSnapshot() was created to do the aggregate manually.
-    // let kills: number            = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'finalBlowsAverage');
+    let kills: number            = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'finalBlowsAverage');
     let eliminations: number     = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'eliminationsAverage');
     let objKills: number         = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'objectiveKillsAverage');
     let soloKills: number        = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'soloKillsAverage');
@@ -56,9 +56,11 @@ export class CareerComponent implements OnInit {
     let defensiveAssists: number = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'defensiveAssistsAverage');
 
     // console.log(kills, offensiveAssists, defensiveAssists, damageDone, damageBlocked, healingDone);
-    this.combatOverviewChartData[0].xAxisLabels = ['Eliminations', 'Solo Kills', 'Obj. Kills', 'On Fire', 'Off. Assists', 'Def. Assists'];
+    this.combatOverviewChartData[0].xAxisLabels = ['Eliminations', 
+    'kills', 'Solo Kills', 'Obj. Kills', 'On Fire', 'Off. Assists', 'Def. Assists'];
     this.combatOverviewChartData[0].datasets.push({
       data: [eliminations     / _timePlayedInMins,
+             kills            / _timePlayedInMins,
              soloKills        / _timePlayedInMins,
              objKills         / _timePlayedInMins,
              timeonfire       / _timePlayedInMins,
@@ -70,17 +72,15 @@ export class CareerComponent implements OnInit {
     let damageDone: number     = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'damageDoneAverage');
     let damageBlocked: number  = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'damageBlockedAverage');
     let healingDone: number    = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'healingDoneAverage');
-    this.gameOverviewChartData[0].xAxisLabels = ['Damage', 'Blocked', 'Healing', 'On Fire'];
+    this.gameOverviewChartData[0].xAxisLabels = ['Damage', 'Blocked', 'Healing'];
     this.gameOverviewChartData[0].datasets.push({
       data: [damageDone / _timePlayedInMins,
             damageBlocked / _timePlayedInMins,
-            healingDone / _timePlayedInMins,
-            timeonfire / _timePlayedInMins],
+            healingDone / _timePlayedInMins],
       label: 'You'
     });
 
   }
-
 
   calcTotalFromSnapshot(ss: SnapshotStats, statType: string, key: string): number {
     return ss.heroSnapshotStatistics.reduce((acc, hss) => {

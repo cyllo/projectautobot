@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterContentInit } from '@angular/core';
 
-import { OverwatchHeroDataService, OverwatchStaticData } from '../../../services';
+import { OverwatchStaticData, HeroData } from '../../../models';
+import { OverwatchHeroDataService } from '../../../services';
 
 @Component({
   selector: 'ow-hero-wall-catalog',
@@ -25,10 +26,8 @@ export class HeroWallCatalogComponent implements OnInit, AfterContentInit {
     // Add 'implements AfterContentInit' to the class.
   }
 
-  getHeroesOfRole(role: any) {
-    return this.heroData['heroes'].filter(
-      (hero) => { return hero.role === role; }
-    );
+  getHeroesOfRole(role: number): Array<HeroData> {
+    return this.owHeroData.getHeroesOfRole(this.heroData, role);
   }
 
 }
