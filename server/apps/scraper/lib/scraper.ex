@@ -1,7 +1,8 @@
 defmodule Scraper do
   alias Scraper.{ProfileScraper, ProfileSearcher, DataProcessor, Sorter, ModelCreator, ScrapeStatusCache}
+  alias Api.Web.GamerTagChannel
   alias Models.Game
-  import IEx
+  import Logger, only: [debug: 1]
 
   @max_pages_scraping 5
   @max_stats_storing 10
@@ -41,11 +42,17 @@ defmodule Scraper do
         {:error, "no profiles found"} ->
           ScrapeStatusCache.mark_tag_searched(gamer_tag)
           {:ok, []}
+
+        error ->
+         ScrapeStatusCache.unmark_tag_searched(gamer_tag)
+         error
       end
     end
   end
 
   def refetch_profiles_in_db do
+    debug "Scraping all gamer tags"
+
     Game.get_all_gamer_tags
       |> filter_and_get_non_timeout_gamer_tags
       |> snapshot_tags
@@ -55,5 +62,20 @@ defmodule Scraper do
   defp profile_not_on_timeout?(gamer_tag), do: !ScrapeStatusCache.has_scraped_gamer_tag?(gamer_tag.id)
   defp filter_and_get_non_timeout_gamer_tags(gamer_tags), do: Enum.filter_map(gamer_tags, &profile_not_on_timeout?/1, &gamer_tag_info/1)
   defp gamer_tag_info(tag_params), do: Map.take(tag_params, [:tag, :region, :platform])
-  defp scrape_gamer_tags_from_search(gamer_tags), do: gamer_tags |> filter_and_get_non_timeout_gamer_tags |> snapshot_tags |> Enum.to_list
+  defp mark_tags_scraped(gamer_tags) do
+    Enum.each(gamer_tags, &ScrapeStatusCache.mark_tag_scraped(Map.get(&1, :tag)))
+
+    gamer_tags
+  end
+
+  defp scrape_gamer_tags_from_search(gamer_tags) do
+    res = gamer_tags
+      |> filter_and_get_non_timeout_gamer_tags
+      |> snapshot_tags
+      |> Enum.to_list
+
+    mark_tags_scraped(gamer_tags)
+
+    res
+  end
 end

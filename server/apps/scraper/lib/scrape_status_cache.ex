@@ -10,6 +10,12 @@ defmodule Scraper.ScrapeStatusCache do
     tag
   end
 
+  def unmark_tag_searched(tag) do
+    ConCache.delete(:scraper_tag_search_store, Helpers.normalize_gamer_tag(tag))
+
+    tag
+  end
+
   def unmark_tag_scraped(gamer_tag_id) do
     ConCache.delete(:scraper_profile_scrape_store, gamer_tag_id)
 

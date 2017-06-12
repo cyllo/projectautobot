@@ -1,6 +1,6 @@
 defmodule Models.HeroesCache do
   alias Models.{HeroesCache, Game, Helpers}
-  import Logger, only: [debug: 1]
+  import Logger, only: [debug: 1, warn: 1]
 
   def is_not_in_cache?(%{name: name}) do
     if cache() do
@@ -26,7 +26,7 @@ defmodule Models.HeroesCache do
         {:error, "heroes already saved"} -> Game.get_all_heroes |> HeroesCache.put
       end
     else
-      {:ok, HeroesCache.cache()}
+      {:ok, HeroesCache.cache_list()}
     end
   end
 
@@ -42,8 +42,7 @@ defmodule Models.HeroesCache do
       cache_length > 0 ->
         new_hero_names = Helpers.uniq_list(HeroesCache.cache_names(), hero_names)
 
-        Enum.filter(heroes, fn(%{name: name}) -> String.contains? name, new_hero_names end)
-          |> HeroesCache.put
+        if Enum.any?(new_hero_names), do: HeroesCache.put(heroes ++ HeroesCache.cache_list()), else: heroes_name_map(heroes)
 
       cache_length <= 0 ->
         HeroesCache.put(heroes)
@@ -59,9 +58,10 @@ defmodule Models.HeroesCache do
 
   def get_by_name(hero_name), do: Map.get(cache(), hero_name)
   def filter_not_in_cache(heroes), do: Enum.filter(heroes, &is_not_in_cache?/1)
-  def cache_length, do: if (cache()), do: cache() |> Map.values |> length, else: 0
+  def cache_length, do: if (cache()), do: cache() |> Map.keys |> length, else: 0
   def cache, do: ConCache.get(:models_store, :heroes_store)
-  def cache_names, do: cache() |> Enum.map(&(Map.get(&1, :name)))
+  def cache_names, do: Map.keys(cache())
+  def cache_list, do: Map.values(cache())
   defp heroes_name_map(heroes), do: Enum.reduce(heroes, %{}, fn(hero, acc) -> Map.put(acc, Map.get(hero, :name), hero) end)
   defp get_hero_names(heroes), do: Enum.map(heroes, fn(hero) -> Map.get(hero, :name) end)
 end

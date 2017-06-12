@@ -53,6 +53,8 @@ defmodule Scraper.ModelCreator.UserProfile do
     Game.create_gamer_tag(params)
   end
 
+  def create_new_gamer_tag(params), do: Game.create_gamer_tag(params)
+
   def save_other_platforms(gamer_tag, %{other_platforms: other_platforms}) do
     Logger.debug "Creating other_platforms for #{gamer_tag.tag}: #{inspect other_platforms}"
 

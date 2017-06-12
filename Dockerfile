@@ -29,6 +29,6 @@ RUN mix local.rebar --force
 
 # SERVER
 COPY ./server /home/server
-RUN cd /home/server && mix deps.get
+RUN cd /home/server && mix do deps.get, phx.digest
 RUN cd /home/server && PATH=$HOME/.cargo/bin:$PATH MIX_ENV=prod mix release --env=prod
 

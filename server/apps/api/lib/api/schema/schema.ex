@@ -1,7 +1,8 @@
 defmodule Api.Schema do
   use Absinthe.Schema
+  import Absinthe.Resolution.Helpers, only: [async: 2]
   alias Api.{
-    SnapshotStatisticsAverageResolver,
+    SnapshotStatisticsAverageResolver, Helpers,
     GamerTagResolver, HeroResolver, UserResolver,
     SessionResolver, BlogResolver, Middleware,
     HeroStatisticsAverageResolver, SnapshotStatisticResolver
@@ -96,7 +97,7 @@ defmodule Api.Schema do
     field :scrape_gamer_tag, :gamer_tag do
       arg :id, non_null(:integer)
 
-      resolve &async(fn -> GamerTagResolver.scrape(&1, &2) end)
+      resolve &async(fn -> GamerTagResolver.scrape(&1, &2) end, timeout: Helpers.sec_to_ms(30))
     end
 
     @desc "Creates a user account"
