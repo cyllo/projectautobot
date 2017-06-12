@@ -21,7 +21,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   platform: string;
   region: string;
   tag: string;
-  id: number;
   paramsSub;
   selectedSnapshot = new BehaviorSubject('competitive');
   selectedSnapshotData: Observable<SnapshotStats>;
@@ -54,7 +53,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
       this.platform = params['platform'];
       this.region = params['region'];
       this.tag = params['tag'];
-      this.id = params['id'];
     });
   }
 

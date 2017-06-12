@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'news', component: NewsComponent },
   { path: 'post/:title', component: PostComponent },
   { path: 'friends', component: FriendsComponent },
-  { path: 'profile/:platform/:region/:tag/:id', component: ProfileComponent },
+  { path: 'profile/:platform/:region/:tag', component: ProfileComponent },
   { path: 'profile/:platform/:tag', component: ProfileComponent },
   { path: 'compare' , component: CompareComponent },
   { path: '404' , component: PageNotFoundComponent },
