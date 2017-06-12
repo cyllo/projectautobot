@@ -35,7 +35,8 @@ export class MainSearchResultsComponent {
   onSelect(result: Player) {
     result = clone(result);
     result.tag = String(result.tag).replace('#', '-');
-    console.log(result);
+    Object.freeze(result);
+
     let newPayload = Object.assign({}, {[result.tag]: result});
     console.log('payload: ' , newPayload);
     this.store.dispatch({ type: 'ADD_PLAYER', payload: newPayload });
