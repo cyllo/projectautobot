@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-
-import { OverwatchHeroDataService, OverwatchStaticData } from '../../services';
+import { OverwatchStaticData } from '../../models';
+import { OverwatchHeroDataService } from '../../services';
 
 @Component({
   selector: 'ow-hero-portrait',

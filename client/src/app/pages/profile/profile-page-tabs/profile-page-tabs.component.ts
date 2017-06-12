@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SnapshotStats } from '../../../models';
+import { SnapshotStats, OverwatchStaticData } from '../../../models';
 
 @Component({
   selector: 'ow-profile-page-tabs',
@@ -9,8 +9,8 @@ import { SnapshotStats } from '../../../models';
 
 export class ProfilePageTabsComponent implements OnInit {
   @Input() snapshotStats: SnapshotStats;
-  @Input() owHeroData: any;
-  heroData: any;
+  @Input() owHeroData: OverwatchStaticData;
+  heroData: OverwatchStaticData;
 
   constructor() {}
 

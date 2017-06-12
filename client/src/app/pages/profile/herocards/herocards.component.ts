@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { SnapshotStats, HeroSnapshotStats, CombatLifetimeStats, MatchAwardsStats } from '../../../models';
+import { Component, Input, OnInit } from '@angular/core';
+import { SnapshotStats, HeroSnapshotStats, OverwatchStaticData } from '../../../models';
 
 @Component({
   selector: 'ow-hero-cards',
@@ -7,43 +7,39 @@ import { SnapshotStats, HeroSnapshotStats, CombatLifetimeStats, MatchAwardsStats
   styleUrls: [ 'herocards.component.scss' ]
 })
 
-export class HeroCardsComponent {
+export class HeroCardsComponent implements OnInit {
   @Input() owHeroData: any;
-  _snapshotStats: SnapshotStats;
-  allHeroSnapshotStats: HeroSnapshotStats;
-  heroSnapshotStats: HeroSnapshotStats[];
-  combatLifetimeStats: CombatLifetimeStats;
-  matchAwardsStats: MatchAwardsStats;
-  heroData: any;
-  public heroesByRoles: any[];
 
-  constructor() {}
+  _snapshotStats: SnapshotStats;
+  heroData: OverwatchStaticData;
+  allHeroesSnapshot: HeroSnapshotStats;
+  heroesByRoles: any[];
 
   @Input()
   set snapshotStats(snapshotStats) {
     if (!snapshotStats) {
       return;
     }
-
     this._snapshotStats = snapshotStats;
-    this.allHeroSnapshotStats = this._snapshotStats.allHeroesSnapshotStatistic;
-    this.heroSnapshotStats = this._snapshotStats.heroSnapshotStatistics;
-    this.combatLifetimeStats = this.allHeroSnapshotStats.combatLifetimeStatistic;
-    this.matchAwardsStats = this.allHeroSnapshotStats.matchAwardsStatistic;
-    this.heroData = this.owHeroData;
-
-    this.heroesByRoles = this.allHeroesByRole();
   }
 
   get snapshotStats() {
     return this._snapshotStats;
   }
 
-  allHeroesByRole() {
+  constructor() {}
+
+  ngOnInit() {
+    this.heroData = this.owHeroData;
+    this.allHeroesSnapshot = this._snapshotStats.allHeroesSnapshotStatistic;
+    this.heroesByRoles = this.allHeroesByRole(this._snapshotStats.heroSnapshotStatistics);
+  }
+
+  allHeroesByRole(hss: any) {
     let data: any[] = [];
-    data.push(this.sortHeroesByTimePlayed(this.heroSnapshotStats));
+    data.push(this.sortHeroesByTimePlayed(hss));
     this.heroData.roles.forEach((role) => {
-      data.push(this.sortHeroesByTimePlayed(this.getHeroesOfRole(role.id)));
+      data.push(this.sortHeroesByTimePlayed(this.getHeroesOfRole(hss, role.id)));
     });
     return data;
   }
@@ -54,9 +50,9 @@ export class HeroCardsComponent {
     });
   }
 
-  getHeroesOfRole(id: number) {
-    return this.heroSnapshotStats.filter((x) => {
-      return x.hero['role'] === id;
+  getHeroesOfRole(hss: HeroSnapshotStats[], role: Number) {
+    return hss.filter((x) => {
+      return x.hero['role'] === role;
     });
   }
 

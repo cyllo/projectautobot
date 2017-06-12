@@ -1,5 +1,6 @@
 import { AfterContentInit, Component, Input, OnInit } from '@angular/core';
-import { SnapshotStats, HeroSnapshotStats, CombatLifetimeStats, MatchAwardsStats } from '../../../models';
+import { SnapshotStats, HeroSnapshotStats } from '../../../models';
+import { OverwatchStaticData } from '../../../models';
 
 @Component({
   selector: 'ow-most-played',
@@ -8,14 +9,10 @@ import { SnapshotStats, HeroSnapshotStats, CombatLifetimeStats, MatchAwardsStats
 })
 
 export class MostPlayedComponent implements OnInit, AfterContentInit {
-  @Input() owHeroData: any;
+  @Input() owHeroData: OverwatchStaticData;
   _snapshotStats: SnapshotStats;
-  allHeroSnapshotStats: HeroSnapshotStats;
-  heroSnapshotStats: HeroSnapshotStats[];
-  combatLifetimeStats: CombatLifetimeStats;
-  matchAwardsStats: MatchAwardsStats;
   sortedHeroes: HeroSnapshotStats[];
-  heroData: any;
+  heroData: OverwatchStaticData;
 
   constructor() {}
 
@@ -24,17 +21,7 @@ export class MostPlayedComponent implements OnInit, AfterContentInit {
     if (!snapshotStats) {
       return;
     }
-
     this._snapshotStats = snapshotStats;
-    this.allHeroSnapshotStats = this._snapshotStats.allHeroesSnapshotStatistic;
-    this.heroSnapshotStats = this._snapshotStats.heroSnapshotStatistics;
-    this.combatLifetimeStats = this.allHeroSnapshotStats.combatLifetimeStatistic;
-    this.matchAwardsStats = this.allHeroSnapshotStats.matchAwardsStatistic;
-    this.heroData = this.owHeroData;
-
-    this.sortedHeroes = this.heroSnapshotStats.slice().sort(function(a: any, b: any) {
-      return b.gameHistoryStatistic.timePlayed - a.gameHistoryStatistic.timePlayed;
-    });
   }
 
   get snapshotStats() {
@@ -42,14 +29,8 @@ export class MostPlayedComponent implements OnInit, AfterContentInit {
   }
 
   ngOnInit() {
-    this.allHeroSnapshotStats = this.snapshotStats.allHeroesSnapshotStatistic;
-    this.heroSnapshotStats = this.snapshotStats.heroSnapshotStatistics;
-    this.combatLifetimeStats = this.allHeroSnapshotStats.combatLifetimeStatistic;
-    this.matchAwardsStats = this.allHeroSnapshotStats.matchAwardsStatistic;
-
     this.heroData = this.owHeroData;
-    this.sortedHeroes = this.sortHeroesByTimePlayed(this.heroSnapshotStats.slice());
-
+    this.sortedHeroes = this.sortHeroesByTimePlayed(this._snapshotStats.heroSnapshotStatistics.slice());
   }
 
   ngAfterContentInit() {}
