@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   ) {
     this.player = this.activatedRoute.params.flatMap((params) => {
       return store.select('players')
-        .map(players => players[params.tag]);
+        .map(players => players[params.region + params.platform]);
     }).filter(state => !!state).map((player: Player) => {
       return Object.assign({}, player, {
         competitive: player.snapshotStatistics[player.snapshotStatistics.length - 1],
