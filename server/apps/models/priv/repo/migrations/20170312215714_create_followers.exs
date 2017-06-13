@@ -3,8 +3,8 @@ defmodule Models.Repo.Migrations.CreateFollowers do
 
   def change do
     create table(:followers, primary_key: false) do
-      add :user_id, references(:users), primary_key: true
-      add :follower_id, references(:users), primary_key: true
+      add :user_id, references(:users), primary_key: true, null: false
+      add :follower_id, references(:users), primary_key: true, null: false
 
       timestamps()
     end

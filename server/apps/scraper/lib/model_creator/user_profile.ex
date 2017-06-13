@@ -1,6 +1,5 @@
 defmodule Scraper.ModelCreator.UserProfile do
   require Logger
-  require IEx
   alias Models.Game
   alias Scraper.Helpers
   alias Models.Helpers, as: ModelHelpers
@@ -58,7 +57,14 @@ defmodule Scraper.ModelCreator.UserProfile do
   def save_other_platforms(gamer_tag, %{other_platforms: other_platforms}) do
     Logger.debug "Creating other_platforms for #{gamer_tag.tag}: #{inspect other_platforms}"
 
-    other_platforms
-      |> Enum.map(&create_new_gamer_tag/1)
+    connected_tags = Enum.map(other_platforms, fn platform_tag_params ->
+      {:ok, tag} = Game.find_gamer_tag(platform_tag_params)
+
+      tag
+    end)
+
+    gamer_tag
+      |> Models.Repo.preload(:connected_gamer_tags)
+      |> Game.update_gamer_tag(%{connected_gamer_tags: connected_tags})
   end
 end

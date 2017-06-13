@@ -9,7 +9,9 @@ defmodule Scraper.ModelCreator do
     with heroes <- Heroes.create_from_stats(profile),
          {:ok, gamer_tag} <- UserProfile.create_gamer_tag(profile) do
 
-      Task.async(fn -> UserProfile.save_other_platforms(gamer_tag, profile) end)
+      if Enum.any? Map.get(profile, :other_platforms) do
+        UserProfile.save_other_platforms(gamer_tag, profile)
+      end
 
       quickplay_snapshot = profile
         |> Map.get(:quickplay)

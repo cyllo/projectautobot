@@ -13,8 +13,8 @@ defmodule Models.Blog do
 
   def find_post(%{title: title}) do
     case from(p in Post, where: fragment("lower(?)", p.title) == ^String.downcase(title)) |> Repo.one do
-      post -> {:ok, post}
       nil -> {:error, "post with title \"#{title}\" not found"}
+      post -> {:ok, post}
     end
   end
 

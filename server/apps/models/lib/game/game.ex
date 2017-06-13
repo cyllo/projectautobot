@@ -1,6 +1,6 @@
 defmodule Models.Game do
   use Models.Model
-  alias Models.Game.{Hero, GamerTag}
+  alias Models.Game.{Hero, GamerTag, ConnectedGamerTag}
   alias Models.{Repo, Model}
 
   @statistic_relations [
@@ -12,12 +12,67 @@ defmodule Models.Game do
   @all_heroes_snapshot_relations @statistic_relations
   @hero_snapshot_relations [:hero, :hero_specific_statistic] ++ @statistic_relations
 
+  def find_gamer_tag(%{tag: tag, platform: platform, region: region}) do
+    find_gamer_tag([tag: Models.Helpers.normalize_gamer_tag(tag), platform: platform, region: region])
+  end
+
+  def find_gamer_tag(%{tag: tag}) do
+    find_gamer_tag([tag: Models.Helpers.normalize_gamer_tag(tag)])
+  end
+
   Model.create_model_methods(Hero)
   Model.create_model_methods(GamerTag)
+  Model.create_model_methods(ConnectedGamerTag)
+
+  def get_connected_gamer_tags(gamer_tag) do
+    from(cgt in ConnectedGamerTag, where: cgt.gamer_tag1_id == ^gamer_tag.id or
+                                          cgt.gamer_tag2_id == ^gamer_tag.id,
+                                   preload: [:gamer_tag2, :gamer_tag1])
+      |> Repo.all
+      |> Enum.map(fn connected_gamer_tag ->
+        if (connected_gamer_tag.gamer_tag1_id == gamer_tag.id) do
+          connected_gamer_tag.gamer_tag1
+        else
+          connected_gamer_tag.gamer_tag2
+        end
+      end)
+  end
+
+  def get_connected_gamer_tag(gamer_tag, connected_tag) do
+    from(
+      ConnectedGamerTag, where: [gamer_tag1_id: ^gamer_tag.id, gamer_tag2_id: ^connected_tag.id],
+                         or_where: [gamer_tag1_id: ^connected_tag.id, gamer_tag2_id: ^gamer_tag.id]
+    ) |> Repo.one
+  end
+
+  def get_or_insert_connected_gamer_tag(gamer_tag, connected_tag) do
+    {:ok, connected_tag} = case find_gamer_tag(connected_tag) do
+      {:error, _} -> create_gamer_tag(connected_tag)
+      res -> res
+    end
+
+    case get_connected_gamer_tag(gamer_tag, connected_tag) do
+      nil ->
+        {:ok, connected_tag} = ConnectedGamerTag.create_changeset(%{
+          gamer_tag1_id: gamer_tag.id,
+          gamer_tag2_id: connected_tag.id
+        }) |> Repo.insert
+
+        connected_tag
+
+      tag_data -> connected_tag
+    end
+  end
 
   def get_all_gamer_tags_by_tag(tag) do
     from(gt in GamerTag, where: gt.tag == ^tag or gt.tag == ^slug_gamer_tag(tag))
       |> Repo.all
+  end
+
+  def get_all_gamer_tags_with_platform_region([head|tail]) when is_map(head) do
+    Enum.reduce(tail, Ecto.Query.where(GamerTag, ^Map.to_list(head)), fn params, query ->
+      query |> Ecto.Query.or_where(^Map.to_list(params))
+    end) |> Ecto.Query.order_by(asc: :id) |> Repo.all
   end
 
   def get_gamer_tag_with_snapshots(id) do

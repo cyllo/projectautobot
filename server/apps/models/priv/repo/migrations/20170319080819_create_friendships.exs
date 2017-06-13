@@ -4,8 +4,8 @@ defmodule Models.Repo.Migrations.CreateFriendships do
   def change do
     create table(:friendships) do
       add :is_accepted, :boolean, default: false
-      add :user_id, references(:users)
-      add :friend_id, references(:users)
+      add :user_id, references(:users), null: false
+      add :friend_id, references(:users), null: false
 
       timestamps()
     end

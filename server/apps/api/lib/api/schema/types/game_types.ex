@@ -1,7 +1,7 @@
 defmodule Api.Schema.GameTypes do
   use Absinthe.Schema.Notation
   import Api.Schema.ScalarTypes, only: [timestamp_types: 0]
-  alias Api.SnapshotStatisticResolver
+  alias Api.{SnapshotStatisticResolver, GamerTagResolver}
 
   @desc "A gamer tag profile that's region/platform specific"
   object :gamer_tag do
@@ -31,6 +31,16 @@ defmodule Api.Schema.GameTypes do
         batch(
           {SnapshotStatisticResolver, :get_gamer_tag_snapshot_statistics, args},
           gamer_tag.id,
+          &{:ok, Map.get(&1, gamer_tag.id)}
+        )
+      end
+    end
+
+    field :connected_gamer_tags, list_of(:gamer_tag) do
+      resolve fn gamer_tag, args, _ ->
+        batch(
+          {GamerTagResolver, :get_gamer_tag_connected_gamer_tags},
+          gamer_tag,
           &{:ok, Map.get(&1, gamer_tag.id)}
         )
       end

@@ -28,6 +28,14 @@ defmodule Api.GamerTagResolver do
 
   def search(%{tag: tag}, _info), do: tag |> Scraper.search_tag
 
+  def get_gamer_tag_connected_gamer_tags(_, gamer_tags) do
+    gamer_tags
+      |> Enum.map(&Game.get_connected_gamer_tags/1)
+      |> Enum.reduce(%{}, fn connected_tags, acc ->
+        Map.put(acc, List.first(connected_tags).id, connected_tags)
+      end)
+  end
+
   defp get_gamer_tag_for_scrape(gamer_tag_id) do
     if ScrapeStatusCache.has_scraped_gamer_tag?(gamer_tag_id) do
       ms_till_can_scrape = ScrapeStatusCache.ms_before_next_scrape(gamer_tag_id)

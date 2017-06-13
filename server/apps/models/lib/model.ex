@@ -14,6 +14,7 @@ defmodule Models.Model do
       unquote(create_find_for_model(model))
       unquote(create_get_by_ids_for_model(model))
       unquote(create_get_all_for_model(model))
+      unquote(create_update_for_model(model))
     end
   end
 
@@ -81,6 +82,15 @@ defmodule Models.Model do
           model -> {:ok, model}
         end
       end
+    end
+  end
+
+  defp create_update_for_model(model) do
+    fn_name = :"update_#{get_model_name(model)}"
+
+    quote do
+      @spec unquote(fn_name)(model :: unquote(model), params :: map) :: unquote(model)
+      def unquote(fn_name)(model_data, params), do: unquote(model).changeset(model_data, params) |> Models.Repo.update
     end
   end
 

@@ -10,9 +10,11 @@ defmodule Models.Accounts.User do
     field :email, :string
     field :password, :string, virtual: true
     field :password_hash, :string
-    has_many :followers, Follower
     has_many :friends, Friendship
     has_many :gamer_tags, GamerTag
+    many_to_many :followers, User, join_through: "followers",
+                                   join_keys: [user_id: :id, follower_id: :id],
+                                   unique: true
 
     timestamps()
   end
