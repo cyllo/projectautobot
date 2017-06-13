@@ -40,6 +40,7 @@ defmodule Scraper.ProfileSearcher do
 
   defp parse_profile(html_src, profile_url), do: Map.merge(UserInfo.user_info(html_src), ProfileUrl.get_info_from_url(profile_url))
 
+  defp get_gamer_tag_find_params(%{tag: tag, platform: platform}), do: get_gamer_tag_find_params(%{tag: tag, platform: platform, region: ""})
   defp get_gamer_tag_find_params(%{tag: tag, platform: platform, region: region}), do: [
     tag: ModelHelpers.normalize_gamer_tag(tag),
     platform: platform,
