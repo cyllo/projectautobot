@@ -26,7 +26,7 @@ defmodule Api.GamerTagResolver do
     end
   end
 
-  def search(%{tag: tag}, _info), do: tag |> Scraper.search_tag
+  def search(%{tag: tag}, _info), do: Scraper.search_tag(tag)
 
   def get_gamer_tag_connected_gamer_tags(_, gamer_tags) do
     gamer_tags
