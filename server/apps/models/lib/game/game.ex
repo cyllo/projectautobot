@@ -20,29 +20,30 @@ defmodule Models.Game do
     find_gamer_tag([tag: Models.Helpers.normalize_gamer_tag(tag)])
   end
 
-  Model.create_model_methods(Hero)
-  Model.create_model_methods(GamerTag)
-  Model.create_model_methods(ConnectedGamerTag)
-
-  def get_connected_gamer_tags(gamer_tag) do
-    from(cgt in ConnectedGamerTag, where: cgt.gamer_tag1_id == ^gamer_tag.id or
-                                          cgt.gamer_tag2_id == ^gamer_tag.id,
-                                   preload: [:gamer_tag2, :gamer_tag1])
-      |> Repo.all
-      |> Enum.map(fn connected_gamer_tag ->
-        if (connected_gamer_tag.gamer_tag1_id == gamer_tag.id) do
-          connected_gamer_tag.gamer_tag1
-        else
-          connected_gamer_tag.gamer_tag2
-        end
-      end)
-  end
-
   def get_connected_gamer_tag(gamer_tag, connected_tag) do
     from(
       ConnectedGamerTag, where: [gamer_tag1_id: ^gamer_tag.id, gamer_tag2_id: ^connected_tag.id],
                          or_where: [gamer_tag1_id: ^connected_tag.id, gamer_tag2_id: ^gamer_tag.id]
     ) |> Repo.one
+  end
+
+  Model.create_model_methods(Hero)
+  Model.create_model_methods(GamerTag)
+  Model.create_model_methods(ConnectedGamerTag)
+
+  def get_connected_gamer_tags(gamer_tag) do
+    a = from(cgt in ConnectedGamerTag, preload: [:gamer_tag2, :gamer_tag1],
+                                       where: cgt.gamer_tag1_id == ^gamer_tag.id or
+                                              cgt.gamer_tag2_id == ^gamer_tag.id)
+
+      |> Repo.all
+      |> Enum.map(fn connected_gamer_tag ->
+        if (connected_gamer_tag.gamer_tag1_id === gamer_tag.id) do
+          connected_gamer_tag.gamer_tag2
+        else
+          connected_gamer_tag.gamer_tag1
+        end
+      end)
   end
 
   def get_or_insert_connected_gamer_tag(gamer_tag, connected_tag) do

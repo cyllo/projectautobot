@@ -30,9 +30,9 @@ defmodule Api.GamerTagResolver do
 
   def get_gamer_tag_connected_gamer_tags(_, gamer_tags) do
     gamer_tags
-      |> Enum.map(&Game.get_connected_gamer_tags/1)
-      |> Enum.reduce(%{}, fn connected_tags, acc ->
-        Map.put(acc, List.first(connected_tags).id, connected_tags)
+      |> Enum.map(&{&1, Game.get_connected_gamer_tags(&1)})
+      |> Enum.reduce(%{}, fn {gamer_tag, connected_tags}, acc ->
+        Map.put(acc, gamer_tag.id, connected_tags)
       end)
   end
 

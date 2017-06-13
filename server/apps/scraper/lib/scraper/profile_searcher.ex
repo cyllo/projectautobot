@@ -4,11 +4,15 @@ defmodule Scraper.ProfileSearcher do
   alias Models.Game
   alias Models.Helpers, as: ModelHelpers
 
+  import Logger, only: [debug: 1]
+
   @platform_possibilities ["xbl", "psn", "pc"]
   @pc_regions ["us", "eu", "kr"]
   @search_timeout :timer.seconds(10)
 
   def find_profile_tag(tag) do
+    debug "Searching for #{tag}"
+
     tag
       |> create_profile_url_possibilities
       |> fetch_profile_possibilities
@@ -40,15 +44,8 @@ defmodule Scraper.ProfileSearcher do
 
   defp parse_profile(html_src, profile_url), do: Map.merge(UserInfo.user_info(html_src), ProfileUrl.get_info_from_url(profile_url))
 
-  defp get_gamer_tag_find_params(%{tag: tag, platform: platform}), do: get_gamer_tag_find_params(%{tag: tag, platform: platform, region: ""})
-  defp get_gamer_tag_find_params(%{tag: tag, platform: platform, region: region}), do: [
-    tag: ModelHelpers.normalize_gamer_tag(tag),
-    platform: platform,
-    region: region
-  ]
-
   defp load_gamer_tag(params) do
-    case params |> get_gamer_tag_find_params |> Game.find_gamer_tag do
+    case Game.find_gamer_tag(params) do
       {:error, _} ->
         {:ok, gamer_tag} = Game.create_gamer_tag(params)
 
