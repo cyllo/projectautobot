@@ -82,9 +82,19 @@ export class HeroCardBodyComponent implements OnInit {
 
     // -----------------------------------------------------
 
+    title  = 'Damage';
+    if ( valid( hs_cls , ss_ahs_cls ) ) {
+      value  = valid( hs_cls.damageDone , hs_timePlayed ) ? hs_cls.damageDone / hs_timePlayed : 0 ;
+      label  = 0;
+      weight = valid( hs_cls.damageDone , ss_ahs_cls.damageDone ) ? hs_cls.damageDone / ss_ahs_cls.damageDone : 0;
+    }
+    put(title, value, weight, label, warehouse);
+
+    // -----------------------------------------------------
+
     title  = 'Eliminations';
     if ( valid( hs_cls , ss_ahs_cls ) ) {
-      value  = valid( hs_cls , hs_cls.eliminations ) ? hs_cls.eliminations / hs_timePlayed : 0 ;
+      value  = valid( hs_cls.eliminations ) ? hs_cls.eliminations / hs_timePlayed : 0 ;
       label  = 0;
       weight = valid( hs_cls.eliminations , ss_ahs_cls.eliminations ) ? hs_cls.eliminations / ss_ahs_cls.eliminations : 0;
     }
@@ -94,9 +104,29 @@ export class HeroCardBodyComponent implements OnInit {
 
     title  = 'Kills';
     if ( valid( hs_cls , ss_ahs_cls ) ) {
-      value  = valid( hs_cls , hs_cls.finalBlows ) ? hs_cls.finalBlows / hs_timePlayed : 0 ;
+      value  = valid( hs_cls.finalBlows ) ? hs_cls.finalBlows / hs_timePlayed : 0 ;
       label  = 0;
       weight = valid( hs_cls.finalBlows , ss_ahs_cls.finalBlows ) ? hs_cls.finalBlows / ss_ahs_cls.finalBlows : 0;
+    }
+    put(title, value, weight, label, warehouse);
+
+    // -----------------------------------------------------
+
+    title  = 'Obj. Kills';
+    if ( valid( hs_cls , ss_ahs_cls ) ) {
+      value  = valid( hs_cls.objectiveKills ) ? hs_cls.objectiveKills / hs_timePlayed : 0 ;
+      label  = 0;
+      weight = valid( hs_cls.objectiveKills , ss_ahs_cls.objectiveKills ) ? hs_cls.objectiveKills / ss_ahs_cls.objectiveKills : 0;
+    }
+    put(title, value, weight, label, warehouse);
+
+    // -----------------------------------------------------
+
+    title  = 'Obj. Time';
+    if ( valid( hs_cls , ss_ahs_cls ) ) {
+      value  = valid( hs_cls.objectiveTime ) ? hs_cls.objectiveTime / 60 : 0 ;
+      label  = 3;
+      weight = valid( hs_cls.objectiveTime , ss_ahs_cls.objectiveTime ) ? hs_cls.objectiveTime / ss_ahs_cls.objectiveTime : 0;
     }
     put(title, value, weight, label, warehouse);
 
@@ -107,7 +137,7 @@ export class HeroCardBodyComponent implements OnInit {
       value  = valid( hs_cls.eliminations , hs_cls.deaths ) ? (hs_cls.eliminations / hs_cls.deaths) : 0 ;
       label  = 2;
       weight = valid( hs_cls.eliminations , hs_cls.deaths , ss_ahs_cls.eliminations , ss_ahs_cls.deaths ) ?
-                    (hs_cls.eliminations / hs_cls.deaths) / (ss_ahs_cls.eliminations / ss_ahs_cls.deaths) : 0;
+                    ( hs_cls.eliminations / hs_cls.deaths ) / ( ss_ahs_cls.eliminations / ss_ahs_cls.deaths ) : 0;
     }
     put(title, value, weight, label, warehouse);
 
@@ -116,12 +146,46 @@ export class HeroCardBodyComponent implements OnInit {
     title  = 'Accuracy';
     if ( valid( hs_cls ) ) {
 
-      let n: number  = scoop( ss , 'combatLifetimeStatistic' , 'weaponAccuracyPercentage' ) / ss_hss.length;
+      let chocolate: number  = scoop( ss , 'combatLifetimeStatistic' , 'weaponAccuracyPercentage' ) / ss_hss.length;
 
       value  = valid( hs_cls.weaponAccuracyPercentage ) ? hs_cls.weaponAccuracyPercentage : 0 ;
       label  = 1;
-      weight = valid( hs_cls.weaponAccuracyPercentage , n ) ?
-                      hs_cls.weaponAccuracyPercentage / n : 0;
+      weight = valid( hs_cls.weaponAccuracyPercentage , chocolate ) ?
+                      hs_cls.weaponAccuracyPercentage / chocolate : 0;
+    }
+    put(title, value, weight, label, warehouse);
+
+    // -----------------------------------------------------
+
+    title  = 'Healing';
+    if ( valid( hs_cls , ss_ahs_cls ) ) {
+
+      value  = valid( hs_cls.healingDone , hs_timePlayed ) ? ( hs_cls.healingDone / hs_timePlayed ) : 0 ;
+      label  = 0;
+      weight = valid( hs_cls.healingDone , ss_ahs_cls ) ? ( hs_cls.healingDone / ss_ahs_cls.healingDone ) : 0;
+    }
+    put(title, value, weight, label, warehouse);
+
+    // -----------------------------------------------------
+
+    title  = 'Critical Hits';
+    if ( valid( hs_cls , ss_ahs_cls ) ) {
+
+      value  = valid( hs_cls.criticalHits , hs_timePlayed ) ? ( hs_cls.criticalHits / hs_timePlayed ) : 0 ;
+      label  = 0;
+      weight = valid( hs_cls.criticalHits , ss_ahs_cls.criticalHits ) ? ( hs_cls.criticalHits / ss_ahs_cls.criticalHits ) : 0;
+    }
+    put(title, value, weight, label, warehouse);
+
+    // -----------------------------------------------------
+
+    title  = 'Critical Hits Accuracy';
+    if ( valid( hs_cls , ss_ahs_cls ) ) {
+
+      value  = valid( hs_cls.criticalHitsAccuracyPercentage ) ? ( hs_cls.criticalHitsAccuracyPercentage ) : 0 ;
+      label  = 1;
+      weight = valid( hs_cls.criticalHitsAccuracyPercentage , hs_cls.weaponAccuracyPercentage ) ?
+          ( hs_cls.criticalHitsAccuracyPercentage / hs_cls.weaponAccuracyPercentage ) : 0;
     }
     put(title, value, weight, label, warehouse);
 
@@ -137,6 +201,14 @@ export class HeroCardBodyComponent implements OnInit {
     put(title, value, weight, label, warehouse);
 
     // -----------------------------------------------------
+
+    let skill = this.heroSpecificData( hs.hero.code );
+    if ( valid( skill ) ) {
+      skill.every(e => {
+        put( e.title, e.value, e.weight, e.label, warehouse );
+        return true;
+      });
+    }
 
   }
 
