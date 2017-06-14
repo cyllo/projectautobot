@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SnapshotStats } from '../../../models';
-// import { SnapshotStats, HeroSnapshotStats, CombatAverageStats, MatchAwardsStats } from '../../../models';
+import { SnapshotStats, HeroSnapshotStats, GameHistoryStats } from '../../../models';
 
 @Component({
   selector: 'ow-career',
@@ -9,83 +8,95 @@ import { SnapshotStats } from '../../../models';
 })
 
 export class CareerComponent implements OnInit {
-  _snapshotStats: SnapshotStats;
-
-  combatOverviewChartData: Array<any> = [{
-    chartTitle: 'Combat',
-    xAxisLabels: [],
-    datasets: []
-  }];
-
-  gameOverviewChartData: Array<any> = [{
-    chartTitle: 'Game',
-    xAxisLabels: [],
-    datasets: []
-  }];
-
-  constructor() {}
-
   @Input()
   set snapshotStats(snapshotStats) {
-    if (!snapshotStats) {
-      return;
-    }
+    if (!snapshotStats) { return; }
     this._snapshotStats = snapshotStats;
+    this.load();
   }
-
   get snapshotStats() {
     return this._snapshotStats;
   }
 
-  ngOnInit() {
+  private _snapshotStats: SnapshotStats;
+  charts: Array<any>;
 
-    let _timePlayedInMins  = this._snapshotStats.allHeroesSnapshotStatistic.gameHistoryStatistic.timePlayed / 60;
+  constructor() {}
 
-    // console.log(this._snapshotStats);
-    // This portrion of the data is calculated this way because on playoverwatch.com the 'All Heroes'
-    // tab does not show all stat types. For eg: Damage Blocked does not exist on the 'All Heroes' tab even
-    // if you have played a champion like Reinhardt that has a Damaged Blocked value. So the function
-    // calTotalFromSnapshot() was created to do the aggregate manually.
-    let kills: number            = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'finalBlowsAverage');
-    let eliminations: number     = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'eliminationsAverage');
-    let objKills: number         = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'objectiveKillsAverage');
-    let soloKills: number        = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'soloKillsAverage');
-    let timeonfire: number       = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'timeSpentOnFireAverage');
-    // let deaths: number           = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'deathsAverage');
-    let offensiveAssists: number = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'offensiveAssistsAverage');
-    let defensiveAssists: number = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'defensiveAssistsAverage');
+  ngOnInit() {}
 
-    // console.log(kills, offensiveAssists, defensiveAssists, damageDone, damageBlocked, healingDone);
-    this.combatOverviewChartData[0].xAxisLabels = ['Eliminations', 
-    'kills', 'Solo Kills', 'Obj. Kills', 'On Fire', 'Off. Assists', 'Def. Assists'];
-    this.combatOverviewChartData[0].datasets.push({
-      data: [eliminations     / _timePlayedInMins,
-             kills            / _timePlayedInMins,
-             soloKills        / _timePlayedInMins,
-             objKills         / _timePlayedInMins,
-             timeonfire       / _timePlayedInMins,
-             offensiveAssists / _timePlayedInMins,
-             defensiveAssists / _timePlayedInMins],
-      label: 'You'
-    });
+  load() {
 
-    let damageDone: number     = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'damageDoneAverage');
-    let damageBlocked: number  = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'damageBlockedAverage');
-    let healingDone: number    = this.calcTotalFromSnapshot(this._snapshotStats, 'combatAverageStatistic', 'healingDoneAverage');
-    this.gameOverviewChartData[0].xAxisLabels = ['Damage', 'Blocked', 'Healing'];
-    this.gameOverviewChartData[0].datasets.push({
-      data: [damageDone / _timePlayedInMins,
-            damageBlocked / _timePlayedInMins,
-            healingDone / _timePlayedInMins],
-      label: 'You'
-    });
+    this.resetCharts();
 
+    let ss: SnapshotStats       = this._snapshotStats;
+    let ahss: HeroSnapshotStats = ss.allHeroesSnapshotStatistic;
+    let ghs: GameHistoryStats   = ahss.gameHistoryStatistic;
+
+    let cfs = this.calcTotalFromSnapshot.bind(this);
+
+    let kills:      number = cfs(ss, 'combatAverageStatistic', 'finalBlowsAverage');
+    let elims:      number = cfs(ss, 'combatAverageStatistic', 'eliminationsAverage');
+    let objKills:   number = cfs(ss, 'combatAverageStatistic', 'objectiveKillsAverage');
+    let soloKills:  number = cfs(ss, 'combatAverageStatistic', 'soloKillsAverage');
+    let offAssists: number = cfs(ss, 'combatAverageStatistic', 'offensiveAssistsAverage');
+    let defAssists: number = cfs(ss, 'combatAverageStatistic', 'defensiveAssistsAverage');
+    let damage:     number = cfs(ss, 'combatAverageStatistic', 'damageDoneAverage');
+    let blocked:    number = cfs(ss, 'combatAverageStatistic', 'damageBlockedAverage');
+    let healing:    number = cfs(ss, 'combatAverageStatistic', 'healingDoneAverage');
+    let timeplayed: number = ghs.timePlayed / 60;
+
+    let chart_combat = this.addChart('Combat', 'radar', false, this.charts);
+
+    this.addLabelsToChart(chart_combat, 'Eliminations', 'Kills', 'Solo Kills', 'Obj. Kills', 'Off. Assists', 'Def. Assists');
+    this.addToChart(chart_combat, 'tag',
+      elims      / timeplayed,  // Eliminations
+      kills      / timeplayed,  // Kills
+      soloKills  / timeplayed,  // Solo Kills
+      objKills   / timeplayed,  // Objective Kills
+      offAssists / timeplayed,  // Offensive Assists
+      defAssists / timeplayed); // Defensive Assists
+
+    let chart_game = this.addChart('Game', 'radar', false, this.charts);
+
+    this.addLabelsToChart(chart_game, 'Damage', 'Blocked', 'Healing');
+    this.addToChart(chart_game, 'tag',
+      damage  / timeplayed,  // Damage Done
+      blocked / timeplayed,  // Damage Blocked
+      healing / timeplayed); // Healing Done
   }
 
-  calcTotalFromSnapshot(ss: SnapshotStats, statType: string, key: string): number {
+  addChart(title: string, type: String, legend: boolean, charts_array: Array<any>): any {
+    let chart: any = {
+      chartTitle: title,
+      chartType: type,
+      xAxisLabels: [],
+      datasets: [],
+      legend: legend
+    };
+    charts_array.push(chart);
+    return chart;
+  }
+
+  resetCharts() {
+    this.charts = [];
+  }
+
+  addLabelsToChart(chart: any, ...args) {
+    chart.xAxisLabels = args;
+  }
+
+  addToChart(chart: any, label: string, ...args) {
+    chart.datasets.push({
+      data: args,
+      label: label
+    });
+  }
+
+  calcTotalFromSnapshot(ss: SnapshotStats, block: string, key: string): number {
     return ss.heroSnapshotStatistics.reduce((acc, hss) => {
-      if (this.objHasKey(hss, statType)) {
-        let obj = hss[statType];
+      if (this.objHasKey(hss, block)) {
+        let obj = hss[block];
         if (this.objHasKey(obj, key)) {
           acc += +obj[key] || 0;
         }
@@ -94,10 +105,15 @@ export class CareerComponent implements OnInit {
     }, 0);
   }
 
-  objHasKey(obj: any, key: string): Boolean {
-    return Object.keys(obj).find(e => {
-      return e === key;
-    }).length > 0;
+  objHasKey(obj: any, key: string): boolean {
+    if (obj) {
+      let res = Object.keys(obj).find(e => {
+        return e === key;
+      });
+      return (res) ? res.length > 0 : false;
+    } else {
+      return false;
+    }
   }
 
 }

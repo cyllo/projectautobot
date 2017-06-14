@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
-import { AppState, Player, OverwatchStaticData } from '../../models';
+import { AppState, Player } from '../../models';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { SnapshotStats } from '../../models/player.model';
 import { Observable } from 'rxjs/Observable';
-
-import { OverwatchHeroDataService } from '../../services';
 
 @Component({
   selector: 'ow-profile',
@@ -24,12 +22,10 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   paramsSub;
   selectedSnapshot = new BehaviorSubject('competitive');
   selectedSnapshotData: Observable<SnapshotStats>;
-  heroData: OverwatchStaticData;
 
   constructor(private store: Store<AppState>,
     private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private owHeroData: OverwatchHeroDataService
+    private router: Router
   ) {
     this.player = this.activatedRoute.params.flatMap((params) => {
       return store.select('players')
@@ -46,10 +42,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   ngOnInit() {
-    this.owHeroData.data$.subscribe(
-      res => this.heroData = res,
-      error => console.log(error)
-    );
     this.paramsSub = this.activatedRoute.params.subscribe((params) => {
       this.platform = params['platform'];
       this.region = params['region'];

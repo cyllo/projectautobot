@@ -1,0 +1,179 @@
+<div class="hero-card-header">
+
+  <div class="row mb-3">
+
+    <div class="col-12">
+      <ngb-progressbar type="stp" [value]="stat('timePlayedAsPercentage').value" [max]="100"></ngb-progressbar>
+    </div>
+    <!-- end .col -->
+
+  </div>
+  <!-- end .row -->
+
+  <section class="row align-items-center">
+    <div class="col-auto pl-3 mb-3">
+      <ow-hero-portrait [owCode]="heroSnap.hero.code"></ow-hero-portrait>
+      <!-- end ow-hero-portrait -->
+    </div>
+    <div class="col mb-3">
+      <div class="row">
+        <div class="col pb-1">
+          <span class="text-uppercase font-weight-bold">{{ heroSnap.hero.name }}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <span class="small text-uppercase d-flex align-items-center">
+            <img src="img/OffenseIcon.svg" alt="" class="role-icon-sm mr-2"> {{ roleToString(heroSnap.hero.role) }}
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <span class="x-small text-uppercase">{{ stat('gamesplayed').value }} Games Played</span>
+        </div>
+      </div>
+    </div>
+    <!-- end .col -->
+    <div class="col-12">
+      <div class="row">
+
+        <div class="col-xl-3 col-md-6 col-6 mb-3">
+          <div class="row align-items-center">
+            <div class="col-sm col-12">
+              <span class="small">Win Rate</span>
+            </div>
+            <!-- end .col -->
+            <div class="col-auto px-3">
+              <div class="small d-flex align-items-center">
+                <span>(</span>
+                <i class="material-icons" *ngIf="stat('winrate').change > 0">arrow_drop_up</i>
+                <i class="material-icons" *ngIf="stat('winrate').change < 0">arrow_drop_down</i>
+                <span>{{ stat('winrate').change || '-' }}</span>
+                <span>)</span>
+              </div>
+            </div>
+            <!-- end .col -->
+          </div>
+          <!-- end .row -->
+          <div class="row">
+            <div class="col-12">
+              <span class="h5 font-weight-bold">
+                {{ ( stat('winrate').value | number : '1.2-2' ) || '-' }}
+                {{ stat('winrate').value ? '%' : ''}}
+              </span>
+            </div>
+            <!-- end .col -->
+          </div>
+        </div>
+        <!-- end .col -->
+
+        <div class="col-xl-3 col-md-6 col-6 mb-3">
+          <div class="row align-items-center">
+            <div class="col-sm col-12">
+              <span class="small">
+                Win{{ stat('wins').value > 1 ? 's' : '' }}{{ stat('loss').value ? '/Loss' : '' }}{{ stat('loss').value > 1 ? 'es' : '' }}
+              </span>
+            </div>
+            <!-- end .col -->
+            <div class="col-auto px-3">
+              <div class="small d-flex align-items-center">
+                <span>(</span>
+                <i class="material-icons" *ngIf="stat('winrate').change > 0">arrow_drop_up</i>
+                <i class="material-icons" *ngIf="stat('winrate').change < 0">arrow_drop_down</i>
+                <span>{{ stat('winrate').change || '-' }}</span>
+                <span>)</span>
+              </div>
+            </div>
+            <!-- end .col -->
+          </div>
+          <!-- end .row -->
+          <div class="row">
+            <div class="col-12">
+              <span class="h5 font-weight-bold">
+                {{ stat('wins').value || '-' }}
+                {{ stat('loss').value ? ' - ' + stat('loss').value : '' }}
+              </span>
+            </div>
+            <!-- end .col -->
+          </div>
+        </div>
+        <!-- end .col -->
+
+        <div class="col-xl-3 col-md-6 col-6 mb-3">
+          <div class="row align-items-center">
+            <div class="col-sm col-12">
+              <span class="small">Medals</span>
+            </div>
+            <!-- end .col -->
+            <div class="col-auto px-3">
+              <div class="small d-flex align-items-center">
+                <span>(</span>
+                <i class="material-icons" *ngIf="stat('medals').change > 0">arrow_drop_up</i>
+                <i class="material-icons" *ngIf="stat('medals').change < 0">arrow_drop_down</i>
+                <span>{{ stat('medals').change || '-' }}</span>
+                <span>)</span>
+              </div>
+            </div>
+            <!-- end .col -->
+          </div>
+          <!-- end .row -->
+          <div class="row">
+            <div class="col-12">
+              <div class="medals">
+                <span class="gold mx-1">{{ stat('medals-gold').value || '-' }}</span>
+                <span class="silver mx-1">{{ stat('medals-silver').value || '-' }}</span>
+                <span class="bronze mx-1">{{ stat('medals-bronze').value || '-' }}</span>
+              </div>
+            </div>
+            <!-- end .col -->
+          </div>
+        </div>
+        <!-- end .col -->
+
+        <div class="col-xl-3 col-md-6 col-6 mb-3">
+          <div class="row align-items-center">
+            <div class="col-sm col-12">
+              <span class="small">On Fire</span>
+            </div>
+            <!-- end .col -->
+            <div class="col-auto px-3">
+              <div class="small d-flex align-items-center">
+                <span>(</span>
+                <i class="material-icons" *ngIf="stat('onfire').change > 0">arrow_drop_up</i>
+                <i class="material-icons" *ngIf="stat('onfire').change < 0">arrow_drop_down</i>
+                <span>{{ stat('onfire').change || '-' }}</span>
+                <span>)</span>
+              </div>
+            </div>
+            <!-- end .col -->
+          </div>
+          <!-- end .row -->
+          <div class="row">
+            <div class="col-12">
+              <span>{{ stat('onfire').value || '-' }}</span>
+            </div>
+            <!-- end .col -->
+            <div class="col-12">
+              <div class="row align-items-center">
+                <div class="col">
+                  <ngb-progressbar type="stp" [value]="stat('onfirePercentage').value" [max]="100"></ngb-progressbar>
+                </div>
+              </div>
+              <!-- row -->
+            </div>
+            <!-- end .col -->
+          </div>
+        </div>
+        <!-- end .col -->
+        
+
+      </div>
+      <!-- end .row -->
+    </div>
+    <!-- end .col -->
+  </section>
+  <!-- end .row -->
+
+</div>
+<!-- end .hero-card-header -->

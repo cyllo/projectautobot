@@ -1,6 +1,6 @@
-import { AfterContentInit, Component, Input, OnInit } from '@angular/core';
-import { SnapshotStats, HeroSnapshotStats } from '../../../models';
-import { OverwatchStaticData } from '../../../models';
+import { Component, Input, OnInit } from '@angular/core';
+import { SnapshotStats, HeroSnapshotStats, OverwatchStaticData } from '../../../models';
+import { OverwatchHeroDataService } from '../../../services';
 
 @Component({
   selector: 'ow-most-played',
@@ -8,32 +8,45 @@ import { OverwatchStaticData } from '../../../models';
   styleUrls: [ 'most-played.component.scss' ]
 })
 
-export class MostPlayedComponent implements OnInit, AfterContentInit {
-  @Input() owHeroData: OverwatchStaticData;
-  _snapshotStats: SnapshotStats;
-  sortedHeroes: HeroSnapshotStats[];
-  heroData: OverwatchStaticData;
-
-  constructor() {}
-
+export class MostPlayedComponent implements OnInit {
   @Input()
   set snapshotStats(snapshotStats) {
-    if (!snapshotStats) {
-      return;
-    }
+    if (!snapshotStats) { return; }
     this._snapshotStats = snapshotStats;
+    this.load();
   }
-
   get snapshotStats() {
     return this._snapshotStats;
   }
 
-  ngOnInit() {
-    this.heroData = this.owHeroData;
-    this.sortedHeroes = this.sortHeroesByTimePlayed(this._snapshotStats.heroSnapshotStatistics.slice());
+  sortedHeroes: HeroSnapshotStats[];
+  private _snapshotStats: SnapshotStats;
+  private heroData: OverwatchStaticData;
+
+  constructor(private owHeroData: OverwatchHeroDataService) {
+    this.owHeroData.data$.subscribe(
+      res => this.heroData = res,
+      error => console.log(error)
+    );
   }
 
-  ngAfterContentInit() {}
+  ngOnInit() {}
+
+  load () {
+    this.resetSortedHeroes();
+
+    let sort = this.sortHeroesByTimePlayed;
+    let ss   = this._snapshotStats;
+    let hss  = ss.heroSnapshotStatistics;
+
+    const LIST_SIZE = 4;
+
+    this.sortedHeroes = sort(hss.slice()).slice(0, LIST_SIZE);
+  }
+
+  resetSortedHeroes() {
+    this.sortedHeroes = [];
+  }
 
   sortHeroesByTimePlayed(i: any) {
     return i.sort(function(a: any, b: any) {

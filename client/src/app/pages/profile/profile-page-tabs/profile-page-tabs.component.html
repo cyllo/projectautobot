@@ -1,4 +1,4 @@
-<section class="row mb-3">
+<section class="row mb-3" *ngIf="snapshotStats">
   <div class="col-12 ngb-tabset">
     <ngb-tabset #t="ngbTabset">
 
@@ -6,13 +6,13 @@
         <ng-template ngbTabTitle>Overview</ng-template>
         <ng-template ngbTabContent>
           <div class="container-fluid pt-3">
-            <div class="row" *ngIf="snapshotStats">
+            <div class="row">
               <div class="col-xl-9 col-md-12">
                 <ow-career [snapshotStats]="snapshotStats"></ow-career>
                 <!-- end section -->
-                <ow-most-played [snapshotStats]="snapshotStats" [owHeroData]="heroData"></ow-most-played>
+                <ow-most-played [snapshotStats]="snapshotStats"></ow-most-played> 
                 <!-- end section -->
-                <ow-hero-cards [snapshotStats]="snapshotStats" [owHeroData]="heroData"></ow-hero-cards>
+                <ow-hero-cards [snapshotStats]="snapshotStats"></ow-hero-cards>
                 <!-- end ow-hero-cards -->
               </div>
               <!-- end .col -->

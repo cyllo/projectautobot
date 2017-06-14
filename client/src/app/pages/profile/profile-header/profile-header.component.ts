@@ -1,5 +1,5 @@
 import { AfterContentInit, Component, Input } from '@angular/core';
-import { Player, SnapshotStats, HeroSnapshotStats, CombatLifetimeStats, MatchAwardsStats } from '../../../models';
+import { Player, SnapshotStats } from '../../../models';
 
 @Component({
   selector: 'ow-profile-header',
@@ -10,20 +10,66 @@ import { Player, SnapshotStats, HeroSnapshotStats, CombatLifetimeStats, MatchAwa
 export class ProfileHeaderComponent implements AfterContentInit {
   @Input() player: Player;
   snapshotStats: SnapshotStats;
-  allHeroSnapshotStats: HeroSnapshotStats;
-  combatLifetimeStats: CombatLifetimeStats;
-  matchAwardsStats: MatchAwardsStats;
-  winRate: number;
 
   constructor() {}
 
   ngAfterContentInit() {
     this.snapshotStats = this.player.snapshotStatistics[this.player.snapshotStatistics.length - 1];
-    this.allHeroSnapshotStats = this.snapshotStats.allHeroesSnapshotStatistic;
-    this.combatLifetimeStats = this.allHeroSnapshotStats.combatLifetimeStatistic;
-    this.matchAwardsStats = this.allHeroSnapshotStats.matchAwardsStatistic;
-    this.winRate = this.allHeroSnapshotStats.gameHistoryStatistic.gamesWon /
-      this.allHeroSnapshotStats.gameHistoryStatistic.gamesPlayed * 100;
+  }
+
+  getStat(stat: string): number {
+
+    let ahss = this.snapshotStats.allHeroesSnapshotStatistic;
+    let ghs = ahss.gameHistoryStatistic;
+    let mas = ahss.matchAwardsStatistic;
+
+    switch (stat) {
+
+      case 'winrate' :
+
+        let winrate = (ghs.gamesWon / ghs.gamesPlayed) * 100;
+        return winrate;
+
+      case 'wins' :
+
+        let wins = ghs.gamesWon;
+        return wins;
+
+      case 'loss' :
+
+        let loss = ghs.gamesLost;
+        return loss;
+
+      case 'gamesplayed' :
+
+        let gamesplayed = ghs.gamesPlayed;
+        return gamesplayed;
+
+      case 'medals-gold' :
+
+        let gold = mas.goldMedals;
+        return gold;
+
+      case 'medals-silver' :
+
+        let silver = mas.silverMedals;
+        return silver;
+
+      case 'medals-bronze' :
+
+        let bronze = mas.bronzeMedals;
+        return bronze;
+
+      case 'leaderboardrating' :
+
+        return 0;
+
+      default:
+
+        return -1;
+
+    }
 
   }
+
 }

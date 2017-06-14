@@ -1,0 +1,20 @@
+<div class="row" *ngIf="warehouse">
+  <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 mb-3" *ngFor="let barrel of warehouse">
+    <div class="row mb-1">
+      <div class="col-12">
+        <span class="font-weight-bold">{{ barrel.value ? ( barrel.value | number : '1.0-2' ) : '-' }}</span>
+        <span *ngIf="barrel.value">{{ barrel.label }}</span>
+      </div>
+    </div>
+    <div class="row mb-1">
+      <div class="col-12">
+        <ngb-progressbar type="stp" [value]="barrel.weight || 0" [max]="100"></ngb-progressbar>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <span class="small">{{ barrel.brand }}</span>
+      </div>
+    </div>
+  </div>
+</div>

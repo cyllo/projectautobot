@@ -38,7 +38,7 @@ export class MainSearchResultsComponent {
     Object.freeze(result);
 
     let newPayload = Object.assign({}, {[result.region + result.platform]: result});
-    console.log('payload: ' , newPayload);
+    // console.log('payload: ' , newPayload);
     this.store.dispatch({ type: 'ADD_PLAYER', payload: newPayload });
     this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: { tag: this.search.tag, searching: false } });
     this.redirect(result);
