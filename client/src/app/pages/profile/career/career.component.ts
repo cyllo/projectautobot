@@ -25,9 +25,13 @@ export class CareerComponent implements OnInit {
 
   ngOnInit() {}
 
-  load() {
+  private load() {
 
-    this.resetCharts();
+    this.reset();
+
+    let make  = this.addChart;
+    let add   = this.addToChart;
+    let label = this.addLabelsToChart;
 
     let ss: SnapshotStats       = this._snapshotStats;
     let ahss: HeroSnapshotStats = ss.allHeroesSnapshotStatistic;
@@ -46,10 +50,10 @@ export class CareerComponent implements OnInit {
     let healing:    number = cfs(ss, 'combatAverageStatistic', 'healingDoneAverage');
     let timeplayed: number = ghs.timePlayed / 60;
 
-    let chart_combat = this.addChart('Combat', 'radar', false, this.charts);
+    let chart_combat = make('Combat', 'radar', false, this.charts);
 
-    this.addLabelsToChart(chart_combat, 'Eliminations', 'Kills', 'Solo Kills', 'Obj. Kills', 'Off. Assists', 'Def. Assists');
-    this.addToChart(chart_combat, 'tag',
+    label(chart_combat, 'Eliminations', 'Kills', 'Solo Kills', 'Obj. Kills', 'Off. Assists', 'Def. Assists');
+    add(chart_combat, 'tag',
       elims      / timeplayed,  // Eliminations
       kills      / timeplayed,  // Kills
       soloKills  / timeplayed,  // Solo Kills
@@ -57,16 +61,20 @@ export class CareerComponent implements OnInit {
       offAssists / timeplayed,  // Offensive Assists
       defAssists / timeplayed); // Defensive Assists
 
-    let chart_game = this.addChart('Game', 'radar', false, this.charts);
+    let chart_game = make('Game', 'radar', false, this.charts);
 
-    this.addLabelsToChart(chart_game, 'Damage', 'Blocked', 'Healing');
-    this.addToChart(chart_game, 'tag',
+    label(chart_game, 'Damage', 'Blocked', 'Healing');
+    add(chart_game, 'tag',
       damage  / timeplayed,  // Damage Done
       blocked / timeplayed,  // Damage Blocked
       healing / timeplayed); // Healing Done
   }
 
-  addChart(title: string, type: String, legend: boolean, charts_array: Array<any>): any {
+  private reset() {
+    this.charts = [];
+  }
+
+  private addChart(title: string, type: String, legend: boolean, charts_array: Array<any>): any {
     let chart: any = {
       chartTitle: title,
       chartType: type,
@@ -78,22 +86,18 @@ export class CareerComponent implements OnInit {
     return chart;
   }
 
-  resetCharts() {
-    this.charts = [];
-  }
-
-  addLabelsToChart(chart: any, ...args) {
+  private addLabelsToChart(chart: any, ...args) {
     chart.xAxisLabels = args;
   }
 
-  addToChart(chart: any, label: string, ...args) {
+  private addToChart(chart: any, label: string, ...args) {
     chart.datasets.push({
       data: args,
       label: label
     });
   }
 
-  calcTotalFromSnapshot(ss: SnapshotStats, block: string, key: string): number {
+  private calcTotalFromSnapshot(ss: SnapshotStats, block: string, key: string): number {
     return ss.heroSnapshotStatistics.reduce((acc, hss) => {
       if (this.objHasKey(hss, block)) {
         let obj = hss[block];
@@ -105,7 +109,7 @@ export class CareerComponent implements OnInit {
     }, 0);
   }
 
-  objHasKey(obj: any, key: string): boolean {
+  private objHasKey(obj: any, key: string): boolean {
     if (obj) {
       let res = Object.keys(obj).find(e => {
         return e === key;

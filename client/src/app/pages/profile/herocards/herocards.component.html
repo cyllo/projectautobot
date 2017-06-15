@@ -1,4 +1,4 @@
-<div class="hero-cards">
+<div class="hero-cards" *ngIf="snapshotStats">
   <div class="row">
     <div class="col-12 mb-2">
       <span class="text-uppercase font-weight-bold">Heroes</span>
@@ -9,15 +9,15 @@
   <div class="row">
     <div class="col-12">
       <ngb-tabset type="pills">
-        <ngb-tab *ngFor="let heroes of sortedHeroes; let i = index" [attr.data-index]="i">
+        <ngb-tab *ngFor="let heroes of sortedHeroes">
           <ng-template ngbTabTitle>
-            <span class="small d-flex align-items-center">{{ roleToString(i - 1) }}</span>
+            <span class="small d-flex align-items-center">{{ heroes.roleName }}</span>
           </ng-template>
           <!-- end ng-template -->
           <ng-template ngbTabContent>
             <div class="container-fluid px-0 pt-3">
               <div class="row">
-                <div class="col-12" *ngFor="let heroSnap of heroes">
+                <div class="col-12" *ngFor="let heroSnap of heroes.value">
                   <ow-hero-card [snapshotStats]="snapshotStats" [heroSnap]="heroSnap"></ow-hero-card>
                   <!-- end ow-hero-card -->
                 </div>

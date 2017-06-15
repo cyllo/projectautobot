@@ -1,25 +1,25 @@
 export interface HeroSkill {
-  name: String;
-  isUltimateAbility: Boolean;
-  iconUrl: String;
-  description: String;
+  name: string;
+  isUltimateAbility: boolean;
+  iconUrl: string;
+  description: string;
 }
 
 export interface HeroData {
-  code: String;
-  name: String;
-  portraitUrl: String;
-  description: String;
-  role: Number;
-  synergy: String[];
-  counter: String[];
+  code: string;
+  name: string;
+  portraitUrl: string;
+  description: string;
+  role: number;
+  synergy: string[];
+  counter: string[];
   skills: HeroSkill[];
 }
 
 export interface HeroRole {
-  name: String;
-  id: Number;
-  iconUrl: String;
+  name: string;
+  id: number;
+  iconUrl: string;
 }
 
 export interface OverwatchStaticData {

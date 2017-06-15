@@ -29,11 +29,17 @@ export interface SnapshotStats {
   allHeroesSnapshotStatistic: HeroSnapshotStats;
 }
 
+export interface HeroSpecificStats {
+  id: number;
+  stats: any;
+}
+
 export interface HeroSnapshotStats {
   snapshotStatisticId: number;
   matchAwardsStatisticId: number;
   matchAwardsStatistic: MatchAwardsStats;
   id?: number;
+  heroSnapshotStatistics: HeroSpecificStats;
   heroSpecificStatisticId: number;
   heroId: number;
   hero: Hero;

@@ -28,14 +28,6 @@
 }
 
 :host /deep/ .profile {
-  .hero-portrait {
-    .header {
-      display: none;
-    }
-    .thumbnail img {
-      max-width: 4rem;
-    }
-  }
   .ngb-tabset {
     .nav-tabs {
       .nav-link.active {

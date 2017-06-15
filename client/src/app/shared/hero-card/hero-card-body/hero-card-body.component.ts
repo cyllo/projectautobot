@@ -68,10 +68,10 @@ export class HeroCardBodyComponent implements OnInit {
     let hs_ghs: GameHistoryStats         = hs.gameHistoryStatistic;
 
     let hs_timePlayed   = valid( hs_ghs     ) ? hs_ghs.timePlayed      : 0;
-    let ahs_timePlayed  = valid( ss_ahs_ghs ) ? ss_ahs_ghs.timePlayed  : 0;
+    let ss_ahs_timePlayed  = valid( ss_ahs_ghs ) ? ss_ahs_ghs.timePlayed  : 0;
 
     let hs_gamesPlayed  = valid( hs_ghs     ) ? hs_ghs.gamesPlayed     : 0;
-    let ahs_gamesPlayed = valid( ss_ahs_ghs ) ? ss_ahs_ghs.gamesPlayed : 0;
+    let ss_ahs_gamesPlayed = valid( ss_ahs_ghs ) ? ss_ahs_ghs.gamesPlayed : 0;
 
     let title: string;
     let value: any;
@@ -112,6 +112,17 @@ export class HeroCardBodyComponent implements OnInit {
 
     // -----------------------------------------------------
 
+    title  = 'K/D/A Ratio';
+    if ( valid( hs_cls , ss_ahs_cls ) ) {
+      value  = valid( hs_cls.eliminations , hs_cls.deaths ) ? (hs_cls.eliminations / hs_cls.deaths) : 0 ;
+      label  = 2;
+      weight = valid( hs_cls.eliminations , hs_cls.deaths , ss_ahs_cls.eliminations , ss_ahs_cls.deaths ) ?
+                    ( hs_cls.eliminations / hs_cls.deaths ) / ( ss_ahs_cls.eliminations / ss_ahs_cls.deaths ) : 0;
+    }
+    put(title, value, weight, label, warehouse);
+
+    // -----------------------------------------------------
+
     title  = 'Obj. Kills';
     if ( valid( hs_cls , ss_ahs_cls ) ) {
       value  = valid( hs_cls.objectiveKills ) ? hs_cls.objectiveKills / hs_timePlayed : 0 ;
@@ -132,22 +143,9 @@ export class HeroCardBodyComponent implements OnInit {
 
     // -----------------------------------------------------
 
-    title  = 'K/D/A Ratio';
-    if ( valid( hs_cls , ss_ahs_cls ) ) {
-      value  = valid( hs_cls.eliminations , hs_cls.deaths ) ? (hs_cls.eliminations / hs_cls.deaths) : 0 ;
-      label  = 2;
-      weight = valid( hs_cls.eliminations , hs_cls.deaths , ss_ahs_cls.eliminations , ss_ahs_cls.deaths ) ?
-                    ( hs_cls.eliminations / hs_cls.deaths ) / ( ss_ahs_cls.eliminations / ss_ahs_cls.deaths ) : 0;
-    }
-    put(title, value, weight, label, warehouse);
-
-    // -----------------------------------------------------
-
     title  = 'Accuracy';
     if ( valid( hs_cls ) ) {
-
       let chocolate: number  = scoop( ss , 'combatLifetimeStatistic' , 'weaponAccuracyPercentage' ) / ss_hss.length;
-
       value  = valid( hs_cls.weaponAccuracyPercentage ) ? hs_cls.weaponAccuracyPercentage : 0 ;
       label  = 1;
       weight = valid( hs_cls.weaponAccuracyPercentage , chocolate ) ?
@@ -159,7 +157,6 @@ export class HeroCardBodyComponent implements OnInit {
 
     title  = 'Healing';
     if ( valid( hs_cls , ss_ahs_cls ) ) {
-
       value  = valid( hs_cls.healingDone , hs_timePlayed ) ? ( hs_cls.healingDone / hs_timePlayed ) : 0 ;
       label  = 0;
       weight = valid( hs_cls.healingDone , ss_ahs_cls ) ? ( hs_cls.healingDone / ss_ahs_cls.healingDone ) : 0;
@@ -170,7 +167,6 @@ export class HeroCardBodyComponent implements OnInit {
 
     title  = 'Critical Hits';
     if ( valid( hs_cls , ss_ahs_cls ) ) {
-
       value  = valid( hs_cls.criticalHits , hs_timePlayed ) ? ( hs_cls.criticalHits / hs_timePlayed ) : 0 ;
       label  = 0;
       weight = valid( hs_cls.criticalHits , ss_ahs_cls.criticalHits ) ? ( hs_cls.criticalHits / ss_ahs_cls.criticalHits ) : 0;
@@ -181,7 +177,6 @@ export class HeroCardBodyComponent implements OnInit {
 
     title  = 'Critical Hits Accuracy';
     if ( valid( hs_cls , ss_ahs_cls ) ) {
-
       value  = valid( hs_cls.criticalHitsAccuracyPercentage ) ? ( hs_cls.criticalHitsAccuracyPercentage ) : 0 ;
       label  = 1;
       weight = valid( hs_cls.criticalHitsAccuracyPercentage , hs_cls.weaponAccuracyPercentage ) ?
@@ -195,14 +190,14 @@ export class HeroCardBodyComponent implements OnInit {
     if ( valid( hs_ghs , ss_ahs_ghs ) ) {
       value  = valid( hs_timePlayed , hs_gamesPlayed ) ? ( hs_timePlayed / hs_gamesPlayed ) / 60 : 0 ;
       label  = 3;
-      weight = valid( hs_timePlayed , hs_gamesPlayed , ahs_timePlayed , ahs_gamesPlayed ) ?
-                    ( hs_timePlayed / hs_gamesPlayed ) / ( ahs_timePlayed / ahs_gamesPlayed ) : 0;
+      weight = valid( hs_timePlayed , hs_gamesPlayed , ss_ahs_timePlayed , ss_ahs_gamesPlayed ) ?
+                    ( hs_timePlayed / hs_gamesPlayed ) / ( ss_ahs_timePlayed / ss_ahs_gamesPlayed ) : 0;
     }
     put(title, value, weight, label, warehouse);
 
     // -----------------------------------------------------
 
-    let skill = this.heroSpecificData( hs.hero.code );
+    let skill = this.heroSpecificData( hs );
     if ( valid( skill ) ) {
       skill.every(e => {
         put( e.title, e.value, e.weight, e.label, warehouse );
@@ -265,9 +260,13 @@ export class HeroCardBodyComponent implements OnInit {
     }
   }
 
-  heroSpecificData(code: string): Array<any> {
+  heroSpecificData(hs: HeroSnapshotStats): Array<any> {
     let data: Array<any>;
-    switch (code) {
+    let hero: string = hs.hero.code;
+    
+    console.log('Requesting: ' , this._heroSnap.hero.name, this._heroSnap);
+
+    switch (hero) {
       case '0x02E0000000000029' : // Genji
         return data;
       case '0x02E0000000000042' : // McCree
@@ -317,8 +316,10 @@ export class HeroCardBodyComponent implements OnInit {
       case '0x02E0000000000020' : // Zenyatta
         return data;
       default :
-        return data; // hero not handled
+        console.log('Requested specific data for unknown hero: ', hero);
+        return null;
     }
+
   }
 
 }

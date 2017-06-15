@@ -21,7 +21,7 @@ export class HeroCardsComponent implements OnInit {
 
   private _snapshotStats: SnapshotStats;
   private heroData: OverwatchStaticData;
-  sortedHeroes: HeroSnapshotStats[];
+  sortedHeroes: Array<any>;
 
   constructor(private owHeroData: OverwatchHeroDataService) {
     this.owHeroData.data$.subscribe(
@@ -32,8 +32,8 @@ export class HeroCardsComponent implements OnInit {
 
   ngOnInit() {}
 
-  load() {
-    this.resetSortedHeroes();
+  private load() {
+    this.reset();
 
     let ss   = this._snapshotStats;
     let hss  = ss.heroSnapshotStatistics;
@@ -41,46 +41,47 @@ export class HeroCardsComponent implements OnInit {
     let sort = this.allHeroesByRole.bind(this);
 
     this.sortedHeroes  = sort(hss, this.heroData);
+
+    console.log('uhhh: ', this.sortedHeroes);
   }
 
-  resetSortedHeroes() {
+  private reset() {
     this.sortedHeroes = [];
   }
 
-  allHeroesByRole(hss: HeroSnapshotStats[], heroData: OverwatchStaticData) {
-    let data: Array<any> = [];
+  private allHeroesByRole(hss: HeroSnapshotStats[], heroData: OverwatchStaticData): Array<any> {
+    let store: Array<any> = [];
     let sort = this.sortHeroesByTimePlayed;
     let get  = this.getHeroesOfRole;
+    let push = this.pushHeroes;
 
-    data.push(sort(hss));
+    push('All Heroes', null, sort(hss), store);
     heroData.roles.every(role => {
-      data.push( sort( get(hss, role.id) ) );
+      push( role.name, role.id, sort( get( hss, role.id ) ), store );
       return true;
     });
 
-    return data;
+    return store;
   }
 
-  sortHeroesByTimePlayed(hss: HeroSnapshotStats[]): HeroSnapshotStats[] {
+  private pushHeroes(name: string, id: number, hss: HeroSnapshotStats[], store: Array<any>) {
+    store.push({
+      roleName: name,
+      id: id,
+      value: hss
+    });
+  }
+
+  private sortHeroesByTimePlayed(hss: HeroSnapshotStats[]): HeroSnapshotStats[] {
     return hss.sort(function(a: HeroSnapshotStats, b: HeroSnapshotStats){
       return b.gameHistoryStatistic.timePlayed - a.gameHistoryStatistic.timePlayed;
     });
   }
 
-  getHeroesOfRole(hss: HeroSnapshotStats[], role: Number): HeroSnapshotStats[] {
+  private getHeroesOfRole(hss: HeroSnapshotStats[], role: Number): HeroSnapshotStats[] {
     return hss.filter((x) => {
       return x.hero['role'] === role;
     });
-  }
-
-  roleToString(id: number): String {
-    if (id < 0) {
-      return String('All Heroes');
-    } else {
-      return this.heroData['roles'].find((x) => {
-        return x.id === id;
-      }).name;
-    }
   }
 
 }

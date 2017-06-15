@@ -1,6 +1,5 @@
 <div class="profile pt-3" *ngIf="player | async as playerData">
-  <!-- *ngIf="player" -->
-
+  
   <ow-platform-region [player]="playerData"></ow-platform-region>
   <!-- end ow-platform-region -->
   <ow-profile-header [player]="playerData"></ow-profile-header>

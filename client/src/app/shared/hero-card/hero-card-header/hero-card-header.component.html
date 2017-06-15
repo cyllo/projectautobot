@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col mb-1">
           <span class="small text-uppercase d-flex align-items-center">
             <img src="img/OffenseIcon.svg" alt="" class="role-icon-sm mr-2"> {{ roleToString(heroSnap.hero.role) }}
           </span>
@@ -30,7 +30,7 @@
       </div>
       <div class="row">
         <div class="col">
-          <span class="x-small text-uppercase">{{ stat('gamesplayed').value }} Games Played</span>
+          <span class="x-small text-uppercase">{{ stat('gamesplayed').value || '1' }} Games Played</span>
         </div>
       </div>
     </div>
