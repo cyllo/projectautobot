@@ -1,6 +1,7 @@
 defmodule Api.Schema.AccountTypes do
   use Absinthe.Schema.Notation
   import Api.Schema.ScalarTypes, only: [timestamp_types: 0]
+  alias Api.UserResolver
 
   @desc "A user object for an account which owns gamer tags"
   object :user do
@@ -33,6 +34,16 @@ defmodule Api.Schema.AccountTypes do
         batch(
           {UserResolver, :get_following},
           user,
+          &{:ok, Map.get(&1, user.id)}
+        )
+      end
+    end
+
+    field :followed_gamer_tags, list_of(:gamer_tag) do
+      resolve fn user, _, _ ->
+        batch(
+          {UserResolver, :get_followed_gamer_tags_for_user_ids},
+          user.id,
           &{:ok, Map.get(&1, user.id)}
         )
       end

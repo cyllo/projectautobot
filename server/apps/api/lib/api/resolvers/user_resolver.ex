@@ -18,6 +18,8 @@ defmodule Api.UserResolver do
   def follow_gamer_tag(%{gamer_tag_id: id}, %{context: %{current_user: current_user}}), do: Game.create_gamer_tag_follower(current_user, id)
   def follow_gamer_tag(_, _), do: {:error, "Must be logged in and provider gamer_tag_id"}
 
+  def get_followed_gamer_tags_for_user_ids(_, user_ids), do: Accounts.get_followed_gamer_tags_by_user_ids(user_ids)
+
   defp get_and_follow_user(id, following_id) do
     with [user, following_user] <- Accounts.get_users_by_ids([id, following_id]),
          {:ok, following_user} <- Accounts.create_user_follower(following_user, user) do

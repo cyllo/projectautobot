@@ -31,6 +31,23 @@ defmodule Models.Game do
   Model.create_model_methods(GamerTag)
   Model.create_model_methods(ConnectedGamerTag)
 
+  def get_following_users_by_gamer_tag_ids(gamer_tag_ids) do
+    from(gtuf in GamerTagUserFollower, where: gtuf.gamer_tag_id in ^gamer_tag_ids,
+                                       preload: :user)
+    |> Repo.all
+    |> group_by_gamer_tag_id
+  end
+
+  defp group_by_gamer_tag_id(gamer_tag_user_followers) do
+    Enum.reduce(gamer_tag_user_followers, %{}, fn follower, accum ->
+      if Map.has_key?(accum, follower.gamer_tag_id) and !(follower.user in accum[follower.gamer_tag_id]) do
+        accum[follower.gamer_tag_id] ++ [follower.user]
+      else
+        Map.put(accum, follower.gamer_tag_id, [follower.user])
+      end
+    end)
+  end
+
   def get_connected_gamer_tags(gamer_tag) do
     from(cgt in ConnectedGamerTag, preload: [:gamer_tag2, :gamer_tag1],
                                        where: cgt.gamer_tag1_id == ^gamer_tag.id or
