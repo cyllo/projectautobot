@@ -32,7 +32,7 @@ defmodule Models.Game do
   Model.create_model_methods(ConnectedGamerTag)
 
   def get_connected_gamer_tags(gamer_tag) do
-    a = from(cgt in ConnectedGamerTag, preload: [:gamer_tag2, :gamer_tag1],
+    from(cgt in ConnectedGamerTag, preload: [:gamer_tag2, :gamer_tag1],
                                        where: cgt.gamer_tag1_id == ^gamer_tag.id or
                                               cgt.gamer_tag2_id == ^gamer_tag.id)
 
