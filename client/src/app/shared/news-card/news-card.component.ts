@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { BlogPost } from '../../models';
+import {BlogPost} from '../../models'
 
 @Component({
   selector: 'ow-news-card',
@@ -11,7 +11,7 @@ export class NewsCardComponent implements OnInit {
   @Input() post: BlogPost;
 
   constructor() {
-    // Do stuff
+// Do stuff
   }
 
   ngOnInit() {
@@ -19,6 +19,6 @@ export class NewsCardComponent implements OnInit {
   }
 
   public titleToSlug(title) {
-    return title.toLowerCase().split(' ').join('-');
+    return title.toLowerCase().split(' ').join('-')
   }
 }

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { BlogPost } from '../../models';
+
+import {BlogPost} from '../../models'
 
 @Component({
   selector: 'ow-top-news',
@@ -9,14 +10,14 @@ import { BlogPost } from '../../models';
 export class TopNewsComponent {
   @Input() public set posts(posts) {
     if (posts) {
-      this.firstTwoPosts = posts.slice(0, 2);
-      this.restOfPosts = posts.slice(2);
+      this.firstTwoPosts = posts.slice(0, 2)
+      this.restOfPosts = posts.slice(2)
     } else {
-      this.firstTwoPosts = [];
-      this.restOfPosts = [];
+      this.firstTwoPosts = []
+      this.restOfPosts = []
     }
   }
 
-  public firstTwoPosts: BlogPost[];
-  public restOfPosts: BlogPost[];
+  public firstTwoPosts: BlogPost[]
+  public restOfPosts: BlogPost[]
 }

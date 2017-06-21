@@ -75,8 +75,7 @@ export class AppComponent implements OnDestroy {
       .do((players) => this.store.dispatch({ type: 'ADD_PLAYER', payload: players }));
       // .do((players) => this.store.dispatch({
       //   type: 'GET_SNAPSHOT_DATA',
-      //   payload: players[players.region +
-      // players.platform].snapshotStatistics[players[players.region + players.platform].snapshotStatistics.length - 1]
+      //   payload: players[players.region + players.platform].snapshotStatistics[players[players.region + players.platform].snapshotStatistics.length - 1]
       // }));
   }
 

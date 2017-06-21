@@ -32,35 +32,35 @@ export class MostPlayedComponent implements OnInit {
 
   ngOnInit() {}
 
-  private load () {
-    this.reset();
+  load () {
+    this.resetSortedHeroes();
 
     let sort = this.sortHeroesByTimePlayed;
-    let ss: SnapshotStats         = this._snapshotStats;
-    let hss: HeroSnapshotStats[]  = ss.heroSnapshotStatistics;
+    let ss   = this._snapshotStats;
+    let hss  = ss.heroSnapshotStatistics;
 
     const LIST_SIZE = 4;
 
-    this.sortedHeroes = sort(hss).slice(0, LIST_SIZE);
+    this.sortedHeroes = sort(hss.slice()).slice(0, LIST_SIZE);
   }
 
-  private reset() {
+  resetSortedHeroes() {
     this.sortedHeroes = [];
   }
 
-  private sortHeroesByTimePlayed(heroes: HeroSnapshotStats[]) {
-    return heroes.sort((heroA: HeroSnapshotStats, heroB: HeroSnapshotStats) => {
-      return heroB.gameHistoryStatistic.timePlayed - heroA.gameHistoryStatistic.timePlayed;
+  sortHeroesByTimePlayed(i: any) {
+    return i.sort(function(a: any, b: any) {
+      return b.gameHistoryStatistic.timePlayed - a.gameHistoryStatistic.timePlayed;
     });
   }
 
-  iconUrl(id: number): string {
+  getRoleIcon(id: any) {
     return this.heroData.roles.find((x) => {
       return x.id === id;
     }).iconUrl;
   }
 
-  roleToString(id: number): string {
+  roleToString(id: any): String {
     return this.heroData.roles.find((x) => {
       return x.id === id;
     }).name;

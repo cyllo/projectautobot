@@ -41,6 +41,8 @@ export class HeroCardsComponent implements OnInit {
     let sort = this.allHeroesByRole.bind(this);
 
     this.sortedHeroes  = sort(hss, this.heroData);
+
+    console.log('uhhh: ', this.sortedHeroes);
   }
 
   private reset() {

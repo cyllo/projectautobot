@@ -23,8 +23,8 @@ export class LifetimeStatsComponent {
 
   constructor() {}
 
-  private load() {
-    this.reset();
+  load() {
+    this.resetTables();
 
     let ss   = this._snapshotStats;
     let ahss = ss.allHeroesSnapshotStatistic;
@@ -111,15 +111,15 @@ export class LifetimeStatsComponent {
 
   }
 
-  private success(value: number) {
+  success(value: number) {
     return value !== null && !isNaN(value) && isFinite(value);
   }
 
-  private reset() {
+  resetTables() {
     this.tables = [];
   }
 
-  private addTable(title: string, arr_tables: Array<any>): any {
+  addTable(title: string, arr_tables: Array<any>): any {
     let table = {
       title: title,
       data: []
@@ -128,14 +128,14 @@ export class LifetimeStatsComponent {
     return table;
   }
 
-  private addToTable(title: string, value: any, table: any) {
+  addToTable(title: string, value: any, table: any) {
     table.data.push({
       title: title,
       value: value
     });
   }
 
-  private calcTotalFromSnapshot(ss: SnapshotStats, block: string, key: string): number {
+  calcTotalFromSnapshot(ss: SnapshotStats, block: string, key: string): number {
     return ss.heroSnapshotStatistics.reduce((acc, hss) => {
       if (this.objHasKey(hss, block)) {
         let obj = hss[block];
@@ -147,7 +147,7 @@ export class LifetimeStatsComponent {
     }, 0);
   }
 
-  private objHasKey(obj: any, key: string): boolean {
+  objHasKey(obj: any, key: string): boolean {
     if (obj) {
       let res = Object.keys(obj).find(e => {
         return e === key;

@@ -27,15 +27,15 @@ export class HeroesTableComponent implements OnInit {
   }
 
   getWinRate(row) {
-    return parseInt(row.gameHistoryStatistic.gamesWon || 0, 10) / parseInt(row.gameHistoryStatistic.gamesPlayed || 0, 10) * 100;
+    return parseInt(row.gameHistoryStatistic.gamesWon || 0) / parseInt(row.gameHistoryStatistic.gamesPlayed || 0) * 100;
   }
 
   getKDRatio(row) {
-    return parseInt(row.combatLifetimeStatistic.finalBlows || 0, 10) / parseInt(row.combatLifetimeStatistic.deaths || 0, 10);
+    return parseInt(row.combatLifetimeStatistic.finalBlows || 0) / parseInt(row.combatLifetimeStatistic.deaths || 0);
   }
 
   getMedalsPerGame(row) {
-    return parseInt(row.gameHistoryStatistic.gamesWon || 0, 10) / parseInt(row.gameHistoryStatistic.gamesPlayed || 0, 10) * 100;
+    return parseInt(row.gameHistoryStatistic.gamesWon || 0) / parseInt(row.gameHistoryStatistic.gamesPlayed || 0) * 100;
   }
 
   ngOnInit() {

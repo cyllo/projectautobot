@@ -23,7 +23,7 @@ export class HeroSkillsComponent {
   }
 
   get currentHero() {
-    return this._currentHero;
+    return this._currentHero
   }
 
 }

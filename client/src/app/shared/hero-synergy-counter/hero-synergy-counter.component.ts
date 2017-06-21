@@ -23,7 +23,7 @@ export class HeroSynergyCounterComponent {
   }
 
   get currentHero() {
-    return this._currentHero;
+    return this._currentHero
   }
 
 }
