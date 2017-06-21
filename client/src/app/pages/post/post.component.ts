@@ -1,10 +1,10 @@
-import { HostListener, Component, ViewChild, Renderer2, AfterViewInit, AfterViewChecked, OnInit, OnDestroy} from '@angular/core';
+import { HostListener, Component, ViewChild, Renderer2, AfterViewInit, AfterViewChecked, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription'
+import { Subscription } from 'rxjs/Subscription';
 
-import { BlogPost } from '../../models'
+import { BlogPost } from '../../models';
 
-import { PostService } from './post.service'
+import { PostService } from './post.service';
 
 @Component({
   selector: 'ow-post',
@@ -15,10 +15,10 @@ import { PostService } from './post.service'
 export class PostComponent implements AfterViewInit, AfterViewChecked, OnDestroy, OnInit {
   @ViewChild('postsidebar') public elPostSideBar;
 
-  public post: BlogPost = <BlogPost>{}
+  public post: BlogPost = <BlogPost>{};
   private elMainNav;
   private sub: Subscription
-
+;
   constructor(
     public postService: PostService,
     private renderer: Renderer2,
@@ -28,7 +28,7 @@ export class PostComponent implements AfterViewInit, AfterViewChecked, OnDestroy
   ngOnInit() {
     this.sub = this.route.params
       .mergeMap(({title}) => this.postService.getPost(title))
-      .subscribe((post) => this.post = post)
+      .subscribe((post) => this.post = post);
   }
 
   ngAfterViewInit() {
@@ -44,7 +44,7 @@ export class PostComponent implements AfterViewInit, AfterViewChecked, OnDestroy
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe()
+    this.sub.unsubscribe();
   }
 
   @HostListener('window.scroll')

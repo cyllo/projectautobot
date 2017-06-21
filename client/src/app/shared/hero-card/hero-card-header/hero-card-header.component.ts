@@ -62,13 +62,13 @@ export class HeroCardHeaderComponent implements OnInit {
     // let scoop   = this.calcTotalFromSnapshot.bind(this);
 
     let hs:     HeroSnapshotStats   = this._heroSnap;
-    let hs_cls: CombatLifetimeStats = hs.combatLifetimeStatistic; // can be null
-    let hs_ghs: GameHistoryStats    = hs.gameHistoryStatistic; // can be null
-    let hs_mas: MatchAwardsStats    = hs.matchAwardsStatistic; // can be null
+    let hs_cls: CombatLifetimeStats = valid( hs ) ? hs.combatLifetimeStatistic : null;
+    let hs_ghs: GameHistoryStats    = valid( hs ) ? hs.gameHistoryStatistic    : null;
+    let hs_mas: MatchAwardsStats    = valid( hs ) ? hs.matchAwardsStatistic    : null;
 
     let ss:      SnapshotStats      = this._snapshotStats;
-    let ahs:     HeroSnapshotStats  = ss.allHeroesSnapshotStatistic; // can be null
-    let ahs_ghs: GameHistoryStats   = ahs.gameHistoryStatistic; // can be null
+    let ahs:     HeroSnapshotStats  = valid( ss ) ? ss.allHeroesSnapshotStatistic : null;
+    let ahs_ghs: GameHistoryStats   = valid( ss ) ? ahs.gameHistoryStatistic      : null;
 
     let prop:   string;
     let value:  any;

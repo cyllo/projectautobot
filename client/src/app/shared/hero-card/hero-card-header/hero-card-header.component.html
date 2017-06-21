@@ -91,7 +91,7 @@
           <div class="row">
             <div class="col-12">
               <span class="h5 font-weight-bold">
-                {{ stat('wins').value || '-' }}
+                {{ stat('wins').value || 0 }}
                 {{ stat('loss').value ? ' - ' + stat('loss').value : '' }}
               </span>
             </div>

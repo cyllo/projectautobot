@@ -13,6 +13,10 @@ export const gamerTagSearchQuery = gql`
         gamerTagId
         heroSnapshotStatistics {
           id
+          heroSpecificStatistic {
+            id
+            stats
+          }
           matchAwardsStatistic {
             id
             totalMedals

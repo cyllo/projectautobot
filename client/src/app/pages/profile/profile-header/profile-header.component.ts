@@ -1,5 +1,5 @@
 import { AfterContentInit, Component, Input } from '@angular/core';
-import { Player, SnapshotStats } from '../../../models';
+import { Player, SnapshotStats, HeroSnapshotStats, GameHistoryStats, MatchAwardsStats } from '../../../models';
 
 @Component({
   selector: 'ow-profile-header',
@@ -19,9 +19,9 @@ export class ProfileHeaderComponent implements AfterContentInit {
 
   getStat(stat: string): number {
 
-    let ahss = this.snapshotStats.allHeroesSnapshotStatistic;
-    let ghs = ahss.gameHistoryStatistic;
-    let mas = ahss.matchAwardsStatistic;
+    let ahss: HeroSnapshotStats = this.snapshotStats.allHeroesSnapshotStatistic;
+    let ghs: GameHistoryStats   = ahss.gameHistoryStatistic;
+    let mas: MatchAwardsStats   = ahss.matchAwardsStatistic;
 
     switch (stat) {
 
