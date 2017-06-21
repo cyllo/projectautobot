@@ -1,6 +1,6 @@
 defmodule Models.Game.GamerTag do
   use Models.Model
-  alias Models.{Helpers, Repo, Game, Game.GamerTag}
+  alias Models.{Helpers, Repo, Game, Game.GamerTag, Accounts.User}
 
   schema "gamer_tags" do
     field :tag, :string
@@ -19,6 +19,12 @@ defmodule Models.Game.GamerTag do
 
     belongs_to :user, Models.Accounts.User
     has_many :snapshot_statistics, Models.Statistics.Snapshots.SnapshotStatistic
+
+    many_to_many :user_followers, User, join_through: "gamer_tag_user_followers",
+                                        join_keys: [gamer_tag_id: :id, user_id: :id],
+                                        unique: true,
+                                        on_delete: :delete_all
+
     many_to_many :connected_gamer_tags, GamerTag, join_through: "connected_gamer_tags",
                                                   join_keys: [gamer_tag1_id: :id, gamer_tag2_id: :id]
 

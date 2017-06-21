@@ -1,6 +1,7 @@
 defmodule Models.Accounts do
   alias Models.Accounts.{User, Follower}
-  alias Models.{Repo, Model}
+  alias Models.{Game, Repo, Model}
+  alias Models.Game.GamerTagUserFollower
   use Models.Model
 
   Model.create_model_methods(User)
@@ -91,6 +92,22 @@ defmodule Models.Accounts do
     else
       {:error, "password is not correct"}
     end
+  end
+
+  def get_followed_gamer_tags_by_user_ids(user_ids) do
+    from(gtuf in GamerTagUserFollower, preload: :gamer_tag, where: gtuf.user_id in ^user_ids)
+      |> Repo.all
+      |> group_followed_gamer_tags_by_user_id
+  end
+
+  defp group_followed_gamer_tags_by_user_id(followed_gamer_tags) do
+    Enum.reduce(followed_gamer_tags, %{}, fn follower, accum ->
+      if Map.has_key?(accum, follower.user_id) and !(follower.gamer_tag in accum[follower.user_id]) do
+        Map.put(accum, follower.user_id, accum[follower.user_id]++ [follower.gamer_tag])
+      else
+        Map.put(accum, follower.user_id, [follower.gamer_tag])
+      end
+    end)
   end
 
   @doc """

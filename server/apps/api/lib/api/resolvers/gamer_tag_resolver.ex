@@ -28,6 +28,8 @@ defmodule Api.GamerTagResolver do
 
   def search(%{tag: tag}, _info), do: Scraper.search_tag(tag)
 
+  def get_gamer_tag_following_users(_, gamer_tag_ids), do: Game.get_following_users_by_gamer_tag_ids(gamer_tag_ids)
+
   def get_gamer_tag_connected_gamer_tags(_, gamer_tags) do
     gamer_tags
       |> Enum.map(&{&1, Game.get_connected_gamer_tags(&1)})

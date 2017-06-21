@@ -45,6 +45,16 @@ defmodule Api.Schema.GameTypes do
         )
       end
     end
+
+    field :following_users, list_of(:user) do
+      resolve fn gamer_tag, args, _ ->
+        batch(
+          {GamerTagResolver, :get_gamer_tag_following_users},
+          gamer_tag.id,
+          &{:ok, Map.get(&1, gamer_tag.id)}
+        )
+      end
+    end
   end
 
   @desc "Overwatch heroes"

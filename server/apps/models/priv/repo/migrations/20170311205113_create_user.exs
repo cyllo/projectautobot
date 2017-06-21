@@ -8,6 +8,7 @@ defmodule Models.Repo.Migrations.CreateUser do
       add :username, :citext, null: false
       add :email, :citext, null: false
       add :password_hash, :text, null: false
+      add :is_admin, :boolean, default: false
 
       timestamps()
     end
