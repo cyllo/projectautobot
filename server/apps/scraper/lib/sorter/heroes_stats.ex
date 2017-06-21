@@ -12,7 +12,11 @@ defmodule Scraper.Sorter.HeroesStats do
     :critical_hits, :shots_fired, :defensive_assists,
     :critical_hits_accuracy_percentage, :shots_hit,
     :weapon_accuracy_percentage, :self_healing, :turrets_destroyed,
-    :teleporter_pads_destroyed, :damage_blocked, :melee_kills
+    :teleporter_pads_destroyed, :damage_blocked, :melee_kills,
+    # UNKNOWN IF EXIST
+    :ultimates_used, :ultimates_earned,
+    :time_holding_ultimate, :hero_damage_done,
+    :barrier_damage_done, :all_damage_done, :damage_blocked
   ]
 
   @average_statistics [
@@ -23,7 +27,9 @@ defmodule Scraper.Sorter.HeroesStats do
     :objective_kills_average, :objective_time_average,
     :melee_final_blows_average, :offensive_assists_average,
     :critical_hits_average, :defensive_assists_average,
-    :damage_blocked_average, :melee_kills_average
+    :damage_blocked_average, :melee_kills_average,
+    # UK if exist
+    :melee_percentage_of_final_blows, :weapon_accuracy
   ]
 
   @best_statistics [
@@ -84,6 +90,7 @@ defmodule Scraper.Sorter.HeroesStats do
 
   defp get_stats_category({key, _}) do
     cond do
+      Regex.match?(~r/^of_[a-z']+_[a-z']+(_[a-z']+)?$/i, Atom.to_string(key)) -> nil
       key in @lifetime_statistics -> :lifetime
       key in @best_statistics -> :best
       key in @average_statistics -> :average

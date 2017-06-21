@@ -14,7 +14,10 @@ defmodule Scraper.Sorter.GeneralStats do
     :healing_done, :environmental_kills,
     :turrets_destroyed, :offensive_assists,
     :multikills, :teleporter_pads_destroyed,
-    :shield_generators_destroyed
+    :shield_generators_destroyed,
+    :ultimates_used, :ultimates_earned,
+    :time_holding_ultimate, :hero_damage_done,
+    :barrier_damage_done, :all_damage_done, :damage_blocked
   ]
 
   @average_statistics [
@@ -23,7 +26,7 @@ defmodule Scraper.Sorter.GeneralStats do
     :melee_final_blows_average, :objective_time_average,
     :healing_done_average, :deaths_average,
     :time_spent_on_fire_average, :critical_hits_average,
-    :damage_done_average,
+    :damage_done_average, :melee_percentage_of_final_blows, :weapon_accuracy
   ]
 
   @best_statistics [
@@ -69,6 +72,7 @@ defmodule Scraper.Sorter.GeneralStats do
 
   defp get_stats_category({key, _}) do
     cond do
+      Regex.match?(~r/^of_[a-z']+_[a-z']+(_[a-z']+)?$/i, Atom.to_string(key)) -> nil
       key in @lifetime_statistics -> :lifetime
       key in @average_statistics -> :average
       key in @best_statistics -> :best

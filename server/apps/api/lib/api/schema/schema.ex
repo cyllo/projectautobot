@@ -97,7 +97,7 @@ defmodule Api.Schema do
     field :scrape_gamer_tag, :gamer_tag do
       arg :id, non_null(:integer)
 
-      resolve &async(fn -> GamerTagResolver.scrape(&1, &2) end, timeout: Helpers.sec_to_ms(30))
+      resolve &async(fn -> GamerTagResolver.scrape(&1, &2) end, timeout: 30_000)
     end
 
     @desc "Creates a user account"

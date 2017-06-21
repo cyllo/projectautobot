@@ -28,6 +28,15 @@ defmodule Api.Schema.StatisticTypes do
     field :recon_assists_most_in_game, :integer
     field :damage_blocked_most_in_game, :integer
     field :melee_kills_most_in_game, :integer
+
+
+    field :ultimates_used, :integer
+    field :ultimates_earned, :integer
+    field :time_holding_ultimate, :integer
+    field :hero_damage_done, :integer
+    field :barrier_damage_done, :integer
+    field :all_damage_done, :integer
+    field :damage_blocked, :integer
   end
 
   object :combat_average_statistic do
@@ -49,6 +58,8 @@ defmodule Api.Schema.StatisticTypes do
     field :time_spent_on_fire_average, :integer
     field :damage_blocked_average, :integer
     field :melee_kills_average, :float
+    field :melee_percentage_of_final_blows, :integer
+    field :weapon_accuracy, :float
   end
 
   object :combat_lifetime_statistic do
