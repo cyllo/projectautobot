@@ -6,9 +6,9 @@
 
 html,
 body {
-  background-color: $blue-light;
+  background-color: $app-bg-color;
   font-family: 'Roboto', Helvetica, Arial;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   line-height: 1;
 }
 
@@ -22,10 +22,6 @@ p {
 
 a {
   text-decoration: none;
-}
-
-i {
-  font-size: 150%;
 }
 
 input,
@@ -142,29 +138,6 @@ button:hover {
   border-radius: 0.25rem 0.25rem 0 0 !important;
 }
 
-.dropdown-menu {
-  font-size: 0.8rem;
-  border: 1px solid $purple-lighter;
-  border-color: $brand-primary;
-  border-radius: 0 0 0.25rem 0.25rem;
-  margin-top: -1px;
-  background-color: $white;
-}
-
-.dropdown-menu .arrow-up {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: translate(3.5%, -50%);
-  font-size: 3.5rem;
-  color: $white;
-}
-
-.dropdown-item:hover {
-  background-color: $brand-primary;
-  color: $white;
-}
-
 /** UTILITIES **/
 .text-light {
   color: $gray-light;
@@ -180,16 +153,6 @@ button:hover {
 .content-outline {
   color: $purple-dark;
   border: 1px solid $purple-dark;
-}
-
-small,
-.small {
-  font-size: 75%;
-}
-
-.x-small {
-  font-size: 65%;
-  letter-spacing: 0.03rem;
 }
 
 sup {

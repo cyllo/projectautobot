@@ -20,6 +20,9 @@ import {
   SideBarLeftComponent,
   FooterComponent,
   MainNavComponent,
+  MainNavbarLeftComponent,
+  MainNavbarRightComponent,
+  MainNavbarSearchComponent,
   MainSearchResultsComponent } from './static';
 import { routing } from './app.routing';
 import { OrderByPipe } from './pipes';
@@ -72,6 +75,9 @@ export function instrumentOptions() {
   declarations: [
     AppComponent,
     MainNavComponent,
+    MainNavbarLeftComponent,
+    MainNavbarRightComponent,
+    MainNavbarSearchComponent,
     MainSearchResultsComponent,
     TopNavComponent,
     SideBarLeftComponent,

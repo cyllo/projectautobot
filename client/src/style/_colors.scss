@@ -1,13 +1,14 @@
 // Start with assigning color names to specific hex values.
-$white:                     #ffffff         !default;
+$blue:                      #1C9ED2         !default;
 $black:                     #000000         !default;
-$red:                       #ff2d2d         !default;
-$yellow:                    #ffd428         !default;
-$orange:                    #ff5831         !default;
-$green:                     #2ecc71         !default;
-$blue:                      #3498db         !default;
-$purple:                    #9b59b6         !default;
 $brown:                     #836953         !default;
+$green:                     #2ecc71         !default;
+$orange:                    #ff5831         !default;
+$pink:                      #EA4DA8         !default;
+$purple:                    #7555C0         !default;
+$red:                       #ff2d2d         !default;
+$white:                     #ffffff         !default;
+$yellow:                    #ffd428         !default;
 
 // Create grayscale
 $gray-dark:                 #262626         !default;
@@ -16,18 +17,30 @@ $gray-light:                #808080         !default;
 $gray-lighter:              #e5e5e5         !default;
 $gray-lightest:             #fafafa         !default;
 
-// Color Shades **DO NOT DEFINE BASE COLORS HERE**
-$purple-darker:             #373a4d         !default;
-$purple-dark:               #3f4257         !default;
-$purple-light:              #494c62         !default;
-$purple-lighter:            #9a9fbf         !default;
+// Color Shades
+$blue-darker:               #222C6A         !default;
+$blue-dark:                 #293A71         !default;
+$blue-light:                #A1C8E4         !default;
+$blue-lighter:              #DCE5EE         !default;
 
-$blue-light:                #ecf2f5         !default;
+$pink-darker:               #6A2257         !default;
+$pink-dark:                 #71295C         !default;
+$pink-light:                #D395C8         !default;
+$pink-lighter:              #F1CBE0         !default;
+
+$purple-darker:             #39226A         !default;
+$purple-dark:               #3F2971         !default;
+$purple-light:              #A595D3         !default;
+$purple-lighter:            #D2CAEB         !default;
 
 // Reassign color vars to semantic color scheme
-$brand-primary:             $orange         !default;
-$brand-inverse:             $purple-dark    !default;
-$brand-success:             $green          !default;
-$brand-info:                $yellow         !default;
-$brand-warning:             $orange         !default;
-$brand-danger:              $red            !default;
+$app-bg-color:              $blue-lighter     !default;
+
+$brand-primary:             $orange           !default;
+$brand-inverse:             $purple-dark      !default;
+$brand-success:             $green            !default;
+$brand-info:                $yellow           !default;
+$brand-warning:             $orange           !default;
+$brand-danger:              $red              !default;
+
+
