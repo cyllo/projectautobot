@@ -3,13 +3,14 @@ import { Player, Search } from '../../models';
 import { AppState } from '../../models/appstate.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { Router } from '@angular/router';
 import { clone } from 'ramda';
+import { ProfileService } from '../../services';
 
 @Component({
   selector: 'ow-main-search-results',
   templateUrl: 'main-search-results.component.html',
-  styleUrls: ['main-search-results.component.scss']
+  styleUrls: ['main-search-results.component.scss'],
+  providers: [ProfileService]
 })
 export class MainSearchResultsComponent {
   @Input() searchResults;
@@ -19,7 +20,10 @@ export class MainSearchResultsComponent {
   data$: Observable<AppState>;
   search: Search;
 
-  constructor(private store: Store<AppState>, private cd: ChangeDetectorRef, private router: Router) {
+  constructor(private store: Store<AppState>,
+    private cd: ChangeDetectorRef,
+    private profileService: ProfileService
+  ) {
     this.data$ = this.store.select(search => search);
     this.data$.subscribe(s => {
       this.search = s.search;
@@ -41,15 +45,6 @@ export class MainSearchResultsComponent {
     // console.log('payload: ' , newPayload);
     this.store.dispatch({ type: 'ADD_PLAYER', payload: newPayload });
     this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: { tag: this.search.tag, searching: false } });
-    this.redirect(result);
+    this.profileService.goto(result);
   }
-
-  redirect(data: Player) {
-    if (data.region) {
-      this.router.navigate(['./profile', data.platform, data.region, data.tag]);
-    } else {
-      this.router.navigate(['./profile', data.platform, data.tag]);
-    }
-  }
-
 }
