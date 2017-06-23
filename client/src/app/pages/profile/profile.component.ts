@@ -5,16 +5,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { SnapshotStats } from '../../models/player.model';
 import { Observable } from 'rxjs/Observable';
-import { join } from 'ramda';
+import { ProfileService } from '../../services';
 
 @Component({
   selector: 'ow-profile',
   templateUrl: 'profile.component.html',
-  styleUrls: [ 'profile.component.scss' ]
+  styleUrls: [ 'profile.component.scss' ],
+  providers: [ProfileService]
 })
 
 export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
-  players: Player[];
+  players: Observable<Object>;
   player;
 
   platform: string;
@@ -26,17 +27,17 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
 
   constructor(private store: Store<AppState>,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private profileService: ProfileService
   ) {
-    this.player = this.activatedRoute.params.flatMap((params) => {
-      const key = join('', [params.region, params.platform]);
-      return store.select('players').map(players => players[key]);
-    }).filter(state => !!state).map((player: Player) => {
-      return Object.assign({}, player, {
-        competitive: player.snapshotStatistics[player.snapshotStatistics.length - 1],
-        quickPlay: player.snapshotStatistics[player.snapshotStatistics.length - 2]
-      });
-    });
+    this.players = store.select('players');
+    this.player = this.activatedRoute.params
+    .flatMap(({region = '', platform}) => this.players.pluck(`${region}${platform}`))
+    .filter(state => !!state)
+    .map((player: Player) => Object.assign({}, player, {
+      competitive: player.snapshotStatistics[player.snapshotStatistics.length - 1],
+      quickPlay: player.snapshotStatistics[player.snapshotStatistics.length - 2]
+    }));
     this.selectedSnapshotData = this.player.combineLatest(this.selectedSnapshot, (player, selectedSnapshot) => {
       return player[selectedSnapshot];
     });
@@ -60,6 +61,11 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
 
   toggleSnapshotStats(type: string) {
     this.selectedSnapshot.next(type);
+  }
+
+  changePlatformRegion(platformRegion: string) {
+    this.players.pluck(platformRegion)
+    .subscribe((player: Player) => this.profileService.goto(player));
   }
 
   ngOnDestroy() {
