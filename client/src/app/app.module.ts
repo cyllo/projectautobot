@@ -22,8 +22,8 @@ import {
   MainNavComponent,
   MainNavbarLeftComponent,
   MainNavbarRightComponent,
-  MainNavbarSearchComponent,
-  MainSearchResultsComponent } from './static';
+  MainSearchResultsComponent,
+  MainNavAccountOverviewComponent } from './static';
 import { routing } from './app.routing';
 import { OrderByPipe } from './pipes';
 import { PlayersService, OverwatchHeroDataService } from './services';
@@ -77,8 +77,8 @@ export function instrumentOptions() {
     MainNavComponent,
     MainNavbarLeftComponent,
     MainNavbarRightComponent,
-    MainNavbarSearchComponent,
     MainSearchResultsComponent,
+    MainNavAccountOverviewComponent,
     TopNavComponent,
     SideBarLeftComponent,
     FooterComponent,

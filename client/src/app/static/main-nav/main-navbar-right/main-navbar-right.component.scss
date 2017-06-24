@@ -1,98 +1,74 @@
-@import "../../../style/colors";
+@import "../../../../style/colors";
 
-.main-nav {
-
-  background-color: $brand-inverse;
-
-  .navbar-brand img {
-    width: 100%;
-    max-width: 2.5rem;
-  }
-
-  .nav-link {
-    color: $purple-lighter;
-    font-size: 0.85rem;
-  }
-
-  .nav-link:hover {
-    color: $white;
-  }
-
-  .navbar-collapse {
-    width: 100%;
-  }
-
-  .search-form {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 45%;
-    height: 100% !important;
-  }
-
-  .dropdown-menu {
-    border-color: $brand-inverse;
-    border-radius: 0.25rem;
-  }
-  .dropdown-item:hover {
-    background-color: $brand-inverse;
-  }
-
-  .navbar-toggler {
-    color: $white;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  // Medium devices (tablets, less than 992px)
-  @media (max-width: 991px) {
-    .search-form {
-      max-width: 60%;
+.main-navbar-right {
+    .navbar-toggler {
+        color: $brand-primary;
+        right: 0;
+        top: 50%;
+        position: absolute;
+        transform: translateY(-50%);
     }
-    .navbar-collapse {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      transform: translateY(100%);
-      background-color: $purple-darker;
-    }
-  }
 
+    .btn-signup {
+        background-color: transparent;
+        border: 1px solid $brand-inverse;
+        color: $brand-inverse;
+    }
+    .btn-signup:hover {
+        border: 1px solid $brand-primary;
+        color: $brand-primary;
+    }
+
+    .btn-login {
+        background-color: $brand-inverse;
+        color: $white;
+    }
+    .btn-login:hover {
+        background-color: $brand-primary;
+        color: $white;
+    }
 }
 
-:host /deep/ .main-nav {
-
-  .form-group,
-  .form-group > .form-control {
-    height: 100% !important;
-  }
-
-  .form-group {
-
-    .form-control {
-      border: 0 !important;
-      border-radius: 0 !important;
-      background-color: $purple-light;
-      font-size: 0.85rem;
-      color: $purple-lighter;
+@media (max-width: 991px) {
+  .main-navbar-right {
+    .navbar-nav {
+        padding: 0 0.5rem;
     }
-
-    i {
-      color: $purple-lighter;
+    .navbar-collapse {
+        top: 100%;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        background-color: $header-bg-color;
     }
-
+    .navbar-toggler {
+        top: 50%;
+        right: 0;
+        position: absolute;
+        transform: translateY(-50%);
+    }
+    .navbar-toggler i {
+        color: $brand-inverse;
+    }
+    /*
+    .nav-item {
+        border-bottom: 1px dotted $main-nav-border-color;
+    }
+    .nav-item:last-child {
+        border: 0;
+    }
+    .nav-link {
+        font-size: 1rem;
+        color: $brand-inverse;
+    }
+    .nav-link:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    */
+    .btn-login,
+    .btn-signup {
+        display: block;
+    }
   }
-
-  .dropdown-toggle {
-    line-height: 1;
-  }
-
-  .dropdown-toggle::after {
-    display: none !important;
-  }
-
 }

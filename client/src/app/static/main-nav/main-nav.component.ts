@@ -1,17 +1,7 @@
-import {
-  AfterContentInit,
-  AfterViewInit,
-  AfterViewChecked,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  Renderer2,
-  EventEmitter,
-  Output } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, AfterContentInit, OnDestroy, Renderer2 , EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
 import { Action } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'ow-main-nav',
@@ -19,37 +9,27 @@ import { Action } from '@ngrx/store';
   styleUrls: ['main-nav.component.scss']
 })
 
-export class MainNavComponent implements OnInit, AfterContentInit, AfterViewInit, AfterViewChecked, OnDestroy {
-  @ViewChild('search') search;
-  @ViewChild('mainnav') elNav;
-  @Output() searchTag = new EventEmitter<Action>();
+export class MainNavComponent implements AfterContentInit, OnDestroy, AfterViewInit {
+@ViewChild('search') search;
+@ViewChild('mainnav') elMainNav;
+@Output() searchTag = new EventEmitter<Action>();
 
   questionForm: FormGroup;
   subscriptions: Subscription[] = [];
-  public isCollapsed = true;
-  public userActionCollapsed = true;
 
-  private player;
+  private player: any;
   private fieldName = 'Search';
   private controlName = 'search';
   private searchPlaceholder = 'Search for player by battle tag, psn or xbox live';
 
-  private lastScrollY;
-  private currScrollY;
   private elBody;
+
+  userLoggedIn = true;
 
   constructor(private renderer: Renderer2) {}
 
-  ngOnInit() {
-    // Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    // Add 'implements OnInit' to the class.
-    this.questionForm = new FormGroup({});
-    this.renderer.listen('window' , 'scroll' , (event) => { this.onScroll(event); });
-    this.renderer.listen('window' , 'resize' , (event) => { this.onResize(event); });
-    this.renderer.listen('window' , 'DOMContentLoaded' , (event) => { this.onDOMLoaded(event); });
-  }
-
   ngAfterContentInit() {
+    this.questionForm = new FormGroup({});
     // Called after ngOnInit when the component's or directive's content has been initialized.
     // Add 'implements AfterContentInit' to the class.
     this.search.initControl(
@@ -61,20 +41,6 @@ export class MainNavComponent implements OnInit, AfterContentInit, AfterViewInit
       true
     );
     this.mapFormToModel();
-  }
-
-  ngAfterViewInit() {
-    // Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    // Add 'implements AfterViewInit' to the class.
-    this.lastScrollY = 0;
-    this.currScrollY = 0;
-    this.elBody = document.getElementsByTagName('body');
-  }
-
-  ngAfterViewChecked() {
-    // Called after every check of the component's view. Applies to components only.
-    // Add 'implements AfterViewChecked' to the class.
-    this.updateMainNavOffset();
   }
 
   ngOnDestroy() {
@@ -91,24 +57,31 @@ export class MainNavComponent implements OnInit, AfterContentInit, AfterViewInit
     this.searchTag.emit({ type: 'GET_PLAYER_TAG', payload: { tag: tag, searching: true } });
   }
 
+  ngAfterViewInit() {
+    this.elBody = document.getElementsByTagName('body')[0];
+    // this.renderer.listen('window', 'scroll'          , (event) => { this.onScroll(event);    });
+    // this.renderer.listen('window', 'resize'          , (event) => { this.onResize(event);    });
+    this.renderer.listen('window', 'DOMContentLoaded', (event) => { this.onDOMLoaded(event); });
+  }
+
+  offsetBodyPadding() {
+    let navheight = this.elMainNav.nativeElement.offsetHeight;
+    this.elBody.style.paddingTop = navheight + 'px';
+  }
+
+  onDOMLoaded(event) {
+    this.offsetBodyPadding();
+    event.preventDefault();
+  }
+
   onScroll(event) {
-    this.updateMainNavOffset();
+    this.offsetBodyPadding();
     event.preventDefault();
   }
 
   onResize(event) {
-    this.updateMainNavOffset();
+    this.offsetBodyPadding();
     event.preventDefault();
-  }
-
-  onDOMLoaded(event) {
-    this.updateMainNavOffset();
-    event.preventDefault();
-  }
-
-  updateMainNavOffset() {
-    const mainNavHeight = this.elNav.nativeElement.offsetHeight;
-    this.elBody[0].style.paddingTop = mainNavHeight + 'px';
   }
 
 }
