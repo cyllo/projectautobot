@@ -1,45 +1,91 @@
 <div class="main-nav-account-overview d-inline-flex align-items-center">
-    <div ngbDropdown class="d-inline-block">
-      
-        <button class="account-overview d-flex align-items-center py-0 px-3" id="dropdownBasic1" ngbDropdownToggle>
+  <div ngbDropdown class="d-inline-block">
+
+    <button class="account-overview d-flex align-items-center py-0 px-3" id="dropdownBasic1" ngbDropdownToggle>
             <img src="img/imgplaceholder_square.png" class="user-avatar mr-2" alt="">
             <div class="d-inline-flex align-items-center mr-2 hidden-md-down">
                 <span class="display-name font-weight-bold mr-3">Cyllo</span>
             </div>
             <i class="fa fa-caret-down d-inline-flex align-items-center" aria-hidden="true"></i>
         </button>
-      
-      <div class="dropdown-menu px-0 py-0" aria-labelledby="dropdownBasic1">
-        <section class="primary px-3">
-            <div class="container-fluid">
-                <div class="row pt-3">
-                    <div class="col-12 mb-4">
-                        <label class="d-inline-flex align-items-center"><input class="mr-2" type="checkbox" value="">Share my activity</label>
-                        <p class="mb-0">Share your progress, trends, and activity with your friends</p>
-                    </div>
-                </div>
+
+    <div class="dropdown-menu px-0 py-0" aria-labelledby="dropdownBasic1">
+      <section class="primary px-3">
+        <div class="container-fluid">
+          <div class="row pt-3">
+            <div class="col-12 mb-2">
+              <span class="small text-uppercase text-light">Your Profiles</span>
             </div>
-        </section>
-        <section class="secondary px-3">
-            <div class="container-fluid">
-                <div class="row pt-4">
-                    <div class="col-12 mb-4">
-                        <a href="" class="py-2"><i class="fa fa-users mr-2" aria-hidden="true"></i>Friends</a>
+            <div class="col-12">
+
+              <ul class="user-profile-list">
+
+                <li class="list-item pb-2 mb-2">
+                  <a href="#">
+                    <div class="row align-items-center user-profile">
+                      <div class="col-auto pl-3">
+                        <img src="img/imgplaceholder_square.png" alt="">
+                      </div>
+                      <div class="col tag">
+                        <p class="small mb-0 font-weight-bold">Cyllo#2112</p>
+                        <p class="small mb-0 text-light">PC US (SR: 2861)</p>
+                      </div>
+                      <div class="col-auto pr-3">
+                        <i class="fa fa-chevron-right ml-auto" aria-hidden="true"></i>
+                      </div>
                     </div>
-                    <div class="col-12 mb-4">
-                        <a href=""><i class="fa fa-credit-card-alt mr-2" aria-hidden="true"></i>Subscription</a>
+                  </a>
+                </li>
+
+                <li class="list-item pb-2 mb-2">
+                  <a href="#">
+                    <div class="row align-items-center user-profile">
+                      <div class="col-auto pl-3">
+                        <img src="img/imgplaceholder_square.png" alt="">
+                      </div>
+                      <div class="col tag">
+                        <p class="small mb-0 font-weight-bold">Cyllo#2112</p>
+                        <p class="small mb-0 text-light">PC US (SR: 2861)</p>
+                      </div>
+                      <div class="col-auto pr-3">
+                        <i class="fa fa-chevron-right ml-auto" aria-hidden="true"></i>
+                      </div>
                     </div>
-                </div>
-                <div class="row pt-4">
-                    <div class="col-12 mb-4">
-                        <a href="" class="py-2"><i class="fa fa-cog mr-2" aria-hidden="true"></i>Account Settings</a>
-                    </div>
-                    <div class="col-12 mb-4">
-                        <a href=""><i class="fa fa-sign-out mr-2" aria-hidden="true"></i>Signout</a>
-                    </div>
-                </div>
+                  </a>
+                </li>
+
+              </ul>
+
             </div>
-        </section>
-      </div>
+          </div>
+          <div class="row pt-3">
+            <div class="col-12 mb-4">
+              <label class="d-inline-flex align-items-center"><input class="mr-2" type="checkbox" value="">Share my activity</label>
+              <p class="mb-0">Share your progress, trends, and activity with your friends</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="secondary px-3">
+        <div class="container-fluid">
+          <div class="row pt-4">
+            <div class="col-12 mb-4">
+              <a href="" class="py-2"><i class="fa fa-users mr-2" aria-hidden="true"></i>Friends</a>
+            </div>
+            <div class="col-12 mb-4">
+              <a href=""><i class="fa fa-credit-card-alt mr-2" aria-hidden="true"></i>Subscription</a>
+            </div>
+          </div>
+          <div class="row pt-4">
+            <div class="col-12 mb-4">
+              <a href="" class="py-2"><i class="fa fa-cog mr-2" aria-hidden="true"></i>Account Settings</a>
+            </div>
+            <div class="col-12 mb-4">
+              <a href=""><i class="fa fa-sign-out mr-2" aria-hidden="true"></i>Signout</a>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
+  </div>
 </div>
