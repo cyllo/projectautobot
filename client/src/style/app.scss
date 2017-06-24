@@ -63,6 +63,9 @@ button:hover {
 }
 
 /** BUTTONS **/
+.btn {
+  outline: none !important;
+}
 .btn-primary {
   background-color: $purple-light;
   border: 0;
@@ -134,7 +137,7 @@ button:hover {
   cursor: pointer;
 }
 
-.dropdown-toggle[aria-expanded="true"] {
+.dropdown.show .dropdown-toggle{
   border-radius: 0.25rem 0.25rem 0 0 !important;
 }
 

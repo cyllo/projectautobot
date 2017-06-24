@@ -5,7 +5,7 @@ $brown:                     #836953         !default;
 $green:                     #2ecc71         !default;
 $orange:                    #ff5831         !default;
 $pink:                      #EA4DA8         !default;
-$purple:                    #7555C0         !default;
+$purple:                    #745cab         !default;
 $red:                       #ff2d2d         !default;
 $white:                     #ffffff         !default;
 $yellow:                    #ffd428         !default;
@@ -22,25 +22,35 @@ $blue-darker:               #222C6A         !default;
 $blue-dark:                 #293A71         !default;
 $blue-light:                #A1C8E4         !default;
 $blue-lighter:              #DCE5EE         !default;
+$blue-lightest:             #EDF2F6         !default;
 
 $pink-darker:               #6A2257         !default;
 $pink-dark:                 #71295C         !default;
 $pink-light:                #D395C8         !default;
 $pink-lighter:              #F1CBE0         !default;
 
-$purple-darker:             #39226A         !default;
-$purple-dark:               #3F2971         !default;
-$purple-light:              #A595D3         !default;
+$purple-darker:             #392b56         !default;
+$purple-dark:               #534475         !default;
+$purple-light:              #8b7cb4         !default;
 $purple-lighter:            #D2CAEB         !default;
 
 // Reassign color vars to semantic color scheme
-$app-bg-color:              $blue-lighter     !default;
-
-$brand-primary:             $orange           !default;
+$brand-primary:             $red              !default;
 $brand-inverse:             $purple-dark      !default;
 $brand-success:             $green            !default;
 $brand-info:                $yellow           !default;
 $brand-warning:             $orange           !default;
 $brand-danger:              $red              !default;
 
+$app-bg-color:              $blue-lightest    !default;
+$header-bg-color:           $white            !default;
 
+$main-nav-icon-color:                $purple-dark      !default;
+$main-nav-hyperlink-color:           $purple-dark      !default;
+$main-nav-border-color:              $gray-lighter     !default;
+
+$main-nav-search-bg-color:           $purple-dark      !default;
+$main-nav-search-placeholder-color:  $purple-lighter   !default;
+$main-nav-search-icon-color:         $purple-lighter   !default;
+$main-nav-search-text-color:         $white            !default;
+$main-nav-search-border-color:       $purple           !default;
