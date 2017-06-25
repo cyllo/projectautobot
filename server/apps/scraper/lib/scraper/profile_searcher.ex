@@ -1,6 +1,6 @@
 defmodule Scraper.ProfileSearcher do
   alias Scraper.ProfileUrl
-  alias Scraper.DataProcessor.{Helpers, UserInfo}
+  alias Scraper.{HtmlHelpers, DataProcessor.UserInfo}
   alias Models.Game
   alias Models.Helpers, as: ModelHelpers
 
@@ -33,7 +33,7 @@ defmodule Scraper.ProfileSearcher do
   defp fetch_profile_possibilities(profile_urls), do: Task.async_stream(profile_urls, &fetch_profile_possibility/1, timeout: @search_timeout)
 
   defp process_response({:ok, {profile_url, html_src}}) do
-    if (Helpers.is_page_not_found?(html_src)), do: nil, else: parse_profile(html_src, profile_url)
+    if (HtmlHelpers.is_page_not_found?(html_src)), do: nil, else: parse_profile(html_src, profile_url)
   end
 
   defp create_profile_url_possibilities(tag), do: Enum.map(@platform_possibilities, &create_platform_profile_url(tag, &1)) |> List.flatten

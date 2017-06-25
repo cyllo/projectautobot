@@ -3,7 +3,7 @@ defmodule Scraper.DataProcessor.StatsBox do
   @cardbox_cards ".data-table tbody tr"
   @cardbox_row_stats "tr td"
 
-  alias Scraper.DataProcessor.Helpers
+  alias Scraper.HtmlHelpers
 
   def parse_hero_stats(%{name: name, code: code}, src) do
     stats = code
@@ -27,7 +27,7 @@ defmodule Scraper.DataProcessor.StatsBox do
     name
       |> String.replace(~r/- |'|-/, "")
       |> String.downcase
-      |> Helpers.normalize_and_snake
+      |> HtmlHelpers.normalize_and_snake
       |> String.to_atom
   end
 

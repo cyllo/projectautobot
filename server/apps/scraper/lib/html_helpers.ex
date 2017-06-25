@@ -1,7 +1,7 @@
-defmodule Scraper.DataProcessor.Helpers do
-  @js_stats_boxes "body.career-detail #competitive .js-stats"
+defmodule Scraper.HtmlHelpers do
+  @js_stats_boxes "body.career-detail #quickplay .js-stats"
   @overwatch_player_platforms "#profile-platforms a"
-  @page_not_found "body > section.u-nav-offset > div > h1"
+  @page_not_found "h1.u-align-center"
   @platform_active ".is-active"
   @plural_possibilities_blacklist ["kill streak", "multikill best"]
   @plural_possibilities [

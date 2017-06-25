@@ -1,5 +1,5 @@
 defmodule Scraper.DataProcessor.Stats do
-  alias Scraper.DataProcessor.{Helpers,StatsBox}
+  alias Scraper.{HtmlHelpers, DataProcessor.StatsBox}
 
   @quickplay_identifier "#quickplay"
   @competitive_stats_identifier "#competitive"
@@ -7,12 +7,12 @@ defmodule Scraper.DataProcessor.Stats do
 
   def get_stats(src) do
     quickplay_stats = src
-      |> Helpers.find_html(@quickplay_identifier)
-      |> type_stats
+      |> HtmlHelpers.find_html(@quickplay_identifier)
+      |> get_stats_details
 
     competitive_stats = src
-      |> Helpers.find_html(@competitive_stats_identifier)
-      |> type_stats
+      |> HtmlHelpers.find_html(@competitive_stats_identifier)
+      |> get_stats_details
 
     %{
       quickplay: quickplay_stats,
@@ -20,14 +20,16 @@ defmodule Scraper.DataProcessor.Stats do
     }
   end
 
-  defp type_stats(src) do
-    {[general_stats], heroes_stats} = src
+  defp get_stats_details(src) do
+    src
       |> played_heroes
       |> Enum.map(&(StatsBox.parse_hero_stats(&1, src)))
       |> Enum.split_with(&is_hero_name_all_heroes/1)
-
-    %{general_stats: general_stats.stats, heroes_stats: heroes_stats}
+      |> process_stat_return
   end
+
+  defp process_stat_return({[], []}), do: %{general_stats: [], heroes_stats: []}
+  defp process_stat_return({[general_stats], heroes_stats}), do: %{general_stats: general_stats.stats, heroes_stats: heroes_stats}
 
   defp played_heroes(src) do
     src

@@ -2,11 +2,12 @@ defmodule Scraper.SessionServer do
   use GenServer
   use Hound.Helpers
   require Logger
-  alias Scraper.DataProcessor.Helpers
+  alias Scraper.HtmlHelpers
 
   @check_for_loaded_interval 500
   @navigation_timeout 1000
   @retries_before_refresh 5
+  @session_restarts_before_timeout 3
 
   # API
   def start_link(_), do: start_link()
@@ -56,19 +57,30 @@ defmodule Scraper.SessionServer do
     Hound.end_session self()
   end
 
-  defp sleep_till_loaded(url), do: sleep_till_loaded(url, page_source())
-  defp sleep_till_loaded(url, source, retries \\ @retries_before_refresh) do
+  defp sleep_till_loaded(
+    url,
+    session_restart_retries \\ @session_restarts_before_timeout,
+    retries \\ @retries_before_refresh
+  ) do
+    source = page_source()
+    page_loaded? = HtmlHelpers.is_page_loaded?(source)
+
     cond do
-      retries < 0 ->
+      page_loaded? ->
+        nil
+
+      retries === 0 && session_restart_retries === 0 ->
+        Logger.error("Server unable to load stats after restarting session #{@session_restarts_before_timeout} times")
+        nil
+
+      retries <= 0 && session_restart_retries >= 0 ->
         restart_session url
         Process.sleep @navigation_timeout
-        sleep_till_loaded url
+        sleep_till_loaded url, session_restart_retries - 1
 
-      !Helpers.is_page_loaded? source ->
+      !page_loaded? ->
         Process.sleep @check_for_loaded_interval
-        sleep_till_loaded url, source, retries - 1
-
-      true -> nil
+        sleep_till_loaded url, session_restart_retries, retries - 1
     end
   end
 
