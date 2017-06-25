@@ -1,14 +1,6 @@
 @import "../../../../style/colors";
 
 .main-navbar-left {
-  .navbar-brand {
-    display: block;
-    width: 100%;
-    max-width: 2.5rem;
-  }
-  .navbar-brand img {
-    width: 100%;
-  }
   .navbar-toggler {
     color: $brand-primary;
     left: 0;
