@@ -22,11 +22,6 @@
     display: block;
     width: 100%;
     max-width: 2.5rem;
-    top: 50%;
-    left: -0.5rem;
-    position: absolute;
-    transform: translate(-100%, -50%);
-    margin: 0;
   }
   .navbar-brand img {
     width: 100%;
@@ -141,5 +136,18 @@
 @media (max-width: 991px) {
   .search-form {
     max-width: 50% !important;
+  }
+  .navbar-brand {
+    display: block;
+    width: 100%;
+    max-width: 2.5rem;
+    top: 50%;
+    left: -0.5rem;
+    position: absolute;
+    transform: translate(-100%, -50%);
+    margin: 0;
+  }
+  .navbar-brand img {
+    width: 100%;
   }
 }
