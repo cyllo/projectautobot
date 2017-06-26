@@ -38,7 +38,7 @@ import {
   StatCategoryBlockComponent,
   HeroesHeaderComponent,
   HeroesTableComponent,
-  NewsPostCardComponent,
+  NewsPageHeaderComponent,
   PageNotFoundComponent
 } from './index';
 
@@ -84,8 +84,8 @@ import {
     StatCategoryBlockComponent,
     HeroesHeaderComponent,
     HeroesTableComponent,
-    NewsPostCardComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    NewsPageHeaderComponent
   ],
   exports: [
     HomeComponent,

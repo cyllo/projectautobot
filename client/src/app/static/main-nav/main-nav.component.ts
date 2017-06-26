@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit, AfterContentInit, OnDestroy, Renderer2 , EventEmitter, Output } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, AfterContentInit, OnDestroy, Renderer2 , EventEmitter, Output , OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Action } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['main-nav.component.scss']
 })
 
-export class MainNavComponent implements AfterContentInit, OnDestroy, AfterViewInit {
+export class MainNavComponent implements AfterContentInit, OnDestroy, AfterViewInit, OnInit {
 @ViewChild('search') search;
 @ViewChild('mainnav') elMainNav;
 @Output() searchTag = new EventEmitter<Action>();
@@ -26,7 +26,17 @@ export class MainNavComponent implements AfterContentInit, OnDestroy, AfterViewI
 
   userLoggedIn = true;
 
+  private prevScrollY: number;
+  private curScrollY: number;
+  private _dy: number;
+
   constructor(private renderer: Renderer2) {}
+
+  ngOnInit() {
+    this.prevScrollY = 0;
+    this.curScrollY  = 0;
+    this._dy = 0;
+  }
 
   ngAfterContentInit() {
     this.questionForm = new FormGroup({});
@@ -59,7 +69,7 @@ export class MainNavComponent implements AfterContentInit, OnDestroy, AfterViewI
 
   ngAfterViewInit() {
     this.elBody = document.getElementsByTagName('body')[0];
-    // this.renderer.listen('window', 'scroll'          , (event) => { this.onScroll(event);    });
+    this.renderer.listen('window', 'scroll'          , (event) => { this.onScroll(event);    });
     // this.renderer.listen('window', 'resize'          , (event) => { this.onResize(event);    });
     this.renderer.listen('window', 'DOMContentLoaded', (event) => { this.onDOMLoaded(event); });
   }
@@ -75,6 +85,19 @@ export class MainNavComponent implements AfterContentInit, OnDestroy, AfterViewI
   }
 
   onScroll(event) {
+    this.curScrollY = window.scrollY;
+
+    let dy = this.prevScrollY - this.curScrollY;
+    dy = dy / Math.abs(dy);
+
+    // if scroll direction changed
+    if ( this._dy !== dy ) {
+      // this.elMainNav.nativeElement.classList.toggle('hidden');
+    }
+
+    this._dy = dy;
+    this.prevScrollY = window.scrollY;
+
     this.offsetBodyPadding();
     event.preventDefault();
   }

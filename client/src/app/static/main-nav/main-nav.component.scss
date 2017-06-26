@@ -1,7 +1,10 @@
 @import "../../../style/colors";
+
 .main-nav {
+
   background-color: $header-bg-color;
   box-shadow: 0 0 34px 0 rgba(63, 66, 87, 0.1);
+
   .navbar {
     min-height: 4rem;
   }

@@ -1,53 +1,52 @@
-<div class="news pt-3">
+<ow-news-page-header></ow-news-page-header>
+<div class="news pt-3" id="news-body">
+  <div class="container-fluid px-0">
+    <div class="row">
 
-  <ow-top-news></ow-top-news>
-  <!-- ow-top-news -->
-
-  <div class="row mb-3">
-    <div class="col-12">
-      <div class="content rounded px-3 pt-3">
-      
-        <div class="row">
-
-
-          <div class="col-lg-8 col-12">
-          
-            <ow-news-post-card></ow-news-post-card>
-            <!-- end ow-news-post-card -->
-
-          </div>
-          <!-- end .col -->
-
-          <div class="col-md-4 hidden-md-down sidebar mb-3">
-
-            <section class="row">
-              <div class="col-12 mb-1">
-                <span class="h5 text-uppercase font-weight-bold">Categories</span>
-              </div>
-              <!-- end .col -->
-              <div class="col-12">
-                <ul class="news-posts-categories">
-                  <li class="px-3 py-3 small">
-                    <a href="#">Patch Notes</a>
-                  </li>
-                  <li class="px-3 py-3 small">
-                    <a href="#">News</a>
-                  </li>
-                </ul>
-              </div>
-              <!-- end .col -->
-            </section>
-            <!-- end section -->
-
-          </div>
-        </div>
-
+      <div class="col-lg-8 col-12 mb-5">
+        <ow-news-card [featuredPost]="true"></ow-news-card>
+        <!-- end ow-news-card -->
       </div>
-      <!-- end .content -->
-    </div>
-    <!-- end .col -->
-  </div>
-  <!-- end .row -->
+      <!-- end .col.featured-post -->
 
+      <div class="col-lg-4 col-sm-6 col-12 mb-5">
+        <ow-news-card></ow-news-card>  
+      </div>
+      <!-- end .col -->
+
+      <div class="col-lg-4 col-sm-6 col-12 mb-5">
+        <ow-news-card></ow-news-card>  
+      </div>
+      <!-- end .col -->
+
+      <div class="col-lg-4 col-sm-6 col-12 mb-5">
+        <ow-news-card></ow-news-card>  
+      </div>
+      <!-- end .col -->
+
+      <div class="col-lg-4 col-sm-6 col-12 mb-5">
+        <ow-news-card></ow-news-card>  
+      </div>
+      <!-- end .col -->
+
+      <div class="col-lg-4 col-sm-6 col-12 mb-5">
+        <ow-news-card></ow-news-card>  
+      </div>
+      <!-- end .col -->
+
+      <div class="col-lg-4 col-sm-6 col-12 mb-5">
+        <ow-news-card></ow-news-card>  
+      </div>
+      <!-- end .col -->
+
+      <div class="col-lg-4 col-sm-6 col-12 mb-5">
+        <ow-news-card></ow-news-card>  
+      </div>
+      <!-- end .col -->
+
+    </div>
+    <!-- end .row -->
+  </div>
+  <!-- end .container-fluid -->
 </div>
 <!-- end .news -->
