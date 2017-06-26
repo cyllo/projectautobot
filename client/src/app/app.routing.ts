@@ -12,7 +12,8 @@ import {
   FriendsComponent,
   ProfileComponent,
   CompareComponent,
-  PageNotFoundComponent
+  PageNotFoundComponent,
+  LoginComponent
 } from './pages';
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'hero/:hero', component: HeroComponent },
   { path: 'esports', component: ESportsComponent },
   { path: 'live', component: LiveComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'news', component: NewsComponent },
   { path: 'post/:title', component: PostComponent },
   { path: 'friends', component: FriendsComponent },

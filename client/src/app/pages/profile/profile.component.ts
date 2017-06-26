@@ -13,7 +13,6 @@ import { ProfileService } from '../../services';
   styleUrls: [ 'profile.component.scss' ],
   providers: [ProfileService]
 })
-
 export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   players: Observable<Object>;
   player;
@@ -71,5 +70,4 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   ngOnDestroy() {
     this.paramsSub.unsubscribe();
   }
-
 }

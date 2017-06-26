@@ -8,6 +8,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SharedModule } from '../shared/shared.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
+
 import {
   HomeComponent,
   FollowingComponent,
@@ -38,8 +39,9 @@ import {
   StatCategoryBlockComponent,
   HeroesHeaderComponent,
   HeroesTableComponent,
-  NewsPageHeaderComponent,
-  PageNotFoundComponent
+  PageNotFoundComponent,
+  LoginComponent,
+  NewsPageHeaderComponent
 } from './index';
 
 @NgModule({
@@ -85,6 +87,7 @@ import {
     HeroesHeaderComponent,
     HeroesTableComponent,
     PageNotFoundComponent,
+    LoginComponent,
     NewsPageHeaderComponent
   ],
   exports: [
@@ -108,7 +111,8 @@ import {
     HeroPageTabsComponent,
     HeroCareerComponent,
     ProfileHeaderComponent,
-    ProfilePageTabsComponent
+    ProfilePageTabsComponent,
+    LoginComponent
   ],
   providers: []
 })

@@ -27,7 +27,16 @@ import {
 import { routing } from './app.routing';
 import { OrderByPipe } from './pipes';
 import { PlayersService, OverwatchHeroDataService } from './services';
-import { players, playerData, playerDataCollection, searchPlayerTag, heroesData, currentHeroData, blogPosts } from './reducers';
+import {
+  players,
+  playerData,
+  playerDataCollection,
+  searchPlayerTag,
+  heroesData,
+  currentHeroData,
+  blogPosts,
+  currentSession
+} from './reducers';
 import { SharedModule } from './shared';
 import { PagesModule } from './pages';
 import { snapshotData } from './reducers/snapshot.reducer';
@@ -49,6 +58,7 @@ export function instrumentOptions() {
       blogPosts,
       playerData,
       players,
+      currentSession,
       playerDataCollection,
       router: routerReducer,
       search: searchPlayerTag,
