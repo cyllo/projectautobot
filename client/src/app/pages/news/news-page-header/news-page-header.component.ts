@@ -1,4 +1,4 @@
-import { Component , AfterViewInit , ViewChild , Renderer2 } from '@angular/core';
+import { Component , OnInit, AfterContentInit , ViewChild } from '@angular/core';
 
 @Component({
   selector: 'ow-news-page-header',
@@ -6,22 +6,26 @@ import { Component , AfterViewInit , ViewChild , Renderer2 } from '@angular/core
   styleUrls: ['news-page-header.component.scss']
 })
 
-export class NewsPageHeaderComponent implements AfterViewInit {
+export class NewsPageHeaderComponent implements OnInit, AfterContentInit {
   @ViewChild('newspageheader') elNewsPageHeader;
 
   private elMainNav;
   private elPageHeader;
   private elNewsBody;
 
-  constructor(private renderer: Renderer2) {}
+  constructor() {}
 
-  ngAfterViewInit() {
+  ngOnInit() {}
+
+  ngAfterContentInit() {
     this.elNewsBody   = document.getElementById('news-body');
     this.elMainNav    = document.getElementById('main-nav');
     this.elPageHeader = this.elNewsPageHeader.nativeElement;
-    this.renderer.listen('window' , 'scroll' , (event) => { this.onScroll(event); });
-    this.renderer.listen('window' , 'resize'          , (event) => { this.onResize(event);    });
-    this.renderer.listen('window' , 'DOMContentLoaded', (event) => { this.onDOMLoaded(event); });
+    // this.renderer.listen('window' , 'scroll'          , (event) => { this.onScroll(event); });
+    // this.renderer.listen('window' , 'resize'          , (event) => { this.onResize(event);    });
+    // this.renderer.listen('window' , 'DOMContentLoaded', (event) => { this.onDOMLoaded(event); });
+    this.updateHeaderOffset();
+    this.updateNewsBodyOffset();
   }
 
   onScroll(event) {
