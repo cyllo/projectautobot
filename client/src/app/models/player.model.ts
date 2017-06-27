@@ -39,7 +39,7 @@ export interface HeroSnapshotStats {
   matchAwardsStatisticId: number;
   matchAwardsStatistic: MatchAwardsStats;
   id?: number;
-  heroSnapshotStatistics: HeroSpecificStats;
+  heroSpecificStatistic: HeroSpecificStats;
   heroSpecificStatisticId: number;
   heroId: number;
   hero: Hero;
