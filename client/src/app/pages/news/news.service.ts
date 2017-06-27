@@ -37,7 +37,7 @@ export class NewsService {
       variables: {last}
     })
       .map(res => res.data.blogPosts)
-      .map(map(merge({imageUrl: '//placehold.it/500x500', author: {username: 'Bill Nye'}})))
+      .map(map(merge({imageUrl: '//placehold.it/500x500', author: { username: 'Bill Nye' }})))
       .subscribe((posts) => this.dispatcher.dispatch(getBlogPosts(posts)))
   }
 }

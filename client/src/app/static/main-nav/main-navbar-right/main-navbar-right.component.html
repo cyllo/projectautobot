@@ -1,11 +1,11 @@
 <div class="main-navbar-right">
-  
-  <button class="navbar-toggler px-4" type="button" 
-          (click)="isCollapsed = !isCollapsed" 
-          data-toggle="collapse" 
+
+  <button class="navbar-toggler px-4" type="button"
+          (click)="isCollapsed = !isCollapsed"
+          data-toggle="collapse"
           data-target="#toggled-navigation"
-          aria-controls="toggled-navigation" 
-          aria-expanded="!isCollapsed" 
+          aria-controls="toggled-navigation"
+          aria-expanded="!isCollapsed"
           aria-label="Toggle Navigation">
     <i class="fa fa-user-circle" aria-hidden="true"></i>
   </button>
@@ -16,7 +16,7 @@
         <a class="btn btn-signup px-3 py-2 ml-md-2 ml-0" href="#">Sign Up</a>
       </li>
       <li class="nav-item my-1">
-        <a class="btn btn-login px-3 py-2 ml-md-2 ml-0" href="#">Login</a>
+        <a routerLink="/login" class="btn btn-login px-3 py-2 ml-md-2 ml-0">Login</a>
       </li>
     </ul>
   </div>

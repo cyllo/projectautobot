@@ -1,7 +1,10 @@
 import { Component, ViewChild, AfterViewInit, AfterContentInit, OnDestroy, Renderer2 , EventEmitter, Output , OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
+import { AppState } from '../../models';
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import { values, all, isNil } from 'ramda';
 
 @Component({
   selector: 'ow-main-nav',
@@ -17,6 +20,7 @@ export class MainNavComponent implements AfterContentInit, OnDestroy, AfterViewI
   questionForm: FormGroup;
   subscriptions: Subscription[] = [];
 
+  private currentSession: Observable<Object>;
   private player: any;
   private fieldName = 'Search';
   private controlName = 'search';
@@ -24,18 +28,22 @@ export class MainNavComponent implements AfterContentInit, OnDestroy, AfterViewI
 
   private elBody;
 
-  userLoggedIn = true;
+  userLoggedIn = false;
 
   private prevScrollY: number;
   private curScrollY: number;
   private _dy: number;
 
-  constructor(private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2, private store: Store<AppState>) {
+    this.currentSession = this.store.select('currentSession');
+  }
 
   ngOnInit() {
     this.prevScrollY = 0;
     this.curScrollY  = 0;
     this._dy = 0;
+
+    this.currentSession.subscribe(session => this.userLoggedIn = !all(isNil, values(session)));
   }
 
   ngAfterContentInit() {
@@ -106,5 +114,4 @@ export class MainNavComponent implements AfterContentInit, OnDestroy, AfterViewI
     this.offsetBodyPadding();
     event.preventDefault();
   }
-
 }

@@ -1,0 +1,18 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+  <input
+    formControlName="username"
+    type="text"
+    name="username"
+    id="username"
+    placeholder="username">
+  <input
+    formControlName="password"
+    type="password"
+    name="password"
+    id="password"
+    placeholder="password">
+  <button [disabled]="!loginForm.valid" type="submit">Login</button>
+  <div *ngIf="loginError">
+    Problem logging in, try again.
+  </div>
+</form>

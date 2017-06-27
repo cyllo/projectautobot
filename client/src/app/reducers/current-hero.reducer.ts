@@ -13,7 +13,6 @@ export function currentHeroData(state: CurrentHero = initialState, { type, paylo
   switch (type) {
     case 'GET_CURRENT_HERO_DATA':
       return payload;
-
     default:
       return state;
   }
