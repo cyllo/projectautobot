@@ -1,47 +1,59 @@
 <div class="profile pt-3" *ngIf="player | async as playerData">
 
-  <ow-platform-region [player]="playerData" [players]="players | async" (change)="changePlatformRegion($event)"></ow-platform-region>
-  <!-- end ow-platform-region -->
-  <ow-profile-header [player]="playerData"></ow-profile-header>
-  <!-- end ow-profile-header -->
+  <div class="container">
+    <ow-platform-region [player]="playerData" [players]="players | async" (change)="changePlatformRegion($event)"></ow-platform-region>
+    <!-- end ow-platform-region -->
+  </div>
+  <!-- end .container -->
 
-  <div class="row mb-3" *ngIf="selectedSnapshotData | async as snapshotStats">
-    <div class="col-12">
-      <div class="content rounded px-3 py-3">
+  <div class="container" *ngIf="playerData">
+    <ow-profile-header [player]="playerData"></ow-profile-header>
+    <!-- end ow-profile-header -->
+  </div>
+  <!-- end .container -->
+  
+  <div class="container">
 
-        <div class="row align-items-center">
-          <div class="col-lg-6 col-md-4 text-md-left col-sm-12 text-center mb-3">
-            <div class="btn-group" role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-radio"
-                      [class.active]="snapshotStats.isCompetitive"
-                      (click)="toggleSnapshotStats('competitive')">
-                <span class="small">Competitive Play</span>
-              </button>
-              <button type="button" class="btn btn-radio"
-                      [class.active]="!snapshotStats.isCompetitive"
-                      (click)="toggleSnapshotStats('quickPlay')">
-                <span class="small">Quick Play</span>
+    <div class="row mb-3" *ngIf="selectedSnapshotData | async as snapshotStats">
+      <div class="col-12">
+        <div class="content rounded px-3 py-3">
+
+          <div class="row align-items-center">
+            <div class="col-lg-6 col-md-4 text-md-left col-sm-12 text-center mb-3">
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-radio"
+                        [class.active]="snapshotStats.isCompetitive"
+                        (click)="toggleSnapshotStats('competitive')">
+                  <span class="small">Competitive Play</span>
+                </button>
+                <button type="button" class="btn btn-radio"
+                        [class.active]="!snapshotStats.isCompetitive"
+                        (click)="toggleSnapshotStats('quickPlay')">
+                  <span class="small">Quick Play</span>
+                </button>
+              </div>
+            </div>
+            <!-- end .col -->
+            <div class="col-lg-6 col-md-8 text-md-right col-sm-12 text-center mb-3">
+              <button type="button" class="btn btn-outline-primary">
+                <span class="small d-flex align-items-center">
+                  <i class="material-icons mr-1">link</i>Connect your Battle.net to claim.
+                </span>
               </button>
             </div>
+            <!-- end .col -->
           </div>
-          <!-- end .col -->
-          <div class="col-lg-6 col-md-8 text-md-right col-sm-12 text-center mb-3">
-            <button type="button" class="btn btn-outline-primary">
-              <span class="small d-flex align-items-center">
-                <i class="material-icons mr-1">link</i>Connect your Battle.net to claim.
-              </span>
-            </button>
-          </div>
-          <!-- end .col -->
+          <!-- end .row -->
+          <ow-profile-page-tabs [snapshotStats]="snapshotStats"></ow-profile-page-tabs>
+          <!-- end ow-profile-page-tabs -->
         </div>
-        <!-- end .row -->
-        <ow-profile-page-tabs [snapshotStats]="snapshotStats"></ow-profile-page-tabs>
-        <!-- end ow-profile-page-tabs -->
+        <!-- end .content -->
       </div>
-      <!-- end .content -->
+      <!-- end .col -->
     </div>
-    <!-- end .col -->
+    <!-- end .row -->
   </div>
-  <!-- end .row -->
+  <!-- end .container -->
+  
 </div>
 <!-- end .profile -->
