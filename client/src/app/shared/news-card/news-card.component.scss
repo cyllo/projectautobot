@@ -8,6 +8,10 @@
   overflow: hidden;
   height: 100%;
 
+  a {
+    color: inherit;
+  }
+
   p {
     letter-spacing: 0.03rem;
   }
@@ -30,11 +34,11 @@
     radial-gradient(rgba(0, 0, 0, 0.1) 15%, transparent 16%);
     background-size: 5px 5px;
     background-position: center center;
-    -webkit-transition: all 400ms ease-in-out;
-    -moz-transition: all 400ms ease-in-out;
-    -ms-transition: all 400ms ease-in-out;
-    -o-transition: all 400ms ease-in-out;
-    transition: all 400ms ease-in-out;
+    -webkit-transition: background-color 400ms ease-out;
+    -moz-transition: background-color 400ms ease-out;
+    -ms-transition: background-color 400ms ease-out;
+    -o-transition: background-color 400ms ease-out;
+    transition: background-color 400ms ease-out;
   }
 
   .thumbnail {
@@ -58,11 +62,11 @@
     color: $white;
     margin-bottom: 0.5rem;
     display: inline-block;
-    -webkit-transition: all 400ms ease-in-out;
-    -moz-transition: all 400ms ease-in-out;
-    -ms-transition: all 400ms ease-in-out;
-    -o-transition: all 400ms ease-in-out;
-    transition: all 400ms ease-in-out;
+    -webkit-transition: margin-top 400ms ease-out, margin-bottom 400ms ease-out;
+    -moz-transition: margin-top 400ms ease-out, margin-bottom 400ms ease-out;
+    -ms-transition: margin-top 400ms ease-out, margin-bottom 400ms ease-out;
+    -o-transition: margin-top 400ms ease-out, margin-bottom 400ms ease-out;
+    transition: margin-top 400ms ease-out, margin-bottom 400ms ease-out;
   }
 
   .post-title {
@@ -77,28 +81,30 @@
   }
 
   .creation-breadcrumb {
+    display: none;
     color: $white;
     margin-bottom: 1rem;
     position: relative;
     transform: translateY(-100%);
     opacity: 0;
-    -webkit-transition: all 400ms ease-in-out;
-    -moz-transition: all 400ms ease-in-out;
-    -ms-transition: all 400ms ease-in-out;
-    -o-transition: all 400ms ease-in-out;
-    transition: all 400ms ease-in-out;
+    -webkit-transition: transform 400ms ease-out, opacity 400ms ease-out;
+    -moz-transition: transform 400ms ease-out, opacity 400ms ease-out;
+    -ms-transition: transform 400ms ease-out, opacity 400ms ease-out;
+    -o-transition: transform 400ms ease-out, opacity 400ms ease-out;
+    transition: transform 400ms ease-out, opacity 400ms ease-out;
   }
 
   .post-summary {
+    display: none;
     font-size: 1rem;
     line-height: 1.3;
     transform: translateY(-30%);
     opacity: 0;
-    -webkit-transition: all 400ms ease-in-out;
-    -moz-transition: all 400ms ease-in-out;
-    -ms-transition: all 400ms ease-in-out;
-    -o-transition: all 400ms ease-in-out;
-    transition: all 400ms ease-in-out;
+    -webkit-transition: transform 400ms ease-out, opacity 400ms ease-out;
+    -moz-transition: transform 400ms ease-out, opacity 400ms ease-out;
+    -ms-transition: transform 400ms ease-out, opacity 400ms ease-out;
+    -o-transition: transform 400ms ease-out, opacity 400ms ease-out;
+    transition: transform 400ms ease-out, opacity 400ms ease-out;
   }
 
   :hover {
@@ -111,6 +117,7 @@
     }
     .creation-breadcrumb,
     .post-summary {
+      display: block;
       transform: translateY(0);
       opacity: 1;
     }
