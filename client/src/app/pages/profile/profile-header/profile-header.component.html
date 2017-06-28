@@ -128,15 +128,24 @@
       <!-- row -->
       <div class="row">
         <div class="col-12 text-lg-left text-center mb-3">
-          <button class="btn btn-outline-primary mr-2" type="button" name="button">
+          <button class="btn btn-outline-primary mr-2" type="button" name="button"  (click)="renew()" [ngSwitch]="renewInProgress">
+            <ng-container *ngSwitchCase="false">
+              <i class="fa fa-refresh" aria-hidden="true"></i>
               <span class="small">Renew</span>
-            </button>
+            </ng-container>
+            <ng-container *ngSwitchCase="true">
+              <i class="fa fa-refresh fa-spin" aria-hidden="true"></i>
+              <span class="small">Updating</span>
+            </ng-container>
+          </button>
           <button class="btn btn-outline-primary mr-2" type="button" name="button">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
               <span class="small">Share</span>
-            </button>
-          <button class="btn btn-outline-primary mr-2" type="button" name="button">
+          </button>
+          <button class="btn btn-outline-primary mr-2" type="button" name="button" (click)="follow(player)">
+              <i class="fa fa-heart" aria-hidden="true"></i>
               <span class="small">Follow</span>
-            </button>
+          </button>
         </div>
       </div>
       <!-- end .row -->
