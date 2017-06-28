@@ -1,0 +1,87 @@
+@import "../../../../style/colors";
+
+.post-entry {
+
+    .post-header {
+
+        z-index: 10;
+
+        p {
+            letter-spacing: 0.05rem;
+        }
+
+        .post-header-inner {
+            padding: 0 20%;
+        }
+
+        .post-header-content {
+            padding: 0 10%;
+            background-color: $white;
+        }
+
+        .post-category {
+            color: $brand-primary;
+        }
+
+        .post-title {
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+
+        .post-creation {
+            font-weight: 400;
+        }
+
+        .post-short {
+            font-weight: 300;
+        }
+
+        // Medium devices (tablets, less than 992px)
+        @media (max-width: 991px) {
+            .post-header-content {
+                padding: 0;
+            }
+        }
+
+        // Small devices (landscape phones, less than 768px)
+        @media (max-width: 767px) {
+            .post-title {
+                font-size: 2rem;
+            }
+        }
+
+   }
+
+    .post-body {
+
+        border: 1px solid $gray-lighter;
+        padding-top: 10%;
+        padding-bottom: 10%;
+        margin-top: -10%;
+        margin-bottom: 4rem;
+        z-index: 0;
+        
+        .image {
+            margin-bottom: 2rem;
+        }
+
+        img {
+           width: 100%;
+            max-width: calc(50rem + 1vw);
+        }
+
+        p {
+            font-weight: 300;
+            padding: 0 15%;
+            line-height: 1.5;
+            letter-spacing: 0.05rem;
+            margin-bottom: 2rem;
+        }
+
+        .post-body-content {
+            padding: 0 5%;
+        }
+
+    }
+
+}
