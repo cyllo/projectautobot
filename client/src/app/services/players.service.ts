@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'ramda';
 import { AppState, Player } from '../models';
 
 @Injectable()

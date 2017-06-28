@@ -1,34 +1,23 @@
-import { Component } from '@angular/core';
-import { snapshotStatsAverageSearchQuery } from '../../queries';
-import { Apollo } from 'apollo-angular';
-import { CurrentHero } from '../../models';
-
-interface SnapshotStatsAverageSearchResponse {
-  snapshotsStatisticsAverage: CurrentHero;
-  loading: boolean;
-}
+import { Component, OnInit } from '@angular/core';
+import { HeroStatistics } from '../../services';
 
 @Component({
   selector: 'ow-heroes',
   templateUrl: 'heroes.component.html',
-  styleUrls: [ 'heroes.component.scss' ]
+  styleUrls: [ 'heroes.component.scss' ],
+  providers: [HeroStatistics]
 })
-export class HeroesComponent {
+export class HeroesComponent implements OnInit {
   heroes;
-  isCompetitive = true;
 
-  constructor(private apollo: Apollo) {
+  constructor(private heroStatistics: HeroStatistics) {}
+
+  ngOnInit() {
     this.loadHeroData();
   }
 
   loadHeroData() {
-    return this.apollo.query<SnapshotStatsAverageSearchResponse>({
-      query: snapshotStatsAverageSearchQuery,
-      variables: { isCompetitive: this.isCompetitive }
-    })
-    .filter(s => !!s.data)
-    .subscribe(s => {
-      this.heroes = s.data.snapshotsStatisticsAverage.heroSnapshotStatistics;
-    });
+    return this.heroStatistics.getSnapshot()
+    .subscribe(snapshotStats => this.heroes = snapshotStats);
   }
 }

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
-import { trim } from 'lodash';
+import { trim } from 'ramda';
 
 @Component({
   selector: 'ow-search',
@@ -23,8 +23,9 @@ export class SearchComponent implements OnDestroy {
 
   constructor() {}
 
-  initControl(form, value, fieldName, controlName, placeholder, image) {
+  initControl(form, value = '', fieldName, controlName, placeholder, image) {
     value = trim(value); // trim leading/trailing spaces and blank text
+
     this.form = form;
     this.placeholder = placeholder;
     this.fieldName = fieldName;

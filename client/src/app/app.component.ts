@@ -3,30 +3,19 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
-import { isEmpty } from 'lodash';
-import { Apollo } from 'apollo-angular';
+import { isEmpty } from 'ramda';
 
-import { AppState, Player, Heroes } from './models';
+import { AppState, Player } from './models';
 import { getPlayerData, searchGamerTag } from './reducers';
-import { OverwatchHeroDataService } from './services';
+import { OverwatchHeroDataService, GamerTagService, HereosService } from './services';
 
 import '../style/app.scss';
-import { gamerTagSearchQuery, heroSearchQuery } from './queries';
-
-interface GamerTagSearchResponse {
-  searchGamerTag: Player[];
-  loading: boolean;
-}
-
-interface HeroesSearchResponse {
-  heroes: Heroes[];
-  loading: boolean;
-}
 
 @Component({
   selector: 'ow-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  providers: [GamerTagService, HereosService]
 })
 export class AppComponent implements OnDestroy {
   sub: Subscription;
@@ -35,7 +24,11 @@ export class AppComponent implements OnDestroy {
   searchResults = new Subject<Player[]>();
   isResultsOpen = false;
 
-  constructor(private store: Store<AppState>, private apollo: Apollo, private owHeroData: OverwatchHeroDataService) {
+  constructor(
+    private store: Store<AppState>,
+    private owHeroData: OverwatchHeroDataService,
+    private gamerTagService: GamerTagService,
+    private HereosService: HereosService) {
 
     this.$state = this.store.select(s => s);
 
@@ -61,9 +54,7 @@ export class AppComponent implements OnDestroy {
   }
 
   find(tag) {
-    return this.apollo.query<GamerTagSearchResponse>({ query: gamerTagSearchQuery, variables: { tag: tag } })
-      .map(({data}) => data.searchGamerTag)
-      .filter(data => data.length > 0)
+    return this.gamerTagService.find(tag)
       .switchMap((playerData) => Observable.forkJoin([Observable.of(playerData), this.owHeroData.data$ ]))
       .map(([_playerdata, owHeroData]) => {
         return _playerdata.map(player => Object.assign({}, player, {
@@ -76,9 +67,8 @@ export class AppComponent implements OnDestroy {
   }
 
   getHeroes() {
-    return this.apollo.query<HeroesSearchResponse>({ query: heroSearchQuery })
-      .filter(s => !!s.data.heroes)
-      .subscribe(s => this.store.dispatch({ type: 'GET_HEROES_DATA', payload: s.data.heroes }));
+    return this.HereosService.get()
+    .subscribe(s => this.store.dispatch({ type: 'GET_HEROES_DATA', payload: s.data.heroes }));
   }
 
   ngOnDestroy() {

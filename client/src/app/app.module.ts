@@ -15,18 +15,12 @@ import { ApolloClient } from 'apollo-client';
 import { SidebarModule } from 'ng-sidebar';
 
 import { AppComponent } from './app.component';
-import {
-  TopNavComponent,
-  SideBarLeftComponent,
-  FooterComponent,
-  MainNavComponent,
-  MainNavbarLeftComponent,
-  MainNavbarRightComponent,
-  MainSearchResultsComponent,
-  MainNavAccountOverviewComponent } from './static';
+import * as staticComponents from './static';
 import { routing } from './app.routing';
 import { OrderByPipe } from './pipes';
 import { PlayersService, OverwatchHeroDataService } from './services';
+import { values } from 'ramda';
+
 import {
   players,
   playerData,
@@ -35,12 +29,13 @@ import {
   heroesData,
   currentHeroData,
   blogPosts,
-  currentSession
+  currentSession,
+  snapshotData
 } from './reducers';
 import { SharedModule } from './shared';
 import { PagesModule } from './pages';
-import { snapshotData } from './reducers/snapshot.reducer';
 
+const declarations: any[] = [AppComponent, OrderByPipe, ...values(staticComponents)];
 export function instrumentOptions() {
   return {
     monitor: useLogMonitor({ visible: false, position: 'right' })
@@ -55,16 +50,16 @@ export function instrumentOptions() {
     ApolloModule.forRoot(() => new ApolloClient()),
     StoreDevtoolsModule.instrumentStore(instrumentOptions),
     StoreModule.provideStore({
-      blogPosts,
-      playerData,
       players,
-      currentSession,
+      playerData,
       playerDataCollection,
-      router: routerReducer,
       search: searchPlayerTag,
-      snapshotStats: snapshotData,
       heroes: heroesData,
-      currentHero: currentHeroData
+      currentHero: currentHeroData,
+      blogPosts,
+      currentSession,
+      router: routerReducer,
+      snapshotStats: snapshotData,
     }, {
       blogPost: {},
       playerData: {},
@@ -82,18 +77,7 @@ export function instrumentOptions() {
     routing,
     SidebarModule,
   ],
-  declarations: [
-    AppComponent,
-    MainNavComponent,
-    MainNavbarLeftComponent,
-    MainNavbarRightComponent,
-    MainSearchResultsComponent,
-    MainNavAccountOverviewComponent,
-    TopNavComponent,
-    SideBarLeftComponent,
-    FooterComponent,
-    OrderByPipe
-  ],
+  declarations,
   providers: [
     PlayersService,
     OverwatchHeroDataService
