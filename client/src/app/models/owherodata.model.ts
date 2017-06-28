@@ -26,3 +26,10 @@ export interface OverwatchStaticData {
   roles: HeroRole[];
   heroes: HeroData[];
 }
+
+export interface HeroStatBlock {
+  name: string;
+  value?: number;
+  format?: string;
+  percent?: number;
+}

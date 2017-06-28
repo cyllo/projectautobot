@@ -2,7 +2,7 @@
 
 .main-nav {
 
-  background-color: $header-bg-color;
+  background-color: $white;
   box-shadow: 0 0 34px 0 rgba(63, 66, 87, 0.1);
 
   .navbar {
@@ -36,17 +36,14 @@
   .form-control {
     height: 100%;
   }
-  .form-icon {
-    border-right: 1px solid $main-nav-search-border-color;
-  }
   .form-icon i {
-    color: $main-nav-search-icon-color;
+    color: $white;
     font-size: 1.3rem;
   }
   input {
-    font-size: 1rem;
-    color: $main-nav-search-text-color;
-    background-color: $main-nav-search-bg-color;
+    font-size: 0.75rem;
+    color: $white;
+    background-color: $purple-dark;
     border-radius: 0;
     border: 0;
     outline: none;
@@ -59,7 +56,7 @@
   }
   /* WebKit, Blink, Edge */
    ::-webkit-input-placeholder {
-    color: $main-nav-search-placeholder-color;
+    color: $white;
     -webkit-transition: all 150ms ease-in-out;
     -moz-transition: all 150ms ease-in-out;
     -ms-transition: all 150ms ease-in-out;
@@ -74,7 +71,7 @@
   }
   /* Mozilla Firefox 4 to 18 */
    :-moz-placeholder {
-    color: $main-nav-search-placeholder-color;
+    color: $white;
     opacity: 1;
     -webkit-transition: all 150ms ease-in-out;
     -moz-transition: all 150ms ease-in-out;
@@ -90,7 +87,7 @@
   }
   /* Mozilla Firefox 19+ */
    ::-moz-placeholder {
-    color: $main-nav-search-placeholder-color;
+    color: $white;
     opacity: 1;
     -webkit-transition: all 150ms ease-in-out;
     -moz-transition: all 150ms ease-in-out;
@@ -106,7 +103,7 @@
   }
   /* Internet Explorer 10-11 */
    :-ms-input-placeholder {
-    color: $main-nav-search-placeholder-color;
+    color: $white;
     -webkit-transition: all 150ms ease-in-out;
     -moz-transition: all 150ms ease-in-out;
     -ms-transition: all 150ms ease-in-out;
@@ -121,7 +118,7 @@
   }
   /* Microsoft Edge */
    ::-ms-input-placeholder {
-    color: $main-nav-search-placeholder-color;
+    color: $white;
     -webkit-transition: all 150ms ease-in-out;
     -moz-transition: all 150ms ease-in-out;
     -ms-transition: all 150ms ease-in-out;

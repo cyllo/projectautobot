@@ -6,7 +6,7 @@
 
 html,
 body {
-  background-color: $app-bg-color;
+  background-color: $blue-lightest;
   font-family: 'Roboto', Helvetica, Arial;
   font-size: 1rem;
   line-height: 1;
@@ -22,7 +22,7 @@ body {
   font-weight: 500 !important;
 }
 .font-weight-bold {
-  font-weight: 700 !important;
+  font-weight: 500 !important;
 }
 .font-weight-black {
   font-weight: 900 !important;
@@ -79,8 +79,17 @@ button:hover {
 }
 
 /** BUTTONS **/
+.btn i {
+  margin-right: 0.35rem;
+}
 .btn {
+  font-size: 0.75rem;
+  padding: 0.65rem 1rem;
   outline: none !important;
+  box-shadow: none !important;
+}
+.btn-dropdown-toggle::after {
+  display: none;
 }
 .btn-primary {
   background-color: $purple-light;
@@ -196,7 +205,7 @@ ngb-progressbar[type="stp"]{
     border-radius: 0;
   }
   .progress-bar {
-    height: 0.35rem;
+    height: 0.25rem;
   }
 }
 
@@ -208,21 +217,27 @@ ngb-progressbar[type="stp"]{
   }
 }
 
-.medal.gold {
-  background-color: $yellow;
-}
-.medal.silver {
-  background-color: $gray-lighter;
-}
-.medal.bronze {
-  background-color: $brown;
-}
+.medals {
 
-section {
-  border-bottom: 1px dotted $gray-lighter;
-}
-section:last-child{
-  border: 0;
+  span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.5
+  }
+
+  .gold {
+    background-color: $yellow;
+  }
+
+  .silver {
+    background-color: $gray-lighter;
+  }
+
+  .bronze {
+    background-color: $brown;
+  }
+
 }
 
 .video-preview {

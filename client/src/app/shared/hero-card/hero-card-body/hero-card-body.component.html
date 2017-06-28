@@ -1,20 +1,21 @@
-<div class="row" *ngIf="warehouse">
-  <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-6 mb-3" *ngFor="let barrel of warehouse">
-    <div class="row mb-1">
-      <div class="col-12">
-        <span class="font-weight-bold">{{ barrel.value ? ( barrel.value | number : '1.0-2' ) : '-' }}</span>
-        <span *ngIf="barrel.value">{{ barrel.label }}</span>
+<div class="hero-card-body pt-3">
+  <div class="row" *ngIf="statBlocks">
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6 mb-3" *ngFor="let block of statBlocks">
+      <div class="row mb-1">
+        <div class="col-12 value">
+          <span class="font-weight-bold">{{ block.value ? ( block.value | number : '1.0-2' ) : '-' }}</span>
+          <span *ngIf="block.value">{{ block.format }}</span>
+        </div>
+      </div>
+      <div class="row mb-1">
+        <div class="col-12">
+          <ngb-progressbar type="stp" [value]="block.percent || 0" [max]="100"></ngb-progressbar>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <span class="label text-uppercase text-light">{{ block.name }}</span>
+        </div>
       </div>
     </div>
-    <div class="row mb-1">
-      <div class="col-12">
-        <ngb-progressbar type="stp" [value]="barrel.percent || 0" [max]="100"></ngb-progressbar>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <span class="small">{{ barrel.title }}</span>
-      </div>
-    </div>
-  </div>
 </div>

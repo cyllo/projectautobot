@@ -159,7 +159,7 @@ export class HeroCardHeaderComponent implements OnInit {
 
     prop   = 'onfire';
     if ( valid( hs_cls ) ) {
-      value  = valid( hs_cls.timeSpentOnFire ) ? hs_cls.timeSpentOnFire : 0;
+      value  = valid( hs_cls.timeSpentOnFire ) ? Number((hs_cls.timeSpentOnFire / 60).toFixed(2)) : 0;
       change = 0;
     }
     put( prop, change, value, store );
@@ -224,6 +224,12 @@ export class HeroCardHeaderComponent implements OnInit {
     return this.heroData.roles.find(role => {
       return role.id === id;
     }).name;
+  }
+
+  iconUrl(id: number): string {
+    return this.heroData.roles.find(role => {
+      return role.id === id;
+    }).iconUrl;
   }
 
   isArray(obj): boolean {

@@ -59,12 +59,12 @@ export class LifetimeStatsComponent {
 
     value = ghs.timePlayed;
     if (success(value)) {
-      add('Total Game Time', value, table_overview);
+      add('Total Game Time', ( value / 60 ) + ' mins', table_overview);
     }
 
     value = ( (ghs.timePlayed / ghs.gamesPlayed) / 60 ).toFixed(2);
     if (success(value)) {
-      add('Average Game Length', value + ' mins', table_overview);
+      add('Avg Game Length', value + ' mins', table_overview);
     }
 
     // ----------------------------------------------------

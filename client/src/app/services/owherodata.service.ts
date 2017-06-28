@@ -5,11 +5,9 @@ import { Http } from '@angular/http';
 import {
   SnapshotStats,
   HeroSnapshotStats,
-  HeroSpecificStats,
-  CombatLifetimeStats,
-  GameHistoryStats,
   OverwatchStaticData,
-  HeroData
+  HeroData,
+  HeroStatBlock
 } from '../models';
 
 @Injectable()
@@ -27,55 +25,7 @@ export class OverwatchHeroDataService {
       .subscribe(this._data$);
   }
 
-  // Returns an array of heroes that belong to the specified role.
-  getHeroesOfRole(data: OverwatchStaticData, role: number): Array<HeroData> {
-      return data.heroes.filter((hero) => {
-          return +hero.role === role;
-        }
-      );
-  }
-
-  valid(...args) {
-    return args.every(e => {
-      return e !== null && e;
-    });
-  }
-
-  addDataSet(title: string, value: any, percent: number, label: number, arr: Array<any>) {
-    arr.push({
-      title: title,
-      value: value,
-      label: this.getLabel(label),
-      percent: Math.round(percent * 100)
-    });
-  }
-
-  aggregateFromSnapshot(ss: SnapshotStats, block: string, key: string): number {
-    let arr_hss: Array<HeroSnapshotStats> = ss.heroSnapshotStatistics;
-    return arr_hss.reduce((acc, hss) => {
-      let exists = this.objHasKey.bind(this);
-      if ( exists( hss, block ) ) {
-        let obj = hss[block];
-        if ( exists( obj, key ) ) {
-          acc += +obj[key] || 0;
-        }
-      }
-      return acc;
-    }, 0);
-  }
-
-  objHasKey(obj: any, key: string): boolean {
-    if (obj) {
-      let res = Object.keys(obj).find(e => {
-        return e === key;
-      });
-      return (res) ? res.length > 0 : false;
-    } else {
-      return false;
-    }
-  }
-
-  getLabel(label: number): string {
+  formatToString(label: number): string {
     switch (label) {
       case 0 :
         return '/min';
@@ -87,1288 +37,1724 @@ export class OverwatchHeroDataService {
         return 'mins';
       case 4:
         return '/game';
+      case 5:
+        return 'mins/game';
       default :
         return '';
     }
   }
 
-  genericStats(ss: SnapshotStats, hs: HeroSnapshotStats): Array<any> {
-    let data: Array<any> = Array<any>();
-
-    let put       = this.addDataSet.bind(this);
-    let scoop     = this.aggregateFromSnapshot.bind(this);
-    let valid     = this.valid;
-
-    let ss_hss:     HeroSnapshotStats[]  = valid( ss     ) ? ss.heroSnapshotStatistics      : null;
-    let ss_ahs:     HeroSnapshotStats    = valid( ss_hss ) ? ss.allHeroesSnapshotStatistic  : null;
-    let ss_ahs_cls: CombatLifetimeStats  = valid( ss_ahs ) ? ss_ahs.combatLifetimeStatistic : null;
-    let ss_ahs_ghs: GameHistoryStats     = valid( ss_ahs ) ? ss_ahs.gameHistoryStatistic    : null;
-
-    let hs_cls: CombatLifetimeStats      = valid( hs ) ? hs.combatLifetimeStatistic : null;
-    let hs_ghs: GameHistoryStats         = valid( hs ) ? hs.gameHistoryStatistic    : null;
-
-    let hs_timePlayed      = valid( hs_ghs     ) ? hs_ghs.timePlayed      : 0;
-    let ss_ahs_timePlayed  = valid( ss_ahs_ghs ) ? ss_ahs_ghs.timePlayed  : 0;
-
-    let hs_gamesPlayed     = valid( hs_ghs     ) ? hs_ghs.gamesPlayed     : 0;
-    let ss_ahs_gamesPlayed = valid( ss_ahs_ghs ) ? ss_ahs_ghs.gamesPlayed : 0;
-
-    let title: string;
-    let value: any;
-    let label: number;
-    let weight: number;
-
-    // -----------------------------------------------------
-
-    title  = 'Damage';
-    if ( valid( hs_cls , ss_ahs_cls ) ) {
-      value  = valid( hs_cls.damageDone , hs_timePlayed ) ? hs_cls.damageDone / hs_timePlayed : 0 ;
-      label  = 0;
-      weight = valid( hs_cls.damageDone , ss_ahs_cls.damageDone ) ? hs_cls.damageDone / ss_ahs_cls.damageDone : 0;
-    }
-    put(title, value, weight, label, data);
-
-    // -----------------------------------------------------
-
-    title  = 'Eliminations';
-    if ( valid( hs_cls , ss_ahs_cls ) ) {
-      value  = valid( hs_cls.eliminations ) ? hs_cls.eliminations / hs_timePlayed : 0 ;
-      label  = 0;
-      weight = valid( hs_cls.eliminations , ss_ahs_cls.eliminations ) ? hs_cls.eliminations / ss_ahs_cls.eliminations : 0;
-    }
-    put(title, value, weight, label, data);
-
-    // -----------------------------------------------------
-
-    title  = 'Kills';
-    if ( valid( hs_cls , ss_ahs_cls ) ) {
-      value  = valid( hs_cls.finalBlows ) ? hs_cls.finalBlows / hs_timePlayed : 0 ;
-      label  = 0;
-      weight = valid( hs_cls.finalBlows , ss_ahs_cls.finalBlows ) ? hs_cls.finalBlows / ss_ahs_cls.finalBlows : 0;
-    }
-    put(title, value, weight, label, data);
-
-    // -----------------------------------------------------
-
-    title  = 'K/D/A Ratio';
-    if ( valid( hs_cls , ss_ahs_cls ) ) {
-      value  = valid( hs_cls.eliminations , hs_cls.deaths ) ? (hs_cls.eliminations / hs_cls.deaths) : 0 ;
-      label  = 2;
-      weight = valid( hs_cls.eliminations , hs_cls.deaths , ss_ahs_cls.eliminations , ss_ahs_cls.deaths ) ?
-                    ( hs_cls.eliminations / hs_cls.deaths ) / ( ss_ahs_cls.eliminations / ss_ahs_cls.deaths ) : 0;
-    }
-    put(title, value, weight, label, data);
-
-    // -----------------------------------------------------
-
-    title  = 'Obj. Kills';
-    if ( valid( hs_cls , ss_ahs_cls ) ) {
-      value  = valid( hs_cls.objectiveKills ) ? hs_cls.objectiveKills / hs_timePlayed : 0 ;
-      label  = 0;
-      weight = valid( hs_cls.objectiveKills , ss_ahs_cls.objectiveKills ) ? hs_cls.objectiveKills / ss_ahs_cls.objectiveKills : 0;
-    }
-    put(title, value, weight, label, data);
-
-    // -----------------------------------------------------
-
-    title  = 'Obj. Time';
-    if ( valid( hs_cls , ss_ahs_cls ) ) {
-      value  = valid( hs_cls.objectiveTime ) ? hs_cls.objectiveTime / 60 : 0 ;
-      label  = 3;
-      weight = valid( hs_cls.objectiveTime , ss_ahs_cls.objectiveTime ) ? hs_cls.objectiveTime / ss_ahs_cls.objectiveTime : 0;
-    }
-    put(title, value, weight, label, data);
-
-    // -----------------------------------------------------
-
-    title  = 'Accuracy';
-    if ( valid( hs_cls ) ) {
-      let chocolate: number  = scoop( ss , 'combatLifetimeStatistic' , 'weaponAccuracyPercentage' ) / ss_hss.length;
-      value  = valid( hs_cls.weaponAccuracyPercentage ) ? hs_cls.weaponAccuracyPercentage : 0 ;
-      label  = 1;
-      weight = valid( hs_cls.weaponAccuracyPercentage , chocolate ) ?
-                      hs_cls.weaponAccuracyPercentage / chocolate : 0;
-    }
-    put(title, value, weight, label, data);
-
-    // -----------------------------------------------------
-
-    title  = 'Healing';
-    if ( valid( hs_cls , ss_ahs_cls ) ) {
-      value  = valid( hs_cls.healingDone , hs_timePlayed ) ? ( hs_cls.healingDone / hs_timePlayed ) : 0 ;
-      label  = 0;
-      weight = valid( hs_cls.healingDone , ss_ahs_cls ) ? ( hs_cls.healingDone / ss_ahs_cls.healingDone ) : 0;
-    }
-    put(title, value, weight, label, data);
-
-    // -----------------------------------------------------
-
-    title  = 'Critical Hits';
-    if ( valid( hs_cls , ss_ahs_cls ) ) {
-      value  = valid( hs_cls.criticalHits , hs_timePlayed ) ? ( hs_cls.criticalHits / hs_timePlayed ) : 0 ;
-      label  = 0;
-      weight = valid( hs_cls.criticalHits , ss_ahs_cls.criticalHits ) ? ( hs_cls.criticalHits / ss_ahs_cls.criticalHits ) : 0;
-    }
-    put(title, value, weight, label, data);
-
-    // -----------------------------------------------------
-
-    title  = 'Critical Hits Accuracy';
-    if ( valid( hs_cls , ss_ahs_cls ) ) {
-      value  = valid( hs_cls.criticalHitsAccuracyPercentage ) ? ( hs_cls.criticalHitsAccuracyPercentage ) : 0 ;
-      label  = 1;
-      weight = valid( hs_cls.criticalHitsAccuracyPercentage , hs_cls.weaponAccuracyPercentage ) ?
-          ( hs_cls.criticalHitsAccuracyPercentage / hs_cls.weaponAccuracyPercentage ) : 0;
-    }
-    put(title, value, weight, label, data);
-
-    // -----------------------------------------------------
-
-    title  = 'Avg. Game Length';
-    if ( valid( hs_ghs , ss_ahs_ghs ) ) {
-      value  = valid( hs_timePlayed , hs_gamesPlayed ) ? ( hs_timePlayed / hs_gamesPlayed ) / 60 : 0 ;
-      label  = 3;
-      weight = valid( hs_timePlayed , hs_gamesPlayed , ss_ahs_timePlayed , ss_ahs_gamesPlayed ) ?
-                    ( hs_timePlayed / hs_gamesPlayed ) / ( ss_ahs_timePlayed / ss_ahs_gamesPlayed ) : 0;
-    }
-    put(title, value, weight, label, data);
-
-    return data;
+  // Returns an array of hero data (Descriptive information about a hero) from the
+  // JSON that contains all heroes that belong to the specified role.
+  heroDataByRole(data: OverwatchStaticData, role: number): HeroData[] {
+    return data.heroes.filter((hero) => {
+      return +hero.role === role;
+    });
   }
 
-  heroSpecificStats(ss: SnapshotStats, hs: HeroSnapshotStats) {
-    let data: Array<any> = Array<any>();
-
-    let valid = this.valid;
-    let put   = this.addDataSet.bind(this);
-    let scoop = this.aggregateFromSnapshot.bind(this);
-
-    let hs_cls: CombatLifetimeStats = valid( hs  ) ? hs.combatLifetimeStatistic : null;
-    let hs_ghs: GameHistoryStats    = valid( hs  ) ? hs.gameHistoryStatistic    : null;
-
-    let hss: HeroSpecificStats      = valid( hs  ) ? hs.heroSpecificStatistic   : null;
-    let stats: any                  = valid( hss ) ? hss.stats                  : null;
-
-    let title: string;
-    let value: any;
-    let label: number;
-    let weight: number;
-
-    let hero: string = hs.hero.code;
-
-    switch (hero) {
-      case '0x02E0000000000029' : // Genji
-
-          title  = 'Dragonblades';
-          if ( valid( stats , hs_ghs, hs_cls ) ) {
-            value  = valid( stats.dragonblades , hs_ghs.gamesPlayed  ) ? stats.dragonblades / hs_ghs.gamesPlayed  : 0;
-            label  = 4;
-            weight = valid( stats.dragonblades , hs_cls.eliminations ) ? stats.dragonblades / hs_cls.eliminations : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Dragonblade Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.dragonbladeKills , hs_ghs.gamesPlayed ) ? stats.dragonbladeKills / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.dragonbladeKills , hs_cls.finalBlows ) ? stats.dragonbladeKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Dragonblade Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.dragonbladeKills , hs_ghs.timePlayed ) ? stats.dragonbladeKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.dragonbladeKills , hs_cls.finalBlows ) ? stats.dragonbladeKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          let damageBlocked = scoop( ss , 'combatLifetimeStatistic' , 'damageBlocked' );
-
-          title  = 'Damage Reflected';
-          if ( valid( stats , hs_ghs ) ) {
-            value  = valid( stats.damageReflected , hs_ghs.timePlayed ) ? stats.damageReflected / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.damageReflected , damageBlocked )     ? stats.damageReflected / damageBlocked     : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E0000000000042' : // McCree
-
-          title  = 'Deadeye';
-          if ( valid( stats , hs_ghs, hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Deadeye Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.deadeyeKills , hs_ghs.gamesPlayed ) ? stats.deadeyeKills / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.deadeyeKills , hs_cls.finalBlows ) ? stats.deadeyeKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Deadeye Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.deadeyeKills , hs_ghs.timePlayed ) ? stats.deadeyeKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.deadeyeKills , hs_cls.finalBlows ) ? stats.deadeyeKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Fan The Hammer Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.fanTheHammerKills , hs_ghs.timePlayed ) ? stats.fanTheHammerKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.fanTheHammerKills , hs_cls.finalBlows ) ? stats.fanTheHammerKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E0000000000008' : // Pharah
-
-          title  = 'Barrages';
-          if ( valid( stats , hs_ghs, hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Barrage Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.barrageKills , hs_ghs.gamesPlayed ) ? stats.barrageKills / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.barrageKills , hs_cls.finalBlows ) ? stats.barrageKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Barrage Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.barrageKills , hs_ghs.timePlayed ) ? stats.barrageKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.barrageKills , hs_cls.finalBlows ) ? stats.barrageKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Rocket Direct Hits';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.rocketDirectHits , hs_ghs.timePlayed ) ? stats.rocketDirectHits / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.rocketDirectHits , hs_cls.finalBlows ) ? stats.rocketDirectHits / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E0000000000002' : // Reaper
-
-          title  = 'Death Blossoms';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Death Blossom Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.deathsBlossomKills , hs_ghs.gamesPlayed ) ? stats.deathsBlossomKills / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.deathsBlossomKills , hs_cls.finalBlows ) ? stats.deathsBlossomKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Death Blossom Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.deathsBlossomKills , hs_ghs.timePlayed ) ? stats.deathsBlossomKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.deathsBlossomKills , hs_cls.finalBlows ) ? stats.deathsBlossomKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Souls Consumed Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.soulsConsumed , hs_ghs.timePlayed ) ? stats.soulsConsumed / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.soulsConsumed , hs_cls.finalBlows ) ? stats.soulsConsumed / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E000000000006E' : // Soldier: 76
-
-          title  = 'Tactical Visors';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Tactical Visor Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.tacticalVisorKills , hs_ghs.gamesPlayed ) ? stats.tacticalVisorKills / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.tacticalVisorKills , hs_cls.finalBlows ) ? stats.tacticalVisorKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Tactical Visor Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.tacticalVisorKills , hs_ghs.timePlayed ) ? stats.tacticalVisorKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.tacticalVisorKills , hs_cls.finalBlows ) ? stats.tacticalVisorKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Biotic Fields Deployed';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.bioticFieldsDeployed , hs_ghs.timePlayed  ) ? stats.bioticFieldsDeployed / hs_ghs.timePlayed  : 0;
-            label  = 0;
-            weight = valid( stats.bioticFieldsDeployed , hs_cls.healingDone ) ? stats.bioticFieldsDeployed / hs_cls.healingDone : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Biotic Field Healing Done';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.bioticFieldHealingDone , hs_ghs.timePlayed  ) ? stats.bioticFieldHealingDone / hs_ghs.timePlayed  : 0;
-            label  = 0;
-            weight = valid( stats.bioticFieldHealingDone , hs_cls.healingDone ) ? stats.bioticFieldHealingDone / hs_cls.healingDone : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E000000000012E' : // Sombra
-
-          title  = 'EMP';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Enemies EMP\'d';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.enemiesEmpd , hs_ghs.gamesPlayed ) ? stats.enemiesEmpd / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.enemiesEmpd , hs_cls.finalBlows ) ? stats.enemiesEmpd / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Enemies EMP\'d';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.enemiesEmpd , hs_ghs.gamesPlayed ) ? stats.enemiesEmpd / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.enemiesEmpd , hs_cls.finalBlows ) ? stats.enemiesEmpd / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Enemies Hacked';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.enemiesHacked , hs_ghs.gamesPlayed ) ? stats.enemiesHacked / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.enemiesHacked , hs_cls.finalBlows ) ? stats.enemiesHacked / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E0000000000003' : // Tracer
-
-          title  = 'Pulse Bombs';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Pulse Bomb Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.pulseBombKills , hs_ghs.gamesPlayed ) ? stats.pulseBombKills / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.pulseBombKills , hs_cls.finalBlows ) ? stats.pulseBombKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Pulse Bomb Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.pulseBombKills , hs_ghs.timePlayed ) ? stats.pulseBombKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.pulseBombKills , hs_cls.finalBlows ) ? stats.pulseBombKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Pulse Bombs Attached';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.pulseBombsAttached , hs_ghs.timePlayed ) ? stats.pulseBombsAttached / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.pulseBombsAttached , hs_cls.finalBlows ) ? stats.pulseBombsAttached / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E0000000000015' : // Bastion
-
-          title  = 'Configuration: Tank';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Tank Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.tankKills , hs_ghs.gamesPlayed ) ? stats.tankKills / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.tankKills , hs_cls.finalBlows ) ? stats.tankKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Tank Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.tankKills , hs_ghs.timePlayed ) ? stats.tankKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.tankKills , hs_cls.finalBlows ) ? stats.tankKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Sentry Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.sentryKills , hs_ghs.timePlayed ) ? stats.sentryKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.sentryKills , hs_cls.finalBlows ) ? stats.sentryKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Recon Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.reconKills , hs_ghs.timePlayed ) ? stats.reconKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.reconKills , hs_cls.finalBlows ) ? stats.reconKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-        break;
-      case '0x02E0000000000005' : // Hanzo
-
-          title  = 'Dragonstrikes';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Dragonstrike Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.dragonstrikeKills , hs_ghs.gamesPlayed ) ? stats.dragonstrikeKills / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.dragonstrikeKills , hs_cls.finalBlows ) ? stats.dragonstrikeKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Dragonstrike Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.dragonstrikeKills , hs_ghs.timePlayed ) ? stats.dragonstrikeKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.dragonstrikeKills , hs_cls.finalBlows ) ? stats.dragonstrikeKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Scatter Arrow Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.scatterArrowKills , hs_ghs.timePlayed ) ? stats.scatterArrowKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.scatterArrowKills , hs_cls.finalBlows ) ? stats.scatterArrowKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E0000000000065' : // Junkrat
-
-          title  = 'Riptires';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Riptire Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.riptireKills , hs_ghs.gamesPlayed ) ? stats.riptireKills / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.riptireKills , hs_cls.finalBlows ) ? stats.riptireKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Riptire Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.riptireKills , hs_ghs.timePlayed ) ? stats.riptireKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.riptireKills , hs_cls.finalBlows ) ? stats.riptireKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Enemies Trapped';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.enemiesTrapped , hs_ghs.gamesPlayed ) ? stats.enemiesTrapped / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.enemiesTrapped , hs_cls.finalBlows ) ? stats.enemiesTrapped / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Enemies Trapped';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.enemiesTrapped , hs_ghs.timePlayed ) ? stats.enemiesTrapped / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.enemiesTrapped , hs_cls.finalBlows ) ? stats.enemiesTrapped / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E00000000000DD' : // Mei
-
-        title  = 'Blizzards';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Blizzard Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.blizzardKills , hs_ghs.gamesPlayed ) ? stats.blizzardKills / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.blizzardKills , hs_cls.finalBlows ) ? stats.blizzardKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Blizzard Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.blizzardKills , hs_ghs.timePlayed ) ? stats.blizzardKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.blizzardKills , hs_cls.finalBlows ) ? stats.blizzardKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Enemies Frozen';
-          if ( valid( stats , hs_ghs, hs_cls ) ) {
-            value  = valid( stats.enemiesFrozen , hs_ghs.gamesPlayed  ) ? stats.enemiesFrozen / hs_ghs.gamesPlayed  : 0;
-            label  = 4;
-            weight = valid( stats.enemiesFrozen , hs_cls.eliminations ) ? stats.enemiesFrozen / hs_cls.eliminations : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E0000000000006' : // Torbjorn
-
-          title  = 'Molten Cores';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Molten Cores Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid ( stats.moltenCoreKills , hs_ghs.timePlayed ) ? stats.moltenCoreKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.moltenCoreKills , hs_cls.finalBlows ) ? stats.moltenCoreKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Molten Cores Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid ( stats.moltenCoreKills , hs_ghs.gamesPlayed ) ? stats.moltenCoreKills / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.moltenCoreKills , hs_cls.finalBlows ) ? stats.moltenCoreKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Torbjörn Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid ( stats.torbjörnKills , hs_ghs.gamesPlayed ) ? stats.torbjörnKills / hs_ghs.gamesPlayed : 0;
-            label  = 0;
-            weight = valid( stats.torbjörnKills , hs_cls.finalBlows ) ? stats.torbjörnKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Turret Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid ( stats.turretsKills , hs_ghs.timePlayed ) ? stats.turretsKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.turretsKills , hs_cls.finalBlows ) ? stats.turretsKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Armor Packs Created';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid ( stats.armorPacksCreated , hs_ghs.timePlayed ) ? stats.armorPacksCreated / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.armorPacksCreated , hs_cls.offensiveAssists, hs_cls.defensiveAssists ) ?
-                            stats.armorPacksCreated / ( hs_cls.offensiveAssists + hs_cls.defensiveAssists ) : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E000000000000A' : // Widowmaker
-
-          title  = 'Infra-Sight';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Venom Mine Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid ( stats.venomMineKills , hs_ghs.timePlayed ) ? stats.venomMineKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.venomMineKills , hs_cls.finalBlows ) ? stats.venomMineKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Scoped Critical Hits';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid ( stats.scopedCriticalHits , hs_ghs.gamesPlayed ) ? stats.scopedCriticalHits / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.scopedCriticalHits , hs_cls.finalBlows ) ? stats.moltenCoreKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Scoped Accuracy';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid ( stats.scopedAccuracyPercentage ) ? stats.scopedAccuracyPercentage : 0;
-            label  = 1;
-            weight = valid( stats.scopedAccuracyPercentage , hs_cls.finalBlows ) ? stats.torbjörnKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E000000000007A' : // D.Va
-
-          title  = 'Self Destructs';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Self Destruct Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.selfdestructKills , hs_ghs.gamesPlayed ) ? stats.selfdestructKills / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.selfdestructKills , hs_cls.finalBlows ) ? stats.selfdestructKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Mech Deaths';
-          if ( valid( stats , hs_ghs, hs_cls ) ) {
-            value  = valid( stats.mechDeaths , hs_ghs.gamesPlayed  ) ? stats.mechDeaths / hs_ghs.gamesPlayed  : 0;
-            label  = 4;
-            weight = valid( stats.mechDeaths , hs_cls.deaths ) ? stats.mechDeaths / hs_cls.deaths : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Mechs Called';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.mechsCalled , hs_ghs.timePlayed ) ? stats.mechsCalled / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.mechsCalled , hs_cls.deaths ) ? stats.mechsCalled / hs_cls.deaths : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E000000000013E' : // Orisa
-
-          title  = 'Superchargers';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Damage Amplified';
-          if ( valid( stats , hs_cls ) ) {
-            value  = valid( stats.damageAmplified , hs_ghs.timePlayed   ) ? stats.damageAmplified / hs_ghs.timePlayed   : 0;
-            label  = 0;
-            weight = valid( stats.damageAmplified , hs_ghs.gamesPlayed , hs_cls.offensiveAssists ) ?
-                          ( stats.damageAmplified / hs_ghs.gamesPlayed ) / hs_cls.offensiveAssists : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E0000000000007' : // Reinhardt
-
-          title  = 'Earthshatters';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Earthshatter Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.earthshatterKills , hs_ghs.gamesPlayed ) ? stats.earthshatterKills / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.earthshatterKills , hs_cls.finalBlows ) ? stats.earthshatterKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Earthshatter Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.earthshatterKills , hs_ghs.timePlayed ) ? stats.earthshatterKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.earthshatterKills , hs_cls.finalBlows ) ? stats.earthshatterKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Charge Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.chargeKills , hs_ghs.timePlayed ) ? stats.chargeKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.chargeKills , hs_cls.finalBlows ) ? stats.chargeKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Firestrike Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.fireStrikeKills , hs_ghs.timePlayed ) ? stats.fireStrikeKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.fireStrikeKills , hs_cls.finalBlows ) ? stats.fireStrikeKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E0000000000040' : // Roadhog
-
-          title  = 'Whole Hogs';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Whole Hogs Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.wholeHogKills , hs_ghs.gamesPlayed ) ? stats.wholeHogKills / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.wholeHogKills , hs_cls.finalBlows ) ? stats.wholeHogKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Whole Hogs Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.wholeHogKills , hs_ghs.timePlayed ) ? stats.wholeHogKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.wholeHogKills , hs_cls.finalBlows ) ? stats.wholeHogKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Enemies Hooked';
-          if ( valid( stats , hs_cls ) ) {
-            value  = valid( stats.enemiesHooked , hs_ghs.timePlayed   ) ? stats.enemiesHooked / hs_ghs.timePlayed   : 0;
-            label  = 0;
-            weight = valid( stats.enemiesHooked , hs_cls.eliminations ) ? stats.enemiesHooked / hs_cls.eliminations : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Hook Accuracy';
-          if ( valid( stats , hs_cls ) ) {
-            value  = valid( stats.hookAccuracyPercentage ) ? stats.hookAccuracyPercentage : 0;
-            label  = 1;
-            weight = valid( stats.hookAccuracyPercentage , hs_cls.weaponAccuracyPercentage ) ?
-                            stats.hookAccuracyPercentage / hs_cls.weaponAccuracyPercentage : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Hooks Attempted';
-          if ( valid( stats , hs_ghs ) ) {
-            value  = valid( stats.hooksAttempted , hs_ghs.timePlayed   ) ? stats.hooksAttempted / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.hooksAttempted , hs_cls.eliminations ) ? stats.hooksAttempted / hs_cls.eliminations : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E0000000000009' : // Winston
-
-          title  = 'Primal Rages';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Primal Rage Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.primalRageKills , hs_ghs.gamesPlayed ) ?
-                            stats.primalRageKills / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.primalRageKills , hs_cls.finalBlows ) ?
-                            stats.primalRageKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Primal Rage Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.primalRageKills , hs_ghs.timePlayed ) ?
-                            stats.primalRageKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.primalRageKills , hs_cls.finalBlows ) ?
-                            stats.primalRageKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Players Knocked Back';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.playersKnockedBack , hs_ghs.timePlayed ) ?
-                            stats.playersKnockedBack / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.playersKnockedBack , hs_cls.finalBlows ) ?
-                            stats.playersKnockedBack / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Jump Pack Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.jumpPackKills , hs_ghs.timePlayed ) ?
-                            stats.jumpPackKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.jumpPackKills , hs_cls.finalBlows ) ?
-                            stats.jumpPackKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E0000000000068' : // Zarya
-
-          title  = 'Graviton Surges';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Graviton Surge Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.lifetimeGravitonSurgeKills , hs_ghs.timePlayed ) ?
-                            stats.lifetimeGravitonSurgeKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.lifetimeGravitonSurgeKills , hs_cls.finalBlows ) ?
-                            stats.lifetimeGravitonSurgeKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Graviton Surge Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.lifetimeGravitonSurgeKills , hs_ghs.gamesPlayed ) ?
-                            stats.lifetimeGravitonSurgeKills / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.lifetimeGravitonSurgeKills , hs_cls.finalBlows ) ?
-                            stats.lifetimeGravitonSurgeKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'High Energy Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.highEnergyKills , hs_ghs.timePlayed ) ?
-                            stats.highEnergyKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.highEnergyKills , hs_cls.finalBlows ) ?
-                            stats.highEnergyKills / hs_cls.finalBlows : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Projected Barriers';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.projectedBarriersApplied , hs_ghs.timePlayed ) ?
-                            stats.projectedBarriersApplied / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.projectedBarriersApplied , hs_cls.offensiveAssists, hs_cls.defensiveAssists ) ?
-                            stats.projectedBarriersApplied / ( hs_cls.offensiveAssists + hs_cls.defensiveAssists ) : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Energy Accummulation';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.lifetimeEnergyAccumulation , hs_ghs.timePlayed ) ?
-                            stats.lifetimeEnergyAccumulation / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.lifetimeEnergyAccumulation , stats.energyMaximum , hs_ghs.gamesPlayed ) ?
-                          ( stats.lifetimeEnergyAccumulation / hs_ghs.gamesPlayed ) / stats.energyMaximum : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E000000000013B' : // Ana
-
-          title  = 'Nano Boosts';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Nano Boosts Applied';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.nanoBoostsApplied , hs_ghs.gamesPlayed ) ?
-                            stats.nanoBoostsApplied / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.nanoBoostsApplied , hs_cls.damageBlocked ) ?
-                            stats.nanoBoostsApplied / hs_cls.damageBlocked : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Nano Boosts Applied';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.nanoBoostsApplied , hs_ghs.timePlayed ) ?
-                            stats.nanoBoostsApplied / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.nanoBoostsApplied , hs_cls.damageBlocked ) ?
-                            stats.nanoBoostsApplied / hs_cls.damageBlocked : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Nano Boosts Assists';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.nanoBoostAssists , hs_ghs.timePlayed ) ?
-                            stats.nanoBoostAssists / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.nanoBoostAssists , hs_cls.damageBlocked ) ?
-                            stats.nanoBoostAssists / hs_cls.damageBlocked : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Enemies Slept';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.enemiesSlept , hs_ghs.timePlayed ) ?
-                            stats.enemiesSlept / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.enemiesSlept , hs_cls.damageBlocked ) ?
-                            stats.enemiesSlept / hs_cls.damageBlocked : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Scoped Accuracy';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.scopedAccuracyPercentage ) ?
-                            stats.scopedAccuracyPercentage : 0;
-            label  = 1;
-            weight = valid( stats.scopedAccuracyPercentage , hs_cls.damageBlocked ) ?
-                            stats.scopedAccuracyPercentage / hs_cls.damageBlocked : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Unscoped Accuracy';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.unscopedAccuracy ) ?
-                            stats.unscopedAccuracy : 0;
-            label  = 1;
-            weight = valid( stats.unscopedAccuracy , hs_cls.damageBlocked ) ?
-                            stats.unscopedAccuracy / hs_cls.damageBlocked : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E0000000000079' : // Lucio
-
-          title  = 'Sound Barriers';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Sound Barriers';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.soundBarriersProvided , hs_ghs.timePlayed ) ?
-                            stats.soundBarriersProvided / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.soundBarriersProvided , hs_cls.damageBlocked ) ?
-                            stats.soundBarriersProvided / hs_cls.damageBlocked : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E0000000000004' : // Mercy
-
-        title  = 'Resurrects';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Players Resurrected';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.playersResurrected , hs_ghs.gamesPlayed ) ?
-                            stats.playersResurrected / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.playersResurrected , hs_cls.damageBlocked ) ?
-                            stats.playersResurrected / hs_cls.damageBlocked : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Players Resurrected';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.playersResurrected , hs_ghs.timePlayed ) ?
-                            stats.playersResurrected / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.playersResurrected , hs_cls.damageBlocked ) ?
-                            stats.playersResurrected / hs_cls.damageBlocked : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Blaster Kills';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.blasterKills , hs_ghs.timePlayed ) ?
-                            stats.blasterKills / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.blasterKills , hs_cls.damageBlocked ) ?
-                            stats.blasterKills / hs_cls.damageBlocked : 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Damage Amplified';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.damageAmplified , hs_ghs.timePlayed ) ?
-                            stats.damageAmplified / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.damageAmplified , hs_cls.damageBlocked ) ?
-                            stats.damageAmplified / hs_cls.damageBlocked : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      case '0x02E0000000000016' : // Symmetra
-
-          title  = 'Teleporters';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Teleporter Uptime';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.teleporterUptime , hs_ghs.gamesPlayed ) ?
-                            stats.teleporterUptime / hs_ghs.gamesPlayed : 0;
-            label  = 4;
-            weight = valid( stats.teleporterUptime ,  hs_ghs.gamesPlayed , hs_cls.defensiveAssists ) ?
-                            ( stats.teleporterUptime / hs_ghs.gamesPlayed ) / hs_cls.defensiveAssists : 0;
-          }
-          put(title, value, weight, label, data);
-
-
-        break;
-      case '0x02E0000000000020' : // Zenyatta
-
-          title  = 'Transcendence';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = 0;
-            label  = 4;
-            weight = 0;
-          }
-          put(title, value, weight, label, data);
-
-          // -----------------------------------------------------
-
-          title  = 'Transcendence Healing';
-          if ( valid( stats , hs_ghs , hs_cls ) ) {
-            value  = valid( stats.transcendenceHealing , hs_ghs.timePlayed ) ?
-                            stats.transcendenceHealing / hs_ghs.timePlayed : 0;
-            label  = 0;
-            weight = valid( stats.transcendenceHealing , hs_cls.healingDone ) ?
-                            stats.lifetimeGravitonSurgeKills / hs_cls.healingDone : 0;
-          }
-          put(title, value, weight, label, data);
-
-        break;
-      default :
-        console.log('Requested specific data for unknown hero: ', hero);
-        return null;
+  // Returns the value provided if it is a finite number otherwise zero.
+  numOrZero(num: any): number {
+    return Number.isFinite(num) ? num : 0;
+  }
+
+  // Returns a number that is the accumulation of the value of the key in every
+  // hero snapshot where it exists.
+  aggregateFromSnapshot(snapshotStatistics: SnapshotStats, statSectionKey: string, heroStatKey: string): number {
+    const { heroSnapshotStatistics } = snapshotStatistics;
+    return heroSnapshotStatistics.reduce((acc, heroStatistics) => {
+      if ( heroStatistics[statSectionKey] ) {
+        const obj: any = heroStatistics[statSectionKey];
+        acc += ( obj && obj[heroStatKey] ) ? +obj[heroStatKey] : 0;
+      }
+      return acc;
+    }, 0);
+  }
+
+  // Returns true if the object has the key provided
+  objHasKey(obj: any, key: string): boolean {
+    return Object.keys(obj).find((e) => {
+      return e === key;
+    }).length > 0;
+  }
+
+  // Returns the stat provided as a per minute value
+  calculateStatPerMinute(stat: number, timePlayedInSeconds: number): number {
+    if ( stat && timePlayedInSeconds ) {
+      const timePlayedInMinutes = timePlayedInSeconds / 60;
+      return Number(this.numOrZero( stat / timePlayedInMinutes ).toFixed(2));
+    } else {
+      return 0;
     }
+  }
 
-    return data;
+  calculateStatPerGame(stat: number, gamesPlayed: number): number {
+    if ( stat && gamesPlayed ) {
+      return Number(this.numOrZero( stat / gamesPlayed ).toFixed(2));
+    } else {
+      return 0;
+    }
+  }
+
+  calculateStatRatio(numerator: number, denominator: number): number {
+    if ( numerator && denominator ) {
+      return Number(this.numOrZero( numerator / denominator ).toFixed(2));
+    } else {
+      return 0;
+    }
+  }
+
+  calculateStatTimePerMinutePerGame(time: number, gamesPlayed: number): number {
+    if ( time && gamesPlayed ) {
+      return Number(this.numOrZero( (time / gamesPlayed) / 60 ).toFixed(2));
+    } else {
+      return 0;
+    }
+  }
+
+  calculateStatAverage(stat: number, gamesPlayed: number): number {
+    if ( stat && gamesPlayed ) {
+      return Number(this.numOrZero( stat / gamesPlayed ).toFixed(2));
+    } else {
+      return 0;
+    }
+  }
+
+  // Returns the percentage of stat a in comparison to stat b
+  calculateStatPercentage(a: number, b: number): number {
+    if ( a && b ) {
+      return Math.round(this.numOrZero(a / b * 100));
+    } else {
+      return 0;
+    }
+  }
+
+  // Returns an array of statistics that are common to each hero.
+  genericStatBlocksForHero(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createDamageDoneStatistic(heroSnap, allHeroSnapStats),
+      this.createEliminationsStatistic(heroSnap, allHeroSnapStats),
+      this.createKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createObjectiveKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createObjectiveTimeStatistic(heroSnap, allHeroSnapStats),
+      this.createKDARatioStatistic(heroSnap, allHeroSnapStats),
+      this.createAccuracyStatistic(heroSnap, allHeroSnapStats),
+      this.createHealingDoneStatistic(heroSnap, allHeroSnapStats),
+      this.createCriticalHitsStatistic(heroSnap, allHeroSnapStats),
+      this.createCriticalHitsAccuracyStatistic(heroSnap, allHeroSnapStats),
+      this.createAverageGameLengthStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  // ------ GENERIC HERO STAT BLOCKS ------
+
+  createDamageDoneStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { combatLifetimeStatistic , gameHistoryStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Damage';
+    if ( combatLifetimeStatistic && gameHistoryStatistic && allHeroesCombatLifetimeStats ) {
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(combatLifetimeStatistic.damageDone, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(combatLifetimeStatistic.damageDone, allHeroesCombatLifetimeStats.damageDone)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createEliminationsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { combatLifetimeStatistic , gameHistoryStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Eliminations';
+    if ( combatLifetimeStatistic && gameHistoryStatistic && allHeroesCombatLifetimeStats ) {
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(combatLifetimeStatistic.eliminations, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(combatLifetimeStatistic.eliminations, allHeroesCombatLifetimeStats.eliminations)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { combatLifetimeStatistic , gameHistoryStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Kills';
+    if ( combatLifetimeStatistic && gameHistoryStatistic && allHeroesCombatLifetimeStats ) {
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(combatLifetimeStatistic.finalBlows, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(combatLifetimeStatistic.finalBlows, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createObjectiveKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { combatLifetimeStatistic , gameHistoryStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Obj. Kills';
+    if ( combatLifetimeStatistic && gameHistoryStatistic && allHeroesCombatLifetimeStats ) {
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(combatLifetimeStatistic.objectiveKills, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(combatLifetimeStatistic.objectiveKills, allHeroesCombatLifetimeStats.objectiveKills)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createObjectiveTimeStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { combatLifetimeStatistic , gameHistoryStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Obj. Time';
+    if ( combatLifetimeStatistic && gameHistoryStatistic && allHeroesCombatLifetimeStats ) {
+      return {
+        name: statName,
+        value: this.calculateStatTimePerMinutePerGame(combatLifetimeStatistic.objectiveTime, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(5),
+        percent: this.calculateStatPercentage(combatLifetimeStatistic.objectiveTime, allHeroesCombatLifetimeStats.objectiveTime)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createKDARatioStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { combatLifetimeStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'KDA Ratio';
+    if ( combatLifetimeStatistic && allHeroesCombatLifetimeStats ) {
+      return {
+        name: statName,
+        value: this.calculateStatRatio(combatLifetimeStatistic.eliminations, combatLifetimeStatistic.deaths),
+        format: this.formatToString(2),
+        percent: this.calculateStatPercentage(combatLifetimeStatistic.eliminations / combatLifetimeStatistic.deaths,
+          allHeroesCombatLifetimeStats.eliminations / allHeroesCombatLifetimeStats.deaths)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createAccuracyStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { combatLifetimeStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Accuracy';
+    if ( combatLifetimeStatistic && allHeroesCombatLifetimeStats ) {
+      return {
+        name: statName,
+        value: this.calculateStatPercentage(combatLifetimeStatistic.shotsHit, combatLifetimeStatistic.shotsFired),
+        format: this.formatToString(1),
+        percent: this.calculateStatPercentage(combatLifetimeStatistic.shotsHit / combatLifetimeStatistic.shotsFired,
+          allHeroesCombatLifetimeStats.shotsHit / allHeroesCombatLifetimeStats.shotsFired)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createHealingDoneStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { combatLifetimeStatistic , gameHistoryStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Healing Done';
+    if ( combatLifetimeStatistic && gameHistoryStatistic && allHeroesCombatLifetimeStats ) {
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(combatLifetimeStatistic.healingDone, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(combatLifetimeStatistic.healingDone, allHeroesCombatLifetimeStats.healingDone)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createCriticalHitsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { combatLifetimeStatistic , gameHistoryStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Crits';
+    if ( combatLifetimeStatistic && gameHistoryStatistic && allHeroesCombatLifetimeStats ) {
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(combatLifetimeStatistic.criticalHits, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(combatLifetimeStatistic.criticalHits, allHeroesCombatLifetimeStats.criticalHits)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createCriticalHitsAccuracyStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { combatLifetimeStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Crit Accuracy';
+    if ( combatLifetimeStatistic && allHeroesCombatLifetimeStats ) {
+      return {
+        name: statName,
+        value: this.numOrZero(combatLifetimeStatistic.criticalHitsAccuracyPercentage),
+        format: this.formatToString(1),
+        percent: this.calculateStatPercentage(combatLifetimeStatistic.criticalHitsAccuracyPercentage,
+          allHeroesCombatLifetimeStats.criticalHitsAccuracyPercentage)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createAverageGameLengthStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic } = heroSnap;
+    const allHeroesGameHistoryStatistic = allHeroSnapStats.gameHistoryStatistic;
+    const statName = 'Avg Game Length';
+    if ( gameHistoryStatistic && allHeroesGameHistoryStatistic ) {
+      return {
+        name: statName,
+        value: this.calculateStatAverage(gameHistoryStatistic.timePlayed / 60, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(5),
+        percent: this.calculateStatPercentage(gameHistoryStatistic.timePlayed / gameHistoryStatistic.gamesPlayed,
+          allHeroesGameHistoryStatistic.timePlayed / allHeroesGameHistoryStatistic.gamesPlayed)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // ------ HERO SPECIFIC STAT BLOCKS ------
+
+  heroSpecificStatBlocksForHero(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    switch (heroSnap.hero.code) {
+      case '0x02E0000000000029' : // Genji
+        return this.createAllGenjiHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E0000000000042' : // McCree
+        return this.createAllMcCreeHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E0000000000008' : // Pharah
+        return this.createAllPharahHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E0000000000002' : // Reaper
+        return this.createAllReaperHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E000000000006E' : // Soldier: 76
+        return this.createAllSoldier76HeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E000000000012E' : // Sombra
+        return this.createAllSombraHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E0000000000003' : // Tracer
+        return this.createAllTracerHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E0000000000015' : // Bastion
+        return this.createAllBastionHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E0000000000005' : // Hanzo
+        return this.createAllHanzoHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E0000000000065' : // Junkrat
+        return this.createAllJunkratHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E00000000000DD' : // Mei
+        return this.createAllMeiHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E0000000000006' : // Torbjorn
+        return this.createAllTorbjornHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E000000000000A' : // Widowmaker
+        return this.createAllWidowmakerHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E000000000007A' : // D.Va
+        return this.createAllDVaHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E000000000013E' : // Orisa
+        return this.createAllOrisaHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E0000000000007' : // Reinhardt
+        return this.createAllReinhardtHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E0000000000040' : // Roadhog
+        return this.createAllRoadhogHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E0000000000009' : // Winston
+        return this.createAllWinstonHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E0000000000068' : // Zarya
+        return this.createAllZaryaHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E000000000013B' : // Ana
+        return this.createAllAnaHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E0000000000079' : // Lucio
+        return this.createAllLucioHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E0000000000004' : // Mercy
+        return this.createAllMercyHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E0000000000016' : // Symmetra
+        return this.createAllSymmetraHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      case '0x02E0000000000020' : // Zenyatta
+        return this.createAllZenyattaHeroSpecificStatistics(heroSnap, allHeroSnapStats);
+      default:
+        return [];
+    }
+  }
+
+  // Genji
+  createAllGenjiHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createGenjiDragonbladesStatistic(heroSnap, allHeroSnapStats),
+      this.createGenjiDragonbladeKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createGenjiDamageReflectedStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createGenjiDragonbladesStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    allHeroSnapStats = allHeroSnapStats || null;
+    const { gameHistoryStatistic , heroSpecificStatistic } = heroSnap;
+    const statName = 'Dragonblades';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.dragonblades , gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(1, 1)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createGenjiDragonbladeKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic , heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Damage Reflected';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.dragonbladeKills, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.dragonbladeKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createGenjiDamageReflectedStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic , heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Damage Reflected';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.damageReflected, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(stats.damageReflected, allHeroesCombatLifetimeStats.damageBlocked)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // McCree
+  createAllMcCreeHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createMcCreeDeadEyeKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createMcCreeFanTheHammerStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createMcCreeDeadEyeKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Deadeye Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.deadeyeKills, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.deadeyeKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createMcCreeFanTheHammerStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Fan The Hammer Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.fanTheHammerKills, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.fanTheHammerKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Pharah
+  createAllPharahHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createPharahBarrageKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createPharahRocketDirectHitsStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createPharahBarrageKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Barrage Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.barrageKills, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.barrageKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createPharahRocketDirectHitsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Rocket Direct Hits';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.rocketDirectHits, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(stats.rocketDirectHits, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Reaper
+  createAllReaperHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createReaperDeathBlossomKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createReaperSoulsConsumedStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createReaperDeathBlossomKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Death Blossom Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.deathsBlossomKills, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.deathsBlossomKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createReaperSoulsConsumedStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    allHeroSnapStats = allHeroSnapStats || <HeroSnapshotStats>{}; // stops tslint error
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const statName = 'Souls Consumed';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.soulsConsumed, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(1, 1)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Soldier: 76
+  createAllSoldier76HeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createSoldier76TacticalVisorKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createSoldier76BioticFieldsDeployedStatistic(heroSnap, allHeroSnapStats),
+      this.createSoldier76BioticFieldHealingDoneStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createSoldier76TacticalVisorKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Tactical Visor Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.tacticalVisorKills, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.tacticalVisorKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createSoldier76BioticFieldsDeployedStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    allHeroSnapStats = allHeroSnapStats || <HeroSnapshotStats>{}; // stops tslint error
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const statName = 'Biotic Fields Deployed';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.bioticFieldsDeployed, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(1, 1)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createSoldier76BioticFieldHealingDoneStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Biotic Field Healing Done';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.bioticFieldHealingDone, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(stats.bioticFieldHealingDone, allHeroesCombatLifetimeStats.healingDone)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Sombra
+  createAllSombraHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createSombraEnemiesEMPDStatistic(heroSnap, allHeroSnapStats),
+      this.createSombraEnemiesHackedStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createSombraEnemiesEMPDStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Enemies EMP\'d';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.enemiesEmpd, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.enemiesEmpd,
+          allHeroesCombatLifetimeStats.offensiveAssists + allHeroesCombatLifetimeStats.defensiveAssists)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createSombraEnemiesHackedStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Enemies Hacked';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.enemiesHacked, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.enemiesHacked,
+          allHeroesCombatLifetimeStats.offensiveAssists + allHeroesCombatLifetimeStats.defensiveAssists)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Tracer
+  createAllTracerHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createTracerPulseBombKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createTracerPulseBombsAttachedStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createTracerPulseBombKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Pulse Bomb Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.pulseBombKills, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.pulseBombKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createTracerPulseBombsAttachedStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    allHeroSnapStats = allHeroSnapStats || <HeroSnapshotStats>{}; // stops tslint error
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const statName = 'Pulse Bombs Attached';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.pulseBombsAttached, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(1, 1)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Bastion
+  createAllBastionHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createBastionTankKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createBastionSentryKillsStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createBastionTankKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Tank Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.tankKills, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.tankKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createBastionSentryKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Sentry Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.sentryKills, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(stats.sentryKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createBastionReconKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Recon Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.reconKills, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(stats.reconKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Hanzo
+  createAllHanzoHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createHanzoDragonstrikeKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createHanzoScatterArrowKillsStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createHanzoDragonstrikeKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Dragonstrike Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.dragonstrikeKills, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.dragonstrikeKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createHanzoScatterArrowKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Scatter Arrow Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.scatterArrowKills, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.scatterArrowKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Junkrat
+  createAllJunkratHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createJunkratRiptireKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createJunkratEnemiesTrappedStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createJunkratRiptireKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Riptire Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.riptireKills, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.riptireKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createJunkratEnemiesTrappedStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Enemies Trapped';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.enemiesTrapped, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(stats.enemiesTrapped,
+          allHeroesCombatLifetimeStats.offensiveAssists + allHeroesCombatLifetimeStats.defensiveAssists)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Mei
+  createAllMeiHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createMeiBlizzardKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createMeiEnemiesFrozenStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createMeiBlizzardKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Blizzard Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.blizzardKills, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.blizzardKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createMeiEnemiesFrozenStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Enemies Frozen';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.enemiesFrozen, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(stats.blizzardKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Torbjorn
+  createAllTorbjornHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createTorbjornMoltenCoreKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createTorbjornKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createTorbjornTurretKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createTorbjornArmorPacksCreatedStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createTorbjornMoltenCoreKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Molten Cores Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.moltenCoreKills, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.moltenCoreKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createTorbjornKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Torbjörn Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.torbjörnKills, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.torbjörnKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createTorbjornTurretKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Turret Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.turretsKills, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.turretsKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createTorbjornArmorPacksCreatedStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Armor Packs Created';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.armorPacksCreated, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.armorPacksCreated,
+          allHeroesCombatLifetimeStats.offensiveAssists + allHeroesCombatLifetimeStats.defensiveAssists)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Widowmaker
+  createAllWidowmakerHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createWidowmakerVenomMineKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createWidowmakerScopedCriticalHitsStatistic(heroSnap, allHeroSnapStats),
+      this.createWidowmakerScopedAccuracyStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createWidowmakerVenomMineKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Venom Mine Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.venomMineKills, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.venomMineKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createWidowmakerScopedCriticalHitsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Scoped Critical Hits';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.scopedCriticalHits, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.scopedCriticalHits, allHeroesCombatLifetimeStats.criticalHits)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createWidowmakerScopedAccuracyStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Scoped Accuracy';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.numOrZero(stats.scopedAccuracyPercentage),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.scopedAccuracyPercentage,
+          allHeroesCombatLifetimeStats.weaponAccuracyPercentage)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // D.Va
+  createAllDVaHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createDVaSelfDestructKillsKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createDVaMechsCalledStatistic(heroSnap),
+      this.createDVaMechDeathsStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createDVaSelfDestructKillsKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Self Destruct Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.selfdestructKills, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.selfdestructKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createDVaMechsCalledStatistic(heroSnap: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const statName = 'Mechs Called';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.mechsCalled, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.mechsCalled, stats.mechsCalled)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createDVaMechDeathsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Mech Deaths';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.mechDeaths, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.mechDeaths, allHeroesCombatLifetimeStats.deaths)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Orisa
+  createAllOrisaHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createOrisaDamageAmplifiedStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createOrisaDamageAmplifiedStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Damage Amplified';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.damageAmplified, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(stats.damageAmplified, allHeroesCombatLifetimeStats.damageDone)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Reinhardt
+  createAllReinhardtHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createReinhardtEarthshatterKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createReinhardtChargeKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createReinhardtFirestrikeKillsStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createReinhardtEarthshatterKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Earthshatter Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.earthshatterKills, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.earthshatterKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createReinhardtChargeKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Charge Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.chargeKills, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(stats.chargeKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createReinhardtFirestrikeKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Firestrike Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.fireStrikeKills, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(stats.fireStrikeKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Roadhog
+  createAllRoadhogHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createRoadhogWholeHogKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createRoadhogEnemiesHookedStatistic(heroSnap, allHeroSnapStats),
+      this.createRoadhogHookAccuracyStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createRoadhogWholeHogKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Whole Hogs Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.wholeHogKills, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.wholeHogKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createRoadhogEnemiesHookedStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Enemies Hooked';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.enemiesHooked, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(stats.enemiesHooked, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createRoadhogHookAccuracyStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    allHeroSnapStats = allHeroSnapStats || null; // stops tslint error
+    const { heroSpecificStatistic } = heroSnap;
+    const statName = 'Hook Accuracy';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.numOrZero(stats.hookAccuracyPercentage),
+        format: this.formatToString(1),
+        percent: this.calculateStatPercentage(1, 1)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Winston
+  createAllWinstonHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createWinstonPrimalRageKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createWinstonPlayersKnockedBackStatistic(heroSnap, allHeroSnapStats),
+      this.createWinstonJumpPackKillsStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createWinstonPrimalRageKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Primal Rage Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.primalRageKills, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.primalRageKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createWinstonPlayersKnockedBackStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Players Knocked Back';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.playersKnockedBack, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.playersKnockedBack, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createWinstonJumpPackKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Jump Pack Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.jumpPackKills, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(stats.jumpPackKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Zarya
+  createAllZaryaHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createZaryaGravitonSurgeKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createZaryaHighEnergyKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createZaryaProjectedBarriersStatistic(heroSnap, allHeroSnapStats),
+      this.createZaryaEnergyAccummulationStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createZaryaGravitonSurgeKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Graviton Surge Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.lifetimeGravitonSurgeKills, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.lifetimeGravitonSurgeKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createZaryaHighEnergyKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'High Energy Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.highEnergyKills, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.highEnergyKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createZaryaProjectedBarriersStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Projected Barriers';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.projectedBarriersApplied, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(stats.projectedBarriersApplied,
+          allHeroesCombatLifetimeStats.offensiveAssists + allHeroesCombatLifetimeStats.defensiveAssists)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createZaryaEnergyAccummulationStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    allHeroSnapStats = allHeroSnapStats || null; // stops tslint error
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const statName = 'Energy Accummulation';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.lifetimeEnergyAccumulation, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(1, 1)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Ana
+  createAllAnaHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createAnaNanoBoostsAppliedStatistic(heroSnap, allHeroSnapStats),
+      this.createAnaNanoBoostsAssistsStatistic(heroSnap, allHeroSnapStats),
+      this.createAnaEnemiesSleptStatistic(heroSnap, allHeroSnapStats),
+      this.createAnaScopedAccuracytatistic(heroSnap, allHeroSnapStats),
+      this.createAnaUnScopedAccuracytatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createAnaNanoBoostsAppliedStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Nano Boosts Applied';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.nanoBoostsApplied, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.nanoBoostsApplied, allHeroesCombatLifetimeStats.offensiveAssists)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createAnaNanoBoostsAssistsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Nano Boosts Assists';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.nanoBoostAssists, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.nanoBoostAssists,
+          allHeroesCombatLifetimeStats.offensiveAssists + allHeroesCombatLifetimeStats.defensiveAssists)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createAnaEnemiesSleptStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Enemies Slept';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.enemiesSlept, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(stats.enemiesSlept,
+          allHeroesCombatLifetimeStats.offensiveAssists + allHeroesCombatLifetimeStats.defensiveAssists)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createAnaScopedAccuracytatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Scoped Accuracy';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.numOrZero(stats.scopedAccuracyPercentage),
+        format: this.formatToString(1),
+        percent: this.calculateStatPercentage(stats.scopedAccuracyPercentage, allHeroesCombatLifetimeStats.weaponAccuracyPercentage)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createAnaUnScopedAccuracytatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Unscoped Accuracy';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.numOrZero(stats.unscopedAccuracy),
+        format: this.formatToString(1),
+        percent: this.calculateStatPercentage(stats.unscopedAccuracy, allHeroesCombatLifetimeStats.weaponAccuracyPercentage)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Lucio
+  createAllLucioHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createLucioSoundBarriersStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createLucioSoundBarriersStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Sound Barriers';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.soundBarriersProvided, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.soundBarriersProvided,
+          allHeroesCombatLifetimeStats.offensiveAssists)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Mercy
+  createAllMercyHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createMercyPlayersResurrectedStatistic(heroSnap, allHeroSnapStats),
+      this.createMercyBlasterKillsStatistic(heroSnap, allHeroSnapStats),
+      this.createMercyDamageAmplifiedStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createMercyPlayersResurrectedStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Players Resurrected';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.playersResurrected, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.playersResurrected,
+          allHeroesCombatLifetimeStats.offensiveAssists + allHeroesCombatLifetimeStats.defensiveAssists)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createMercyBlasterKillsStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Blaster Kills';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.blasterKills, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(stats.blasterKills, allHeroesCombatLifetimeStats.finalBlows)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createMercyDamageAmplifiedStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Damage Amplified';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerMinute(stats.damageAmplified, gameHistoryStatistic.timePlayed),
+        format: this.formatToString(0),
+        percent: this.calculateStatPercentage(stats.damageAmplified, allHeroesCombatLifetimeStats.offensiveAssists)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  // Symmetra
+  createAllSymmetraHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createSymmetraTeleporterUptimeStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createSymmetraTeleporterUptimeStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    allHeroSnapStats = allHeroSnapStats || null;
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const statName = 'Teleporter Uptime';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.teleporterUptime, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.teleporterUptime, stats.timePlayed)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createAllZenyattaHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
+    return [
+      this.createZenyattaTranscendenceHealingStatistic(heroSnap, allHeroSnapStats)
+    ];
+  }
+
+  createZenyattaTranscendenceHealingStatistic(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock {
+    const { gameHistoryStatistic, heroSpecificStatistic } = heroSnap;
+    const allHeroesCombatLifetimeStats = allHeroSnapStats.combatLifetimeStatistic;
+    const statName = 'Transcendence Healing';
+    if ( heroSpecificStatistic ) {
+      const { stats } = heroSpecificStatistic;
+      return {
+        name: statName,
+        value: this.calculateStatPerGame(stats.transcendenceHealing, gameHistoryStatistic.gamesPlayed),
+        format: this.formatToString(4),
+        percent: this.calculateStatPercentage(stats.transcendenceHealing, allHeroesCombatLifetimeStats.healingDone)
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
   }
 
 }

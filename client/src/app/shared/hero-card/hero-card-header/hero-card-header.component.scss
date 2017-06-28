@@ -1,1 +1,67 @@
 @import "../../../../style/colors";
+
+.hero-card-header {
+    
+    border-bottom: 1px dotted $gray-lighter;
+
+    .games-played {
+        font-size: 0.65rem;
+    }
+
+    .hero-name {
+        margin-bottom: 0.1rem;
+    }
+
+    .hero-role {
+        span {
+            margin-top: 0.05rem;
+        }
+    }
+    
+    .data-entry {
+
+        .change,
+        .label {
+            font-size: 0.65rem;
+        }
+
+        .value {
+            font-size: 1rem;
+        }
+
+        .value.small {
+            font-size: 0.75rem;
+        }
+
+        .inner-value {
+            height: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+    }
+
+    .medals {
+        .medal {
+            font-size: 0.65rem;
+            padding: 0.2rem 0.25rem;
+            min-width: 2rem;
+            text-align: center;
+        }
+    }
+
+}
+
+:host /deep/ .hero-card-header {
+    .hero-portrait {
+        .header {
+            display: none;
+        }
+        .thumbnail {
+            img {
+                max-width: 4rem !important;
+            }
+        }
+    }
+}

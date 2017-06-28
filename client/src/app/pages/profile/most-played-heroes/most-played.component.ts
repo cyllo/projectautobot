@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SnapshotStats, HeroSnapshotStats, OverwatchStaticData } from '../../../models';
+import { SnapshotStats, HeroSnapshotStats, GameHistoryStats, CombatLifetimeStats, OverwatchStaticData } from '../../../models';
 import { OverwatchHeroDataService } from '../../../services';
 
 @Component({
@@ -19,7 +19,7 @@ export class MostPlayedComponent implements OnInit {
     return this._snapshotStats;
   }
 
-  sortedHeroes: HeroSnapshotStats[];
+  sortedHeroData: any[];
   private _snapshotStats: SnapshotStats;
   private heroData: OverwatchStaticData;
 
@@ -36,16 +36,82 @@ export class MostPlayedComponent implements OnInit {
     this.reset();
 
     let sort = this.sortHeroesByTimePlayed;
-    let ss: SnapshotStats         = this._snapshotStats;
-    let hss: HeroSnapshotStats[]  = ss.heroSnapshotStatistics;
+    let ss:   SnapshotStats       = this._snapshotStats;
+    let hss:  HeroSnapshotStats[] = ss.heroSnapshotStatistics;
+    let ahss: HeroSnapshotStats   = ss.allHeroesSnapshotStatistic;
+    let ghs:  GameHistoryStats    = ahss.gameHistoryStatistic;
 
-    const LIST_SIZE = 4;
+    let timeplayed: number = ghs.timePlayed;
 
-    this.sortedHeroes = sort(hss).slice(0, LIST_SIZE);
+    this.createHeroData(sort(hss).slice(0, 4), timeplayed);
   }
 
   private reset() {
-    this.sortedHeroes = [];
+    this.sortedHeroData = [];
+  }
+
+  private createHeroData(hss: HeroSnapshotStats[], totalTimePlayed: number): void {
+    hss.every((e) => {
+
+      let cls: CombatLifetimeStats = e.combatLifetimeStatistic;
+      let ghs: GameHistoryStats    = e.gameHistoryStatistic;
+
+      let heroName   = e.hero.name;
+      let heroId     = e.hero['role'];
+      let heroCode   = e.hero.code;
+      let heroRole   = this.roleToString(heroId);
+
+      let kills       = cls.finalBlows;
+      let deaths      = cls.deaths;
+      let wins        = ghs.gamesWon;
+      let loss        = ghs.gamesLost;
+      let gamesPlayed = ghs.gamesPlayed;
+      let timePlayed  = ghs.timePlayed;
+
+      let amountPlayed = Math.round( (timePlayed / totalTimePlayed) * 100 );
+
+      let data: any[] = [
+        {
+          name: 'Kills',
+          value: kills
+        },
+        {
+          name: 'Deaths',
+          value: deaths
+        },
+        {
+          name: 'K/D Ratio',
+          value: Number((kills / deaths).toFixed(2))
+        },
+        {
+          name: 'Wins',
+          value: wins
+        },
+        {
+          name: 'Losses',
+          value: loss
+        },
+        {
+          name: 'Games Played',
+          value: gamesPlayed
+        },
+        {
+          name: 'Time Played',
+          value: timePlayed / 60
+        }
+      ];
+
+      this.sortedHeroData.push({
+        name: heroName,
+        icon: this.iconUrl(heroId),
+        code: heroCode,
+        role: heroRole,
+        amountPlayed: amountPlayed,
+        data: data
+      });
+
+      return true;
+    });
   }
 
   private sortHeroesByTimePlayed(heroes: HeroSnapshotStats[]) {

@@ -1,48 +1,99 @@
-<div class="row mb-3" *ngIf="player">
-  <div class="col-12">
-    <div class="content rounded px-3 pt-3">
-      <div class="row align-items-center">
-        <div class="col-sm-6 col-12 mb-3">
-          <div class="d-block small text-uppercase mb-1 btn-group-label">Platform</div>
-          <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-radio" [class.active]="player.platform === 'pc'" [disabled]="!platformAvailable('pc')" (click)="changePlatform('pc')">
-                <span class="small text-uppercase">PC</span>
-              </button>
-            <button type="button" class="btn btn-radio" [class.active]="player.platform === 'xbl'" [disabled]="!platformAvailable('xbl')" (click)="changePlatform('xbl')">
-                <span class="small text-uppercase">XBL</span>
-              </button>
-            <button type="button" class="btn btn-radio" [class.active]="player.platform === 'psn'" [disabled]="!platformAvailable('psn')" (click)="changePlatform('psn')">
-                <span class="small text-uppercase">PSN</span>
-              </button>
-          </div>
-        </div>
-        <!-- end .col -->
-        <div class="col-sm-6 text-sm-right col-12 mb-3">
-          <div class="d-block small text-uppercase mb-1 btn-group-label">Region</div>
-          <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-radio" [class.active]="player.region === 'us'" [disabled]="!regionAvailable('us')" (click)="changeRegion('us')">
-                <span class="small text-uppercase">US</span>
-              </button>
-            <button type="button" class="btn btn-radio" [class.active]="player.region === 'eu'" [disabled]="!regionAvailable('eu')" (click)="changeRegion('eu')">
-                <span class="small text-uppercase">EU</span>
-              </button>
-            <button type="button" class="btn btn-radio" [class.active]="player.region === 'kr'" [disabled]="!regionAvailable('kr')" (click)="changeRegion('kr')">
-                <span class="small text-uppercase">KR</span>
-              </button>
-            <button type="button" class="btn btn-radio" [class.active]="player.region === 'ch'" [disabled]="!regionAvailable('ch')" (click)="changeRegion('ch')">
-                <span class="small text-uppercase">CH</span>
-              </button>
-            <button type="button" class="btn btn-radio" [class.active]="player.region === ''" [disabled]="!regionAvailable('')" (click)="changeRegion('')">
-                <span class="small text-uppercase">Global</span>
-              </button>
-          </div>
-        </div>
-        <!-- end .col -->
-      </div>
-      <!-- row -->
-    </div>
-    <!-- end .content -->
-  </div>
-  <!-- end .col -->
-</div>
-<!-- end .row -->
+<div class="platform-region" *ngIf="player">
+
+  <div class="container">
+
+    <div class="row align-items-center">
+
+      <div class="col-md-6 col px-3 mb-4">
+
+        <div class="platforms">
+
+          <div class="label text-uppercase">
+            Platform
+          </div><!-- end .label -->
+
+          <div class="btn-group" role="group" aria-label="platform">
+
+            <button type="button" class="btn btn-radio" 
+              [class.active]="player.platform === 'pc'" 
+              [disabled]="!platformAvailable('pc')" 
+              (click)="changePlatform('pc')">
+              <span class="text-uppercase">PC</span>
+            </button><!-- end button -->
+
+            <button type="button" class="btn btn-radio"
+              [class.active]="player.platform === 'xbl'" 
+              [disabled]="!platformAvailable('xbl')" 
+              (click)="changePlatform('xbl')">
+              <span class="text-uppercase">XBL</span>
+            </button><!-- end button -->
+
+            <button type="button" class="btn btn-radio" 
+              [class.active]="player.platform === 'psn'" 
+              [disabled]="!platformAvailable('psn')" 
+              (click)="changePlatform('psn')">
+              <span class="text-uppercase">PSN</span>
+            </button><!-- end button -->
+
+          </div><!-- end .btn-group -->
+
+        </div><!-- end .platforms -->
+
+      </div><!-- end .col -->
+
+      <div class="col-md-6 text-sm-right col px-3 mb-4">
+
+        <div class="regions">
+
+          <div class="label text-uppercase">
+            Region
+          </div><!-- end .label -->
+
+          <div class="btn-group" role="group" aria-label="platform">
+
+            <button type="button" class="btn btn-radio" 
+              [class.active]="player.region === 'us'" 
+              [disabled]="!regionAvailable('us')" 
+              (click)="changeRegion('us')">
+              <span class="text-uppercase">US</span>
+            </button><!-- end button -->
+
+            <button type="button" class="btn btn-radio" 
+              [class.active]="player.region === 'eu'" 
+              [disabled]="!regionAvailable('eu')" 
+              (click)="changeRegion('eu')">
+              <span class="text-uppercase">EU</span>
+            </button><!-- end button -->
+
+            <button type="button" class="btn btn-radio" 
+              [class.active]="player.region === 'kr'" 
+              [disabled]="!regionAvailable('kr')" 
+              (click)="changeRegion('kr')">
+              <span class="text-uppercase">KR</span>
+            </button><!-- end button -->
+
+            <button type="button" class="btn btn-radio" 
+              [class.active]="player.region === 'ch'" 
+              [disabled]="!regionAvailable('ch')"
+              (click)="changeRegion('ch')">
+              <span class="text-uppercase">CH</span>
+            </button><!-- end button -->
+            
+            <button type="button" class="btn btn-radio" 
+              [class.active]="player.region === ''"
+              [disabled]="!regionAvailable('')" 
+              (click)="changeRegion('')">
+              <span class="text-uppercase">Global</span>
+            </button><!-- end button -->
+
+          </div><!-- end .btn-group -->
+
+        </div><!-- end .regions -->
+
+      </div><!-- end .col -->
+      
+    </div><!-- end .row -->
+
+  </div><!-- end .container -->
+
+</div><!-- end .platform-region -->

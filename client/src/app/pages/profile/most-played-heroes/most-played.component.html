@@ -1,60 +1,97 @@
-<section class="row mb-3" *ngIf="snapshotStats">
-  <div class="col-12 mb-3">
-    <div class="row align-items-center">
-      <div class="col">
-        <span class="text-uppercase font-weight-bold mb-2">Favorite Heroes</span>
-      </div>
-      <!-- end .col -->
-      <div class="col-auto px-3 text-right mb-2">
-        <div ngbDropdown class="d-inline-block">
-          <button class="btn btn-outline-primary small" id="dropdownBasic1" ngbDropdownToggle>Time Played</button>
-          <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
-            <button class="dropdown-item pl-2 pr-4 py-2">Win Rate</button>
-            <button class="dropdown-item pl-2 pr-4 py-2">Another Stat</button>
-            <button class="dropdown-item pl-2 pr-4 py-2">Another Stat</button>
-          </div>
-        </div>
-        <!-- end ngbDropdown -->
-      </div>
-      <!-- end .col -->
-    </div>
-    <!-- end .row -->
-  </div>
-  <!-- end .col -->
-  <div class="col-12">
-    <div class="row">
+<div class="most-played-heroes" *ngIf="snapshotStats && sortedHeroData">
 
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 mb-1" *ngFor="let hero of sortedHeroes">
-          <div class="row align-items-center">
-            <div class="col-auto pl-3 mb-2">
-              <ow-hero-portrait [owCode]="hero.hero.code"></ow-hero-portrait>
-              <!-- end ow-hero-portrait -->
-            </div>
-            <div class="col mb-2">
-              <div class="row mb-1">
-                <div class="col">
-                  <span class="text-uppercase font-weight-bold">{{ hero.hero.name }}</span>
-                </div>
-              </div>
-              <div class="row mb-1">
-                <div class="col">
-                  <span class="small text-uppercase d-flex align-items-center">
-                  <img src="{{ iconUrl(hero.hero.role) }}" alt="" class="role-icon-sm mr-2">{{ roleToString(hero.hero.role) }}
-                </span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <ngb-progressbar type="stp" [value]="75" [max]="100"></ngb-progressbar>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- end .col -->
+  <section class="row mb-3">
 
-    </div>
-    <!-- end .row -->
-  </div>
-  <!-- end .col -->
-</section>
+    <div class="col-12 mb-3">
+      
+      <div class="row align-items-center">
+
+        <div class="col">
+          <span class="text-uppercase font-weight-bold mb-2">Favorite Heroes</span>
+        </div><!-- end .col -->
+
+        <div class="col-auto px-3 text-right mb-2">
+
+          <div ngbDropdown class="d-inline-block">
+
+            <button class="btn btn-outline-primary small" id="dropdownBasic1" ngbDropdownToggle>Time Played</button>
+            
+            <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
+              <button class="dropdown-item pl-2 pr-4 py-2">Win Rate</button>
+              <button class="dropdown-item pl-2 pr-4 py-2">Another Stat</button>
+              <button class="dropdown-item pl-2 pr-4 py-2">Another Stat</button>
+            </div><!-- end .dropdown-menu -->
+
+          </div><!-- end ngbDropdown -->
+
+        </div><!-- end .col -->
+
+      </div><!-- end .row -->
+
+    </div><!-- end .col -->
+
+    <div class="col-12">
+
+      <div class="row">
+
+          <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 mb-1" *ngFor="let hero of sortedHeroData">
+
+            <div class="row align-items-center">
+
+              <div class="col-auto pl-3 mb-2">
+                <ow-hero-portrait [owCode]="hero.code"></ow-hero-portrait>
+                <!-- end ow-hero-portrait -->
+              </div><!-- end .col-auto -->
+
+              <div class="col mb-2">
+
+                <div class="hero-name mb-1">
+                  <span class="text-uppercase font-weight-bold">{{ hero.name }}</span>
+                </div><!-- end .hero-name -->
+
+                <div class="hero-role d-flex align-items-center mb-1">
+                  <img src="{{ hero.icon }}" alt="" class="role-icon-sm mr-1">
+                  <span class="small text-uppercase">{{ hero.role }}</span>
+                </div><!-- end .hero-role -->
+
+                <div class="hero-playtime">
+                  <ngb-progressbar type="stp" [value]="hero.amountPlayed" [max]="100"></ngb-progressbar>
+                </div><!-- end .hero-playtime -->
+                
+              </div><!-- end .col -->
+
+            </div><!-- end .row -->
+
+            <div class="row">
+
+              <div class="col-12 data-entry" *ngFor="let data of hero.data">
+
+                <div class="inner pt-2 px-2">
+
+                  <div class="row align-items-center">
+
+                    <div class="col mb-2">
+                      <span class="text-uppercase">{{ data.name }}</span>
+                    </div><!-- end .col -->
+
+                    <div class="col mb-2 text-right">
+                      <span class="text-light">{{ data.value }}</span>
+                    </div><!-- end .col -->
+
+                  </div><!-- end .row -->
+
+                </div><!-- end .inner -->
+                
+              </div><!-- end .col -->
+
+            </div><!-- end .row -->
+
+          </div><!-- end .col -->
+
+      </div><!-- end .row -->
+
+    </div><!-- end .col -->
+
+  </section><!-- end section -->
+
+</div><!-- end .most-played-heroes -->

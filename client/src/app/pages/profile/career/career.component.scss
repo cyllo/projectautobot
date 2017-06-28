@@ -1,3 +1,19 @@
+@import "../../../../style/colors";
+
+.career {
+    .overall-data {
+        .data {
+            font-size: 1rem;
+        }
+        .label {
+            font-size: 0.65rem;
+        }
+        .rating {
+            font-size: 0.65rem;
+        }
+    }
+}
+
 :host /deep/ .chart-label {
     display: none;
 }

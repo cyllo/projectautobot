@@ -27,7 +27,7 @@ export class HeroWallCatalogComponent implements OnInit, AfterContentInit {
   }
 
   getHeroesOfRole(role: number): Array<HeroData> {
-    return this.owHeroData.getHeroesOfRole(this.heroData, role);
+    return this.owHeroData.heroDataByRole(this.heroData, role);
   }
 
 }

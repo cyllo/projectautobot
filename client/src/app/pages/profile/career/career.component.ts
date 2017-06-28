@@ -1,5 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SnapshotStats, HeroSnapshotStats, GameHistoryStats } from '../../../models';
+import { OverwatchHeroDataService } from '../../../services';
+import {
+  SnapshotStats,
+  HeroSnapshotStats,
+  OverwatchStaticData,
+  HeroStatBlock,
+  ChartData,
+  ChartType
+} from '../../../models';
 
 @Component({
   selector: 'ow-career',
@@ -19,104 +27,256 @@ export class CareerComponent implements OnInit {
   }
 
   private _snapshotStats: SnapshotStats;
-  charts: Array<any>;
+  private overwatchStaticData: OverwatchStaticData;
+  charts: ChartData[];
+  statBlocks: HeroStatBlock[];
 
-  constructor() {}
+  constructor(private owHeroData: OverwatchHeroDataService) {}
 
-  ngOnInit() {}
-
-  private load() {
-
-    this.reset();
-
-    let make  = this.addChart;
-    let add   = this.addToChart;
-    let label = this.addLabelsToChart;
-
-    let ss: SnapshotStats       = this._snapshotStats;
-    let ahss: HeroSnapshotStats = ss.allHeroesSnapshotStatistic;
-    let ghs: GameHistoryStats   = ahss.gameHistoryStatistic;
-
-    let cfs = this.calcTotalFromSnapshot.bind(this);
-
-    let kills:      number = cfs(ss, 'combatAverageStatistic', 'finalBlowsAverage');
-    let elims:      number = cfs(ss, 'combatAverageStatistic', 'eliminationsAverage');
-    let objKills:   number = cfs(ss, 'combatAverageStatistic', 'objectiveKillsAverage');
-    let soloKills:  number = cfs(ss, 'combatAverageStatistic', 'soloKillsAverage');
-    let offAssists: number = cfs(ss, 'combatAverageStatistic', 'offensiveAssistsAverage');
-    let defAssists: number = cfs(ss, 'combatAverageStatistic', 'defensiveAssistsAverage');
-    let damage:     number = cfs(ss, 'combatAverageStatistic', 'damageDoneAverage');
-    let blocked:    number = cfs(ss, 'combatAverageStatistic', 'damageBlockedAverage');
-    let healing:    number = cfs(ss, 'combatAverageStatistic', 'healingDoneAverage');
-    let timeplayed: number = ghs.timePlayed / 60;
-
-    let chart_combat = make('Combat', 'radar', false, this.charts);
-
-    label(chart_combat, 'Eliminations', 'Kills', 'Solo Kills', 'Obj. Kills', 'Off. Assists', 'Def. Assists');
-    add(chart_combat, 'tag',
-      elims      / timeplayed,  // Eliminations
-      kills      / timeplayed,  // Kills
-      soloKills  / timeplayed,  // Solo Kills
-      objKills   / timeplayed,  // Objective Kills
-      offAssists / timeplayed,  // Offensive Assists
-      defAssists / timeplayed); // Defensive Assists
-
-    let chart_game = make('Game', 'radar', false, this.charts);
-
-    label(chart_game, 'Damage', 'Blocked', 'Healing');
-    add(chart_game, 'tag',
-      damage  / timeplayed,  // Damage Done
-      blocked / timeplayed,  // Damage Blocked
-      healing / timeplayed); // Healing Done
+  ngOnInit() {
+    this.owHeroData.data$.subscribe(
+      res => this.overwatchStaticData = res,
+      error => console.log(error)
+    );
   }
 
   private reset() {
     this.charts = [];
+    this.statBlocks = [];
   }
 
-  private addChart(title: string, type: String, legend: boolean, charts_array: Array<any>): any {
-    let chart: any = {
-      chartTitle: title,
-      chartType: type,
-      xAxisLabels: [],
-      datasets: [],
-      legend: legend
-    };
-    charts_array.push(chart);
-    return chart;
+  private load() {
+    this.reset();
+    this.charts.push(this.createAllCombatChartData(this._snapshotStats));
+    this.charts.push(this.createAllGameChartData(this._snapshotStats));
+    this.statBlocks = this.createOverviewStatBlocks(this._snapshotStats);
   }
 
-  private addLabelsToChart(chart: any, ...args) {
-    chart.xAxisLabels = args;
+  createOverviewStatBlocks(snapshotStats: SnapshotStats): HeroStatBlock[] {
+    const { allHeroesSnapshotStatistic } = snapshotStats;
+    return [
+      this.createAllHeroesEliminationsPerMinuteStatistic(allHeroesSnapshotStatistic),
+      this.createAllHeroesKDRatioStatistic(allHeroesSnapshotStatistic),
+      this.createAllHeroesDamageDonePerMinuteStatistic(allHeroesSnapshotStatistic),
+      this.createAllHeroesDamageBlockedPerMinuteStatistic(allHeroesSnapshotStatistic),
+      this.createAllHeroesHealingDonePerMinuteStatistic(allHeroesSnapshotStatistic),
+      this.createAllHeroesMedalsPerMinuteStatistic(allHeroesSnapshotStatistic)
+    ];
   }
 
-  private addToChart(chart: any, label: string, ...args) {
-    chart.datasets.push({
-      data: args,
-      label: label
-    });
-  }
-
-  private calcTotalFromSnapshot(ss: SnapshotStats, block: string, key: string): number {
-    return ss.heroSnapshotStatistics.reduce((acc, hss) => {
-      if (this.objHasKey(hss, block)) {
-        let obj = hss[block];
-        if (this.objHasKey(obj, key)) {
-          acc += +obj[key] || 0;
-        }
-      }
-      return acc;
-    }, 0);
-  }
-
-  private objHasKey(obj: any, key: string): boolean {
-    if (obj) {
-      let res = Object.keys(obj).find(e => {
-        return e === key;
-      });
-      return (res) ? res.length > 0 : false;
+  createAllHeroesEliminationsPerMinuteStatistic(allHeroesSnapshotStatistic: HeroSnapshotStats): HeroStatBlock {
+    const statName = 'Eliminations';
+    if (allHeroesSnapshotStatistic) {
+      const { combatLifetimeStatistic, gameHistoryStatistic } = allHeroesSnapshotStatistic;
+      return {
+        name: statName,
+        value: this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.eliminations, gameHistoryStatistic.timePlayed),
+        format: this.owHeroData.formatToString(0),
+        percent: 100
+      };
     } else {
-      return false;
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createAllHeroesKDRatioStatistic(allHeroesSnapshotStatistic: HeroSnapshotStats): HeroStatBlock {
+    const statName = 'K/D Ratio';
+    if (allHeroesSnapshotStatistic) {
+      const { combatLifetimeStatistic } = allHeroesSnapshotStatistic;
+      return {
+        name: statName,
+        value: this.owHeroData.calculateStatRatio(combatLifetimeStatistic.finalBlows, combatLifetimeStatistic.deaths),
+        format: this.owHeroData.formatToString(2),
+        percent: 100
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createAllHeroesDamageDonePerMinuteStatistic(allHeroesSnapshotStatistic: HeroSnapshotStats): HeroStatBlock {
+    const statName = 'Damage';
+    if (allHeroesSnapshotStatistic) {
+      const { combatLifetimeStatistic, gameHistoryStatistic } = allHeroesSnapshotStatistic;
+      return {
+        name: statName,
+        value: this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.damageDone, gameHistoryStatistic.timePlayed),
+        format: this.owHeroData.formatToString(0),
+        percent: 100
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createAllHeroesDamageBlockedPerMinuteStatistic(allHeroesSnapshotStatistic: HeroSnapshotStats): HeroStatBlock {
+    const statName = 'Blocked';
+    if (allHeroesSnapshotStatistic) {
+      const { combatLifetimeStatistic, gameHistoryStatistic } = allHeroesSnapshotStatistic;
+      return {
+        name: statName,
+        value: this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.damageBlocked, gameHistoryStatistic.timePlayed),
+        format: this.owHeroData.formatToString(0),
+        percent: 100
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createAllHeroesHealingDonePerMinuteStatistic(allHeroesSnapshotStatistic: HeroSnapshotStats): HeroStatBlock {
+    const statName = 'Healing';
+    if (allHeroesSnapshotStatistic) {
+      const { combatLifetimeStatistic, gameHistoryStatistic } = allHeroesSnapshotStatistic;
+      return {
+        name: statName,
+        value: this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.healingDone, gameHistoryStatistic.timePlayed),
+        format: this.owHeroData.formatToString(0),
+        percent: 100
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+  createAllHeroesMedalsPerMinuteStatistic(allHeroesSnapshotStatistic: HeroSnapshotStats): HeroStatBlock {
+    const statName = 'Medals';
+    if (allHeroesSnapshotStatistic) {
+      const { matchAwardsStatistic, gameHistoryStatistic } = allHeroesSnapshotStatistic;
+      return {
+        name: statName,
+        value: this.owHeroData.calculateStatPerMinute(matchAwardsStatistic.totalMedals, gameHistoryStatistic.timePlayed),
+        format: this.owHeroData.formatToString(0),
+        percent: 100
+      };
+    } else {
+      return {
+        name: statName
+      };
+    }
+  }
+
+
+  createAllCombatChartData(snapshotStats: SnapshotStats): ChartData {
+    const { allHeroesSnapshotStatistic } = snapshotStats;
+    return <ChartData>{
+      xAxisLabels: ['Kills', 'Solo Kills', 'Obj. Kills', 'Assists', 'Deaths'],
+      datasets: [
+        {
+          label: 'Combat',
+          data: [
+            this.createCombatChartAverageKillsData(allHeroesSnapshotStatistic),
+            this.createCombatChartAverageSoloKillsData(allHeroesSnapshotStatistic),
+            this.createCombatChartAverageObjectiveKillsData(allHeroesSnapshotStatistic),
+            this.createCombatChartAverageAssistsData(allHeroesSnapshotStatistic),
+            this.createCombatChartAverageDeathsData(allHeroesSnapshotStatistic)
+          ]
+        }
+      ],
+      chartType: ChartType.polarArea,
+      legend: true
+    };
+  }
+
+  createCombatChartAverageKillsData(allHeroesSnapshotStatistics: HeroSnapshotStats): number {
+    if ( allHeroesSnapshotStatistics ) {
+      const { combatLifetimeStatistic , gameHistoryStatistic } = allHeroesSnapshotStatistics;
+      return this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.finalBlows, gameHistoryStatistic.timePlayed);
+    } else {
+      return 0;
+    }
+  }
+
+  createCombatChartAverageSoloKillsData(allHeroesSnapshotStatistics: HeroSnapshotStats): number {
+    if ( allHeroesSnapshotStatistics ) {
+      const { combatLifetimeStatistic , gameHistoryStatistic } = allHeroesSnapshotStatistics;
+      return this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.soloKills, gameHistoryStatistic.timePlayed);
+    } else {
+      return 0;
+    }
+  }
+
+  createCombatChartAverageObjectiveKillsData(allHeroesSnapshotStatistics: HeroSnapshotStats): number {
+    if ( allHeroesSnapshotStatistics ) {
+      const { combatLifetimeStatistic , gameHistoryStatistic } = allHeroesSnapshotStatistics;
+      return this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.objectiveKills, gameHistoryStatistic.timePlayed);
+    } else {
+      return 0;
+    }
+  }
+
+  createCombatChartAverageAssistsData(allHeroesSnapshotStatistics: HeroSnapshotStats): number {
+    if ( allHeroesSnapshotStatistics ) {
+      const { combatLifetimeStatistic , gameHistoryStatistic } = allHeroesSnapshotStatistics;
+      return this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.offensiveAssists +
+        combatLifetimeStatistic.defensiveAssists, gameHistoryStatistic.timePlayed);
+    } else {
+      return 0;
+    }
+  }
+
+  createCombatChartAverageDeathsData(allHeroesSnapshotStatistics: HeroSnapshotStats): number {
+    if ( allHeroesSnapshotStatistics ) {
+      const { combatLifetimeStatistic , gameHistoryStatistic } = allHeroesSnapshotStatistics;
+      return this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.deaths, gameHistoryStatistic.timePlayed);
+    } else {
+      return 0;
+    }
+  }
+
+  createAllGameChartData(snapshotStats: SnapshotStats): ChartData {
+    const { allHeroesSnapshotStatistic } = snapshotStats;
+    return {
+      xAxisLabels: ['Damage', 'Blocked', 'Healing'],
+      datasets: [
+        {
+          label: 'Game',
+          data: [
+            this.createGameChartDamageDoneData(allHeroesSnapshotStatistic),
+            this.createGameChartDamageBlockedData(allHeroesSnapshotStatistic),
+            this.createGameChartHealingDoneData(allHeroesSnapshotStatistic)
+          ]
+        }
+      ],
+      chartType: ChartType.polarArea,
+      legend: true
+    };
+  }
+
+  createGameChartDamageDoneData(allHeroesSnapshotStatistics: HeroSnapshotStats): number {
+    if ( allHeroesSnapshotStatistics ) {
+      const { combatLifetimeStatistic , gameHistoryStatistic } = allHeroesSnapshotStatistics;
+      return this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.damageDone, gameHistoryStatistic.timePlayed);
+    } else {
+      return 0;
+    }
+  }
+
+  createGameChartDamageBlockedData(allHeroesSnapshotStatistics: HeroSnapshotStats): number {
+    if ( allHeroesSnapshotStatistics ) {
+      const { combatLifetimeStatistic , gameHistoryStatistic } = allHeroesSnapshotStatistics;
+      return this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.damageBlocked, gameHistoryStatistic.timePlayed);
+    } else {
+      return 0;
+    }
+  }
+
+  createGameChartHealingDoneData(allHeroesSnapshotStatistics: HeroSnapshotStats): number {
+    if ( allHeroesSnapshotStatistics ) {
+      const { combatLifetimeStatistic , gameHistoryStatistic } = allHeroesSnapshotStatistics;
+      return this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.healingDone, gameHistoryStatistic.timePlayed);
+    } else {
+      return 0;
     }
   }
 

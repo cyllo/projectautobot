@@ -1,59 +1,95 @@
-<div class="profile pt-3" *ngIf="player | async as playerData">
+<div class="profile" *ngIf="player | async as playerData">
 
-  <div class="container">
-    <ow-platform-region [player]="playerData" [players]="players | async" (change)="changePlatformRegion($event)"></ow-platform-region>
-    <!-- end ow-platform-region -->
-  </div>
-  <!-- end .container -->
+  <section class="header pt-4 mb-3" *ngIf="playerData">
 
-  <div class="container" *ngIf="playerData">
+    <ow-platform-region [player]="playerData"
+      [players]="players | async" 
+      (change)="changePlatformRegion($event)">
+    </ow-platform-region><!-- end ow-platform-region -->
+
     <ow-profile-header [player]="playerData"></ow-profile-header>
     <!-- end ow-profile-header -->
-  </div>
-  <!-- end .container -->
-  
-  <div class="container">
 
-    <div class="row mb-3" *ngIf="selectedSnapshotData | async as snapshotStats">
-      <div class="col-12">
-        <div class="content rounded px-3 py-3">
+  </section><!-- end .header -->
+
+  <div class="container mb-3" *ngIf="selectedSnapshotData | async as snapshotStats">
+
+    <div class="row">
+
+      <div class="col">
+
+        <div class="content rounded px-3 pt-3">
 
           <div class="row align-items-center">
-            <div class="col-lg-6 col-md-4 text-md-left col-sm-12 text-center mb-3">
-              <div class="btn-group" role="group" aria-label="Basic example">
+
+            <div class="col-md-6 text-md-left col-12 text-center mb-3">
+
+              <div class="btn-group" role="group" aria-label="Sort By Quick Play or Competitive Play">
+
                 <button type="button" class="btn btn-radio"
-                        [class.active]="snapshotStats.isCompetitive"
-                        (click)="toggleSnapshotStats('competitive')">
-                  <span class="small">Competitive Play</span>
-                </button>
+                  [class.active]="snapshotStats.isCompetitive"
+                  (click)="toggleSnapshotStats('competitive')">
+                  <span>Competitive Play</span>
+                </button><!-- end button -->
+
                 <button type="button" class="btn btn-radio"
-                        [class.active]="!snapshotStats.isCompetitive"
-                        (click)="toggleSnapshotStats('quickPlay')">
-                  <span class="small">Quick Play</span>
-                </button>
-              </div>
-            </div>
-            <!-- end .col -->
-            <div class="col-lg-6 col-md-8 text-md-right col-sm-12 text-center mb-3">
-              <button type="button" class="btn btn-outline-primary">
-                <span class="small d-flex align-items-center">
-                  <i class="material-icons mr-1">link</i>Connect your Battle.net to claim.
-                </span>
-              </button>
-            </div>
-            <!-- end .col -->
-          </div>
-          <!-- end .row -->
-          <ow-profile-page-tabs [snapshotStats]="snapshotStats"></ow-profile-page-tabs>
-          <!-- end ow-profile-page-tabs -->
-        </div>
-        <!-- end .content -->
-      </div>
-      <!-- end .col -->
-    </div>
-    <!-- end .row -->
+                  [class.active]="!snapshotStats.isCompetitive"
+                  (click)="toggleSnapshotStats('quickPlay')">
+                  <span>Quick Play</span>
+                </button><!-- end button -->
+
+              </div><!-- end .btn-group -->
+
+            </div><!-- end .col-6 -->
+
+            <div class="col-md-6 text-md-right col-12 text-center mb-3">
+
+              <button type="button" class="btn btn-connect-battlenet">
+                <i class="fa fa-connectdevelop" aria-hidden="true"></i>
+                <span>Connect your Battle.net to claim.</span>
+              </button><!-- end button -->
+
+            </div><!-- end .col-6 -->
+
+          </div><!-- end .row -->
+
+        </div><!-- end .content -->
+
+      </div><!-- end .col -->
+
+    </div><!-- end .row -->
+    
   </div>
   <!-- end .container -->
-  
+
+  <div class="container mb-3" *ngIf="selectedSnapshotData | async as snapshotStats">
+
+    <div class="row">
+
+      <div class="col-lg-9 col-12 mb-3">
+
+        <div class="content rounded px-3 py-3">
+
+          <ow-profile-page-tabs [snapshotStats]="snapshotStats"></ow-profile-page-tabs>
+          <!-- end ow-profile-page-tabs -->
+
+        </div><!-- end .content -->
+
+      </div><!-- end .col -->
+
+      <div class="col-lg-3 col-12 mb-3">
+
+        <div class="content rounded px-3 py-3">
+
+          <ow-lifetime-stats [snapshotStats]="snapshotStats"></ow-lifetime-stats>
+
+        </div><!-- end .content -->
+
+      </div><!-- end .col -->
+
+    </div><!-- end .row -->
+
+  </div><!-- end .container -->
+
 </div>
 <!-- end .profile -->

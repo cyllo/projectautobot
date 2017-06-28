@@ -1,11 +1,10 @@
 <section class="row">
   <div class="col-xl-3 col-md-6 col-12 mb-3" *ngFor='let i of chartdatasets'>
-    <ow-chart 
-      [owChartTitle]="i.chartTitle"
-      [owChartType]="'line'"
-      [owChartXAxisLabels] = "i.xAxisLabels"
-      [owChartDatasets]="i.datasets"
-      [owChartShowLegend]="false"></ow-chart>
+    <ow-chart
+      [chartType]="'line'"
+      [labels] = "i.xAxisLabels"
+      [datasets]="i.datasets"
+      [legend]="false"></ow-chart>
   </div>
   <!-- end .col -->
 </section>

@@ -1,17 +1,107 @@
-.level {
-  display: inline-block;
-  position: relative;
-  width: 100%;
-  max-width: 4.5em;
+@import "../../../../style/colors";
 
-  .level-border {
-    width: 100%;
+.profile-header {
+
+  color: $white;
+
+  .btn span {
+    margin: 0 !important;
   }
 
-  .level-value {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  .avatar {
+    max-width: 5.5rem;
   }
+
+  .platform-region {
+
+    color: $purple-lighter;
+
+    span {
+      font-size: 0.65rem;
+      border: 1px solid $purple-light;
+      padding: 0.35rem 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+  }
+
+  .player {
+
+    margin-bottom: 0.85rem;
+
+    .player-tag {
+      color: $white;
+      margin: 0 !important;
+    }
+
+    .player-level {
+
+      position: relative;
+      width: 4rem;
+      margin-left: -0.65rem;
+
+      .level {
+        font-size: 0.65rem;
+        color: $white;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        transform: translate(-50%, -50%);
+      }
+
+      .level-border {
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        width: 100%;
+        transform: translate(-50%,-50%);
+      }
+
+    }
+
+  }
+
+  .overview-stats {
+
+    .trend {
+
+      color: $purple-lighter;
+      font-size: 0.65rem;
+      border-top: 1px dotted $purple;
+      border-bottom: 1px dotted $purple;
+
+      .change.gain {
+        color: $brand-success;
+      }
+
+      .change.loss {
+        color: $brand-danger;
+      }
+
+
+    }
+
+    .stat-block {
+      font-weight: 300;
+      font-size: 1.25rem;
+    }
+
+    .label {
+      font-size: 0.65rem;
+      color: $purple-lighter;
+    }
+
+    .rank {
+      width: 100%;
+      max-width: 1.25rem;
+    }
+
+  }
+
+  .user-actions {
+    .btn {
+
+    }
+  }
+
 }

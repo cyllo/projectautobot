@@ -1,0 +1,42 @@
+@import "../../../style/colors";
+
+.platform-region {
+
+    .label {
+        color: $white;
+        font-size: 0.65rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .btn-group {
+
+        .btn-radio {
+            color: $purple-lighter;
+            background-color: transparent;
+            border-color: $purple-light;
+        }
+
+        .btn-radio:hover {
+            color: $white;
+        }
+
+        .btn-radio:not(:first-child) {
+            border-left: 0;
+        }
+
+        .btn-radio.active {
+            color: $purple-darker;
+            background-color: $white;
+            border-color: $white;
+        }
+
+        .btn-radio:disabled {
+            opacity: 1;
+            color: $purple-dark;
+            border-color: $purple-dark;
+            cursor: default;
+        }
+
+    }
+    
+}
