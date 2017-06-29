@@ -43,7 +43,9 @@ import {
   LoginComponent,
   NewsPageHeaderComponent,
   PostEntryComponent,
-  PostUserActionsComponent
+  PostUserActionsComponent,
+  UserRegistrationComponent,
+  AccountSettingsComponent
 } from './index';
 
 @NgModule({
@@ -92,7 +94,9 @@ import {
     LoginComponent,
     NewsPageHeaderComponent,
     PostEntryComponent,
-    PostUserActionsComponent
+    PostUserActionsComponent,
+    UserRegistrationComponent,
+    AccountSettingsComponent
   ],
   exports: [
     HomeComponent,
@@ -116,7 +120,9 @@ import {
     HeroCareerComponent,
     ProfileHeaderComponent,
     ProfilePageTabsComponent,
-    LoginComponent
+    LoginComponent,
+    UserRegistrationComponent,
+    AccountSettingsComponent
   ],
   providers: []
 })

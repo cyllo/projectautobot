@@ -4,7 +4,7 @@ import { Action, Store } from '@ngrx/store';
 import { AppState } from '../../models';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import { values, all, isNil } from 'ramda';
+import { values, all, isNil, path } from 'ramda';
 
 @Component({
   selector: 'ow-main-nav',
@@ -43,7 +43,7 @@ export class MainNavComponent implements AfterContentInit, OnDestroy, AfterViewI
     this.curScrollY  = 0;
     this._dy = 0;
 
-    this.currentSession.subscribe(session => this.userLoggedIn = !all(isNil, values(session)));
+    this.currentSession.subscribe(session => this.userLoggedIn = !all(isNil, values(path(['sessionInfo'], session))));
   }
 
   ngAfterContentInit() {

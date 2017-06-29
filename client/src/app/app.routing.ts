@@ -1,4 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './services';
 import {
   HomeComponent,
   FollowingComponent,
@@ -13,7 +14,9 @@ import {
   ProfileComponent,
   CompareComponent,
   PageNotFoundComponent,
-  LoginComponent
+  LoginComponent,
+  UserRegistrationComponent,
+  AccountSettingsComponent
 } from './pages';
 
 const routes: Routes = [
@@ -25,11 +28,14 @@ const routes: Routes = [
   { path: 'esports', component: ESportsComponent },
   { path: 'live', component: LiveComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'register/:code', component: UserRegistrationComponent},
+  { path: 'register', component: UserRegistrationComponent },
   { path: 'news', component: NewsComponent },
   { path: 'post/:title', component: PostComponent },
   { path: 'friends', component: FriendsComponent },
   { path: 'profile/:platform/:region/:tag', component: ProfileComponent },
   { path: 'profile/:platform/:tag', component: ProfileComponent },
+  { path: 'account', component: AccountSettingsComponent, canActivate: [AuthGuard] },
   { path: 'compare' , component: CompareComponent },
   { path: '404' , component: PageNotFoundComponent },
   { path: '**', redirectTo: '/404' }

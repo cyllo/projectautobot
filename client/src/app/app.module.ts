@@ -1,6 +1,6 @@
 import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
@@ -12,13 +12,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ApolloModule } from 'apollo-angular';
 import { ApolloClient } from 'apollo-client';
+import { httpInterceptor } from './app.http-interceptor';
 import { SidebarModule } from 'ng-sidebar';
 
 import { AppComponent } from './app.component';
 import * as staticComponents from './static';
 import { routing } from './app.routing';
 import { OrderByPipe } from './pipes';
-import { PlayersService, OverwatchHeroDataService } from './services';
+import { PlayersService, OverwatchHeroDataService, AuthorizationService, AuthGuard } from './services';
 import { values } from 'ramda';
 
 import {
@@ -46,7 +47,7 @@ export function instrumentOptions() {
     NgbModule.forRoot(),
     SharedModule.forRoot(),
     PagesModule.forRoot(),
-    ApolloModule.forRoot(() => new ApolloClient()),
+    ApolloModule.forRoot(() => new ApolloClient({ networkInterface: httpInterceptor })),
     StoreDevtoolsModule.instrumentStore(instrumentOptions),
     StoreModule.provideStore({
       players,
@@ -69,6 +70,7 @@ export function instrumentOptions() {
     CommonModule,
     StoreLogMonitorModule,
     HttpModule,
+    JsonpModule,
     FormsModule,
     ReactiveFormsModule,
     routing,
@@ -77,7 +79,9 @@ export function instrumentOptions() {
   declarations,
   providers: [
     PlayersService,
-    OverwatchHeroDataService
+    OverwatchHeroDataService,
+    AuthGuard,
+    AuthorizationService
   ],
   bootstrap: [AppComponent]
 })

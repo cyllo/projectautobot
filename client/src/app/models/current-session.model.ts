@@ -1,7 +1,17 @@
 import { AppState } from './appstate.model';
 
-export interface CurrentSession extends AppState {
+interface SessionInfo {
+  token: string;
+  exp: string;
+}
+
+interface CurrentUser {
+  username: string;
   id: Number;
   email: string;
-  username: string;
+}
+
+export interface CurrentSession extends AppState {
+  sessionInfo: SessionInfo;
+  user: CurrentUser;
 }
