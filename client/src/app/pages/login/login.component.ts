@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthorizationService } from '../../services';
-import { Credentials, AppState } from '../../models';
-import { Store } from '@ngrx/store';
+import { Credentials } from '../../models';
 import { Location } from '@angular/common';
-import { path } from 'ramda';
 
 @Component({
-  selector: 'ow-login',
+  selector: 'login',
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.scss'],
   providers: [AuthorizationService]
@@ -17,8 +15,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginError: boolean;
   constructor(private authorizationService: AuthorizationService,
-    private store: Store<AppState>,
-    private location: Location) { }
+    private location: Location){}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -29,13 +26,12 @@ export class LoginComponent implements OnInit {
 
   onSubmit(credentials: Credentials) {
     this.authorizationService.login(credentials)
-      .subscribe(({ data }) => {
-        console.log(data);
-        // const { loginUser: { user: session } } = data;
-        const session = path(['loginUser', 'user'], data);
-        this.store.dispatch({ type: 'AUTH', payload: session });
-        this.loginError = false;
-        this.location.back();
-      }, () => this.loginError = true);
+    .subscribe(() => {
+      this.loginError = false;
+      this.location.back();
+    }, error => {
+      console.log('Login Error: ', error)
+      this.loginError = true
+    })
   }
 }

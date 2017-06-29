@@ -1,12 +1,17 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
+import { isEmpty } from 'ramda';
 
 import { AppState, Player } from './models';
-import { searchGamerTag } from './reducers';
-import { OverwatchHeroDataService, GamerTagService, HereosService } from './services';
+import { getPlayerData, searchGamerTag } from './reducers';
+import {
+  OverwatchHeroDataService,
+  GamerTagService,
+  HereosService,
+  AuthorizationService } from './services';
 
 import '../style/app.scss';
 
@@ -14,9 +19,9 @@ import '../style/app.scss';
   selector: 'ow-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [GamerTagService, HereosService]
+  providers: [GamerTagService, HereosService, AuthorizationService]
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnDestroy, OnInit {
   sub: Subscription;
   players: Observable<Player[]>;
   $state: Observable<AppState>;
@@ -27,9 +32,14 @@ export class AppComponent implements OnDestroy {
     private store: Store<AppState>,
     private owHeroData: OverwatchHeroDataService,
     private gamerTagService: GamerTagService,
-    private HereosService: HereosService) {
+    private HereosService: HereosService,
+    private authService: AuthorizationService) {
 
     this.$state = this.store.select(s => s);
+
+    this.players = store.let(getPlayerData)
+      .distinctUntilChanged()
+      .filter(players => !isEmpty(players));
 
     this.sub = store.let(searchGamerTag)
       .do(() => this.searchResults.next([]))
@@ -39,6 +49,10 @@ export class AppComponent implements OnDestroy {
     this.getHeroes();
 
     this.owHeroData.load();
+  }
+
+  ngOnInit() {
+    this.authService.setCurrentSession(JSON.parse(window.localStorage.getItem('session')));
   }
 
   onSearch(action) {

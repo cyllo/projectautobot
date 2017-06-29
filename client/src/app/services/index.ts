@@ -5,3 +5,5 @@ export * from './authorization.service';
 export * from './gamer-tag.service';
 export * from './hereos.service';
 export * from './hereo-statistics.service';
+export * from './user.service';
+export * from './auth-gaurd.service';

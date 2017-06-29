@@ -1,9 +1,15 @@
 import { CurrentSession } from '../models';
 
 const initialState: CurrentSession = {
-  id: null,
-  email: null,
-  username: null
+  sessionInfo: {
+    token: null,
+    exp: null,
+  },
+  user: {
+    username: null,
+    id: null,
+    email: null
+  }
 };
 
 export function currentSession(state: CurrentSession = initialState, { type, payload }: { type: string, payload?: any }) {
@@ -11,7 +17,7 @@ export function currentSession(state: CurrentSession = initialState, { type, pay
     case 'AUTH':
       return payload;
     case 'LOG_OUT':
-      return payload = initialState;
+      return initialState;
     default:
       return state;
   }
