@@ -8,6 +8,7 @@ defmodule Api.Schema.AccountTypes do
     field :id, :integer
     field :username, :string
     field :email, :string
+    field :battle_net_id, :integer
 
     field :friends, list_of(:friendship) do
       resolve fn user, _, _ ->

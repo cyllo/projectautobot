@@ -9,6 +9,7 @@ defmodule Models.Accounts.User do
   schema "users" do
     field :username, :string
     field :email, :string
+    field :battle_net_id, :integer
     field :password, :string, virtual: true
     field :password_hash, :string
     field :is_admin, :boolean, default: false
@@ -27,7 +28,7 @@ defmodule Models.Accounts.User do
   end
 
   @required_fields [:username, :email]
-  @allowed_fields Enum.concat(@required_fields, [:password])
+  @allowed_fields Enum.concat(@required_fields, [:password, :battle_net_id])
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -38,6 +39,7 @@ defmodule Models.Accounts.User do
       |> validate_required(@required_fields)
       |> unique_constraint(:username, name: :users_username_index)
       |> unique_constraint(:email, name: :users_email_index)
+      |> unique_constraint(:battle_net_id, name: :users_battle_net_id_index, message: "There is already an account associated with that battle net id")
       |> validate_length(:password, min: 3, max: 100)
       |> put_gamer_tags_following
       |> put_password
