@@ -20,6 +20,7 @@ defmodule Api.Schema.GameTypes do
 
     field :level, :integer
     field :level_url, :string
+    field :rank_url, :string
 
     timestamp_types
 

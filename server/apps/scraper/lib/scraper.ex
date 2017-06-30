@@ -26,6 +26,7 @@ defmodule Scraper do
       |> DataProcessor.get_profile_info
       |> Sorter.sort_stats
       |> ModelCreator.save_profile
+      |> Api.Web.GamerTagChannel.broadcast_change
   end
 
   def search_tag(gamer_tag) do
@@ -61,20 +62,37 @@ defmodule Scraper do
   defp profile_not_on_timeout?(gamer_tag), do: !ScrapeStatusCache.has_scraped_gamer_tag?(gamer_tag.id)
   defp filter_and_get_non_timeout_gamer_tags(gamer_tags), do: Enum.filter_map(gamer_tags, &profile_not_on_timeout?/1, &gamer_tag_info/1)
   defp gamer_tag_info(tag_params), do: Map.take(tag_params, [:tag, :region, :platform])
+
+  defp mark_tags_searched(gamer_tags) do
+    Enum.each(gamer_tags, &ScrapeStatusCache.mark_tag_searched(Map.get(&1, :tag)))
+
+    gamer_tags
+  end
+
   defp mark_tags_scraped(gamer_tags) do
     Enum.each(gamer_tags, &ScrapeStatusCache.mark_tag_scraped(Map.get(&1, :tag)))
 
     gamer_tags
   end
 
+  defp concat_connected_gamer_tags(gamer_tags) do
+    Models.Repo.preload(gamer_tags, [:connected_gamer_tags])
+      |> Enum.map(fn (gamer_tag) ->
+        mark_tags_searched(gamer_tag.connected_gamer_tags)
+
+        gamer_tag.connected_gamer_tags ++ [gamer_tag]
+      end)
+      |> List.flatten
+  end
+
   defp scrape_gamer_tags_from_search(gamer_tags) do
-    res = gamer_tags
+    gamer_tags
       |> filter_and_get_non_timeout_gamer_tags
       |> snapshot_tags
       |> Enum.to_list
-
-    mark_tags_scraped(gamer_tags)
-
-    res
+      |> Enum.map(&(&1 |> Tuple.to_list |> List.first))
+      |> concat_connected_gamer_tags
+      |> mark_tags_scraped
+      |> Api.Web.GamerTagChannel.broadcast_change
   end
 end

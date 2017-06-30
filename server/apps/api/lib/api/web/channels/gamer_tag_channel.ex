@@ -7,12 +7,6 @@ defmodule Api.Web.GamerTagChannel do
     {:ok, socket}
   end
 
-  def handle_in("change", payload, socket) do
-    broadcast socket, "change", payload
-
-    {:noreply, socket}
-  end
-
   # Api
   def broadcast_change(gamer_tag_id) when is_integer(gamer_tag_id), do: broadcast_change([gamer_tag_id])
   def broadcast_change(gamer_tag) when is_map(gamer_tag), do: broadcast_change([gamer_tag.id])
@@ -23,14 +17,10 @@ defmodule Api.Web.GamerTagChannel do
         |> Enum.map(&Map.get(&1, :id))
         |> broadcast_change
     else
-      broadcast_change(gamer_tags)
+      debug "Gamer tags changed #{inspect gamer_tags}"
+
+      Api.Web.Endpoint.broadcast("gamer_tag:lobby", "change", %{gamer_tags: gamer_tags})
     end
-  end
-
-  def broadcast_change(gamer_tags) do
-    debug "Gamer tags changed #{inspect Enum.map(gamer_tags, &Map.take(&1, [:id, :tag, :region, :platform]))}"
-
-    Api.Web.Endpoint.broadcast("gamer_tag:lobby", "change", %{gamer_tags: gamer_tags})
 
     gamer_tags
   end

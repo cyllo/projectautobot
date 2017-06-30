@@ -12,11 +12,7 @@ defmodule Api.GamerTagResolver do
          _ <- ScrapeStatusCache.mark_tag_scraped(gamer_tag_id),
          %{competitive_snapshot: _} <- Scraper.get_profile(gamer_tag) do
 
-       {:ok, gamer_tag_with_snapshot} = Game.get_gamer_tag_with_snapshots(gamer_tag_id)
-
-       GamerTagChannel.broadcast_change(gamer_tag_with_snapshot)
-
-       {:ok, gamer_tag_with_snapshot}
+       Game.get_gamer_tag_with_snapshots(gamer_tag_id)
      else
        {:error, %{ms_till_can_scrape: _}} = error -> error
        error ->

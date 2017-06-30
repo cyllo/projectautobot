@@ -37,6 +37,8 @@ defmodule Api.Schema do
     field :gamer_tag, :gamer_tag do
       arg :id, :integer
       arg :tag, :string
+      arg :region, :string
+      arg :platform, :string
 
       resolve &GamerTagResolver.find/2
     end

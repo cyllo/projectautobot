@@ -20,6 +20,14 @@ defmodule Models.Game do
     find_gamer_tag([tag: Utility.normalize_gamer_tag(tag)])
   end
 
+  @spec find_or_create_gamer_tag(Map) :: {:ok, Map} | {:error, String}
+  def find_or_create_gamer_tag(user_profile) do
+    case find_gamer_tag(user_profile) do
+      {:error, _} -> create_gamer_tag(user_profile)
+      gamer_tag -> gamer_tag
+    end
+  end
+
   def get_connected_gamer_tag(gamer_tag, connected_tag) do
     from(
       ConnectedGamerTag, where: [gamer_tag1_id: ^gamer_tag.id, gamer_tag2_id: ^connected_tag.id],

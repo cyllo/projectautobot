@@ -1,3 +1,4 @@
+import { merge } from 'ramda';
 import { Observable } from 'rxjs/Observable';
 import '@ngrx/core/add/operator/select';
 
@@ -16,9 +17,10 @@ const initialState: State = {
 export function playerDataCollection(state = initialState, { type, payload }): State {
   switch (type) {
     case 'LOAD':
-      return Object.assign({}, state, { loaded: false, loading: true });
+      return merge(state, { loaded: false, loading: true });
 
     case 'LOAD_SUCCESS':
+      console.log('load succes', payload);
       const players = payload;
 
       return {

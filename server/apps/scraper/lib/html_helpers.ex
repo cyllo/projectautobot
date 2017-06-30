@@ -36,12 +36,16 @@ defmodule Scraper.HtmlHelpers do
   def find_background_img_url(src, query_selector) do
     case Floki.find(src, query_selector) do
       [] -> nil
-      res -> res
-        |> Floki.attribute("style")
-        |> List.first
-        |> String.replace(~r/background-image:url\(/, "")
-        |> String.replace_trailing(")", "")
+      res -> background_img_url(res)
     end
+  end
+
+  def background_img_url(src) do
+    src
+      |> Floki.attribute("style")
+      |> List.first
+      |> String.replace(~r/background-image:url\(/, "")
+      |> String.replace_trailing(")", "")
   end
 
   def find_player_platforms(src), do: Floki.find(src, @overwatch_player_platforms)

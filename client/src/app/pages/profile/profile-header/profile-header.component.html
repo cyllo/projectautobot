@@ -1,4 +1,4 @@
-<div class="profile-header" *ngIf="player && snapshotStats">
+<div class="profile-header" *ngIf="player">
 
   <div class="container">
 
@@ -47,10 +47,10 @@
 
             <div class="user-actions mb-4">
 
-              <button class="btn btn-outline-primary d-inline-flex align-items-center mr-2" 
-                type="button" 
+              <button class="btn btn-outline-primary d-inline-flex align-items-center mr-2"
+                type="button"
                 name="button"
-                (click)="renew()" 
+                (click)="renew()"
                 [ngSwitch]="renewInProgress">
 
                 <ng-container *ngSwitchCase="false">
@@ -72,7 +72,7 @@
               </button><!-- end button -->
 
               <button class="btn btn-outline-primary d-inline-flex align-items-center mr-2"
-                type="button" 
+                type="button"
                 name="button"
                 (click)="follow(player)">
                 <i class="fa fa-heart" aria-hidden="true"></i>
@@ -94,12 +94,12 @@
           <div class="col-md col-6 text-center mb-3">
 
             <div class="stat-block d-inline-flex align-items-center mb-1">
-              <img src="https://blzgdapipro-a.akamaihd.net/game/rank-icons/season-2/rank-7.png" 
+              <img src="https://blzgdapipro-a.akamaihd.net/game/rank-icons/season-2/rank-7.png"
                    alt="player rank"
                    class="rank d-inline-flex mr-1">
               <span>{{ player.competitiveLevel }}</span>
             </div><!-- end .stat-block -->
-            
+
             <div class="label mb-2">
               <span class="text-uppercase">Skill Rating</span>
             </div><!-- end label -->
@@ -108,15 +108,15 @@
               <span class="change gain mr-1">+0.01%</span>
               <span class="position">- 1124TH</span>
             </div><!-- end .trend -->
-            
-          </div><!-- end .col --> 
 
-          <div class="col-md col-6 text-center mb-3">
+          </div><!-- end .col -->
+
+          <div class="col-md col-6 text-center mb-3" *ngIf='snapshotStats'>
 
             <div class="stat-block d-inline-flex align-items-center mb-1">
               <span>{{ getStat('winrate') | number : '1.2-2' || 0 }}%</span>
             </div><!-- end .stat-block -->
-            
+
             <div class="label mb-2">
               <span class="text-uppercase">Win Rate</span>
             </div><!-- end label -->
@@ -126,14 +126,14 @@
               <span class="position">- 74TH</span>
             </div><!-- end .trend -->
 
-          </div><!-- end .col --> 
+          </div><!-- end .col -->
 
           <div class="col-md col-6 text-center mb-3">
 
             <div class="stat-block d-inline-flex align-items-center mb-1">
               <span>{{ getStat('leaderboardrating') || '-' }}</span>
             </div><!-- end .stat-block -->
-            
+
             <div class="label mb-2">
               <span class="text-uppercase">US Rank</span>
             </div><!-- end label -->
@@ -143,14 +143,14 @@
               <span class="position">- 74TH</span>
             </div><!-- end .trend -->
 
-          </div><!-- end .col --> 
+          </div><!-- end .col -->
 
           <div class="col-md col-6 text-center mb-3">
 
             <div class="stat-block d-inline-flex align-items-center mb-1">
               <span>{{ getStat('wins') }} - {{ getStat('loss') }}</span>
             </div><!-- end .stat-block -->
-            
+
             <div class="label mb-2">
               <span class="text-uppercase">Win - Loss</span>
             </div><!-- end label -->
@@ -160,10 +160,10 @@
               <span class="position">- 74TH</span>
             </div><!-- end .trend -->
 
-          </div><!-- end .col --> 
+          </div><!-- end .col -->
 
-        </div><!-- end .row -->          
-      
+        </div><!-- end .row -->
+
       </div><!-- end .col -->
 
     </div><!-- end .row -->

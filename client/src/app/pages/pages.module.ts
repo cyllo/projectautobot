@@ -123,8 +123,7 @@ import {
     LoginComponent,
     UserRegistrationComponent,
     AccountSettingsComponent
-  ],
-  providers: []
+  ]
 })
 
 export class PagesModule {

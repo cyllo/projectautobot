@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Player, SnapshotStats, HeroSnapshotStats, GameHistoryStats, MatchAwardsStats } from '../../../models';
 import { FollowService } from '../follow.service';
 
@@ -9,16 +9,13 @@ import { FollowService } from '../follow.service';
   providers: [FollowService]
 })
 
-export class ProfileHeaderComponent implements AfterContentInit {
+export class ProfileHeaderComponent {
   @Input() player: Player;
+
   snapshotStats: SnapshotStats;
   renewInProgress = false;
 
   constructor(private followService: FollowService) {}
-
-  ngAfterContentInit() {
-    this.snapshotStats = this.player.snapshotStatistics[this.player.snapshotStatistics.length - 1];
-  }
 
   renew() {
     this.renewInProgress = !this.renewInProgress;
@@ -29,6 +26,9 @@ export class ProfileHeaderComponent implements AfterContentInit {
   }
 
   getStat(stat: string): number {
+    if (!this.snapshotStats) {
+      return 0;
+    }
 
     let ahss: HeroSnapshotStats = this.snapshotStats.allHeroesSnapshotStatistic;
     let ghs: GameHistoryStats   = ahss.gameHistoryStatistic;
