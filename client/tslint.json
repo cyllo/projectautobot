@@ -85,6 +85,7 @@
       "check-decl",
       "check-operator",
       "check-separator",
+      "allow-pascal-case",
       "check-type"
     ],
     "directive-selector": [

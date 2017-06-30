@@ -7,6 +7,7 @@ defmodule Scraper.DataProcessor.UserInfo do
   @overwatch_competitive_level ".competitive-rank .h6"
   @overwatch_competitive_rank_url ".competitive-rank > img"
   @overwatch_player_level ".show-for-lg .player-level > div.u-vertical-center"
+  @overwatch_player_rank_url ".player-rank"
   @overwatch_player_level_url ".player-level"
 
   def user_info(src) do
@@ -21,6 +22,7 @@ defmodule Scraper.DataProcessor.UserInfo do
       competitive_rank_url: competitive_rank_url(user_info_container),
       level: level(user_info_container),
       level_url: level_url(user_info_container),
+      rank_url: rank_url(user_info_container),
       other_platforms: inactive_profile_region_platforms(user_info_container),
     }
 
@@ -40,10 +42,10 @@ defmodule Scraper.DataProcessor.UserInfo do
     end
   end
 
-
   defp portrate_url(src), do: HtmlHelpers.find_img_src(src, @overwatch_portrait)
   defp level(src), do: HtmlHelpers.find_text(src, @overwatch_player_level)
   defp level_url(src), do: HtmlHelpers.find_background_img_url(src, @overwatch_player_level_url)
+  defp rank_url(src), do: HtmlHelpers.find_background_img_url(src, @overwatch_player_rank_url)
   defp competitive_level(src), do: HtmlHelpers.find_first_text(src, @overwatch_competitive_level)
   defp competitive_rank_url(src), do: HtmlHelpers.find_img_src(src, @overwatch_competitive_rank_url)
 

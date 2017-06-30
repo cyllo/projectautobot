@@ -16,6 +16,7 @@ defmodule Models.Game.GamerTag do
 
     field :level, :integer
     field :level_url, :string
+    field :rank_url, :string
 
     belongs_to :user, Models.Accounts.User
     has_many :snapshot_statistics, Models.Statistics.Snapshots.SnapshotStatistic
@@ -35,7 +36,7 @@ defmodule Models.Game.GamerTag do
   @allowed_fields Enum.concat(@required_fields, [
     :overwatch_name, :portrait_url,
     :competitive_level, :competitive_rank_url,
-    :region, :level, :level_url,
+    :region, :level, :level_url, :rank_url,
     :total_games_won, :user_id,
   ])
 

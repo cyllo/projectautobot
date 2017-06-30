@@ -15,11 +15,13 @@ import { ApolloClient } from 'apollo-client';
 import { httpInterceptor } from './app.http-interceptor';
 import { SidebarModule } from 'ng-sidebar';
 
+import { ProfileResolver } from './pages/profile/profile.resolver';
+import { GamerTagService, ProfileService } from './services';
 import { AppComponent } from './app.component';
 import * as staticComponents from './static';
 import { routing } from './app.routing';
 import { OrderByPipe } from './pipes';
-import { PlayersService, OverwatchHeroDataService, AuthorizationService, AuthGuard } from './services';
+import { PlayersService, OverwatchHeroDataService, AuthorizationService, AuthGuard, SocketService } from './services';
 import { values } from 'ramda';
 
 import {
@@ -78,6 +80,10 @@ export function instrumentOptions() {
   ],
   declarations,
   providers: [
+    ProfileResolver,
+    GamerTagService,
+    ProfileService,
+    SocketService,
     PlayersService,
     OverwatchHeroDataService,
     AuthGuard,
@@ -86,7 +92,7 @@ export function instrumentOptions() {
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(public appRef: ApplicationRef) {}
+  constructor(public appRef: ApplicationRef) { }
   hmrOnInit(store) {
     console.log('HMR store', store);
   }

@@ -1,3 +1,4 @@
+import { prop, merge, path } from 'ramda';
 import { Component, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
 import { AppState, Player } from '../../models';
 import { Store } from '@ngrx/store';
@@ -10,12 +11,11 @@ import { ProfileService } from '../../services';
 @Component({
   selector: 'ow-profile',
   templateUrl: 'profile.component.html',
-  styleUrls: [ 'profile.component.scss' ],
-  providers: [ProfileService]
+  styleUrls: ['profile.component.scss'],
 })
 export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   players: Observable<Object>;
-  player;
+  player: Observable<Player>;
 
   platform: string;
   region: string;
@@ -24,35 +24,46 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   selectedSnapshot = new BehaviorSubject('competitive');
   selectedSnapshotData: Observable<SnapshotStats>;
 
-  constructor(private store: Store<AppState>,
+  constructor(
+    private store: Store<AppState>,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private profileService: ProfileService
   ) {
-    this.players = store.select('players');
-    this.player = this.activatedRoute.params
-    .flatMap(({tag, platform, region}) => {
-      if (!region) {
-        return this.players.pluck(tag, platform);
-      }
-      return this.players.pluck(tag, platform, region);
-    })
-    .filter(state => !!state)
-    .map((player: Player) => Object.assign({}, player, {
-      competitive: player.snapshotStatistics[player.snapshotStatistics.length - 1],
-      quickPlay: player.snapshotStatistics[player.snapshotStatistics.length - 2]
-    }));
+    this.players = this.store.select('players');
+
+    const resolveData: Observable<Player> = activatedRoute.data
+      .take(1)
+      .map(prop<Player>('player'))
+      .do(a => console.log('Route Data Change: ', a))
+      .distinctUntilChanged((newPlayer: Player, oldPlayer: Player) => {
+        const firstCombine = newPlayer.tag + newPlayer.platform + newPlayer.region,
+              secondCombine = oldPlayer.tag + oldPlayer.platform + oldPlayer.region;
+
+        return firstCombine === secondCombine;
+      });
+
+    const socketUpdates: Observable<Player> = activatedRoute.data
+      .map(path<number>(['player', 'id']))
+      .mergeMap((playerId) => this.profileService.observeChanges(playerId))
+      .do((data) => this.store.dispatch({ type: 'UPDATE_PLAYER', payload: data }));
+
+    this.player = Observable.merge(resolveData, socketUpdates)
+      .switchMap((player) => this.profileService.addOwData(player))
+      .map((player: Player) => merge(player, this.profileService.latestStatsSet(player)));
+
     this.selectedSnapshotData = this.player.combineLatest(this.selectedSnapshot, (player, selectedSnapshot) => {
       return player[selectedSnapshot];
     });
   }
 
   ngOnInit() {
-    this.paramsSub = this.activatedRoute.params.subscribe((params) => {
-      this.platform = params['platform'];
-      this.region = params['region'];
-      this.tag = params['tag'];
-    });
+    this.paramsSub = this.activatedRoute.params
+      .subscribe(({ platform, region, tag }: { platform: string, region: string, tag: string }) => {
+        this.platform = platform;
+        this.region = region;
+        this.tag = tag;
+      });
   }
 
   ngAfterContentInit() {
@@ -69,6 +80,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
 
   changePlatformRegion(target: any) {
     let playerStream;
+
     if (target.region) {
       playerStream = this.players.pluck(target.platform, target.region);
     } else {
@@ -80,5 +92,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
 
   ngOnDestroy() {
     this.paramsSub.unsubscribe();
+    this.profileService.leaveChangesChannel();
   }
 }

@@ -1,5 +1,11 @@
+import { path } from 'ramda';
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Player } from '../../models';
+
+function pathExists(pathName: string[], item: any): boolean {
+  return !!path(pathName, item);
+}
 
 @Component({
   selector: 'ow-platform-region',
@@ -11,16 +17,18 @@ export class PlatformRegionComponent {
   @Input() players: object;
   @Output() change = new EventEmitter<object>();
 
-  constructor() {}
+  constructor() { }
 
   platformAvailable(platform: string) {
     const tag = this.player.tag.replace('#', '-');
-    return Boolean(this.players[tag][platform]);
+
+    return pathExists([tag, platform], this.players);
   }
 
   regionAvailable(region: string) {
     const tag = this.player.tag.replace('#', '-');
-    return Boolean(this.players[tag][this.player.platform][region]);
+
+    return pathExists([tag, this.player.platform, region], this.players);
   }
 
   changePlatform(platform: string) {

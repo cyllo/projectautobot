@@ -15,6 +15,7 @@ defmodule Api.Repo.Migrations.CreateGamerTags do
 
       add :level, :integer
       add :level_url, :text
+      add :rank_url, :text
 
       add :total_games_won, :integer
 

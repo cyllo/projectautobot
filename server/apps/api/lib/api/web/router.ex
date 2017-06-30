@@ -29,9 +29,11 @@ defmodule Api.Web.Router do
     end
   end
 
-  scope "/" do
-    pipe_through :browser
+  if Mix.env() !== :dev do
+    scope "/" do
+      pipe_through :browser
 
-    get "/*path", StaticPageController, :index
+      get "/*path", StaticPageController, :index
+    end
   end
 end

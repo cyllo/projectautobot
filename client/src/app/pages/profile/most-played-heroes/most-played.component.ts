@@ -1,14 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { SnapshotStats, HeroSnapshotStats, GameHistoryStats, CombatLifetimeStats, OverwatchStaticData } from '../../../models';
+import { Subscription } from 'rxjs/Subscription';
+
 import { OverwatchHeroDataService } from '../../../services';
 
 @Component({
   selector: 'ow-most-played',
   templateUrl: 'most-played.component.html',
-  styleUrls: [ 'most-played.component.scss' ]
+  styleUrls: ['most-played.component.scss']
 })
 
-export class MostPlayedComponent implements OnInit {
+export class MostPlayedComponent implements OnInit, OnDestroy {
   @Input()
   set snapshotStats(snapshotStats) {
     if (!snapshotStats) { return; }
@@ -22,17 +24,21 @@ export class MostPlayedComponent implements OnInit {
   sortedHeroData: any[];
   private _snapshotStats: SnapshotStats;
   private heroData: OverwatchStaticData;
+  private sub: Subscription;
 
   constructor(private owHeroData: OverwatchHeroDataService) {
-    this.owHeroData.data$.subscribe(
+    this.sub = this.owHeroData.data$.subscribe(
       res => this.heroData = res,
       error => console.log(error)
     );
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 
-  private load () {
+  private load() {
     this.reset();
 
     let sort = this.sortHeroesByTimePlayed;
@@ -121,6 +127,10 @@ export class MostPlayedComponent implements OnInit {
   }
 
   iconUrl(id: number): string {
+    if (!id) {
+      return null;
+    }
+
     return this.heroData.roles.find((x) => {
       return x.id === id;
     }).iconUrl;

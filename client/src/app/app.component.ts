@@ -6,10 +6,11 @@ import { Subject } from 'rxjs/Subject';
 import { AppState, Player } from './models';
 import { searchGamerTag } from './reducers';
 import {
-  OverwatchHeroDataService,
-  GamerTagService,
   HereosService,
-  AuthorizationService } from './services';
+  GamerTagService,
+  OverwatchHeroDataService,
+  AuthorizationService
+} from './services';
 
 import '../style/app.scss';
 
@@ -17,7 +18,7 @@ import '../style/app.scss';
   selector: 'ow-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [GamerTagService, HereosService, AuthorizationService]
+  providers: [HereosService, AuthorizationService]
 })
 export class AppComponent implements OnDestroy, OnInit {
   sub: Subscription;
@@ -35,8 +36,9 @@ export class AppComponent implements OnDestroy, OnInit {
     this.$state = this.store.select(s => s);
 
     this.sub = store.let(searchGamerTag)
+      .filter(state => state.searching)
       .do(() => this.searchResults.next([]))
-      .mergeMap((search) => this.find(search))
+      .switchMap((search) => this.find(search))
       .subscribe(this.searchResults);
 
     this.getHeroes();
@@ -55,13 +57,6 @@ export class AppComponent implements OnDestroy, OnInit {
 
   find(search) {
     return this.gamerTagService.find(search.tag)
-      .switchMap((playerData) => Observable.forkJoin([Observable.of(playerData), this.owHeroData.data$ ]))
-      .map(([_playerdata, owHeroData]) => {
-        return _playerdata.map(player => Object.assign({}, player, {
-          snapshotStatistics: player.snapshotStatistics
-          .map(this.addHeroDataToSnapshot(owHeroData))
-        }));
-      })
       .do((players) => {
         if (!search.searching) {
           this.store.dispatch({ type: 'ADD_PLAYERS', payload: players });
@@ -71,25 +66,10 @@ export class AppComponent implements OnDestroy, OnInit {
 
   getHeroes() {
     return this.hereosService.get()
-    .subscribe(s => this.store.dispatch({ type: 'GET_HEROES_DATA', payload: s.data.heroes }));
+      .subscribe(s => this.store.dispatch({ type: 'GET_HEROES_DATA', payload: s.data.heroes }));
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
-
-  addHeroesToHeroSnapshot(heroes) {
-    return function(heroSnapshot) {
-      return Object.assign({}, heroSnapshot, { hero: heroes.heroes.find( ({code}) => code === heroSnapshot.hero.code ) } );
-    };
-  }
-
-  addHeroDataToSnapshot(heroes) {
-    return (snapshot) => {
-      return Object.assign({}, snapshot, {
-        heroSnapshotStatistics: snapshot.heroSnapshotStatistics.map(this.addHeroesToHeroSnapshot(heroes))
-      });
-    };
-  }
-
 }
