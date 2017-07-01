@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { FollowGamerTagMutation } from '../../queries';
+import { FollowGamerTagMutation } from '../../services/queries';
 
 @Injectable()
 export class FollowService {
