@@ -229,5 +229,4 @@ export class HeroCardHeaderComponent implements OnInit {
   isArray(obj): boolean {
     return Array.isArray(obj);
   }
-
 }

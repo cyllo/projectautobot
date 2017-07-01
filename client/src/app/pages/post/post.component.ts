@@ -1,40 +1,40 @@
-import { HostListener, Component, ViewChild, Renderer2, AfterViewInit, AfterViewChecked, OnInit, OnDestroy} from '@angular/core';
+import { HostListener, Component, ViewChild, Renderer2, AfterViewInit, AfterViewChecked, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription'
+import { Subscription } from 'rxjs/Subscription';
 
-import { BlogPost } from '../../models'
+import { BlogPost } from '../../models';
 
-import { PostService } from './post.service'
+import { PostService } from './post.service';
 
 @Component({
   selector: 'ow-post',
   templateUrl: 'post.component.html',
-  styleUrls: [ 'post.component.scss' ],
+  styleUrls: ['post.component.scss'],
   providers: [PostService]
 })
 export class PostComponent implements AfterViewInit, AfterViewChecked, OnDestroy, OnInit {
   @ViewChild('postsidebar') public elPostSideBar;
 
-  public post: BlogPost = <BlogPost>{}
+  public post: BlogPost = <BlogPost>{};
   private elMainNav;
-  private sub: Subscription
+  private sub: Subscription;
 
   constructor(
     public postService: PostService,
     private renderer: Renderer2,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.sub = this.route.params
-      .mergeMap(({title}) => this.postService.getPost(title))
-      .subscribe((post) => this.post = post)
+      .mergeMap(({ title }) => this.postService.getPost(title))
+      .subscribe((post) => this.post = post);
   }
 
   ngAfterViewInit() {
     // Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     // Add 'implements AfterViewInit' to the class.
-    this.elMainNav = document.getElementsByClassName('main-nav')[ 0 ];
+    this.elMainNav = document.getElementsByClassName('main-nav')[0];
   }
 
   ngAfterViewChecked() {
@@ -44,23 +44,23 @@ export class PostComponent implements AfterViewInit, AfterViewChecked, OnDestroy
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe()
+    this.sub.unsubscribe();
   }
 
   @HostListener('window.scroll')
-  onScroll( event ) {
+  onScroll(event) {
     this.updateMainNavOffset();
     event.preventDefault();
   }
 
   @HostListener('window.resize')
-  onResize( event ) {
+  onResize(event) {
     this.updateMainNavOffset();
     event.preventDefault();
   }
 
   @HostListener('window.DOMContentLoaded')
-  onDOMLoaded( event ) {
+  onDOMLoaded(event) {
     this.updateMainNavOffset();
     event.preventDefault();
   }

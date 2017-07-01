@@ -22,7 +22,7 @@ export class HeroCatalogComponent {
   }
 
   get currentHero() {
-    return this._currentHero
+    return this._currentHero;
   }
 
 }

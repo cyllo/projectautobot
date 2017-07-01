@@ -157,5 +157,4 @@ export class LifetimeStatsComponent {
       return false;
     }
   }
-
 }
