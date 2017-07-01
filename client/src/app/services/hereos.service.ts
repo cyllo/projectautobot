@@ -14,6 +14,6 @@ export class HereosService {
 
   get() {
     return this.apollo.query<HeroesSearchResponse>({ query: heroSearchQuery })
-    .filter(s => !!s.data.heroes)
+    .filter(s => !!s.data.heroes);
   }
 }

@@ -15,6 +15,6 @@ export class GamerTagService {
   find(tag) {
     return this.apollo.query<GamerTagSearchResponse>({ query: gamerTagSearchQuery, variables: { tag } })
       .map(({data}) => data.searchGamerTag)
-      .filter(data => data.length > 0)
+      .filter(data => data.length > 0);
   }
 }

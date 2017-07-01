@@ -5,9 +5,9 @@ import { take, drop, applySpec } from 'ramda';
 
 import { NewsService } from './news.service';
 
-export const firstTwo = take(2)
-export const allButFirstTwo = drop(2)
-export const getHighlightPosts = applySpec({firstCouple: firstTwo, rest: allButFirstTwo})
+export const firstTwo = take(2);
+export const allButFirstTwo = drop(2);
+export const getHighlightPosts = applySpec({firstCouple: firstTwo, rest: allButFirstTwo});
 
 @Component({
   selector: 'ow-news',

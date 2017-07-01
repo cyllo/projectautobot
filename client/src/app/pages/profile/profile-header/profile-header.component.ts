@@ -80,7 +80,5 @@ export class ProfileHeaderComponent implements AfterContentInit {
         return -1;
 
     }
-
   }
-
 }

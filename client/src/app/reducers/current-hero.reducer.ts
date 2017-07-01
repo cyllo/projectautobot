@@ -9,7 +9,7 @@ const initialState: CurrentHero = {
   combatAverageStatistic: null
 };
 
-export function currentHeroData(state: CurrentHero = initialState, { type, payload }: { type:string, payload?: any }) {
+export function currentHeroData(state: CurrentHero = initialState, { type, payload }: { type: string, payload?: any }) {
   switch (type) {
     case 'GET_CURRENT_HERO_DATA':
       return payload;

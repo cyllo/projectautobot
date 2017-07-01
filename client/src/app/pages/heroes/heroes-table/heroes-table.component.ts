@@ -12,7 +12,7 @@ export class HeroesTableComponent implements OnInit {
   allowReorder = true;
   rows: Array<CurrentHero>;
 
-  constructor() {}
+  constructor() { }
 
   @Input()
   set heroes($heroes) {
@@ -42,5 +42,4 @@ export class HeroesTableComponent implements OnInit {
     // turn off loading indicator after all the data is loaded
     this.showLoadingIndicator = false;
   }
-
 }

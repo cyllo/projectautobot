@@ -7,7 +7,7 @@ import { LoginUserMutation } from './queries';
 export class AuthorizationService {
   constructor(private apollo: Apollo) {}
 
-  login({ password, username: identifier }:Credentials ) {
+  login({ password, username: identifier }: Credentials ) {
     return this.apollo.mutate({
       mutation: LoginUserMutation,
       variables: { identifier, password }

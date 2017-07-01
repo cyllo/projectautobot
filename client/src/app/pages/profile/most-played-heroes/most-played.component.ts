@@ -65,5 +65,4 @@ export class MostPlayedComponent implements OnInit {
       return x.id === id;
     }).name;
   }
-
 }

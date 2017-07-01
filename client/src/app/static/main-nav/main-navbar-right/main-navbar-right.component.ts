@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
 export class MainNavbarRightComponent {
 
   isCollapsed = true;
-  
+
   constructor() {}
 
 }

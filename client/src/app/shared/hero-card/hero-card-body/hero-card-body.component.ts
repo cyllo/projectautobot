@@ -58,5 +58,4 @@ export class HeroCardBodyComponent implements OnInit {
     this.warehouse = this.warehouse.concat(ohd.genericStats(ss, hs));
     this.warehouse = this.warehouse.concat(ohd.heroSpecificStats(ss, hs));
   }
-
 }

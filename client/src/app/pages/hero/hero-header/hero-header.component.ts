@@ -20,6 +20,6 @@ export class HeroHeaderComponent {
   }
 
   get currentHero() {
-    return this._currentHero
+    return this._currentHero;
   }
 }
