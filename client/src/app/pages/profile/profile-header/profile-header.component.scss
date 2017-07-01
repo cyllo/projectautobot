@@ -1,0 +1,17 @@
+.level {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  max-width: 4.5em;
+
+  .level-border {
+    width: 100%;
+  }
+
+  .level-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

@@ -1,20 +1,31 @@
 import { AfterContentInit, Component, Input } from '@angular/core';
 import { Player, SnapshotStats, HeroSnapshotStats, GameHistoryStats, MatchAwardsStats } from '../../../models';
+import { FollowService } from '../follow.service';
 
 @Component({
   selector: 'ow-profile-header',
   templateUrl: 'profile-header.component.html',
-  styleUrls: ['profile-header.component.scss']
+  styleUrls: ['profile-header.component.scss'],
+  providers: [FollowService]
 })
 
 export class ProfileHeaderComponent implements AfterContentInit {
   @Input() player: Player;
   snapshotStats: SnapshotStats;
+  renewInProgress = false;
 
-  constructor() {}
+  constructor(private followService: FollowService) {}
 
   ngAfterContentInit() {
     this.snapshotStats = this.player.snapshotStatistics[this.player.snapshotStatistics.length - 1];
+  }
+
+  renew() {
+    this.renewInProgress = !this.renewInProgress;
+  }
+
+  follow(player: Player) {
+    this.followService.followGamerTag(player.id);
   }
 
   getStat(stat: string): number {
