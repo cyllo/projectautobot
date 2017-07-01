@@ -6,7 +6,7 @@ defmodule Scraper.DataProcessor.UserInfo do
   @overwatch_portrait ".player-portrait"
   @overwatch_competitive_level ".competitive-rank .h6"
   @overwatch_competitive_rank_url ".competitive-rank > img"
-  @overwatch_player_level ".player-level > div"
+  @overwatch_player_level ".show-for-lg .player-level > div.u-vertical-center"
   @overwatch_player_level_url ".player-level"
 
   def user_info(src) do
