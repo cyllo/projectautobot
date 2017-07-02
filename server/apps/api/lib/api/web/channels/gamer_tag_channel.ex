@@ -3,7 +3,7 @@ defmodule Api.Web.GamerTagChannel do
   import Logger, only: [debug: 1]
 
   # Server
-  def join("gamer_tag:lobby", payload, socket) do
+  def join("gamer_tag:lobby", _payload, socket) do
     {:ok, socket}
   end
 
@@ -28,8 +28,6 @@ defmodule Api.Web.GamerTagChannel do
   end
 
   def broadcast_change(gamer_tags) do
-    import IEx
-    IEx.pry
     debug "Gamer tags changed #{inspect Enum.map(gamer_tags, &Map.take(&1, [:id, :tag, :region, :platform]))}"
 
     Api.Web.Endpoint.broadcast("gamer_tag:lobby", "change", %{gamer_tags: gamer_tags})

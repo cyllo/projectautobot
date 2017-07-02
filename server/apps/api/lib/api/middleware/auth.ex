@@ -1,11 +1,27 @@
 defmodule Api.Middleware.Auth do
-  def call(%{context: %{current_user: user}} = res, [admin_only: true]) do
-    if (is_dev?() and user.is_admin), do: res, else: put_error(res, "unauthorized (Admin Only)")
+  alias Api.UserSessionTracker
+
+  def call(%{context: %{current_user: user, token: token}} = res, [admin_only: true]) do
+    session_active? = UserSessionTracker.session_active?(user.id, token)
+
+    cond do
+      is_dev?() or (user.is_admin and session_active?) -> res
+      !session_active? -> put_inactive_token_error(res)
+      true -> put_error(res, "unauthorized (Admin Only)")
+    end
   end
 
-  def call(%{context: %{current_user: user}} = res, _), do: res
+  def call(%{context: %{current_user: user, token: token}} = res, _) do
+    if UserSessionTracker.session_active?(user.id, token) do
+      res
+    else
+      put_inactive_token_error(res)
+    end
+  end
+
   def call(res, _), do: put_error(res, "unauthenticated")
 
   defp put_error(res, error_message), do: Absinthe.Resolution.put_result(res, {:error, error_message})
+  defp put_inactive_token_error(res), do: put_error(res, "user token is not active")
   defp is_dev?, do: Mix.env === "dev"
 end

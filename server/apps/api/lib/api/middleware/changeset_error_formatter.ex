@@ -50,5 +50,5 @@ defmodule Api.Middleware.ChangesetErrorFormatter do
   end
 
   defp is_changeset(%Ecto.Changeset{} = _), do: true
-  defp is_changeset(error), do: false
+  defp is_changeset(_), do: false
 end

@@ -12,6 +12,10 @@ defmodule Api.Application do
       supervisor(Api.Web.Endpoint, []),
       # Start your own worker by calling: Api.Worker.start_link(arg1, arg2, arg3)
       # worker(Api.Worker, [arg1, arg2, arg3]),
+      supervisor(ConCache, [
+        [ttl_check: :timer.seconds(5), ttl: Api.JWTGenerator.token_ttl() - 200], #TTL - 200 for time to process
+        [name: :session_token_store]
+      ])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

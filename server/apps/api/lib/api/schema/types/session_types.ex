@@ -10,4 +10,8 @@ defmodule Api.Schema.SessionTypes do
     field :session_info, :session_info
     field :user, :user
   end
+
+  object :logout_info do
+    field :response, :boolean
+  end
 end

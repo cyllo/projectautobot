@@ -37,7 +37,7 @@ defmodule Api.Schema.GameTypes do
     end
 
     field :connected_gamer_tags, list_of(:gamer_tag) do
-      resolve fn gamer_tag, args, _ ->
+      resolve fn gamer_tag, _args, _ ->
         batch(
           {GamerTagResolver, :get_gamer_tag_connected_gamer_tags},
           gamer_tag,
@@ -47,7 +47,7 @@ defmodule Api.Schema.GameTypes do
     end
 
     field :following_users, list_of(:user) do
-      resolve fn gamer_tag, args, _ ->
+      resolve fn gamer_tag, _args, _ ->
         batch(
           {GamerTagResolver, :get_gamer_tag_following_users},
           gamer_tag.id,

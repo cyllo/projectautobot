@@ -2,10 +2,11 @@ defmodule Api.Schema do
   use Absinthe.Schema
   import Absinthe.Resolution.Helpers, only: [async: 2]
   alias Api.{
-    SnapshotStatisticsAverageResolver, Helpers,
+    SnapshotStatisticsAverageResolver,
     GamerTagResolver, HeroResolver, UserResolver,
     SessionResolver, BlogResolver, Middleware,
-    HeroStatisticsAverageResolver, SnapshotStatisticResolver
+    HeroStatisticsAverageResolver
+    #, SnapshotStatisticResolver, Helpers,
   }
 
   import_types Absinthe.Type.Custom
@@ -115,6 +116,11 @@ defmodule Api.Schema do
       arg :password, non_null(:string)
 
       resolve &SessionResolver.login/2
+    end
+
+    field :logout_user, :logout_info do
+      middleware Middleware.Auth
+      resolve &SessionResolver.logout/2
     end
 
     @desc "Follows a user"

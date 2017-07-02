@@ -40,6 +40,7 @@ defmodule Api.Mixfile do
       {:absinthe, "1.3.0"},
       {:absinthe_plug, "1.3.0"},
       {:joken, "~> 1.4.0"},
+      {:con_cache, "~> 0.12.0"},
       {:proper_case, "~> 1.0.0"}
     ]
   end
