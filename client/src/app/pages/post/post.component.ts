@@ -13,17 +13,17 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {}
 
-  @HostListener('window.scroll')
+  @HostListener('window:scroll', ['$event'])
   onScroll( event ) {
     event.preventDefault();
   }
 
-  @HostListener('window.resize')
+  @HostListener('window:resize', ['$event'])
   onResize( event ) {
     event.preventDefault();
   }
 
-  @HostListener('window.DOMContentLoaded')
+  @HostListener('window:DOMContentLoaded', ['$event'])
   onDOMLoaded( event ) {
     event.preventDefault();
   }

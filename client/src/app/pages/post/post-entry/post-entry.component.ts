@@ -20,13 +20,11 @@ export class PostEntryComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize( event ): void {
-    console.log('Window Resized');
     event.preventDefault();
   }
 
   @HostListener('window:DOMContentLoaded', ['$event'])
   onDOMLoaded( event ): void {
-    console.log('DOMContentLoaded');
     event.preventDefault();
   }
 
