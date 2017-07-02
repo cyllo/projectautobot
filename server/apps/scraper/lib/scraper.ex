@@ -1,6 +1,5 @@
 defmodule Scraper do
   alias Scraper.{ProfileScraper, ProfileSearcher, DataProcessor, Sorter, ModelCreator, ScrapeStatusCache}
-  alias Api.Web.GamerTagChannel
   alias Models.Game
   import Logger, only: [debug: 1]
 

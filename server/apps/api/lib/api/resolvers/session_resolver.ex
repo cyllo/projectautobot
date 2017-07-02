@@ -15,9 +15,9 @@ defmodule Api.SessionResolver do
     end
   end
 
-  def logout(_args, %{context: %{current_user: %{id: id}, token: token}}) do
+  def logout(_args, %{context: %{current_user: %{id: id}}}) do
     if UserSessionTracker.destroy_session(id) === :ok do
-      {:ok, %{response: true}}
+      {:ok, %{logged_out: true}}
     else
       {:error, "error destroying session"}
     end

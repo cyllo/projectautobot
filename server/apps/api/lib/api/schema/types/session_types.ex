@@ -12,6 +12,6 @@ defmodule Api.Schema.SessionTypes do
   end
 
   object :logout_info do
-    field :response, :boolean
+    field :logged_out, :boolean
   end
 end
