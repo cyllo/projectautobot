@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component , Input } from '@angular/core';
 
 @Component({
   selector: 'ow-top-news-post-card',
@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['top-news-post-card.component.scss']
 })
 export class TopNewsPostCardComponent {
+  @Input() featuredPost: boolean;
+
+  constructor() {}
 
 }
