@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { BlogPost } from '../../models';
 
@@ -8,16 +8,6 @@ import { BlogPost } from '../../models';
   styleUrls: ['top-news.component.scss']
 })
 export class TopNewsComponent {
-  @Input() public set posts(posts) {
-    if (posts) {
-      this.firstTwoPosts = posts.slice(0, 2);
-      this.restOfPosts = posts.slice(2);
-    } else {
-      this.firstTwoPosts = [];
-      this.restOfPosts = [];
-    }
-  }
-
   public firstTwoPosts: BlogPost[];
   public restOfPosts: BlogPost[];
 }
