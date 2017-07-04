@@ -1,7 +1,6 @@
-import { Component , OnInit , ViewEncapsulation , HostListener } from '@angular/core';
+import { Component , OnInit , HostListener } from '@angular/core';
 
 @Component({
-  encapsulation: ViewEncapsulation.None,
   selector: 'ow-post',
   templateUrl: 'post.component.html',
   styleUrls: [ 'post.component.scss' ]
