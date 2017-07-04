@@ -72,8 +72,6 @@ defmodule Scraper.HtmlHelpers do
       |> Enum.join("_")
   end
 
-
-
   def is_page_loaded?(page_source), do: is_page_not_found?(page_source) or career_page_loaded?(page_source)
   def is_page_not_found?(page_source), do: page_source |> find_text(@page_not_found) |> classes_has_not_found_page?
 

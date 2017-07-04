@@ -9,6 +9,7 @@ defmodule Models.Repo.Migrations.CreateUser do
       add :email, :citext, null: false
       add :password_hash, :text, null: false
       add :battle_net_id, :integer
+      add :battle_net_tag, :text
       add :is_admin, :boolean, default: false
 
       timestamps()
@@ -17,5 +18,6 @@ defmodule Models.Repo.Migrations.CreateUser do
     create unique_index(:users, [:username])
     create unique_index(:users, [:email])
     create unique_index(:users, [:battle_net_id])
+    create unique_index(:users, [:battle_net_tag])
   end
 end
