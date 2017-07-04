@@ -94,14 +94,14 @@ defmodule Api.Schema do
   end
 
   mutation do
-    @desc "Scrapes a gamer_tag"
+    @desc "Scrapes a GamerTag"
     field :scrape_gamer_tag, :gamer_tag do
       arg :id, non_null(:integer)
 
       resolve &async(fn -> GamerTagResolver.scrape(&1, &2) end, timeout: 30_000)
     end
 
-    @desc "Creates a user account"
+    @desc "Creates a User account"
     field :create_user, :user do
       arg :username, non_null(:string)
       arg :email, non_null(:string)
@@ -110,7 +110,15 @@ defmodule Api.Schema do
       resolve &UserResolver.create/2
     end
 
-    @desc "Login a user and return token and user info"
+    @desc "Connects Battle.net to user account"
+    field :connect_user_to_battle_net, :user do
+      arg :client_auth_token, :string
+
+      middleware Middleware.Auth
+      resolve &UserResolver.connected_to_battle_net/2
+    end
+
+    @desc "Login a User and return token and user info"
     field :login_user, :current_session do
       arg :identifier, non_null(:string)
       arg :password, non_null(:string)
@@ -123,7 +131,7 @@ defmodule Api.Schema do
       resolve &SessionResolver.logout/2
     end
 
-    @desc "Follows a user"
+    @desc "Follows a User"
     field :follow_user, :follow_user_result do
       arg :id, non_null(:integer)
       arg :following_id, non_null(:integer)
@@ -132,7 +140,7 @@ defmodule Api.Schema do
       resolve &UserResolver.follow/2
     end
 
-    @desc "Create a Blog Post"
+    @desc "Create a BlogPost"
     field :create_blog_post, :blog_post do
       arg :title, non_null(:string)
       arg :content, non_null(:string)
@@ -141,6 +149,7 @@ defmodule Api.Schema do
       resolve &BlogResolver.create/2
     end
 
+    @desc "Follows a GamerTag"
     field :follow_gamer_tag, :follow_gamer_tag_result do
       arg :gamer_tag_id, non_null(:integer)
 
