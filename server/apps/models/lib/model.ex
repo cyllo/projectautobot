@@ -1,4 +1,6 @@
 defmodule Models.Model do
+  import Ecto.Query, only: [limit: 2, order_by: 2, where: 3, from: 2, subquery: 1]
+
   defmacro __using__(_) do
     quote do
       use Ecto.Schema
@@ -17,6 +19,11 @@ defmodule Models.Model do
       unquote(create_update_for_model(model))
     end
   end
+
+  def create_model_filter({:first, val}, query), do: limit(query, ^val)
+  def create_model_filter({:last, val}, query), do: from(query, order_by: [desc: :inserted_at], limit: ^val) |> subquery |> order_by(asc: :inserted_at)
+  def create_model_filter({:start_date, val}, query), do: where(query, [m], m.inserted_at >= ^(val))
+  def create_model_filter({:end_date, val}, query), do: where(query, [m], m.inserted_at <= ^val)
 
   # @spec create_field_averages(Ecto.Schema.t) :: Ecto.Queryable.t
   # def create_field_averages(model) do

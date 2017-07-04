@@ -34,24 +34,14 @@ defmodule Models.Statistics.Snapshots do
   end
 
   def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, opts \\ [])
-  def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, [limit: nil, last: last]) do
-    from(
-       ss in SnapshotStatistic,
-       where: ss.gamer_tag_id in ^gamer_tag_ids,
-       order_by: [desc: :inserted_at],
-       limit: ^last
-     )
-      |> Repo.all
-      |> Enum.reverse
+  def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, opts) when is_map(opts) do
+    get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, Map.to_list(opts))
   end
 
-  # opts [limit: 1, last: 2=
   def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, opts) do
-    from(
-       ss in SnapshotStatistic,
-       where: ss.gamer_tag_id in ^gamer_tag_ids,
-       limit: ^Keyword.get(opts, :limit, nil)
-     )
+    query = from(ss in SnapshotStatistic, where: ss.gamer_tag_id in ^gamer_tag_ids)
+
+    Enum.reduce(opts, query, &Model.create_model_filter/2)
       |> Repo.all
   end
 
