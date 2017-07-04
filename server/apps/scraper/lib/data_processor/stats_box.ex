@@ -42,16 +42,16 @@ defmodule Scraper.DataProcessor.StatsBox do
     end
   end
 
-  defp parse_clock_time_to_seconds(<<hours::binary-size(2), ":", minutes::binary-size(2), ":", seconds::binary>>) do
+  defp parse_clock_time_to_seconds(time) when is_bitstring(time), do: time |> String.split(":") |> parse_clock_time_to_seconds
+  defp parse_clock_time_to_seconds([hours, minutes, seconds]) do
     min_seconds = minutes_to_seconds(minutes)
     hour_seconds = hours_to_seconds(hours)
 
     String.to_integer(seconds) + hour_seconds + min_seconds
   end
 
-  defp parse_clock_time_to_seconds(<<minutes::binary-size(2), ":", seconds::binary>>) do
-    minutes_to_seconds(minutes) + String.to_integer(seconds)
-  end
+  defp parse_clock_time_to_seconds([minutes, seconds]), do: minutes_to_seconds(minutes) + String.to_integer(seconds)
+  defp parse_clock_time_to_seconds([seconds]), do: String.to_integer(seconds)
 
   def parse_seconds(str) do
     if String.contains?(str, ".") do
