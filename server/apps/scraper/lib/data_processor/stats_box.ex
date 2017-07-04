@@ -12,7 +12,7 @@ defmodule Scraper.DataProcessor.StatsBox do
       |> Enum.filter(&is_known_stat/1)
       |> Enum.reduce(%{}, &deserialize_statistic/2)
 
-    Map.put(%{name: name, code: code}, :stats, stats)
+    %{name: name, code: code, stats: stats}
   end
 
   defp get_stats_from_table_row(table_row) do

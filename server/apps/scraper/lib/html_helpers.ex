@@ -1,5 +1,5 @@
 defmodule Scraper.HtmlHelpers do
-  @js_stats_boxes "body.career-detail #quickplay .js-stats"
+  @stat_regex ~r/{count, plural.+}/
   @overwatch_player_platforms "#profile-platforms a"
   @page_not_found "h1.u-align-center"
   @platform_active ".is-active"
@@ -74,12 +74,12 @@ defmodule Scraper.HtmlHelpers do
 
 
 
-  def is_page_loaded?(page_source), do: is_page_not_found?(page_source) || career_page_loaded?(page_source)
+  def is_page_loaded?(page_source), do: is_page_not_found?(page_source) or career_page_loaded?(page_source)
   def is_page_not_found?(page_source), do: page_source |> find_text(@page_not_found) |> classes_has_not_found_page?
 
-  defp career_page_loaded?(src), do: platforms_loaded?(src) && stats_box_loaded?(src)
+  defp career_page_loaded?(src), do: platforms_loaded?(src) and stats_loaded?(src)
+  defp stats_loaded?(src), do: !Regex.match?(@stat_regex, src)
   defp platforms_loaded?(src), do: find_player_platforms(src) |> Enum.any?
-  defp stats_box_loaded?(src), do: Floki.find(src, @js_stats_boxes) |> Enum.any?
   defp classes_has_not_found_page?(text) when is_nil(text), do: false
   defp classes_has_not_found_page?(text), do: text |> String.upcase |> String.contains?("PAGE NOT FOUND")
 end

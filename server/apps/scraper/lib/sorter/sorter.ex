@@ -11,7 +11,7 @@ defmodule Scraper.Sorter do
     }
   end
 
-  def update_stats(stats) do
+  defp update_stats(stats) do
     %{stats |
       heroes_stats: HeroesStats.sort_stats(stats.heroes_stats),
       general_stats: GeneralStats.sort_stats(stats.general_stats)
