@@ -38,6 +38,7 @@ defmodule Scraper.DataProcessor.StatsBox do
       String.contains?(value, ".") -> value |> String.replace(",", "") |> String.to_float
       String.contains?(value, ",") -> string_to_intenger_with_replace(value, ",")
       String.contains?(value, ":") -> parse_clock_time_to_seconds(value)
+      value === "--" -> 0
       true -> String.to_integer(value)
     end
   end
