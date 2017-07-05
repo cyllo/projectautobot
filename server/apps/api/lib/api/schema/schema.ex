@@ -2,6 +2,7 @@ defmodule Api.Schema do
   use Absinthe.Schema
   import Absinthe.Resolution.Helpers, only: [async: 2]
   alias Api.{
+    Schema,
     SnapshotStatisticsAverageResolver,
     GamerTagResolver, HeroResolver, UserResolver,
     SessionResolver, BlogResolver, Middleware,
@@ -10,16 +11,17 @@ defmodule Api.Schema do
   }
 
   import_types Absinthe.Type.Custom
-  import_types Api.Schema.ScalarTypes
-  import_types Api.Schema.AccountTypes
-  import_types Api.Schema.GameTypes
-  import_types Api.Schema.BlogTypes
-  import_types Api.Schema.SnapshotTypes
-  import_types Api.Schema.StatisticTypes
-  import_types Api.Schema.SessionTypes
-  import_types Api.Schema.StatisticAverageTypes
-  import_types Api.Schema.HeroStatisticsAverageTypes
-  import_types Api.Schema.SnapshotStatisticsAverageTypes
+  import_types Schema.ScalarTypes
+  import_types Schema.AccountTypes
+  import_types Schema.GameTypes
+  import_types Schema.BlogTypes
+  import_types Schema.SnapshotTypes
+  import_types Schema.StatisticTypes
+  import_types Schema.SessionTypes
+  import_types Schema.StatisticAverageTypes
+  import_types Schema.HeroStatisticsAverageTypes
+  import_types Schema.SnapshotStatisticsAverageTypes
+  import_types Schema.ActionTypes
 
   query do
     field :gamer_tag, :gamer_tag do
@@ -112,7 +114,7 @@ defmodule Api.Schema do
 
     @desc "Connects Battle.net to user account"
     field :connect_user_to_battle_net, :user do
-      arg :client_auth_token, :string
+      arg :client_auth_token, non_null(:string)
 
       middleware Middleware.Auth
       resolve &UserResolver.connected_to_battle_net/2
@@ -147,6 +149,24 @@ defmodule Api.Schema do
 
       middleware Middleware.Auth, admin_only: true
       resolve &BlogResolver.create/2
+    end
+
+    @desc "Delete a BlogPost"
+    field :delete_blog_post, :deleted_info do
+      arg :id, non_null(:integer)
+
+      middleware Middleware.Auth, admin_only: true
+      resolve &BlogResolver.delete/2
+    end
+
+    @desc "Update a BlogPost"
+    field :update_blog_post, :blog_post do
+      arg :id, non_null(:integer)
+      arg :content, :string
+      arg :title, :string
+
+      middleware Middleware.Auth, admin_only: true
+      resolve &BlogResolver.update/2
     end
 
     @desc "Follows a GamerTag"

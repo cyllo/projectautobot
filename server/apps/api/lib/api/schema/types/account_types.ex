@@ -46,7 +46,7 @@ defmodule Api.Schema.AccountTypes do
         batch(
           {UserResolver, :get_followed_gamer_tags_for_user_ids},
           user.id,
-          &{:ok, Map.get(&1, user.id)}
+          &{:ok, Map.get(&1, user.id, [])}
         )
       end
     end

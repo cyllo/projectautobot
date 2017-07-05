@@ -33,7 +33,7 @@ defmodule Scraper do
       {:ok, ProfileSearcher.find_saved_tag(gamer_tag)}
     else
       with {:ok, gamer_tags} <- ProfileSearcher.find_profile_tag(gamer_tag) do
-        Task.async(fn -> scrape_gamer_tags_from_search(gamer_tags) end)
+        Task.start(fn -> scrape_gamer_tags_from_search(gamer_tags) end)
 
         ScrapeStatusCache.mark_tag_searched(gamer_tag)
         {:ok, gamer_tags}

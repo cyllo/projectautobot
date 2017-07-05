@@ -25,4 +25,9 @@ defmodule Models.Blog do
       |> Post.create_changeset
       |> Repo.insert
   end
+
+  def delete_post(id) do
+    Repo.get!(Post, id)
+      |> Repo.delete
+  end
 end

@@ -96,6 +96,16 @@ defmodule Models.Model do
     fn_name = :"update_#{get_model_name(model)}"
 
     quote do
+      @spec unquote(fn_name)(id :: integer, params :: map) :: unquote(model)
+      def unquote(fn_name)(id, params) when is_integer(id) do
+        case Models.Repo.get(unquote(model), id) do
+          nil -> {:error, "No post found with id - #{id}"}
+          model ->
+            unquote(model).changeset(model, params)
+              |> Models.Repo.update
+        end
+      end
+
       @spec unquote(fn_name)(model :: unquote(model), params :: map) :: unquote(model)
       def unquote(fn_name)(model_data, params), do: unquote(model).changeset(model_data, params) |> Models.Repo.update
     end

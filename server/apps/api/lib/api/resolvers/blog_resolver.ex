@@ -6,4 +6,11 @@ defmodule Api.BlogResolver do
 
   def find(params, _info), do: Blog.find_post(params)
   def create(%{content: content, title: title}, _info), do: Blog.create_post(title, content)
+  def update(params, _info), do: Blog.update_post(params.id, Map.take(params, [:content, :title]))
+
+  def delete(%{id: id}, _info) do
+    with {:ok, _} <- Blog.delete_post(id) do
+      {:ok, %{deleted: true}}
+    end
+  end
 end
