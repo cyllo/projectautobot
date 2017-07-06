@@ -31,7 +31,12 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   ) {
     this.players = store.select('players');
     this.player = this.activatedRoute.params
-    .flatMap(({region = '', platform}) => this.players.pluck(`${region}${platform}`))
+    .flatMap(({tag, platform, region}) => {
+      if (!region) {
+        return this.players.pluck(tag, platform);
+      }
+      return this.players.pluck(tag, platform, region);
+    })
     .filter(state => !!state)
     .map((player: Player) => Object.assign({}, player, {
       competitive: player.snapshotStatistics[player.snapshotStatistics.length - 1],
@@ -62,9 +67,15 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
     this.selectedSnapshot.next(type);
   }
 
-  changePlatformRegion(platformRegion: string) {
-    this.players.pluck(platformRegion)
-    .subscribe((player: Player) => this.profileService.goto(player));
+  changePlatformRegion(target: any) {
+    let playerStream;
+    if (target.region) {
+      playerStream = this.players.pluck(target.platform, target.region);
+    } else {
+      playerStream = this.players.pluck(target.platform);
+    }
+
+    playerStream.subscribe((player: Player) => this.profileService.goto(player));
   }
 
   ngOnDestroy() {

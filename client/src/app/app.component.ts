@@ -37,10 +37,8 @@ export class AppComponent implements OnDestroy {
       .filter(players => !isEmpty(players));
 
     this.sub = store.let(searchGamerTag)
-      .filter(tag => Boolean(tag))
       .do(() => this.searchResults.next([]))
-      .mergeMap((tag) => this.find(tag))
-      .map(players => Object.values(players))
+      .mergeMap((search) => this.find(search))
       .subscribe(this.searchResults);
 
     this.getHeroes();
@@ -53,8 +51,8 @@ export class AppComponent implements OnDestroy {
     this.store.dispatch(action);
   }
 
-  find(tag) {
-    return this.gamerTagService.find(tag)
+  find(search) {
+    return this.gamerTagService.find(search.tag)
       .switchMap((playerData) => Observable.forkJoin([Observable.of(playerData), this.owHeroData.data$ ]))
       .map(([_playerdata, owHeroData]) => {
         return _playerdata.map(player => Object.assign({}, player, {
@@ -62,8 +60,11 @@ export class AppComponent implements OnDestroy {
           .map(this.addHeroDataToSnapshot(owHeroData))
         }));
       })
-      .map((playersData) => playersData.reduce((acc, player) => Object.assign(acc, {[player.region + player.platform]: player}), {}))
-      .do((players) => this.store.dispatch({ type: 'ADD_PLAYER', payload: players }));
+      .do((players) => {
+        if (!search.searching) {
+          this.store.dispatch({ type: 'ADD_PLAYERS', payload: players });
+        }
+      });
   }
 
   getHeroes() {

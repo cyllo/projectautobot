@@ -1,18 +1,31 @@
-export function players(state: any = [], { type, payload }: { type: string, payload?: any }) {
+import { merge, assocPath, dissoc, reduce } from 'ramda';
+import { Player } from '../models';
+
+export function players(state: any = {}, { type, payload }: { type: string, payload?: any }) {
   switch (type) {
-    case 'ADD_PLAYER':
-      return payload;
+    case 'ADD_PLAYERS':
+      return reduce((acc, player: Player) => {
+        return assocPath(objPath(player), player, acc);
+      }, {}, payload);
 
     case 'NEW_PLAYER':
-      return [...state, payload];
+      return merge(state, payload);
 
     case 'UPDATE_PLAYER':
-      return state.map(player => player.tag === payload.tag ? Object.assign({}, player, payload) : player);
+      return assocPath(objPath(payload), payload, state);
 
     case 'REMOVE_PLAYER':
-      return state.filter(player => player.tag !== payload.tag);
+      return dissoc(payload.tag, state);
 
     default:
       return state;
   }
+}
+
+function objPath(player: Player) {
+  const tag = player.tag.replace('#', '-');
+  if (!player.region) {
+    return [tag, player.platform];
+  }
+  return [tag, player.platform, player.region];
 }
