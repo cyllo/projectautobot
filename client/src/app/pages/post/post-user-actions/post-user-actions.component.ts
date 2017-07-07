@@ -1,12 +1,11 @@
 import { Component , OnInit , HostListener } from '@angular/core';
 
 @Component({
-  selector: 'ow-post',
-  templateUrl: 'post.component.html',
-  styleUrls: [ 'post.component.scss' ]
+  selector: 'ow-post-user-actions',
+  templateUrl: 'post-user-actions.component.html',
+  styleUrls: [ 'post-user-actions.component.scss' ]
 })
-
-export class PostComponent implements OnInit {
+export class PostUserActionsComponent implements OnInit {
 
   constructor() {}
 
@@ -23,7 +22,7 @@ export class PostComponent implements OnInit {
   }
 
   @HostListener('window:DOMContentLoaded', ['$event'])
-  onDOMLoaded( event ) {
+  onDOMLoaded() {
     event.preventDefault();
   }
 

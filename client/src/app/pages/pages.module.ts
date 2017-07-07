@@ -41,7 +41,9 @@ import {
   HeroesTableComponent,
   PageNotFoundComponent,
   LoginComponent,
-  NewsPageHeaderComponent
+  NewsPageHeaderComponent,
+  PostEntryComponent,
+  PostUserActionsComponent
 } from './index';
 
 @NgModule({
@@ -88,7 +90,9 @@ import {
     HeroesTableComponent,
     PageNotFoundComponent,
     LoginComponent,
-    NewsPageHeaderComponent
+    NewsPageHeaderComponent,
+    PostEntryComponent,
+    PostUserActionsComponent
   ],
   exports: [
     HomeComponent,

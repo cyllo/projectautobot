@@ -1,0 +1,53 @@
+@import "../../../../style/colors";
+
+.post-user-actions {
+
+    bottom: 0;
+    left: 50%;
+    position: fixed;
+    transform: translateX(-50%);
+    display: inline-block;
+    z-index: 1000;
+    
+    .inner {
+        background-color: $white;
+        color: $brand-primary;
+        border: 1px solid $brand-primary;
+        border-bottom: 0;
+    }
+
+    .btn-user-action {
+        border: 0;
+        border-radius: 0;
+        outline: none;
+        box-shadow: none;
+        color: $brand-primary;
+        background-color: transparent;
+        position: relative;
+        i {
+            margin: 0;
+            display: block;
+        }
+        .label {
+            display: none;
+            font-size: 0.5rem;
+        }
+    }
+    
+    .btn-user-action:hover .label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255,255,255,1);
+    }
+
+}
+
+:host /deep/ .progress {
+    background-color: $white;
+}
