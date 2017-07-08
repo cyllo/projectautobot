@@ -3,7 +3,6 @@ import { Player, Search } from '../../models';
 import { AppState } from '../../models/appstate.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { clone } from 'ramda';
 import { ProfileService } from '../../services';
 
 @Component({
@@ -37,13 +36,7 @@ export class MainSearchResultsComponent {
   }
 
   onSelect(result: Player) {
-    result = clone(result);
-    result.tag = String(result.tag).replace('#', '-');
-    Object.freeze(result);
-
-    let newPayload = Object.assign({}, {[result.region + result.platform]: result});
-    // console.log('payload: ' , newPayload);
-    this.store.dispatch({ type: 'ADD_PLAYER', payload: newPayload });
+    this.store.dispatch({ type: 'ADD_PLAYERS', payload: [result] });
     this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: { tag: this.search.tag, searching: false } });
     this.profileService.goto(result);
   }
