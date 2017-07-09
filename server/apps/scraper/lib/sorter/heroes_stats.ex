@@ -29,7 +29,8 @@ defmodule Scraper.Sorter.HeroesStats do
     :critical_hits_average, :defensive_assists_average,
     :damage_blocked_average, :melee_kills_average,
     # UK if exist
-    :melee_percentage_of_final_blows, :weapon_accuracy
+    :melee_percentage_of_final_blows, :weapon_accuracy,
+    :all_damage_done_avg_per_10_min
   ]
 
   @best_statistics [
@@ -44,7 +45,8 @@ defmodule Scraper.Sorter.HeroesStats do
     :defensive_assists_most_in_game, :eliminations_most_in_life,
     :eliminations_most_in_game, :weapon_accuracy_best_in_game_percentage,
     :damage_blocked_most_in_game, :melee_kills_most_in_game,
-    :recon_assists_most_in_game
+    :recon_assists_most_in_game, :all_damage_done_most_in_game,
+    :all_damage_done_most_in_life
   ]
 
   @doc """
