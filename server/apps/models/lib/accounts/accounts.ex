@@ -156,4 +156,26 @@ defmodule Models.Accounts do
   def accept_friend_request(user_id, requesting_user_id) do
 
   end
+
+  @doc """
+  Removes a friend
+
+  Returns `{:ok, user}` or `{:error, error}`.
+
+  ## Examples
+
+      iex> {:ok, user} = Models.Accounts.create_user(%{username: "bill", password: "password", email: "email@email.com"})
+      iex> {:ok, requesting_user} = Models.Accounts.create_user(%{username: "tom", password: "password", email: "tom@email.com"})
+      iex> {:ok, _} = Models.Accounts.send_friend_request(user, requesting_user)
+      iex> {:ok, friendship} = Models.Accounts.accept_friend_request(user, requesting_user)
+      iex> {:ok, {returned_friend, returned_user}} = Models.Accounts.remove_friend(user.id, friend_id)
+      iex> user.id == returned_user.id
+      true
+      iex> requesting_user.id == returned_friend.id
+      true
+
+  """
+  def remove_friend(user_id, friend_id) do
+
+  end
 end

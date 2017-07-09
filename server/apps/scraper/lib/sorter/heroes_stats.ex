@@ -96,7 +96,7 @@ defmodule Scraper.Sorter.HeroesStats do
       key in @average_statistics -> :average
       Helpers.is_match_award_stat?(key) -> :match_awards
       Helpers.is_game_tracking_stat?(key) -> :game
-      Helpers.key_equals(key, "(time_played|win_percentage)") -> :game
+      Utility.key_equals(key, "(time_played|win_percentage)") -> :game
       true -> :hero_specific
     end
   end

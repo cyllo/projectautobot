@@ -7,7 +7,7 @@ defmodule Api.Schema do
     GamerTagResolver, HeroResolver, UserResolver,
     SessionResolver, BlogResolver, Middleware,
     HeroStatisticsAverageResolver
-    #, SnapshotStatisticResolver, Helpers,
+    #, SnapshotStatisticResolver
   }
 
   import_types Absinthe.Type.Custom
@@ -112,15 +112,11 @@ defmodule Api.Schema do
       resolve &UserResolver.create/2
     end
 
-    @desc "Connects Battle.net to user account"
-    field :connect_user_to_battle_net, :user do
-      arg :client_auth_token, non_null(:string)
-
-      middleware Middleware.Auth
-      resolve &UserResolver.connected_to_battle_net/2
-    end
-
-    @desc "Login a User and return token and user info"
+    @desc """
+      Login a User and return token and user info
+      Token is to be set onto an `authorization` header like so:
+      `authorization: Bearer JFI$12edjA$@!H!2j!J$KSAL!@`
+    """
     field :login_user, :current_session do
       arg :identifier, non_null(:string)
       arg :password, non_null(:string)
@@ -128,12 +124,21 @@ defmodule Api.Schema do
       resolve &SessionResolver.login/2
     end
 
+    @desc """
+      Logout a User
+
+      Restrictions: User Auth
+    """
     field :logout_user, :logout_info do
       middleware Middleware.Auth
       resolve &SessionResolver.logout/2
     end
 
-    @desc "Follows a User"
+    @desc """
+      Follows a User
+
+      Restrictions: User Auth
+    """
     field :follow_user, :follow_user_result do
       arg :id, non_null(:integer)
       arg :following_id, non_null(:integer)
@@ -142,7 +147,35 @@ defmodule Api.Schema do
       resolve &UserResolver.follow/2
     end
 
-    @desc "Create a BlogPost"
+    @desc """
+      Follows a GamerTag
+
+      Restrictions: User Auth
+    """
+    field :follow_gamer_tag, :follow_gamer_tag_result do
+      arg :gamer_tag_id, non_null(:integer)
+
+      middleware Middleware.Auth
+      resolve &UserResolver.follow_gamer_tag/2
+    end
+
+    @desc """
+      Connects Battle.net to user account
+
+      Restrictions: User Auth
+    """
+    field :connect_user_to_battle_net, :user do
+      arg :client_auth_token, non_null(:string)
+
+      middleware Middleware.Auth
+      resolve &UserResolver.connected_to_battle_net/2
+    end
+
+    @desc """
+      Create a BlogPost
+
+      Restrictions: Admin Only
+    """
     field :create_blog_post, :blog_post do
       arg :title, non_null(:string)
       arg :content, non_null(:string)
@@ -151,7 +184,11 @@ defmodule Api.Schema do
       resolve &BlogResolver.create/2
     end
 
-    @desc "Delete a BlogPost"
+    @desc """
+      Delete a BlogPost
+
+      Restrictions: Admin Only
+    """
     field :delete_blog_post, :deleted_info do
       arg :id, non_null(:integer)
 
@@ -159,7 +196,11 @@ defmodule Api.Schema do
       resolve &BlogResolver.delete/2
     end
 
-    @desc "Update a BlogPost"
+    @desc """
+      Update a BlogPost
+
+      Restrictions: Admin Only
+    """
     field :update_blog_post, :blog_post do
       arg :id, non_null(:integer)
       arg :content, :string
@@ -167,14 +208,6 @@ defmodule Api.Schema do
 
       middleware Middleware.Auth, admin_only: true
       resolve &BlogResolver.update/2
-    end
-
-    @desc "Follows a GamerTag"
-    field :follow_gamer_tag, :follow_gamer_tag_result do
-      arg :gamer_tag_id, non_null(:integer)
-
-      middleware Middleware.Auth
-      resolve &UserResolver.follow_gamer_tag/2
     end
   end
 

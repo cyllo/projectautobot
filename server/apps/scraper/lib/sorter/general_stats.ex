@@ -1,6 +1,5 @@
 defmodule Scraper.Sorter.GeneralStats do
   alias Scarper.Sorter.Helpers
-  
   import Logger, only: [warn: 1]
 
   @lifetime_statistics [
@@ -80,8 +79,8 @@ defmodule Scraper.Sorter.GeneralStats do
       key in @best_statistics -> :best
       Helpers.is_match_award_stat?(key) -> :match_awards
       Helpers.is_game_tracking_stat?(key) -> :game
-      Helpers.key_equals(key, "(time_played|win_percentage|time_spent_on_fire)") -> :game
-      true -> 
+      Utility.key_equals(key, "(time_played|win_percentage|time_spent_on_fire)") -> :game
+      true ->
         warn "#{key} is not known to general stats sorter"
         nil
     end

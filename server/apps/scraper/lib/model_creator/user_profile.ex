@@ -1,8 +1,6 @@
 defmodule Scraper.ModelCreator.UserProfile do
   require Logger
   alias Models.Game
-  alias Scraper.Helpers
-  alias Models.Helpers, as: ModelHelpers
 
   @spec create_gamer_tag(Map) :: {:ok, Map} | {:error, String}
   def create_gamer_tag(user_profile) do
@@ -13,11 +11,11 @@ defmodule Scraper.ModelCreator.UserProfile do
   end
 
   def find_gamer_tag(%{platform: platform, region: region, gamer_tag: tag}) do
-    Game.find_gamer_tag(region: region, platform: platform, tag: ModelHelpers.normalize_gamer_tag(tag))
+    Game.find_gamer_tag(region: region, platform: platform, tag: Utility.normalize_gamer_tag(tag))
   end
 
   def find_gamer_tag(%{platform: platform, gamer_tag: tag}) do
-    Game.find_gamer_tag(platform: platform, tag: ModelHelpers.normalize_gamer_tag(tag))
+    Game.find_gamer_tag(platform: platform, tag: Utility.normalize_gamer_tag(tag))
   end
 
   def create_new_gamer_tag(%{

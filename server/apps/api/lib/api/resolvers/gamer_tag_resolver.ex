@@ -1,7 +1,6 @@
 defmodule Api.GamerTagResolver do
   alias Models.Game
   alias Scraper.ScrapeStatusCache
-  alias Api.Helpers
   alias Api.Web.GamerTagChannel
 
   def all(%{}, _info), do: {:ok, Game.get_all_gamer_tags()}
@@ -50,7 +49,7 @@ defmodule Api.GamerTagResolver do
 
   defp create_error(ms_till_can_scrape) do
     %{
-      message: "must wait #{Helpers.ms_to_min(ms_till_can_scrape)} min (#{Helpers.ms_to_sec(ms_till_can_scrape)} seconds) before scraping",
+      message: "must wait #{Utility.ms_to_min(ms_till_can_scrape)} min (#{Utility.ms_to_sec(ms_till_can_scrape)} seconds) before scraping",
       ms_till_can_scrape: ms_till_can_scrape
     }
   end

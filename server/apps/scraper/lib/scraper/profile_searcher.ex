@@ -2,7 +2,6 @@ defmodule Scraper.ProfileSearcher do
   alias Scraper.ProfileUrl
   alias Scraper.{HtmlHelpers, DataProcessor.UserInfo}
   alias Models.Game
-  alias Models.Helpers, as: ModelHelpers
 
   import Logger, only: [debug: 1]
 
@@ -21,7 +20,7 @@ defmodule Scraper.ProfileSearcher do
       |> deserialize_profiles_response
   end
 
-  def find_saved_tag(tag), do: Game.get_all_gamer_tags(tag: ModelHelpers.normalize_gamer_tag(tag))
+  def find_saved_tag(tag), do: Game.get_all_gamer_tags(tag: Utility.normalize_gamer_tag(tag))
 
   defp fetch_profile_possibility(profile_url) do
     case HTTPoison.get(profile_url, [], timeout: @search_timeout) do

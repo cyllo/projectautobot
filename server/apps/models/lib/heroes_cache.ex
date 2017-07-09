@@ -1,5 +1,5 @@
 defmodule Models.HeroesCache do
-  alias Models.{HeroesCache, Game, Helpers}
+  alias Models.{HeroesCache, Game}
   import Logger, only: [debug: 1, warn: 1]
 
   def is_not_in_cache?(%{name: name}) do
@@ -40,7 +40,7 @@ defmodule Models.HeroesCache do
       length(hero_names) <= 0 -> heroes
 
       cache_length > 0 ->
-        new_hero_names = Helpers.uniq_list(HeroesCache.cache_names(), hero_names)
+        new_hero_names = Utility.uniq_list(HeroesCache.cache_names(), hero_names)
 
         if Enum.any?(new_hero_names), do: HeroesCache.put(heroes ++ HeroesCache.cache_list()), else: heroes_name_map(heroes)
 

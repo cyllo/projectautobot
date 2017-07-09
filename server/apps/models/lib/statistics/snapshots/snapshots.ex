@@ -101,8 +101,8 @@ defmodule Models.Statistics.Snapshots do
     heroes_stats
       |> Enum.reduce(Ecto.Multi.new(), fn(%{name: hero_name, stats: hero_stats}, multi_acc) ->
           lower_name = String.downcase(hero_name)
-          snapshot_name = String.to_atom(lower_name <> "_snapshot")
-          stats_name = String.to_atom(lower_name <> "_stats")
+          snapshot_name = Utility.safe_atom(lower_name <> "_snapshot")
+          stats_name = Utility.safe_atom(lower_name <> "_stats")
 
           multi_acc
             |> Ecto.Multi.run(stats_name, fn(_) ->

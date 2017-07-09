@@ -1,17 +1,15 @@
 defmodule Scraper.ScrapeStatusCache do
-  alias Models.Helpers
-
   def search_cache_ttl, do: :timer.minutes(30)
   def scrape_cache_ttl, do: :timer.minutes(60)
 
   def mark_tag_searched(tag) do
-    ConCache.put(:scraper_tag_search_store, Helpers.normalize_gamer_tag(tag), NaiveDateTime.utc_now())
+    ConCache.put(:scraper_tag_search_store, Utility.normalize_gamer_tag(tag), NaiveDateTime.utc_now())
 
     tag
   end
 
   def unmark_tag_searched(tag) do
-    ConCache.delete(:scraper_tag_search_store, Helpers.normalize_gamer_tag(tag))
+    ConCache.delete(:scraper_tag_search_store, Utility.normalize_gamer_tag(tag))
 
     tag
   end
@@ -34,7 +32,7 @@ defmodule Scraper.ScrapeStatusCache do
   def has_searched_tag?(tag), do: !!get_tag_searched(tag)
   def has_scraped_gamer_tag?(gamer_tag_id),  do: !!get_tag_scraped(gamer_tag_id)
 
-  defp get_tag_searched(tag), do: ConCache.get(:scraper_tag_search_store, Helpers.normalize_gamer_tag(tag))
+  defp get_tag_searched(tag), do: ConCache.get(:scraper_tag_search_store, Utility.normalize_gamer_tag(tag))
   defp get_tag_scraped(gamer_tag_id), do: ConCache.get(:scraper_profile_scrape_store, gamer_tag_id)
 
   defp process_cache_to_time_til_search(res, search_ttl) do

@@ -28,7 +28,7 @@ defmodule Scraper.DataProcessor.StatsBox do
       |> String.replace(~r/- |'|-/, "")
       |> String.downcase
       |> HtmlHelpers.normalize_and_snake
-      |> String.to_atom
+      |> Utility.safe_atom
   end
 
   defp deserialize_value(value) do

@@ -41,7 +41,9 @@ defmodule Api.Mixfile do
       {:absinthe_plug, "1.3.0"},
       {:joken, "~> 1.4.0"},
       {:con_cache, "~> 0.12.0"},
-      {:proper_case, "~> 1.0.0"}
+      {:proper_case, "~> 1.0.0"},
+      {:utility, in_umbrella: true},
+      {:scraper, in_umbrella: true}
     ]
   end
 end
