@@ -23,7 +23,6 @@ import { values } from 'ramda';
 
 import {
   players,
-  playerData,
   playerDataCollection,
   searchPlayerTag,
   heroesData,
@@ -51,7 +50,6 @@ export function instrumentOptions() {
     StoreDevtoolsModule.instrumentStore(instrumentOptions),
     StoreModule.provideStore({
       players,
-      playerData,
       playerDataCollection,
       search: searchPlayerTag,
       heroes: heroesData,
@@ -62,7 +60,6 @@ export function instrumentOptions() {
       snapshotStats: snapshotData,
     }, {
       blogPost: {},
-      playerData: {},
       players: [],
       router: {},
       snapshotStats: {}
