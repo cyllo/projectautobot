@@ -43,6 +43,7 @@ defmodule Models.Statistics.CombatBest do
     field :turrets_destroyed_most_in_game, :integer
     field :damage_blocked_most_in_game, :integer
     field :melee_kills_most_in_game, :integer
+    field :all_damage_done_most_in_game, :integer
   end
 
   @allowed_fields [
@@ -70,7 +71,8 @@ defmodule Models.Statistics.CombatBest do
     :multikill_best,
     :recon_assists_most_in_game,
     :damage_blocked_most_in_game,
-    :melee_kills_most_in_game
+    :melee_kills_most_in_game,
+    :all_damage_done_most_in_game
   ]
 
   @doc """

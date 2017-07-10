@@ -13,7 +13,7 @@ config :distillery, no_warn_missing: [:elixir_make]
 
 # Sample configuration (overrides the imported configuration above):
 #
-    config :logger, :console,
-      level: :warn
+    # config :logger, :console,
+    #   level: :warn
 #       format: "$date $time [$level] $metadata$message\n",
 #       metadata: [:user_id]

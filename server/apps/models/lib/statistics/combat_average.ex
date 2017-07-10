@@ -19,6 +19,7 @@ defmodule Models.Statistics.CombatAverage do
     field :time_spent_on_fire_average, :integer
     field :damage_blocked_average, :integer
     field :melee_kills_average, :decimal
+    field :all_damage_done_avg_per_10_min, :integer
   end
 
   @allowed_fields [
@@ -38,6 +39,7 @@ defmodule Models.Statistics.CombatAverage do
     :time_spent_on_fire_average,
     :damage_blocked_average,
     :melee_kills_average
+    # :all_damage_done_avg_per_10_min
   ]
 
   @doc """

@@ -3,11 +3,11 @@ defmodule Models.Repo.Migrations.CreateMatchAwardsStatistics do
 
   def change do
     create table(:match_awards_statistics) do
-      add :bronze_medals, :integer
-      add :silver_medals, :integer
-      add :gold_medals, :integer
-      add :total_medals, :integer
-      add :cards, :integer
+      add :bronze_medals, :integer, null: false, default: 0
+      add :silver_medals, :integer, null: false, default: 0
+      add :gold_medals, :integer, null: false, default: 0
+      add :total_medals, :integer, null: false, default: 0
+      add :cards, :integer, null: false, default: 0
     end
   end
 end

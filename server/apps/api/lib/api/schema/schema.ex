@@ -83,6 +83,7 @@ defmodule Api.Schema do
 
     field :hero_statistics_average, :hero_statistics_average do
       arg :hero_id, :integer
+      arg :is_competitive, :boolean
       # arg :name, :string
 
       resolve &HeroStatisticsAverageResolver.find_hero_and_average/2
