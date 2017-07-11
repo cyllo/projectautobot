@@ -3,10 +3,9 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
-import { isEmpty } from 'ramda';
 
 import { AppState, Player } from './models';
-import { getPlayerData, searchGamerTag } from './reducers';
+import { searchGamerTag } from './reducers';
 import { OverwatchHeroDataService, GamerTagService, HereosService } from './services';
 
 import '../style/app.scss';
@@ -31,10 +30,6 @@ export class AppComponent implements OnDestroy {
     private HereosService: HereosService) {
 
     this.$state = this.store.select(s => s);
-
-    this.players = store.let(getPlayerData)
-      .distinctUntilChanged()
-      .filter(players => !isEmpty(players));
 
     this.sub = store.let(searchGamerTag)
       .do(() => this.searchResults.next([]))
