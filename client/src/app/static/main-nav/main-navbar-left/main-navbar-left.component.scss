@@ -1,6 +1,7 @@
 @import "../../../../style/colors";
 
 .main-navbar-left {
+
   .navbar-toggler {
     color: $brand-primary;
     left: 0;
@@ -8,13 +9,16 @@
     position: absolute;
     transform: translateY(-50%);
   }
-  .btn-dropdown-toggle i {
-    color: $main-nav-icon-color;
+  .btn-dropdown-toggle {
+    color: $brand-inverse;
+    i:not(:first-child) {
+      margin-left: -0.35rem;
+    }
   }
   .navbar-nav {
     .nav-link {
-      font-size: 1rem;
-      color: $main-nav-hyperlink-color;
+      font-size: 0.85rem;
+      color: $brand-inverse;
       -webkit-transition: all 150ms ease-in-out;
       -moz-transition: all 150ms ease-in-out;
       -ms-transition: all 150ms ease-in-out;
@@ -50,6 +54,7 @@
       margin-top: 0.05rem;
     }
     .dropdown-menu .dropdown-item {
+      font-size: 0.75rem;
       color: $white;
       -webkit-transition: all 150ms ease-in;
       -moz-transition: all 150ms ease-in;
@@ -74,7 +79,7 @@
         left: 0;
         position: absolute;
         width: 100%;
-        background-color: $header-bg-color;
+        background-color: $white;
     }
     .navbar-toggler i {
         color: $brand-inverse;

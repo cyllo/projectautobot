@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import {
   SnapshotStats,
   HeroSnapshotStats,
-  OverwatchStaticData
+  OverwatchStaticData,
+  HeroStatBlock
 } from '../../../models';
 import { OverwatchHeroDataService } from '../../../services';
 
@@ -35,7 +36,7 @@ export class HeroCardBodyComponent implements OnInit {
   private _heroSnap: HeroSnapshotStats;
   private _snapshotStats: SnapshotStats;
   private heroData: OverwatchStaticData;
-  warehouse: Array<any>;
+  statBlocks: HeroStatBlock[];
 
   constructor(private owHeroData: OverwatchHeroDataService) {
     this.owHeroData.data$.subscribe(
@@ -47,15 +48,15 @@ export class HeroCardBodyComponent implements OnInit {
   ngOnInit() {}
 
   private reset() {
-    this.warehouse = [];
+    this.statBlocks = [];
   }
 
   private load() {
     this.reset();
-    let ohd = this.owHeroData;
-    let ss  = this._snapshotStats;
-    let hs  = this._heroSnap;
-    this.warehouse = this.warehouse.concat(ohd.genericStats(ss, hs));
-    this.warehouse = this.warehouse.concat(ohd.heroSpecificStats(ss, hs));
+    this.statBlocks = this.statBlocks.concat(this.owHeroData.genericStatBlocksForHero(this._heroSnap,
+      this._snapshotStats.allHeroesSnapshotStatistic));
+    this.statBlocks = this.statBlocks.concat(this.owHeroData.heroSpecificStatBlocksForHero(this._heroSnap,
+      this._snapshotStats.allHeroesSnapshotStatistic));
   }
+
 }

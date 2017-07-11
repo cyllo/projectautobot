@@ -1,0 +1,29 @@
+@import "../../../../style/colors";
+
+.most-played-heroes {
+    .hero-name {
+        font-size: 0.85rem;
+    }
+    .role {
+        font-size: 0.85rem;
+    }
+    .data-entry {
+        font-size: 0.65rem;
+    }
+    .data-entry:nth-child(2n) .inner {
+        background-color: $gray-lightest;
+    }
+}
+
+:host /deep/ .most-played-heroes {
+    .hero-portrait {
+        .header {
+            display: none;
+        }
+        .thumbnail {
+            img {
+                max-width: 3.5rem !important;
+            }
+        }
+    }
+}

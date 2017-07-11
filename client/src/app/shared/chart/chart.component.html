@@ -1,15 +1,11 @@
 <div class="ow-chart">
-    <div class="chart-label pb-2">
-        <span class="small">{{ owChartTitle }}</span>
-    </div>
-    <!-- end div -->
     <div class="base-chart mt-3">
         <canvas baseChart 
-            [datasets]="owChartDatasets" 
-            [labels]="owChartXAxisLabels" 
-            [chartType]="owChartType" 
-            [options]="chartOptions" 
-            [legend] = "owChartShowLegend"
+            [datasets]="datasets" 
+            [labels]="labels" 
+            [chartType]="chartType" 
+            [options]="options" 
+            [legend] = "legend"
             (chartHover)="chartHovered($event)"
             (chartClick)="chartClicked($event)" #owChart></canvas>
     </div>

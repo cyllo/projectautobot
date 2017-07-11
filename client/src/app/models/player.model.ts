@@ -143,22 +143,22 @@ export interface CombatBestStats {
 
 export interface CombatAverageStats {
   timeSpentOnFireAverage: number;
-  soloKillsAverage: string;
-  selfHealingAverage: string;
-  offensiveAssistsAverage: string;
+  soloKillsAverage: number;
+  selfHealingAverage: number;
+  offensiveAssistsAverage: number;
   objectiveTimeAverage: number;
-  objectiveKillsAverage: string;
-  meleeKillsAverage: string;
-  meleeFinalBlowsAverage: string;
+  objectiveKillsAverage: number;
+  meleeKillsAverage: number;
+  meleeFinalBlowsAverage: number;
   id?: number;
-  healingDoneAverage: string;
-  finalBlowsAverage: string;
-  eliminationsAverage: string;
-  defensiveAssistsAverage: string;
-  deathsAverage: string;
-  damageDoneAverage: string;
-  damageBlockedAverage: string;
-  criticalHitsAveragePercentage: string;
+  healingDoneAverage: number;
+  finalBlowsAverage: number;
+  eliminationsAverage: number;
+  defensiveAssistsAverage: number;
+  deathsAverage: number;
+  damageDoneAverage: number;
+  damageBlockedAverage: number;
+  criticalHitsAveragePercentage: number;
 }
 
 export interface CurrentHero {

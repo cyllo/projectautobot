@@ -1,12 +1,12 @@
 // Start with assigning color names to specific hex values.
-$blue:                      #1C9ED2         !default;
+$blue:                      #47adf9         !default;
 $black:                     #000000         !default;
 $brown:                     #836953         !default;
 $green:                     #2ecc71         !default;
 $orange:                    #ff5831         !default;
 $pink:                      #EA4DA8         !default;
-$purple:                    #745cab         !default;
-$red:                       #ff2d2d         !default;
+$purple:                    #5d479d         !default;
+$red:                       #ed3751         !default;
 $white:                     #ffffff         !default;
 $yellow:                    #ffd428         !default;
 
@@ -23,6 +23,8 @@ $blue-dark:                 #293A71         !default;
 $blue-light:                #A1C8E4         !default;
 $blue-lighter:              #DCE5EE         !default;
 $blue-lightest:             #EDF2F6         !default;
+
+$brown-darker:              #33282a         !default;
 
 $pink-darker:               #6A2257         !default;
 $pink-dark:                 #71295C         !default;
@@ -41,16 +43,3 @@ $brand-success:             $green            !default;
 $brand-info:                $yellow           !default;
 $brand-warning:             $orange           !default;
 $brand-danger:              $red              !default;
-
-$app-bg-color:              $blue-lightest    !default;
-$header-bg-color:           $white            !default;
-
-$main-nav-icon-color:                $purple-dark      !default;
-$main-nav-hyperlink-color:           $purple-dark      !default;
-$main-nav-border-color:              $gray-lighter     !default;
-
-$main-nav-search-bg-color:           $purple-dark      !default;
-$main-nav-search-placeholder-color:  $purple-lighter   !default;
-$main-nav-search-icon-color:         $purple-lighter   !default;
-$main-nav-search-text-color:         $white            !default;
-$main-nav-search-border-color:       $purple           !default;
