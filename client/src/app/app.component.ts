@@ -29,7 +29,7 @@ export class AppComponent implements OnDestroy, OnInit {
     private store: Store<AppState>,
     private owHeroData: OverwatchHeroDataService,
     private gamerTagService: GamerTagService,
-    private HereosService: HereosService,
+    private hereosService: HereosService,
     private authService: AuthorizationService) {
 
     this.$state = this.store.select(s => s);
@@ -70,7 +70,7 @@ export class AppComponent implements OnDestroy, OnInit {
   }
 
   getHeroes() {
-    return this.HereosService.get()
+    return this.hereosService.get()
     .subscribe(s => this.store.dispatch({ type: 'GET_HEROES_DATA', payload: s.data.heroes }));
   }
 
