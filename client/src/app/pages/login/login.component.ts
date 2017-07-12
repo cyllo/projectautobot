@@ -5,7 +5,7 @@ import { Credentials } from '../../models';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'login',
+  selector: 'ow-login',
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.scss'],
   providers: [AuthorizationService]
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginError: boolean;
   constructor(private authorizationService: AuthorizationService,
-    private location: Location){}
+    private location: Location) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -30,8 +30,8 @@ export class LoginComponent implements OnInit {
       this.loginError = false;
       this.location.back();
     }, error => {
-      console.log('Login Error: ', error)
-      this.loginError = true
-    })
+      console.log('Login Error: ', error);
+      this.loginError = true;
+    });
   }
 }

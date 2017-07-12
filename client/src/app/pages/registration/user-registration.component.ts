@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 
 
 @Component({
-  selector: 'user-registration',
+  selector: 'ow-user-registration',
   templateUrl: 'user-registration.component.html',
   styleUrls: ['user-registration.component.scss'],
   providers: [UserService]
@@ -51,10 +51,19 @@ export class UserRegistrationComponent implements OnInit {
     .flatMap(val => this.bnetCode
       ? this.userService.connectToBattleNet(this.bnetCode)
       : Observable.of<any>(val))
-    .subscribe(() => this.router.navigate(['/news']));
+    .subscribe(() => {
+      this.createUserError = false;
+      this.router.navigate(['/news']);
+    },
+    error => {
+      console.log('User Creation Error: ', error);
+      this.createUserError = true;
+    });
   }
 
   bnetAuth() {
-    window.location.assign(`https://us.battle.net/oauth/authorize?clientId=${this.clientId}&response_type=code&redirectUri=${this.redirectUri}`);
+    const authUrl = `https://us.battle.net/oauth/authorize?clientId=${this.clientId}&response_type=code&redirectUri=${this.redirectUri}`;
+    window.location.assign(authUrl);
   }
+
 }

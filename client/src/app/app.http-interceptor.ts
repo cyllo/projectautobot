@@ -6,7 +6,6 @@ export const httpInterceptor = createNetworkInterface('/graphql');
 httpInterceptor.use([{
   applyMiddleware(req, next) {
     req.options.headers = !req.options.headers ? {} : req.options.headers;
-    
     const session = JSON.parse(window.localStorage.getItem('session'));
     const token = pathOr(null, ['sessionInfo', 'token'], session);
     req.options.headers.authorization =  `Bearer ${token}`;
