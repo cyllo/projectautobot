@@ -1,7 +1,9 @@
 import { createNetworkInterface } from 'apollo-client';
 import { pathOr } from 'ramda';
 
-export const httpInterceptor = createNetworkInterface('/graphql');
+export const httpInterceptor = createNetworkInterface({
+  uri: '/graphql'
+});
 
 httpInterceptor.use([{
   applyMiddleware(req, next) {
