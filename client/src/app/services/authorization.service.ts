@@ -22,7 +22,7 @@ export class AuthorizationService {
       sessionInfo,
       user
     }))
-    .do(session => this.setCurrentSession(session))
+    .do(session => this.setCurrentSession(session));
   }
 
   logout() {
@@ -32,7 +32,7 @@ export class AuthorizationService {
   }
 
   setCurrentSession(session) {
-    if(!pathEq(['sessionInfo', 'token'], null, session)) {
+    if (!pathEq(['sessionInfo', 'token'], null, session)) {
       this.store.dispatch({ type: 'AUTH', payload: session });
       window.localStorage.setItem('session', JSON.stringify(session));
     }

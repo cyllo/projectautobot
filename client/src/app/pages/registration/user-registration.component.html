@@ -18,7 +18,7 @@
     id="password"
     placeholder="password">
   <button [disabled]="!registrationForm.valid" type="submit">Sign Up</button>
-  <div *ngIf="loginError">
+  <div *ngIf="createUserError">
     Problem Creating account, try again.
   </div>
 </form>
