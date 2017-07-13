@@ -4,6 +4,8 @@ defmodule Models.Accounts do
   alias Models.Game.GamerTagUserFollower
   use Models.Model
 
+  @incorrect_password_message "password is not correct"
+
   Model.create_model_methods(User)
 
   @doc """
@@ -79,18 +81,32 @@ defmodule Models.Accounts do
     end
   end
 
-  def find_user_by_email_or_display_name(identifier) do
-    case from(User, where: [display_name: ^identifier], or_where: [email: ^identifier]) |> Repo.one do
-      nil -> {:error, "no user found with identifier: #{identifier}"}
+  def find_user_by_email_or_display_name(email) do
+    case from(User, where: [display_name: ^email], or_where: [email: ^email]) |> Repo.one do
+      nil -> {:error, "no user found with email: #{email}"}
       user -> {:ok, user}
     end
   end
+
+  def update_user_and_password(user_id, params) when is_integer(user_id), do: get_user(user_id) |> update_user_and_password(params)
+  def update_user_and_password(user, %{old_password: old_password, new_password: new_password} = params) do
+    with true <- old_password !== new_password || {:error, "passwords cannot be the same"},
+         {:ok, _} <- check_user_password(user, old_password),
+         {:ok, user} <- update_user(user, Map.put(params, :password, new_password)) do
+      {:ok, user}
+    else
+      {:error, @incorrect_password_message} -> {:error, "old " <> @incorrect_password_message}
+      {:error, res} -> {:error, res}
+    end
+  end
+
+  def update_user_and_password(_, %{new_password: _}), do: {:error, "must provide old password to update password"}
 
   defp check_user_password(user, password) do
     if User.has_correct_pw?(user, password) do
       {:ok, user}
     else
-      {:error, "password is not correct"}
+      {:error, @incorrect_password_message}
     end
   end
 

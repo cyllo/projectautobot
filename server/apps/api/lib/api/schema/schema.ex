@@ -24,6 +24,16 @@ defmodule Api.Schema do
   import_types Schema.ActionTypes
 
   query do
+    @desc """
+      Gets current User when logged in
+
+      Restrictions: User Auth
+    """
+    field :me, :user do
+      middleware Middleware.Auth
+      resolve &UserResolver.current/2
+    end
+
     field :gamer_tag, :gamer_tag do
       arg :id, :integer
       arg :tag, :string
@@ -111,6 +121,21 @@ defmodule Api.Schema do
       arg :password, non_null(:string)
 
       resolve &UserResolver.create/2
+    end
+
+    @desc """
+      Updates a User"
+
+      Restrictions: User Auth
+    """
+    field :update_user, :user do
+      arg :display_name, :string
+      arg :email, :string
+      arg :old_password, :string
+      arg :new_password, :string
+
+      middleware Middleware.Auth
+      resolve &UserResolver.update/2
     end
 
     @desc """

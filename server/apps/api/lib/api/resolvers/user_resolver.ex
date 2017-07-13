@@ -1,8 +1,16 @@
 defmodule Api.UserResolver do
   alias Models.{Accounts, Game}
 
+  def current(_, %{context: %{current_user: user}}), do: {:ok, user}
   def create(params, _info), do: Accounts.create_user(params)
   def find(params, _info), do: Accounts.find_user(params)
+  def update(params, %{context: %{current_user: user}}) do
+    if Map.has_key?(params, :new_password) do
+      Accounts.update_user_and_password(user, params)
+    else
+      Accounts.update_user(user, params)
+    end
+  end
 
   def connected_to_battle_net(%{client_auth_token: client_auth_token}, %{context: %{current_user: user}}) do
     {:ok, %{user| battle_net_tag: "SomeTag#1234", battle_net_id: Enum.random(1000..2000000)}}
