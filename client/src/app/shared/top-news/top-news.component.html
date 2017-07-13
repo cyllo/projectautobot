@@ -3,19 +3,18 @@
     <div class="row">
 
         <div class="col-lg-8 col-12 mb-4">
-            <ow-top-news-post-card [featuredPost]="true"></ow-top-news-post-card>
+            <ow-top-news-post-card [featuredPost]="true" [post]="latestNews[0]"></ow-top-news-post-card>
         </div><!-- end .col -->
 
         <div class="col-lg-4 col-12">
-            
             <div class="row">
 
                 <div class="col-lg-12 col-6 mb-4">
-                    <ow-top-news-post-card></ow-top-news-post-card>
+                    <ow-top-news-post-card [post]="latestNews[1]"></ow-top-news-post-card>
                 </div><!-- end .col -->
 
                 <div class="col-lg-12 col-6 mb-4">
-                    <ow-top-news-post-card></ow-top-news-post-card>
+                    <ow-top-news-post-card [post]="latestNews[2]"></ow-top-news-post-card>
                 </div><!-- end .col -->
 
             </div><!-- end .row -->

@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MomentModule } from 'angular2-moment';
 
 import {
   ApiService,
@@ -42,7 +43,8 @@ import { ChartsModule } from 'ng2-charts';
     CommonModule,
     HttpModule,
     ChartsModule,
-    RouterModule
+    RouterModule,
+    MomentModule
   ],
   declarations: [
     VideoCardComponent,

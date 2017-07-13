@@ -24,6 +24,8 @@ import { OrderByPipe } from './pipes';
 import { PlayersService, OverwatchHeroDataService, AuthorizationService, AuthGuard, SocketService } from './services';
 import { values } from 'ramda';
 
+import { MomentModule } from 'angular2-moment';
+
 import {
   players,
   playerDataCollection,
@@ -69,6 +71,7 @@ export function instrumentOptions() {
     }),
     RouterStoreModule.connectRouter(),
     BrowserModule,
+    MomentModule,
     CommonModule,
     StoreLogMonitorModule,
     HttpModule,
@@ -76,7 +79,7 @@ export function instrumentOptions() {
     FormsModule,
     ReactiveFormsModule,
     routing,
-    SidebarModule,
+    SidebarModule
   ],
   declarations,
   providers: [

@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { take, drop, applySpec } from 'ramda';
 
-import { NewsService } from './news.service';
+import { NewsService } from '../../services';
 
 export const firstTwo = take(2);
 export const allButFirstTwo = drop(2);
