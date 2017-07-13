@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: node:8.1.3-alpine
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - stp-{{ checksum client/package.json }}
+            - stp- # Fallback if checksum fails
+
+      - run: yarn global add npm@5 --silent
+      - run: cd client && npm i --silent
+
+      - save_cache:
+          key: stp-{{ checksum client/package.json }}
+          paths:
+            - node_modules
+
+
+      - run: cd client && npm run lint
+
+
+
