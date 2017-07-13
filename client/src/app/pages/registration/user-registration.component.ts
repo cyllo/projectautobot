@@ -32,7 +32,7 @@ export class UserRegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.registrationForm = new FormGroup({
-      username: new FormControl('', [Validators.required]),
+      displayName: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required])
     });
@@ -44,10 +44,10 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   onSubmit(newUser: User) {
-    const { username, password } = newUser;
+    const { email, password } = newUser;
 
     this.userService.create(newUser)
-    .flatMap(() => this.authorizationService.login({ username, password }))
+    .flatMap(() => this.authorizationService.login({ email, password }))
     .flatMap(val => this.bnetCode
       ? this.userService.connectToBattleNet(this.bnetCode)
       : Observable.of<any>(val))

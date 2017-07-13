@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const LoginUserMutation = gql`
-mutation LoginUser($password: String!, $identifier: String!) {
-  loginUser(password: $password, identifier: $identifier) {
+mutation LoginUser($password: String!, $email: String!) {
+  loginUser(password: $password, email: $email) {
     sessionInfo {
       exp
       token
@@ -10,7 +10,9 @@ mutation LoginUser($password: String!, $identifier: String!) {
     user {
       id
       email
-      username
+      battleNetId
+      battleNetTag
+      displayName
     }
   }
 }

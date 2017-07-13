@@ -13,10 +13,10 @@ export class AuthorizationService {
     private store: Store<AppState>,
     private router: Router) {}
 
-  login({ password, username: identifier }: Credentials ) {
+  login({ password, email }: Credentials ) {
     return this.apollo.mutate({
       mutation: LoginUserMutation,
-      variables: { identifier, password }
+      variables: { email, password }
     })
     .map(({ data: { loginUser: { sessionInfo, user } } }: any) => ({
       sessionInfo,
