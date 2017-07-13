@@ -1,0 +1,44 @@
+@import "../../../style/colors";
+.profile-checkbox {
+
+  position: relative;
+
+  .inner {
+    float: left;
+    height: 100%;
+    min-height: 1.85rem;
+    background-color: $blue-lightest;
+    border: 1px solid $blue-lighter;
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .player-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.03rem;
+    color: $purple-light;
+  }
+
+  .avatar {
+    max-width: 1.85rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+}
+
+:host /deep/ .profile-checkbox {
+  .hero-portrait {
+    .header {
+      display: none;
+    }
+    .thumbnail {
+      img {
+        max-width: 2rem !important;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+}

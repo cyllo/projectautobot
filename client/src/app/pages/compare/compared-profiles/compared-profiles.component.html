@@ -1,0 +1,19 @@
+<div class="compared-profiles">
+  <div class="container mb-3">
+    <div class="row">
+      <div class="col">
+        <div class="content rounded pt-3">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col text-center">
+                <div class="d-inline-flex" *ngFor="let player of listOfPlayerTags">
+                  <ow-profile-checkbox [owTag]="player"></ow-profile-checkbox>
+                </div><!-- .d-inline-flex -->
+              </div><!-- .col -->
+            </div><!-- .row -->
+          </div><!-- .container-fluid -->
+        </div><!-- .content -->
+      </div><!-- .col -->
+    </div><!-- .row -->
+  </div><!-- .container -->
+</div><!-- .compared-profiles  -->

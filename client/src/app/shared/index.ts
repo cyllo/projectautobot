@@ -15,4 +15,6 @@ export * from './hero-synergy-counter';
 export * from './hero-catalog';
 export * from './hero-portrait';
 export * from './top-news';
+export * from './profile-checkbox';
+export * from './hero-checkbox';
 export * from './shared.module';
