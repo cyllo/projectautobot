@@ -2,8 +2,8 @@ defmodule Api.SessionResolver do
   alias Models.Accounts
   alias Api.{JWTGenerator, UserSessionTracker}
 
-  def login(%{identifier: identifier, password: password}, _info) do
-    with {:ok, user} <- Accounts.find_user_and_confirm_password(identifier, password),
+  def login(%{email: email, password: password}, _info) do
+    with {:ok, user} <- Accounts.find_user_and_confirm_password(email, password),
          {token, exp} <- JWTGenerator.generate_token_for_user(user),
          :ok <- UserSessionTracker.activate_session(user.id, token) do
       current_session = %{

@@ -7,7 +7,7 @@ defmodule Models.Accounts.User do
   use Models.Model
 
   schema "users" do
-    field :username, :string
+    field :display_name, :string
     field :email, :string
     field :battle_net_id, :integer
     field :battle_net_tag, :string
@@ -28,7 +28,7 @@ defmodule Models.Accounts.User do
     timestamps()
   end
 
-  @required_fields [:username, :email]
+  @required_fields [:display_name, :email]
   @allowed_fields Enum.concat(@required_fields, [:password, :battle_net_id, :battle_net_tag])
 
   @doc """
@@ -38,7 +38,7 @@ defmodule Models.Accounts.User do
     user
       |> cast(params, @allowed_fields)
       |> validate_required(@required_fields)
-      |> unique_constraint(:username, name: :users_username_index)
+      |> unique_constraint(:display_name, name: :users_display_name_index)
       |> unique_constraint(:email, name: :users_email_index)
       |> unique_constraint(:battle_net_id, name: :users_battle_net_id_index,
                                            message: "There is already an account associated with that battle net id")
@@ -58,7 +58,7 @@ defmodule Models.Accounts.User do
 
   ## Examples
 
-      iex> {:ok, user} = Models.Accounts.create_user(%{username: "Test", password: "password", email: "eamil@g.ca"})
+      iex> {:ok, user} = Models.Accounts.create_user(%{display_name: "Test", password: "password", email: "eamil@g.ca"})
       iex> Models.Accounts.User.has_correct_pw?(user, "password123")
       false
       iex> Models.Accounts.User.has_correct_pw?(user, "password")

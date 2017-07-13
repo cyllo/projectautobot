@@ -2,7 +2,6 @@ defmodule Api.UserResolver do
   alias Models.{Accounts, Game}
 
   def create(params, _info), do: Accounts.create_user(params)
-  def find(%{identifier: identifier}, _info), do: Accounts.find_user_by_email_or_username(identifier)
   def find(params, _info), do: Accounts.find_user(params)
 
   def connected_to_battle_net(%{client_auth_token: client_auth_token}, %{context: %{current_user: user}}) do

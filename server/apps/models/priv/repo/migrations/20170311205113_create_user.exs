@@ -5,7 +5,7 @@ defmodule Models.Repo.Migrations.CreateUser do
     execute "CREATE EXTENSION IF NOT EXISTS citext"
 
     create table(:users) do
-      add :username, :citext, null: false
+      add :display_name, :citext, null: false
       add :email, :citext, null: false
       add :password_hash, :text, null: false
       add :battle_net_id, :integer
@@ -15,7 +15,7 @@ defmodule Models.Repo.Migrations.CreateUser do
       timestamps()
     end
 
-    create unique_index(:users, [:username])
+    create unique_index(:users, [:display_name])
     create unique_index(:users, [:email])
     create unique_index(:users, [:battle_net_id])
     create unique_index(:users, [:battle_net_tag])

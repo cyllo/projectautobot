@@ -6,7 +6,7 @@ defmodule Api.Schema.AccountTypes do
   @desc "A user object for an account which owns gamer tags"
   object :user do
     field :id, :integer
-    field :username, :string
+    field :display_name, :string
     field :email, :string
     field :battle_net_id, :integer
     field :battle_net_tag, :string

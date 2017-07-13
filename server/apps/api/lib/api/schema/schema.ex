@@ -106,7 +106,7 @@ defmodule Api.Schema do
 
     @desc "Creates a User account"
     field :create_user, :user do
-      arg :username, non_null(:string)
+      arg :display_name, non_null(:string)
       arg :email, non_null(:string)
       arg :password, non_null(:string)
 
@@ -119,7 +119,7 @@ defmodule Api.Schema do
       `authorization: Bearer JFI$12edjA$@!H!2j!J$KSAL!@`
     """
     field :login_user, :current_session do
-      arg :identifier, non_null(:string)
+      arg :email, non_null(:string)
       arg :password, non_null(:string)
 
       resolve &SessionResolver.login/2
