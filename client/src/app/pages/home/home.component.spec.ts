@@ -5,6 +5,9 @@ import { TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
 
+@Component({selector: 'ow-test', template: ''})
+class TestComponent { }
+
 describe('Home Component', () => {
   const html = '<ow-home></ow-home>';
 
@@ -20,6 +23,3 @@ describe('Home Component', () => {
   });
 
 });
-
-@Component({selector: 'ow-test', template: ''})
-class TestComponent { }
