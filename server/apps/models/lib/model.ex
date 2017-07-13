@@ -1,5 +1,6 @@
 defmodule Models.Model do
   import Ecto.Query, only: [limit: 2, order_by: 2, where: 3, from: 2, subquery: 1]
+  import Logger, only: [warn: 1]
 
   defmacro __using__(_) do
     quote do
@@ -24,6 +25,17 @@ defmodule Models.Model do
   def create_model_filter({:last, val}, query), do: from(query, order_by: [desc: :inserted_at], limit: ^val) |> subquery |> order_by(asc: :inserted_at)
   def create_model_filter({:start_date, val}, query), do: where(query, [m], m.inserted_at >= ^(val))
   def create_model_filter({:end_date, val}, query), do: where(query, [m], m.inserted_at <= ^val)
+  def create_model_filter({filter_field, val}, query) do
+    {_, model} = query.from
+
+    if filter_field in model.__schema__(:fields) do
+      where(query, [m], field(m, ^filter_field) == ^val)
+    else
+      warn "#{Atom.to_string(filter_field)} is not a field for #{model.__schema__(:source)} where filter"
+
+      query
+    end
+  end
 
   # @spec create_field_averages(Ecto.Schema.t) :: Ecto.Queryable.t
   # def create_field_averages(model) do

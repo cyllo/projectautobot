@@ -2,9 +2,9 @@ defmodule Api.SnapshotStatisticResolver do
   alias Models.Statistics.Snapshots
   alias Models.{Game, Statistics}
 
-  def get_gamer_tag_snapshot_statistics(info, gamer_tag_ids) do
+  def get_gamer_tag_snapshot_statistics(params, gamer_tag_ids) do
     gamer_tag_ids
-      |> Snapshots.get_snapshot_statistics_by_gamer_tag_ids(info)
+      |> Snapshots.get_snapshot_statistics_by_gamer_tag_ids(params)
       |> convert_to_id_map(gamer_tag_ids, :gamer_tag_id)
   end
 
