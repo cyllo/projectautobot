@@ -7,10 +7,10 @@ import { CreateUserMutation, ConnectUserToBattleNetMutation } from './queries';
 export class UserService {
   constructor(private apollo: Apollo) {}
 
-  create({ password, email, username }: User) {
+  create({ password, email, displayName }: User) {
     return this.apollo.mutate({
       mutation: CreateUserMutation,
-      variables: { username, password, email }
+      variables: { password, displayName, email }
     });
   }
 
