@@ -1,5 +1,5 @@
 <div class="home pt-3">
-  <ow-top-news></ow-top-news>
+  <ow-top-news *ngIf="latestNews | async" [latestNews]="latestNews | async"></ow-top-news>
   <div class="container">
     <!-- <ow-hero-wall-catalog></ow-hero-wall-catalog> -->
   </div>
@@ -7,4 +7,3 @@
 
 </div>
 <!-- end .home -->
-

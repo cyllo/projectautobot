@@ -9,7 +9,8 @@ import {
   HereosService,
   GamerTagService,
   OverwatchHeroDataService,
-  AuthorizationService
+  AuthorizationService,
+  NewsService
 } from './services';
 
 import '../style/app.scss';
@@ -18,7 +19,7 @@ import '../style/app.scss';
   selector: 'ow-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [HereosService, AuthorizationService]
+  providers: [HereosService, AuthorizationService, NewsService]
 })
 export class AppComponent implements OnDestroy, OnInit {
   sub: Subscription;
@@ -31,7 +32,8 @@ export class AppComponent implements OnDestroy, OnInit {
     private owHeroData: OverwatchHeroDataService,
     private gamerTagService: GamerTagService,
     private hereosService: HereosService,
-    private authService: AuthorizationService) {
+    private authService: AuthorizationService,
+    private newsPostService: NewsService) {
 
     this.$state = this.store.select(s => s);
 
@@ -48,6 +50,7 @@ export class AppComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     this.authService.setCurrentSession(JSON.parse(window.localStorage.getItem('session')));
+    this.newsPostService.getLatestPosts(3);
   }
 
   onSearch(action) {

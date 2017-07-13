@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import gql from 'graphql-tag';
 import { Apollo } from 'apollo-angular';
 import { Store, Dispatcher } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { newsPostQuery } from './queries';
 
-import { map, merge, complement, reverse, isNil } from 'ramda';
+import { complement, reverse, isNil } from 'ramda';
 
-import { getBlogPosts } from '../../reducers';
-import { BlogPost, AppState } from '../../models';
+import { getBlogPosts } from '../reducers';
+import { BlogPost, AppState } from '../models';
 
 @Injectable()
 export class NewsService {
@@ -23,21 +23,10 @@ export class NewsService {
 
   public getLatestPosts(last = 6) {
     this.apollo.query<{ blogPosts: BlogPost[] }>({
-      query: gql`
-        query BlogPostQuery($last: Int) {
-          blogPosts(last: $last) {
-            id
-            title
-            content
-            insertedAt
-            updatedAt
-          }
-        }
-      `, // After add author and imageUrl
+      query: newsPostQuery,
       variables: { last }
     })
       .map(res => res.data.blogPosts)
-      .map(map(merge({ imageUrl: '//placehold.it/500x500', author: { username: 'Bill Nye' } })))
       .subscribe((posts) => this.dispatcher.dispatch(getBlogPosts(posts)));
   }
 }

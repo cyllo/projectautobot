@@ -5,19 +5,19 @@
 
             <div class="post-overview text-center py-4">
 
-                <p class="post-category text-uppercase font-weight-bold pb-2">Patch Notes</p>
+                <p *ngFor="let category of post.blogCategories" class="post-category text-uppercase font-weight-bold pb-2"> {{category.name}} </p>
                 <!-- end .post-category -->
 
-                <p class="post-title text-uppercase">Vestibulum condimentum ultrices eleifend</p>
+                <p class="post-title text-uppercase">{{post.title}}</p>
                 <!-- end .post-title -->
 
-                <p class="creation-breadcrumb small text-uppercase">By Caymus - 4 Days Ago</p>
-                <!-- end .creation-breadcrumb -->
+                <p class="creation-breadcrumb small text-uppercase">By {{post.author.displayName}} - {{post.insertedAt | amLocal | amTimeAgo}}</p>
+                <!-- end .creation-breadcrumb --> <!-- calculate from creation point display in human readable/maintain format --> 
 
             </div><!-- end .post-overview -->
 
             <div class="thumbnail">
-                <img src="img/mercy.png">
+                <img [src]="post.thumbnailUrl">
             </div><!-- end .thumbnail -->
 
         </div><!-- end .post-card-body -->
