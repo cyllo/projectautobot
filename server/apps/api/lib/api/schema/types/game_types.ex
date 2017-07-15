@@ -35,7 +35,7 @@ defmodule Api.Schema.GameTypes do
         batch(
           {SnapshotStatisticResolver, :get_gamer_tag_snapshot_statistics, args},
           gamer_tag.id,
-          &{:ok, Map.get(&1, gamer_tag.id)}
+          &{:ok, Map.get(&1, gamer_tag.id, [])}
         )
       end
     end
@@ -45,7 +45,7 @@ defmodule Api.Schema.GameTypes do
         batch(
           {GamerTagResolver, :get_gamer_tag_connected_gamer_tags},
           gamer_tag,
-          &{:ok, Map.get(&1, gamer_tag.id)}
+          &{:ok, Map.get(&1, gamer_tag.id, [])}
         )
       end
     end
@@ -55,7 +55,7 @@ defmodule Api.Schema.GameTypes do
         batch(
           {GamerTagResolver, :get_gamer_tag_following_users},
           gamer_tag.id,
-          &{:ok, Map.get(&1, gamer_tag.id)}
+          &{:ok, Map.get(&1, gamer_tag.id, [])}
         )
       end
     end

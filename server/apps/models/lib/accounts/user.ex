@@ -71,8 +71,6 @@ defmodule Models.Accounts.User do
     gamer_tags_following_ids = changeset.params["gamer_tags_following"]
 
     if gamer_tags_following_ids do
-      import IEx
-      IEx.pry
       changeset
         |> put_assoc(:gamer_tags_following, Game.get_gamer_tags_by_ids(gamer_tags_following_ids))
     else
