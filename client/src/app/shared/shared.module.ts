@@ -28,7 +28,8 @@ import {
   TopNewsComponent,
   TopNewsPostCardComponent,
   ProfileCheckboxComponent,
-  HeroCheckboxComponent
+  HeroCheckboxComponent,
+  CompetitiveOrQuickPlaySelectorComponent
 } from './index';
 import { ChartsModule } from 'ng2-charts';
 
@@ -64,7 +65,8 @@ import { ChartsModule } from 'ng2-charts';
     TopNewsComponent,
     TopNewsPostCardComponent,
     ProfileCheckboxComponent,
-    HeroCheckboxComponent
+    HeroCheckboxComponent,
+    CompetitiveOrQuickPlaySelectorComponent
   ],
   exports: [
     VideoCardComponent,
@@ -84,7 +86,8 @@ import { ChartsModule } from 'ng2-charts';
     HeroPortraitComponent,
     HeroCatalogComponent,
     ProfileCheckboxComponent,
-    HeroCheckboxComponent
+    HeroCheckboxComponent,
+    CompetitiveOrQuickPlaySelectorComponent
   ],
   providers: [ApiService]
 })

@@ -1,7 +1,13 @@
-<div class="profile-checkbox mb-3 ml-3">
-  <div class="inner d-inline-flex align-items-center rounded pl-1 pr-2">
-    <input type="checkbox" name="" value="" checked>
-    <span class="player-tag text-uppercase ml-2">Reaper</span>
-  </div><!-- .inner -->
-  <ow-hero-portrait [owCode]="owCode"></ow-hero-portrait>
-</div><!-- end .profile-checkbox -->
+<div class="hero-checkbox mb-3">
+  <div class="row align-items-center">
+    <div class="col">
+      <div class="d-inline-flex align-items-center">
+        <input type="checkbox" name="" checked>
+        <span class="hero-name text-uppercase ml-2">Widowmaker</span>
+      </div>
+    </div><!-- .col -->
+    <div class="col-auto px-3">
+      <ow-hero-portrait [owCode]="owCode"></ow-hero-portrait>
+    </div><!-- .col-auto -->
+  </div><!-- .row -->
+</div><!-- .hero-checkbox -->

@@ -1,0 +1,14 @@
+<div class="list-of-comparable-heroes">
+  <div class="row">
+    <div class="col-12">
+      <div class="header pb-3 mb-3">
+        <span class="text-uppercase font-weight-bold">Heroes</span>
+      </div><!-- .header -->
+    </div><!-- .col-12 -->
+  </div><!-- .row -->
+  <div class="row">
+    <div class="col-12" *ngFor="let hero of availableHeroes">
+      <ow-hero-checkbox></ow-hero-checkbox>
+    </div><!-- div -->
+  </div><!-- .row -->
+</div><!-- list-of-comparable-heroes -->

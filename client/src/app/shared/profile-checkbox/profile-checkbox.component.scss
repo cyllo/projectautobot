@@ -1,29 +1,32 @@
 @import "../../../style/colors";
 .profile-checkbox {
 
-  position: relative;
-
-  .inner {
-    float: left;
-    height: 100%;
-    min-height: 1.85rem;
+  .header {
     background-color: $blue-lightest;
     border: 1px solid $blue-lighter;
-    border-right: 0;
-    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
 
-  .player-tag {
-    font-size: 0.65rem;
-    letter-spacing: 0.03rem;
+  .platform-regions {
+    border: 1px solid $blue-lighter;
+    border-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .skill-rating {
+    font-size: 0.5rem;
     color: $purple-light;
   }
 
   .avatar {
-    max-width: 1.85rem;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    max-width: 1.5rem;
+  }
+
+  .player-tag {
+    font-size: 0.65rem;
+    color: $purple-light;
   }
 
 }
@@ -39,6 +42,35 @@
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
       }
+    }
+  }
+  .platform-region {
+    .platforms,
+    .regions {
+      margin-bottom: 0.5rem;
+      .label {
+        display: none;
+      }
+    }
+    .btn-radio {
+      font-size: 0.5rem;
+      padding: 0.35rem;
+      background-color: $purple-dark !important;
+      color: $purple-lighter !important;
+      border-color: $purple-dark !important;
+    }
+    .btn-radio:hover {
+      cursor: pointer;
+    }
+    .btn-radio.active {
+      background-color: $purple-dark !important;
+      color: $white !important;
+      border-color: $purple-dark !important;
+    }
+    .btn-radio:disabled {
+      background-color: $gray-lightest !important;
+      color: $gray-lighter !important;
+      border-color: $gray-lighter !important;
     }
   }
 }

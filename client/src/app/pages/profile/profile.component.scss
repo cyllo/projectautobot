@@ -50,3 +50,11 @@
 
 }
 
+:host /deep/ .profile {
+  .platform-region {
+    .platforms,
+    .regions {
+      margin-bottom: 1.5rem;
+    }
+  }
+}

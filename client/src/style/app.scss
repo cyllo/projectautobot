@@ -61,7 +61,6 @@ input[type="checkbox"] {
   width: 1.3rem;
   height: 1.3rem;
   position: relative;
-  line-height: 0;
 }
 input[type="checkbox"]:hover {
   cursor: pointer;
@@ -81,8 +80,6 @@ input[type="checkbox"]:checked::before{
   left: 50%;
   position: absolute;
   transform: translate(-50%, -50%);
-  margin-top: -0.07rem;
-  margin-left: 0.02rem;
 }
 
 button:hover {

@@ -4,7 +4,7 @@
 
     <div class="row align-items-center">
 
-      <div class="col-md-6 col px-3 mb-4">
+      <div class="col-md-6 col-12">
 
         <div class="platforms">
 
@@ -14,23 +14,23 @@
 
           <div class="btn-group" role="group" aria-label="platform">
 
-            <button type="button" class="btn btn-radio" 
-              [class.active]="player.platform === 'pc'" 
-              [disabled]="!platformAvailable('pc')" 
+            <button type="button" class="btn btn-radio"
+              [class.active]="player.platform === 'pc'"
+              [disabled]="!platformAvailable('pc')"
               (click)="changePlatform('pc')">
               <span class="text-uppercase">PC</span>
             </button><!-- end button -->
 
             <button type="button" class="btn btn-radio"
-              [class.active]="player.platform === 'xbl'" 
-              [disabled]="!platformAvailable('xbl')" 
+              [class.active]="player.platform === 'xbl'"
+              [disabled]="!platformAvailable('xbl')"
               (click)="changePlatform('xbl')">
               <span class="text-uppercase">XBL</span>
             </button><!-- end button -->
 
-            <button type="button" class="btn btn-radio" 
-              [class.active]="player.platform === 'psn'" 
-              [disabled]="!platformAvailable('psn')" 
+            <button type="button" class="btn btn-radio"
+              [class.active]="player.platform === 'psn'"
+              [disabled]="!platformAvailable('psn')"
               (click)="changePlatform('psn')">
               <span class="text-uppercase">PSN</span>
             </button><!-- end button -->
@@ -41,7 +41,7 @@
 
       </div><!-- end .col -->
 
-      <div class="col-md-6 text-sm-right col px-3 mb-4">
+      <div class="col-md-6 text-md-right col-12">
 
         <div class="regions">
 
@@ -51,37 +51,37 @@
 
           <div class="btn-group" role="group" aria-label="platform">
 
-            <button type="button" class="btn btn-radio" 
-              [class.active]="player.region === 'us'" 
-              [disabled]="!regionAvailable('us')" 
+            <button type="button" class="btn btn-radio"
+              [class.active]="player.region === 'us'"
+              [disabled]="!regionAvailable('us')"
               (click)="changeRegion('us')">
               <span class="text-uppercase">US</span>
             </button><!-- end button -->
 
-            <button type="button" class="btn btn-radio" 
-              [class.active]="player.region === 'eu'" 
-              [disabled]="!regionAvailable('eu')" 
+            <button type="button" class="btn btn-radio"
+              [class.active]="player.region === 'eu'"
+              [disabled]="!regionAvailable('eu')"
               (click)="changeRegion('eu')">
               <span class="text-uppercase">EU</span>
             </button><!-- end button -->
 
-            <button type="button" class="btn btn-radio" 
-              [class.active]="player.region === 'kr'" 
-              [disabled]="!regionAvailable('kr')" 
+            <button type="button" class="btn btn-radio"
+              [class.active]="player.region === 'kr'"
+              [disabled]="!regionAvailable('kr')"
               (click)="changeRegion('kr')">
               <span class="text-uppercase">KR</span>
             </button><!-- end button -->
 
-            <button type="button" class="btn btn-radio" 
-              [class.active]="player.region === 'ch'" 
+            <button type="button" class="btn btn-radio"
+              [class.active]="player.region === 'ch'"
               [disabled]="!regionAvailable('ch')"
               (click)="changeRegion('ch')">
               <span class="text-uppercase">CH</span>
             </button><!-- end button -->
-            
-            <button type="button" class="btn btn-radio" 
+
+            <button type="button" class="btn btn-radio"
               [class.active]="player.region === ''"
-              [disabled]="!regionAvailable('')" 
+              [disabled]="!regionAvailable('')"
               (click)="changeRegion('')">
               <span class="text-uppercase">Global</span>
             </button><!-- end button -->
@@ -91,7 +91,7 @@
         </div><!-- end .regions -->
 
       </div><!-- end .col -->
-      
+
     </div><!-- end .row -->
 
   </div><!-- end .container -->

@@ -4,11 +4,9 @@
       <div class="col">
         <div class="content rounded pt-3">
           <div class="container-fluid">
-            <div class="row">
-              <div class="col text-center">
-                <div class="d-inline-flex" *ngFor="let player of listOfPlayerTags">
-                  <ow-profile-checkbox [owTag]="player"></ow-profile-checkbox>
-                </div><!-- .d-inline-flex -->
+            <div class="row-fluid">
+              <div class="player col-lg-5 col-md-8 col-8" *ngFor="let player of listOfPlayerTags">
+                <ow-profile-checkbox [owTag]="player"></ow-profile-checkbox>
               </div><!-- .col -->
             </div><!-- .row -->
           </div><!-- .container-fluid -->

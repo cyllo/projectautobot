@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class ComparedProfilesComponent implements OnInit {
 
   // dummy content
-  const listOfPlayerTags: any[] =
+  listOfPlayerTags: any[] =
   [
   'cyllo#2112',
   'iMBlueDaBaDee#1921',

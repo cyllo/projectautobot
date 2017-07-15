@@ -2,62 +2,72 @@
   <ow-compared-profiles></ow-compared-profiles>
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-12">
-
-      </div><!-- .col-8 -->
-      <div class="col-lg-4 col-12">
+      <div class="col-lg-9 col-12 mb-3">
 
         <div class="row">
-
           <div class="col-12 mb-3">
-
             <div class="content rounded">
               <div class="container-fluid pt-3">
                 <div class="row">
-                  <div class="col text-center">
-
-                    <div class="btn-group mb-3" role="group" aria-label="Sort By Quick Play or Competitive Play">
-                      <button type="button" class="btn btn-radio">
-                        <span>Competitive Play</span>
-                      </button><!-- button -->
-                      <button type="button" class="btn btn-radio">
-                        <span>Quick Play</span>
-                      </button><!-- button -->
-                    </div><!-- .btn-group -->
-
+                  <div class="col mb-3">
+                    <ow-comp-or-quick-play-selector></ow-comp-or-quick-play-selector>
                   </div><!-- .col -->
                 </div><!-- .row -->
               </div><!-- .container-fluid -->
             </div><!-- .content -->
-
           </div><!-- .col -->
+        </div>
 
+        <div class="row">
           <div class="col-12 mb-3">
-
             <div class="content rounded">
-              <div class="container-fluid pt-3">
+              <div class="container-fluid py-3">
                 <div class="row">
-                  <div class="col text-center">
-
-                    <div class="btn-group mb-3" role="group" aria-label="Sort By Quick Play or Competitive Play">
-                      <button type="button" class="btn btn-radio">
-                        <span>Competitive Play</span>
-                      </button><!-- button -->
-                      <button type="button" class="btn btn-radio">
-                        <span>Quick Play</span>
-                      </button><!-- button -->
-                    </div><!-- .btn-group -->
-
+                  <div class="col">
+                    <ow-chart
+                      [chartType]="chartData.chartType"
+                      [labels] = "chartData.xAxisLabels"
+                      [datasets]="chartData.datasets"
+                      [legend]="chartData.legend"></ow-chart>
                   </div><!-- .col -->
                 </div><!-- .row -->
               </div><!-- .container-fluid -->
             </div><!-- .content -->
-
-          </div><!-- .col -->
-
+          </div>
         </div><!-- .row -->
 
-      </div><!-- .col-4 -->
+        <div class="row">
+          <div class="col-12 mb-3">
+            <div class="content rounded">
+              <div class="container-fluid pt-3">
+                <div class="row">
+                  <div class="col-md-4 col-6 mb-3" *ngFor="let block of statBlocks">
+                    <ow-stat-category-block></ow-stat-category-block>
+                  </div><!-- .col -->
+                </div><!-- .row -->
+              </div><!-- .container-fluid -->
+            </div><!-- .content -->
+          </div>
+        </div><!-- .row -->
+
+      </div><!-- .col-9 -->
+      <div class="col-lg-3 col-12">
+
+        <div class="row">
+          <div class="col-12 mb-3">
+            <div class="content rounded">
+              <div class="container-fluid pt-3">
+                <div class="row">
+                  <div class="col">
+                    <ow-list-of-compareable-heroes></ow-list-of-compareable-heroes>
+                  </div><!-- .col -->
+                </div><!-- .row -->
+              </div><!-- .container-fluid -->
+            </div><!-- .content -->
+          </div><!-- .col -->
+        </div><!-- .row -->
+
+      </div><!-- .col-3 -->
     </div><!-- .row -->
   </div><!-- .container -->
 </div>

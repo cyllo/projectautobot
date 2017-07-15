@@ -1,1 +1,18 @@
 @import "../../../style/colors";
+.hero-checkbox {
+  .hero-name {
+    font-size: 0.65rem;
+  }
+}
+:host /deep/ .hero-checkbox {
+  .hero-portrait {
+    .header {
+      display: none;
+    }
+    .thumbnail {
+      img {
+        max-width: 2rem !important;
+      }
+    }
+  }
+}

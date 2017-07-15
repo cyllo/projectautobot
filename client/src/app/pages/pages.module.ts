@@ -33,9 +33,7 @@ import {
   ProfilePageTabsComponent,
   HeroWallCatalogComponent,
   CompareComponent,
-  CompareHeaderComponent,
   ComparedProfilesComponent,
-  CompareChartCategoryComponent,
   StatCategoryBlockComponent,
   HeroesHeaderComponent,
   HeroesTableComponent,
@@ -45,7 +43,8 @@ import {
   PostEntryComponent,
   PostUserActionsComponent,
   UserRegistrationComponent,
-  AccountSettingsComponent
+  AccountSettingsComponent,
+  ListOfCompareableHeroesComponent
 } from './index';
 
 @NgModule({
@@ -84,9 +83,7 @@ import {
     ProfilePageTabsComponent,
     HeroWallCatalogComponent,
     CompareComponent,
-    CompareHeaderComponent,
     ComparedProfilesComponent,
-    CompareChartCategoryComponent,
     StatCategoryBlockComponent,
     HeroesHeaderComponent,
     HeroesTableComponent,
@@ -96,7 +93,8 @@ import {
     PostEntryComponent,
     PostUserActionsComponent,
     UserRegistrationComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    ListOfCompareableHeroesComponent
   ],
   exports: [
     HomeComponent,
