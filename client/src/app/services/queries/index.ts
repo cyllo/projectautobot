@@ -3,6 +3,7 @@ export * from './gamer-tag-fetch.query';
 export * from './snapshots-stats-average-search.query';
 export * from './hero-stats-average-search.query';
 export * from './hero-search.query';
+export * from './player-stats-change.query';
 export * from './login-user.mutation';
 export * from './follow-gamer-tag.mutation';
 export * from './create-user.mutation';

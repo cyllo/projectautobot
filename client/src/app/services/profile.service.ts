@@ -10,9 +10,26 @@ import { GamerTagService, GamerTagFetchResponse } from './gamer-tag.service';
 import { SocketService } from './socket.service';
 import { OverwatchHeroDataService } from './owherodata.service';
 import { OverwatchStaticData } from '../models';
-import { gamerTagFetchQuery } from './queries';
+import { gamerTagFetchQuery, playerStatsChangeQuery } from './queries';
 
 const GAMER_TAG_CHANNEL = 'gamer_tag:lobby';
+
+interface Statistic {
+  allHeroesSnapshotStatistic: {
+    gameHistoryStatistic: {
+      gamesWon: number;
+      gamesPlayed: number;
+      winPercentage: number;
+    };
+  };
+}
+
+interface StatChangeResponse {
+  gamerTag: {
+    currentStatistics: Statistic[];
+    pastStatistics: Statistic[];
+  };
+}
 
 @Injectable()
 export class ProfileService {
@@ -72,6 +89,26 @@ export class ProfileService {
     } else {
       return Observable.of(gamerTag);
     }
+  }
+
+  getOverviewStatChanges(player: Player) {
+    const since = new Date();
+    since.setDate(since.getDate() - 1);
+
+    const variables = { id: player.id, since };
+    return this.apollo.query<StatChangeResponse>({ query: playerStatsChangeQuery, variables })
+      .map((response) => {
+        const { pastStatistics, currentStatistics } = response.data.gamerTag;
+        const current = currentStatistics[0].allHeroesSnapshotStatistic.gameHistoryStatistic;
+        const past = pastStatistics[0].allHeroesSnapshotStatistic.gameHistoryStatistic;
+
+        const pastWinPercentage = past.gamesWon / past.gamesPlayed;
+        const currentWinPercentage = current.gamesWon / current.gamesPlayed;
+
+        return {
+          winPercentage: (currentWinPercentage / pastWinPercentage) - 1
+        };
+      });
   }
 
   private addHeroesToHeroSnapshot(heroes) {

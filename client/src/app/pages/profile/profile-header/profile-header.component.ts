@@ -1,21 +1,32 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Player, SnapshotStats, HeroSnapshotStats, GameHistoryStats, MatchAwardsStats } from '../../../models';
 import { FollowService } from '../follow.service';
+import { ProfileService } from '../../../services';
 
 @Component({
   selector: 'ow-profile-header',
   templateUrl: 'profile-header.component.html',
   styleUrls: ['profile-header.component.scss'],
-  providers: [FollowService]
+  providers: [ProfileService, FollowService]
 })
 
-export class ProfileHeaderComponent {
+export class ProfileHeaderComponent implements OnInit {
   @Input() player: Player;
 
   snapshotStats: SnapshotStats;
   renewInProgress = false;
+  statChanges = {
+    winPercentage: 0
+  };
 
-  constructor(private followService: FollowService) {}
+  constructor(private profileService: ProfileService, private followService: FollowService) {}
+
+  ngOnInit() {
+    this.profileService.getOverviewStatChanges(this.player)
+      .subscribe(results => {
+        this.statChanges = results;
+      });
+  }
 
   renew() {
     this.renewInProgress = !this.renewInProgress;

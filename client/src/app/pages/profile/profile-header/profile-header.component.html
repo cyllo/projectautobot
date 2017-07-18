@@ -156,7 +156,7 @@
             </div><!-- end label -->
 
             <div class="trend text-right py-2">
-              <span class="change loss mr-1">-1.56%</span>
+              <span class="change mr-1" [class.loss]="statChanges.winPercentage < 0" [class.gain]="statChanges.winPercentage > 0">{{ statChanges.winPercentage * 100 }}%</span>
               <span class="position">- 74TH</span>
             </div><!-- end .trend -->
 
