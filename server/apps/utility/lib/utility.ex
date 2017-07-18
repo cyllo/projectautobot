@@ -2,6 +2,10 @@ defmodule Utility do
   @normalization_regex ~r/(?<name>.*)-(?<number>\d+)/
   @hash_regex ~r/(?<name>.*)#(?<number>\d+)/
 
+  @spec unwrap_ok_or_raise({atom, any}) :: any
+  def unwrap_ok_or_raise({:ok, a}), do: a
+  def unwrap_ok_or_raise({:error, error}), do: raise error
+
   @spec uniq_list(Enum.t, Enum.t) :: Enum.t
   def uniq_list(list1, list2) do
     MapSet.union(MapSet.new(list1), MapSet.new(list2))

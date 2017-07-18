@@ -39,9 +39,8 @@ defmodule Models.Statistics.Snapshots do
   end
 
   def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, opts) do
-    query = from(ss in SnapshotStatistic, where: ss.gamer_tag_id in ^gamer_tag_ids)
-
-    Enum.reduce(opts, query, &Model.create_model_filter/2)
+    from(ss in SnapshotStatistic, where: ss.gamer_tag_id in ^gamer_tag_ids)
+      |> Model.create_model_filters(opts)
       |> Repo.all
   end
 

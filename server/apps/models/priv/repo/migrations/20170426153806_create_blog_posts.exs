@@ -5,6 +5,9 @@ defmodule Models.Repo.Migrations.CreateBlogPosts do
     create table(:blog_posts) do
       add :title, :text, null: false
       add :content, :text, null: false
+      add :summary, :text, null: false
+      add :thumbnail_url, :text, null: false
+      add :author_id, references(:users), null: false
 
       timestamps()
     end

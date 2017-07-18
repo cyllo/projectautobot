@@ -1,14 +1,13 @@
 defmodule Models.Blog do
   use Models.Model
-  alias Models.Blog.Post
+  alias Models.Model
+  alias Models.Blog.{Post, Category}
   alias Models.Repo
 
-  def get_all_posts(%{last: limit} = params) do
-    params = Map.delete(params, :last)
-
-    from(p in Post, order_by: [desc: p.inserted_at], limit: ^limit, where: ^Map.to_list(params))
+  def get_all_posts(%{gamer_tag_ids: gamer_tag_ids} = params) do
+    from(p in Post, where: p.gamer_tag_id in ^gamer_tag_ids)
+      |> Model.create_model_filters(params)
       |> Repo.all
-      |> Enum.reverse
   end
 
   def find_post(%{title: title}) do
@@ -19,9 +18,10 @@ defmodule Models.Blog do
   end
 
   Models.Model.create_model_methods(Post)
+  Models.Model.create_model_methods(Category)
 
-  def create_post(title, content) do
-    %{title: title, content: content}
+  def create_post(params) do
+    params
       |> Post.create_changeset
       |> Repo.insert
   end

@@ -2,6 +2,8 @@ defmodule Api.SnapshotStatisticResolver do
   alias Models.Statistics.Snapshots
   alias Models.{Game, Statistics}
 
+  import Api.Helpers, only: [convert_to_id_map: 3, convert_to_id_map: 2]
+
   def get_gamer_tag_snapshot_statistics(params, gamer_tag_ids) do
     gamer_tag_ids
       |> Snapshots.get_snapshot_statistics_by_gamer_tag_ids(params)
@@ -28,21 +30,4 @@ defmodule Api.SnapshotStatisticResolver do
   def get_game_history_statistics(_, ids), do: ids |> Statistics.get_game_histories_by_ids |> convert_to_id_map(ids)
 
   def get_heroes_by_ids(_, hero_ids), do: hero_ids |> Game.get_heroes_by_ids |> convert_to_id_map(hero_ids)
-
-  defp convert_to_id_map(models, ids, id_prop \\ :id)
-  defp convert_to_id_map([], ids, _), do: Enum.reduce(ids, %{}, fn(id, acc) -> Map.put(acc, id, []) end)
-  defp convert_to_id_map(models, ids, id_prop) when is_list(models) and is_list(ids) do
-    for id <- ids, into: %{} do
-      {id, get_models_by_id_prop(models, id, id_prop)}
-    end
-  end
-  defp convert_to_id_map(any, _, _), do: any
-
-  defp get_models_by_id_prop(models, id, id_prop) do
-    case Enum.filter(models, &(Map.get(&1, id_prop) === id)) do
-      [] -> nil
-      [model] -> model
-      models -> models
-     end
-  end
 end

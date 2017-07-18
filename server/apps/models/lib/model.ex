@@ -21,13 +21,15 @@ defmodule Models.Model do
     end
   end
 
+  def create_model_filters(query, params) when is_map(params), do: create_model_filters(query, Map.to_list(params))
+  def create_model_filters(query, params), do: Enum.reduce(params, query, &create_model_filter/2)
   def create_model_filter({:first, val}, query), do: limit(query, ^val)
   def create_model_filter({:last, val}, query), do: from(query, order_by: [desc: :inserted_at], limit: ^val) |> subquery |> order_by(asc: :inserted_at)
   def create_model_filter({:start_date, val}, query), do: where(query, [m], m.inserted_at >= ^(val))
   def create_model_filter({:end_date, val}, query), do: where(query, [m], m.inserted_at <= ^val)
-  def create_model_filter({filter_field, val}, query) do
-    {_, model} = query.from
-
+  def create_model_filter({filter_field, val}, %{from: {_, model}} = query), do: create_model_filter({filter_field, val}, model, query)
+  def create_model_filter({filter_field, val}, model), do: create_model_filter({filter_field, val}, model, model)
+  def create_model_filter({filter_field, val}, model, query) do
     if filter_field in model.__schema__(:fields) do
       where(query, [m], field(m, ^filter_field) == ^val)
     else
@@ -74,12 +76,8 @@ defmodule Models.Model do
       @spec unquote(fn_name)() :: [unquote(model)]
       def unquote(fn_name)(), do: Models.Repo.all(unquote(model))
 
-      @spec unquote(fn_name)(params :: map) :: [unquote(model)]
-      def unquote(fn_name)(params) when is_map(params) do
-        params = Map.to_list(params)
-
-        apply(__MODULE__, unquote(fn_name), [params])
-      end
+      @spec unquote(fn_name)(params :: map | list) :: [unquote(model)]
+      def unquote(fn_name)(params), do: unquote(model) |> Models.Model.create_model_filters(params) |> Models.Repo.all
 
       @spec unquote(fn_name)(where :: Keyword.t, preload :: Keyword.t) :: [unquote(model)]
       def unquote(fn_name)(where, preload \\ []) do
@@ -128,7 +126,7 @@ defmodule Models.Model do
 
     quote do
       @spec unquote(fn_name)(params :: map) :: unquote(model)
-      def unquote(fn_name)(params), do: Models.Model.find_model(unquote(model), params)
+      def unquote(fn_name)(params), do: unquote(model)|> Models.Model.find_model(params)
     end
   end
 
@@ -137,7 +135,7 @@ defmodule Models.Model do
 
     quote do
       @spec unquote(fn_name)(ids :: [String.t]) :: [unquote(model)]
-      def unquote(fn_name)(ids) do
+      def unquote(fn_name)(ids, params \\ []) do
         import Ecto.Query, only: [from: 2]
 
         from(m in unquote(model), where: m.id in ^ids)
