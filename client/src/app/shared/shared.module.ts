@@ -26,7 +26,10 @@ import {
   HeroPortraitComponent,
   HeroCatalogComponent,
   TopNewsComponent,
-  TopNewsPostCardComponent
+  TopNewsPostCardComponent,
+  ProfileCheckboxComponent,
+  HeroCheckboxComponent,
+  CompetitiveOrQuickPlaySelectorComponent
 } from './index';
 import { ChartsModule } from 'ng2-charts';
 
@@ -60,7 +63,10 @@ import { ChartsModule } from 'ng2-charts';
     HeroPortraitComponent,
     HeroCatalogComponent,
     TopNewsComponent,
-    TopNewsPostCardComponent
+    TopNewsPostCardComponent,
+    ProfileCheckboxComponent,
+    HeroCheckboxComponent,
+    CompetitiveOrQuickPlaySelectorComponent
   ],
   exports: [
     VideoCardComponent,
@@ -78,7 +84,10 @@ import { ChartsModule } from 'ng2-charts';
     HeroSkillDescriptionComponent,
     HeroSynergyCounterComponent,
     HeroPortraitComponent,
-    HeroCatalogComponent
+    HeroCatalogComponent,
+    ProfileCheckboxComponent,
+    HeroCheckboxComponent,
+    CompetitiveOrQuickPlaySelectorComponent
   ],
   providers: [ApiService]
 })

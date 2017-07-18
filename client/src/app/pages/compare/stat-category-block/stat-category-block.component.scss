@@ -4,10 +4,20 @@
         background-color: $brand-inverse;
         color: $white;
     }
-    .options {
-        .row:nth-child(even) {
-            background-color: $gray-lightest;
-            border-color: $gray-lighter;
+    .keys {
+      .prop {
+        > div {
+          width: 100%;
         }
+        .label {
+          font-size: 0.65rem;
+        }
+      }
+      .prop:nth-child(2n) {
+        > div {
+          background-color: $blue-lightest;
+        }
+      }
     }
+
 }
