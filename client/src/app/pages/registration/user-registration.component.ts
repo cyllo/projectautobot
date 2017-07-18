@@ -62,7 +62,7 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   bnetAuth() {
-    const authUrl = `https://us.battle.net/oauth/authorize?clientId=${this.clientId}&response_type=code&redirectUri=${this.redirectUri}`;
+    const authUrl = `https://us.battle.net/oauth/authorize?client_id=${this.clientId}&response_type=code&redirect_uri=${this.redirectUri}`;
     window.location.assign(authUrl);
   }
 
