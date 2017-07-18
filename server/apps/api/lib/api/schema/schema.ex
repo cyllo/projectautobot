@@ -124,6 +124,7 @@ defmodule Api.Schema do
       arg :display_name, non_null(:string)
       arg :email, non_null(:string)
       arg :password, non_null(:string)
+      arg :client_auth_token, :string
 
       resolve &UserResolver.create/2
     end
@@ -199,7 +200,7 @@ defmodule Api.Schema do
       arg :client_auth_token, non_null(:string)
 
       middleware Middleware.Auth
-      resolve &UserResolver.connected_to_battle_net/2
+      resolve &async(fn -> UserResolver.connected_to_battle_net(&1, &2) end, timeout: 20_000)
     end
 
     @desc """

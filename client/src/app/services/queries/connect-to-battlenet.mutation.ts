@@ -5,7 +5,7 @@ mutation ConnectUserToBattleNet($clientAuthToken: String!) {
   connectUserToBattleNet(clientAuthToken: $clientAuthToken) {
     id
     email
-    username
+    displayName
     battleNetId
     battleNetTag
   }

@@ -43,6 +43,7 @@ defmodule Api.Mixfile do
       {:con_cache, "~> 0.12.0"},
       {:proper_case, "~> 1.0.0"},
       {:utility, in_umbrella: true},
+      {:battle_net, in_umbrella: true},
       {:scraper, in_umbrella: true}
     ]
   end
