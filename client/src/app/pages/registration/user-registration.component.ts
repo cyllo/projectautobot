@@ -1,9 +1,9 @@
+import { merge } from 'ramda';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService, AuthorizationService } from '../../services';
 import { User } from '../../models';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
 
 
 @Component({
@@ -46,19 +46,16 @@ export class UserRegistrationComponent implements OnInit {
   onSubmit(newUser: User) {
     const { email, password } = newUser;
 
-    this.userService.create(newUser)
-    .flatMap(() => this.authorizationService.login({ email, password }))
-    .flatMap(val => this.bnetCode
-      ? this.userService.connectToBattleNet(this.bnetCode)
-      : Observable.of<any>(val))
-    .subscribe(() => {
-      this.createUserError = false;
-      this.router.navigate(['/news']);
-    },
-    error => {
-      console.log('User Creation Error: ', error);
-      this.createUserError = true;
-    });
+    this.userService.create(merge(newUser, {clientAuthToken: this.bnetCode}))
+      .switchMap(() => this.authorizationService.login({ email, password }))
+      .subscribe(() => {
+        this.createUserError = false;
+        this.router.navigate(['/news']);
+      },
+      error => {
+        console.log('User Creation Error: ', error);
+        this.createUserError = true;
+      });
   }
 
   bnetAuth() {
