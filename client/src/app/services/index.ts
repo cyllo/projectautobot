@@ -7,5 +7,5 @@ export * from './hereos.service';
 export * from './hereo-statistics.service';
 export * from './user.service';
 export * from './auth-gaurd.service';
-export * from './socket.service'
 export * from './news.service';
+export * from './socket.service';

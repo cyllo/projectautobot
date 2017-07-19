@@ -2,8 +2,8 @@ export * from './appstate.model';
 export * from './player.model';
 export * from './search.model';
 export * from './heroes.model';
-export * from './blog.model'
-export * from './user.model'
+export * from './blog.model';
+export * from './user.model';
 export * from './owherodata.model';
 export * from './authorization-credentials.model';
 export * from './current-session.model';

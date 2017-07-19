@@ -1,4 +1,4 @@
-import { path, assoc, clone } from 'ramda'
+import { path, assoc, clone } from 'ramda';
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Player } from '../models';
@@ -19,11 +19,11 @@ export interface GamerTagScrapeResponse {
   loading: boolean;
 }
 
-const scrapeGamerTagData = path<Player>(['data', 'scrapeGamerTag'])
-const gamerTagData = path<Player>(['data', 'gamerTag'])
+const scrapeGamerTagData = path<Player>(['data', 'scrapeGamerTag']);
+const gamerTagData = path<Player>(['data', 'gamerTag']);
 
-const addSnapshotLast = assoc<any>('snapshotLast')
-const clonePlayer = (player: Player) => clone<Player>(player)
+const addSnapshotLast = assoc<any>('snapshotLast');
+const clonePlayer = (player: Player) => clone<Player>(player);
 
 @Injectable()
 export class GamerTagService {
@@ -33,7 +33,7 @@ export class GamerTagService {
     return this.apollo.query<GamerTagSearchResponse>({ query: gamerTagSearchQuery, variables: { tag } })
       .map(({ data }) => data.searchGamerTag)
       .filter(data => data.length > 0)
-      .map(clone)
+      .map(clone);
   }
 
   getGamerTagStatsById(id: number, numSnapshots = 2) {
@@ -42,7 +42,7 @@ export class GamerTagService {
       variables: addSnapshotLast(numSnapshots, { id })
     })
       .map(gamerTagData)
-      .map(clonePlayer)
+      .map(clonePlayer);
   }
 
   getGamerTagStatsByTagPlatformRegion(tag: string, platform: string, region = '', numSnapshots = 2) {
@@ -51,7 +51,7 @@ export class GamerTagService {
       variables: addSnapshotLast(numSnapshots, { tag, platform, region })
     })
       .map(gamerTagData)
-      .map(clonePlayer)
+      .map(clonePlayer);
   }
 
   scrapeGamerTagById(id: number, numSnapshots = 2) {
@@ -60,7 +60,7 @@ export class GamerTagService {
       variables: addSnapshotLast(numSnapshots, { id })
     })
       .map(scrapeGamerTagData)
-      .map(clonePlayer)
+      .map(clonePlayer);
   }
 
   scrapeGamerTagByTagPlatformRegion(tag: string, platform: string, region = '', numSnapshots = 2) {
@@ -69,6 +69,6 @@ export class GamerTagService {
       variables: addSnapshotLast(numSnapshots, { tag, platform, region })
     })
       .map(scrapeGamerTagData)
-      .map(clonePlayer)
+      .map(clonePlayer);
   }
 }

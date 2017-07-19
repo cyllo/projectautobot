@@ -50,11 +50,11 @@ export class ProfileService {
   }
 
   scrapeGamerTag(tag, platform, region) {
-    return this.gamerTagService.scrapeGamerTagByTagPlatformRegion(tag, platform, region)
+    return this.gamerTagService.scrapeGamerTagByTagPlatformRegion(tag, platform, region);
   }
 
   findPlayer(tag, platform, region) {
-    return this.gamerTagService.getGamerTagStatsByTagPlatformRegion(tag, platform, region)
+    return this.gamerTagService.getGamerTagStatsByTagPlatformRegion(tag, platform, region);
   }
 
   latestStatsSet(player: Player) {
