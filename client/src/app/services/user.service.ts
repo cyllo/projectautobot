@@ -4,7 +4,7 @@ import { User } from '../models';
 import { CreateUserMutation, ConnectUserToBattleNetMutation } from './queries';
 
 interface UserParams extends User {
-  clientAuthToken: string
+  clientAuthToken: string;
 }
 
 @Injectable()

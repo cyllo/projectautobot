@@ -62,6 +62,7 @@
       "single"
     ],
     "semicolon": [
+      true,
       "always"
     ],
     "triple-equals": [
