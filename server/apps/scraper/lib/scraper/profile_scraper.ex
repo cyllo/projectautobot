@@ -3,6 +3,7 @@ defmodule Scraper.ProfileScraper do
   require Logger
 
   def get_profile(%{tag: tag, platform: platform, region: region}), do: get_profile(tag, platform, region)
+  def get_profile(%{tag: tag, platform: platform}), do: get_profile(tag, platform)
   def get_profile(tag, platform \\ nil, region \\ nil) do
     Logger.info "Getting Tag #{tag} #{platform} #{region}"
 

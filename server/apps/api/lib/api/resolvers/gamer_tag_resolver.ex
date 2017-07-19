@@ -8,12 +8,8 @@ defmodule Api.GamerTagResolver do
   def find(params, _info), do: Game.find_gamer_tag(params)
 
   def scrape(%{id: gamer_tag_id}, _info), do: Scraper.scrape_gamer_tag_id(gamer_tag_id)
-  def scrape(%{region: region, platform: platform, tag: tag}, _info) do
-
-  end
-  def scrape(%{platform: platform, tag: tag}, _info) do
-  end
-
+  def scrape(%{region: _, platform: _, tag: _} = params, _info), do: scrape_by_tag_platform_region(params, [:platform, :tag, :region])
+  def scrape(%{platform: _, tag: _} = params, _info), do: scrape_by_tag_platform_region(params, [:platform, :tag])
   def scrape(_, _info), do: {:error, "Must provide one of id, platform/region/tag or platform/tag if xbl/psn"}
 
   def search(%{tag: tag}, _info), do: Scraper.search_tag(tag)
@@ -27,5 +23,11 @@ defmodule Api.GamerTagResolver do
       |> Enum.reduce(%{}, fn {gamer_tag, connected_tags}, acc ->
         Map.put(acc, gamer_tag.id, connected_tags)
       end)
+  end
+
+  defp scrape_by_tag_platform_region(params, param_fields) do
+    with %{gamer_tag: %{id: id}} <- params |> Map.take(param_fields) |> Scraper.get_profile do
+      Game.get_gamer_tag_with_snapshots(id)
+    end
   end
 end

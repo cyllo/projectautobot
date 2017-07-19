@@ -1,5 +1,5 @@
 defmodule Scraper do
-  alias Scraper.{ProfileScraper, ProfileSearcher, DataProcessor, Sorter, ModelCreator, ScrapeStatusCache}
+  alias Scraper.{HtmlHelpers, ProfileScraper, ProfileSearcher, DataProcessor, Sorter, ModelCreator, ScrapeStatusCache}
   alias Models.Game
   import Logger, only: [info: 1]
 
@@ -7,15 +7,25 @@ defmodule Scraper do
   @max_stats_storing 10
 
   def get_profile(gamer_tag) do
-    res = gamer_tag
-      |> ProfileScraper.get_profile
-      |> DataProcessor.get_profile_info
-      |> Sorter.sort_stats
-      |> ModelCreator.save_profile
+    with {gamer_tag, page_source} <- ProfileScraper.get_profile(gamer_tag),
+         false <- HtmlHelpers.is_page_not_found?(page_source) do
+      res = {gamer_tag, page_source}
+        |> DataProcessor.get_profile_info
+        |> Sorter.sort_stats
+        |> ModelCreator.save_profile
 
-    Task.start(fn -> Api.Web.GamerTagChannel.broadcast_change(res.gamer_tag.id) end)
+      Task.start(fn -> Api.Web.GamerTagChannel.broadcast_change(res.gamer_tag.id) end)
 
-    res
+      res
+    else
+      true -> {:error, %{
+        message: "Profile not found with #{inspect gamer_tag}",
+        tag: gamer_tag.tag,
+        platform: gamer_tag.platform,
+        region: Map.get(gamer_tag, :region, "")
+      }}
+      e -> e
+    end
   end
 
   def scrape_gamer_tags(gamer_tags) do
@@ -48,8 +58,8 @@ defmodule Scraper do
     else
       with {:ok, gamer_tags} <- ProfileSearcher.find_profile_tag(gamer_tag) do
         Task.start(fn -> scrape_gamer_tags(gamer_tags) end)
-
         ScrapeStatusCache.mark_tag_searched(gamer_tag)
+
         {:ok, gamer_tags}
       else
         {:error, "no profiles found"} ->
