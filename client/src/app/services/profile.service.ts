@@ -17,8 +17,6 @@ const GAMER_TAG_CHANNEL = 'gamer_tag:lobby';
 interface Statistic {
   allHeroesSnapshotStatistic: {
     gameHistoryStatistic: {
-      gamesWon: number;
-      gamesPlayed: number;
       winPercentage: number;
     };
   };
@@ -102,11 +100,8 @@ export class ProfileService {
         const current = currentStatistics[0].allHeroesSnapshotStatistic.gameHistoryStatistic;
         const past = pastStatistics[0].allHeroesSnapshotStatistic.gameHistoryStatistic;
 
-        const pastWinPercentage = past.gamesWon / past.gamesPlayed;
-        const currentWinPercentage = current.gamesWon / current.gamesPlayed;
-
         return {
-          winPercentage: (currentWinPercentage / pastWinPercentage) - 1
+          winPercentage: (current.winPercentage / past.winPercentage) - 1
         };
       });
   }

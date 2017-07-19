@@ -6,16 +6,14 @@ export const playerStatsChangeQuery = gql`
       currentStatistics: snapshotStatistics(isCompetitive: true, last: 1) {
         allHeroesSnapshotStatistic {
           gameHistoryStatistic {
-            gamesWon
-            gamesPlayed
+            winPercentage
           }
         }
       }
       pastStatistics: snapshotStatistics(isCompetitive: true, startDate: $since, first: 1) {
         allHeroesSnapshotStatistic {
           gameHistoryStatistic {
-            gamesWon
-            gamesPlayed
+            winPercentage
           }
         }
       }
