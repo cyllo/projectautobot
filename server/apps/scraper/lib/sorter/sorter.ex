@@ -3,7 +3,7 @@ defmodule Scraper.Sorter do
   require Logger
 
   def sort_stats(params) do
-    Logger.debug "Sorting #{params.gamer_tag} stats"
+    Logger.info "Sorting #{params.gamer_tag} stats"
 
     %{params |
       competitive: update_stats(params.competitive),

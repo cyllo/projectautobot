@@ -13,11 +13,11 @@ defmodule Models.Game do
   @hero_snapshot_relations [:hero, :hero_specific_statistic] ++ @statistic_relations
 
   def find_gamer_tag(%{tag: tag, platform: platform, region: region}) do
-    find_gamer_tag([tag: Utility.normalize_gamer_tag(tag), platform: platform, region: region])
+    find_gamer_tag(tag: Utility.normalize_gamer_tag(tag), platform: platform, region: region)
   end
 
   def find_gamer_tag(%{tag: tag}) do
-    find_gamer_tag([tag: Utility.normalize_gamer_tag(tag)])
+    find_gamer_tag(tag: Utility.normalize_gamer_tag(tag))
   end
 
   @spec find_or_create_gamer_tag(Map) :: {:ok, Map} | {:error, String}

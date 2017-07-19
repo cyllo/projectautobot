@@ -3,14 +3,14 @@ defmodule Scraper.ProfileSearcher do
   alias Scraper.{HtmlHelpers, DataProcessor.UserInfo}
   alias Models.Game
 
-  import Logger, only: [debug: 1]
+  import Logger, only: [info: 1]
 
   @platform_possibilities ["xbl", "psn", "pc"]
   @pc_regions ["us", "eu", "kr"]
   @search_timeout :timer.seconds(10)
 
   def find_profile_tag(tag) do
-    debug "Searching for #{tag}"
+    info "Searching for #{tag}"
 
     tag
       |> create_profile_url_possibilities

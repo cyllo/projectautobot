@@ -11,7 +11,7 @@ defmodule BattleNet.Api do
          {:ok, %{"access_token" => access_token, "expires_in" => expires_in}} <- Poison.decode(body) do
       {:ok, %{access_token: access_token, expires_in: expires_in}}
     else
-      {:ok, %{"error" => "invalid_request", "error_description" => "Internal server error"}} -> {:error, "Access token is invalid"}
+      {:ok, %{"error" => "invalid_request", "error_description" => "Internal server error"}} -> {:error, "Battle.Net Auth token is invalid"}
       {:ok, e} -> {:error, e}
       e -> e
     end

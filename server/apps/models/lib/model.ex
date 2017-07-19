@@ -11,13 +11,41 @@ defmodule Models.Model do
     end
   end
 
-  defmacro create_model_methods(model) do
+  @doc """
+    Creates model methods for a ecto Schema
+
+    alias Models.{Model, Game.GamerTag, Game.Hero}
+    Model.create_model_methods(Hero)
+    Model.create_model_methods(GamerTag, only: [:find, :get, :get_by_ids, :get_all, :update, :insert_or_update])
+  """
+  defmacro create_model_methods(model, opts \\ []) do
     quote do
-      unquote(create_get_for_model(model))
-      unquote(create_find_for_model(model))
-      unquote(create_get_by_ids_for_model(model))
-      unquote(create_get_all_for_model(model))
-      unquote(create_update_for_model(model))
+      # has_only? = Keyword.has_key?(unquote(opts), :only)
+      # only = Keyword.get(unquote(opts), :only)
+
+      # if has_only? && :get in only do
+        unquote(create_get_for_model(model))
+      # end
+
+      # if has_only? && :find in only do
+        unquote(create_find_for_model(model))
+      # end
+
+      # if has_only? && :get_by_ids in only do
+        unquote(create_get_by_ids_for_model(model))
+      # end
+
+      # if has_only? && :get_all in only do
+        unquote(create_get_all_for_model(model))
+      # end
+
+      # if has_only? && :update in only do
+        unquote(create_update_for_model(model))
+      # end
+
+      # if has_only? && :insert_or_update in only do
+        unquote(create_update_or_create(model))
+      # end
     end
   end
 
@@ -53,7 +81,7 @@ defmodule Models.Model do
   def find_model(model, params) when is_map(params), do: find_model(model, Map.to_list(params))
   def find_model(_, params) when is_list(params) and length(params) <= 0, do: {:error, "no params given for find"}
   def find_model(model, params) when is_list(params) do
-    case params && Models.Repo.get_by(model, Keyword.take(params, model.__schema__(:fields))) do
+    case params && Models.Repo.get_by(model, Enum.filter(params, fn {_, v} -> not is_nil(v) end) |> Keyword.take(model.__schema__(:fields))) do
       nil -> {:error, "where #{inspect(params)} not found"}
       user -> {:ok, user}
     end
@@ -66,6 +94,42 @@ defmodule Models.Model do
   defp pluralize_model_name(model_name), do: model_name <> "s"
 
   defp get_and_pluralize_model_name(model), do: model |> get_model_name |> pluralize_model_name
+
+  defp create_update_or_create(model) do
+    model_name = get_model_name(model)
+    fn_name = :"update_or_create_#{model_name}"
+    find_name = :"find_#{model_name}"
+
+    quote do
+      import Ecto.Query, only: [from: 2]
+
+      @spec unquote(fn_name)(params :: map) :: unquote(model)
+      def unquote(fn_name)(params) when is_map(params), do: unquote(fn_name)(Map.to_list(params))
+
+      @spec unquote(fn_name)(params :: map, find_param_list :: list) :: unquote(model)
+      def unquote(fn_name)(params, find_param_list) when is_map(params), do: unquote(fn_name)(Map.to_list(params), find_param_list)
+
+      @spec unquote(fn_name)(params :: list, find_param_list :: list) :: unquote(model)
+      def unquote(fn_name)(params, find_param_list) when is_list(params) do
+        with {:ok, model_data} <- apply(__MODULE__, unquote(find_name), [Keyword.take(params, find_param_list)]) do
+          unquote(model).changeset(model_data, Map.new(params))
+        else
+          {:error, _} ->
+            params |> Map.new |> unquote(model).create_changeset
+        end |> Models.Repo.insert_or_update
+      end
+
+      @spec unquote(fn_name)(params :: list) :: unquote(model)
+      def unquote(fn_name)(params) when is_list(params) do
+        with {:ok, model_data} <- apply(__MODULE__, unquote(find_name), [params]) do
+          unquote(model).changeset(model_data, Map.new(params))
+        else
+          {:error, _} ->
+            params |> Map.new |> unquote(model).create_changeset
+        end |> Models.Repo.insert_or_update
+      end
+    end
+  end
 
   defp create_get_all_for_model(model) do
     fn_name = :"get_all_#{get_and_pluralize_model_name(model)}"

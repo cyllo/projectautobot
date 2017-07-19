@@ -114,7 +114,10 @@ defmodule Api.Schema do
   mutation do
     @desc "Scrapes a GamerTag"
     field :scrape_gamer_tag, :gamer_tag do
-      arg :id, non_null(:integer)
+      arg :id, :integer
+      arg :tag, :string
+      arg :region, :string
+      arg :platform, :string
 
       resolve &async(fn -> GamerTagResolver.scrape(&1, &2) end, timeout: 60_000)
     end

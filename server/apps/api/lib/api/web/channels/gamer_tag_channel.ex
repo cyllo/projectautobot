@@ -1,6 +1,6 @@
 defmodule Api.Web.GamerTagChannel do
   use Api.Web, :channel
-  import Logger, only: [debug: 1]
+  import Logger, only: [info: 1]
 
   # Server
   def join("gamer_tag:lobby", _payload, socket) do
@@ -17,7 +17,7 @@ defmodule Api.Web.GamerTagChannel do
         |> Enum.map(&Map.get(&1, :id))
         |> broadcast_change
     else
-      debug "Gamer tags changed #{inspect gamer_tags}"
+      info "Gamer tags changed #{inspect gamer_tags}"
 
       Api.Web.Endpoint.broadcast("gamer_tag:lobby", "change", %{gamer_tags: gamer_tags})
     end

@@ -6,7 +6,7 @@ defmodule BattleNet do
   def link_gamer_tags_to_user(user) do
     with {:ok, gamer_tags} <- BattleNetUserConnector.find_owned_gamer_tags(user.battle_net_id),
          {:ok, gamer_tags} <- BattleNetUserConnector.connect_gamer_tags_to_user(user, gamer_tags) do
-      Task.start(fn -> Scraper.scrape_unmarked_gamer_tags(gamer_tags) end)
+      Task.start(fn -> Scraper.scrape_gamer_tags(gamer_tags) end)
     else
       e -> warn e
     end

@@ -85,7 +85,7 @@ defmodule Scraper.SessionServer do
   end
 
   def restart_session(url) do
-    Logger.debug "Restarting Session"
+    Logger.info "Restarting Session"
 
     Hound.end_session self()
     Hound.start_session

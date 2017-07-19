@@ -2,26 +2,19 @@ defmodule Api.GamerTagResolver do
   import Api.Helpers, only: [preload_id_map: 2]
 
   alias Models.Game
-  alias Scraper.ScrapeStatusCache
-  alias Api.Web.GamerTagChannel
 
   def all(%{}, _info), do: {:ok, Game.get_all_gamer_tags()}
   def all(params, _info), do: {:ok, Game.get_all_gamer_tags(params)}
   def find(params, _info), do: Game.find_gamer_tag(params)
 
-  def scrape(%{id: gamer_tag_id}, _info) do
-    with {:ok, gamer_tag} <- get_gamer_tag_for_scrape(gamer_tag_id),
-         _ <- ScrapeStatusCache.mark_tag_scraped(gamer_tag_id),
-         %{competitive_snapshot: _} <- Scraper.get_profile(gamer_tag) do
+  def scrape(%{id: gamer_tag_id}, _info), do: Scraper.scrape_gamer_tag_id(gamer_tag_id)
+  def scrape(%{region: region, platform: platform, tag: tag}, _info) do
 
-       Game.get_gamer_tag_with_snapshots(gamer_tag_id)
-     else
-       {:error, %{ms_till_can_scrape: _}} = error -> error
-       error ->
-         ScrapeStatusCache.unmark_tag_scraped(gamer_tag_id)
-         error
-    end
   end
+  def scrape(%{platform: platform, tag: tag}, _info) do
+  end
+
+  def scrape(_, _info), do: {:error, "Must provide one of id, platform/region/tag or platform/tag if xbl/psn"}
 
   def search(%{tag: tag}, _info), do: Scraper.search_tag(tag)
 
@@ -34,22 +27,5 @@ defmodule Api.GamerTagResolver do
       |> Enum.reduce(%{}, fn {gamer_tag, connected_tags}, acc ->
         Map.put(acc, gamer_tag.id, connected_tags)
       end)
-  end
-
-  defp get_gamer_tag_for_scrape(gamer_tag_id) do
-    if ScrapeStatusCache.has_scraped_gamer_tag?(gamer_tag_id) do
-      ms_till_can_scrape = ScrapeStatusCache.ms_before_next_scrape(gamer_tag_id)
-
-      {:error, create_error(ms_till_can_scrape)}
-    else
-      Game.get_gamer_tag(gamer_tag_id)
-    end
-  end
-
-  defp create_error(ms_till_can_scrape) do
-    %{
-      message: "must wait #{Utility.ms_to_min(ms_till_can_scrape)} min (#{Utility.ms_to_sec(ms_till_can_scrape)} seconds) before scraping",
-      ms_till_can_scrape: ms_till_can_scrape
-    }
   end
 end
