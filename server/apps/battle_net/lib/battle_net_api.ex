@@ -1,4 +1,4 @@
-defmodule BattleNet.BattleNetApi do
+defmodule BattleNet.Api do
   @client_id Application.get_env(:battle_net, :client_id)
   @client_secret Application.get_env(:battle_net, :client_secret)
   @redirect_uri "https://localhost:8080/register"
@@ -11,6 +11,7 @@ defmodule BattleNet.BattleNetApi do
          {:ok, %{"access_token" => access_token, "expires_in" => expires_in}} <- Poison.decode(body) do
       {:ok, %{access_token: access_token, expires_in: expires_in}}
     else
+      {:ok, %{"error" => "invalid_request", "error_description" => "Internal server error"}} -> {:error, "Access token is invalid"}
       {:ok, e} -> {:error, e}
       e -> e
     end

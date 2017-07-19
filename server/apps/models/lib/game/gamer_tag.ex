@@ -37,7 +37,7 @@ defmodule Models.Game.GamerTag do
     :overwatch_name, :portrait_url,
     :competitive_level, :competitive_rank_url,
     :region, :level, :level_url, :rank_url,
-    :total_games_won, :user_id,
+    :total_games_won, :user_id
   ])
 
   @doc """

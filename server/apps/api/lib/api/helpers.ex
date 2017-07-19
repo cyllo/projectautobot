@@ -1,8 +1,8 @@
 defmodule Api.Helpers do
   def preload_id_map(models, preload_prop, default \\ nil) do
-   for model <- Models.Repo.preload(models, [preload_prop]), into: %{} do
-     {model.id, Map.get(model, preload_prop, default)}
-   end
+    for model <- Models.Repo.preload(models, [preload_prop]), into: %{} do
+      {model.id, Map.get(model, preload_prop, default)}
+    end
   end
 
   def convert_to_model_id_map(models, original_models, id_prop) do

@@ -1,14 +1,16 @@
 defmodule Api.UserResolver do
+  import Api.Helpers, only: [preload_id_map: 3]
+
   alias Models.{Accounts, Game}
 
   def current(_, %{context: %{current_user: user}}), do: {:ok, user}
   def find(params, _info), do: Accounts.find_user(params)
   def create(%{client_auth_token: token} = params, _info) do
-    with {:ok, battle_net_info} <- BattleNet.get_battle_net_info(token) do
-      params
-        |> Map.drop([:client_auth_token])
-        |> Map.merge(battle_net_info)
-        |> Accounts.create_user
+    with {:ok, battle_net_info} <- BattleNet.get_battle_net_info(token),
+         {:ok, user} <- params |> Map.drop([:client_auth_token]) |> Map.merge(battle_net_info) |> Accounts.create_user do
+      Task.start(fn -> BattleNet.link_gamer_tags_to_user(user) end)
+
+      {:ok, user}
     end
   end
 
@@ -40,6 +42,7 @@ defmodule Api.UserResolver do
   def follow_gamer_tag(_, _), do: {:error, "Must be logged in and provider gamer_tag_id"}
 
   def get_followed_gamer_tags_for_user_ids(_, user_ids), do: Accounts.get_followed_gamer_tags_by_user_ids(user_ids)
+  def get_users_gamer_tags(_, users), do: preload_id_map(users, :gamer_tags, [])
 
   defp get_and_follow_user(id, following_id) do
     with [user, following_user] <- Accounts.get_users_by_ids([id, following_id]),

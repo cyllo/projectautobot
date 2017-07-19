@@ -40,6 +40,17 @@ defmodule Api.Schema.AccountTypes do
     #     )
     #   end
     # end
+    #
+
+    field :gamer_tags, list_of(:gamer_tag) do
+      resolve fn user, _, _ ->
+        batch(
+          {UserResolver, :get_users_gamer_tags},
+          user,
+          &{:ok, Map.get(&1, user.id)}
+        )
+      end
+    end
 
     field :followed_gamer_tags, list_of(:gamer_tag) do
       resolve fn user, _, _ ->

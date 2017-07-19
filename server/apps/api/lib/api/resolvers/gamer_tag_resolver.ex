@@ -1,4 +1,6 @@
 defmodule Api.GamerTagResolver do
+  import Api.Helpers, only: [preload_id_map: 2]
+
   alias Models.Game
   alias Scraper.ScrapeStatusCache
   alias Api.Web.GamerTagChannel
@@ -23,6 +25,7 @@ defmodule Api.GamerTagResolver do
 
   def search(%{tag: tag}, _info), do: Scraper.search_tag(tag)
 
+  def get_gamer_tags_user(_, gamer_tags), do: preload_id_map(gamer_tags, :user)
   def get_gamer_tag_following_users(_, gamer_tag_ids), do: Game.get_following_users_by_gamer_tag_ids(gamer_tag_ids)
 
   def get_gamer_tag_connected_gamer_tags(_, gamer_tags) do

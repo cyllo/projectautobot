@@ -53,7 +53,7 @@ defmodule Models.Model do
   def find_model(model, params) when is_map(params), do: find_model(model, Map.to_list(params))
   def find_model(_, params) when is_list(params) and length(params) <= 0, do: {:error, "no params given for find"}
   def find_model(model, params) when is_list(params) do
-    case params && Models.Repo.get_by(model, params) do
+    case params && Models.Repo.get_by(model, Keyword.take(params, model.__schema__(:fields))) do
       nil -> {:error, "where #{inspect(params)} not found"}
       user -> {:ok, user}
     end

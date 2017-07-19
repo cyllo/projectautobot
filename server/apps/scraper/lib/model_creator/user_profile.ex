@@ -2,41 +2,25 @@ defmodule Scraper.ModelCreator.UserProfile do
   require Logger
   alias Models.Game
 
-  def find_or_create_gamer_tag(%{
-    gamer_tag: tag,
-    overwatch_name: overwatch_name,
-    portrait_url: portrait_url,
-    total_games_won: total_games_won,
-    competitive_level: competitive_level,
-    competitive_rank_url: competitive_rank_url,
-    level: level,
-    level_url: level_url,
-    rank_url: rank_url,
-    region: region,
-    platform: platform
-  }) do
-    params = %{
+  def find_or_create_gamer_tag(params), do: get_gamer_tag_params(params) |> Game.find_or_create_gamer_tag
+
+  defp get_gamer_tag_params(%{gamer_tag: tag} = params) do
+    gamer_tag = %{
       tag: tag,
-      overwatch_name: overwatch_name,
-      portrait_url: portrait_url,
-      total_games_won: total_games_won,
-      competitive_level: competitive_level,
-      competitive_rank_url: competitive_rank_url,
-      level: level,
-      level_url: level_url,
-      rank_url: rank_url
+      overwatch_name: params.overwatch_name,
+      portrait_url: params.portrait_url,
+      total_games_won: params.total_games_won,
+      competitive_level: params.competitive_level,
+      competitive_rank_url: params.competitive_rank_url,
+      level: params.level,
+      level_url: params.level_url,
+      rank_url: params.rank_url,
+      platform: params.platform
     }
 
-    params = if (platform) do
-      Map.merge(params, %{region: region, platform: platform})
-    else
-      Map.put(params, :platform, platform)
-    end
-
-    Game.find_or_create_gamer_tag(params)
+    if (Map.has_key?(params, :region)), do: Map.merge(gamer_tag, %{region: params.region}), else: gamer_tag
   end
-
-  def find_or_create_gamer_tag(params), do: Game.find_or_create_gamer_tag(params)
+  defp get_gamer_tag_params(params), do: params
 
   def save_other_platforms(gamer_tag, %{other_platforms: other_platforms}) do
     Logger.debug "Creating other_platforms for #{gamer_tag.tag}: #{inspect other_platforms}"

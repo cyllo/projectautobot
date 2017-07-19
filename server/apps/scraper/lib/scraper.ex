@@ -34,7 +34,7 @@ defmodule Scraper do
       {:ok, ProfileSearcher.find_saved_tag(gamer_tag)}
     else
       with {:ok, gamer_tags} <- ProfileSearcher.find_profile_tag(gamer_tag) do
-        Task.start(fn -> scrape_gamer_tags_from_search(gamer_tags) end)
+        Task.start(fn -> scrape_unmarked_gamer_tags(gamer_tags) end)
 
         ScrapeStatusCache.mark_tag_searched(gamer_tag)
         {:ok, gamer_tags}
@@ -57,6 +57,17 @@ defmodule Scraper do
       |> filter_and_get_non_timeout_gamer_tags
       |> snapshot_tags
       |> Enum.to_list
+  end
+
+  def scrape_unmarked_gamer_tags(gamer_tags) do
+    gamer_tags
+      |> filter_and_get_non_timeout_gamer_tags
+      |> snapshot_tags
+      |> Enum.to_list
+      |> Enum.map(&(&1 |> Tuple.to_list |> List.first))
+      |> concat_connected_gamer_tags
+      |> mark_tags_scraped
+      |> Api.Web.GamerTagChannel.broadcast_change
   end
 
   defp profile_not_on_timeout?(gamer_tag), do: !ScrapeStatusCache.has_scraped_gamer_tag?(gamer_tag.id)
@@ -83,16 +94,5 @@ defmodule Scraper do
         gamer_tag.connected_gamer_tags ++ [gamer_tag]
       end)
       |> List.flatten
-  end
-
-  defp scrape_gamer_tags_from_search(gamer_tags) do
-    gamer_tags
-      |> filter_and_get_non_timeout_gamer_tags
-      |> snapshot_tags
-      |> Enum.to_list
-      |> Enum.map(&(&1 |> Tuple.to_list |> List.first))
-      |> concat_connected_gamer_tags
-      |> mark_tags_scraped
-      |> Api.Web.GamerTagChannel.broadcast_change
   end
 end

@@ -8,6 +8,7 @@ defmodule Api.Schema.GameTypes do
     field :id, :integer
 
     field :tag, :string
+    field :user_id, :integer
     field :overwatch_name, :string
     field :portrait_url, :string
     field :total_games_won, :integer
@@ -23,6 +24,16 @@ defmodule Api.Schema.GameTypes do
     field :rank_url, :string
 
     timestamp_types
+
+    field :user, :user do
+      resolve fn gamer_tag, _, _ ->
+        batch(
+          {GamerTagResolver, :get_gamer_tags_user},
+          gamer_tag,
+          &{:ok, Map.get(&1, gamer_tag.id)}
+        )
+      end
+    end
 
     field :snapshot_statistics, list_of(:snapshot_statistic) do
       arg :first, :integer
