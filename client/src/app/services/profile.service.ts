@@ -1,4 +1,4 @@
-import { equals, propEq, merge, head, clone } from 'ramda';
+import { equals, propEq, merge, head } from 'ramda';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -6,11 +6,11 @@ import { Apollo } from 'apollo-angular';
 
 import { Player } from '../models';
 
-import { GamerTagService, GamerTagFetchResponse } from './gamer-tag.service';
+import { GamerTagService } from './gamer-tag.service';
 import { SocketService } from './socket.service';
 import { OverwatchHeroDataService } from './owherodata.service';
 import { OverwatchStaticData } from '../models';
-import { gamerTagFetchQuery, playerStatsChangeQuery } from './queries';
+import { playerStatsChangeQuery } from './queries';
 
 const GAMER_TAG_CHANNEL = 'gamer_tag:lobby';
 
@@ -49,11 +49,12 @@ export class ProfileService {
     }
   }
 
-  findPlayer(tag, platform, region) {
-    const variables = { tag, platform, region, snapshotLast: 2 };
+  scrapeGamerTag(tag, platform, region) {
+    return this.gamerTagService.scrapeGamerTagByTagPlatformRegion(tag, platform, region)
+  }
 
-    return this.apollo.query<GamerTagFetchResponse>({ query: gamerTagFetchQuery, variables })
-      .map(({ data }) => clone(data.gamerTag));
+  findPlayer(tag, platform, region) {
+    return this.gamerTagService.getGamerTagStatsByTagPlatformRegion(tag, platform, region)
   }
 
   latestStatsSet(player: Player) {
@@ -68,7 +69,7 @@ export class ProfileService {
       .let(this.socketService.filterEvent('change'))
       .map(({ gamerTags }) => head<number>(gamerTags))
       .filter(equals(playerId))
-      .switchMap((id) => this.gamerTagService.getGamerTagStats(id));
+      .switchMap((id) => this.gamerTagService.getGamerTagStatsById(id));
   }
 
   leaveChangesChannel() {
