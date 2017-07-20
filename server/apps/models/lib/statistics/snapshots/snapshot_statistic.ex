@@ -8,7 +8,7 @@ defmodule Models.Statistics.Snapshots.SnapshotStatistic do
     has_many :hero_snapshot_statistics, Models.Statistics.Snapshots.HeroStatistic
     has_one :all_heroes_snapshot_statistics, Models.Statistics.Snapshots.AllHeroesStatistic
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @required_fields [:gamer_tag_id]

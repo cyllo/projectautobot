@@ -7,7 +7,7 @@ defmodule Models.Repo.Migrations.CreateFriendships do
       add :user_id, references(:users), null: false
       add :friend_id, references(:users), null: false
 
-      timestamps()
+      timestamps(type: :utc_datetime)
     end
   end
 end

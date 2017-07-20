@@ -9,7 +9,7 @@ defmodule Models.Repo.Migrations.CreateBlogPosts do
       add :thumbnail_url, :text, null: false
       add :author_id, references(:users), null: false
 
-      timestamps()
+      timestamps(type: :utc_datetime)
     end
 
 

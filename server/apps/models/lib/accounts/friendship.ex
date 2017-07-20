@@ -7,7 +7,7 @@ defmodule Models.Accounts.Friendship do
     belongs_to :user, User
     belongs_to :friend, User
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @required_fields [:friend_id, :user_id, :is_accepted]

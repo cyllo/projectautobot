@@ -3,8 +3,8 @@ defmodule Api.Schema.ScalarTypes do
 
   defmacro timestamp_types do
     quote do
-      field :inserted_at, :naive_datetime
-      field :updated_at, :naive_datetime
+      field :inserted_at, :datetime
+      field :updated_at, :datetime
     end
   end
 

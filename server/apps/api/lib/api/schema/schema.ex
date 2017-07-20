@@ -83,8 +83,8 @@ defmodule Api.Schema do
     field :blog_posts, list_of(:blog_post) do
       arg :last, :integer
       arg :first, :integer
-      arg :start_date, :naive_datetime
-      arg :end_date, :naive_datetime
+      arg :start_date, :datetime
+      arg :end_date, :datetime
 
       resolve &BlogResolver.all/2
     end

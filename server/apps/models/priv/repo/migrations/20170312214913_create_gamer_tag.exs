@@ -21,7 +21,7 @@ defmodule Api.Repo.Migrations.CreateGamerTags do
 
       add :user_id, references(:users)
 
-      timestamps()
+      timestamps(type: :utc_datetime)
     end
 
     create unique_index(:gamer_tags, [:tag, :platform, :region], name: :tag_platform_region_index)

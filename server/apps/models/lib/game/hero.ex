@@ -6,7 +6,7 @@ defmodule Models.Game.Hero do
     field :name, :string
     field :code, :string
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @required_fields [:name, :code]

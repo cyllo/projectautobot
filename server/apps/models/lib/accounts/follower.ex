@@ -8,7 +8,7 @@ defmodule Models.Accounts.Follower do
     belongs_to :follower, User
     belongs_to :user, User
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @required_fields [:follower_id, :user_id]

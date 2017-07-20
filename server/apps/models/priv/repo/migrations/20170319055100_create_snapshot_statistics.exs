@@ -6,7 +6,7 @@ defmodule Models.Repo.Migrations.CreateSnapshotStatistics do
       add :is_competitive, :boolean
       add :gamer_tag_id, references(:gamer_tags)
 
-      timestamps()
+      timestamps(type: :utc_datetime)
     end
   end
 end

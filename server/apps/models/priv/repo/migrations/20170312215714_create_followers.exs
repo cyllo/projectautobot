@@ -6,7 +6,7 @@ defmodule Models.Repo.Migrations.CreateFollowers do
       add :user_id, references(:users), primary_key: true, null: false
       add :follower_id, references(:users), primary_key: true, null: false
 
-      timestamps()
+      timestamps(type: :utc_datetime)
     end
   end
 end

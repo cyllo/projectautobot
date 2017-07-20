@@ -11,7 +11,7 @@ defmodule Models.Statistics.Snapshots.LatestSnapshotStatistic do
     has_many :hero_snapshot_statistics, Models.Statistics.Snapshots.HeroStatistic, foreign_key: :snapshot_statistic_id
     has_one :all_heroes_snapshot_statistics, Models.Statistics.Snapshots.AllHeroesStatistic, foreign_key: :snapshot_statistic_id
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   def average(opts \\ [is_competitive: true]) do

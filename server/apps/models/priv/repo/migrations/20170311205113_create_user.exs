@@ -12,7 +12,7 @@ defmodule Models.Repo.Migrations.CreateUser do
       add :battle_net_tag, :text
       add :is_admin, :boolean, default: false
 
-      timestamps()
+      timestamps(type: :utc_datetime)
     end
 
     create unique_index(:users, [:display_name])

@@ -29,7 +29,7 @@ defmodule Models.Game.GamerTag do
     many_to_many :connected_gamer_tags, GamerTag, join_through: "connected_gamer_tags",
                                                   join_keys: [gamer_tag1_id: :id, gamer_tag2_id: :id]
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @required_fields [:tag, :platform]

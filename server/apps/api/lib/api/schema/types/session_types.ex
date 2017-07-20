@@ -3,7 +3,7 @@ defmodule Api.Schema.SessionTypes do
 
   object :session_info do
     field :token, :string
-    field :exp, :naive_datetime
+    field :exp, :datetime
   end
 
   object :current_session do

@@ -25,7 +25,7 @@ defmodule Models.Accounts.User do
                                                   on_delete: :delete_all,
                                                   unique: true
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @required_fields [:display_name, :email]

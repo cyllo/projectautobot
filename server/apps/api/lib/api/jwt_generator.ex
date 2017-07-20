@@ -25,5 +25,5 @@ defmodule Api.JWTGenerator do
   def token_ttl, do: @token_ttl
 
   defp verify_token(jwt_token), do: verify!(token(jwt_token), hs512(@secret))
-  defp get_exp, do: NaiveDateTime.utc_now() |> NaiveDateTime.add(Utility.ms_to_sec(@token_ttl), :second)
+  defp get_exp, do: NaiveDateTime.utc_now() |> NaiveDateTime.add(Utility.ms_to_sec(@token_ttl), :second) |> DateTime.from_naive!("Etc/UTC")
 end

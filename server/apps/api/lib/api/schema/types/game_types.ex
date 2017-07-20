@@ -38,8 +38,8 @@ defmodule Api.Schema.GameTypes do
     field :snapshot_statistics, list_of(:snapshot_statistic) do
       arg :first, :integer
       arg :last, :integer
-      arg :start_date, :naive_datetime
-      arg :end_date, :naive_datetime
+      arg :start_date, :datetime
+      arg :end_date, :datetime
       arg :is_competitive, :boolean
 
       resolve fn gamer_tag, args, _ ->

@@ -12,7 +12,7 @@ defmodule Models.Blog.Post do
     many_to_many :blog_categories, Models.Blog.Category, join_through: "blog_post_categories",
                                                          join_keys: [blog_post_id: :id, blog_category_id: :id]
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @required_fields [:title, :content, :summary, :thumbnail_url, :author_id]

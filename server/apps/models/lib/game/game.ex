@@ -165,8 +165,8 @@ defmodule Models.Game do
   end
 
   defp add_timestamps(hero) do
-    Map.put(hero, :inserted_at, NaiveDateTime.utc_now)
-      |> Map.put(:updated_at, NaiveDateTime.utc_now)
+    Map.put(hero, :inserted_at, DateTime.utc_now)
+      |> Map.put(:updated_at, DateTime.utc_now)
   end
 
   defp slug_gamer_tag(gamer_tag), do: String.replace(~r/(.*)-(.*)/, gamer_tag, "\0#\1")

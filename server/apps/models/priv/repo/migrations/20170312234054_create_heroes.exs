@@ -6,7 +6,7 @@ defmodule Models.Repo.Migrations.CreateHeroes do
       add :name, :citext, null: false
       add :code, :text, null: false
 
-      timestamps()
+      timestamps(type: :utc_datetime)
     end
 
     create unique_index(:heroes, [:name])
