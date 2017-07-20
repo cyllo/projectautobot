@@ -1,8 +1,9 @@
-import { equals, propEq, merge, head } from 'ramda';
+import { equals, propEq, merge, head, pathOr, test } from 'ramda';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Apollo } from 'apollo-angular';
+import { ApolloError } from 'apollo-client';
 
 import { Player } from '../models';
 
@@ -13,6 +14,9 @@ import { OverwatchStaticData } from '../models';
 import { playerStatsChangeQuery } from './queries';
 
 const GAMER_TAG_CHANNEL = 'gamer_tag:lobby';
+
+const graphqlErrorMessage = pathOr<string>('', ['graphQLErrors', 0, 'message']);
+const testNotFound = test(/not found/i);
 
 interface Statistic {
   allHeroesSnapshotStatistic: {
@@ -47,6 +51,11 @@ export class ProfileService {
     } else {
       this.router.navigate(['./profile', player.platform, tag]);
     }
+  }
+
+  findOrScrapeGamerTag(tag, platform, region) {
+    return this.findPlayer(tag, platform, region)
+      .catch((error) => this.onErrorScrapeGamerTag({tag, platform, region}, error));
   }
 
   scrapeGamerTag(tag, platform, region) {
@@ -105,6 +114,14 @@ export class ProfileService {
           winPercentage: (current.winPercentage / past.winPercentage) - 1
         };
       });
+  }
+
+  private onErrorScrapeGamerTag({ tag, platform, region }, apolloError: ApolloError) {
+    if (testNotFound(graphqlErrorMessage(apolloError))) {
+      return this.scrapeGamerTag(tag, platform, region);
+    } else {
+      return Observable.throw(apolloError);
+    }
   }
 
   private addHeroesToHeroSnapshot(heroes) {
