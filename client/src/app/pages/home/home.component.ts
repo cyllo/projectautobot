@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit, AfterContentInit {
     this.latestNews = this.store.select('blogPosts')
     .filter(val => !isEmpty(val))
     .take(3)
-    .map(news => reverse(values(news)))
+    .map(news => reverse(values(news)));
   }
 
   ngAfterContentInit() {
