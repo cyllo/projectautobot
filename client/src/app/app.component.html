@@ -1,7 +1,7 @@
 <header class="container-fluid">
-  <ow-main-nav (searchTag)='onSearch($event)'></ow-main-nav>
+  <ow-main-nav [searchInProgress]="searchInProgress" (searchTag)='onSearch($event)'></ow-main-nav>
   <!-- ow-main-nav -->
-  <ow-main-search-results [isOpen]='isResultsOpen' [searchResults]='searchResults | async'></ow-main-search-results>
+  <ow-main-search-results [(isOpen)]='isResultsOpen' [searchResults]='searchResults | async'></ow-main-search-results>
   <!-- ow-main-search-results -->
 </header>
 <!-- end header -->

@@ -26,6 +26,7 @@ export class AppComponent implements OnDestroy, OnInit {
   $state: Observable<AppState>;
   searchResults = new Subject<Player[]>();
   isResultsOpen = false;
+  searchInProgress = false;
 
   constructor(
     private store: Store<AppState>,
@@ -54,13 +55,15 @@ export class AppComponent implements OnDestroy, OnInit {
   }
 
   onSearch(action) {
-    this.isResultsOpen = !!action.payload;
     this.store.dispatch(action);
   }
 
   find(search) {
+    this.searchInProgress = true;
     return this.gamerTagService.find(search.tag)
       .do((players) => {
+        this.searchInProgress = false;
+        this.isResultsOpen = true;
         if (!search.searching) {
           this.store.dispatch({ type: 'ADD_PLAYERS', payload: players });
         }

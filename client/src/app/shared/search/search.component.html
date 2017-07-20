@@ -1,13 +1,7 @@
 <div [formGroup]="form" class="form-group mx-0 my-0">
   <div class="form-icon d-flex align-items-center justify-content-center">
-    <!-- feedback animation -->
-    <div class="hidden" id="search-animation">
-      <i class="material-icons">stop</i>
-      <i class="material-icons">stop</i>
-      <i class="material-icons">stop</i>
-    </div>
-    <!-- standard search icon -->
-    <i class="fa fa-search" aria-hidden="true"></i>
+    <i class="fa fa-search" aria-hidden="true" *ngIf="!searchInProgress"></i>
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw" aria-hidden="true" *ngIf="searchInProgress"></i>
   </div>
   <input
     type="text"
