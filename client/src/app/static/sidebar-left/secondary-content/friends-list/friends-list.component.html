@@ -34,7 +34,7 @@
         <button class="min-width-0"
                 (click)="openSearchResults = false"
                 md-button>
-          <i class="material-icons">close</i>
+          <md-icon>close</md-icon>
         </button>
 
       </div>
@@ -71,7 +71,7 @@
         <div class="flex-layout" fxLayout="column" fxFlex="grow" *ngIf="!clubCreationPending">
 
           <span fxLayout="row" fxLayoutAlign="start center">
-            <i class="material-icons md-18 mr-2">group</i> (3) Clubs
+            <md-icon class="mr-2">group</md-icon> (3) Clubs
           </span>
 
         </div>
@@ -82,8 +82,8 @@
                   md-button
                   mdTooltip="{{ !clubCreationPending? 'Create a New Club' : null }}"
                   (click)="!clubCreationPending ? clubCreationStart() : clubCreationEnd()">
-            <i class="material-icons" *ngIf="clubCreationPending">add</i>
-            <i class="material-icons" *ngIf="!clubCreationPending">playlist_add</i>
+            <md-icon *ngIf="clubCreationPending">add</md-icon>
+            <md-icon *ngIf="!clubCreationPending">playlist_add</md-icon>
           </button>
 
         </div>

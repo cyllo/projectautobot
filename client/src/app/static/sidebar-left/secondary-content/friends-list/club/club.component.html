@@ -24,14 +24,14 @@
                   color="warn"
                   *ngIf="clubNameEditInProgress"
                   md-button>
-            <i class="material-icons md-18">delete_forever</i>
+            <md-icon>delete_forever</md-icon>
           </button>
 
           <button class="btn-content-toggle min-width-0"
                   [ngClass]="{ 'collapsed' : expansionPanelCollapsed }"
                   *ngIf="!clubNameEditInProgress"
                   md-button>
-            <i class="material-icons md-18">keyboard_arrow_down</i>
+            <md-icon>keyboard_arrow_down</md-icon>
           </button>
 
         </div>
@@ -47,14 +47,14 @@
         <div class="flex-layout" fxLayout="column" fxFlex="noshrink" *ngIf="club.mutable">
 
           <button class="min-width-0" *ngIf="clubNameEditInProgress" md-button>
-            <i class="material-icons md-18">check</i>
+            <md-icon>check</md-icon>
           </button>
 
           <button class="min-width-0"
                   (click)="compareProfiles($event)"
                   *ngIf="!clubNameEditInProgress"
                   md-button>
-            <i class="material-icons md-18">compare_arrows</i>
+            <md-icon>compare_arrows</md-icon>
           </button>
 
         </div>
@@ -109,7 +109,7 @@
              fxFlex="noshrink">
 
           <button class="min-width-0" md-button>
-            <i class="material-icons">keyboard_arrow_right</i>
+            <md-icon>keyboard_arrow_right</md-icon>
           </button>
 
         </div>
