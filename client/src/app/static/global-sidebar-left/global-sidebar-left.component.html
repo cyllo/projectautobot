@@ -1,0 +1,33 @@
+<div class="global-sidebar-left">
+  <md-sidenav-container>
+    <md-sidenav #sidenav mode="side" opened="true" align="end"
+      (open-start)='onSideNavOpenStart($event)'
+      (close-start)='onSideNavCloseStart($event)'>
+      <div class="sidenav-content px-3 pt-3">
+        <div class="row flex-column">
+          <div class="col-12">
+            <ow-global-sidebar-left-secondary-content></ow-global-sidebar-left-secondary-content>
+          </div><!-- .col -->
+        </div><!-- .row -->
+      </div><!-- .sidenav-content -->
+    </md-sidenav><!-- secondary content -->
+    <div class="row flex-column">
+      <div class="col-12">
+        <button md-button class="py-3" (click)="sidenav.toggle()">
+          <i class="material-icons md-36" *ngIf="sideNavOpen">clear</i>
+          <i class="material-icons md-36" *ngIf="!sideNavOpen">add</i>
+        </button>
+      </div><!-- .col -->
+      <div class="col-12">
+        <button md-button class="py-3">
+          <i class="material-icons md-36">gamepad</i>
+        </button>
+      </div><!-- .col -->
+      <div class="col-12">
+        <button md-button class="py-3">
+          <i class="material-icons md-36">favorite_border</i>
+        </button>
+      </div><!-- .col -->
+    </div><!-- .row -->
+  </md-sidenav-container><!-- md-sidenav-container -->
+</div><!-- .global-sidebar-left -->

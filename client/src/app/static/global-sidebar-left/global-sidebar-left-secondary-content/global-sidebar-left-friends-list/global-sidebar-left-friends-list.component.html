@@ -1,0 +1,61 @@
+<div class="global-sidebar-left-friends-list">
+  <div class="friends-list-container d-flex px-3 pt-3">
+    <div class="row header">
+      <div class="col-12">
+        <div class="user-action-create-club">
+          <div class="row align-items-center">
+            <div class="col">
+              <span class="small text-uppercase"
+                    *ngIf="!clubCreationPending">Create new clubs</span>
+              <input type="text"
+                     class="form-control height-100"
+                     placeholder=""
+                     aria-describedby="basic-addon1" *ngIf="clubCreationPending">
+            </div><!-- .col -->
+            <div class="col-auto pr-3">
+              <button md-button
+                class="min-width-0"
+                (click)="clubCreationStarted($event)"
+                *ngIf="!clubCreationPending">
+                <i class="material-icons md-24">create_new_folder</i>
+              </button>
+              <button md-button
+                class="min-width-0"
+                (click)="clubCreationEnded($event)"
+                *ngIf="clubCreationPending">
+                <i class="material-icons md-24">check</i>
+              </button>
+            </div><!-- .col -->
+          </div><!-- .row -->
+          <div class="message pt-1"
+            [class.show]="responseMessage">
+            <div class="inner d-flex align-items-center height-100 rounded px-3 py-1">
+              <span class="small">{{ responseMessage }}</span>
+            </div>
+          </div><!-- .message -->
+        </div><!-- .user-action-create-club -->
+      </div><!-- .col -->
+    </div><!-- .row -->
+    <div class="row flex-column content my-2">
+      <div class="col-12 verictal-scroll-content">
+
+        <div class="inner pt-3">
+
+          <div class="row mb-3" *ngFor="let club of clubs">
+            <div class="col-12">
+              <ow-global-sidebar-left-friends-list-club [club]="club">
+              </ow-global-sidebar-left-friends-list-club>
+            </div>
+          </div><!--  .row -->
+
+        </div><!-- .user-clubs -->
+
+      </div><!-- .col -->
+    </div><!-- .row -->
+    <div class="row flex-column footer">
+      <div class="col-12 py-3">
+        <ow-search></ow-search>
+      </div><!-- .col -->
+    </div><!-- .row -->
+  </div><!-- .container-fluid -->
+</div><!-- .global-sidebar-left-friends-list -->

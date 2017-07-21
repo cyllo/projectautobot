@@ -1,0 +1,87 @@
+<div class="global-sidebar-left-friends-list-club">
+  <div class="row">
+    <div class="col-12">
+
+      <div class="row">
+        <div class="col-3 pr-0">
+          <!-- aria-controls and id needs to be unique -->
+          <button md-button
+                  class="d-inline-flex align-items-center justify-content-center width-100 min-width-0 px-0"
+                  (click)="isCollapsed = !isCollapsed"
+                  [attr.aria-expanded]="!isCollapsed"
+                  aria-controls="user-club-crew">
+                  <i class="material-icons md-18"
+                     *ngIf="isCollapsed">keyboard_arrow_right</i>
+                  <i class="material-icons md-18"
+                     *ngIf="!isCollapsed">keyboard_arrow_down</i>
+          </button>
+        </div><!-- .col -->
+        <div class="col-6 px-2">
+          <input type="text"
+                 class="form-control height-100"
+                 placeholder=""
+                 *ngIf="clubEditPending">
+          <button md-button
+                  class="btn-club-name width-100 text-left"
+                  (click)="clubEditStart($event)"
+                  *ngIf="!clubEditPending"
+                  [disabled]="!club.mutable">
+            <span class="small text-uppercase">{{ club.name }}</span>
+          </button>
+        </div><!-- .col -->
+        <div class="col-3 pl-0" *ngIf="club.mutable">
+          <button md-button
+                  class="d-inline-flex align-items-center justify-content-center width-100 min-width-0 px-0"
+                  (click)="clubEditEnd($event)"
+                  *ngIf="clubEditPending">
+            <i class="material-icons md-18">check</i>
+          </button>
+          <button md-button
+                  class="d-inline-flex align-items-center justify-content-center width-100 min-width-0 px-0"
+                  *ngIf="!clubEditPending">
+            <i class="material-icons md-18">compare_arrows</i>
+          </button>
+        </div><!-- .col -->
+      </div><!-- .row -->
+
+      <div class="row"
+           id="user-club-crew"
+           [ngbCollapse]="isCollapsed">
+        <div class="col-12 pt-3" [dragula]='"bag-one"' [dragulaModel]='items'>
+
+          <div class="row align-items-center draggable-item" *ngFor="let item of items">
+            <div class="col-12 py-3">
+              <div class="row">
+
+                <div class="col-auto pl-3">
+                  <img src="img/imgplaceholder.png"
+                       class="material-image md-36 image-circle">
+                </div><!-- .col -->
+
+                <div class="col">
+                  <div class="player">
+                    <span class="small text-uppercase mb-0">Cyllo#2112</span>
+                  </div><!-- .player -->
+                  <div class="d-flex align-items-center">
+                    <img src="https://blzgdapipro-a.akamaihd.net/game/rank-icons/season-2/rank-3.png"
+                         class="material-image md-18">
+                    <span class="skill-rating small">2320</span>
+                  </div><!-- .skill-rating -->
+                </div><!-- .col -->
+                
+                <div class="col-auto pr-3">
+                  <button md-button class="min-width-0">
+                    <i class="material-icons md-18">keyboard_arrow_right</i>
+                  </button>
+                </div><!-- .col -->
+
+              </div><!-- .row -->
+            </div><!-- .col -->
+          </div><!-- .row -->
+
+        </div><!-- .col -->
+      </div><!-- .row -->
+
+    </div><!-- .col -->
+  </div><!-- .row -->
+</div><!-- .global-sidebar-left-friends-list-club -->
