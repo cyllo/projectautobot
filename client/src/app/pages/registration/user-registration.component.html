@@ -1,27 +1,78 @@
-<form [formGroup]="registrationForm" (ngSubmit)="onSubmit(registrationForm.value)">
-  <input
-  formControlName="email"
-  type="email"
-  name="email"
-  id="email"
-  placeholder="email">
-  <input
-    formControlName="displayName"
-    type="text"
-    name="displayName"
-    id="displayName"
-    placeholder="displayName">
-  <input
-    formControlName="password"
-    type="password"
-    name="password"
-    id="password"
-    placeholder="password">
-  <button [disabled]="!registrationForm.valid" type="submit">Sign Up</button>
-  <div *ngIf="createUserError">
-    Problem Creating account, try again.
-  </div>
-</form>
-<div>
-  <button (click)="bnetAuth()">Battle Net</button>
+<div class="user-registration" fxLayout="row" fxLayoutAlign="center center">
+
+  <md-card [ngStyle]="{ 'margin-top': '15vh' }">
+
+    <div class="py-3" fxLayout="column">
+
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit(registrationForm.value)">
+
+        <div fxLayout="column" fxLayoutGap="36px" fxFlex="300px">
+
+          <div fxLayout="row" fxFlex="noshrink">
+
+            <div fxLayout="column" fxLayoutGap="8px" fxFlex="grow">
+
+              <div fxLayout="row" fxFlex="noshrink">
+                <div fxLayout="column" fxFlex="grow">
+                  <md-input-container fxFlexFill>
+                    <input mdInput type="text" placeholder="Display Name" formControlName="displayName">
+                    <md-error *ngIf="registrationForm.controls.displayName.hasError('pattern')">
+                      Please enter only alphabetic characters and numbers.
+                    </md-error>
+                    <md-error *ngIf="registrationForm.controls.displayName.hasError('required')">
+                      Display name is <strong>required</strong>
+                    </md-error>
+                  </md-input-container>
+                </div>
+              </div>
+
+              <div fxLayout="row" fxFlex="noshrink">
+                <div fxLayout="column" fxFlex="grow">
+                  <md-input-container fxFlexFill>
+                    <input mdInput type="email" placeholder="E-mail" formControlName="email">
+                    <md-error *ngIf="registrationForm.controls.email.hasError('pattern')">
+                      Please enter a valid email address.
+                    </md-error>
+                    <md-error *ngIf="registrationForm.controls.email.hasError('required')">
+                      Email is <strong>required</strong>
+                    </md-error>
+                  </md-input-container>
+                </div>
+              </div>
+
+              <div class="password-field" fxLayout="row" fxFlex="noshrink">
+                <div fxLayout="column" fxFlex="grow">
+                  <md-input-container fxFlexFill>
+                    <input mdInput type="password" placeholder="Password" formControlName="password">
+                    <md-error *ngIf="registrationForm.controls.password.hasError('pattern')">
+                      Your password must be at least 8 characters long and contain atleast 1 uppercase alphabetic character, 1 numeric character, and 1 special character.
+                    </md-error>
+                    <md-error *ngIf="registrationForm.controls.password.hasError('required')">
+                      Password is <strong>required</strong>
+                    </md-error>
+                  </md-input-container>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div fxLayout="row" fxLayoutGap="14px" fxFlex="noshrink">
+            <div fxLayout="column" fxFlex="50%">
+              <button (click)="bnetAuth()" md-button>Battle.net</button>
+            </div>
+            <div fxLayout="column" fxFlex="50%">
+              <button type="submit" md-button [disabled]="!registrationForm.valid">Sign Up</button>
+            </div>
+          </div>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </md-card>
+
 </div>
