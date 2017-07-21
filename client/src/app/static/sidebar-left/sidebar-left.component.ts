@@ -1,4 +1,5 @@
-import { Component, ViewChild, Renderer2, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ThemeingService, AppTheme } from '../../services';
 
 @Component({
   selector: 'ow-sidebar-left',
@@ -6,51 +7,29 @@ import { Component, ViewChild, Renderer2, OnInit, AfterViewInit, AfterViewChecke
   styleUrls: [ 'sidebar-left.component.scss' ]
 })
 
-export class SideBarLeftComponent implements OnInit, AfterViewInit, AfterViewChecked {
-  @ViewChild('sidebarleft') sidebarleft;
+export class SideBarLeftComponent implements OnInit {
 
-  private elMainNav;
-  isCollapsed = true;
+  sideNavOpen: boolean;
+  appThemesCatalog: AppTheme[];
 
-  constructor( private renderer: Renderer2 ) {}
+  constructor(private themeingService: ThemeingService) {
+    this.sideNavOpen = false;
+  }
 
   ngOnInit() {
-    // Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    // Add 'implements OnInit' to the class.
-    this.renderer.listen('window', 'scroll', ( event ) => { this.onScroll(event); });
-    this.renderer.listen('window', 'resize', ( event ) => { this.onResize(event); });
-    this.renderer.listen('window', 'DOMContentLoaded', ( event ) => { this.onDOMLoaded(event); });
+    this.appThemesCatalog = Object.values(this.themeingService.themes());
   }
 
-  ngAfterViewInit() {
-    // Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    // Add 'implements AfterViewInit' to the class.
-    this.elMainNav = document.getElementsByClassName('main-nav')[ 0 ];
+  onSideNavOpenStart(): void {
+    this.sideNavOpen = true;
   }
 
-  ngAfterViewChecked() {
-    // Called after every check of the component's view. Applies to components only.
-    // Add 'implements AfterViewChecked' to the class.
-    this.updateMainNavOffset();
+  onSideNavCloseStart(): void {
+    this.sideNavOpen = false;
   }
 
-  onScroll( event ) {
-    this.updateMainNavOffset();
-    event.preventDefault();
-  }
-
-  onResize( event ) {
-    this.updateMainNavOffset();
-    event.preventDefault();
-  }
-
-  onDOMLoaded( event ) {
-    this.updateMainNavOffset();
-    event.preventDefault();
-  }
-
-  updateMainNavOffset() {
-    this.renderer.setStyle(this.sidebarleft.nativeElement, 'top', this.elMainNav.offsetHeight + 'px');
+  loadTheme(theme: AppTheme) {
+    this.themeingService.loadTheme(theme);
   }
 
 }

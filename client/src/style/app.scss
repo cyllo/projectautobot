@@ -1,268 +1,99 @@
-@import "colors";
-@import "~bootstrap/scss/bootstrap.scss";
-@import '~@swimlane/ngx-datatable/release/index.css';
-@import '~@swimlane/ngx-datatable/release/themes/material.css';
-@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+@import 'themeing';
+@import 'utilities';
+@import '~dragula/dist/dragula.min.css';
 
 html,
 body {
-  background-color: $blue-lightest;
-  font-family: 'Roboto', Helvetica, Arial;
-  font-size: 1rem;
-  line-height: 1;
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
 }
 
-.font-weight-thin {
-  font-weight: 100 !important;
-}
-.font-weight-light {
-  font-weight: 300 !important;
-}
-.font-weight-medium {
-  font-weight: 500 !important;
-}
-.font-weight-bold {
-  font-weight: 500 !important;
-}
-.font-weight-black {
-  font-weight: 900 !important;
-}
-
-header {
-  position: relative;
-}
-
-p {
-  line-height: 1.3;
-}
-
-a {
-  text-decoration: none;
-}
-
-input,
-input:hover,
-input:focus,
-button,
-button:hover,
-button:focus {
-  box-shadow: none !important;
+button {
   outline: none !important;
-  line-height: 1 !important;
+  text-transform: uppercase;
 }
 
-input[type="checkbox"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-color: $white;
-  border: 1px solid $purple-lighter;
-  border-radius: 0.25rem;
-  box-shadow: none;
-  width: 1.3rem;
-  height: 1.3rem;
-  position: relative;
-}
-input[type="checkbox"]:hover {
-  cursor: pointer;
-}
-input[type="checkbox"].active,
-input[type="checkbox"]:checked {
-  border-color: $purple-light;
-}
-
-input[type="checkbox"].active::before,
-input[type="checkbox"]:checked::before{
-  font-family: 'FontAwesome';
-  content: '\f00d';
-  color: $purple-light;
-  display: inline-block;
-  top: 50%;
-  left: 50%;
-  position: absolute;
-  transform: translate(-50%, -50%);
-}
-
-button:hover {
-  cursor: pointer;
-}
-
-/** BUTTONS **/
-.btn i {
-  margin-right: 0.35rem;
-}
-.btn {
-  font-size: 0.75rem;
-  padding: 0.65rem 1rem;
-  outline: none !important;
-  box-shadow: none !important;
-}
-.btn-dropdown-toggle::after {
-  display: none;
-}
-.btn-primary {
-  background-color: $purple-light;
+input[type="text"] {
+  font-size: 12px;
+  min-height: 36px;
+  padding: 0 12px;
   border: 0;
-}
-.btn-primary:hover {
-  background-color: $brand-primary;
-  color: $white;
-}
-
-.btn-outline-secondarynav {
-  background-color: transparent;
-  border: 1px solid $purple-light;
-  color: $purple-lighter;
-}
-.btn-outline-secondarynav:hover {
-  background-color: $purple-light;
+  border-radius: 2px;
+  box-sizing: border-box;
+  outline: none;
 }
 
-.btn-radio {
-  color: $gray-light;
-  border-color: $gray-lighter;
-  background-color: $white;
-}
-.btn-radio:hover {
-  border-color: $purple-dark;
-  color: $purple-dark;
-}
+/* https://google.github.io/material-design-icons/#sizing */
+/* Rules for sizing the icon. */
+.material-icons {
 
-.btn-radio.active {
-  background-color: $purple-dark;
-  color: $white;
-  border-color: $purple-dark;
-}
-
-/** IMAGES **/
-.avatar {
-  width: 100%;
-  max-width: 4.5rem;
-}
-.avatar-md {
-  width: 100%;
-  max-width: 3rem;
-}
-.avatar-sm {
-  width: 100%;
-  max-width: 1.5rem;
-}
-
-.role-icon-md {
-  width: 100%;
-  max-width: 2rem;
-}
-.role-icon-sm {
-  width: 100%;
-  max-width: 0.8rem;
-}
-
-.scaling-img {
-  width: 100%;
-}
-
-/** BOOTSTRAP COMPONENTS **/
-.btn-dropdown-toggle {
-  background-color: transparent;
-  color: $white;
-}
-
-.btn-dropdown-toggle:hover {
-  cursor: pointer;
-}
-
-.dropdown.show .dropdown-toggle{
-  border-radius: 0.25rem 0.25rem 0 0 !important;
-}
-
-/** UTILITIES **/
-.text-light {
-  color: $gray-light;
-}
-
-.content {
-  background-color: $white;
-}
-.content-secondary {
-  background-color: $purple-light;
-  color: $purple-lighter;
-}
-.content-outline {
-  color: $purple-dark;
-  border: 1px solid $purple-dark;
-}
-
-sup {
-  font-size: 65%;
-  vertical-align: baseline;
-  top: -0.5rem;
-  position: relative;
-  line-height: 0;
-}
-
-/** OTHERS **/
-.sidebar {
-  background-color: $white;
-}
-
-.btn-group-label {
-  color: $gray-light;
-}
-
-ngb-progressbar[type="stp"]{
-  .progress {
-    border-radius: 0;
-  }
-  .progress-bar {
-    height: 0.25rem;
-  }
-}
-
-// Medium devices (tablets, less than 992px)
-@media (max-width: 991px) {
-  .main-body {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-
-.medals {
-
-  span {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1.5
+  &.md-18 {
+    font-size: 18px;
   }
 
-  .gold {
-    background-color: $yellow;
+  &.md-24 {
+    font-size: 24px;
   }
 
-  .silver {
-    background-color: $gray-lighter;
+  &.md-36 {
+    font-size: 36px;
   }
 
-  .bronze {
-    background-color: $brown;
+  &.md-48 {
+    font-size: 48px;
   }
 
 }
 
-.video-preview {
-  position: relative;
+.md-image {
 
-  .play-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  object-fit: cover;
+  object-position: center center;
 
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    color: $white;
-
-    i {
-      font-size: calc(4.5rem + 1vw);
-    }
-
+  &.md-image-circle {
+    border-radius: 50%;
   }
 
+  &.md-image-18 {
+    width: 18px;
+    height: 18px;
+  }
+
+  &.md-image-24 {
+    width: 24px;
+    height: 24px;
+  }
+
+  &.md-image-36 {
+    width: 36px;
+    height: 36px;
+  }
+
+  &.md-image-48 {
+    width: 48px;
+    height: 48px;
+  }
+
+}
+
+.cdk-overlay-container {
+  z-index: 99999 !important;
+}
+
+.account-overview-menu {
+  span,
+  .mat-checkbox-label {
+    line-height: 1.3;
+  }
+}
+
+.main-nav-menu {
+  .mat-list-item-content {
+    font-size: 13px;
+  }
 }

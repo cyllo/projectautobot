@@ -18,5 +18,4 @@ export class PlayersService {
     return this.players
       .do(() => this.store.dispatch({ type: 'LOAD' }));
   }
-
 }

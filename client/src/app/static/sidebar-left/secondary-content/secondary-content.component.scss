@@ -1,0 +1,64 @@
+.secondary-content {
+  overflow: hidden;
+}
+
+:host /deep/ .secondary-content {
+
+  .mat-tab-body-wrapper, .mat-tab-body, .mat-tab-body-content {
+    flex: 1 1 auto;
+  }
+
+  .mat-tab-header-pagination {
+    display: none;
+  }
+
+  .mat-tab-label {
+    text-transform: uppercase;
+    letter-spacing: 0.03rem;
+    font-size: 10px;
+    min-width: 0;
+    width: 50%;
+    white-space: nowrap;
+  }
+
+  .mat-list-item-content {
+    min-width: 0;
+    min-height: 0;
+    flex: 1 1 auto;
+    height: auto !important;
+  }
+
+  a, img {
+    -moz-user-select: none; /* These user-select properties are inheritable, used to prevent text selection */
+    -webkit-user-select: none;
+    -ms-user-select: none; /* From IE10 only */
+    user-select: none; /* Not valid CSS yet, as of July 2012 */
+    -webkit-user-drag: none; /* Prevents dragging of images/divs etc */
+    user-drag: none;
+  }
+
+  .player-card {
+
+    span {
+      line-height: 1.2;
+    }
+
+    .player-tag {
+      font-size: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-bottom: 2px;
+    }
+
+    .skill-rating {
+      font-size: 10px;
+    }
+
+  }
+
+  .ow-tab-content {
+    overflow-y: auto;
+  }
+
+}
