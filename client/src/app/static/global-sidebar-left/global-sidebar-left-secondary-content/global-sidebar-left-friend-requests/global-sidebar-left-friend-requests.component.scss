@@ -1,0 +1,10 @@
+@import "../../../../../style/colors";
+
+.global-sidebar-left-friend-requests,
+.global-sidebar-left-friend-requests > .row,
+.global-sidebar-left-friend-requests > .row > div {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    height: 100%;
+}

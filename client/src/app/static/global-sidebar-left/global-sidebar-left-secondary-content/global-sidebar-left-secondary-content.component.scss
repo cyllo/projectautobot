@@ -2,6 +2,7 @@
 
 ngb-tabset,
 ow-global-sidebar-left-friends-list,
+ow-global-sidebar-left-friend-requests,
 .global-sidebar-left-secondary-content {
 
   display: flex;
@@ -12,6 +13,18 @@ ow-global-sidebar-left-friends-list,
 }
 
 :host /deep/ .global-sidebar-left-secondary-content {
+
+  .player-info {
+
+    overflow: hidden;
+    white-space: nowrap;
+
+    .player-tag {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+  }
 
   ngb-tabset {
 
