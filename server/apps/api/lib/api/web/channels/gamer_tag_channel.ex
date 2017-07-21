@@ -15,6 +15,7 @@ defmodule Api.Web.GamerTagChannel do
     if (Enum.all? gamer_tags, &is_map/1) do
       gamer_tags
         |> Enum.map(&Map.get(&1, :id))
+        |> Enum.uniq
         |> broadcast_change
     else
       info "Gamer tags changed #{inspect gamer_tags}"

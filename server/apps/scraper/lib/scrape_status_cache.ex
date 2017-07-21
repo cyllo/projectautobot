@@ -26,6 +26,30 @@ defmodule Scraper.ScrapeStatusCache do
     gamer_tag_id
   end
 
+  def mark_tags_scraped(gamer_tags) do
+    Enum.each(gamer_tags, &mark_tag_scraped(Map.get(&1, :id)))
+
+    gamer_tags
+  end
+
+  def unmark_tags_scraped(gamer_tags) do
+    Enum.each(gamer_tags, &unmark_tag_scraped(Map.get(&1, :id)))
+
+    gamer_tags
+  end
+
+  def mark_tags_searched(gamer_tags) do
+    Enum.each(gamer_tags, &mark_tag_searched(Map.get(&1, :tag)))
+
+    gamer_tags
+  end
+
+  def unmark_tags_searched(gamer_tags) do
+    Enum.each(gamer_tags, &unmark_tag_searched(Map.get(&1, :tag)))
+
+    gamer_tags
+  end
+
   def ms_before_next_search(tag), do: tag |> get_tag_searched |> process_cache_to_time_til_search(search_cache_ttl())
   def ms_before_next_scrape(gamer_tag_id), do: gamer_tag_id |> get_tag_scraped |> process_cache_to_time_til_search(scrape_cache_ttl())
 

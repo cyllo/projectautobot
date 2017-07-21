@@ -3,13 +3,17 @@ defmodule Scraper.ModelCreator do
 
   alias Scraper.ModelCreator.{Heroes, UserProfile, Stats}
 
+  @spec save_profile(profile :: map) :: map
+  @desc """
+    Saves a profile from scraping
+  """
   def save_profile(profile) do
     Logger.info "Storing #{profile.gamer_tag} into database"
 
     with heroes <- Heroes.create_from_stats(profile),
          {:ok, gamer_tag} <- UserProfile.update_or_create_gamer_tag(profile) do
 
-      if Enum.any? Map.get(profile, :other_platforms) do
+      if profile |> Map.get(:other_platforms) |> Enum.any? do
         Task.start(fn -> UserProfile.save_other_platforms(gamer_tag, profile) end)
       end
 

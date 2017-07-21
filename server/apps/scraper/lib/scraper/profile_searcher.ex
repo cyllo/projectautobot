@@ -1,6 +1,6 @@
 defmodule Scraper.ProfileSearcher do
   alias Scraper.ProfileUrl
-  alias Scraper.{HtmlHelpers, DataProcessor.UserInfo}
+  alias Scraper.{HtmlHelpers, DataProcessor.UserInfo, ModelCreator.UserProfile}
   alias Models.Game
 
   import Logger, only: [info: 1]
@@ -43,14 +43,10 @@ defmodule Scraper.ProfileSearcher do
 
   defp parse_profile(html_src, profile_url), do: Map.merge(UserInfo.user_info(html_src), ProfileUrl.get_info_from_url(profile_url))
 
+  # Would be nice to connect gamer tags at this point
   defp load_gamer_tag(params) do
-    case Game.find_gamer_tag(params) do
-      {:error, _} ->
-        {:ok, gamer_tag} = Game.create_gamer_tag(params)
-
-        gamer_tag
-
-      {:ok, gamer_tag} -> gamer_tag
+    with {:ok, gamer_tag} <- Game.find_or_create_gamer_tag(params) do
+      gamer_tag
     end
   end
 
