@@ -61,6 +61,12 @@ defmodule Api.Schema do
       resolve &UserResolver.find/2
     end
 
+    field :users, list_of(:user) do
+      arg :search, :string
+
+      resolve &UserResolver.all/2
+    end
+
     field :hero, :hero do
       arg :id, :integer
       arg :name, :string

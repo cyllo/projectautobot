@@ -4,6 +4,9 @@ defmodule Api.UserResolver do
   alias Models.{Accounts, Game}
 
   def current(_, %{context: %{current_user: user}}), do: {:ok, user}
+  def all(%{search: identifier}, _info), do: {:ok, Accounts.search_users(identifier)}
+  def all(params, _info), do: Accounts.get_all_users(params)
+  def find(%{identifier: identifier}, _info), do: Accounts.find_user_by_email_or_display_name(identifier)
   def find(params, _info), do: Accounts.find_user(params)
   def create(%{client_auth_token: token} = params, _info) do
     with {:ok, battle_net_info} <- BattleNet.get_battle_net_info(token),

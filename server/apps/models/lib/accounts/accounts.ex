@@ -81,11 +81,19 @@ defmodule Models.Accounts do
     end
   end
 
-  def find_user_by_email_or_display_name(email) do
-    case from(User, where: [display_name: ^email], or_where: [email: ^email]) |> Repo.one do
-      nil -> {:error, "no user found with email: #{email}"}
+  def find_user_by_email_or_display_name(identifier) do
+    case from(User, where: [display_name: ^identifier], or_where: [email: ^identifier]) |> Repo.one do
+      nil -> {:error, "no user found with email or display name: #{identifier}"}
       user -> {:ok, user}
     end
+  end
+
+  def search_users(identifier) do
+    search_string = "%#{identifier}%"
+
+    from(u in User, where: ilike(u.display_name, ^search_string),
+                    or_where: ilike(u.email, ^search_string))
+      |> Repo.all
   end
 
   def update_user_and_password(user_id, params) when is_integer(user_id), do: get_user(user_id) |> update_user_and_password(params)
