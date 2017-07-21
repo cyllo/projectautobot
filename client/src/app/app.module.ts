@@ -9,11 +9,25 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DragulaModule } from 'ng2-dragula';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MdSidenavModule,
+         MdButtonModule,
+         MdMenuModule,
+         MdListModule,
+         MdTooltipModule,
+         MdTabsModule,
+         MdInputModule,
+         MdCardModule,
+         MdSnackBarModule } from '@angular/material';
+import { CovalentExpansionPanelModule } from '@covalent/core';
+import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
 
 import { ApolloModule } from 'apollo-angular';
 import { ApolloClient } from 'apollo-client';
 import { httpInterceptor } from './app.http-interceptor';
-import { SidebarModule } from 'ng-sidebar';
 
 import { ProfileResolver } from './pages/profile/profile.resolver';
 import { GamerTagService, ProfileService } from './services';
@@ -45,6 +59,10 @@ export function instrumentOptions() {
     monitor: useLogMonitor({ visible: false, position: 'right' })
   };
 }
+
+const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  // suppressScrollX: true
+};
 
 @NgModule({
   imports: [
@@ -79,7 +97,21 @@ export function instrumentOptions() {
     FormsModule,
     ReactiveFormsModule,
     routing,
-    SidebarModule
+    MdMenuModule,
+    MdSidenavModule,
+    MdButtonModule,
+    MdListModule,
+    MdTooltipModule,
+    MdTabsModule,
+    MdCardModule,
+    BrowserAnimationsModule,
+    FlexLayoutModule,
+    MdInputModule,
+    DragulaModule,
+    MdSnackBarModule,
+    PerfectScrollbarModule,
+    PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
+    CovalentExpansionPanelModule
   ],
   declarations,
   providers: [

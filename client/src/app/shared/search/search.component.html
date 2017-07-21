@@ -1,6 +1,6 @@
-<div [formGroup]="form" class="form-group mx-0 my-0">
-  <div class="form-icon d-flex align-items-center justify-content-center">
-    <i class="fa fa-search" aria-hidden="true" *ngIf="!searchInProgress"></i>
+<div [formGroup]="form" class="form-group">
+  <div class="form-icon">
+    <i class="material-icons" *ngIf="!searchInProgress">search</i>
     <i class="fa fa-spinner fa-pulse fa-3x fa-fw" aria-hidden="true" *ngIf="searchInProgress"></i>
   </div>
   <input
