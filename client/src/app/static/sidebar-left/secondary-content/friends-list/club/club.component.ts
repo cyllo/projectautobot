@@ -1,28 +1,35 @@
-import { Component, Input } from '@angular/core';
-import { UserFriendsListClub } from '../../../../../models';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Club } from '../../../../../models';
+import { ClubService, FriendShipService } from '../../../../../services';
+import { map, prop } from 'ramda';
 
 @Component({
   selector: 'ow-club',
   templateUrl: 'club.component.html',
-  styleUrls: [ 'club.component.scss' ]
+  styleUrls: [ 'club.component.scss' ],
+  providers: [ClubService, FriendShipService]
 })
 
-export class ClubComponent {
-  @Input() club: UserFriendsListClub;
+export class ClubComponent implements OnInit {
+  @Input() club: Club;
 
   clubNameEditInProgress: boolean;
   expansionPanelCollapsed: boolean;
 
-
-  items: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
-
-  constructor() {
+  constructor(
+    private clubService: ClubService,
+    private friendshipService: FriendShipService,
+    private router: Router
+  ) {
     this.clubNameEditInProgress = false;
     this.expansionPanelCollapsed = false;
   }
 
-  compareProfiles(event) {
-    event.stopPropagation();
+  ngOnInit() {}
+
+  compareProfiles(friendships) {
+    this.router.navigate(['/compare'], { queryParams: { ids: map(prop('id'), friendships)} });
   }
 
   clubNameEditStart(event) {
@@ -30,9 +37,9 @@ export class ClubComponent {
     event.stopPropagation();
   }
 
-  clubNameEditEnd(event) {
+  clubNameEditEnd($event) {
     this.clubNameEditInProgress = false;
-    event.stopPropagation();
+    $event.stopPropagation();
   }
 
   expandedEvent() {
@@ -43,4 +50,21 @@ export class ClubComponent {
     this.expansionPanelCollapsed = true;
   }
 
+  deleteClub(id) {
+    this.clubService.delete(id);
+  }
+
+  updateClub(id, name, $event) {
+    this.clubNameEditInProgress = false;
+    this.clubService.update(id, name);
+    $event.stopPropagation();
+  }
+
+  deleteFriend(friendshipId) {
+    this.friendshipService.delete(friendshipId);
+  }
+
+  removeFriend(friendshipId, clubId) {
+    this.clubService.removeFriendship(friendshipId, clubId);
+  }
 }

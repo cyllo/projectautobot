@@ -12,6 +12,7 @@ export * from './current-hero.reducer';
 export * from './blog-post.reducer';
 export * from './current-session.reducer';
 export * from './friendship.reducer';
+export * from './clubs.reducer';
 
 export function getPlayerDataCollectionState(state$: Observable<AppState>) {
   return state$.select(playerDataCollection => playerDataCollection);

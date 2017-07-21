@@ -39,7 +39,7 @@ const routes: Routes = [
   { path: 'account', component: AccountSettingsComponent, canActivate: [AuthGuard] },
   { path: 'compare', component: CompareComponent },
   { path: '404', component: PageNotFoundComponent },
-  { path: '**', redirectTo: '/404' }
+  { path: '**', redirectTo: '/404' },
 ];
 
 export const routing = RouterModule.forRoot(routes);

@@ -1,12 +1,13 @@
 import { User } from './user.model';
 
-export interface FriendShip {
+export interface Friendship {
     id?: number;
     insertedAt?: Date;
     isAccepted?: boolean;
-    user?: User;
+    updatedAt?: Date;
+    friend?: User;
 }
 
-export interface FriendShipState {
-  [key: number]: FriendShip;
+export interface FriendshipState {
+  [key: number]: Friendship;
 }

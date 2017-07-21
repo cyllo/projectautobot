@@ -1,7 +1,7 @@
-import { FriendShipState } from '../models';
+import { FriendshipState, Friendship } from '../models';
 import { dissoc, assoc } from 'ramda';
 
-export function friendships(state: FriendShipState = {}, { type, payload }: {type: string, payload?: any|any[] }) {
+export function friendships(state: FriendshipState = {}, { type, payload }: {type: string, payload?: any|any[] }) {
     switch (type) {
         case 'GET_FRIEND_REQUESTS': // think about changing this to be more inclusive/all frienships
             return payload.reduce((acc, item) => Object.assign(acc, {[item.id]: item}), {});
@@ -18,10 +18,10 @@ export function getFriendRequests(requests) {
     return { type: 'GET_FRIEND_REQUESTS', payload: requests };
 }
 
-export function rejectFriendRequest(requestId) {
+export function rejectFriendRequest(requestId: number) {
     return { type: 'REJECT_FRIEND_REQUEST', payload: requestId };
 }
 
-export function updateFriendship(friendship) {
+export function updateFriendship(friendship: Friendship) {
     return { type: 'UPDATE_FRIEND_SHIP', payload: friendship};
 }

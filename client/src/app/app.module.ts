@@ -38,7 +38,14 @@ import { AppComponent } from './app.component';
 import * as staticComponents from './static';
 import { routing } from './app.routing';
 import { OrderByPipe, ValuesPipe } from './pipes';
-import { PlayersService, OverwatchHeroDataService, AuthorizationService, AuthGuard, SocketService } from './services';
+import {
+  PlayersService,
+  OverwatchHeroDataService,
+  AuthorizationService,
+  AuthGuard,
+  SocketService,
+  FriendShipService,
+  ClubService } from './services';
 import { values } from 'ramda';
 
 import { MomentModule } from 'angular2-moment';
@@ -52,7 +59,8 @@ import {
   blogPosts,
   currentSession,
   snapshotData,
-  friendships
+  friendships,
+  clubs
 } from './reducers';
 import { SharedModule } from './shared';
 import { PagesModule } from './pages';
@@ -84,6 +92,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       blogPosts,
       currentSession,
       friendships,
+      clubs,
       router: routerReducer,
       snapshotStats: snapshotData,
     }, {
@@ -131,7 +140,9 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PlayersService,
     OverwatchHeroDataService,
     AuthGuard,
-    AuthorizationService
+    AuthorizationService,
+    ClubService,
+    FriendShipService
   ],
   bootstrap: [AppComponent]
 })

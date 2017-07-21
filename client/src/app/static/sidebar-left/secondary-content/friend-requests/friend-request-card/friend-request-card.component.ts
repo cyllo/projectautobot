@@ -1,20 +1,24 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FriendShipService } from '../../../../../services';
+
 
 @Component({
   selector: 'ow-friend-request-card',
   templateUrl: 'friend-request-card.component.html',
-  styleUrls: [ 'friend-request-card.component.scss' ]
+  styleUrls: [ 'friend-request-card.component.scss' ],
+  providers: [FriendShipService]
 })
 
 export class FriendRequestCardComponent {
-  @Input('stubData') stubData: string;
-  @Output() ignore: EventEmitter<string> = new EventEmitter();
+  @Input('friendShip') friendShip: any;
 
-  constructor() {}
+  constructor(private friendship: FriendShipService) {}
 
-  ignoreFriendRequest() {
-    console.log('emitting ignore request');
-    this.ignore.emit(this.stubData);
+  accept(friendUserId, friendshipId) {
+    this.friendship.accept(friendUserId, friendshipId);
   }
 
+  ignore(friendUserId, friendshipId) {
+    this.friendship.reject(friendUserId, friendshipId);
+  }
 }

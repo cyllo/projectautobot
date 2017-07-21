@@ -16,7 +16,7 @@
   <div class="flex-layout" fxLayout="column" fxFlex="grow">
 
     <div class="flex-layout" fxLayout="row" fxFlex="grow">
-        <span class="player-tag">{{ stubData }}#2112</span>
+        <span class="player-tag">{{ friendShip.friend.displayName }} </span>
     </div>
 
     <div class="skill-rating flex-layout"
@@ -43,7 +43,7 @@
                 color="warn"
                 md-button
                 mdTooltip="Ignore"
-                (click)="ignoreFriendRequest(stubData)">
+                (click)="ignore(friendShip.friend.id, friendShip.id)">
           <md-icon>close</md-icon>
         </button>
       </div>
@@ -51,7 +51,8 @@
       <div fxLayout="column">
         <button class="min-width-0"
                 md-button
-                mdTooltip="Accept">
+                mdTooltip="Accept"
+                (click)="accept(friendShip.friend.id, friendShip.id)">
           <md-icon>check</md-icon>
         </button>
       </div>

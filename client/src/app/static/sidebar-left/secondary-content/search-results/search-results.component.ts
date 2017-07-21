@@ -1,15 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { User } from '../../../../models';
+import { FriendShipService } from '../../../../services';
+
+
 
 @Component({
   selector: 'ow-search-results',
   templateUrl: 'search-results.component.html',
-  styleUrls: [ 'search-results.component.scss' ]
+  styleUrls: [ 'search-results.component.scss' ],
+  providers: [FriendShipService]
 })
 
 export class SearchResultsComponent {
 
-  items: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+  @Input() searchResults: User[];
+  constructor(private friendShip: FriendShipService) {}
 
-  constructor() {}
-
+  sendFriendRequest(id: number) {
+    this.friendShip.request(id);
+  }
 }

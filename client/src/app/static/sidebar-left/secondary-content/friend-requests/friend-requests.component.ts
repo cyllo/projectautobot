@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AppState } from '../../../../models';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { filter, propEq, values, length } from 'ramda';
 
 @Component({
   selector: 'ow-friend-requests',
@@ -8,22 +12,19 @@ import { Component, OnInit } from '@angular/core';
 
 export class FriendRequestsComponent implements OnInit {
 
-  friendRequests: string[] = [];
+  friendRequests: Observable<any>;
+  friendRequestCount: boolean;
 
-  constructor() {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    // TO POPULATE WITH DUMMY DATA
-    for (let i = 0; i < 20; ++i) {
-      const reqStr = Math.random().toString(36).slice(2);
-      this.friendRequests.push(reqStr);
-    }
-  }
+    this.friendRequests = this.store.select('friendships')
+    .map(friendships => filter(propEq('isAccepted', false), values(friendships)));
 
-  removeFriendRequest(stubData: string): void {
-    this.friendRequests.splice(this.friendRequests.findIndex(e => {
-      return e === stubData;
-    }), 1);
+    this.friendRequests
+    .subscribe(friendRequests => {
+      this.friendRequestCount = length(friendRequests) > 0;
+    });
   }
 
 }

@@ -6,7 +6,6 @@ import { Location } from '@angular/common';
 import { MdSnackBar } from '@angular/material';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-const PASSWORD_REGEX = /^(?=.*[a-z]+.*)(?=.*[A-Z]+.*)(?=.*[0-9]+.*)(.{8,})$/;
 
 @Component({
   selector: 'ow-login',
@@ -25,7 +24,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.pattern(EMAIL_REGEX)]),
-      password: new FormControl('', [Validators.required, Validators.pattern(PASSWORD_REGEX)])
+      password: new FormControl('', [Validators.required])
     });
   }
 
