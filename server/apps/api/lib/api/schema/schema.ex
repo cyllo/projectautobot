@@ -6,7 +6,7 @@ defmodule Api.Schema do
     SnapshotStatisticsAverageResolver,
     GamerTagResolver, HeroResolver, UserResolver,
     SessionResolver, BlogResolver, Middleware,
-    HeroStatisticsAverageResolver
+    HeroStatisticsAverageResolver, FriendshipResolver
     #, SnapshotStatisticResolver
   }
 
@@ -87,6 +87,7 @@ defmodule Api.Schema do
     end
 
     field :blog_posts, list_of(:blog_post) do
+      arg :after, :integer
       arg :last, :integer
       arg :first, :integer
       arg :start_date, :datetime
@@ -210,6 +211,57 @@ defmodule Api.Schema do
 
       middleware Middleware.Auth
       resolve &async(fn -> UserResolver.connected_to_battle_net(&1, &2) end, timeout: 20_000)
+    end
+
+    @desc """
+      Sends a friend request
+
+      Restrictions: User Auth
+    """
+    field :send_friend_request, :friendship do
+      arg :friend_user_id, :integer
+
+      middleware Middleware.Auth
+      resolve &FriendshipResolver.send/2
+    end
+
+    @desc """
+      Accepts a friend request
+
+      Restrictions: User Auth
+    """
+    field :accept_friend_request, :friendship do
+      arg :friendship_id, :integer
+      arg :friend_user_id, :integer
+
+      middleware Middleware.Auth
+      resolve &FriendshipResolver.accept/2
+    end
+
+    @desc """
+      Rejects a friend request
+
+      Restrictions: User Auth
+    """
+    field :reject_friend_request, :rejected_info do
+      arg :friendship_id, :integer
+      arg :friend_user_id, :integer
+
+      middleware Middleware.Auth
+      resolve &FriendshipResolver.reject/2
+    end
+
+    @desc """
+      Removes a current friendship
+
+      Restrictions: User Auth
+    """
+    field :remove_friend, :removed_info do
+      arg :friendship_id, :integer
+      arg :friend_user_id, :integer
+
+      middleware Middleware.Auth
+      resolve &FriendshipResolver.remove/2
     end
 
     @desc """

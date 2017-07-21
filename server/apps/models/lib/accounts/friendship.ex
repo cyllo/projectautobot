@@ -1,6 +1,6 @@
 defmodule Models.Accounts.Friendship do
   use Models.Model
-  alias Models.Accounts.User
+  alias Models.Accounts.{User, Friendship}
 
   schema "friendships" do
     field :is_accepted, :boolean, default: false
@@ -10,18 +10,15 @@ defmodule Models.Accounts.Friendship do
     timestamps(type: :utc_datetime)
   end
 
-  @required_fields [:friend_id, :user_id, :is_accepted]
-  @allowed_fields Enum.concat(@required_fields, [])
+  @allowed_fields [:is_accepted]
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
-  def changeset(struct, params \\ %{}) do
+  def changeset(%Friendship{} = struct, params \\ %{}) do
     struct
       |> cast(params, @allowed_fields)
-      |> validate_required(@required_fields)
-      # |> unique_constraint(:user_id, name: :followers_pkey, message: "#{struct.user_id} is already following #{struct.follower_id}")
-      # |> cast_assoc(:follower)
-      # |> cast_assoc(:user)
   end
+
+  def create_changeset(params), do: changeset(%Friendship{}, params)
 end

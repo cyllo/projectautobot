@@ -50,6 +50,7 @@ defmodule Models.Accounts.User do
   end
 
   def create_changeset(params), do: changeset(%User{}, params)
+  def get_user_fields(user), do: Map.take(user, User.__schema__(:fields))
 
   @doc """
   Checks if a user's password is correct

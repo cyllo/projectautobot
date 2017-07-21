@@ -4,7 +4,7 @@ defmodule Scraper.ModelCreator do
   alias Scraper.ModelCreator.{Heroes, UserProfile, Stats}
 
   @spec save_profile(profile :: map) :: map
-  @desc """
+  @doc """
     Saves a profile from scraping
   """
   def save_profile(profile) do

@@ -55,6 +55,7 @@ defmodule Models.Model do
   def create_model_filter({:last, val}, query), do: from(query, order_by: [desc: :inserted_at], limit: ^val) |> subquery |> order_by(asc: :inserted_at)
   def create_model_filter({:start_date, val}, query), do: where(query, [m], m.inserted_at >= ^(val))
   def create_model_filter({:end_date, val}, query), do: where(query, [m], m.inserted_at <= ^val)
+  def create_model_filter({:after, id}, query), do: where(query, [m], m.id > ^id)
   def create_model_filter({filter_field, val}, %{from: {_, model}} = query), do: create_model_filter({filter_field, val}, model, query)
   def create_model_filter({filter_field, val}, model), do: create_model_filter({filter_field, val}, model, model)
   def create_model_filter({filter_field, val}, model, query) do

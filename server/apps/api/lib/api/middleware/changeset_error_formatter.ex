@@ -1,4 +1,6 @@
 defmodule Api.Middleware.ChangesetErrorFormatter do
+  @behaviour Absinthe.Middleware
+
   def call(%{errors: []} = res, _), do: res
   def call(%{errors: errors} = res, _), do: %{res | errors: format_changeset_error(errors)}
 
