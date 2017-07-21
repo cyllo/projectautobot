@@ -1,0 +1,41 @@
+<div class="profile-list" md-list-item [ngStyle]="{ 'padding': '0 16px' }">
+
+  <div class="flex-layout" fxLayout="row">
+
+    <div class="flex-layout" fxLayout="column" fxLayoutGap="8px" fxFlex="grow">
+
+      <div fxLayout="row">
+        <div fxLayout="column">
+          <span class="mat-caption">Your Profiles</span>
+        </div>
+      </div>
+
+      <div class="list-content-wrapper" fxLayout="row">
+        
+        <div class="list-content pr-2"
+             fxLayout="column"
+             fxLayoutGap="8px"
+             fxFlex="grow"
+             [perfect-scrollbar]>
+
+          <div fxLayout="row" fxFlex="noshrink" *ngFor="let player of players">
+
+            <div fxLayout="column" fxFlex="grow">
+
+              <ow-player-profile-button [player]="player"
+                (playerSelected)="onSelect(player)">
+              </ow-player-profile-button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

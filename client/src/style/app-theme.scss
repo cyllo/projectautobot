@@ -1,0 +1,87 @@
+@mixin ow-app-theme($theme) {
+
+  $primary: map-get($theme, primary);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  $input-hover-background-color: invert(mat-color($foreground, text, 0.2)) !default;
+  $input-background-color: mat-color($background, dialog) !default;
+  $input-border-color: mat-color($foreground, divider) !default;
+  $input-text-color: mat-color($foreground, text) !default;
+
+  background-color: mat-color($background, card);
+  color: mat-color($foreground, text);
+
+  a {
+    color: mat-color($primary);
+  }
+
+  input[type="text"] {
+
+    color: $input-text-color;
+    background-color: $input-background-color;
+    border: 1px solid $input-background-color;
+    transition: all 0.25s ease-in-out;
+
+    &:focus {
+      background-color: $input-background-color;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &::-webkit-input-placeholder {
+      transition: opacity 0.1s ease-in-out;
+      color: inherit;
+    }
+
+    &:focus::-webkit-input-placeholder {
+      opacity: 0;
+      color: inherit;
+    }
+
+    &::-moz-placeholder {
+      transition: opacity 0.1s ease-in-out;
+      color: inherit;
+    }
+
+    &:focus::-moz-placeholder {
+      opacity: 0;
+      color: inherit;
+    }
+
+    &:-ms-input-placeholder {
+      transition: opacity 0.1s ease-in-out;
+      color: inherit;
+    }
+
+    &:focus:-ms-input-placeholder {
+      opacity: 0;
+      color: inherit;
+    }
+
+    &:-moz-placeholder {
+      transition: opacity 0.1s ease-in-out;
+      color: inherit;
+    }
+
+    &:focus:-moz-placeholder {
+      opacity: 0;
+      color: inherit;
+    }
+
+  }
+
+  .platform-region {
+    &.mini-pr {
+      font-size: 10px;
+      padding: 2px 4px;
+      border-radius: 2px;
+      border: 1px solid $input-border-color;
+      background-color: $input-background-color;
+    }
+  }
+
+}

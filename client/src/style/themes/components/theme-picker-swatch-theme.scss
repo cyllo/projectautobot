@@ -1,0 +1,30 @@
+@mixin theme-picker-swatch-theme() {
+
+  $app-theme-default-primary: mat-color(map-get($app-theme-default, primary));
+  $app-theme-default-light: mat-color(map-get($app-theme-light, primary));
+  $app-theme-default-dark: mat-color(map-get($app-theme-dark, primary));
+
+  .theme-picker-swatch {
+
+    .theme-picker-primary {
+
+      &.app-theme-default {
+        background-color: $app-theme-default-primary !important;
+        color: contrast-color($app-theme-default-primary) !important;
+      }
+
+      &.app-theme-light {
+        background-color: $app-theme-default-light !important;
+        color: contrast-color($app-theme-default-light) !important;
+      }
+
+      &.app-theme-dark {
+        background-color: $app-theme-default-dark !important;
+        color: contrast-color($app-theme-default-dark) !important;
+      }
+
+    }
+
+  }
+
+}

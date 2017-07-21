@@ -1,7 +1,9 @@
-<div [formGroup]="form" class="form-group mx-0 my-0">
-  <div class="form-icon d-flex align-items-center justify-content-center">
-    <i class="fa fa-search" aria-hidden="true" *ngIf="!searchInProgress"></i>
-    <i class="fa fa-spinner fa-pulse fa-3x fa-fw" aria-hidden="true" *ngIf="searchInProgress"></i>
+<div [formGroup]="form" class="form-group">
+  <div class="form-icon" *ngIf="!searchInProgress">
+    <md-icon>search</md-icon>
+  </div>
+  <div class="form-icon" *ngIf="searchInProgress">
+    <md-spinner color="accent"></md-spinner>
   </div>
   <input
     type="text"
