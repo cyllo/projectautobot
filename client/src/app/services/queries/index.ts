@@ -1,4 +1,4 @@
-export * from './gamer-tag-search.query';
+export * from './gamer-tag-search.mutation';
 export * from './gamer-tag-fetch.query';
 export * from './snapshots-stats-average-search.query';
 export * from './hero-stats-average-search.query';

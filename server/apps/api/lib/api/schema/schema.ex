@@ -89,13 +89,6 @@ defmodule Api.Schema do
       resolve &BlogResolver.all/2
     end
 
-    @desc "Search gamer tag by tag name"
-    field :search_gamer_tag, list_of(:gamer_tag) do
-      arg :tag, non_null(:string)
-
-      resolve &GamerTagResolver.search/2
-    end
-
     field :hero_statistics_average, :hero_statistics_average do
       arg :hero_id, :integer
       arg :is_competitive, :boolean
@@ -120,6 +113,13 @@ defmodule Api.Schema do
       arg :platform, :string
 
       resolve &async(fn -> GamerTagResolver.scrape(&1, &2) end, timeout: 60_000)
+    end
+
+    @desc "Search gamer tag by tag name"
+    field :search_gamer_tag, list_of(:gamer_tag) do
+      arg :tag, non_null(:string)
+
+      resolve &GamerTagResolver.search/2
     end
 
     @desc "Creates a User account"

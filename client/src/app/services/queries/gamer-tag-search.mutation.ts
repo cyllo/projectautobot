@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
-export const gamerTagSearchQuery = gql`
-  query GamerTagSearch($tag: String!) {
+export const gamerTagSearchMutation = gql`
+  mutation GamerTagSearch($tag: String!) {
     searchGamerTag(tag: $tag) {
       id
       updatedAt
