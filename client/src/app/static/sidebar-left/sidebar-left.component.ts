@@ -4,7 +4,8 @@ import { ThemeingService, AppTheme } from '../../services';
 @Component({
   selector: 'ow-sidebar-left',
   templateUrl: 'sidebar-left.component.html',
-  styleUrls: [ 'sidebar-left.component.scss' ]
+  styleUrls: [ 'sidebar-left.component.scss' ],
+  providers: [ThemeingService]
 })
 
 export class SideBarLeftComponent implements OnInit {

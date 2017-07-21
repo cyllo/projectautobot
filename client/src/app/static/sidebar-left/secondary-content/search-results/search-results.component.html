@@ -8,7 +8,7 @@
        fxLayoutAlign="start center"
        fxLayoutGap="8px"
        fxFlex="noshrink"
-       *ngFor="let item of items">
+       *ngFor="let user of searchResults | owValuesPipe">
 
     <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
 
@@ -21,7 +21,7 @@
     <div class="flex-layout" fxLayout="column" fxFlex="grow">
 
       <div class="flex-layout" fxLayout="row" fxFlex="grow">
-          <span class="player-tag">Cyllo#2112</span>
+          <span class="player-tag">{{user.displayName}}</span>
       </div>
 
       <div class="skill-rating flex-layout"
@@ -44,7 +44,7 @@
       <div class="flex-layout" fxLayout="row">
 
         <div fxLayout="column">
-          <button class="min-width-0" md-button>
+          <button class="min-width-0" md-button (click)="sendFriendRequest(user.id)">
             <md-icon>add</md-icon>
           </button>
         </div>

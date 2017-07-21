@@ -12,7 +12,7 @@ const initialState: CurrentSession = {
   }
 };
 
-export function currentSession(state: CurrentSession = initialState, { type, payload }: { type: string, payload?: any }) {
+export function currentSession(state: CurrentSession, { type, payload }: { type: string, payload?: any }) {
   switch (type) {
     case 'AUTH':
       return payload;

@@ -10,13 +10,19 @@
   position: relative;
   width: 100%;
 
+  .form-control {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 36px;
+  }
+
   .form-icon {
     position: absolute;
     top: 50%;
     left: 0;
     transform: translateY(-50%);
     line-height: 0;
-    padding: 0 6px;
+    padding: 6px;
   }
 
   .hidden {

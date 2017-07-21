@@ -8,7 +8,7 @@
 
         <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center" fxFlex="grow">
           <md-icon>people</md-icon>
-          <span class="ml-1">Friends ({{ friendsCount }})</span>
+          <span class="ml-1">Friends ({{ friendsCount | async }})</span>
         </div>
 
       </ng-template>
@@ -28,7 +28,7 @@
         <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center" fxFlex="grow">
           <md-icon>person_add</md-icon>
           <span class="ml-1">
-            Requests ({{ friendRequestsCount > 99 ? '99+' : friendRequestsCount }})
+            Requests ({{ friendRequestCount > 99 ? '99+' : friendRequestCount }})
           </span>
         </div>
 

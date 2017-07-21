@@ -3,7 +3,7 @@
   <div class="px-3 flex-layout"
        fxLayout="column"
        fxFlex="grow"
-       *ngIf="!friendRequests.length">
+       *ngIf="!friendRequestCount">
 
     <div fxLayout="column" fxLayoutAlign="end center" fxFlex="1 1 55%">
       <p class="text-heading mat-display-2 mb-2">Did you try turning it on and off?</p>
@@ -19,21 +19,20 @@
        fxLayout="column"
        fxFlex="grow"
        [perfect-scrollbar]
-       *ngIf="friendRequests.length">
+       *ngIf="friendRequestCount">
 
     <md-list class="flex-layout" fxLayout="column" fxFlex="noshrink">
 
       <md-list-item class="flex-layout"
                     fxLayout="row"
                     fxFlex="nogrow"
-                    *ngFor="let request of friendRequests">
+                    *ngFor="let request of friendRequests | async | owValuesPipe">
 
         <ow-friend-request-card
             class="flex-layout"
             fxLayout="column"
             fxFlex="grow"
-            [stubData]="request"
-            (ignore)="removeFriendRequest($event)">
+            [friendShip]="request">
         </ow-friend-request-card>
 
       </md-list-item>

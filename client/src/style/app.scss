@@ -24,7 +24,7 @@ input[type="text"] {
   box-sizing: border-box;
   outline: none;
 }
-
+[hidden] { display: none !important;}
 /* https://google.github.io/material-design-icons/#sizing */
 /* Rules for sizing the icon. */
 .material-icons {

@@ -1,10 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { values } from 'ramda';
-import { FriendShip } from '../models';
+import { Friendship } from '../models';
 
 @Pipe({ name: 'owValuesPipe' })
 export class ValuesPipe implements PipeTransform {
-    transform(object: Object): Array<FriendShip> {
+    transform(object: Object): Array<Friendship> {
         return values(object);
     }
 }
