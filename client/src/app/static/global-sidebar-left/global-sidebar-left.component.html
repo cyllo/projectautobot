@@ -1,15 +1,16 @@
 <div class="global-sidebar-left">
-  <md-sidenav-container>
+  <md-sidenav-container class="height-100">
     <md-sidenav #sidenav mode="side" opened="true" align="end"
       (open-start)='onSideNavOpenStart($event)'
       (close-start)='onSideNavCloseStart($event)'>
-      <div class="sidenav-content px-3 pt-3">
-        <div class="row flex-column">
+      <div class="container-fluid height-100">
+        <div class="row flex-column height-100">
           <div class="col-12">
-            <ow-global-sidebar-left-secondary-content></ow-global-sidebar-left-secondary-content>
+            <ow-global-sidebar-left-secondary-content
+            class="d-flex flex-1 height-100"></ow-global-sidebar-left-secondary-content>
           </div><!-- .col -->
         </div><!-- .row -->
-      </div><!-- .sidenav-content -->
+      </div><!-- .container-fluid -->
     </md-sidenav><!-- secondary content -->
     <div class="row flex-column">
       <div class="col-12">

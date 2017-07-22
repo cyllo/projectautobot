@@ -1,54 +1,29 @@
 @import "../../../../../style/colors";
 
 .global-sidebar-left-friends-list {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  height: 100%;
-}
 
-.global-sidebar-left-friends-list .row.header,
-.global-sidebar-left-friends-list .row.footer {
-  flex: 0 1 auto;
-}
-
-.global-sidebar-left-friends-list .row.content,
-.global-sidebar-left-friends-list .row.content > div,
-.global-sidebar-left-friends-list > .friends-list-container {
-  flex-direction: column;
-  flex: 1 1 auto;
-}
-
-.global-sidebar-left-friends-list {
-
-  .user-action-create-club {
-
+  .user-action {
     position: relative;
+  }
 
-    .message {
+  .message {
 
-      display: none;
-      top: 0;
-      left: 0;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      color: $white;
+    display: none;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: $white;
 
-      .inner {
-        background-color: $green;
-      }
-
-      span {
-        line-height: 1;
-      }
-
+    .inner {
+      background-color: $green;
     }
 
-    .message.show {
-      display: block;
-    }
+  }
 
+  .message.show {
+    display: block;
   }
 
 }

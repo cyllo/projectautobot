@@ -8,26 +8,8 @@
   height: 100%;
   z-index: 9999;
 
-  .mat-sidenav-container {
-    height: 100%;
-  }
-
   .mat-sidenav {
     width: 300px;
-  }
-
-  .sidenav-content {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
-    height: 100%;
-
-    > .row,
-    > .row > div {
-      height: 100%;
-    }
-
   }
 
 }

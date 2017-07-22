@@ -9,6 +9,7 @@ import { UserFriendsListClub } from '../../../../models';
 
 export class GlobalSideBarLeftFriendsListComponent {
 
+  openSearchResults: boolean;
   clubCreationPending: boolean;
   responseMessage: string;
 
@@ -29,6 +30,7 @@ export class GlobalSideBarLeftFriendsListComponent {
 
   constructor() {
     this.clubCreationPending = false;
+    this.openSearchResults = false;
   }
 
   clubCreationStarted(): void {
@@ -37,6 +39,7 @@ export class GlobalSideBarLeftFriendsListComponent {
 
   clubCreationEnded(): void {
     this.clubCreationPending = false;
+    this.openSearchResults = !this.openSearchResults;
     this.setResponseMessage();
   }
 

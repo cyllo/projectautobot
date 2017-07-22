@@ -1,19 +1,15 @@
 <div class="global-sidebar-left-friends-list-club">
   <div class="row">
     <div class="col-12">
-
       <div class="row">
         <div class="col-3 pr-0">
-          <!-- aria-controls and id needs to be unique -->
           <button md-button
-                  class="d-inline-flex align-items-center justify-content-center width-100 min-width-0 px-0"
-                  (click)="isCollapsed = !isCollapsed"
-                  [attr.aria-expanded]="!isCollapsed"
-                  aria-controls="user-club-crew">
-                  <i class="material-icons md-18"
-                     *ngIf="isCollapsed">keyboard_arrow_right</i>
-                  <i class="material-icons md-18"
-                     *ngIf="!isCollapsed">keyboard_arrow_down</i>
+            class="d-inline-flex align-items-center justify-content-center width-100 min-width-0 px-0"
+            (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed"
+            aria-controls="collapseable-container">
+            <i class="material-icons md-18" *ngIf="isCollapsed">keyboard_arrow_right</i>
+            <i class="material-icons md-18" *ngIf="!isCollapsed">keyboard_arrow_down</i>
           </button>
         </div><!-- .col -->
         <div class="col-6 px-2">
@@ -45,7 +41,7 @@
       </div><!-- .row -->
 
       <div class="row"
-           id="user-club-crew"
+           id="collapseable-container"
            [ngbCollapse]="isCollapsed">
         <div class="col-12 pt-3" [dragula]='"bag-one"' [dragulaModel]='items'>
 
