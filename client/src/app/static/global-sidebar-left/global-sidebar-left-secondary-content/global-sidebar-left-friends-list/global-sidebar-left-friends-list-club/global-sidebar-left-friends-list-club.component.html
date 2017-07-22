@@ -39,45 +39,34 @@
           </button>
         </div><!-- .col -->
       </div><!-- .row -->
-
-      <div class="row"
-           id="collapseable-container"
-           [ngbCollapse]="isCollapsed">
+      <div class="row" id="collapseable-container" [ngbCollapse]="isCollapsed">
         <div class="col-12 pt-3" [dragula]='"bag-one"' [dragulaModel]='items'>
-
-          <div class="row align-items-center draggable-item" *ngFor="let item of items">
+          <div class="row draggable-item" *ngFor="let item of items">
             <div class="col-12 py-3">
-              <div class="row">
-
+              <div class="row align-items-center">
                 <div class="col-auto pl-3">
                   <img src="img/imgplaceholder.png"
                        class="material-image md-36 image-circle">
                 </div><!-- .col -->
-
                 <div class="col player-info">
                   <div class="player-tag">
                     <span class="small text-uppercase mb-0">Cyllo#2112</span>
                   </div><!-- .player -->
                   <div class="d-flex align-items-center">
-                    <img src="https://blzgdapipro-a.akamaihd.net/game/rank-icons/season-2/rank-3.png"
-                         class="material-image md-18">
-                    <span class="skill-rating small">2320</span>
+                    <img src="https://blzgdapipro-a.akamaihd.net/game/rank-icons/season-2/rank-3.png" class="d-inline-flex material-image md-18 mr-1">
+                    <span class="d-inline-flex skill-rating small">2320</span>
                   </div><!-- .skill-rating -->
                 </div><!-- .col -->
-
                 <div class="col-auto pr-3">
                   <button md-button class="min-width-0">
                     <i class="material-icons md-18">keyboard_arrow_right</i>
                   </button>
                 </div><!-- .col -->
-
               </div><!-- .row -->
             </div><!-- .col -->
           </div><!-- .row -->
-
         </div><!-- .col -->
       </div><!-- .row -->
-
     </div><!-- .col -->
   </div><!-- .row -->
 </div><!-- .global-sidebar-left-friends-list-club -->
