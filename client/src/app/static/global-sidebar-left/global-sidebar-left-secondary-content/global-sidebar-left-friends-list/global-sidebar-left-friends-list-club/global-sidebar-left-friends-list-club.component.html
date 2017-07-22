@@ -2,7 +2,8 @@
   <div class="row">
     <div class="col-12">
       <div class="row">
-        <div class="col-3 pr-0">
+
+        <div class="col-3 pr-0" *ngIf="!clubEditPending">
           <button md-button
             class="d-inline-flex align-items-center justify-content-center width-100 min-width-0 px-0"
             (click)="isCollapsed = !isCollapsed"
@@ -12,7 +13,8 @@
             <i class="material-icons md-18" *ngIf="!isCollapsed">keyboard_arrow_down</i>
           </button>
         </div><!-- .col -->
-        <div class="col-6 px-2">
+
+        <div class="px-2" [ngClass]="{'col': clubEditPending, 'col-6': !clubEditPending }">
           <input type="text"
                  class="form-control height-100"
                  placeholder=""
@@ -25,19 +27,34 @@
             <span class="small text-uppercase">{{ club.name }}</span>
           </button>
         </div><!-- .col -->
-        <div class="col-3 pl-0" *ngIf="club.mutable">
+
+        <div class="pl-0" [ngClass]="{'col-auto pr-3': clubEditPending, 'col-3': !clubEditPending }"
+             *ngIf="club.mutable">
+
           <button md-button
-                  class="d-inline-flex align-items-center justify-content-center width-100 min-width-0 px-0"
+                  class="d-inline-flex align-items-center justify-content-center min-width-0"
+                  [ngClass]="{'width-100': !clubEditPending, 'px-0': !clubEditPending}"
                   (click)="clubEditEnd($event)"
                   *ngIf="clubEditPending">
             <i class="material-icons md-18">check</i>
           </button>
+
+          <button md-button
+                  class="d-inline-flex align-items-center justify-content-center min-width-0"
+                  [ngClass]="{'width-100': !clubEditPending, 'px-0': !clubEditPending}"
+                  (click)="clubEditEnd($event)"
+                  *ngIf="clubEditPending">
+            <i class="material-icons md-18">delete_forever</i>
+          </button>
+
           <button md-button
                   class="d-inline-flex align-items-center justify-content-center width-100 min-width-0 px-0"
                   *ngIf="!clubEditPending">
             <i class="material-icons md-18">compare_arrows</i>
           </button>
+
         </div><!-- .col -->
+
       </div><!-- .row -->
       <div class="row" id="collapseable-container" [ngbCollapse]="isCollapsed">
         <div class="col-12 pt-3" [dragula]='"bag-one"' [dragulaModel]='items'>
