@@ -1,14 +1,23 @@
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
+import { polyfillLoader } from 'polyfill-io-feature-detection';
 
 // depending on the env mode, enable prod mode or add debugging modules
 if (process.env.ENV === 'build') {
   enableProdMode();
 }
 
-export function main() {
+function App () {
+  // your app code here
   return platformBrowserDynamic().bootstrapModule(AppModule);
+}
+
+export function main() {
+  polyfillLoader({
+    'features': 'Promise',
+    'onCompleted': App
+  });
 }
 
 if (document.readyState === 'complete') {
