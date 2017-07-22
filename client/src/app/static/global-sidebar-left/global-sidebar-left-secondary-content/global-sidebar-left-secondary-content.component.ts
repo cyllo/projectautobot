@@ -9,6 +9,8 @@ import { Component } from '@angular/core';
 
 export class GlobalSideBarLeftSecondaryContentComponent {
 
+  friendRequestsCount = 10;
+
   constructor() {}
 
 }
