@@ -39,7 +39,7 @@
           </button>
         </div><!-- .col -->
 
-        <div class="{{ club.mutable ? 'col-6' : 'col' }} px-2">
+        <div [ngClass]="{ 'col-6': club.mutable , 'col': !club.mutable }">
           <button md-button
                   class="btn-club-name width-100 text-left"
                   (click)="clubEditStart($event)"
