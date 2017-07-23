@@ -14,8 +14,11 @@ defmodule Models.Accounts.User do
     field :password, :string, virtual: true
     field :password_hash, :string
     field :is_admin, :boolean, default: false
-    has_many :friends, Friendship
+    has_many :friendships, Friendship
     has_many :gamer_tags, GamerTag
+    many_to_many :following, User, join_through: "followers",
+                                   join_keys: [follower_id: :id, user_id: :id],
+                                   unique: true
     many_to_many :followers, User, join_through: "followers",
                                    join_keys: [user_id: :id, follower_id: :id],
                                    unique: true

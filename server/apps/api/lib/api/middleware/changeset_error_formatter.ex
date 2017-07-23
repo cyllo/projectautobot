@@ -21,7 +21,9 @@ defmodule Api.Middleware.ChangesetErrorFormatter do
     changeset
       |> interpolate_errors
       |> Map.to_list
-      |> Enum.flat_map(fn {field, errors} -> field_errors_to_error(changeset, field, errors) end)
+      |> Enum.flat_map(fn {field, errors} ->
+        field_errors_to_error(changeset, field, errors)
+      end)
   end
 
   def field_errors_to_error(changeset, field, errors) do
@@ -46,10 +48,17 @@ defmodule Api.Middleware.ChangesetErrorFormatter do
   @spec error_field_value(changeset :: Ecto.Changeset.t, field :: atom) :: any
   defp error_field_value(changeset, field) do
     case Ecto.Changeset.fetch_field(changeset, field) do
-      {_, value} -> value
+      {_, value} -> format_error_value(value)
       :error -> nil
     end
   end
+
+  defp format_error_value(%{__struct__: struct} = schema) do
+    Map.take(schema, struct.__schema__(:fields))
+      |> Map.drop([:is_admin, :password_hash, :password])
+      |> ProperCase.to_camel_case
+  end
+  defp format_error_value(val), do: val
 
   defp is_changeset(%Ecto.Changeset{} = _), do: true
   defp is_changeset(_), do: false

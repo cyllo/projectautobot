@@ -11,19 +11,22 @@ defmodule Models.Accounts.Follower do
     timestamps(type: :utc_datetime)
   end
 
-  @required_fields [:follower_id, :user_id]
-  @allowed_fields Enum.concat(@required_fields, [])
-
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do
     struct
-      |> cast(params, @allowed_fields)
-      |> validate_required(@required_fields)
-      |> unique_constraint(:user_id, name: :followers_pkey, message: "#{struct.user_id} is already following #{struct.follower_id}")
-      |> cast_assoc(:follower)
-      |> cast_assoc(:user)
+      |> cast(params, [])
+      |> unique_constraint(:user, name: :followers_pkey, message: "User is already following #{struct.follower.display_name}")
+      |> validate_follower
+  end
+
+  defp validate_follower(changeset) do
+    if (changeset.data.follower.id === changeset.data.user.id) do
+      add_error(changeset, :follower, "You cannot follow yourself")
+    else
+      changeset
+    end
   end
 end
 

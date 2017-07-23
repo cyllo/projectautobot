@@ -183,7 +183,6 @@ defmodule Api.Schema do
     """
     field :follow_user, :follow_user_result do
       arg :id, non_null(:integer)
-      arg :following_id, non_null(:integer)
 
       middleware Middleware.Auth
       resolve &UserResolver.follow/2

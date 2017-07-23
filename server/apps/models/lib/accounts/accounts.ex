@@ -46,9 +46,7 @@ defmodule Models.Accounts do
 
   """
   def create_user_follower(user, user_follower) do
-    with follower <- build_assoc(user, :followers, follower_id: user_follower.id),
-         {:ok, _} <- follower |> Follower.changeset |> Repo.insert do
-
+    with {:ok, _} <- %Follower{user: user, follower: user_follower} |> Follower.changeset |> Repo.insert do
       {:ok, Repo.preload(user, :followers)}
     end
   end
