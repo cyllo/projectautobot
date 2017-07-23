@@ -4,7 +4,7 @@
     <div class="search-form">
       <a class="navbar-brand hidden-lg-up" routerLink=""><img src="img/TankIcon.svg" alt="logo"></a>
       <form [formGroup]="questionForm">
-        <ow-search #search (search)='onSearch($event)'></ow-search>
+        <ow-search #search [searchInProgress]="searchInProgress" (search)='onSearch($event)'></ow-search>
       </form>
     </div>
     <ow-main-navbar-left class="d-inline-flex"></ow-main-navbar-left>

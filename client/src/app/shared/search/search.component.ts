@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { trim } from 'ramda';
@@ -9,6 +9,7 @@ import { trim } from 'ramda';
   styleUrls: ['search.component.scss']
 })
 export class SearchComponent implements OnDestroy {
+  @Input() searchInProgress: boolean;
   @Output() search = new EventEmitter();
 
   public subscriptions: Subscription[] = [];

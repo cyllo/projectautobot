@@ -15,6 +15,7 @@ export class MainSearchResultsComponent {
   @Input() searchResults;
   @Input() isOpen: boolean;
   @Output() close = new EventEmitter();
+  @Output() isOpenChange = new EventEmitter();
 
   data$: Observable<AppState>;
   search: Search;
@@ -26,12 +27,12 @@ export class MainSearchResultsComponent {
     this.data$ = this.store.select(search => search);
     this.data$.subscribe(s => {
       this.search = s.search;
-      this.isOpen = this.search.searching;
       this.cd.markForCheck();
     });
   }
 
   onClose() {
+    this.isOpenChange.emit(false);
     this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: { searching: false } });
   }
 

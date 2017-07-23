@@ -32,7 +32,6 @@ export class GamerTagService {
   find(tag) {
     return this.apollo.mutate<GamerTagSearchResponse>({ mutation: gamerTagSearchMutation, variables: { tag } })
       .map(({ data }) => data.searchGamerTag)
-      .filter(data => data.length > 0)
       .map(clone);
   }
 

@@ -1,4 +1,15 @@
-import { Component, ViewChild, AfterViewInit, AfterContentInit, OnDestroy, Renderer2 , EventEmitter, Output , OnInit } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  AfterViewInit,
+  AfterContentInit,
+  OnDestroy,
+  Renderer2,
+  EventEmitter,
+  Input,
+  Output,
+  OnInit
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Action, Store } from '@ngrx/store';
 import { AppState } from '../../models';
@@ -15,6 +26,7 @@ import { values, all, isNil, path } from 'ramda';
 export class MainNavComponent implements AfterContentInit, OnDestroy, AfterViewInit, OnInit {
 @ViewChild('search') search;
 @ViewChild('mainnav') elMainNav;
+@Input() searchInProgress: boolean;
 @Output() searchTag = new EventEmitter<Action>();
 
   questionForm: FormGroup;
