@@ -54,3 +54,6 @@ __build__/**
 .idea/
 *.swp
 server/deps/
+
+# Ignore npm package-lock file
+package-lock.json
