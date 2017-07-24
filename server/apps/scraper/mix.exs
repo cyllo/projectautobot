@@ -45,9 +45,8 @@ defmodule Scraper.Mixfile do
       {:quantum, ">= 1.9.1"},
       {:httpoison, "~> 0.10.0"},
       {:con_cache, "~> 0.12.0"},
-      {:utility, in_umbrella: true}
-
-      # {:models, in_umbrella: true}
+      {:utility, in_umbrella: true},
+      {:models, in_umbrella: true}
     ]
   end
 end

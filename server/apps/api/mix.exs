@@ -44,7 +44,8 @@ defmodule Api.Mixfile do
       {:proper_case, "~> 1.0.0"},
       {:utility, in_umbrella: true},
       {:battle_net, in_umbrella: true},
-      {:scraper, in_umbrella: true}
+      {:scraper, in_umbrella: true},
+      {:models, in_umbrella: true}
     ]
   end
 end
