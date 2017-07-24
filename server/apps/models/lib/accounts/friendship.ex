@@ -21,4 +21,13 @@ defmodule Models.Accounts.Friendship do
   end
 
   def create_changeset(params), do: changeset(%Friendship{}, params)
+
+  def reduce_params_to_query(query, params), do: Enum.reduce(params, query, &params_to_query/2)
+  def params_to_query({:is_accepted, value}, query), do: where(query, is_accepted: ^value)
+  def params_to_query({:is_incoming, value}, query) do
+    import IEx
+    IEx.pry
+    query
+  end
+  def params_to_query(_, query), do: query
 end

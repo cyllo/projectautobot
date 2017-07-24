@@ -78,20 +78,30 @@ defmodule Models.Game do
     end
   end
 
+  def remove_gamer_tag_follower(user, gamer_tag_id) do
+    with {:ok, gamer_tag} <- get_gamer_tag(gamer_tag_id) do
+      with {:ok, gamer_tag_user_follower} <- get_gamer_tag_user_follower(gamer_tag_id, user.id),
+           {1, _} <- Ecto.Query.where(GamerTagUserFollower, [gamer_tag_id: ^gamer_tag_id, user_id: ^user.id]) |> Repo.delete_all do
+        {:ok, gamer_tag_user_follower}
+      else
+        {0, _} -> {:error, "#{user.display_name} isn't following #{gamer_tag.tag}"}
+        e -> e
+      end
+    end
+  end
+
   def get_gamer_tag_user_follower(gamer_tag_id, user_id) do
-    from(gtuf in GamerTagUserFollower, preload: [:gamer_tag, :user],
-                                       where: gtuf.gamer_tag_id == ^gamer_tag_id and gtuf.user_id == ^user_id)
-      |> Repo.one
+    res = from(GamerTagUserFollower, preload: [:gamer_tag, :user],
+                                     where: [gamer_tag_id: ^gamer_tag_id, user_id: ^user_id]) |> Repo.one
+    case res do
+      nil -> {:error, "User #{user_id} isn't following gamer tag #{gamer_tag_id}"}
+      res -> {:ok, res}
+    end
   end
 
   defp create_gamer_tag_user_follower(gamer_tag_id, user_id) do
-    #HACK Need to get rid of check with unique constraint fix
-    # case get_gamer_tag_user_follower(gamer_tag_id, user_id) do
-    #   nil ->
-        GamerTagUserFollower.create_changeset(%{gamer_tag_id: gamer_tag_id, user_id: user_id})
-          |> Repo.insert
-      # _ -> {:error, "User ID #{user_id} is already following Gamer Tag ID #{gamer_tag_id}"}
-    # end
+    GamerTagUserFollower.create_changeset(%{gamer_tag_id: gamer_tag_id, user_id: user_id})
+      |> Repo.insert
   end
 
 

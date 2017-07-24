@@ -51,6 +51,16 @@ defmodule Models.Accounts do
     end
   end
 
+  def remove_followed_user(user, followed_user_id) do
+    with {:ok, follower} <- get_followed_user(user, followed_user_id),
+         {1, _} <- Ecto.Query.where(Follower, user_id: ^followed_user_id, follower_id: ^user.id) |> Repo.delete_all do
+      {:ok, follower}
+    else
+      {0, _} -> {:error, "cannot remove user that doesn't exist"}
+      e -> e
+    end
+  end
+
   @doc """
   Finds user by `user_name` and verifies `password`
 
@@ -86,11 +96,14 @@ defmodule Models.Accounts do
     end
   end
 
-  def search_users(identifier) do
-    search_string = "%#{identifier}%"
+  def search_users_excluding_user(identifier, exclude_id) do
+    User.search_query(identifier)
+      |> Ecto.Query.where([u], u.id != ^exclude_id)
+      |> Repo.all
+  end
 
-    from(u in User, where: ilike(u.display_name, ^search_string),
-                    or_where: ilike(u.email, ^search_string))
+  def search_users(identifier) do
+    User.search_query(identifier)
       |> Repo.all
   end
 
@@ -217,11 +230,26 @@ defmodule Models.Accounts do
     with {:ok, _} <- delete_friendship(user, params), do: {:ok, %{removed: true}}
   end
 
-  defp get_user_friendship(user_1_id, user_2_id) do
-    from(f in Friendship, where: [user_id: ^user_1_id, friend_id: ^user_2_id],
-                          or_where: [user_id: ^user_2_id, friend_id: ^user_1_id],
-                          preload: [:user, :friend])
+  def get_followed_user(user, followed_id) do
+    with {:ok, followed} <- get_user(followed_id) do
+      case Repo.get_by(Follower, user_id: followed_id, follower_id: user.id) do
+        nil -> {:error, "You are not following #{followed.displayName}"}
+        follower_schema -> {:ok, follower_schema}
+      end
+    end
+  end
+
+  def get_user_friendship(user_1_id, user_2_id) do
+    User.get_user_friendship_query(user_1_id, user_2_id)
      |> Repo.one
+  end
+
+  def get_users_friendships(users, params \\ []) do
+    users
+      |> Utility.pluck(:id)
+      |> User.get_users_friendships_query
+      |> Friendship.reduce_params_to_query(params)
+      |> Repo.all
   end
 
   defp get_friendship(user, %{friend_user_id: friend_id}) do

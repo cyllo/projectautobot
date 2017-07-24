@@ -1,5 +1,5 @@
 defmodule Models.Accounts.User do
-  alias Models.Accounts.{User, Follower, Friendship}
+  alias Models.Accounts.{UserFriendGroup, User, Follower, Friendship}
   alias Models.Game
   alias Models.Game.GamerTag
   alias Comeonin.Pbkdf2
@@ -16,6 +16,7 @@ defmodule Models.Accounts.User do
     field :is_admin, :boolean, default: false
     has_many :friendships, Friendship
     has_many :gamer_tags, GamerTag
+    has_many :friend_groups, UserFriendGroup
     many_to_many :following, User, join_through: "followers",
                                    join_keys: [follower_id: :id, user_id: :id],
                                    unique: true
@@ -70,6 +71,24 @@ defmodule Models.Accounts.User do
 
   """
   def has_correct_pw?(%User{} = user, password), do: Pbkdf2.checkpw(password, user.password_hash)
+
+  def get_users_friendships_query(user_ids) do
+    from(f in Friendship, where: f.user_id in ^user_ids,
+                          or_where: f.friend_id in ^user_ids)
+  end
+
+  def get_user_friendship_query(user_1_id, user_2_id) do
+    from(f in Friendship, where: [user_id: ^user_1_id, friend_id: ^user_2_id],
+                          or_where: [user_id: ^user_2_id, friend_id: ^user_1_id],
+                          preload: [:user, :friend])
+  end
+
+  def search_query(identifier) do
+    search_string = "%#{identifier}%"
+
+    from(u in User, where: ilike(u.display_name, ^search_string),
+                    or_where: ilike(u.email, ^search_string))
+  end
 
   defp put_gamer_tags_following(changeset) do
     gamer_tags_following_ids = changeset.params["gamer_tags_following"]

@@ -12,4 +12,8 @@ defmodule Api.Schema.ActionTypes do
   object :rejected_info do
     field :rejected, :boolean
   end
+
+  object :unfollow_result do
+    field :unfollowed, :boolean
+  end
 end

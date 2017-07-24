@@ -31,7 +31,7 @@ defmodule Models.HeroesCache do
   end
 
   def add_heroes_to_cache(heroes) do
-    info "Adding to hero cache #{inspect heroes}"
+    info "Adding to hero cache #{inspect Utility.pluck(heroes, :name)}"
 
     cache_length = HeroesCache.cache_length()
     hero_names = get_hero_names(heroes)

@@ -182,10 +182,22 @@ defmodule Api.Schema do
       Restrictions: User Auth
     """
     field :follow_user, :follow_user_result do
-      arg :id, non_null(:integer)
+      arg :user_id, non_null(:integer)
 
       middleware Middleware.Auth
-      resolve &UserResolver.follow/2
+      resolve &UserResolver.follow_user/2
+    end
+
+    @desc """
+      Unfollows a User
+
+      Restrictions: User Auth
+    """
+    field :unfollow_user, :unfollow_result do
+      arg :user_id, non_null(:integer)
+
+      middleware Middleware.Auth
+      resolve &UserResolver.unfollow_user/2
     end
 
     @desc """
@@ -198,6 +210,18 @@ defmodule Api.Schema do
 
       middleware Middleware.Auth
       resolve &UserResolver.follow_gamer_tag/2
+    end
+
+    @desc """
+      Unfollows a User
+
+      Restrictions: User Auth
+    """
+    field :unfollow_gamer_tag, :unfollow_result do
+      arg :gamer_tag_id, non_null(:integer)
+
+      middleware Middleware.Auth
+      resolve &UserResolver.unfollow_gamer_tag/2
     end
 
     @desc """

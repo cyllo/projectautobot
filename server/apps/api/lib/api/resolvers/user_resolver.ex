@@ -4,6 +4,7 @@ defmodule Api.UserResolver do
   alias Models.{Accounts, Game}
 
   def current(_, %{context: %{current_user: user}}), do: {:ok, user}
+  def all(%{search: identifier}, %{context: %{current_user: user}}), do: {:ok, Accounts.search_users_excluding_user(identifier, user.id)}
   def all(%{search: identifier}, _info), do: {:ok, Accounts.search_users(identifier)}
   def all(params, _info), do: Accounts.get_all_users(params)
   def find(%{identifier: identifier}, _info), do: Accounts.find_user_by_email_or_display_name(identifier)
@@ -31,8 +32,20 @@ defmodule Api.UserResolver do
     BattleNet.connect_user_to_battle_net(user, client_auth_token)
   end
 
-  def follow(%{id: following_id}, %{context: %{current_user: user}}) do
-    get_and_follow_user(user, following_id)
+  def follow_user(%{user_id: followed_id}, %{context: %{current_user: user}}) do
+    get_and_follow_user(user, followed_id)
+  end
+
+  def unfollow_user(%{user_id: followed_id}, %{context: %{current_user: user}}) do
+    with {:ok, _} <- Accounts.remove_followed_user(user, followed_id) do
+      {:ok, %{unfollowed: true}}
+    end
+  end
+
+  def unfollow_gamer_tag(%{gamer_tag_id: gamer_tag_id}, %{context: %{current_user: user}}) do
+    with {:ok, _} <- Game.remove_gamer_tag_follower(user, gamer_tag_id) do
+      {:ok, %{unfollowed: true}}
+    end
   end
 
   def follow_gamer_tag(%{gamer_tag_id: id}, %{context: %{current_user: current_user}}), do: Game.create_gamer_tag_follower(current_user, id)
@@ -43,11 +56,7 @@ defmodule Api.UserResolver do
 
   def get_followers(_, users), do: preload_id_map(users, :followers, [])
   def get_following(_, users), do: preload_id_map(users, :following, [])
-  def get_friendships(_, users) do
-    for {id, items} <- preload_id_map(users, :friendships, []), into: %{} do
-      {id, Models.Repo.preload(items, [:friend, :user])}
-    end
-  end
+  def get_friendships(params, users), do: Accounts.get_users_friendships(users, params)
 
   defp get_and_follow_user(user, following_id) do
     with {:ok, following_user} <- Accounts.get_user(following_id),

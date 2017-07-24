@@ -12,9 +12,12 @@ defmodule Api.Schema.AccountTypes do
     field :battle_net_tag, :string
 
     field :friendships, list_of(:friendship) do
-      resolve fn user, _, _ ->
+      arg :is_incoming, :boolean
+      arg :is_accepted, :boolean
+
+      resolve fn user, args, _ ->
         batch(
-          {UserResolver, :get_friendships},
+          {UserResolver, :get_friendships, args},
           user,
           &{:ok, Map.get(&1, user.id, [])}
         )

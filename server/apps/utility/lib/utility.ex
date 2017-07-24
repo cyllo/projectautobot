@@ -6,6 +6,9 @@ defmodule Utility do
   def unwrap_ok_or_raise({:ok, a}), do: a
   def unwrap_ok_or_raise({:error, error}), do: raise error
 
+  @spec pluck(input :: list, key :: atom|String.t) :: list
+  def pluck(list, key), do: Enum.map(list, &Map.get(&1, key))
+
   @spec uniq_list(Enum.t, Enum.t) :: Enum.t
   def uniq_list(list1, list2) do
     MapSet.union(MapSet.new(list1), MapSet.new(list2))
