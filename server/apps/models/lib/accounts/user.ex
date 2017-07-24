@@ -74,7 +74,8 @@ defmodule Models.Accounts.User do
 
   def get_users_friendships_query(user_ids) do
     from(f in Friendship, where: f.user_id in ^user_ids,
-                          or_where: f.friend_id in ^user_ids)
+                          or_where: f.friend_id in ^user_ids,
+                          preload: [:user, :friend])
   end
 
   def get_user_friendship_query(user_1_id, user_2_id) do

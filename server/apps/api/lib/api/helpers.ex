@@ -20,6 +20,16 @@ defmodule Api.Helpers do
   end
   def convert_to_id_map(any, _, _), do: any
 
+  defp get_models_by_id_prop(models, id, id_props) when is_list(id_props) do
+    res = Enum.filter(models, fn model -> Enum.find(id_props, &(Map.get(model, &1) === id)) end)
+
+    case res do
+      [] -> nil
+      [model] -> model
+      models -> models
+     end
+  end
+
   defp get_models_by_id_prop(models, id, id_prop) do
     case Enum.filter(models, &(Map.get(&1, id_prop) === id)) do
       [] -> nil

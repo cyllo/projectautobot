@@ -248,7 +248,7 @@ defmodule Models.Accounts do
     users
       |> Utility.pluck(:id)
       |> User.get_users_friendships_query
-      |> Friendship.reduce_params_to_query(params)
+      |> Friendship.reduce_params_to_query(params, users)
       |> Repo.all
   end
 

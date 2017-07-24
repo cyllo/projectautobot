@@ -1,5 +1,5 @@
 defmodule Api.UserResolver do
-  import Api.Helpers, only: [preload_id_map: 3]
+  import Api.Helpers, only: [preload_id_map: 3, convert_to_id_map: 3]
 
   alias Models.{Accounts, Game}
 
@@ -56,7 +56,10 @@ defmodule Api.UserResolver do
 
   def get_followers(_, users), do: preload_id_map(users, :followers, [])
   def get_following(_, users), do: preload_id_map(users, :following, [])
-  def get_friendships(params, users), do: Accounts.get_users_friendships(users, params)
+  def get_friendships(params, users) do
+    Accounts.get_users_friendships(users, params)
+      |> convert_to_id_map(Utility.pluck(users, :id), [:user_id, :friend_id])
+  end
 
   defp get_and_follow_user(user, following_id) do
     with {:ok, following_user} <- Accounts.get_user(following_id),

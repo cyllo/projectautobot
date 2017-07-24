@@ -120,7 +120,7 @@ defmodule Models.Game do
 
         connected_tag
 
-      tag_data -> connected_tag
+      _ -> connected_tag
     end
   end
 
