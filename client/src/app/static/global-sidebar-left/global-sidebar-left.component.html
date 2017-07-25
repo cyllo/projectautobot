@@ -29,6 +29,24 @@
           <i class="material-icons md-36">favorite_border</i>
         </button>
       </div><!-- .col -->
+      <div class="col-12" *ngIf="appThemesCatalog">
+
+        <md-menu #appMenu="mdMenu"
+                 [overlapTrigger]="false"
+                 xPosition="after"
+                 yPosition="above">
+          <button *ngFor="let theme of appThemesCatalog"
+                  (click)="loadTheme(theme)"
+                  md-icon-button>
+            <ow-theme-picker-swatch [theme]="theme"></ow-theme-picker-swatch>
+          </button>
+        </md-menu>
+
+        <button md-button class="py-3" [mdMenuTriggerFor]="appMenu">
+           <i class="material-icons">format_color_fill</i>
+        </button>
+
+      </div>
     </div><!-- .row -->
   </md-sidenav-container><!-- md-sidenav-container -->
 </div><!-- .global-sidebar-left -->

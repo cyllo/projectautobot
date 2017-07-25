@@ -1,5 +1,3 @@
-@import "../../../../style/colors";
-
 ngb-tabset,
 ow-global-sidebar-left-friends-list,
 ow-global-sidebar-left-friend-requests {
@@ -57,14 +55,10 @@ ow-global-sidebar-left-friend-requests {
       font-size: 0.75rem;
       text-transform: uppercase;
       border-radius: 0;
-      color: $brand-primary;
-      border-bottom: 1px solid $gray-lighter;
     }
 
     .nav-link.active {
       background-color: transparent;
-      color: $black;
-      border-bottom: 1px solid $brand-primary;
     }
 
   }
