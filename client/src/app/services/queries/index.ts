@@ -10,3 +10,5 @@ export * from './create-user.mutation';
 export * from './connect-to-battlenet.mutation';
 export * from './news-posts.query';
 export * from './gamer-tag-scrape.query';
+export * from './search-user.query';
+export * from './send-friend-request.mutation';

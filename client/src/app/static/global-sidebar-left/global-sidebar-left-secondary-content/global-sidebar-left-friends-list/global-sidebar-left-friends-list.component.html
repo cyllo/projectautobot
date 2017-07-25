@@ -1,0 +1,87 @@
+<div class="global-sidebar-left-friends-list d-flex flex-1">
+  <div class="d-flex flex-column flex-1 px-3">
+    <div class="row flex-1">
+      <div class="col-12">
+
+        <div class="d-flex flex-column flex-1 height-100">
+
+          <div class="row flex-auto">
+            <div class="col-12 py-3">
+              <div class="row">
+
+                <div class="col-12 user-action">
+
+                  <div class="row align-items-center">
+
+                    <div class="col">
+
+                      <span class="small text-uppercase"
+                        *ngIf="!clubCreationPending">Create clubs</span>
+
+                      <input type="text" class="form-control height-100"
+                        placeholder=""
+                        *ngIf="clubCreationPending">
+
+                    </div><!-- .col -->
+
+                    <div class="col-auto pr-3">
+
+                      <button md-button
+                       class="min-width-0"
+                       (click)="clubCreationStarted($event)"
+                       *ngIf="!clubCreationPending">
+                       <i class="material-icons">create_new_folder</i>
+                     </button>
+
+                     <button md-button
+                       class="min-width-0"
+                       (click)="clubCreationEnded($event)"
+                       *ngIf="clubCreationPending">
+                       <i class="material-icons">check</i>
+                     </button>
+
+                    </div><!-- .col -->
+
+                  </div><!-- .row -->
+
+                  <div class="message pt-1" [class.show]="responseMessage">
+                    <div class="inner d-flex align-items-center height-100 rounded px-3 py-1">
+                      <span class="small">{{ responseMessage }}</span>
+                    </div>
+                  </div><!-- .message -->
+
+                </div><!-- .col -->
+
+              </div><!-- .row -->
+            </div><!-- .col -->
+          </div><!-- .row -->
+
+          <div class="row flex-column flex-1">
+            <div class="col-12 flex-1 pt-3 vertical-scroll-flexbox">
+
+              <ow-global-sidebar-left-search-results *ngIf="openSearchResults" [searchResults]="searchResults">
+              </ow-global-sidebar-left-search-results>
+
+              <div class="row" *ngIf="!openSearchResults">
+                <div class="col-12 mb-3" *ngFor="let club of clubs">
+                  <ow-global-sidebar-left-friends-list-club [club]="club">
+                  </ow-global-sidebar-left-friends-list-club>
+                </div><!-- .col -->
+              </div><!--  .row -->
+
+            </div><!-- .col -->
+          </div><!-- .row -->
+
+        </div><!-- d.flex -->
+
+      </div><!-- .col -->
+    </div><!-- .row -->
+    <div class="row flex-auto">
+      <div class="col-12 py-3">
+        <form [formGroup]="questionForm">
+        <ow-search #search [searchInProgress]="searchInProgress" (search)='onSearch($event)'></ow-search>
+      </form>
+      </div><!-- .col -->
+    </div><!-- .row -->
+  </div>
+</div><!-- .global-sidebar-left-friends-list -->

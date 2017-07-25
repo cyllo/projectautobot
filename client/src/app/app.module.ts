@@ -48,7 +48,8 @@ import {
   currentHeroData,
   blogPosts,
   currentSession,
-  snapshotData
+  snapshotData,
+  friendships
 } from './reducers';
 import { SharedModule } from './shared';
 import { PagesModule } from './pages';
@@ -79,6 +80,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       currentHero: currentHeroData,
       blogPosts,
       currentSession,
+      friendships,
       router: routerReducer,
       snapshotStats: snapshotData,
     }, {

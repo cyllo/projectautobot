@@ -1,10 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { User } from '../models';
-import { CreateUserMutation, ConnectUserToBattleNetMutation } from './queries';
+import { 
+  CreateUserMutation,
+  ConnectUserToBattleNetMutation,
+  userSearchQuery } from './queries';
 
 interface UserParams extends User {
   clientAuthToken: string;
+}
+
+interface searchResponse {
+  data: any
 }
 
 @Injectable()
@@ -16,6 +23,13 @@ export class UserService {
       mutation: CreateUserMutation,
       variables: { password, displayName, email, clientAuthToken }
     });
+  }
+
+  find(displayName) {
+    return this.apollo.query({
+      query: userSearchQuery,
+      variables: { displayName }
+    }).map(({ data: { users } }: searchResponse) => users);
   }
 
   connectToBattleNet(clientAuthToken) {
