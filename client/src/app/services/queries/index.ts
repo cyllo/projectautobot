@@ -12,3 +12,6 @@ export * from './news-posts.query';
 export * from './gamer-tag-scrape.query';
 export * from './search-user.query';
 export * from './send-friend-request.mutation';
+export * from './friendship.query';
+export * from './reject-friendship.mutation';
+export * from './accept-friendship.mutation';

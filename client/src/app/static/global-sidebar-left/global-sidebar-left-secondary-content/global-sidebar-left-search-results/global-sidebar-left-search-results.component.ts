@@ -14,8 +14,6 @@ export class GlobalSideBarLeftSearchResultsComponent {
   constructor(private friendShip: FriendShipService) {}
 
   sendFriendRequest(id: number) {
-    console.log('this id?', id)
     this.friendShip.request(id)
   }
-
 }

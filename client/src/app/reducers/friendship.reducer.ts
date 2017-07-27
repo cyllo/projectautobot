@@ -1,14 +1,14 @@
-import { assoc, dissoc } from 'ramda';
+import { FriendShipState } from '../models';
 
-export function friendships(state: any = {}, { type, payload }: {type: string, payload?: any }) {
+export function friendships(state: FriendShipState = {}, { type, payload }: {type: string, payload?: any|any[] }) {
     switch(type) {
-        case 'ADD_FRIENDSHIP_REQUEST': 
-            return  assoc(payload.id, payload, state);
-        case 'REJECT_FRIENDSHIP':
-            return dissoc(payload.id, state);
-        case 'APPROVE_FRIENDSHIP':
-            return assoc(payload.id, payload, state);
+        case 'GET_FRIEND_REQUESTS': 
+            return payload.reduce((acc, item) => Object.assign(acc, {[item.id]: item}), {});
         default: 
             return state;
     }
+}
+
+export function getFriendRequests(requests) {
+    return { type: 'GET_FRIEND_REQUESTS', payload: requests };
 }

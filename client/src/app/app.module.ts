@@ -34,7 +34,7 @@ import { GamerTagService, ProfileService } from './services';
 import { AppComponent } from './app.component';
 import * as staticComponents from './static';
 import { routing } from './app.routing';
-import { OrderByPipe } from './pipes';
+import { OrderByPipe, ValuesPipe } from './pipes';
 import { PlayersService, OverwatchHeroDataService, AuthorizationService, AuthGuard, SocketService } from './services';
 import { values } from 'ramda';
 
@@ -54,7 +54,7 @@ import {
 import { SharedModule } from './shared';
 import { PagesModule } from './pages';
 
-const declarations: any[] = [AppComponent, OrderByPipe, ...values(staticComponents)];
+const declarations: any[] = [AppComponent, OrderByPipe, ValuesPipe, ...values(staticComponents)];
 export function instrumentOptions() {
   return {
     monitor: useLogMonitor({ visible: false, position: 'right' })

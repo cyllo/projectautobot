@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { User } from '../models';
+import { User, GraphqlResponse } from '../models';
+import { getFriendRequests } from '../reducers';
+import { Dispatcher } from '@ngrx/store';
 import { 
   CreateUserMutation,
   ConnectUserToBattleNetMutation,
-  userSearchQuery } from './queries';
+  userSearchQuery, 
+  friendShipsQuery } from './queries';
 
 interface UserParams extends User {
   clientAuthToken: string;
@@ -16,7 +19,7 @@ interface searchResponse {
 
 @Injectable()
 export class UserService {
-  constructor(private apollo: Apollo) {}
+  constructor(private apollo: Apollo, private dispatcher: Dispatcher) {}
 
   create({ password, email, displayName, clientAuthToken }: UserParams) {
     return this.apollo.mutate({
@@ -37,5 +40,15 @@ export class UserService {
       mutation: ConnectUserToBattleNetMutation,
       variables: { clientAuthToken }
     });
+  }
+
+  listFriendRequests() {
+    return this.apollo.query({
+      query: friendShipsQuery,
+      variables: { isIncoming: true}
+    })
+    .map(({ data: { me: { friendships: friendRequests } } }: GraphqlResponse) => friendRequests)
+    .subscribe(friendRequests => this.dispatcher.dispatch(getFriendRequests(friendRequests)));
+
   }
 }

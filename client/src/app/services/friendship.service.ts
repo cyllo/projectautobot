@@ -1,16 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { SendFriendRequest } from './queries';
-import { Store } from '@ngrx/store';
-import { AppState } from '../models';
+import { SendFriendRequest, AcceptFriendRequest, RejectFriendRequest } from './queries';
+import { GraphqlResponse } from '../models';
 
-interface graphqlResponse {
-  data: any
-}
 
 @Injectable()
 export class FriendShipService {
-    constructor(private apollo: Apollo, private store: Store<AppState>) {}
+    constructor(private apollo: Apollo) {}
 
 
     request(id) {
@@ -18,7 +14,22 @@ export class FriendShipService {
             mutation: SendFriendRequest,
             variables: { id }
         })
-        .map(({ data: { sendFriendRequest: friendship } }: graphqlResponse) => friendship)
-        .subscribe(friendship => this.store.dispatch({ type: 'ADD_FRIENDSHIP_REQUEST', payload: friendship}));
+        .map(({ data: { sendFriendRequest: friendship } }: GraphqlResponse) => friendship)
+    }
+
+    accept(friendUserId, friendshipId) {
+        return this.apollo.mutate({
+            mutation: AcceptFriendRequest,
+            variables: { friendUserId, friendshipId }
+        })
+        .map(({ data: {acceptFriendRequest: { rejected }}}: GraphqlResponse) => rejected);;
+    }
+
+    reject(friendUserId, friendshipId) {
+        return this.apollo.mutate({
+            mutation: RejectFriendRequest,
+            variables: { friendUserId, friendshipId }
+        })
+        .map(({ data: {rejectFriendRequest: { rejected }}}: GraphqlResponse) => rejected);
     }
 }
