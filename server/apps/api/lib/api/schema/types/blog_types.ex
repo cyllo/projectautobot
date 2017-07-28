@@ -33,12 +33,12 @@ defmodule Api.Schema.BlogTypes do
     timestamp_types
   end
 
-  input_object :blog_category_input do
+  object :blog_category do
     field :id, :integer
     field :name, :string
   end
 
-  object :blog_category do
+  input_object :blog_category_input do
     field :id, :integer
     field :name, :string
   end

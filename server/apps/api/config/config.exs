@@ -7,7 +7,8 @@ use Mix.Config
 
 # General application configuration
 config :api,
-  namespace: Api
+  namespace: Api,
+  ecto_repos: []
 
 # Configures the endpoint
 config :api, Api.Web.Endpoint,

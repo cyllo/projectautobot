@@ -21,9 +21,7 @@ defmodule Api.Middleware.ChangesetErrorFormatter do
     changeset
       |> interpolate_errors
       |> Map.to_list
-      |> Enum.flat_map(fn {field, errors} ->
-        field_errors_to_error(changeset, field, errors)
-      end)
+      |> Enum.flat_map(fn {field, errors} -> field_errors_to_error(changeset, field, errors) end)
   end
 
   def field_errors_to_error(changeset, field, errors) do
@@ -31,7 +29,7 @@ defmodule Api.Middleware.ChangesetErrorFormatter do
 
     Enum.map(errors, fn error ->
       %{
-        message: field_name <> " " <> error,
+        message: error,
         value: error_field_value(changeset, field)
       }
     end)
@@ -48,9 +46,19 @@ defmodule Api.Middleware.ChangesetErrorFormatter do
   @spec error_field_value(changeset :: Ecto.Changeset.t, field :: atom) :: any
   defp error_field_value(changeset, field) do
     case Ecto.Changeset.fetch_field(changeset, field) do
-      {_, value} -> format_error_value(value)
+      {_, value} ->
+        IO.inspect "ERROR FIELD VAL #{inspect value}"
+        format_error_value(value)
       :error -> nil
     end
+  end
+
+  defp format_error_value(items) when is_list(items), do: Enum.map(items, &format_error_value/1)
+
+  defp format_error_value(%{__struct__: struct} = schema) do
+    Map.take(schema, struct.__schema__(:fields))
+      |> Map.drop([:is_admin, :password_hash, :password])
+      |> ProperCase.to_camel_case
   end
 
   defp format_error_value(%{__struct__: struct} = schema) do

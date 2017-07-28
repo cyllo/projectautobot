@@ -2,6 +2,8 @@
 # and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 
+config :scraper, ecto_repos: []
+
 config :floki, :html_parser, Floki.HTMLParser.Html5ever
 
 config :hound,

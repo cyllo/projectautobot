@@ -1,7 +1,7 @@
 defmodule Api.UserResolver do
   import Api.Helpers, only: [preload_id_map: 3, convert_to_id_map: 3]
 
-  alias Models.{Accounts, Game}
+  alias Models.{Accounts, Game, Accounts.UserFriendGroup}
 
   def current(_, %{context: %{current_user: user}}), do: {:ok, user}
   def all(%{search: identifier}, %{context: %{current_user: user}}), do: {:ok, Accounts.search_users_excluding_user(identifier, user.id)}
@@ -56,6 +56,15 @@ defmodule Api.UserResolver do
 
   def get_followers(_, users), do: preload_id_map(users, :followers, [])
   def get_following(_, users), do: preload_id_map(users, :following, [])
+  def get_friend_groups(_, users) do
+    preload_id_map(users, :friend_groups, [])
+      |> IO.inspect
+      |> Map.to_list
+      |> Enum.map(fn {id, values} -> {id, Enum.sort_by(values, &(&1.id))} end)
+      |> Map.new
+      |> IO.inspect
+  end
+
   def get_friendships(params, users) do
     Accounts.get_users_friendships(users, params)
       |> convert_to_id_map(Utility.pluck(users, :id), [:user_id, :friend_id])

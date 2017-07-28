@@ -65,28 +65,30 @@ defmodule Api.Schema.AccountTypes do
       end
     end
 
+    field :friend_groups, list_of(:friend_group) do
+      resolve fn user, _, _ ->
+        batch(
+          {UserResolver, :get_friend_groups},
+          user,
+          &{:ok, Map.get(&1, user.id, [])}
+        )
+      end
+    end
+
     timestamp_types
   end
-
-  @desc "Friendships 1 <=> 1 for user"
-  object :friendship do
-    field :id, :integer
-    field :is_accepted, :boolean
-    field :user, :user
-    field :friend, :user
-    timestamp_types
-  end
-
   @desc "followers 1 => 1 for user"
   object :follow_user_result do
     field :following, :user
     field :user, :user
+
     timestamp_types
   end
 
   object :follow_gamer_tag_result do
     field :gamer_tag, :gamer_tag
     field :user, :user
+
     timestamp_types
   end
 end

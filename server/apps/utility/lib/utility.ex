@@ -15,6 +15,26 @@ defmodule Utility do
       |> Enum.to_list
   end
 
+  def fetch_changeset_params(changeset, key) when is_atom(key), do: fetch_changeset_params(changeset, Atom.to_string(key))
+  def fetch_changeset_params(changeset, key) do
+    case changeset.params[key] do
+      nil -> :error
+      value -> {:ok, value}
+    end
+  end
+
+  def get_first_error(values) do
+    res = Enum.find(values, fn
+      {:error, _} -> true
+      _ -> false
+    end)
+
+    case res do
+      nil -> {:ok, values}
+      {:error, e} -> {:error, e}
+    end
+  end
+
   @spec safe_atom(String.t) :: atom
   def safe_atom(name) do
     try do

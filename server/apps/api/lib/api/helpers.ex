@@ -1,7 +1,9 @@
 defmodule Api.Helpers do
-  def preload_id_map(models, preload_prop, default \\ nil) do
-    for model <- Models.Repo.preload(models, [preload_prop]), into: %{} do
-      {model.id, Map.get(model, preload_prop, default)}
+  def preload_id_map(models, preload_prop, default \\ nil)
+  def preload_id_map(models, preload_prop, default) when not is_list(preload_prop), do: preload_id_map(models, [preload_prop], default)
+  def preload_id_map(models, preload_props, default) do
+    for model <- Models.Repo.preload(models, preload_props), into: %{} do
+      {model.id, Map.get(model, List.first(preload_props), default)}
     end
   end
 

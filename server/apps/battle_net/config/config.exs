@@ -27,4 +27,6 @@ use Mix.Config
 # Configuration from the imported file will override the ones defined
 # here (which is why it is important to import them last).
 #
+config :battle_net, ecto_repos: []
+
 import_config "config.secret.exs"

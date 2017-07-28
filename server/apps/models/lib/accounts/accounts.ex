@@ -1,12 +1,17 @@
 defmodule Models.Accounts do
-  alias Models.Accounts.{User, Follower, Friendship}
+  use Models.Model
   alias Models.{Game, Repo, Model}
   alias Models.Game.GamerTagUserFollower
-  use Models.Model
+  alias Models.Accounts.{
+    User, Follower,
+    Friendship, UserFriendGroup,
+    UserFriendGroupFriendship
+  }
 
   @incorrect_password_message "password is not correct"
 
   Model.create_model_methods(User)
+  Model.create_model_methods(UserFriendGroup)
 
   @doc """
   Creates a user from params
@@ -195,17 +200,93 @@ defmodule Models.Accounts do
 
   """
   def accept_friend_request(user, params) do
-    with {:ok, friendship} <- get_friendship(user, params) do
-      if friendship.is_accepted do
-        {:error, "Friendship is already accepted"}
-      else
-        update_friendship(friendship, %{is_accepted: true})
-      end
+    with {:ok, friendship} <- get_friendship(user, params),
+         false <- friendship.is_accepted,
+         true <- friendship.user_id !== user.id do
+      update_friendship(friendship, %{is_accepted: true})
+    else
+      false -> {:error, "You cannot accept a friendship you sent"}
+      true -> {:error, "Friendship is already accepted"}
+      e -> e
     end
   end
 
   def reject_friend_request(user, params) do
-    with {:ok, _} <- delete_friendship(user, params), do: {:ok, %{rejected: true}}
+    with {:ok, friendship} <- get_friendship(user, params),
+         false <- friendship.is_accepted,
+         {:ok, _} <- Repo.delete(friendship) do
+      {:ok, %{rejected: true}}
+    else
+      true -> {:error, "Cannot reject an invite that has already been accepted"}
+      e -> e
+    end
+  end
+
+  def create_user_friend_group(user, params) do
+    %UserFriendGroup{user: user}
+      |> UserFriendGroup.changeset(params)
+      |> Repo.insert
+  end
+
+  def delete_friend_group(id) do
+    with {:ok, friend_group} <- get_user_friend_group(id),
+         {:ok, _} <- Repo.delete(friend_group) do
+      {:ok, %{deleted: true}}
+    end
+  end
+
+  def update_friend_group(id, params) do
+    case from(UserFriendGroup, preload: :user) |> Models.Repo.get(id) do
+      nil -> {:error, "User friend group #{id} not found"}
+      model ->
+        UserFriendGroup.changeset(model, params)
+          |> Models.Repo.update
+    end
+  end
+
+  def add_friendship_to_friend_group(id, friendship_id) do
+    with {:ok, friend_group} <- get_user_friend_group(id, [:friendships, :user]),
+         {:ok, friendship} <- get_friendship(friendship_id) do
+      UserFriendGroup.changeset(friend_group, %{
+        friendships: friend_group.friendships ++ [friendship]
+      }) |> Repo.update
+    end
+  end
+
+  def remove_friendship_from_friend_group(friend_group_id, friendship_id) do
+    with {:ok, friend_group} <- get_user_friend_group(friend_group_id, :friendships) do
+      case Enum.find friend_group.friendships, &(&1.id === friendship_id) do
+        nil -> {:error, "No friendship with id #{friendship_id} in #{friend_group.name}"}
+        friendship -> delete_user_friend_group_friendship(friend_group, friendship_id)
+      end
+    end
+  end
+
+  def delete_user_friend_group_friendship(friend_group, friendship_id) do
+    res = Ecto.Query.where(UserFriendGroupFriendship, [ufgf],
+      ufgf.user_friend_group_id == ^friend_group.id and ufgf.friendship_id == ^friendship_id
+    ) |> Repo.delete_all
+
+    case res do
+      {1, _} ->
+        res = Map.update!(
+          friend_group,
+          :friendships,
+          &remove_friend_from_friendships(&1, friendship_id)
+        )
+
+        {:ok, res}
+      _ -> {:error, "No results deleted"}
+    end
+  end
+
+  defp remove_friend_from_friendships(friendships, id), do: Enum.reject(friendships, &(&1.id === id))
+
+  def destroy_friend_group(friend_group_id) do
+    case Repo.get(UserFriendGroup, friend_group_id) do
+      nil -> {:error, "No friend group exists with id: #{friend_group_id}"}
+      friend_group -> Repo.delete(friend_group)
+    end
   end
 
   @doc """
@@ -227,7 +308,13 @@ defmodule Models.Accounts do
 
   """
   def remove_friend(user, params) do
-    with {:ok, _} <- delete_friendship(user, params), do: {:ok, %{removed: true}}
+    with {:ok, friendship} <- get_friendship(user, params),
+         true <- friendship.is_accepted,
+         {:ok, _} <- Repo.delete(friendship) do
+      {:ok, %{removed: true}}
+    else
+      false -> {:error, "You cannot remove a friend who has not accepted your request"}
+    end
   end
 
   def get_followed_user(user, followed_id) do
@@ -252,6 +339,13 @@ defmodule Models.Accounts do
       |> Repo.all
   end
 
+  def get_friendship(friendship_id) do
+    case Repo.get(Friendship, friendship_id) do
+      nil -> {:error, "No friendship with that ID"}
+      friendship -> {:ok, friendship}
+    end
+  end
+
   defp get_friendship(user, %{friend_user_id: friend_id}) do
     with {:ok, friend} <- get_user(friend_id) do
       case get_user_friendship(user.id, friend_id) do
@@ -263,19 +357,8 @@ defmodule Models.Accounts do
     end
   end
 
-  defp get_friendship(_user, %{friendship_id: friendship_id}) do
-    case Repo.get(Friendship, friendship_id) do
-      nil -> {:error, "No friendship with that ID"}
-      friendship -> {:ok, friendship}
-    end
-  end
-
+  defp get_friendship(_user, %{friendship_id: friendship_id}), do: get_friendship(friendship_id)
   defp update_friendship(friendship, params), do: Friendship.changeset(friendship, params) |> Repo.update
-  defp delete_friendship(user, params) do
-    with {:ok, friendship} <- get_friendship(user, params) do
-      Repo.delete(friendship)
-    end
-  end
 
   defp handle_send_friendship_error(user, friendship) do
     friend = friendship.friend
