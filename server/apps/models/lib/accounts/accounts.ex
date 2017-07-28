@@ -230,7 +230,7 @@ defmodule Models.Accounts do
   end
 
   defp find_pending_friendship(_user, %{friendship_id: friendship_id}) do
-    with {:ok, {user_friendship, friend_friendship}} <- get_friendship(friendship_id) do
+    with {:ok, {user_friendship, friend_friendship}} <- get_friendship_tuple(friendship_id) do
       {:ok, {user_friendship, friend_friendship}}
     end
   end
@@ -245,7 +245,7 @@ defmodule Models.Accounts do
   end
 
   def reject_friend_request(user, params) do
-    with {:ok, {user_friendship, friend_friendship}} <- get_friendship(user, params),
+    with {:ok, {user_friendship, friend_friendship}} <- get_friendship_tuple(user, params),
          true <- !user_friendship.is_accepted,
          false <- user_friendship.is_sender,
          {:ok, _} <- delete_friend(user_friendship, friend_friendship) do
@@ -271,7 +271,7 @@ defmodule Models.Accounts do
   end
 
   def update_friend_group(id, params) do
-    case from(UserFriendGroup, preload: :user) |> Models.Repo.get(id) do
+    case from(UserFriendGroup, preload: :user) |> Repo.get(id) do
       nil -> {:error, "User friend group #{id} not found"}
       model ->
         UserFriendGroup.changeset(model, params)
@@ -281,7 +281,7 @@ defmodule Models.Accounts do
 
   def add_friendship_to_friend_group(id, friendship_id) do
     with {:ok, friend_group} <- get_user_friend_group(id, [:friendships, :user]),
-         {:ok, friendship} <- get_friendship(friendship_id) do
+         {:ok, {friendship, _}} <- get_friendship_tuple(friendship_id) do
       UserFriendGroup.changeset(friend_group, %{
         friendships: friend_group.friendships ++ [friendship]
       }) |> Repo.update
@@ -343,7 +343,7 @@ defmodule Models.Accounts do
 
   """
   def remove_friend(user, params) do
-    with {:ok, {user_friendship, friend_friendship}} <- get_friendship(user, params),
+    with {:ok, {user_friendship, friend_friendship}} <- get_friendship_tuple(user, params),
          true <- user_friendship.is_accepted,
          {:ok, _} <- delete_friend(user_friendship, friend_friendship) do
       {:ok, %{removed: true}}
@@ -395,13 +395,22 @@ defmodule Models.Accounts do
   def get_friendship(friendship_id) do
     case Repo.get(Friendship, friendship_id) do
       nil -> {:error, "No friendship with that ID"}
-      friendship ->
-        {:ok, {friendship, find_user_friendship(friendship.friend_id, friendship.user_id)}}
+      friendship -> {:ok, friendship}
     end
   end
 
-  defp get_friendship(user, %{friend_user_id: friend_id}) do
+  def get_friendship_tuple(friendship_id) do
+    with {:ok, user_friendship} <- get_friendship(friendship_id) do
+      {:ok, {user_friendship, find_user_friendship(user_friendship.friend_id, user_friendship.user_id)}}
+    end
+  end
+
+  def get_friendship_tuple(user, %{friend_user_id: friend_id}) do
+    import IEx
+    IEx.pry
     with {:ok, friend} <- get_friend(user.id, friend_id) do
+      import IEx
+      IEx.pry
       case get_user_any_friendship(user.id, friend_id) do
         nil -> {:error, "No friendship found between you and #{friend.display_name}"}
         friendships -> {:ok, friendships}
@@ -409,7 +418,7 @@ defmodule Models.Accounts do
     end
   end
 
-  defp get_friendship(_user, %{friendship_id: friendship_id}), do: get_friendship(friendship_id)
+  def get_friendship_tuple(_user, %{friendship_id: friendship_id}), do: get_friendship_tuple(friendship_id)
 
   defp accept_friendship(user_friendship, friend_friendship) do
     Friendship.accept_friendship_query(user_friendship, friend_friendship)

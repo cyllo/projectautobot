@@ -6,7 +6,8 @@ defmodule Models.Accounts.UserFriendGroup do
   schema "user_friend_groups" do
     field :name, :string
     belongs_to :user, User
-    many_to_many :friendships, Friendship, join_through: "user_friend_group_friendships"
+    many_to_many :friendships, Friendship, join_through: "user_friend_group_friendships",
+                                           on_delete: :delete_all
 
     timestamps(type: :utc_datetime)
   end
@@ -50,40 +51,52 @@ defmodule Models.Accounts.UserFriendGroup do
   end
 
   defp get_friendships(changeset, friendships) do
+    import IEx
+    IEx.pry
     friendships
       |> Enum.group_by(fn
         %Friendship{} -> :friendships
         %User{} -> :users
         %{friendship_id: _} -> :friendships
-        %{friend_id: _} -> :users
+        %{friend_user_id: _} -> :users
       end)
       |> get_grouped_friendships(changeset)
+      |> IO.inspect
       |> Utility.get_first_error
   end
 
   defp get_grouped_friendships(friendship_groups, changeset) do
     friendship_groups
       |> Enum.reduce([], fn
-        {:friendships, friendships}, acc -> acc ++ Enum.map(friendships, &load_friendship/1)
-        {:users, users}, acc -> acc ++ Enum.map(users, &load_user/1)
+        {:friendships, friendships}, acc ->
+          acc ++ Enum.map(friendships, &load_friendship(&1, fetch_user_field(changeset)))
+
+        {:users, users}, acc ->
+          acc ++ Enum.map(users, &load_user_friendship(&1, fetch_user_field(changeset)))
       end)
   end
 
-  defp load_user(%User{id: _} = user), do: user
-  defp load_user(%{friend_id: id}), do: load_user(%{id: id})
-  defp load_user(params) do
-    with {:ok, user} <- Accounts.find_user(params) do
+  defp fetch_user_field(changeset) do
+    with {:ok, user} <- Utility.fetch_changeset_field(changeset, :user) do
       user
     end
   end
 
-  defp load_friendship(%Friendship{id: _} = friendship), do: friendship
-  defp load_friendship(%Friendship{user: user, friend: friend}), do: load_friendship(%Friendship{user: user, friend_id: friend.id})
-  defp load_friendship(%{friendship_id: id}) do
+  defp load_user_friendship(%User{id: _} = user, _user), do: user
+  defp load_user_friendship(params, user) do
+    with {:ok, {user_friendship, _}} <- Accounts.get_friendship_tuple(user, params) do
+      user_friendship
+    end
+  end
+
+  defp load_friendship(%Friendship{id: _} = friendship, _user), do: friendship
+  defp load_friendship(%Friendship{user: user, friend: friend}, _user), do: load_friendship(%Friendship{user: user, friend_id: friend.id})
+  defp load_friendship(%{friendship_id: id}, user) do
     with {:ok, friendship} <- Accounts.get_friendship(id) do
       friendship
     end
   end
+
   defp load_friendship(%Friendship{user: user, friend_id: friend_id}) do
     with {:ok, friendship} <- Accounts.find_user_friendship(user.id, friend_id) do
       friendship

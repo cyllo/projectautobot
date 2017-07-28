@@ -23,6 +23,14 @@ defmodule Utility do
     end
   end
 
+  def fetch_changeset_field(changeset, field) do
+    case Ecto.Changeset.fetch_field(changeset, field) do
+      {:changes, data} -> {:ok, data}
+      {:data, data} -> {:ok, data}
+      :error -> :error
+    end
+  end
+
   def get_first_error(values) do
     res = Enum.find(values, fn
       {:error, _} -> true

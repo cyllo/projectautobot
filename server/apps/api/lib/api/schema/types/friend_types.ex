@@ -34,7 +34,7 @@ defmodule Api.Schema.FriendTypes do
   end
 
   input_object :friendship_input do
-    field :friend_id, :integer
+    field :friend_user_id, :integer
     field :friendship_id, :integer
   end
 end
