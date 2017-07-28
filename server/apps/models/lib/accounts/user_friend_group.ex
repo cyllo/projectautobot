@@ -85,7 +85,7 @@ defmodule Models.Accounts.UserFriendGroup do
     end
   end
   defp load_friendship(%Friendship{user: user, friend_id: friend_id}) do
-    with {:ok, friendship} <- Accounts.get_user_friendship(user.id, friend_id) do
+    with {:ok, friendship} <- Accounts.find_user_friendship(user.id, friend_id) do
       friendship
     end
   end

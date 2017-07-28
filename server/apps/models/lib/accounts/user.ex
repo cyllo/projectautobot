@@ -72,18 +72,6 @@ defmodule Models.Accounts.User do
   """
   def has_correct_pw?(%User{} = user, password), do: Pbkdf2.checkpw(password, user.password_hash)
 
-  def get_users_friendships_query(user_ids) do
-    from(f in Friendship, where: f.user_id in ^user_ids,
-                          or_where: f.friend_id in ^user_ids,
-                          preload: [:user, :friend])
-  end
-
-  def get_user_friendship_query(user_1_id, user_2_id) do
-    from(f in Friendship, where: [user_id: ^user_1_id, friend_id: ^user_2_id],
-                          or_where: [user_id: ^user_2_id, friend_id: ^user_1_id],
-                          preload: [:user, :friend])
-  end
-
   def search_query(identifier) do
     search_string = "%#{identifier}%"
 

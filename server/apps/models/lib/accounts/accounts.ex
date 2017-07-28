@@ -170,11 +170,12 @@ defmodule Models.Accounts do
 
   """
   def send_friend_request(user, future_friend_id) do
-    with nil <- get_user_friendship(user.id, future_friend_id),
-         {:ok, friendship} <- Repo.insert(%Friendship{user: user, friend_id: future_friend_id}) do
-      {:ok, Repo.preload(friendship, [:user, :friend])}
+    with {:ok, _} <- get_friend(user.id, future_friend_id),
+         nil <- get_user_any_friendship(user.id, future_friend_id),
+         {:ok, %{user_friendship: friendship}} <- Repo.transaction(Friendship.create_friendship_query(user.id, future_friend_id)) do
+      {:ok, friendship}
     else
-      %Friendship{} = friendship -> handle_send_friendship_error(user, friendship)
+      {%Friendship{}, %Friendship{}} = friendships -> handle_send_friendship_error(user, future_friend_id, friendships)
        e -> e
     end
   end
@@ -200,24 +201,58 @@ defmodule Models.Accounts do
 
   """
   def accept_friend_request(user, params) do
-    with {:ok, friendship} <- get_friendship(user, params),
-         false <- friendship.is_accepted,
-         true <- friendship.user_id !== user.id do
-      update_friendship(friendship, %{is_accepted: true})
+    with {:ok, {user_friendship, friend_friendship}} <- find_pending_friendship(user, params),
+         false <- user_friendship.is_sender,
+         {:ok, %{friendship_user: user}} <- accept_friendship(user_friendship, friend_friendship) do
+      {:ok, user}
     else
-      false -> {:error, "You cannot accept a friendship you sent"}
-      true -> {:error, "Friendship is already accepted"}
+      true -> {:error, "You cannot accept a friendship you sent"}
       e -> e
     end
   end
 
+  defp find_pending_friendship(user, %{friend_user_id: friend_id}) do
+    with {:ok, friend} <- get_friend(user.id, friend_id) do
+      case Friendship.get_user_any_friendship_query(user.id, friend_id) |> Repo.all do
+        [] -> {:error, "No friendship found between you and #{friend.display_name}"}
+        [%{is_accepted: true}, %{is_accepted: true}] -> {:error, "You are already friends with #{friend.display_name}"}
+        friendships when is_list(friendships) -> {:ok, sort_friendships_by_user_friend(friendships, user.id, friend.id)}
+      end
+    end
+  end
+
+  def get_friend(user_id, friend_id) do
+    if user_id === friend_id do
+      {:error, "You cannot use yourself as friend"}
+    else
+      get_user(friend_id)
+    end
+  end
+
+  defp find_pending_friendship(_user, %{friendship_id: friendship_id}) do
+    with {:ok, {user_friendship, friend_friendship}} <- get_friendship(friendship_id) do
+      {:ok, {user_friendship, friend_friendship}}
+    end
+  end
+
+  defp sort_friendships_by_user_friend([], _, _), do: nil
+  defp sort_friendships_by_user_friend(friendships, user_id, friend_id) do
+    res = Enum.group_by(friendships, &(&1.user_id))
+    user = res |> Map.get(user_id) |> List.first
+    friend = res |> Map.get(friend_id) |> List.first
+
+    {user, friend}
+  end
+
   def reject_friend_request(user, params) do
-    with {:ok, friendship} <- get_friendship(user, params),
-         false <- friendship.is_accepted,
-         {:ok, _} <- Repo.delete(friendship) do
+    with {:ok, {user_friendship, friend_friendship}} <- get_friendship(user, params),
+         true <- !user_friendship.is_accepted,
+         false <- user_friendship.is_sender,
+         {:ok, _} <- delete_friend(user_friendship, friend_friendship) do
       {:ok, %{rejected: true}}
     else
-      true -> {:error, "Cannot reject an invite that has already been accepted"}
+      true -> {:error, "Cannot reject an invite that you sent"}
+      false -> {:error, "Cannot reject an invite that has already been accepted"}
       e -> e
     end
   end
@@ -308,12 +343,24 @@ defmodule Models.Accounts do
 
   """
   def remove_friend(user, params) do
-    with {:ok, friendship} <- get_friendship(user, params),
-         true <- friendship.is_accepted,
-         {:ok, _} <- Repo.delete(friendship) do
+    with {:ok, {user_friendship, friend_friendship}} <- get_friendship(user, params),
+         true <- user_friendship.is_accepted,
+         {:ok, _} <- delete_friend(user_friendship, friend_friendship) do
       {:ok, %{removed: true}}
     else
       false -> {:error, "You cannot remove a friend who has not accepted your request"}
+      e -> e
+    end
+  end
+
+  def delete_friend(user_friendship, friend_friendship) do
+    res = [user_friendship.id, friend_friendship.id]
+      |> Friendship.delete_friendships_query()
+      |> Repo.delete_all
+
+    cond do
+      {2, _} = res -> {:ok, {user_friendship, friend_friendship}}
+      true -> res
     end
   end
 
@@ -326,15 +373,21 @@ defmodule Models.Accounts do
     end
   end
 
-  def get_user_friendship(user_1_id, user_2_id) do
-    User.get_user_friendship_query(user_1_id, user_2_id)
+  def get_user_any_friendship(user_1_id, user_2_id) do
+    Friendship.get_user_any_friendship_query(user_1_id, user_2_id)
+     |> Repo.all
+     |> sort_friendships_by_user_friend(user_1_id, user_2_id)
+  end
+
+  def find_user_friendship(user_1_id, user_2_id) do
+    Friendship.find_friendship_query(user_1_id, user_2_id)
      |> Repo.one
   end
 
   def get_users_friendships(users, params \\ []) do
     users
       |> Utility.pluck(:id)
-      |> User.get_users_friendships_query
+      |> Friendship.get_users_friendships_query
       |> Friendship.reduce_params_to_query(params, users)
       |> Repo.all
   end
@@ -342,37 +395,37 @@ defmodule Models.Accounts do
   def get_friendship(friendship_id) do
     case Repo.get(Friendship, friendship_id) do
       nil -> {:error, "No friendship with that ID"}
-      friendship -> {:ok, friendship}
+      friendship ->
+        {:ok, {friendship, find_user_friendship(friendship.friend_id, friendship.user_id)}}
     end
   end
 
   defp get_friendship(user, %{friend_user_id: friend_id}) do
-    with {:ok, friend} <- get_user(friend_id) do
-      case get_user_friendship(user.id, friend_id) do
+    with {:ok, friend} <- get_friend(user.id, friend_id) do
+      case get_user_any_friendship(user.id, friend_id) do
         nil -> {:error, "No friendship found between you and #{friend.display_name}"}
-        friendship -> {:ok, friendship}
+        friendships -> {:ok, friendships}
       end
-    else
-      {:error, _} -> {:error, "Cannot add a user that doesn't exist"}
     end
   end
 
   defp get_friendship(_user, %{friendship_id: friendship_id}), do: get_friendship(friendship_id)
-  defp update_friendship(friendship, params), do: Friendship.changeset(friendship, params) |> Repo.update
 
-  defp handle_send_friendship_error(user, friendship) do
-    friend = friendship.friend
-    is_friendship_user? = user.id === friendship.user_id
-    is_friendship_friend? = user.id === friendship.friend_id
-    is_accepted? = friendship.is_accepted
+  defp accept_friendship(user_friendship, friend_friendship) do
+    Friendship.accept_friendship_query(user_friendship, friend_friendship)
+      |> Repo.transaction
+  end
+
+  defp handle_send_friendship_error(user, friend_id, {user_friendship, _}) do
+    friend_id = user_friendship.friend_id
+    is_sender? = user_friendship.is_sender
+    is_accepted? = user_friendship.is_accepted
 
     message = cond do
-      is_friendship_user? and is_friendship_friend? -> "You cannot request a friendship with yourself"
-      !is_accepted? and is_friendship_user? -> "You have already requested friendship from #{friend.display_name}"
-      !is_accepted? and is_friendship_friend? -> "You already have an incoming friend request from #{user.display_name}"
-      is_accepted? and is_friendship_user? ->
-        display_name = if is_friendship_user?, do: user.display_name, else: friend.display_name
-        "#{display_name} is already your friend"
+      user.id === friend_id -> "You cannot request a friendship with yourself"
+      is_accepted? -> "#{Repo.preload(user_friendship, :friend).friend.display_name} is already your friend"
+      !is_accepted? and is_sender? -> "You have already requested friendship from #{Repo.preload(user_friendship, :friend).friend.display_name}"
+      !is_accepted? and !is_sender? -> "You already have an incoming friend request from #{user.display_name}"
     end
 
     {:error, message}

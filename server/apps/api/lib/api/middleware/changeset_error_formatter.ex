@@ -46,9 +46,7 @@ defmodule Api.Middleware.ChangesetErrorFormatter do
   @spec error_field_value(changeset :: Ecto.Changeset.t, field :: atom) :: any
   defp error_field_value(changeset, field) do
     case Ecto.Changeset.fetch_field(changeset, field) do
-      {_, value} ->
-        IO.inspect "ERROR FIELD VAL #{inspect value}"
-        format_error_value(value)
+      {_, value} -> format_error_value(value)
       :error -> nil
     end
   end
