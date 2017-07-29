@@ -1,5 +1,7 @@
 <div class="theme-picker-swatch">
-  <div class="theme-picker-primary {{ theme.selector }}">
+  <div class="theme-picker-primary"
+       [style.color]="theme.foregroundColor"
+       [style.background]="theme.backgroundColor">
     <i class="material-icons" *ngIf="theme.active">check_circle</i>
   </div>
 </div>
