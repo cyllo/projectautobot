@@ -31,11 +31,20 @@ defmodule Models.Accounts.UserFriendGroup do
   defp put_friendships(changeset) do
     with {:ok, friendships} <- Utility.fetch_changeset_params(changeset, :friendships),
          {:ok, friendships} <- get_friendships(changeset, friendships),
-         :ok <- check_friendship_uniq(friendships) do
+         :ok <- check_friendship_uniq(friendships),
+         {:ok, user_id} <- Utility.fetch_changeset_field(changeset, :user_id),
+         :ok <- check_friendships_are_users(friendships, user_id) do
       put_assoc(changeset, :friendships, friendships)
     else
       :error -> changeset
       {:error, e} -> add_error(changeset, :friendships, e)
+    end
+  end
+
+  defp check_friendships_are_users(friendships, user_id) do
+    case Enum.find(friendships, &(&1.user_id !== user_id)) do
+      nil -> :ok
+      friendship -> {:error, "You don't own friendship #{friendship.id}, it belongs to user #{friendship.user_id}"}
     end
   end
 
@@ -59,7 +68,6 @@ defmodule Models.Accounts.UserFriendGroup do
         %{friend_user_id: _} -> :users
       end)
       |> get_grouped_friendships(changeset)
-      |> IO.inspect
       |> Utility.get_first_error
   end
 

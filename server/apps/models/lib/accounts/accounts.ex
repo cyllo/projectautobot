@@ -274,7 +274,7 @@ defmodule Models.Accounts do
   def update_friend_group(user, id, params) do
     with {:ok, user_friend_group} <- get_user_friend_group(id, :user),
          :ok <- check_is_owned_friend_group(user, user_friend_group) do
-      UserFriendGroup.changeset(model, params)
+      UserFriendGroup.changeset(user_friend_group, params)
         |> Models.Repo.update
     end
   end
@@ -291,7 +291,7 @@ defmodule Models.Accounts do
 
   def remove_friendship_from_friend_group(user, friend_group_id, friendship_id) do
     with {:ok, friend_group} <- get_user_friend_group(friend_group_id, :friendships),
-         :ok <- check_is_owned_friend_group(user, user_friend_group) do
+         :ok <- check_is_owned_friend_group(user, friend_group) do
       case Enum.find friend_group.friendships, &(&1.id === friendship_id) do
         nil -> {:error, "No friendship with id #{friendship_id} in #{friend_group.name}"}
         friendship -> delete_user_friend_group_friendship(friend_group, friendship_id)
@@ -408,11 +408,7 @@ defmodule Models.Accounts do
   end
 
   def get_friendship_tuple(user, %{friend_user_id: friend_id}) do
-    import IEx
-    IEx.pry
     with {:ok, friend} <- get_friend(user.id, friend_id) do
-      import IEx
-      IEx.pry
       case get_user_any_friendship(user.id, friend_id) do
         nil -> {:error, "No friendship found between you and #{friend.display_name}"}
         friendships -> {:ok, friendships}
