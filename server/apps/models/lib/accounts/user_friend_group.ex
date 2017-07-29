@@ -51,8 +51,6 @@ defmodule Models.Accounts.UserFriendGroup do
   end
 
   defp get_friendships(changeset, friendships) do
-    import IEx
-    IEx.pry
     friendships
       |> Enum.group_by(fn
         %Friendship{} -> :friendships

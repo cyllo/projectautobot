@@ -263,24 +263,25 @@ defmodule Models.Accounts do
       |> Repo.insert
   end
 
-  def delete_friend_group(id) do
-    with {:ok, friend_group} <- get_user_friend_group(id),
+  def delete_friend_group(user, friend_group_id) do
+    with {:ok, friend_group} <- get_user_friend_group(friend_group_id),
+         :ok <- check_is_owned_friend_group(user, friend_group),
          {:ok, _} <- Repo.delete(friend_group) do
       {:ok, %{deleted: true}}
     end
   end
 
-  def update_friend_group(id, params) do
-    case from(UserFriendGroup, preload: :user) |> Repo.get(id) do
-      nil -> {:error, "User friend group #{id} not found"}
-      model ->
-        UserFriendGroup.changeset(model, params)
-          |> Models.Repo.update
+  def update_friend_group(user, id, params) do
+    with {:ok, user_friend_group} <- get_user_friend_group(id, :user),
+         :ok <- check_is_owned_friend_group(user, user_friend_group) do
+      UserFriendGroup.changeset(model, params)
+        |> Models.Repo.update
     end
   end
 
-  def add_friendship_to_friend_group(id, friendship_id) do
+  def add_friendship_to_friend_group(user, id, friendship_id) do
     with {:ok, friend_group} <- get_user_friend_group(id, [:friendships, :user]),
+         :ok <- check_is_owned_friend_group(user, friend_group),
          {:ok, {friendship, _}} <- get_friendship_tuple(friendship_id) do
       UserFriendGroup.changeset(friend_group, %{
         friendships: friend_group.friendships ++ [friendship]
@@ -288,8 +289,9 @@ defmodule Models.Accounts do
     end
   end
 
-  def remove_friendship_from_friend_group(friend_group_id, friendship_id) do
-    with {:ok, friend_group} <- get_user_friend_group(friend_group_id, :friendships) do
+  def remove_friendship_from_friend_group(user, friend_group_id, friendship_id) do
+    with {:ok, friend_group} <- get_user_friend_group(friend_group_id, :friendships),
+         :ok <- check_is_owned_friend_group(user, user_friend_group) do
       case Enum.find friend_group.friendships, &(&1.id === friendship_id) do
         nil -> {:error, "No friendship with id #{friendship_id} in #{friend_group.name}"}
         friendship -> delete_user_friend_group_friendship(friend_group, friendship_id)
@@ -419,6 +421,14 @@ defmodule Models.Accounts do
   end
 
   def get_friendship_tuple(_user, %{friendship_id: friendship_id}), do: get_friendship_tuple(friendship_id)
+
+  defp check_is_owned_friend_group(user, friend_group) do
+    if friend_group.user_id === user.id do
+      :ok
+    else
+      {:error, "You don't own this friend group"}
+    end
+  end
 
   defp accept_friendship(user_friendship, friend_friendship) do
     Friendship.accept_friendship_query(user_friendship, friend_friendship)
