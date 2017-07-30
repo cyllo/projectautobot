@@ -22,7 +22,7 @@ export class FriendShipService {
             mutation: AcceptFriendRequest,
             variables: { friendUserId, friendshipId }
         })
-        .map(({ data: {acceptFriendRequest: { rejected }}}: GraphqlResponse) => rejected);;
+        .map(({ data: { acceptFriendRequest }}: GraphqlResponse) => acceptFriendRequest);
     }
 
     reject(friendUserId, friendshipId) {

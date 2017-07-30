@@ -10,7 +10,7 @@
         <ow-global-sidebar-left-friends-list></ow-global-sidebar-left-friends-list>
       </ng-template>
     </ngb-tab>
-    <ngb-tab>
+    <ngb-tab *ngIf="friendRequestCount">
       <ng-template ngbTabTitle>
         <div class="d-inline-flex align-items-center">
           <span class="mx-1">Requests</span>

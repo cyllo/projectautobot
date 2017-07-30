@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AppState, FriendShip } from '../../../../models';
-import { Store } from '@ngrx/store';
+import { AppState } from '../../../../models';
+import { Store, Dispatcher } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { FriendShipService } from '../../../../services'
-
+import { FriendShipService } from '../../../../services';
+import { rejectFriendRequest, updateFriendship } from '../../../../reducers'
+import { filter, propEq, values } from 'ramda';
 
 @Component({
   selector: 'ow-global-sidebar-left-friend-requests',
@@ -14,21 +15,26 @@ import { FriendShipService } from '../../../../services'
 
 export class GlobalSideBarLeftFriendRequestsComponent implements OnInit {
 
-  friendRequests: Observable<FriendShip>;
+  friendRequests: Observable<any>;
 
-  constructor(private store: Store<AppState>, private friendship: FriendShipService) {}
+  constructor(private store: Store<AppState>, 
+    private friendship: FriendShipService,
+    private dispatcher: Dispatcher) {}
 
   ngOnInit() {
-    this.friendRequests = this.store.select('friendships');
+    this.friendRequests = this.store.select('friendships')
+    .map(friendships => filter(propEq('isAccepted', false), values(friendships)));
   }
 
   accept(friendUserId, friendshipId) {
     this.friendship.accept(friendUserId, friendshipId)
-    .subscribe(val => console.log('we accepted!', val));
+    .subscribe(friendShip => this.dispatcher.dispatch(updateFriendship(friendShip)));
   }
 
   reject(friendUserId, friendshipId) {
     this.friendship.reject(friendUserId, friendshipId)
-    .subscribe(val => console.log('we rejected!', val));
+    .subscribe(rejected => {
+      if(rejected) this.dispatcher.dispatch(rejectFriendRequest(friendshipId));
+    });
   }
 }

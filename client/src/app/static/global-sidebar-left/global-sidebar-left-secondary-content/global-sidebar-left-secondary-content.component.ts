@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../models';
-import { keys, length } from 'ramda';
+import { length, filter, propEq, values } from 'ramda';
 
 @Component({
   selector: 'ow-global-sidebar-left-secondary-content',
@@ -22,8 +22,9 @@ export class GlobalSideBarLeftSecondaryContentComponent implements OnInit {
     this.userService.listFriendRequests();
 
     this.store.select('friendships')
+    .map(friendships => filter(propEq('isAccepted', false), values(friendships)))
     .subscribe(friendRequests => {
-      this.friendRequestCount = length(keys(friendRequests));
+      this.friendRequestCount = length(friendRequests);
     });
   }
 
