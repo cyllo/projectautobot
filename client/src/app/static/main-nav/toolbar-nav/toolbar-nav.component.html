@@ -1,0 +1,8 @@
+<div class="toolbar-nav py-3" fxLayout="column" fxFlex="grow">
+  <md-nav-list dense>
+     <a md-list-item
+        *ngFor="let link of navLinks"
+        routerLink="{{ link.routerLink }}"
+        #navListItem>{{ link.name }}</a>
+  </md-nav-list>
+</div>

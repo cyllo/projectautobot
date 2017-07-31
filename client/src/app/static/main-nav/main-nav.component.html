@@ -1,16 +1,59 @@
-<section class="fixed-top main-nav" id="main-nav" #mainnav>
-  <nav class="navbar navbar-toggleable-md py-0">
-    <a class="navbar-brand hidden-md-down" routerLink=""><img src="img/TankIcon.svg" alt="logo"></a>
-    <div class="search-form">
-      <a class="navbar-brand hidden-lg-up" routerLink=""><img src="img/TankIcon.svg" alt="logo"></a>
-      <form [formGroup]="questionForm">
-        <ow-search #search [searchInProgress]="searchInProgress" (search)='onSearch($event)'></ow-search>
-      </form>
+<div class="main-nav flex-layout" fxLayout="row" fxFlex="grow">
+
+  <md-toolbar fxFlex="noshrink">
+
+    <div fxLayout="row"
+         fxLayoutAlign="start center"
+         fxLayoutGap.gt-sm="64px"
+         fxLayoutGap.lt-md="14px"
+         fxFlex="grow">
+
+      <div fxLayout="column">
+
+        <ow-nav-list (show)="showNavListInToolbar($event)"></ow-nav-list>
+
+      </div>
+
+      <div fxLayout="column" fxFlex="grow">
+
+        <div fxLayout="row" fxFlex="grow">
+
+          <div fxLayout="column"
+               fxFlex.lt-sm="grow"
+               fxFlex.gt-sm="70%">
+
+            <ow-search [searchInProgress]="searchInProgress"
+                       (search)='onSearch($event)'
+                       #search>
+            </ow-search>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div fxLayout="column">
+
+        <ow-user-actions (show)="showNavListInToolbar($event)"
+                         *ngIf="userLoggedIn">
+        </ow-user-actions>
+
+        <ow-account-overview *ngIf="userLoggedIn">
+        </ow-account-overview>
+
+      </div>
+
     </div>
-    <ow-main-navbar-left class="d-inline-flex"></ow-main-navbar-left>
-    <ow-main-nav-account-overview class="d-inline-flex ml-auto" *ngIf="userLoggedIn"></ow-main-nav-account-overview>
-    <ow-main-navbar-right class="d-inline-flex ml-auto" *ngIf="!userLoggedIn"></ow-main-navbar-right>
-  </nav>
-  <!-- end nav -->
-</section>
-<!-- end .main-nav #mainnav -->
+
+    <md-toolbar-row fxLayout="row" fxHide.gt-sm *ngIf="activeToolbarNavLinks">
+      <ow-toolbar-nav fxLayout="row"
+                      fxFlex="grow"
+                      (hide)="hideNavListInToolbar()"
+                      [navlinks]="activeToolbarNavLinks">
+      </ow-toolbar-nav>
+    </md-toolbar-row>
+
+  </md-toolbar>
+
+</div>

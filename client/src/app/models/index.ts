@@ -11,3 +11,4 @@ export * from './chartdata.model';
 export * from './user-friends-list-club.model';
 export * from './graphql-response.model';
 export * from './friendship.model';
+export * from './nav-link.model';

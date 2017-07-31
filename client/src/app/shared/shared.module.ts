@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MomentModule } from 'angular2-moment';
+import { MdIconModule, MdProgressSpinnerModule } from '@angular/material';
 
 import {
   ApiService,
@@ -44,7 +45,9 @@ import { ChartsModule } from 'ng2-charts';
     HttpModule,
     ChartsModule,
     RouterModule,
-    MomentModule
+    MomentModule,
+    MdIconModule,
+    MdProgressSpinnerModule,
   ],
   declarations: [
     VideoCardComponent,

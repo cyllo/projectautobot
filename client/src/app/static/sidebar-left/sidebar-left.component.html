@@ -1,10 +1,13 @@
-<div class="sidebar-left fixed-left">
+<div class="sidebar-left fixed-left flex-layout"
+     fxLayout="column"
+     fxFlex="grow"
+     fxHide.lt-sm>
 
   <div class="flex-layout" fxLayout="column" fxFlex="grow">
 
     <md-sidenav-container fxLayout="column" fxFlex="grow">
 
-      <md-sidenav #sidenav mode="side" opened="true" align="end"
+      <md-sidenav #sidenav mode="side" opened="false" align="end"
                   (open-start)='onSideNavOpenStart($event)'
                   (close-start)='onSideNavCloseStart($event)'>
 
@@ -24,7 +27,7 @@
 
         <div class="flex-layout" fxLayout="column" fxFlex="grow" fxLayoutGap="8px">
 
-          <div class="flex-layout px-1 py-1" fxLayout="column" fxFlex="initial">
+          <div class="flex-layout px-1 py-1" fxLayout="column">
 
             <button md-icon-button class="btn-sidebar-toggle"
                     [ngClass]="{ 'collapsed' : sideNavOpen }"
@@ -36,7 +39,7 @@
 
           </div>
 
-          <div class="flex-layout px-1 py-1" fxLayout="column" fxFlex="initial">
+          <div class="flex-layout px-1 py-1" fxLayout="column">
 
             <button md-icon-button mdTooltip="Friends" [mdTooltipPosition]="'right'">
               <i class="material-icons">gamepad</i>
@@ -44,7 +47,7 @@
 
           </div>
 
-          <div class="flex-layout px-1 py-1" fxLayout="column" fxFlex="initial">
+          <div class="flex-layout px-1 py-1" fxLayout="column">
 
             <button md-icon-button mdTooltip="Following" [mdTooltipPosition]="'right'">
               <i class="material-icons">favorite_border</i>
@@ -54,14 +57,14 @@
 
         </div>
 
-        <div class="flex-layout" fxLayout="column" fxFlex="initial">
+        <div class="flex-layout" fxLayout="column">
 
           <div class="flex-layout px-1 py-1" fxLayout="column" fxFlex="grow">
 
             <md-menu class="min-width-0" #appMenu="mdMenu" [overlapTrigger]="false"
                      xPosition="after" yPosition="above">
 
-              <div class="flex-layout px-1 py-1" fxLayout="column" fxFlex="initial"
+              <div class="flex-layout px-1 py-1" fxLayout="column"
                    *ngFor="let theme of appThemesCatalog">
 
                 <button md-icon-button mdTooltip="{{ theme.name }}"

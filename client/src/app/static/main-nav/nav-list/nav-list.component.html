@@ -1,0 +1,42 @@
+<div class="nav-list" fxLayout="row" fxLayoutGap="8px" fxHide.lt-md>
+
+  <div fxLayout="column">
+
+    <md-nav-list [ngStyle]="{ padding: 0 }"
+                 fxLayout="row"
+                 fxLayoutGap="8px"
+                 fxHide.lt-md
+                 dense>
+       <a md-list-item
+          fxLayout="column"
+          fxFlex="noshrink"
+          *ngFor="let link of firstTwoNavLinks()"
+          routerLink="{{ link.routerLink }}">{{ link.name }}</a>
+    </md-nav-list>
+
+  </div>
+
+  <div fxLayout="column">
+
+    <md-menu #appMenu="mdMenu" [overlapTrigger]="false">
+      <md-nav-list dense>
+         <a md-list-item
+            *ngFor="let link of remainingNavLinks()"
+            routerLink="{{ link.routerLink }}">{{ link.name }}</a>
+      </md-nav-list>
+    </md-menu>
+
+    <button class="min-width-0" md-button [mdMenuTriggerFor]="appMenu">
+      <md-icon>more_horiz</md-icon>
+    </button>
+
+  </div>
+
+</div>
+
+<button class="min-width-0"
+        (click)="showMainNavInToolbar()"
+        md-button
+        fxHide.gt-sm>
+  <md-icon>menu</md-icon>
+</button>

@@ -1,6 +1,13 @@
-<header class="container-fluid">
-  <!-- <ow-main-nav [searchInProgress]="searchInProgress" (searchTag)='onSearch($event)'></ow-main-nav>
-  ow-main-nav -->
+<header class="flex-layout fixed-top" fxLayout="row" fxFlex="grow">
+
+  <ow-main-nav class="flex-layout"
+               fxLayout="row"
+               fxFlex="grow"
+               ngStyle.gt-xs="padding-left: 64px;"
+               [searchInProgress]="searchInProgress"
+               (searchTag)='onSearch($event)'>
+  </ow-main-nav>
+
   <ow-main-search-results [(isOpen)]='isResultsOpen' [searchResults]='searchResults | async'></ow-main-search-results>
   <!-- ow-main-search-results -->
 </header>

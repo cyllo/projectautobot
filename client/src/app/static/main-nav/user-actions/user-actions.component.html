@@ -1,0 +1,12 @@
+<div fxLayout="row" fxLayoutGap="8px" fxHide.lt-md>
+  <div fxLayout="column" *ngFor="let link of navLinks">
+    <button routerLink="{{ link.routerLink }}" md-button>{{ link.name }}</button>
+  </div>
+</div>
+
+<button class="min-width-0"
+        (click)="showNavLinksInToolbar()"
+        md-button
+        fxHide.gt-sm>
+  <md-icon>account_box</md-icon>
+</button>
