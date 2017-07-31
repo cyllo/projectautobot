@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnDestroy, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
-import { trim } from 'ramda';
+import { trim, isEmpty } from 'ramda';
 
 @Component({
   selector: 'ow-search',
@@ -39,6 +39,7 @@ export class SearchComponent implements OnDestroy {
     // subscribe to value changes on the control to emit the save event
     const controlSub = this.control.valueChanges
       .debounceTime(500)
+      .filter(str => !isEmpty(str))
       .map(str => trim(str))
       .subscribe((str) => this.search.emit(str));
 

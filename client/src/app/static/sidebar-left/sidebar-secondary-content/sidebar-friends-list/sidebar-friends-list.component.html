@@ -1,0 +1,78 @@
+<div class="sidebar-friends-list py-3" fxLayout="column" fxLayoutGap="14px" fxFlexFill>
+
+  <div class="px-3 flex-layout"
+       fxLayout="column"
+       fxFlex="grow"
+       *ngIf="false"> <!-- SHOW THIS PART ONLY IF THEY HAVE NO FRIENDS -->
+
+    <div fxLayout="column" fxLayoutAlign="end center" fxFlex="1 1 55%">
+      <p class="text-heading mat-display-2 mb-2">Did you try turning it on and off?</p>
+    </div>
+
+    <div fxLayout="column" fxFlex="1 1 45%">
+      <p>There's nothing to see here.</p>
+    </div>
+
+  </div>
+
+  <div class="flex-layout" fxLayout="column" fxFlex="initial">
+
+    <div class="flex-layout"
+         fxLayout="row"
+         fxLayoutAlign="start center"
+         fxLayoutGap="14px"
+         fxFlex="grow">
+
+      <div class="flex-layout" fxLayout="column" fxFlex="grow" *ngIf="clubCreationPending">
+
+        <input type="text" placeholder="Enter a Club Name" (focusout)="clubCreationEnd()">
+
+      </div>
+
+      <div class="flex-layout" fxLayout="column" fxFlex="grow" *ngIf="!clubCreationPending">
+
+        <span fxLayout="row" fxLayoutAlign="start center">
+          <i class="material-icons md-18 mr-2">group</i> (3) Clubs
+        </span>
+
+      </div>
+
+      <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
+
+        <button class="min-width-0"
+                md-button
+                mdTooltip="{{ !clubCreationPending? 'Create a New Club' : null }}"
+                (click)="!clubCreationPending ? clubCreationStart() : clubCreationEnd()">
+          <i class="material-icons" *ngIf="clubCreationPending">add</i>
+          <i class="material-icons" *ngIf="!clubCreationPending">playlist_add</i>
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="ow-tab-content flex-layout px-2 py-2"
+       fxLayout="column"
+       fxLayoutGap="8px"
+       fxFlex="grow"
+       [perfect-scrollbar]
+       *ngIf="clubs.length">
+
+    <ow-sidebar-club
+      class="flex-layout"
+      fxLayout="column"
+      fxFlex="0 0 auto"
+      fxFlexAlgin="start"
+      *ngFor="let club of clubs"
+      [club]="club">
+    </ow-sidebar-club>
+
+  </div>
+
+  <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
+    <!--<ow-search fxLayout="row" fxFlexAlign="stretch"></ow-search>-->
+  </div>
+
+</div>
