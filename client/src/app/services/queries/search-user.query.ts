@@ -8,4 +8,4 @@ export const userSearchQuery = gql`
             id
         }
     }
-`
+`;

@@ -6,4 +6,4 @@ export const RejectFriendRequest = gql`
             rejected
         }
     }
-`
+`;

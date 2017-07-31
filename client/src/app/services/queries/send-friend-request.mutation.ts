@@ -10,7 +10,6 @@ export const SendFriendRequest = gql`
                 displayName
                 id
             }
-            
         }
     }
-`
+`;

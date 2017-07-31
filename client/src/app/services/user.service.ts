@@ -3,18 +3,18 @@ import { Apollo } from 'apollo-angular';
 import { User, GraphqlResponse } from '../models';
 import { getFriendRequests } from '../reducers';
 import { Dispatcher } from '@ngrx/store';
-import { 
+import {
   CreateUserMutation,
   ConnectUserToBattleNetMutation,
-  userSearchQuery, 
+  userSearchQuery,
   friendShipsQuery } from './queries';
 
 interface UserParams extends User {
   clientAuthToken: string;
 }
 
-interface searchResponse {
-  data: any
+interface SearchResponse {
+  data: any;
 }
 
 @Injectable()
@@ -32,7 +32,7 @@ export class UserService {
     return this.apollo.query({
       query: userSearchQuery,
       variables: { displayName }
-    }).map(({ data: { users } }: searchResponse) => users);
+    }).map(({ data: { users } }: SearchResponse) => users);
   }
 
   connectToBattleNet(clientAuthToken) {

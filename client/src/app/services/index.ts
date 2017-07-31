@@ -10,5 +10,4 @@ export * from './auth-gaurd.service';
 export * from './news.service';
 export * from './socket.service';
 export * from './themeing.service';
-export * from './friendship.service'
-
+export * from './friendship.service';

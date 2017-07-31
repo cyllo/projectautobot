@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { values } from 'ramda';
-import { FriendShip } from '../models'
+import { FriendShip } from '../models';
 
 @Pipe({ name: 'valuesPipe' })
 export class ValuesPipe implements PipeTransform {

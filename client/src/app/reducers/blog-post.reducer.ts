@@ -6,7 +6,7 @@ export function blogPosts(state: BlogPostState = {}, { type, payload }: { type: 
       return payload.reduce((acc, item) => Object.assign(acc, {
         [item.id]: item
       }), {});
-      
+
     case 'ADD_BLOG_POST':
       return {
         ...state,

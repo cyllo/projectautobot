@@ -14,7 +14,7 @@ export class FriendShipService {
             mutation: SendFriendRequest,
             variables: { id }
         })
-        .map(({ data: { sendFriendRequest: friendship } }: GraphqlResponse) => friendship)
+        .map(({ data: { sendFriendRequest: friendship } }: GraphqlResponse) => friendship);
     }
 
     accept(friendUserId, friendshipId) {
