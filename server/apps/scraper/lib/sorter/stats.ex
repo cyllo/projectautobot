@@ -1,4 +1,4 @@
-defmodule Scraper.Sorter.HeroesStats do
+defmodule Scraper.Sorter.Stats do
   alias Scarper.Sorter.Helpers
 
   @lifetime_statistics [
@@ -13,7 +13,6 @@ defmodule Scraper.Sorter.HeroesStats do
     :critical_hits_accuracy_percentage, :shots_hit,
     :weapon_accuracy_percentage, :self_healing, :turrets_destroyed,
     :teleporter_pads_destroyed, :damage_blocked, :melee_kills,
-    # UNKNOWN IF EXIST
     :ultimates_used, :ultimates_earned,
     :time_holding_ultimate, :hero_damage_done,
     :barrier_damage_done, :all_damage_done, :damage_blocked
@@ -28,9 +27,9 @@ defmodule Scraper.Sorter.HeroesStats do
     :melee_final_blows_average, :offensive_assists_average,
     :critical_hits_average, :defensive_assists_average,
     :damage_blocked_average, :melee_kills_average,
-    # UK if exist
     :melee_percentage_of_final_blows, :weapon_accuracy,
-    :all_damage_done_avg_per_10_min
+    :all_damage_done_avg_per_10_min, :healing_done_avg_per_10_min,
+    :objective_kills_avg_per_10_min
   ]
 
   @best_statistics [
@@ -49,46 +48,8 @@ defmodule Scraper.Sorter.HeroesStats do
     :all_damage_done_most_in_life
   ]
 
-  @doc """
-  organizes a hero statistic
-
-  Returns `%{code, name, stats: %{average, best, lifetime, match_awards, game, hero_specific}}`.
-
-  ## Examples
-
-      iex> Scraper.Sorter.HeroesStats.sort_stats(%{ \
-        code: "0x00000085", \
-        name: "Ana", \
-        stats: %{ \
-          solo_kills_average: 1.91, \
-          multikills: 2.95, \
-          multikill_best: 3, \
-          gold_medals: 3, \
-          games_won: 3, \
-          hero_specific_statistic: 32, \
-          time_spent_on_fire: 32 \
-        } \
-      })
-      %{code: "0x00000085", name: "Ana", \
-        stats: %{\
-          average: %{solo_kills_average: 1.91}, \
-          best: %{multikill_best: 3}, \
-          game: %{games_won: 3}, \
-          lifetime: %{multikills: 2.95, time_spent_on_fire: 32}, \
-          match_awards: %{gold_medals: 3}, \
-          hero_specific: %{hero_specific_statistic: 32} \
-        }}
-
-  """
-  def sort_stats(%{code: code, name: name, stats: stats}) do
-    %{
-      code: code,
-      name: name,
-      stats: Helpers.categorize_stats(stats, &get_stats_category/1)
-    }
-  end
-
-  def sort_stats(stats) when is_list(stats), do: Enum.map stats, &sort_stats/1
+  def sort(stats), do: Helpers.categorize_stats(stats, &get_stats_category/1)
+  def sort_general(stats), do: stats |> sort |> Map.delete(:hero_specific)
 
   defp get_stats_category({key, _}) do
     cond do

@@ -1,5 +1,6 @@
 defmodule Scraper.DataProcessor.Stats do
-  alias Scraper.{HtmlHelpers, DataProcessor.StatsBox}
+  alias Scraper.HtmlHelpers
+  alias Scraper.DataProcessor.{StatsBox, TotalStatsCalculator}
 
   @quickplay_identifier "#quickplay"
   @competitive_stats_identifier "#competitive"
@@ -24,12 +25,15 @@ defmodule Scraper.DataProcessor.Stats do
     src
       |> played_heroes
       |> Enum.map(&(StatsBox.parse_hero_stats(&1, src)))
-      |> Enum.split_with(&is_hero_name_all_heroes/1)
+      |> Enum.reject(&is_hero_name_all_heroes/1)
       |> process_stat_return
   end
 
-  defp process_stat_return({[], []}), do: %{general_stats: [], heroes_stats: []}
-  defp process_stat_return({[general_stats], heroes_stats}), do: %{general_stats: general_stats.stats, heroes_stats: heroes_stats}
+  defp process_stat_return([]), do: %{general_stats: [], heroes_stats: []}
+  defp process_stat_return(heroes_stats), do: %{
+    general_stats: TotalStatsCalculator.calculate_hero_totals(heroes_stats),
+    heroes_stats: heroes_stats
+  }
 
   defp played_heroes(src) do
     src

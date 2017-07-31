@@ -80,4 +80,9 @@ defmodule Utility do
       tag
     end
   end
+
+  @spec merge_map_total(map1 :: map, map2 :: map) :: map
+  def merge_map_total(map1, map2), do: Map.merge(map1, map2, fn _k, v1, v2 ->
+    v1 + v2
+  end)
 end
