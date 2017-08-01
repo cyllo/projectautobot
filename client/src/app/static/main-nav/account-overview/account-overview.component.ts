@@ -14,5 +14,9 @@ export class AccountOverviewComponent {
   signOut() {
     this.authService.logout();
   }
-  
+
+  preventClose($event) {
+    $event.stopPropagation();
+  }
+
 }

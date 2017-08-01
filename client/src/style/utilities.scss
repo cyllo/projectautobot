@@ -1,3 +1,20 @@
+.d-block {
+  display: block !important; 
+}
+
+.d-inline {
+  display: inline !important;
+}
+
+.d-inline-block {
+  display: inline-block !important;
+}
+
+.flex-layout {
+  min-width: 0;
+  min-height: 0;
+}
+
 .border-radius-50 {
   border-radius: 50%;
 }
@@ -20,6 +37,13 @@
 
 .text-right {
   text-align: right;
+}
+
+.text-overflow {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .fixed-top {

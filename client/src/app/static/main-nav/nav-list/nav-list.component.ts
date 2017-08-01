@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavLink } from '../../../models';
 
 @Component({
@@ -8,7 +8,6 @@ import { NavLink } from '../../../models';
 })
 
 export class NavListComponent {
-  @Output() show: EventEmitter<NavLink[]> = new EventEmitter<NavLink[]>();
 
   navLinks: NavLink[] = [
     {
@@ -37,10 +36,6 @@ export class NavListComponent {
 
   remainingNavLinks() {
     return this.navLinks.slice(2);
-  }
-
-  showMainNavInToolbar() {
-    this.show.emit(this.navLinks);
   }
 
 }

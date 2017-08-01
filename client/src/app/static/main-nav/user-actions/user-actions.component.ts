@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavLink } from '../../../models';
 
 @Component({
@@ -8,23 +8,20 @@ import { NavLink } from '../../../models';
 })
 
 export class UserActionsComponent {
-  @Output() show: EventEmitter<NavLink[]> = new EventEmitter<NavLink[]>();
 
   navLinks: NavLink[] = [
     {
       name: 'Sign Up',
-      routerLink: '/register'
+      routerLink: '/register',
+      materialIcon: 'account_box'
     },
     {
       name: 'Login',
-      routerLink: '/login'
+      routerLink: '/login',
+      materialIcon: 'input'
     }
   ];
 
   constructor() {}
-
-  showNavLinksInToolbar() {
-    this.show.emit(this.navLinks);
-  }
 
 }

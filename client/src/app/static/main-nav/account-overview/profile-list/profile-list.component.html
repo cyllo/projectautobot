@@ -1,0 +1,91 @@
+<div class="profile-list" md-list-item [ngStyle]="{ 'padding': '0 16px' }">
+
+  <div class="flex-layout" fxLayout="row">
+
+    <div class="flex-layout" fxLayout="column" fxLayoutGap="8px" fxFlex="grow">
+
+      <div fxLayout="row">
+        <div fxLayout="column">
+          <span class="mat-caption">Your Profiles</span>
+        </div>
+      </div>
+
+      <div class="list-content-wrapper" fxLayout="row">
+
+        <div class="list-content px-2"
+             fxLayout="column"
+             fxFlex="grow"
+             [perfect-scrollbar]>
+
+          <div fxLayout="row" fxFlex="noshrink" *ngFor="let item of items">
+
+            <div fxLayout="column" fxFlex="grow">
+
+              <button class="px-2 py-2" md-button>
+
+                <div fxLayout="row"
+                     fxLayoutAlign="start center"
+                     fxLayoutGap="4px">
+
+                  <div fxLayout="column">
+                      <img class="md-image md-image-36"
+                           src="https://blzgdapipro-a.akamaihd.net/game/unlocks/0x02500000000008EF.png">
+                  </div>
+
+                  <div class="flex-layout"
+                       fxLayout="column"
+                       fxLayoutGap="2px"
+                       fxFlex="grow">
+
+                      <div class="flex-layout" fxLayout="row">
+                        <span class="mat-caption text-overflow">
+                          <strong>Cyllo#2112</strong>
+                        </span>
+                      </div>
+
+                      <div class="flex-layout"
+                           fxLayout="row"
+                           fxLayoutAlign="start center">
+
+                        <div fxLayout="column">
+                          <img class="md-image md-image-18"
+                               src="https://blzgdapipro-a.akamaihd.net/game/rank-icons/season-2/rank-7.png">
+                        </div>
+
+                        <div fxLayout="column">
+                          <span class="mat-caption ml-1">2315</span>
+                        </div>
+
+                        <div class="pl-1" fxLayout="column">
+                          <span class="platform-region mini-pr text-uppercase">PC</span>
+                        </div>
+
+                        <div class="pl-1" fxLayout="column">
+                          <span class="platform-region mini-pr text-uppercase">US</span>
+                        </div>
+
+                      </div>
+
+                  </div>
+
+                  <div fxLayout="column">
+                    <md-icon>chevron_right</md-icon>
+                  </div>
+
+                </div>
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

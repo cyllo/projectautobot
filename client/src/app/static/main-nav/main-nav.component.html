@@ -10,7 +10,7 @@
 
       <div fxLayout="column">
 
-        <ow-nav-list (show)="showNavListInToolbar($event)"></ow-nav-list>
+        <ow-nav-list></ow-nav-list>
 
       </div>
 
@@ -35,24 +35,13 @@
 
       <div fxLayout="column">
 
-        <ow-user-actions (show)="showNavListInToolbar($event)"
-                         *ngIf="userLoggedIn">
-        </ow-user-actions>
+        <ow-user-actions *ngIf="!userLoggedIn"></ow-user-actions>
 
-        <ow-account-overview *ngIf="userLoggedIn">
-        </ow-account-overview>
+        <ow-account-overview *ngIf="userLoggedIn"></ow-account-overview>
 
       </div>
 
     </div>
-
-    <md-toolbar-row fxLayout="row" fxHide.gt-sm *ngIf="activeToolbarNavLinks">
-      <ow-toolbar-nav fxLayout="row"
-                      fxFlex="grow"
-                      (hide)="hideNavListInToolbar()"
-                      [navlinks]="activeToolbarNavLinks">
-      </ow-toolbar-nav>
-    </md-toolbar-row>
 
   </md-toolbar>
 

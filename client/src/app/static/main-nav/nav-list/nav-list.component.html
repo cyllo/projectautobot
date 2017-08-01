@@ -1,13 +1,18 @@
-<div class="nav-list" fxLayout="row" fxLayoutGap="8px" fxHide.lt-md>
+<div class="nav-list"
+     fxLayout="row"
+     fxLayoutAlign="start center"
+     fxLayoutGap="8px"
+     fxHide.lt-md>
 
   <div fxLayout="column">
 
-    <md-nav-list [ngStyle]="{ padding: 0 }"
+    <md-nav-list class="main-nav-menu"
+                 [ngStyle]="{ padding: 0 }"
                  fxLayout="row"
                  fxLayoutGap="8px"
-                 fxHide.lt-md
-                 dense>
-       <a md-list-item
+                 fxHide.lt-md>
+       <a class="text-uppercase"
+          md-list-item
           fxLayout="column"
           fxFlex="noshrink"
           *ngFor="let link of firstTwoNavLinks()"
@@ -18,8 +23,8 @@
 
   <div fxLayout="column">
 
-    <md-menu #appMenu="mdMenu" [overlapTrigger]="false">
-      <md-nav-list dense>
+    <md-menu class="main-nav-menu" #appMenu="mdMenu" [overlapTrigger]="false">
+      <md-nav-list fxFlex="180px" dense>
          <a md-list-item
             *ngFor="let link of remainingNavLinks()"
             routerLink="{{ link.routerLink }}">{{ link.name }}</a>
@@ -34,9 +39,23 @@
 
 </div>
 
+<md-menu #navListMenu="mdMenu"
+         xPosition="before"
+         yPosition="below"
+         [overlapTrigger]="false">
+  <button routerLink="{{ link.routerLink }}"
+          *ngFor="let link of navLinks"
+          fxFlex="240px"
+          md-menu-item>
+          <md-icon *ngIf="link.materialIcon">{{ link.materialIcon }}</md-icon>
+          <span>{{ link.name }}</span>
+  </button>
+</md-menu>
+
 <button class="min-width-0"
-        (click)="showMainNavInToolbar()"
+        [mdMenuTriggerFor]="navListMenu"
         md-button
         fxHide.gt-sm>
   <md-icon>menu</md-icon>
+
 </button>
