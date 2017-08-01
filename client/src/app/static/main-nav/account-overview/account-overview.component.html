@@ -13,7 +13,7 @@
             <md-checkbox (click)="preventClose($event)">Share your progress, trends, and activity with your friends!</md-checkbox>
           </div>
 
-          <a md-list-item>
+          <a md-list-item [routerLink]="['account']">
             <div class="text-left" fxLayout="column" fxFlex="grow">
               <span>Account Settings</span>
             </div>
