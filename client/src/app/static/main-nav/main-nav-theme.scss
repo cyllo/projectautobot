@@ -38,5 +38,18 @@
     }
 
   }
+  
+  .account-overview-menu {
+    span,
+    .mat-checkbox-label {
+      line-height: 1.3;
+    }
+  }
+
+  .main-nav-menu {
+    .mat-list-item-content {
+      font-size: 13px;
+    }
+  }
 
 }
