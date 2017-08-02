@@ -5,12 +5,15 @@ import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { AppState, Player } from './models';
 import { searchGamerTag } from './reducers';
+import { MdIconRegistry } from '@angular/material';
+
 import {
   HereosService,
   GamerTagService,
   OverwatchHeroDataService,
   AuthorizationService,
-  NewsService
+  NewsService,
+  ThemeingService
 } from './services';
 
 import '../style/app.scss';
@@ -19,7 +22,7 @@ import '../style/app.scss';
   selector: 'ow-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [HereosService, AuthorizationService, NewsService]
+  providers: [HereosService, AuthorizationService, NewsService, ThemeingService]
 })
 export class AppComponent implements OnDestroy, OnInit {
   sub: Subscription;
@@ -34,7 +37,9 @@ export class AppComponent implements OnDestroy, OnInit {
     private gamerTagService: GamerTagService,
     private hereosService: HereosService,
     private authService: AuthorizationService,
-    private newsPostService: NewsService) {
+    private newsPostService: NewsService,
+    private themeingService: ThemeingService,
+    private mdIconRegistry: MdIconRegistry) {
 
     this.$state = this.store.select(s => s);
 
@@ -50,8 +55,15 @@ export class AppComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
+    this.themeingService.load();
+    this.themeingService.loadTheme(this.themeingService.themes().default);
+    this.setDefaultFontSetClass();
     this.authService.setCurrentSession(JSON.parse(window.localStorage.getItem('session')));
     this.newsPostService.getLatestPosts(3);
+  }
+
+  setDefaultFontSetClass() {
+    this.mdIconRegistry.setDefaultFontSetClass('material-icons');
   }
 
   onSearch(action) {
@@ -78,4 +90,5 @@ export class AppComponent implements OnDestroy, OnInit {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
 }

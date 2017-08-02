@@ -1,4 +1,4 @@
-export * from './main-navbar-left';
-export * from './main-navbar-right';
-export * from './main-nav-account-overview';
+export * from './nav-list';
+export * from './user-actions';
+export * from './account-overview';
 export * from './main-nav.component';

@@ -1,0 +1,123 @@
+<div class="club flex-layout"
+     fxLayout="row"
+     fxLayoutAlign="start center"
+     fxFlex="grow">
+
+  <td-expansion-panel class="flex-layout"
+                      fxLayout="column"
+                      fxFlex="grow"
+                      (expanded)="expandedEvent()"
+                      (collapsed)="collapsedEvent()"
+                      [disableRipple]="true"
+                      [expand]="true">
+
+    <ng-template td-expansion-panel-header>
+
+      <div class="flex-layout"
+           fxLayout="row"
+           fxLayoutAlign="start center"
+           fxFlex="grow">
+
+        <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
+
+          <button class="min-width-0"
+                  color="warn"
+                  *ngIf="clubNameEditInProgress"
+                  md-button>
+            <md-icon>delete_forever</md-icon>
+          </button>
+
+          <button class="btn-content-toggle min-width-0"
+                  [ngClass]="{ 'collapsed' : expansionPanelCollapsed }"
+                  *ngIf="!clubNameEditInProgress"
+                  md-button>
+            <md-icon>keyboard_arrow_down</md-icon>
+          </button>
+
+        </div>
+
+        <div class="flex-layout" fxLayout="column" fxFlex="grow">
+          <input type="text"
+                 value="{{ club.name }}"
+                 (focusout)="clubNameEditEnd($event)"
+                 (click)="clubNameEditStart($event)"
+                 [disabled]="!club.mutable">
+        </div>
+
+        <div class="flex-layout" fxLayout="column" fxFlex="noshrink" *ngIf="club.mutable">
+
+          <button class="min-width-0" *ngIf="clubNameEditInProgress" md-button>
+            <md-icon>check</md-icon>
+          </button>
+
+          <button class="min-width-0"
+                  (click)="compareProfiles($event)"
+                  *ngIf="!clubNameEditInProgress"
+                  md-button>
+            <md-icon>compare_arrows</md-icon>
+          </button>
+
+        </div>
+
+      </div>
+
+    </ng-template>
+
+    <div class="flex-layout pt-3"
+         fxLayout="column"
+         fxLayoutGap="14px"
+         fxFlex="grow"
+         [dragula]='"bag-one"'
+         [dragulaModel]='items'>
+
+      <div class="player-card flex-layout pb-2"
+           fxLayout="row"
+           fxLayoutAlign="start center"
+           fxLayoutGap="8px"
+           fxFlex="noshrink"
+           *ngFor="let item of items">
+
+        <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
+
+          <a href="#" draggable="false">
+            <img class="md-image md-image-circle md-image-36" draggable="false" src="https://blzgdapipro-a.akamaihd.net/game/unlocks/0x0250000000000D6A.png">
+          </a>
+
+        </div>
+
+        <div class="flex-layout" fxLayout="column" fxFlex="grow">
+
+          <div class="flex-layout" fxLayout="row" fxFlex="grow">
+              <span class="player-tag">Cyllo#2112</span>
+          </div>
+
+          <div class="skill-rating flex-layout"
+               fxLayout="row"
+               fxLayoutAlign="start center"
+               fxFlex="grow">
+
+            <img width="18" src="https://blzgdapipro-a.akamaihd.net/game/rank-icons/season-2/rank-7.png">
+            <span class="ml-1">2315</span>
+
+          </div>
+
+        </div>
+
+        <div class="flex-layout"
+             fxLayout="column"
+             fxLayoutGap="8px"
+             fxFlex="noshrink">
+
+          <button class="min-width-0" md-button>
+            <md-icon>keyboard_arrow_right</md-icon>
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </td-expansion-panel>
+
+</div>

@@ -1,26 +1,33 @@
-@import "../../../style/colors";
+:host /deep/ .form-group {
+  .mat-spinner {
+    width: 24px;
+    height: 24px;
+  }
+}
 
 .form-group {
 
   position: relative;
-
-  .form-control {
-    padding-left: 5rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  width: 100%;
 
   .form-icon {
     position: absolute;
-    left: 0;
     top: 50%;
+    left: 0;
     transform: translateY(-50%);
-    height: 100%;
-    min-width: 4rem;
+    line-height: 0;
+    padding: 0 6px;
   }
 
   .hidden {
     display: none !important;
   }
-  
+
+  input[type="text"] {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 43px;
+  }
+
 }

@@ -1,0 +1,55 @@
+@mixin main-nav-theme($theme) {
+
+  $primary: map-get($theme, primary);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  $input-background-color: mat-color($background, card);
+  $input-text-color: rgba(contrast-color($input-background-color), 0.87);
+  $input-text-focus-color: rgba($input-text-color, 1);
+  $border-color: rgba($input-text-color, 0.3);
+
+  .main-nav {
+
+    .form-group {
+
+      .form-icon {
+
+        border-right: 1px solid $border-color;
+
+        i {
+          color: $border-color;
+        }
+
+      }
+
+      input[type="text"] {
+
+        background-color: $input-background-color;
+        color: $input-text-color;
+
+        &:focus {
+          color: $input-text-focus-color;
+        }
+
+      }
+
+    }
+
+  }
+  
+  .account-overview-menu {
+    span,
+    .mat-checkbox-label {
+      line-height: 1.3;
+    }
+  }
+
+  .main-nav-menu {
+    .mat-list-item-content {
+      font-size: 13px;
+    }
+  }
+
+}
