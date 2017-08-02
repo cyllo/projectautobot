@@ -18,5 +18,4 @@ export * from './top-news';
 export * from './profile-checkbox';
 export * from './hero-checkbox';
 export * from './comp-or-quick-play-selector';
-export * from './player-profile-button';
 export * from './shared.module';

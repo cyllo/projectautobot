@@ -40,7 +40,5 @@ export class MainSearchResultsComponent {
     this.store.dispatch({ type: 'ADD_PLAYERS', payload: [result] });
     this.store.dispatch({ type: 'GET_PLAYER_TAG', payload: { tag: this.search.tag, searching: false } });
     this.profileService.goto(result);
-    this.isOpenChange.emit(false);
   }
-
 }

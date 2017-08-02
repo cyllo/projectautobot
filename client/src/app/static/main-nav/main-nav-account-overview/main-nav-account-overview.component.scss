@@ -1,0 +1,99 @@
+@import "../../../../style/colors";
+.main-nav-account-overview {
+  top: 0;
+  right: 0;
+  position: absolute;
+  height: 100%;
+  p {
+    color: $gray;
+  }
+  .account-overview {
+    background-color: transparent;
+    border: 0;
+    border-color: $gray-lighter;
+    outline: none;
+  }
+  .account-overview i {
+    font-size: 1rem;
+    transition: transform 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+  }
+  .dropdown.show .account-overview i {
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+  }
+  .display-name {
+    color: $brand-inverse;
+  }
+  .dropdown,
+  .dropdown-toggle {
+    height: 100%;
+  }
+  .dropdown-toggle::after {
+    display: none;
+  }
+  .dropdown-menu {
+    left: auto;
+    right: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    width: 18rem;
+  }
+  @media (max-width: 991px) {
+    .dropdown-menu {
+      width: 100vw !important;
+    }
+  }
+  .user-avatar {
+    width: 100%;
+    max-width: 2.5rem;
+  }
+  section {
+    border: 0;
+  }
+  section.primary {
+    background-color: $white;
+    > .container-fluid > .row:not(:last-child) {
+      border-bottom: 1px solid $gray-lighter;
+    }
+  }
+  section.secondary {
+    background-color: $purple-darker;
+    color: $white;
+    .row:not(:last-child) {
+      border-bottom: 1px solid $gray-light;
+    }
+  }
+  a {
+    color: $white;
+  }
+  .user-profile-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  .user-profile-list a {
+    text-decoration: none;
+    color: inherit;
+  }
+  .user-profile-list a:hover i {
+    color: $brand-primary;
+  }
+  .user-profile-list .list-item {
+    border-bottom: 1px dotted $gray-lighter;
+  }
+  .user-profile-list .list-item:last-child {
+    border-bottom: 0;
+  }
+  .user-profile {
+    img {
+      width: 100%;
+      max-width: 1.85rem;
+    }
+    .tag {
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+}

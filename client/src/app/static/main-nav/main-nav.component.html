@@ -1,48 +1,16 @@
-<div class="main-nav flex-layout" ngStyle.gt-xs="padding-left: 64px;">
-
-  <md-toolbar>
-
-    <div fxLayout="row"
-         fxLayoutAlign="start center"
-         fxLayoutGap.gt-sm="64px"
-         fxLayoutGap.lt-md="14px"
-         fxFlex="grow">
-
-      <div fxLayout="column">
-
-        <ow-nav-list></ow-nav-list>
-
-      </div>
-
-      <div fxLayout="column" fxFlex="grow">
-
-        <div fxLayout="row" fxFlex="grow">
-
-          <div fxLayout="column"
-               fxFlex.lt-sm="grow"
-               fxFlex.gt-sm="70%">
-
-            <ow-search [searchInProgress]="searchInProgress"
-                       (search)='onSearch($event)'
-                       #search>
-            </ow-search>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <div fxLayout="column">
-
-        <ow-user-actions *ngIf="!userLoggedIn"></ow-user-actions>
-
-        <ow-account-overview *ngIf="userLoggedIn"></ow-account-overview>
-
-      </div>
-
+<section class="fixed-top main-nav" id="main-nav" #mainnav>
+  <nav class="navbar navbar-toggleable-md py-0">
+    <a class="navbar-brand hidden-md-down" routerLink=""><img src="img/TankIcon.svg" alt="logo"></a>
+    <div class="search-form">
+      <a class="navbar-brand hidden-lg-up" routerLink=""><img src="img/TankIcon.svg" alt="logo"></a>
+      <form [formGroup]="questionForm">
+        <ow-search #search [searchInProgress]="searchInProgress" (search)='onSearch($event)'></ow-search>
+      </form>
     </div>
-
-  </md-toolbar>
-
-</div>
+    <ow-main-navbar-left class="d-inline-flex"></ow-main-navbar-left>
+    <ow-main-nav-account-overview class="d-inline-flex ml-auto" *ngIf="userLoggedIn"></ow-main-nav-account-overview>
+    <ow-main-navbar-right class="d-inline-flex ml-auto" *ngIf="!userLoggedIn"></ow-main-navbar-right>
+  </nav>
+  <!-- end nav -->
+</section>
+<!-- end .main-nav #mainnav -->

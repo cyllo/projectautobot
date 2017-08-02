@@ -1,8 +1,10 @@
 import {
   Component,
   ViewChild,
+  AfterViewInit,
   AfterContentInit,
   OnDestroy,
+  Renderer2,
   EventEmitter,
   Input,
   Output,
@@ -14,7 +16,6 @@ import { AppState } from '../../models';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { values, all, isNil, path } from 'ramda';
-import { NavLink } from '../../models';
 
 @Component({
   selector: 'ow-main-nav',
@@ -22,8 +23,9 @@ import { NavLink } from '../../models';
   styleUrls: ['main-nav.component.scss']
 })
 
-export class MainNavComponent implements AfterContentInit, OnDestroy, OnInit {
+export class MainNavComponent implements AfterContentInit, OnDestroy, AfterViewInit, OnInit {
 @ViewChild('search') search;
+@ViewChild('mainnav') elMainNav;
 @Input() searchInProgress: boolean;
 @Output() searchTag = new EventEmitter<Action>();
 
@@ -36,16 +38,24 @@ export class MainNavComponent implements AfterContentInit, OnDestroy, OnInit {
   private controlName = 'search';
   private searchPlaceholder = 'Search for player by battle tag, psn or xbox live';
 
-  userLoggedIn = false;
-  activeToolbarNavLinks: NavLink[];
+  private elBody;
 
-  constructor(private store: Store<AppState>) {
+  userLoggedIn = false;
+
+  private prevScrollY: number;
+  private curScrollY: number;
+  private _dy: number;
+
+  constructor(private renderer: Renderer2, private store: Store<AppState>) {
     this.currentSession = this.store.select('currentSession');
   }
 
   ngOnInit() {
-    this.currentSession.subscribe(session =>
-      this.userLoggedIn = !all(isNil, values(path(['sessionInfo'], session))));
+    this.prevScrollY = 0;
+    this.curScrollY  = 0;
+    this._dy = 0;
+
+    this.currentSession.subscribe(session => this.userLoggedIn = !all(isNil, values(path(['sessionInfo'], session))));
   }
 
   ngAfterContentInit() {
@@ -64,6 +74,8 @@ export class MainNavComponent implements AfterContentInit, OnDestroy, OnInit {
   }
 
   ngOnDestroy() {
+    // Called once, before the instance is destroyed.
+    // Add 'implements OnDestroy' to the class.
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
@@ -75,12 +87,43 @@ export class MainNavComponent implements AfterContentInit, OnDestroy, OnInit {
     this.searchTag.emit({ type: 'GET_PLAYER_TAG', payload: { tag: tag, searching: true } });
   }
 
-  showNavListInToolbar($navLinks: NavLink[]) {
-    this.activeToolbarNavLinks = $navLinks;
+  ngAfterViewInit() {
+    this.elBody = document.getElementsByTagName('body')[0];
+    this.renderer.listen('window', 'scroll'          , (event) => { this.onScroll(event);    });
+    // this.renderer.listen('window', 'resize'          , (event) => { this.onResize(event);    });
+    this.renderer.listen('window', 'DOMContentLoaded', (event) => { this.onDOMLoaded(event); });
   }
 
-  hideNavListInToolbar() {
-    this.activeToolbarNavLinks = null;
+  offsetBodyPadding() {
+    let navheight = this.elMainNav.nativeElement.offsetHeight;
+    this.elBody.style.paddingTop = navheight + 'px';
   }
 
+  onDOMLoaded(event) {
+    this.offsetBodyPadding();
+    event.preventDefault();
+  }
+
+  onScroll(event) {
+    this.curScrollY = window.scrollY;
+
+    let dy = this.prevScrollY - this.curScrollY;
+    dy = dy / Math.abs(dy);
+
+    // if scroll direction changed
+    if ( this._dy !== dy ) {
+      // this.elMainNav.nativeElement.classList.toggle('hidden');
+    }
+
+    this._dy = dy;
+    this.prevScrollY = window.scrollY;
+
+    this.offsetBodyPadding();
+    event.preventDefault();
+  }
+
+  onResize(event) {
+    this.offsetBodyPadding();
+    event.preventDefault();
+  }
 }

@@ -13,7 +13,7 @@ function App () {
   // your app code here
   WebFont.load({
     google: {
-      families: ['Roboto:300,400,500']
+      families: ['Roboto']
     }
   });
   return platformBrowserDynamic().bootstrapModule(AppModule);

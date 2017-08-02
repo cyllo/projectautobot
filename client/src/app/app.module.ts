@@ -9,35 +9,18 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DragulaModule } from 'ng2-dragula';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdSidenavModule,
-         MdButtonModule,
-         MdMenuModule,
-         MdListModule,
-         MdTooltipModule,
-         MdTabsModule,
-         MdInputModule,
-         MdCardModule,
-         MdSnackBarModule,
-         MdToolbarModule,
-         MdIconModule,
-         MdProgressSpinnerModule,
-         MdCheckboxModule } from '@angular/material';
-import { CovalentExpansionPanelModule } from '@covalent/core';
-import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
+
 import { ApolloModule } from 'apollo-angular';
 import { ApolloClient } from 'apollo-client';
 import { httpInterceptor } from './app.http-interceptor';
+import { SidebarModule } from 'ng-sidebar';
 
 import { ProfileResolver } from './pages/profile/profile.resolver';
 import { GamerTagService, ProfileService } from './services';
 import { AppComponent } from './app.component';
 import * as staticComponents from './static';
 import { routing } from './app.routing';
-import { OrderByPipe, ValuesPipe } from './pipes';
+import { OrderByPipe } from './pipes';
 import { PlayersService, OverwatchHeroDataService, AuthorizationService, AuthGuard, SocketService } from './services';
 import { values } from 'ramda';
 
@@ -51,22 +34,17 @@ import {
   currentHeroData,
   blogPosts,
   currentSession,
-  snapshotData,
-  friendships
+  snapshotData
 } from './reducers';
 import { SharedModule } from './shared';
 import { PagesModule } from './pages';
 
-const declarations: any[] = [AppComponent, OrderByPipe, ValuesPipe, ...values(staticComponents)];
+const declarations: any[] = [AppComponent, OrderByPipe, ...values(staticComponents)];
 export function instrumentOptions() {
   return {
     monitor: useLogMonitor({ visible: false, position: 'right' })
   };
 }
-
-const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  // suppressScrollX: true
-};
 
 @NgModule({
   imports: [
@@ -83,7 +61,6 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       currentHero: currentHeroData,
       blogPosts,
       currentSession,
-      friendships,
       router: routerReducer,
       snapshotStats: snapshotData,
     }, {
@@ -102,25 +79,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule,
     ReactiveFormsModule,
     routing,
-    MdMenuModule,
-    MdSidenavModule,
-    MdButtonModule,
-    MdListModule,
-    MdTooltipModule,
-    MdTabsModule,
-    MdCardModule,
-    BrowserAnimationsModule,
-    FlexLayoutModule,
-    MdInputModule,
-    DragulaModule,
-    MdSnackBarModule,
-    PerfectScrollbarModule,
-    PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
-    CovalentExpansionPanelModule,
-    MdToolbarModule,
-    MdIconModule,
-    MdProgressSpinnerModule,
-    MdCheckboxModule
+    SidebarModule
   ],
   declarations,
   providers: [

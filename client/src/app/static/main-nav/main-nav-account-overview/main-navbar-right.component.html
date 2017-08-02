@@ -1,0 +1,48 @@
+<div class="main-navbar-right d-inline-flex ml-auto">
+  
+  <button class="navbar-toggler px-4" type="button" 
+          (click)="isCollapsed = !isCollapsed" 
+          data-toggle="collapse" 
+          data-target="#toggled-navigation"
+          aria-controls="toggled-navigation" 
+          aria-expanded="!isCollapsed" 
+          aria-label="Toggle Navigation">
+    <i class="fa fa-user-circle" aria-hidden="true"></i>
+  </button>
+  <!-- end .navbar-toggle -->
+
+  <div class="navbar-collapse collapse py-2" id="toggled-navigation" [ngbCollapse]="isCollapsed">
+    <ul class="nav navbar-nav ml-auto">
+      <li class="nav-item my-1">
+        <a class="btn btn-signup px-3 py-2 ml-md-2 ml-0" href="#">Sign Up</a>
+      </li>
+      <li class="nav-item my-1">
+        <a class="btn btn-login px-3 py-2 ml-md-2 ml-0" href="#">Login</a>
+      </li>
+    </ul>
+    <!-- 
+    <ul class="nav navbar-nav hidden-lg-up">
+      <li class="nav-item my-1">
+        <a routerLink="/news" class="nav-link px-3 py-2 mb-2">News</a>
+      </li>
+      <li class="nav-item my-1">
+        <a routerLink="/leaderboard" class="nav-link px-3 py-2 mb-2">Leaderboard</a>
+      </li>
+      <li class="nav-item my-1">
+        <a routerLink="/heroes" class="nav-link px-3 py-2 mb-2">Heroes</a>
+      </li>
+      <li class="nav-item my-1">
+        <a routerLink="/following" class="nav-link px-3 py-2 mb-2">Following</a>
+      </li>
+      <li class="nav-item my-1">
+        <a routerLink="/esports" class="nav-link px-3 py-2 mb-2">Esports</a>
+      </li>
+      <li class="nav-item my-1">
+        <a routerLink="/live" class="nav-link px-3 py-2 mb-2">Live</a>
+      </li>
+    </ul>
+    -->
+  </div>
+  <!-- end .navbar-collapse -->
+
+</div>

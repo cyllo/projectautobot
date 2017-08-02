@@ -1,13 +1,30 @@
-:host /deep/ .main-search-results {
-  .mat-toolbar-row {
-    min-height: 64px;
-    height: auto;
-    font-size: 13px;
+@import "../../../style/colors";
+
+.main-search-results {
+
+  background-color: $purple-darker;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  margin-top: -1px;
+  color: $purple-lighter;
+
+  .player-card {
+    border: 1px solid $purple-light;
   }
-  span {
-    line-height: 1.2;
+  .player-card:hover {
+    border-color: $purple-lighter;
+    cursor: pointer;
   }
-  .player-profile-button {
-    width: 100%;
+
+  .player-tag {
+    color: $white;
   }
+
+  .profile-hyperlink {
+    text-decoration: none;
+    color: inherit;
+  }
+
 }
