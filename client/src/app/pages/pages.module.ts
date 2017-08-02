@@ -7,7 +7,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SharedModule } from '../shared/shared.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MdInputModule,
+         MdButtonModule,
+         MdCardModule,
+         MdSnackBarModule } from '@angular/material';
 
 import {
   HomeComponent,
@@ -57,7 +61,12 @@ import {
     CommonModule,
     HttpModule,
     NgxDatatableModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    FlexLayoutModule,
+    MdInputModule,
+    MdButtonModule,
+    MdCardModule,
+    MdSnackBarModule
   ],
   declarations: [
     HomeComponent,

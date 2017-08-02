@@ -10,7 +10,8 @@
 
 </header>
 
-<main>
+<main [ngStyle]="{ 'padding-top': '64px' }"
+      ngStyle.gt-xs="padding-left: 64px;">
   <ow-sidebar-left></ow-sidebar-left>
   <router-outlet></router-outlet>
 </main>
