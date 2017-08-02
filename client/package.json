@@ -54,6 +54,7 @@
     "graphql-tag": "^2.4.2",
     "humps": "^2.0.1",
     "moment": "^2.18.1",
+    "ng-dynamic-component": "^1.0.8",
     "ng2-charts": "^1.5.0",
     "ng2-dragula": "^1.5.0",
     "ngx-infinite-scroll": "^0.5.1",

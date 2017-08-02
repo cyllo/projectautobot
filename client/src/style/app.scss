@@ -1,25 +1,12 @@
 @import 'themeing';
 @import 'utilities';
 @import '~dragula/dist/dragula.min.css';
-@import "~bootstrap/scss/bootstrap.scss";
 
 html,
 body {
-  font-family: 'Roboto', 'Helvetica Neue',sans-serif;
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
   font-size: 14px;
 }
-
-p,
-span {
-  line-height: 1;
-}
-
-/* https://google.github.io/material-design-icons/#sizing */
-/* Rules for sizing the icon. */
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; } /* Default */
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
 
 button {
   outline: none !important;
@@ -27,6 +14,7 @@ button {
 }
 
 input[type="text"] {
+  font-size: 12px;
   min-height: 36px;
   padding: 0 12px;
   border: 0;
@@ -93,4 +81,17 @@ input[type="text"] {
 
 .cdk-overlay-container {
   z-index: 99999 !important;
+}
+
+.account-overview-menu {
+  span,
+  .mat-checkbox-label {
+    line-height: 1.3;
+  }
+}
+
+.main-nav-menu {
+  .mat-list-item-content {
+    font-size: 13px;
+  }
 }

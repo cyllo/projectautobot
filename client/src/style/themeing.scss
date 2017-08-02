@@ -21,6 +21,7 @@
 
 // Import App Component Themes
 @import '../app/static/sidebar-left/sidebar-left-theme';
+@import '../app/static/main-nav/main-nav-theme';
 
 // Import Components custom themes.
 @import 'themes/components/theme-picker-swatch-theme';
@@ -36,6 +37,7 @@
   @include perfect-scrollbar-theme($theme);
   @include sidebar-left-theme($theme);
   @include search-component-theme($theme);
+  @include main-nav-theme($theme);
 }
 
 body.app-theme-default {

@@ -1,11 +1,18 @@
-<header class="container-fluid">
-  <!-- <ow-main-nav [searchInProgress]="searchInProgress" (searchTag)='onSearch($event)'></ow-main-nav>
-  ow-main-nav -->
-  <ow-main-search-results [(isOpen)]='isResultsOpen' [searchResults]='searchResults | async'></ow-main-search-results>
-  <!-- ow-main-search-results -->
+<header class="fixed-top">
+
+  <ow-main-nav [searchInProgress]="searchInProgress"
+    (searchTag)='onSearch($event)'>
+  </ow-main-nav>
+
+  <ow-main-search-results [(isOpen)]='isResultsOpen'
+    [searchResults]='searchResults | async'>
+  </ow-main-search-results>
+
 </header>
+
 <main>
   <ow-sidebar-left></ow-sidebar-left>
   <router-outlet></router-outlet>
 </main>
+
 <ngrx-store-log-monitor toggleCommand="ctrl-h" positionCommand="ctrl-m"></ngrx-store-log-monitor>

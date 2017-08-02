@@ -6,6 +6,10 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MomentModule } from 'angular2-moment';
+import { MdIconModule,
+         MdProgressSpinnerModule,
+         MdButtonModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import {
   ApiService,
@@ -30,7 +34,8 @@ import {
   TopNewsPostCardComponent,
   ProfileCheckboxComponent,
   HeroCheckboxComponent,
-  CompetitiveOrQuickPlaySelectorComponent
+  CompetitiveOrQuickPlaySelectorComponent,
+  PlayerProfileButtonComponent
 } from './index';
 import { ChartsModule } from 'ng2-charts';
 
@@ -44,7 +49,11 @@ import { ChartsModule } from 'ng2-charts';
     HttpModule,
     ChartsModule,
     RouterModule,
-    MomentModule
+    MomentModule,
+    MdIconModule,
+    MdProgressSpinnerModule,
+    MdButtonModule,
+    FlexLayoutModule
   ],
   declarations: [
     VideoCardComponent,
@@ -68,7 +77,8 @@ import { ChartsModule } from 'ng2-charts';
     TopNewsPostCardComponent,
     ProfileCheckboxComponent,
     HeroCheckboxComponent,
-    CompetitiveOrQuickPlaySelectorComponent
+    CompetitiveOrQuickPlaySelectorComponent,
+    PlayerProfileButtonComponent
   ],
   exports: [
     VideoCardComponent,
@@ -89,7 +99,8 @@ import { ChartsModule } from 'ng2-charts';
     HeroCatalogComponent,
     ProfileCheckboxComponent,
     HeroCheckboxComponent,
-    CompetitiveOrQuickPlaySelectorComponent
+    CompetitiveOrQuickPlaySelectorComponent,
+    PlayerProfileButtonComponent
   ],
   providers: [ApiService]
 })
