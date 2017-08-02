@@ -84,3 +84,16 @@ input[type="text"] {
 .cdk-overlay-container {
   z-index: 99999 !important;
 }
+
+.account-overview-menu {
+  span,
+  .mat-checkbox-label {
+    line-height: 1.3;
+  }
+}
+
+.main-nav-menu {
+  .mat-list-item-content {
+    font-size: 13px;
+  }
+}
