@@ -1,61 +1,63 @@
-<div class="main-search-results flex-layout"
-     ngStyle.gt-xs="padding-left: 64px;" *ngIf="isOpen">
-
-  <md-toolbar>
-
-    <div class="flex-layout pt-2"
-         fxLayout="column"
-         fxFlex="grow"
-         *ngIf="!searchResults.length">
-      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="14px">
-        <div fxLayout="column">
-          <span>No search results found.</span>
-        </div>
-        <div fxLayout="column">
-          <button (click)='onClose()' md-button>
-            <span>Close</span>
-            <md-icon>close</md-icon>
-          </button>
-        </div>
+<div class="main-search-results" *ngIf="isOpen">
+  <div class="container-fluid">
+    <div class="row align-items-center mt-3">
+      <div class="col-12">
+        <button class="btn btn-outline-secondarynav px-2 py-1 mr-2" (click)='onClose()' type="button" name="button">
+          <span class="d-flex align-items-center small text-uppercase"><i class='material-icons mr-1'>close</i> Close</span>
+        </button>
+        <span class="main-search-results-label" *ngIf="searchResults.length < 1" #mainsearchresultslabel>
+          No results found
+        </span>
       </div>
+      <!-- end .col -->
     </div>
+    <!-- end .row -->
+    <div class="row align-items-center mt-3">
 
-    <div class="flex-layout pt-2"
-         fxLayout="column"
-         fxFlex="grow"
-         *ngIf="searchResults.length">
-
-      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="14px">
-        <div fxLayout="column">
-          <span>{{ searchResults.length }} result{{ searchResults.length > 1  ? 's' : '' }} found.</span>
-        </div>
-        <div fxLayout="column">
-          <button (click)='onClose()' md-button>
-            <span>Close</span>
-            <md-icon>close</md-icon>
-          </button>
-        </div>
+      <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-12 mb-2" *ngFor='let player of searchResults'>
+        <a class="profile-hyperlink" (click)='onSelect(player)'>
+          <div class="container-fluid py-1 rounded player-card">
+            <div class="row">
+              <div class="col-12 px-4">
+                <div class="row align-items-center justify-content-center">
+                  <div class="col-auto px-xl-2 px-lg-0 px-md-3 px-3 py-2">
+                    <img [src]="player.portraitUrl" alt="" class="avatar rounded">
+                  </div>
+                  <!-- end .col-auto -->
+                  <div class="col py-2">
+                    <div class="row">
+                      <div class="col-12">
+                        <p class="small mb-0">{{ player.tag }}</p>
+                        <p class="h5 mb-1 player-tag">{{ player.overwatchName }}</p>
+                      </div>
+                      <!-- end .col -->
+                    </div>
+                    <!-- end .row -->
+                    <div class="row">
+                      <div class="col-12">
+                        <span class="small content-secondary rounded px-2 py-1">{{ player.platform }}</span>
+                        <span *ngIf="player.region" class="small content-secondary rounded px-2 py-1">
+                          {{ player.region }}</span>
+                      </div>
+                      <!-- end .col -->
+                    </div>
+                    <!-- end .row -->
+                  </div>
+                  <!-- end .col -->
+                </div>
+              </div>
+            </div>
+            <!-- end .row -->
+          </div>
+          <!-- end .container-fluid -->
+        </a>
       </div>
+      <!-- end .col -->
 
-      <div class="pt-3" fxLayout="row" fxLayoutWrap>
-
-        <div class="px-2 pb-3"
-             fxLayout="column"
-             fxFlex.xs="0 1 100%"
-             fxFlex.sm="0 1 50%"
-             fxFlex.md="0 1 25%"
-             fxFlex.lg="0 1 20%"
-             *ngFor='let player of searchResults'>
-
-          <ow-player-profile-button [player]="player"
-            (playerSelected)="onSelect(player)">
-          </ow-player-profile-button>
-
-        </div>
-
-      </div>
     </div>
-
-  </md-toolbar>
+    <!-- end .row -->
+  </div>
+  <!-- end .container-fluid -->
 
 </div>
+<!-- end .main-search-results -->

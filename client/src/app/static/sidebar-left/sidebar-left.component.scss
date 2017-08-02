@@ -1,42 +1,15 @@
+@import "../../../style/colors";
+
 .sidebar-left {
 
-  .btn-sidebar-toggle {
+  position: fixed;
+  left: 0;
+  height: 100%;
+  box-shadow: 0 0 34px 0 rgba(63, 66, 87, 0.1);
 
-    i {
-      transform: rotate(0);
-      transition: transform 0.25s cubic-bezier(0.55, 0, 0.1, 1);
-    }
-
-    &.collapsed i {
-      transform: rotate(45deg);
-    }
-
-  }
-
-}
-
-:host /deep/ .sidebar-left {
-
-  .mat-sidenav-content {
-    flex-direction: column;
-    flex: 1 1 auto;
-    min-height: 0;
-  }
-
-  .mat-sidenav {
-    width: 300px;
-  }
-
-  .mat-card {
-    padding: 10px;
-  }
-
-  .mat-tab-body-content > div {
+  .container-fluid,
+  .container-fluid > div {
     height: 100%;
-  }
-
-  input[type="text"] {
-    font-size: 12px;
   }
 
 }
