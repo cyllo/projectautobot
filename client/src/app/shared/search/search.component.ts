@@ -43,7 +43,7 @@ export class SearchComponent implements OnDestroy {
       .map(str => trim(str))
       .subscribe((str) => {
         if (str.length >= 3) {
-          this.search.emit(str)
+          this.search.emit(str);
         }
       });
 
