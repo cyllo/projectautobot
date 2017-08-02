@@ -41,7 +41,11 @@ export class SearchComponent implements OnDestroy {
       .debounceTime(500)
       .filter(str => !isEmpty(str))
       .map(str => trim(str))
-      .subscribe((str) => this.search.emit(str));
+      .subscribe((str) => {
+        if (str.length >= 3) {
+          this.search.emit(str)
+        }
+      });
 
     this.subscriptions.push(controlSub);
   }
