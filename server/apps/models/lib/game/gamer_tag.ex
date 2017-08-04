@@ -1,6 +1,6 @@
 defmodule Models.Game.GamerTag do
   use Models.Model
-  alias Models.{Repo, Game, Game.GamerTag, Accounts.User}
+  alias Models.{Game, Game.GamerTag, Accounts.User}
 
   schema "gamer_tags" do
     field :tag, :string

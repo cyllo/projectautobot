@@ -21,8 +21,6 @@ defmodule Scraper.DataProcessor.StatsBox do
       |> Enum.map(&Floki.text/1)
   end
 
-
-
   defp name_to_atom(name) do
     name
       |> String.replace(~r/- |'|-/, "")

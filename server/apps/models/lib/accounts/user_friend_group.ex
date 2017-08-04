@@ -1,6 +1,6 @@
 defmodule Models.Accounts.UserFriendGroup do
   use Models.Model
-  alias Models.{Accounts, Repo}
+  alias Models.Accounts
   alias Models.Accounts.{User, UserFriendGroup, Friendship}
 
   schema "user_friend_groups" do
@@ -75,7 +75,7 @@ defmodule Models.Accounts.UserFriendGroup do
     friendship_groups
       |> Enum.reduce([], fn
         {:friendships, friendships}, acc ->
-          acc ++ Enum.map(friendships, &load_friendship(&1, fetch_user_field(changeset)))
+          acc ++ Enum.map(friendships, &load_friendship(&1))
 
         {:users, users}, acc ->
           acc ++ Enum.map(users, &load_user_friendship(&1, fetch_user_field(changeset)))
@@ -95,9 +95,9 @@ defmodule Models.Accounts.UserFriendGroup do
     end
   end
 
-  defp load_friendship(%Friendship{id: _} = friendship, _user), do: friendship
-  defp load_friendship(%Friendship{user: user, friend: friend}, _user), do: load_friendship(%Friendship{user: user, friend_id: friend.id})
-  defp load_friendship(%{friendship_id: id}, user) do
+  defp load_friendship(%Friendship{id: _} = friendship), do: friendship
+  defp load_friendship(%Friendship{user: user, friend: friend}), do: load_friendship(%Friendship{user: user, friend_id: friend.id})
+  defp load_friendship(%{friendship_id: id}) do
     with {:ok, friendship} <- Accounts.get_friendship(id) do
       friendship
     end

@@ -46,6 +46,7 @@ defmodule Models.Mixfile do
       {:postgrex, ">= 0.0.0"},
       {:comeonin, "~> 3.0", override: true},
       {:con_cache, "~> 0.12.0"},
+      {:ecto_enum, "~> 1.0"},
       {:utility, in_umbrella: true}
     ]
   end

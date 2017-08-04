@@ -49,7 +49,7 @@ defmodule Scraper.Sorter.Stats do
   ]
 
   def sort(stats), do: Helpers.categorize_stats(stats, &get_stats_category/1)
-  def sort_general(stats), do: stats |> sort |> Map.delete(:hero_specific)
+  def sort_total(stats), do: stats |> sort |> Map.delete(:hero_specific)
 
   defp get_stats_category({key, _}) do
     cond do

@@ -3,6 +3,7 @@ defmodule Models.Statistics.Snapshots.HeroStatistic do
   alias Models.Statistics.Snapshots.HeroStatistic
 
   schema "hero_snapshot_statistics" do
+    field :statistic_type, HeroStatisticTypeEnum
     belongs_to :hero, Models.Game.Hero
     belongs_to :snapshot_statistic, Models.Statistics.Snapshots.SnapshotStatistic
     belongs_to :combat_average_statistic, Models.Statistics.CombatAverage
@@ -16,7 +17,7 @@ defmodule Models.Statistics.Snapshots.HeroStatistic do
   @required_fields [
     :game_history_statistic_id,
     :snapshot_statistic_id,
-    :hero_id
+    :statistic_type
   ]
 
   @available_fields Enum.concat(@required_fields, [
@@ -24,7 +25,8 @@ defmodule Models.Statistics.Snapshots.HeroStatistic do
     :combat_best_statistic_id,
     :combat_lifetime_statistic_id,
     :hero_specific_statistic_id,
-    :match_awards_statistic_id
+    :match_awards_statistic_id,
+    :hero_id
   ])
 
   @doc """
@@ -37,4 +39,24 @@ defmodule Models.Statistics.Snapshots.HeroStatistic do
   end
 
   def create_changeset(params), do: changeset(%HeroStatistic{}, params)
+  def create_changeset(params, type), do: params |> Map.put(:statistic_type, type) |> create_changeset
+
+  @spec heroes_total_query(query :: Ecto.Query, type :: :competitive|:quickplay) :: Ecto.Query
+  def heroes_total_query(query, type \\ :competitive) do
+    where(query, statistic_type: ^Utility.join_atoms(:heroes_total, type))
+  end
+
+  @spec heroes_query(query :: Ecto.Query, type :: :competitive|:quickplay) :: Ecto.Query
+  def heroes_query(query, type \\ :competitive) do
+    where(query, statistic_type: ^Utility.join_atoms(:hero, type))
+  end
+
+  def take_snapshot_params(params) when is_list(params), do: Enum.map(params, &take_snapshot_params/1)
+  def take_snapshot_params(params) do
+    Map.take(params, [:hero, :statistic_type, :hero_id,
+                      :snapshot_statistic_id, :combat_average_statistic_id,
+                      :combat_best_statistic_id, :combat_lifetime_statistic_id,
+                      :game_history_statistic_id, :hero_specific_statistic_id,
+                      :match_awards_statistic_id])
+  end
 end

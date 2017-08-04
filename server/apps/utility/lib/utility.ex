@@ -85,4 +85,7 @@ defmodule Utility do
   def merge_map_total(map1, map2), do: Map.merge(map1, map2, fn _k, v1, v2 ->
     v1 + v2
   end)
+
+  @spec join_atoms(atom, atom) :: atom
+  def join_atoms(atom1, atom2), do: String.to_atom(Atom.to_string(atom1) <> "_" <> Atom.to_string(atom2))
 end

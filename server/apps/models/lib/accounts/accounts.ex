@@ -1,6 +1,6 @@
 defmodule Models.Accounts do
   use Models.Model
-  alias Models.{Game, Repo, Model}
+  alias Models.{Repo, Model}
   alias Models.Game.GamerTagUserFollower
   alias Models.Accounts.{
     User, Follower,
@@ -175,7 +175,7 @@ defmodule Models.Accounts do
          {:ok, %{user_friendship: friendship}} <- Repo.transaction(Friendship.create_friendship_query(user.id, future_friend_id)) do
       {:ok, friendship}
     else
-      {%Friendship{}, %Friendship{}} = friendships -> handle_send_friendship_error(user, future_friend_id, friendships)
+      {%Friendship{}, %Friendship{}} = friendships -> handle_send_friendship_error(user, friendships)
        e -> e
     end
   end
@@ -221,17 +221,17 @@ defmodule Models.Accounts do
     end
   end
 
+  defp find_pending_friendship(_user, %{friendship_id: friendship_id}) do
+    with {:ok, {user_friendship, friend_friendship}} <- get_friendship_tuple(friendship_id) do
+      {:ok, {user_friendship, friend_friendship}}
+    end
+  end
+
   def get_friend(user_id, friend_id) do
     if user_id === friend_id do
       {:error, "You cannot use yourself as friend"}
     else
       get_user(friend_id)
-    end
-  end
-
-  defp find_pending_friendship(_user, %{friendship_id: friendship_id}) do
-    with {:ok, {user_friendship, friend_friendship}} <- get_friendship_tuple(friendship_id) do
-      {:ok, {user_friendship, friend_friendship}}
     end
   end
 
@@ -294,7 +294,7 @@ defmodule Models.Accounts do
          :ok <- check_is_owned_friend_group(user, friend_group) do
       case Enum.find friend_group.friendships, &(&1.id === friendship_id) do
         nil -> {:error, "No friendship with id #{friendship_id} in #{friend_group.name}"}
-        friendship -> delete_user_friend_group_friendship(friend_group, friendship_id)
+        _ -> delete_user_friend_group_friendship(friend_group, friendship_id)
       end
     end
   end
@@ -431,7 +431,7 @@ defmodule Models.Accounts do
       |> Repo.transaction
   end
 
-  defp handle_send_friendship_error(user, friend_id, {user_friendship, _}) do
+  defp handle_send_friendship_error(user, {user_friendship, _}) do
     friend_id = user_friendship.friend_id
     is_sender? = user_friendship.is_sender
     is_accepted? = user_friendship.is_accepted
