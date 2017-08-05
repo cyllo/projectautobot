@@ -1,6 +1,6 @@
 defmodule Scraper.ProfileSearcher do
   alias Scraper.ProfileUrl
-  alias Scraper.{HtmlHelpers, DataProcessor.UserInfo, ModelCreator.UserProfile}
+  alias Scraper.{HtmlHelpers, DataProcessor.UserInfo}
   alias Models.Game
 
   import Logger, only: [info: 1]

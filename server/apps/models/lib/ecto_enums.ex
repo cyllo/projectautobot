@@ -14,4 +14,6 @@ defmodule Models.Enums do
   def create_stats_type(stat_type, play_type), do: Utility.join_atoms(stat_type, play_type)
   defp verify_is_stat(stat) when stat in @hero_snapshot_types, do: true
   defp verify_is_stat(stat), do: raise "#{stat} is not a snapshot statistic type"
+
+  def hero_snapshot_types, do: @hero_snapshot_types
 end

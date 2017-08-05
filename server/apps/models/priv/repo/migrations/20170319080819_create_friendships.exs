@@ -10,5 +10,8 @@ defmodule Models.Repo.Migrations.CreateFriendships do
 
       timestamps(type: :utc_datetime)
     end
+
+    create index(:friendships, [:friend_id])
+    create index(:friendships, [:user_id])
   end
 end

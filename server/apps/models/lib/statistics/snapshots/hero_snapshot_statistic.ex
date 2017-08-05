@@ -1,6 +1,6 @@
-defmodule Models.Statistics.Snapshots.HeroStatistic do
+defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
   use Models.Model
-  alias Models.Statistics.Snapshots.{HeroStatistic, SnapshotStatistic}
+  alias Models.Statistics.Snapshots.{HeroSnapshotStatistic, SnapshotStatistic}
   alias Models.Statistics.{
     HeroSpecific, CombatAverage, CombatBest,
     CombatLifetime, GameHistory, MatchAward
@@ -36,13 +36,14 @@ defmodule Models.Statistics.Snapshots.HeroStatistic do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
-  def changeset(%HeroStatistic{} = struct, params \\ %{}) do
+  def changeset(%HeroSnapshotStatistic{} = struct, params \\ %{}) do
     struct
       |> cast(params, @available_fields)
       |> validate_required(@required_fields)
+      |> validate_inclusion(:statistic_type, Models.Enums.hero_snapshot_types())
   end
 
-  def create_changeset(params), do: changeset(%HeroStatistic{}, params)
+  def create_changeset(params), do: changeset(%HeroSnapshotStatistic{}, params)
   def create_changeset(params, type), do: params |> Map.put(:statistic_type, type) |> create_changeset
 
   @spec heroes_total_query(query :: Ecto.Query, type :: :competitive|:quickplay) :: Ecto.Query
@@ -76,7 +77,7 @@ defmodule Models.Statistics.Snapshots.HeroStatistic do
 
   def average_stats_query do
     from(ss in subquery(SnapshotStatistic.latest_stats_query),
-      inner_join: hs in HeroStatistic,
+      inner_join: hs in HeroSnapshotStatistic,
       on: ss.id == hs.snapshot_statistic_id,
       inner_join: hmas in MatchAward,
       on: hmas.id == hs.match_awards_statistic_id,

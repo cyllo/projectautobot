@@ -6,5 +6,7 @@ defmodule Models.Repo.Migrations.CreateHeroSpecificStatistics do
       add :stats, :jsonb
       add :hero_id, references(:heroes)
     end
+
+    create index(:hero_specific_statistics, [:hero_id])
   end
 end

@@ -1,7 +1,8 @@
 defmodule Scraper.ModelCreator do
   require Logger
 
-  alias Scraper.ModelCreator.{Heroes, UserProfile, Stats}
+  alias Models.Repo
+  alias Scraper.ModelCreator.{Heroes, UserProfile, HeroStats, ProfileStats}
 
   @spec save_profile(profile :: map) :: map
   @doc """
@@ -17,8 +18,17 @@ defmodule Scraper.ModelCreator do
         Task.start(fn -> UserProfile.save_other_platforms(gamer_tag, profile) end)
       end
 
+      create_snapshot(profile, gamer_tag, heroes)
+    end
+  end
+
+  defp create_snapshot(profile, gamer_tag, heroes) do
+    query = HeroStats.create_snapshot_multi(profile, gamer_tag.id)
+      |> ProfileStats.create_stats_multi(profile, gamer_tag)
+
+    with {:ok, stats} <- Repo.transaction(query)  do
       %{
-        snapshot_hero_statistics: Stats.create_snapshot(profile, gamer_tag.id),
+        snapshot_statistics: stats,
         heroes: heroes,
         gamer_tag: gamer_tag,
         other_platforms: Map.get(profile, :other_platforms)

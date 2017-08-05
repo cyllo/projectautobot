@@ -9,6 +9,7 @@ defmodule Models.Repo.Migrations.CreateUserFriendGroupsTable do
       timestamps(type: :utc_datetime)
     end
 
+    create index(:user_friend_groups, [:user_id])
     create unique_index(:user_friend_groups, [:name, :user_id])
   end
 end

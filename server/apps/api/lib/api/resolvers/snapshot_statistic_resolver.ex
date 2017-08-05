@@ -2,7 +2,7 @@ defmodule Api.SnapshotStatisticResolver do
   alias Models.Statistics.Snapshots
   alias Models.{Game, Statistics}
 
-  import Api.Helpers, only: [convert_to_id_map: 3, convert_to_id_map: 2]
+  import Api.Helpers, only: [preload_id_map: 2, convert_to_id_map: 3, convert_to_id_map: 2]
 
   def get_gamer_tag_snapshot_statistics(params, gamer_tag_ids) do
     gamer_tag_ids
@@ -14,6 +14,12 @@ defmodule Api.SnapshotStatisticResolver do
     snapshot_ids
       |> Snapshots.get_all_hero_total_statistics_by_snapshot_ids(type)
       |> convert_to_id_map(snapshot_ids, :snapshot_statistic_id)
+  end
+
+  def get_snapshots_profile_snapshots(_, snapshots), do: preload_id_map(snapshots, :profile_snapshot_statistic)
+  def get_profile_snapshots_gamer_tags(_, profile_snapshots), do: preload_id_map(profile_snapshots, :gamer_tag)
+  def get_profile_snapshots_profile_stats(_, profile_snapshots) do
+    preload_id_map(profile_snapshots, :profile_statistic)
   end
 
   # def get_all_heroes_statistics_by_snapshot_ids(_, snapshot_ids) do

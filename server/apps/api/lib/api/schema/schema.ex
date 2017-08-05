@@ -100,7 +100,6 @@ defmodule Api.Schema do
     field :hero_statistics_average, :hero_statistics_average do
       arg :hero_id, non_null(:integer)
       arg :type, non_null(:snapshot_statistic_type)
-      # arg :name, :string
 
       resolve &HeroStatisticsAverageResolver.find_hero_and_average/2
     end

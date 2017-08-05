@@ -13,5 +13,15 @@ defmodule Models.Repo.Migrations.CreateHeroSnapshotStatistics do
       add :hero_specific_statistic_id, references(:hero_specific_statistics)
       add :hero_id, references(:heroes)
     end
+
+    create index(:hero_snapshot_statistics, [:statistic_type])
+    create index(:hero_snapshot_statistics, [:snapshot_statistic_id])
+    create index(:hero_snapshot_statistics, [:combat_best_statistic_id])
+    create index(:hero_snapshot_statistics, [:combat_average_statistic_id])
+    create index(:hero_snapshot_statistics, [:combat_lifetime_statistic_id])
+    create index(:hero_snapshot_statistics, [:match_awards_statistic_id])
+    create index(:hero_snapshot_statistics, [:game_history_statistic_id])
+    create index(:hero_snapshot_statistics, [:hero_specific_statistic_id])
+    create index(:hero_snapshot_statistics, [:hero_id])
   end
 end

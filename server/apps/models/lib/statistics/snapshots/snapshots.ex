@@ -2,37 +2,37 @@ defmodule Models.Statistics.Snapshots do
   alias Ecto.Multi
   alias Models.Model
   alias Models.{Enums, Repo}
-  alias Models.Statistics.Snapshots.{HeroStatistic, SnapshotStatistic}
+  alias Models.Statistics.Snapshots.{HeroSnapshotStatistic, SnapshotStatistic}
   use Model
 
   Model.create_model_methods(SnapshotStatistic)
-  Model.create_model_methods(HeroStatistic)
+  Model.create_model_methods(HeroSnapshotStatistic)
 
   def get_all_of_heroes_total_statistics_by_snapshot_ids(snapshot_ids, limit \\ nil, type \\ :competitive || :quickplay) do
     from(
-      ahs in HeroStatistic,
+      ahs in HeroSnapshotStatistic,
       where: ahs.id in ^snapshot_ids,
       limit: ^limit
     )
-      |> HeroStatistic.heroes_query(type)
+      |> HeroSnapshotStatistic.heroes_query(type)
       |> Repo.all
   end
 
   def get_all_hero_statistics_by_snapshot_ids(snapshot_ids, type \\ :competitive || :quickplay) do
-    from(hs in HeroStatistic, where: hs.snapshot_statistic_id in ^snapshot_ids)
-      |> HeroStatistic.heroes_query(type)
+    from(hs in HeroSnapshotStatistic, where: hs.snapshot_statistic_id in ^snapshot_ids)
+      |> HeroSnapshotStatistic.heroes_query(type)
       |> Repo.all
   end
 
   def get_all_hero_statistics_by_id(hero_snapshot_ids, type) do
-    from(hs in HeroStatistic, where: hs.id in ^hero_snapshot_ids)
-      |> HeroStatistic.heroes_query(type)
+    from(hs in HeroSnapshotStatistic, where: hs.id in ^hero_snapshot_ids)
+      |> HeroSnapshotStatistic.heroes_query(type)
       |> Repo.all
   end
 
   def get_all_hero_total_statistics_by_snapshot_ids(snapshot_ids, type) do
-    from(hs in HeroStatistic, where: hs.snapshot_statistic_id in ^snapshot_ids)
-      |> HeroStatistic.heroes_total_query(type)
+    from(hs in HeroSnapshotStatistic, where: hs.snapshot_statistic_id in ^snapshot_ids)
+      |> HeroSnapshotStatistic.heroes_total_query(type)
       |> Repo.all
   end
 
@@ -57,22 +57,22 @@ defmodule Models.Statistics.Snapshots do
   end
 
   def get_heroes_total_statistic_for_snapshot(snapshot_statistic_id) do
-    get_all_hero_statistics(snapshot_statistic_id: snapshot_statistic_id,
+    get_all_hero_snapshot_statistics(snapshot_statistic_id: snapshot_statistic_id,
                             staistic_type: :hero_total_quickplay)
   end
 
   def get_hero_statistics_for_snapshot(snapshot_statistic_id) do
-    get_all_hero_statistics(snapshot_statistic_id: snapshot_statistic_id,
+    get_all_hero_snapshot_statistics(snapshot_statistic_id: snapshot_statistic_id,
                             staistic_type: :hero_quickplay)
   end
 
   def average(type) do
-    %{hero_snapshot_statistics: [hero_stats_average]} = HeroStatistic.average_stats_query
-      |> HeroStatistic.stats_type_query(Enums.create_stats_type(:hero, type))
+    %{hero_snapshot_statistics: [hero_stats_average]} = HeroSnapshotStatistic.average_stats_query
+      |> HeroSnapshotStatistic.stats_type_query(Enums.create_stats_type(:hero, type))
       |> Repo.one
 
-    %{hero_snapshot_statistics: [hero_total_stats_average]} = HeroStatistic.average_stats_query
-      |> HeroStatistic.stats_type_query(Enums.create_stats_type(:hero_total, type))
+    %{hero_snapshot_statistics: [hero_total_stats_average]} = HeroSnapshotStatistic.average_stats_query
+      |> HeroSnapshotStatistic.stats_type_query(Enums.create_stats_type(:hero_total, type))
       |> Repo.one
 
     %{
@@ -83,8 +83,8 @@ defmodule Models.Statistics.Snapshots do
 
   def hero_average(hero_id, type) do
     %{hero_snapshot_statistics: [hero_snapshot_statistic]} = Enums.create_stats_type(:hero, type)
-      |> HeroStatistic.average_stats_by_stats_type_query
-      |> HeroStatistic.where_hero_query(hero_id)
+      |> HeroSnapshotStatistic.average_stats_by_stats_type_query
+      |> HeroSnapshotStatistic.where_hero_query(hero_id)
       |> Repo.one
 
     hero_snapshot_statistic
@@ -94,7 +94,7 @@ defmodule Models.Statistics.Snapshots do
     hero_snapshots = Enum.map(hero_snapshots, &(&1.changes))
 
     Multi.new()
-      |> Multi.insert_all(:hero_snapshots, HeroStatistic, hero_snapshots)
+      |> Multi.insert_all(:hero_snapshots, HeroSnapshotStatistic, hero_snapshots)
       |> Repo.transaction
   end
 end

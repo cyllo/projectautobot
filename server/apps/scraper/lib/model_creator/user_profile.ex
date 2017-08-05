@@ -27,16 +27,14 @@ defmodule Scraper.ModelCreator.UserProfile do
       tag: tag,
       overwatch_name: params.overwatch_name,
       portrait_url: params.portrait_url,
-      total_games_won: params.total_games_won,
-      competitive_level: params.competitive_level,
-      competitive_rank_url: params.competitive_rank_url,
-      level: params.level,
-      level_url: params.level_url,
-      rank_url: params.rank_url,
       platform: params.platform
     }
 
-    if (Map.has_key?(params, :region)), do: Map.merge(gamer_tag, %{region: params.region}), else: gamer_tag
+    if (Map.has_key?(params, :region)) do
+      Map.merge(gamer_tag, %{region: params.region})
+    else
+      gamer_tag
+    end
   end
 
   defp get_gamer_tag_params(params), do: params

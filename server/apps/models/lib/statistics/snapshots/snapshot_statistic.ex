@@ -4,7 +4,8 @@ defmodule Models.Statistics.Snapshots.SnapshotStatistic do
 
   schema "snapshot_statistics" do
     belongs_to :gamer_tag, Models.Game.GamerTag
-    has_many :hero_snapshot_statistics, Models.Statistics.Snapshots.HeroStatistic
+    has_many :hero_snapshot_statistics, Models.Statistics.Snapshots.HeroSnapshotStatistic
+    has_one :profile_snapshot_statistic, Models.Statistics.Snapshots.ProfileSnapshotStatistic
 
     timestamps(type: :utc_datetime)
   end

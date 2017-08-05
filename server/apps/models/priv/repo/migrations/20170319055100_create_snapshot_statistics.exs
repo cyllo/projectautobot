@@ -7,5 +7,7 @@ defmodule Models.Repo.Migrations.CreateSnapshotStatistics do
 
       timestamps(type: :utc_datetime)
     end
+
+    create index(:snapshot_statistics, [:gamer_tag_id])
   end
 end

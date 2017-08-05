@@ -115,7 +115,6 @@ defmodule Scraper do
   defp gamer_tag_info(%Game.GamerTag{} = params), do: params
   defp gamer_tag_info(tag_params), do: tag_params |> Map.take([:tag, :region, :platform]) |> Game.find_or_create_gamer_tag
 
-
   defp check_gamer_tag_unscraped(gamer_tag) do
     unless ScrapeStatusCache.has_scraped_gamer_tag?(gamer_tag.id) do
       {:ok, gamer_tag}

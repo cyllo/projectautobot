@@ -2,7 +2,7 @@ defmodule Models.Statistics do
   require Models.Model
 
   alias Models.{Repo, Model}
-  alias Models.Statistics.{CombatAverage, CombatBest, CombatLifetime, GameHistory, MatchAward, HeroSpecific}
+  alias Models.Statistics.{CombatAverage, CombatBest, CombatLifetime, GameHistory, MatchAward, HeroSpecific, Profile}
 
   Model.create_model_methods(CombatAverage)
   Model.create_model_methods(CombatBest)
@@ -10,4 +10,5 @@ defmodule Models.Statistics do
   Model.create_model_methods(MatchAward)
   Model.create_model_methods(GameHistory)
   Model.create_model_methods(HeroSpecific)
+  Model.create_model_methods(Profile)
 end

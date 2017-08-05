@@ -8,5 +8,8 @@ defmodule Models.Repo.Migrations.CreateFollowers do
 
       timestamps(type: :utc_datetime)
     end
+
+    create index(:followers, [:user_id])
+    create index(:followers, [:follower_id])
   end
 end

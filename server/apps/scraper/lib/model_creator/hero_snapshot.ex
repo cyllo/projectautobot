@@ -1,5 +1,5 @@
 defmodule Scraper.ModelCreator.HeroSnapshot do
-  alias Models.Statistics.Snapshots.HeroStatistic, as: HeroStatisticSnapshot
+  alias Models.Statistics.Snapshots.HeroSnapshotStatistic
 
   def create_heroes_hero_snapshots(snapshot_id, %{competitive: competitive_stats, quickplay: quickplay_stats}) do
     Enum.concat([
@@ -18,13 +18,13 @@ defmodule Scraper.ModelCreator.HeroSnapshot do
   defp create_total_stats(snapshot_id, statistics, type) do
     statistics
       |> create_statistics_params(snapshot_id, :total, type)
-      |> HeroStatisticSnapshot.create_changeset
+      |> HeroSnapshotStatistic.create_changeset
   end
 
   defp create_heroes_stats(snapshot_id, statistics, type) do
     statistics
       |> create_hero_statistics_params(snapshot_id, :heroes, type)
-      |> Enum.map(&HeroStatisticSnapshot.create_changeset/1)
+      |> Enum.map(&HeroSnapshotStatistic.create_changeset/1)
   end
 
   defp create_hero_statistics_params(statistics, snapshot_id, stats_type, play_type) do

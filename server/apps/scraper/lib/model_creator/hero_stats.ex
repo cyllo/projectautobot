@@ -1,8 +1,6 @@
-defmodule Scraper.ModelCreator.Stats do
+defmodule Scraper.ModelCreator.HeroStats do
   alias Ecto.Multi
-  alias Models.Repo
   alias Scraper.ModelCreator.HeroSnapshot
-  alias Models.Statistics.Snapshots.HeroStatistic, as: HeroStatisticSnapshot
   alias Models.Statistics.{
     Snapshots.SnapshotStatistic,
     Snapshots, CombatLifetime, CombatAverage,
@@ -11,11 +9,10 @@ defmodule Scraper.ModelCreator.Stats do
 
 
 # %{heroes_stats: heroes_stats, total_stats: total_stats}
-  def create_snapshot(%{quickplay: quickplay, competitive: competitive}, gamer_tag_id) do
+  def create_snapshot_multi(%{quickplay: quickplay, competitive: competitive}, gamer_tag_id) do
     Multi.new()
       |> Multi.insert(:snapshot_statistic, create_gamer_tag_snapshot(gamer_tag_id))
       |> create_statistics_multi(quickplay, competitive)
-      |> Repo.transaction
   end
 
   defp create_gamer_tag_snapshot(gamer_tag_id), do: SnapshotStatistic.create_changeset(%{gamer_tag_id: gamer_tag_id})
