@@ -41,7 +41,6 @@ defmodule Api.Schema.GameTypes do
       arg :start_date, :datetime
       arg :end_date, :datetime
       arg :after, :integer
-      arg :is_competitive, :boolean
 
       resolve fn gamer_tag, args, _ ->
         batch(

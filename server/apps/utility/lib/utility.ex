@@ -87,5 +87,8 @@ defmodule Utility do
   end)
 
   @spec join_atoms(atom, atom) :: atom
-  def join_atoms(atom1, atom2), do: String.to_atom(Atom.to_string(atom1) <> "_" <> Atom.to_string(atom2))
+  def join_atoms(atom1, atom2), do: safe_atom(Atom.to_string(atom1) <> "_" <> Atom.to_string(atom2))
+
+  @spec compact(list) :: list
+  def compact(list), do: Enum.filter(list, &(&1 !== nil))
 end

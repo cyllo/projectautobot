@@ -98,15 +98,15 @@ defmodule Api.Schema do
     end
 
     field :hero_statistics_average, :hero_statistics_average do
-      arg :hero_id, :integer
-      arg :is_competitive, :boolean
+      arg :hero_id, non_null(:integer)
+      arg :type, non_null(:snapshot_statistic_type)
       # arg :name, :string
 
       resolve &HeroStatisticsAverageResolver.find_hero_and_average/2
     end
 
     field :snapshots_statistics_average, :snapshot_statistics_average do
-      arg :is_competitive, :boolean
+      arg :type, non_null(:snapshot_statistic_type)
 
       resolve &SnapshotStatisticsAverageResolver.average/2
     end
@@ -120,7 +120,7 @@ defmodule Api.Schema do
       arg :region, :string
       arg :platform, :string
 
-      resolve &async(fn -> GamerTagResolver.scrape(&1, &2) end, timeout: 60_000)
+      resolve &async(fn -> GamerTagResolver.scrape(&1, &2) end, timeout: 60_000_000)
     end
 
     @desc "Search gamer tag by tag name"

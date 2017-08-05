@@ -10,15 +10,21 @@ defmodule Api.SnapshotStatisticResolver do
       |> convert_to_id_map(gamer_tag_ids, :gamer_tag_id)
   end
 
-  def get_all_heroes_statistics_by_snapshot_ids(_, snapshot_ids) do
+  def get_heroes_totals_by_snapshot_ids(%{type: type}, snapshot_ids) do
     snapshot_ids
-      |> Snapshots.get_all_of_all_heroes_statistics_by_snapshot_ids
+      |> Snapshots.get_all_hero_total_statistics_by_snapshot_ids(type)
       |> convert_to_id_map(snapshot_ids, :snapshot_statistic_id)
   end
 
-  def get_hero_statistics_by_snapshot_ids(_, snapshot_ids) do
+  # def get_all_heroes_statistics_by_snapshot_ids(_, snapshot_ids) do
+  #   snapshot_ids
+  #     |> Snapshots.get_all_of_all_heroes_statistics_by_snapshot_ids
+  #     |> convert_to_id_map(snapshot_ids, :snapshot_statistic_id)
+  # end
+
+  def get_hero_statistics_by_snapshot_ids(%{type: type}, snapshot_ids) do
     snapshot_ids
-      |> Snapshots.get_all_hero_statistics_by_snapshot_ids
+      |> Snapshots.get_all_hero_statistics_by_snapshot_ids(type)
       |> convert_to_id_map(snapshot_ids, :snapshot_statistic_id)
   end
 

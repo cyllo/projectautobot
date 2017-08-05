@@ -3,11 +3,11 @@ defmodule Api.Schema.SnapshotStatisticsAverageTypes do
 
   @desc "Average stats for snapshots"
   object :snapshot_statistics_average do
-    field :all_heroes_snapshot_statistics, :all_heroes_snapshot_statistics_average
+    field :heroes_total_snapshot_statistic, :heroes_total_snapshot_statistic_average
     field :hero_snapshot_statistics, list_of(:hero_snapshot_statistics_average)
   end
 
-  object :all_heroes_snapshot_statistics_average do
+  object :heroes_total_snapshot_statistic_average do
     field :combat_best_statistic, :combat_best_statistic_average
     field :combat_average_statistic, :combat_average_statistic_average
     field :combat_lifetime_statistic, :combat_lifetime_statistic_average

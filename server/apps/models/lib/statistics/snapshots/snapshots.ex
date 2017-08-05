@@ -1,9 +1,8 @@
 defmodule Models.Statistics.Snapshots do
   alias Ecto.Multi
   alias Models.Model
-  alias Models.{HeroesCache, Repo}
-  alias Models.Statistics.Snapshots.{HeroStatistic, AllHeroesStatistic, SnapshotStatistic, LatestSnapshotStatistic}
-  alias Models.Statistics.{CombatLifetime, CombatAverage, CombatBest, GameHistory, MatchAward, HeroSpecific}
+  alias Models.{Enums, Repo}
+  alias Models.Statistics.Snapshots.{HeroStatistic, SnapshotStatistic}
   use Model
 
   Model.create_model_methods(SnapshotStatistic)
@@ -21,12 +20,18 @@ defmodule Models.Statistics.Snapshots do
 
   def get_all_hero_statistics_by_snapshot_ids(snapshot_ids, type \\ :competitive || :quickplay) do
     from(hs in HeroStatistic, where: hs.snapshot_statistic_id in ^snapshot_ids)
-      |> HeroStatistic.heroes_total_query(type)
+      |> HeroStatistic.heroes_query(type)
       |> Repo.all
   end
 
-  def get_all_hero_statistics_by_id(hero_snapshot_ids, type \\ :competitive || :quickplay) do
+  def get_all_hero_statistics_by_id(hero_snapshot_ids, type) do
     from(hs in HeroStatistic, where: hs.id in ^hero_snapshot_ids)
+      |> HeroStatistic.heroes_query(type)
+      |> Repo.all
+  end
+
+  def get_all_hero_total_statistics_by_snapshot_ids(snapshot_ids, type) do
+    from(hs in HeroStatistic, where: hs.snapshot_statistic_id in ^snapshot_ids)
       |> HeroStatistic.heroes_total_query(type)
       |> Repo.all
   end
@@ -59,6 +64,30 @@ defmodule Models.Statistics.Snapshots do
   def get_hero_statistics_for_snapshot(snapshot_statistic_id) do
     get_all_hero_statistics(snapshot_statistic_id: snapshot_statistic_id,
                             staistic_type: :hero_quickplay)
+  end
+
+  def average(type) do
+    %{hero_snapshot_statistics: [hero_stats_average]} = HeroStatistic.average_stats_query
+      |> HeroStatistic.stats_type_query(Enums.create_stats_type(:hero, type))
+      |> Repo.one
+
+    %{hero_snapshot_statistics: [hero_total_stats_average]} = HeroStatistic.average_stats_query
+      |> HeroStatistic.stats_type_query(Enums.create_stats_type(:hero_total, type))
+      |> Repo.one
+
+    %{
+      heroes_total_snapshot_statistic: hero_total_stats_average,
+      hero_snapshot_statistics: hero_stats_average
+    }
+  end
+
+  def hero_average(hero_id, type) do
+    %{hero_snapshot_statistics: [hero_snapshot_statistic]} = Enums.create_stats_type(:hero, type)
+      |> HeroStatistic.average_stats_by_stats_type_query
+      |> HeroStatistic.where_hero_query(hero_id)
+      |> Repo.one
+
+    hero_snapshot_statistic
   end
 
   def create_all_hero_snapshots(hero_snapshots) do

@@ -2,17 +2,22 @@ defmodule Api.Schema.SnapshotTypes do
   use Absinthe.Schema.Notation
   alias Api.SnapshotStatisticResolver
 
+  enum :snapshot_statistic_type do
+    value :competitive
+    value :quickplay
+  end
+
   @desc "Snapshot that marks gathering of all the combat and other statistics"
   object :snapshot_statistic do
     field :id, :integer
     field :gamer_tag_id, :integer
 
-    field :is_competitive, :boolean
+    field :heroes_total_snapshot_statistic, :heroes_total_snapshot_statistic do
+      arg :type, non_null(:snapshot_statistic_type)
 
-    field :all_heroes_snapshot_statistic, :all_heroes_snapshot_statistic do
-      resolve fn snapshot_statistic, _, _ ->
+      resolve fn snapshot_statistic, args, _ ->
         batch(
-          {SnapshotStatisticResolver, :get_all_heroes_statistics_by_snapshot_ids},
+          {SnapshotStatisticResolver, :get_heroes_totals_by_snapshot_ids, args},
           snapshot_statistic.id,
           &{:ok, Map.get(&1, snapshot_statistic.id)}
         )
@@ -20,9 +25,11 @@ defmodule Api.Schema.SnapshotTypes do
     end
 
     field :hero_snapshot_statistics, list_of(:hero_snapshot_statistic) do
-      resolve fn snapshot_statistic, _, _ ->
+      arg :type, non_null(:snapshot_statistic_type)
+
+      resolve fn snapshot_statistic, arg, _ ->
         batch(
-          {SnapshotStatisticResolver, :get_hero_statistics_by_snapshot_ids},
+          {SnapshotStatisticResolver, :get_hero_statistics_by_snapshot_ids, arg},
           snapshot_statistic.id,
           &{:ok, Map.get(&1, snapshot_statistic.id)}
         )
@@ -30,7 +37,7 @@ defmodule Api.Schema.SnapshotTypes do
     end
   end
 
-  object :all_heroes_snapshot_statistic do
+  object :heroes_total_snapshot_statistic do
     field :id, :integer
     field :snapshot_statistic_id, :integer
     field :combat_best_statistic_id, :integer

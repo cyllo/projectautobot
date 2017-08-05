@@ -43,6 +43,7 @@ defmodule Scraper.Sorter do
     stats
       |> Utility.pluck(:stats)
       |> Utility.pluck(:hero_specific)
+      |> Utility.compact
       |> count_key_occurrences
   end
 

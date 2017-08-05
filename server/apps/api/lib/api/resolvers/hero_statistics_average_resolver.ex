@@ -7,9 +7,9 @@ defmodule Api.HeroStatisticsAverageResolver do
   #   end
   # end
 
-  def find_hero_and_average(%{hero_id: id} = params, _info) do
-    case Models.Statistics.Snapshots.LatestSnapshotStatistic.hero_average(id, Map.to_list(params)) do
-      nil -> {:error, "No hero found with id #{id}"}
+  def find_hero_and_average(%{hero_id: hero_id, type: type} = params, _info) do
+    case Models.Statistics.Snapshots.hero_average(hero_id, type) do
+      nil -> {:error, "No hero found with id #{hero_id}"}
       hero -> {:ok, hero}
     end
   end

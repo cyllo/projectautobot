@@ -34,19 +34,10 @@ defmodule Scraper.ModelCreator.HeroSnapshot do
           |> List.last
       end)
 
-    Enum.map(statistic_types, fn {_, stats} ->
+    Enum.map(statistic_types, fn {hero_name, stats} ->
       create_statistics_params(stats, snapshot_id, stats_type, play_type)
-        |> Map.put(:hero_id, get_hero_id_from_statistics(stats))
+        |> Map.put(:hero_id, Models.HeroesCache.get_hero_id_by_name(hero_name))
     end)
-  end
-
-  defp get_hero_id_from_statistics(stats) do
-    {_, %{hero_id: id}} = Enum.find(stats, fn
-      {_, %Models.Statistics.HeroSpecific{}} -> true
-      _ -> false
-    end)
-
-    id
   end
 
   defp create_statistics_params(statistics, snapshot_id, stats_type, play_type) do

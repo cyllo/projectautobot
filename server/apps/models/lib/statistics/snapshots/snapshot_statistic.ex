@@ -22,4 +22,11 @@ defmodule Models.Statistics.Snapshots.SnapshotStatistic do
   end
 
   def create_changeset(params), do: changeset(%SnapshotStatistic{}, params)
+
+  def latest_stats_query do
+    query = from(ss in SnapshotStatistic, order_by: [desc: :inserted_at],
+                                          distinct: ss.gamer_tag_id)
+
+    from(q in subquery(query), order_by: [asc: :inserted_at])
+  end
 end
