@@ -24,8 +24,8 @@ export class SearchComponent implements OnInit, OnDestroy {
       .debounceTime(500)
       .filter((str: string) => !isEmpty(str))
       .map((str: string) => trim(str))
-      .subscribe((str: string) => {
-        if ( String(str).length > 3 ) {
+      .subscribe((str: String) => {
+        if ( str.length > 3 ) {
           this.emitSearch(str);
         }
       });
