@@ -1,12 +1,9 @@
 import {
   Component,
-  ViewChild,
-  AfterContentInit,
-  OnDestroy,
+  OnInit,
   EventEmitter,
   Input,
-  Output,
-  OnInit
+  Output
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Action, Store } from '@ngrx/store';
@@ -22,22 +19,15 @@ import { NavLink } from '../../models';
   styleUrls: ['main-nav.component.scss']
 })
 
-export class MainNavComponent implements AfterContentInit, OnDestroy, OnInit {
-@ViewChild('search') search;
-@Input() searchInProgress: boolean;
-@Output() searchTag = new EventEmitter<Action>();
-
-  questionForm: FormGroup;
-  subscriptions: Subscription[] = [];
-
-  private currentSession: Observable<Object>;
-  private player: any;
-  private fieldName = 'Search';
-  private controlName = 'search';
-  private searchPlaceholder = 'Search for player by battle tag, psn or xbox live';
+export class MainNavComponent implements  OnInit {
+  @Input() searchInProgress: boolean;
+  @Output() searchTag = new EventEmitter<Action>();
 
   userLoggedIn = false;
   activeToolbarNavLinks: NavLink[];
+  searchPlaceholder = 'Search for player by battle tag, psn or xbox live';
+
+  private currentSession: Observable<Object>;
 
   constructor(private store: Store<AppState>) {
     this.currentSession = this.store.select('currentSession');
@@ -48,39 +38,8 @@ export class MainNavComponent implements AfterContentInit, OnDestroy, OnInit {
       this.userLoggedIn = !all(isNil, values(path(['sessionInfo'], session))));
   }
 
-  ngAfterContentInit() {
-    this.questionForm = new FormGroup({});
-    // Called after ngOnInit when the component's or directive's content has been initialized.
-    // Add 'implements AfterContentInit' to the class.
-    this.search.initControl(
-      this.questionForm,
-      this.player,
-      this.fieldName,
-      this.controlName,
-      this.searchPlaceholder,
-      true
-    );
-    this.mapFormToModel();
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
-
-  private mapFormToModel() {
-    this.search = this.questionForm.getRawValue();
-  }
-
-  onSearch(tag) {
+  onSearch(tag: string) {
     this.searchTag.emit({ type: 'GET_PLAYER_TAG', payload: { tag: tag, searching: true } });
-  }
-
-  showNavListInToolbar($navLinks: NavLink[]) {
-    this.activeToolbarNavLinks = $navLinks;
-  }
-
-  hideNavListInToolbar() {
-    this.activeToolbarNavLinks = null;
   }
 
 }
