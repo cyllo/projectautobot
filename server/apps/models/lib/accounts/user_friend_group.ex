@@ -42,7 +42,7 @@ defmodule Models.Accounts.UserFriendGroup do
   end
 
   defp check_friendships_are_users(friendships, user_id) do
-    case Enum.find(friendships, &(&1.user_id !== user_id)) do
+    case Enum.find(friendships, &(&1.user_id === user_id)) do
       nil -> :ok
       friendship -> {:error, "You don't own friendship #{friendship.id}, it belongs to user #{friendship.user_id}"}
     end
