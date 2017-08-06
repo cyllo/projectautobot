@@ -6,8 +6,29 @@ defmodule Utility do
   def unwrap_ok_or_raise({:ok, a}), do: a
   def unwrap_ok_or_raise({:error, error}), do: raise error
 
+  def filter_not_nil(values), do: Enum.filter(values, &(!is_nil(&1)))
+
   @spec pluck(input :: list, key :: atom|String.t) :: list
   def pluck(list, key), do: Enum.map(list, &Map.get(&1, key))
+
+  @spec pluck_path(input :: list, props_path :: list) :: list
+  def pluck_path(list, props_path) do
+    Enum.map(list, fn item ->
+      Enum.reduce(props_path, item, fn key, acc ->
+        Map.get(acc, key, nil)
+      end)
+    end)
+  end
+
+  def map_values(items, function) do
+    items
+      |> Map.to_list
+      |> Enum.map(fn {key, value} -> {key, function.(value)} end)
+      |> Map.new
+  end
+
+  @spec flatten_values(map) :: list
+  def flatten_values(map), do: Map.values(map) |> List.flatten
 
   @spec uniq_list(Enum.t, Enum.t) :: Enum.t
   def uniq_list(list1, list2) do
@@ -91,4 +112,18 @@ defmodule Utility do
 
   @spec compact(list) :: list
   def compact(list), do: Enum.filter(list, &(&1 !== nil))
+
+  def map_keys(map, function) do
+    map
+      |> Map.to_list
+      |> Enum.map(fn {key, value} -> {function.(key), value} end)
+      |> Map.new
+  end
+
+  def atomize_keys(map) do
+    map_keys(map, fn
+      key when is_bitstring(key) -> String.to_atom(key)
+      key -> key
+    end)
+  end
 end

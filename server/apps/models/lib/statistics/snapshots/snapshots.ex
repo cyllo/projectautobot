@@ -2,7 +2,7 @@ defmodule Models.Statistics.Snapshots do
   alias Ecto.Multi
   alias Models.Model
   alias Models.{Enums, Repo}
-  alias Models.Statistics.Snapshots.{HeroSnapshotStatistic, SnapshotStatistic}
+  alias Models.Statistics.Snapshots.{HeroSnapshotStatistic, SnapshotStatistic, LeaderboardSnapshotStatistic}
   use Model
 
   Model.create_model_methods(SnapshotStatistic)
@@ -96,5 +96,11 @@ defmodule Models.Statistics.Snapshots do
     Multi.new()
       |> Multi.insert_all(:hero_snapshots, HeroSnapshotStatistic, hero_snapshots)
       |> Repo.transaction
+  end
+
+  def create_leaderboard(leaderboard) do
+    leaderboard
+      |> LeaderboardSnapshotStatistic.create_changeset
+      |> Repo.insert
   end
 end

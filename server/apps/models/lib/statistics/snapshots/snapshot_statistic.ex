@@ -30,4 +30,16 @@ defmodule Models.Statistics.Snapshots.SnapshotStatistic do
 
     from(q in subquery(query), order_by: [asc: :inserted_at])
   end
+
+  def preload_statistics_query(query) do
+    preload(query,
+      profile_snapshot_statistic: [:profile_statistic],
+      hero_snapshot_statistics: [
+        :hero, :combat_average_statistic,
+        :combat_average_statistic, :combat_best_statistic,
+        :combat_lifetime_statistic, :game_history_statistic,
+        :hero_specific_statistic, :match_awards_statistic
+      ]
+    )
+  end
 end
