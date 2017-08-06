@@ -23,8 +23,8 @@
                fxFlex.gt-sm="70%">
 
             <ow-search [searchInProgress]="searchInProgress"
-                       (search)='onSearch($event)'
-                       #search>
+                       [placeholder]="searchPlaceholder"
+                       (onSearch)='onSearch($event)'>
             </ow-search>
 
           </div>

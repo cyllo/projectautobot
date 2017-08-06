@@ -1,15 +1,7 @@
-<div [formGroup]="form" class="form-group">
-  <div class="form-icon" *ngIf="!searchInProgress">
-    <md-icon>search</md-icon>
+<form class="main-search-form" [formGroup]="searchForm">
+  <div class="form-icon">
+    <md-icon *ngIf="!searchInProgress">search</md-icon>
+    <md-spinner color="accent" *ngIf="searchInProgress"></md-spinner>
   </div>
-  <div class="form-icon" *ngIf="searchInProgress">
-    <md-spinner color="accent"></md-spinner>
-  </div>
-  <input
-    type="text"
-    id="user-search-form"
-    class="form-control"
-    formControlName="{{ controlName }}"
-    placeholder="{{ placeholder }}"
-    (keyup.enter)='onKeyUp()'>
-</div>
+  <input type="text" placeholder="{{ placeholder }}" formControlName="searchFormInput">
+</form>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, Input, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { trim, isEmpty } from 'ramda';
@@ -8,58 +8,35 @@ import { trim, isEmpty } from 'ramda';
   templateUrl: './search.component.html',
   styleUrls: ['search.component.scss']
 })
-export class SearchComponent implements OnDestroy {
-  @Input() searchInProgress: boolean;
-  @Output() search = new EventEmitter();
+export class SearchComponent implements OnInit, OnDestroy {
+  @Input('searchInProgress') searchInProgress: boolean;
+  @Input('placeholder') placeholder: string;
+  @Output() onSearch: EventEmitter<string> = new EventEmitter<string>();
 
-  public subscriptions: Subscription[] = [];
-  public value;
-  public form: FormGroup;
-  public control: FormControl;
-  public controlName = 'search';
-  public image: boolean;
-
-  public placeholder = 'Search';
-  public fieldName = 'Field Name';
+  searchForm: SearchForm;
+  private subscription: Subscription;
 
   constructor() {}
 
-  initControl(form, value = '', fieldName, controlName, placeholder, image) {
-    value = trim(value); // trim leading/trailing spaces and blank text
-
-    this.form = form;
-    this.placeholder = placeholder;
-    this.fieldName = fieldName;
-    this.controlName = controlName;
-    this.image = image;
-
-    this.control = new FormControl(value);
-    this.form.addControl(this.controlName, this.control);
-
-    // subscribe to value changes on the control to emit the save event
-    const controlSub = this.control.valueChanges
+  ngOnInit() {
+    this.searchForm = new FormGroup({ searchFormInput: new FormControl('') });
+    this.subscription = this.searchForm.controls.searchFormInput.valueChanges
       .debounceTime(500)
-      .filter(str => !isEmpty(str))
-      .map(str => trim(str))
-      .subscribe((str) => {
-        if (str.length >= 3) {
-          this.search.emit(str);
+      .filter((str: string) => !isEmpty(str))
+      .map((str: string) => trim(str))
+      .subscribe((str: string) => {
+        if ( String(str).length > 3 ) {
+          this.emitSearch(str);
         }
       });
-
-    this.subscriptions.push(controlSub);
-  }
-
-  onKeyUp() {
-    this.search.emit(trim(this.control.value));
-  }
-
-  blur() {
-    // patch leading/trailing spaces and blank text
-    this.control.patchValue(trim(this.control.value));
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscription.unsubscribe();
   }
+
+  emitSearch(str: string) {
+    this.onSearch.emit(str);
+  }
+
 }
