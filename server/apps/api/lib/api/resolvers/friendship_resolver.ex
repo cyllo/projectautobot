@@ -23,4 +23,7 @@ defmodule Api.FriendshipResolver do
   ), do: Accounts.add_friendship_to_friend_group(user, id, friendship_id)
 
   def get_friend_groups_friendships(_, friend_groups), do: preload_id_map(friend_groups, :friendships)
+  def get_friend_groups_users(_, friend_groups), do: preload_id_map(friend_groups, :user)
+  def get_friendships_users(_, friendship), do: preload_id_map(friendship, :user)
+  def get_friendships_friends(_, friendship), do: preload_id_map(friendship, :friend)
 end
