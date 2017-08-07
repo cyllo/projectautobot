@@ -11,7 +11,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MdInputModule,
          MdButtonModule,
          MdCardModule,
-         MdSnackBarModule } from '@angular/material';
+         MdSnackBarModule,
+         MdTabsModule } from '@angular/material';
 
 import {
   HomeComponent,
@@ -65,8 +66,8 @@ import {
     FlexLayoutModule,
     MdInputModule,
     MdButtonModule,
-    MdCardModule,
-    MdSnackBarModule
+    MdSnackBarModule,
+    MdTabsModule
   ],
   declarations: [
     HomeComponent,
