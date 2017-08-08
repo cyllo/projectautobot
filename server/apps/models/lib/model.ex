@@ -1,6 +1,6 @@
 defmodule Models.Model do
   import Ecto.Query, only: [limit: 2, order_by: 2, where: 3, from: 2, subquery: 1]
-  import Logger, only: [warn: 1]
+  import Logger, only: [debug: 1]
 
   defmacro __using__(_) do
     quote do
@@ -62,7 +62,7 @@ defmodule Models.Model do
     if filter_field in model.__schema__(:fields) do
       where(query, [m], field(m, ^filter_field) == ^val)
     else
-      warn "#{Atom.to_string(filter_field)} is not a field for #{model.__schema__(:source)} where filter"
+      debug "create_model_filter: #{Atom.to_string(filter_field)} is not a field for #{model.__schema__(:source)} where filter"
 
       query
     end

@@ -1,7 +1,7 @@
 defmodule Models.Blog.Post do
   use Models.Model
   alias Models.Blog.{Post, Category}
-  alias Models.Blog
+  alias Models.{Blog, Repo}
 
   schema "blog_posts" do
     field :title, :string
@@ -34,6 +34,13 @@ defmodule Models.Blog.Post do
 
   def create_changeset(params), do: changeset(%Post{}, params)
 
+  def create_blog_category_filter(query, %{blog_categories: categories}) do
+    query
+      |> join(:inner, [bp], bc in assoc(bp, :blog_categories))
+      |> Ecto.Query.where([_, bc], bc.name in ^blog_category_names(categories))
+  end
+  def create_blog_category_filter(query, _), do: query
+
   defp put_existing_categories(changeset) do
     with {:ok, blog_categories_changesets} <- fetch_change(changeset, :blog_categories) do
       categories = Enum.map(blog_categories_changesets, fn
@@ -52,5 +59,12 @@ defmodule Models.Blog.Post do
     else
       {:error, _} -> category
     end
+  end
+
+  defp blog_category_names(categories) do
+    Enum.map(categories, fn
+      %{name: name} -> name
+      %{id: id} -> Repo.get(Category, id) |> Map.get(:name, "")
+    end)
   end
 end

@@ -87,12 +87,17 @@ defmodule Api.Schema do
       resolve &BlogResolver.find/2
     end
 
+    field :blog_categories, list_of(:blog_category) do
+      resolve &BlogResolver.all_categories/2
+    end
+
     field :blog_posts, list_of(:blog_post) do
       arg :after, :integer
       arg :last, :integer
       arg :first, :integer
       arg :start_date, :datetime
       arg :end_date, :datetime
+      arg :blog_categories, list_of(non_null(:blog_category_input))
 
       resolve &BlogResolver.all/2
     end
