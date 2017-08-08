@@ -7,6 +7,13 @@ defmodule Api.Schema.SnapshotTypes do
     value :quickplay
   end
 
+  enum :hero_snapshot_statistic_type do
+    value :hero_total_competitive
+    value :hero_total_quickplay
+    value :hero_competitive
+    value :hero_quickplay
+  end
+
   @desc "Snapshot that marks gathering of all the combat and other statistics"
   object :snapshot_statistic do
     field :id, :integer
@@ -69,6 +76,7 @@ defmodule Api.Schema.SnapshotTypes do
     field :combat_lifetime_statistic_id, :integer
     field :match_awards_statistic_id, :integer
     field :game_history_statistic_id, :integer
+    field :statistic_type, :hero_snapshot_statistic_type
 
     field :combat_best_statistic, :combat_best_statistic do
       resolve &batch_get_combat_bests/3
@@ -105,6 +113,7 @@ defmodule Api.Schema.SnapshotTypes do
     field :hero_specific_statistic_id, :integer
     field :match_awards_statistic_id, :integer
     field :game_history_statistic_id, :integer
+    field :statistic_type, :hero_snapshot_statistic_type
 
     field :combat_best_statistic, :combat_best_statistic do
       resolve &batch_get_combat_bests/3
