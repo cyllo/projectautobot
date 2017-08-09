@@ -93,6 +93,7 @@ defmodule Api.Schema do
 
     field :blog_posts, list_of(:blog_post) do
       arg :after, :integer
+      arg :before, :integer
       arg :last, :integer
       arg :first, :integer
       arg :start_date, :datetime
