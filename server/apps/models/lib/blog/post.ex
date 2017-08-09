@@ -8,6 +8,7 @@ defmodule Models.Blog.Post do
     field :content, :string
     field :summary, :string
     field :thumbnail_url, :string
+    field :hero_image_url, :string
     belongs_to :author, Models.Accounts.User
     many_to_many :blog_categories, Models.Blog.Category, join_through: "blog_post_categories",
                                                          join_keys: [blog_post_id: :id, blog_category_id: :id]
@@ -15,7 +16,7 @@ defmodule Models.Blog.Post do
     timestamps(type: :utc_datetime)
   end
 
-  @required_fields [:title, :content, :summary, :thumbnail_url, :author_id]
+  @required_fields [:title, :content, :summary, :thumbnail_url, :author_id, :hero_image_url]
   @allowed_fields Enum.concat(@required_fields, [])
 
   @doc """
@@ -23,6 +24,7 @@ defmodule Models.Blog.Post do
   """
   def changeset(%Post{} = struct, params \\ %{}) do
     struct
+      |> Repo.preload(:blog_categories)
       |> cast(params, @allowed_fields)
       |> validate_required(@required_fields)
       |> unique_constraint(:title, name: :blog_post_title_index)

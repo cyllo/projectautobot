@@ -366,6 +366,7 @@ defmodule Api.Schema do
     field :create_blog_post, :blog_post do
       arg :title, non_null(:string)
       arg :content, non_null(:string)
+      arg :hero_image_url, non_null(:string)
       arg :summary, non_null(:string)
       arg :thumbnail_url, non_null(:string)
       arg :blog_categories, non_null(list_of(non_null(:blog_category_input)))
@@ -393,8 +394,11 @@ defmodule Api.Schema do
     """
     field :update_blog_post, :blog_post do
       arg :id, non_null(:integer)
-      arg :content, :string
       arg :title, :string
+      arg :content, :string
+      arg :hero_image_url, :string
+      arg :summary, :string
+      arg :thumbnail_url, :string
 
       middleware Middleware.Auth, admin_only: true
       resolve &BlogResolver.update/2
