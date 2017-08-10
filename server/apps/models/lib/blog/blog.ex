@@ -6,6 +6,14 @@ defmodule Models.Blog do
 
   def get_all_posts(%{gamer_tag_ids: gamer_tag_ids} = params) do
     from(p in Post, where: p.gamer_tag_id in ^gamer_tag_ids)
+      |> Post.create_blog_category_filter(params)
+      |> Model.create_model_filters(params)
+      |> Repo.all
+  end
+
+  def get_all_posts(params) do
+    from(Post)
+      |> Post.create_blog_category_filter(params)
       |> Model.create_model_filters(params)
       |> Repo.all
   end

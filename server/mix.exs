@@ -31,6 +31,7 @@ defmodule StopThePayload.Mixfile do
 
   defp aliases, do: [
     "test": ["ecto.drop --quiet", "ecto.create --quiet", "ecto.migrate", "test"],
-    "ecto.reset": ["ecto.drop", "ecto.create", "ecto.migrate"]
+    "ecto.reset": ["ecto.drop", "ecto.create", "ecto.migrate"],
+    "ecto.seed": "run apps/models/priv/repo/seeds.exs"
   ]
 end

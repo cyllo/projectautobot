@@ -9,6 +9,7 @@ defmodule Api.Schema.BlogTypes do
     field :content, :string
     field :summary, :string
     field :thumbnail_url, :string
+    field :hero_image_url, :string
 
     field :author, :user do
       resolve fn blog_post, _, _ ->

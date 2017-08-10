@@ -10,15 +10,43 @@ defmodule Api.Schema.FriendTypes do
     field :is_accepted, :boolean
     field :user_id, :integer
     field :friend_id, :integer
-    field :user, :user
-    field :friend, :user
+
+    field :user, :user do
+      resolve fn friendship, _, _ ->
+        batch(
+          {FriendshipResolver, :get_friendships_users},
+          friendship,
+          &{:ok, Map.get(&1, friendship.id)}
+        )
+      end
+    end
+
+    field :friend, :user do
+      resolve fn friendship, _, _ ->
+        batch(
+          {FriendshipResolver, :get_friendships_friends},
+          friendship,
+          &{:ok, Map.get(&1, friendship.id)}
+        )
+      end
+    end
+
     timestamp_types
   end
 
   object :friend_group do
     field :id, :integer
     field :name, :string
-    field :user, :user
+
+    field :user, :user do
+      resolve fn friend_group, _, _ ->
+        batch(
+          {FriendshipResolver, :get_friend_groups_users},
+          friend_group,
+          &{:ok, Map.get(&1, friend_group.id)}
+        )
+      end
+    end
 
     field :friendships, list_of(:friendship) do
       resolve fn friend_group, _, _ ->

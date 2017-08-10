@@ -202,14 +202,20 @@ defmodule Models.Accounts do
   """
   def accept_friend_request(user, params) do
     with {:ok, {user_friendship, friend_friendship}} <- find_pending_friendship(user, params),
+         :ok <- verify_unaccepted_friendship(user_friendship),
+         true <- user_friendship.user_id === user.id,
          false <- user_friendship.is_sender,
          {:ok, %{friendship_user: user}} <- accept_friendship(user_friendship, friend_friendship) do
       {:ok, user}
     else
       true -> {:error, "You cannot accept a friendship you sent"}
+      false -> {:error, "You don't own this friendship"}
       e -> e
     end
   end
+
+  defp verify_unaccepted_friendship(%{is_accepted: true}), do: {:error, "Friendship is already accepted"}
+  defp verify_unaccepted_friendship(%{is_accepted: false}), do: :ok
 
   defp find_pending_friendship(user, %{friend_user_id: friend_id}) do
     with {:ok, friend} <- get_friend(user.id, friend_id) do
@@ -232,6 +238,12 @@ defmodule Models.Accounts do
       {:error, "You cannot use yourself as friend"}
     else
       get_user(friend_id)
+    end
+  end
+
+  defp find_pending_friendship(user, %{friendship_id: friendship_id}) do
+    with {:ok, {user_friendship, friend_friendship}} <- get_friendship_tuple(user, %{friendship_id: friendship_id}) do
+      {:ok, {user_friendship, friend_friendship}}
     end
   end
 
@@ -282,7 +294,7 @@ defmodule Models.Accounts do
   def add_friendship_to_friend_group(user, id, friendship_id) do
     with {:ok, friend_group} <- get_user_friend_group(id, [:friendships, :user]),
          :ok <- check_is_owned_friend_group(user, friend_group),
-         {:ok, {friendship, _}} <- get_friendship_tuple(friendship_id) do
+         {:ok, {friendship, _}} <- get_friendship_tuple(user, %{friendship_id: friendship_id}) do
       UserFriendGroup.changeset(friend_group, %{
         friendships: friend_group.friendships ++ [friendship]
       }) |> Repo.update
@@ -357,7 +369,7 @@ defmodule Models.Accounts do
 
   def delete_friend(user_friendship, friend_friendship) do
     res = [user_friendship.id, friend_friendship.id]
-      |> Friendship.delete_friendships_query()
+      |> Friendship.find_frindship_by_id_query()
       |> Repo.delete_all
 
     cond do
@@ -401,12 +413,6 @@ defmodule Models.Accounts do
     end
   end
 
-  def get_friendship_tuple(friendship_id) do
-    with {:ok, user_friendship} <- get_friendship(friendship_id) do
-      {:ok, {user_friendship, find_user_friendship(user_friendship.friend_id, user_friendship.user_id)}}
-    end
-  end
-
   def get_friendship_tuple(user, %{friend_user_id: friend_id}) do
     with {:ok, friend} <- get_friend(user.id, friend_id) do
       case get_user_any_friendship(user.id, friend_id) do
@@ -416,7 +422,14 @@ defmodule Models.Accounts do
     end
   end
 
-  def get_friendship_tuple(_user, %{friendship_id: friendship_id}), do: get_friendship_tuple(friendship_id)
+  def get_friendship_tuple(user, %{friendship_id: friendship_id}) do
+    with {:ok, user_friendship} <- get_friendship(friendship_id),
+         friendship <- find_user_friendship(user_friendship.friend_id, user_friendship.user_id) do
+      friend_id = if user_friendship.user_id === user.id, do: user_friendship.friend_id, else: user_friendship.user_id
+
+      {:ok, sort_friendships_by_user_friend([user_friendship, friendship], user.id, friend_id)}
+    end
+  end
 
   defp check_is_owned_friend_group(user, friend_group) do
     if friend_group.user_id === user.id do

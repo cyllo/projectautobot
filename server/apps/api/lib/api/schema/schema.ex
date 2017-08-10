@@ -88,12 +88,18 @@ defmodule Api.Schema do
       resolve &BlogResolver.find/2
     end
 
+    field :blog_categories, list_of(:blog_category) do
+      resolve &BlogResolver.all_categories/2
+    end
+
     field :blog_posts, list_of(:blog_post) do
       arg :after, :integer
+      arg :before, :integer
       arg :last, :integer
       arg :first, :integer
       arg :start_date, :datetime
       arg :end_date, :datetime
+      arg :blog_categories, list_of(non_null(:blog_category_input))
 
       resolve &BlogResolver.all/2
     end
@@ -383,6 +389,7 @@ defmodule Api.Schema do
     field :create_blog_post, :blog_post do
       arg :title, non_null(:string)
       arg :content, non_null(:string)
+      arg :hero_image_url, non_null(:string)
       arg :summary, non_null(:string)
       arg :thumbnail_url, non_null(:string)
       arg :blog_categories, non_null(list_of(non_null(:blog_category_input)))
@@ -410,8 +417,11 @@ defmodule Api.Schema do
     """
     field :update_blog_post, :blog_post do
       arg :id, non_null(:integer)
-      arg :content, :string
       arg :title, :string
+      arg :content, :string
+      arg :hero_image_url, :string
+      arg :summary, :string
+      arg :thumbnail_url, :string
 
       middleware Middleware.Auth, admin_only: true
       resolve &BlogResolver.update/2

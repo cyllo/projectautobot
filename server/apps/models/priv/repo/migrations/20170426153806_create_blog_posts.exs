@@ -7,6 +7,7 @@ defmodule Models.Repo.Migrations.CreateBlogPosts do
       add :content, :text, null: false
       add :summary, :text, null: false
       add :thumbnail_url, :text, null: false
+      add :hero_image_url, :text, null: false
       add :author_id, references(:users), null: false
 
       timestamps(type: :utc_datetime)
