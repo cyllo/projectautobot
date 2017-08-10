@@ -17,7 +17,6 @@ import { AppState } from '../../models';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { values, all, isNil, path } from 'ramda';
-import { NavLink } from '../../models';
 
 @Component({
   selector: 'ow-main-nav',
@@ -31,7 +30,6 @@ export class MainNavComponent implements  OnInit {
   @Output() searchTag = new EventEmitter<Action>();
 
   userLoggedIn = false;
-  activeToolbarNavLinks: NavLink[];
   searchPlaceholder = 'Search for player by battle tag, psn or xbox live';
 
   private currentSession: Observable<Object>;
