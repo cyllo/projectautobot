@@ -3,8 +3,8 @@ defmodule Models.Repo.Migrations.CreateUserFriendGroupFriendshipsTable do
 
   def change do
     create table(:user_friend_group_friendships) do
-      add :friendship_id, references(:friendships)
-      add :user_friend_group_id, references(:user_friend_groups)
+      add :friendship_id, references(:friendships, on_delete: :delete_all)
+      add :user_friend_group_id, references(:user_friend_groups, on_delete: :delete_all)
     end
   end
 end

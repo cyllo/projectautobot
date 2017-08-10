@@ -1,13 +1,15 @@
 defmodule Models.Accounts.Friendship do
   use Models.Model
   alias Ecto.Multi
-  alias Models.Accounts.{User, Friendship}
+  alias Models.Accounts.{User, Friendship, UserFriendGroup}
 
   schema "friendships" do
     field :is_accepted, :boolean, default: false
     field :is_sender, :boolean, default: false
     belongs_to :user, User
     belongs_to :friend, User
+    many_to_many :user_friend_groups, UserFriendGroup, join_through: "user_friend_group_friendships",
+                                                       on_delete: :delete_all
 
     timestamps(type: :utc_datetime)
   end
@@ -44,7 +46,7 @@ defmodule Models.Accounts.Friendship do
                           preload: [:user, :friend])
   end
 
-  def delete_friendships_query(friendship_ids) do
+  def find_frindship_by_id_query(friendship_ids) do
     from(f in Friendship, where: f.id in ^friendship_ids)
   end
 

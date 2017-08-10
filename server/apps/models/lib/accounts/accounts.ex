@@ -363,7 +363,7 @@ defmodule Models.Accounts do
 
   def delete_friend(user_friendship, friend_friendship) do
     res = [user_friendship.id, friend_friendship.id]
-      |> Friendship.delete_friendships_query()
+      |> Friendship.find_frindship_by_id_query()
       |> Repo.delete_all
 
     cond do
