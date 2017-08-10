@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { GamerTagService } from '../../../../services';
 import { Player } from '../../../../models';
-import { values } from 'ramda';
+import { values, isEmpty } from 'ramda';
 
 @Component({
   selector: 'ow-profile-list',
@@ -19,7 +19,7 @@ export class ProfileListComponent implements OnInit {
 
   ngOnInit() {
     this.players = this.gamerTagService.find(this.battleNetTag)
-      .do(data => console.log('data', values(data)));
+      .filter((players: Player[]) => !isEmpty(players));
     this.players.subscribe();
   }
 
