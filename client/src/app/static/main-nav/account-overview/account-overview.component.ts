@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthorizationService } from '../../../services';
-import { CurrentUser, AppState } from '../../../models';
-import { Observable } from 'rxjs/Observable';
+import { CurrentSession, CurrentUser, AppState } from '../../../models';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -13,14 +12,16 @@ import { Store } from '@ngrx/store';
 export class AccountOverviewComponent implements OnInit {
 
   currentUser: CurrentUser;
+  userProfiles: any;
 
-  constructor(private store: Store<AppState>, private authService: AuthorizationService) {
-    this.currentUser = this.store.select('currentSession')
-      .map(session => session.user);
+  constructor(private store: Store<AppState>,
+              private authService: AuthorizationService) {
   }
 
   ngOnInit() {
-    this.currentUser.subscribe((user: CurrentUser) => this.currentUser = user);
+    this.store.select('currentSession')
+      .map((session: CurrentSession) => session.user)
+      .subscribe((user: CurrentUser) => this.currentUser = user);
   }
 
   signOut() {

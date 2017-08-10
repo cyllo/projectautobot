@@ -46,8 +46,6 @@ export class UserRegistrationComponent implements OnInit {
     .filter(({ code }) => code)
     .map(({ code }) => code)
     .subscribe(val => this.bnetCode = val);
-
-    console.log('HELLO: ', this.registrationForm);
   }
 
   onSubmit(newUser: User) {

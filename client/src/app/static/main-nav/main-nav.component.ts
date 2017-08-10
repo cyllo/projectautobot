@@ -6,7 +6,7 @@ import {
   Output
 } from '@angular/core';
 import { Action, Store } from '@ngrx/store';
-import { AppState, CurrentSession, CurrentUser } from '../../models';
+import { AppState, CurrentSession } from '../../models';
 import { Observable } from 'rxjs/Observable';
 import { values, all, isNil, path } from 'ramda';
 

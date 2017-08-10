@@ -1,4 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ow-player-profile-button',
@@ -7,13 +8,12 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class PlayerProfileButtonComponent {
   @Input('player') player;
-  @Output() playerSelected = new EventEmitter();
 
-  constructor () {}
+  constructor (private router: Router) {}
 
-  onButtonClicked() {
-    console.log('test:', this.player);
-    this.playerSelected.emit();
+  navigateToProfile() {
+    const player = this.player;
+    this.router.navigate(['./profile', player.platform, player.region, player.tag]);
   }
 
 }

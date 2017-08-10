@@ -7,7 +7,7 @@
 
       <md-nav-list fxFlex="280px">
 
-          <ow-profile-list></ow-profile-list>
+          <ow-profile-list [battleNetTag]="currentUser.battleNetTag"></ow-profile-list>
 
           <div md-list-item [ngStyle]="{ 'padding': '16px' }">
             <md-checkbox (click)="preventClose($event)">Share your progress, trends, and activity with your friends!</md-checkbox>
