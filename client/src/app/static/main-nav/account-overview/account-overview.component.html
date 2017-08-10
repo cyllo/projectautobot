@@ -1,4 +1,4 @@
-<div class="account-overview" fxLayout="row">
+<div class="account-overview" fxLayout="row" *ngIf="currentUser">
 
   <md-menu class="account-overview-menu" #appMenu="mdMenu"
            xPosition="before"
@@ -43,13 +43,12 @@
          fxFlex.gt-sm="192px">
 
       <div fxLayout="column">
-          <img class="md-image md-image-36"
-               src="https://blzgdapipro-a.akamaihd.net/game/unlocks/0x02500000000008EF.png">
+          <img class="md-image md-image-36" src="img/unknown_hero.jpg">
       </div>
 
       <div class="flex-layout" fxLayout="column" fxFlex="grow" fxHide.lt-md>
         <span class="mat-caption text-overflow">
-          <strong>Krusher99</strong>
+          <strong>{{ currentUser.displayName }}</strong>
         </span>
       </div>
 

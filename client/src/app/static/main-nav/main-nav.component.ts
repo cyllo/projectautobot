@@ -20,15 +20,17 @@ export class MainNavComponent implements  OnInit {
   @Input() searchInProgress: boolean;
   @Output() searchTag = new EventEmitter<Action>();
 
-  user: Observable<CurrentUser>;
+  private currentSession: Observable<CurrentSession>;
+  userLoggedIn: boolean;
   searchPlaceholder = 'Search for player by battle tag, psn or xbox live';
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) {
+    this.currentSession = this.store.select('currentSession');
+  }
 
   ngOnInit() {
-    this.user = this.store.select('currentSession')
-      .filter((session: CurrentSession) => !all(isNil, values(path(['sessionInfo'], session))))
-      .map((session: CurrentSession) => session.user);
+    this.currentSession.subscribe(session =>
+      this.userLoggedIn = !all(isNil, values(path(['sessionInfo'], session))));
   }
 
   onSearch(tag: string) {

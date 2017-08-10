@@ -40,8 +40,8 @@
 
       <div fxLayout="column">
 
-        <div *ngIf="user | async; then accountOverview; else userActions;"></div>
-
+        <div *ngIf="userLoggedIn; then accountOverview; else userActions;"></div>
+        
         <ng-template #accountOverview>
           <ow-account-overview></ow-account-overview>
         </ng-template>
