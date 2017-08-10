@@ -5,7 +5,7 @@ interface SessionInfo {
   exp: string;
 }
 
-interface CurrentUser {
+export interface CurrentUser {
   username: string;
   id: Number;
   email: string;

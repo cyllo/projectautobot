@@ -13,7 +13,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input('placeholder') placeholder: string;
   @Output() onSearch: EventEmitter<string> = new EventEmitter<string>();
 
-  searchForm: SearchForm;
+  searchForm: FormGroup;
   private subscription: Subscription;
 
   constructor() {}
@@ -26,7 +26,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       .map((str: string) => trim(str))
       .subscribe((str: String) => {
         if ( str.length > 3 ) {
-          this.emitSearch(str);
+          this.emitSearch(str.toString());
         }
       });
   }

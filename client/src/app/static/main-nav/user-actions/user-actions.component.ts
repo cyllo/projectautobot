@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavLink } from '../../../models';
 
 @Component({
   selector: 'ow-user-actions',
@@ -9,7 +8,7 @@ import { NavLink } from '../../../models';
 
 export class UserActionsComponent {
 
-  navLinks: NavLink[] = [
+  navLinks = [
     {
       name: 'Sign Up',
       routerLink: '/register',

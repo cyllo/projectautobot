@@ -40,9 +40,15 @@
 
       <div fxLayout="column">
 
-        <ow-user-actions *ngIf="!userLoggedIn"></ow-user-actions>
+        <div *ngIf="user | async; then accountOverview; else userActions;"></div>
 
-        <ow-account-overview *ngIf="userLoggedIn"></ow-account-overview>
+        <ng-template #accountOverview>
+          <ow-account-overview></ow-account-overview>
+        </ng-template>
+
+        <ng-template #userActions>
+          <ow-user-actions></ow-user-actions>
+        </ng-template>
 
       </div>
 
