@@ -13,14 +13,15 @@ defmodule Models.Statistics.Snapshots.ProfileSnapshotStatistic do
     belongs_to :leaderboard_snapshot_statistic, LeaderboardSnapshotStatistic
   end
 
-  @required_fields [:snapshot_statistic_id, :profile_statistic_id, :leaderboard_snapshot_statistic_id]
+  @required_fields [:snapshot_statistic_id, :profile_statistic_id]
+  @available_fields @required_fields ++ [:leaderboard_snapshot_statistic_id]
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(%ProfileSnapshotStatistic{} = struct, params \\ %{}) do
     struct
-      |> cast(params, @required_fields)
+      |> cast(params, @available_fields)
       |> validate_required(@required_fields)
   end
 
