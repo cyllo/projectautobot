@@ -46,7 +46,8 @@ defmodule Scraper.Mixfile do
       {:httpoison, "~> 0.10.0"},
       {:con_cache, "~> 0.12.0"},
       {:utility, in_umbrella: true},
-      {:models, in_umbrella: true}
+      {:models, in_umbrella: true},
+      {:stats_leaderboard, in_umbrella: true}
     ]
   end
 end

@@ -1,6 +1,6 @@
 defmodule Models.Statistics.Snapshots.LeaderboardSnapshotStatistic do
   use Models.Model
-  alias Models.Statistics.Snapshots.LeaderboardSnapshotStatistic
+  alias Models.Statistics.Snapshots.{LeaderboardSnapshotStatistic, SnapshotStatistic}
 
   schema "leaderboard_snapshot_statistics" do
     field :hero_total_competitive_rankings, :map
@@ -34,4 +34,10 @@ defmodule Models.Statistics.Snapshots.LeaderboardSnapshotStatistic do
   end
 
   def create_changeset(params), do: changeset(%LeaderboardSnapshotStatistic{}, params)
+
+  def latest_snapshot_query(query \\ from(LeaderboardSnapshotStatistic)) do
+    query
+      |> order_by([desc: :inserted_at])
+      |> limit(1)
+  end
 end

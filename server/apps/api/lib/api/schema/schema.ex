@@ -3,11 +3,11 @@ defmodule Api.Schema do
   import Absinthe.Resolution.Helpers, only: [async: 2]
   alias Api.{
     Schema,
+    LeaderboardSnapshotResolver,
     SnapshotStatisticsAverageResolver,
     GamerTagResolver, HeroResolver, UserResolver,
     SessionResolver, BlogResolver, Middleware,
     HeroStatisticsAverageResolver, FriendshipResolver
-    #, SnapshotStatisticResolver
   }
 
   import_types Absinthe.Type.Custom
@@ -20,9 +20,10 @@ defmodule Api.Schema do
   import_types Schema.SessionTypes
   import_types Schema.StatisticAverageTypes
   import_types Schema.HeroStatisticsAverageTypes
+  import_types Schema.LeaderboardSnapshotStatisticTypes
   import_types Schema.SnapshotStatisticsAverageTypes
   import_types Schema.ActionTypes
-  import_types Api.Schema.FriendTypes
+  import_types Schema.FriendTypes
 
   query do
     @desc """
@@ -108,6 +109,28 @@ defmodule Api.Schema do
       arg :type, non_null(:snapshot_statistic_type)
 
       resolve &SnapshotStatisticsAverageResolver.average/2
+    end
+
+    field :leaderboard_snapshot_statistics, list_of(:leaderboard_snapshot_statistic) do
+      arg :after, :integer
+      arg :before, :integer
+      arg :last, :integer
+      arg :first, :integer
+      arg :start_date, :datetime
+      arg :end_date, :datetime
+
+      resolve &LeaderboardSnapshotResolver.all/2
+    end
+
+    field :leaderboard_snapshot_statistic, :leaderboard_snapshot_statistic do
+      arg :after, :integer
+      arg :before, :integer
+      arg :last, :integer
+      arg :first, :integer
+      arg :start_date, :datetime
+      arg :end_date, :datetime
+
+      resolve &LeaderboardSnapshotResolver.find/2
     end
   end
 

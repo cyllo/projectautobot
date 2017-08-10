@@ -1,7 +1,7 @@
 defmodule Scraper.ModelCreator do
   require Logger
 
-  alias Models.Repo
+  alias Models.{Repo, Statistics.Snapshots}
   alias Scraper.ModelCreator.{Heroes, UserProfile, HeroStats, ProfileStats}
 
   @spec save_profile(profile :: map) :: map
@@ -18,7 +18,17 @@ defmodule Scraper.ModelCreator do
         Task.start(fn -> UserProfile.save_other_platforms(gamer_tag, profile) end)
       end
 
-      create_snapshot(profile, gamer_tag, heroes)
+      profile
+        |> add_leaderboard_snapshot
+        |> create_snapshot(gamer_tag, heroes)
+    end
+  end
+
+  defp add_leaderboard_snapshot(profile) do
+    with {:ok, leaderboard} <- Snapshots.create_or_get_leaderboard_snapshot do
+      Map.put(profile, :leaderboard_id, leaderboard.id)
+    else
+      _ -> profile
     end
   end
 

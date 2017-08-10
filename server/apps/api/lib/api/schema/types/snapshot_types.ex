@@ -57,6 +57,20 @@ defmodule Api.Schema.SnapshotTypes do
   object :profile_snapshot_statistic do
     field :id, :integer
 
+    field :snapshot_statistic_id, :integer
+    field :profile_statistic_id, :integer
+    field :leaderboard_snapshot_statistic_id, :integer
+
+    field :leaderboard_snapshot_statistic, :leaderboard_snapshot_statistic do
+      resolve fn profile_snapshot, _, _ ->
+        batch(
+          {SnapshotStatisticResolver, :get_profile_snapshots_leaderboard_snapshots},
+          profile_snapshot,
+          &{:ok, Map.get(&1, profile_snapshot.id)}
+        )
+      end
+    end
+
     field :profile_statistic, :profile_statistic do
       resolve fn profile_snapshot, _, _ ->
         batch(

@@ -7,6 +7,7 @@ defmodule Models.Statistics.Snapshots do
 
   Model.create_model_methods(SnapshotStatistic)
   Model.create_model_methods(HeroSnapshotStatistic)
+  Model.create_model_methods(LeaderboardSnapshotStatistic)
 
   def get_all_of_heroes_total_statistics_by_snapshot_ids(snapshot_ids, limit \\ nil, type \\ :competitive || :quickplay) do
     from(
@@ -102,5 +103,29 @@ defmodule Models.Statistics.Snapshots do
     leaderboard
       |> LeaderboardSnapshotStatistic.create_changeset
       |> Repo.insert
+  end
+
+  def find_one_leaderboard_snapshot(params) do
+    leaderboard = Ecto.Query.from(LeaderboardSnapshotStatistic)
+      |> Model.create_model_filters(params)
+      |> Ecto.Query.first
+      |> Repo.one
+
+    case leaderboard do
+      nil -> {:error, "No leaderboard found #{inspect params}"}
+      leaderboard -> {:ok, leaderboard}
+    end
+  end
+
+  def create_or_get_leaderboard_snapshot do
+    with {:ok, leaderboard_snapshot} <- StatsLeaderboard.snapshot_leaderboard_rankings do
+      {:ok, leaderboard_snapshot}
+    else
+      e ->
+        case Repo.one(LeaderboardSnapshotStatistic.latest_snapshot_query) do
+          nil -> {:error, "No Leaderboard Snapshot found"}
+          leaderboard_snapshot -> {:ok, leaderboard_snapshot}
+        end
+    end
   end
 end

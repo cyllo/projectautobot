@@ -19,7 +19,8 @@ defmodule StatsLeaderboard.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
-    [extra_applications: [:logger]]
+    [extra_applications: [:logger],
+     mod: {StatsLeaderboard.Application, []}]
   end
 
   # Dependencies can be Hex packages:
@@ -36,6 +37,11 @@ defmodule StatsLeaderboard.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:models, in_umbrella: true}]
+    [
+      {:quantum, ">= 1.9.1"},
+      {:con_cache, "~> 0.12.0"},
+      {:timex, "~> 3.1"},
+      {:models, in_umbrella: true}
+    ]
   end
 end
