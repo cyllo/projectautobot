@@ -227,12 +227,6 @@ defmodule Models.Accounts do
     end
   end
 
-  defp find_pending_friendship(_user, %{friendship_id: friendship_id}) do
-    with {:ok, {user_friendship, friend_friendship}} <- get_friendship_tuple(friendship_id) do
-      {:ok, {user_friendship, friend_friendship}}
-    end
-  end
-
   def get_friend(user_id, friend_id) do
     if user_id === friend_id do
       {:error, "You cannot use yourself as friend"}
