@@ -143,6 +143,7 @@ export class ProfileService {
     if (!player.snapshotStatistics) {
       return null;
     }
+
     const [snapshotStatistic] = player.snapshotStatistics.reverse();
     if (!snapshotStatistic) {
       return null;
