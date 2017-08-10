@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { SnapshotStats } from '../../../models';
+import { TransformedStats } from '../../../models';
 
 @Component({
   selector: 'ow-lifetime-stats',
@@ -18,7 +18,7 @@ export class LifetimeStatsComponent {
     return this._snapshotStats;
   }
 
-  private _snapshotStats: SnapshotStats;
+  private _snapshotStats: TransformedStats;
   tables: Array<any>;
 
   constructor() {}
@@ -27,10 +27,10 @@ export class LifetimeStatsComponent {
     this.reset();
 
     let ss   = this._snapshotStats;
-    let ahss = ss.allHeroesSnapshotStatistic;
-    let ghs  = ahss.gameHistoryStatistic;
-    let cls  = ahss.combatLifetimeStatistic;
-    let mas  = ahss.matchAwardsStatistic;
+    let htss = ss.heroesTotalSnapshotStatistic;
+    let ghs  = htss.gameHistoryStatistic;
+    let cls  = htss.combatLifetimeStatistic;
+    let mas  = htss.matchAwardsStatistic;
 
     let add     = this.addToTable;
     let success = this.success;
@@ -135,7 +135,7 @@ export class LifetimeStatsComponent {
     });
   }
 
-  private calcTotalFromSnapshot(ss: SnapshotStats, block: string, key: string): number {
+  private calcTotalFromSnapshot(ss: TransformedStats, block: string, key: string): number {
     return ss.heroSnapshotStatistics.reduce((acc, hss) => {
       if (this.objHasKey(hss, block)) {
         let obj = hss[block];

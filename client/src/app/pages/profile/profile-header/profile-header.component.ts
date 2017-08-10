@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Player, SnapshotStats, HeroSnapshotStats, GameHistoryStats, MatchAwardsStats } from '../../../models';
+import { Player, TransformedStats, HeroSnapshotStats, GameHistoryStats, MatchAwardsStats } from '../../../models';
 import { FollowService } from '../follow.service';
 import { ProfileService } from '../../../services';
 
@@ -13,7 +13,7 @@ import { ProfileService } from '../../../services';
 export class ProfileHeaderComponent implements OnInit {
   @Input() player: Player;
 
-  snapshotStats: SnapshotStats;
+  snapshotStats: TransformedStats;
   renewInProgress = false;
   statChanges = {
     winPercentage: 0
@@ -41,9 +41,9 @@ export class ProfileHeaderComponent implements OnInit {
       return 0;
     }
 
-    let ahss: HeroSnapshotStats = this.snapshotStats.allHeroesSnapshotStatistic;
-    let ghs: GameHistoryStats   = ahss.gameHistoryStatistic;
-    let mas: MatchAwardsStats   = ahss.matchAwardsStatistic;
+    let htss: HeroSnapshotStats = this.snapshotStats.heroesTotalSnapshotStatistic;
+    let ghs: GameHistoryStats   = htss.gameHistoryStatistic;
+    let mas: MatchAwardsStats   = htss.matchAwardsStatistic;
 
     switch (stat) {
 

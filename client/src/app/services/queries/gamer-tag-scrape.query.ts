@@ -19,7 +19,6 @@ export const gamerTagScrapeMutation = gql`
       competitiveLevel
       snapshotStatistics(last: $snapshotLast) {
         id
-        isCompetitive
         gamerTagId
         heroSnapshotStatistics {
           id
@@ -128,7 +127,7 @@ export const gamerTagScrapeMutation = gql`
             damageBlockedAverage
           }
         }
-        allHeroesSnapshotStatistic {
+        heroesTotalSnapshotStatistic {
           matchAwardsStatistic {
             id
             totalMedals

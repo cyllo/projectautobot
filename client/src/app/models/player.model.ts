@@ -15,18 +15,24 @@ export interface Player extends AppState {
   insertedAt: string;
   competitiveRankUrl: string;
   competitiveLevel: number;
-  competitive: SnapshotStats;
-  quickPlay: SnapshotStats;
+  competitive: TransformedStats;
+  quickPlay: TransformedStats;
+}
+
+export interface TransformedStats {
+  heroSnapshotStatistics: HeroSnapshotStats[];
+  heroesTotalSnapshotStatistic: HeroSnapshotStats;
 }
 
 export interface SnapshotStats {
   updatedAt: string;
-  isCompetitive: boolean;
   insertedAt: string;
   id?: number;
-  heroSnapshotStatistics: HeroSnapshotStats[];
   gamerTagId: number;
-  allHeroesSnapshotStatistic: HeroSnapshotStats;
+  quickplayHeroSnapshotStatistics: HeroSnapshotStats[];
+  competitiveHeroSnapshotStatistics: HeroSnapshotStats[];
+  quickplayHeroesTotalSnapshotStatistic: HeroSnapshotStats;
+  competitiveHeroesTotalSnapshotStatistic: HeroSnapshotStats;
 }
 
 export interface HeroSpecificStats {
@@ -39,6 +45,7 @@ export interface HeroSnapshotStats {
   matchAwardsStatisticId: number;
   matchAwardsStatistic: MatchAwardsStats;
   id?: number;
+  statisticType: string;
   heroSpecificStatistic: HeroSpecificStats;
   heroSpecificStatisticId: number;
   heroId: number;

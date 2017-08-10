@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { OverwatchHeroDataService } from '../../../services';
 import {
-  SnapshotStats,
+  TransformedStats,
   HeroSnapshotStats,
   OverwatchStaticData,
   HeroStatBlock,
@@ -26,7 +26,7 @@ export class CareerComponent implements OnInit {
     return this._snapshotStats;
   }
 
-  private _snapshotStats: SnapshotStats;
+  private _snapshotStats: TransformedStats;
   private overwatchStaticData: OverwatchStaticData;
   charts: ChartData[];
   statBlocks: HeroStatBlock[];
@@ -52,22 +52,22 @@ export class CareerComponent implements OnInit {
     this.statBlocks = this.createOverviewStatBlocks(this._snapshotStats);
   }
 
-  createOverviewStatBlocks(snapshotStats: SnapshotStats): HeroStatBlock[] {
-    const { allHeroesSnapshotStatistic } = snapshotStats;
+  createOverviewStatBlocks(snapshotStats: TransformedStats): HeroStatBlock[] {
+    const { heroesTotalSnapshotStatistic } = snapshotStats;
     return [
-      this.createAllHeroesEliminationsPerMinuteStatistic(allHeroesSnapshotStatistic),
-      this.createAllHeroesKDRatioStatistic(allHeroesSnapshotStatistic),
-      this.createAllHeroesDamageDonePerMinuteStatistic(allHeroesSnapshotStatistic),
-      this.createAllHeroesDamageBlockedPerMinuteStatistic(allHeroesSnapshotStatistic),
-      this.createAllHeroesHealingDonePerMinuteStatistic(allHeroesSnapshotStatistic),
-      this.createAllHeroesMedalsPerMinuteStatistic(allHeroesSnapshotStatistic)
+      this.createAllHeroesEliminationsPerMinuteStatistic(heroesTotalSnapshotStatistic),
+      this.createAllHeroesKDRatioStatistic(heroesTotalSnapshotStatistic),
+      this.createAllHeroesDamageDonePerMinuteStatistic(heroesTotalSnapshotStatistic),
+      this.createAllHeroesDamageBlockedPerMinuteStatistic(heroesTotalSnapshotStatistic),
+      this.createAllHeroesHealingDonePerMinuteStatistic(heroesTotalSnapshotStatistic),
+      this.createAllHeroesMedalsPerMinuteStatistic(heroesTotalSnapshotStatistic)
     ];
   }
 
-  createAllHeroesEliminationsPerMinuteStatistic(allHeroesSnapshotStatistic: HeroSnapshotStats): HeroStatBlock {
+  createAllHeroesEliminationsPerMinuteStatistic(heroesTotalSnapshotStatistic: HeroSnapshotStats): HeroStatBlock {
     const statName = 'Eliminations';
-    if (allHeroesSnapshotStatistic) {
-      const { combatLifetimeStatistic, gameHistoryStatistic } = allHeroesSnapshotStatistic;
+    if (heroesTotalSnapshotStatistic) {
+      const { combatLifetimeStatistic, gameHistoryStatistic } = heroesTotalSnapshotStatistic;
       return {
         name: statName,
         value: this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.eliminations, gameHistoryStatistic.timePlayed),
@@ -81,10 +81,10 @@ export class CareerComponent implements OnInit {
     }
   }
 
-  createAllHeroesKDRatioStatistic(allHeroesSnapshotStatistic: HeroSnapshotStats): HeroStatBlock {
+  createAllHeroesKDRatioStatistic(heroesTotalSnapshotStatistic: HeroSnapshotStats): HeroStatBlock {
     const statName = 'K/D Ratio';
-    if (allHeroesSnapshotStatistic) {
-      const { combatLifetimeStatistic } = allHeroesSnapshotStatistic;
+    if (heroesTotalSnapshotStatistic) {
+      const { combatLifetimeStatistic } = heroesTotalSnapshotStatistic;
       return {
         name: statName,
         value: this.owHeroData.calculateStatRatio(combatLifetimeStatistic.finalBlows, combatLifetimeStatistic.deaths),
@@ -98,10 +98,10 @@ export class CareerComponent implements OnInit {
     }
   }
 
-  createAllHeroesDamageDonePerMinuteStatistic(allHeroesSnapshotStatistic: HeroSnapshotStats): HeroStatBlock {
+  createAllHeroesDamageDonePerMinuteStatistic(heroesTotalSnapshotStatistic: HeroSnapshotStats): HeroStatBlock {
     const statName = 'Damage';
-    if (allHeroesSnapshotStatistic) {
-      const { combatLifetimeStatistic, gameHistoryStatistic } = allHeroesSnapshotStatistic;
+    if (heroesTotalSnapshotStatistic) {
+      const { combatLifetimeStatistic, gameHistoryStatistic } = heroesTotalSnapshotStatistic;
       return {
         name: statName,
         value: this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.damageDone, gameHistoryStatistic.timePlayed),
@@ -115,10 +115,10 @@ export class CareerComponent implements OnInit {
     }
   }
 
-  createAllHeroesDamageBlockedPerMinuteStatistic(allHeroesSnapshotStatistic: HeroSnapshotStats): HeroStatBlock {
+  createAllHeroesDamageBlockedPerMinuteStatistic(heroesTotalSnapshotStatistic: HeroSnapshotStats): HeroStatBlock {
     const statName = 'Blocked';
-    if (allHeroesSnapshotStatistic) {
-      const { combatLifetimeStatistic, gameHistoryStatistic } = allHeroesSnapshotStatistic;
+    if (heroesTotalSnapshotStatistic) {
+      const { combatLifetimeStatistic, gameHistoryStatistic } = heroesTotalSnapshotStatistic;
       return {
         name: statName,
         value: this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.damageBlocked, gameHistoryStatistic.timePlayed),
@@ -132,10 +132,10 @@ export class CareerComponent implements OnInit {
     }
   }
 
-  createAllHeroesHealingDonePerMinuteStatistic(allHeroesSnapshotStatistic: HeroSnapshotStats): HeroStatBlock {
+  createAllHeroesHealingDonePerMinuteStatistic(heroesTotalSnapshotStatistic: HeroSnapshotStats): HeroStatBlock {
     const statName = 'Healing';
-    if (allHeroesSnapshotStatistic) {
-      const { combatLifetimeStatistic, gameHistoryStatistic } = allHeroesSnapshotStatistic;
+    if (heroesTotalSnapshotStatistic) {
+      const { combatLifetimeStatistic, gameHistoryStatistic } = heroesTotalSnapshotStatistic;
       return {
         name: statName,
         value: this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.healingDone, gameHistoryStatistic.timePlayed),
@@ -149,10 +149,10 @@ export class CareerComponent implements OnInit {
     }
   }
 
-  createAllHeroesMedalsPerMinuteStatistic(allHeroesSnapshotStatistic: HeroSnapshotStats): HeroStatBlock {
+  createAllHeroesMedalsPerMinuteStatistic(heroesTotalSnapshotStatistic: HeroSnapshotStats): HeroStatBlock {
     const statName = 'Medals';
-    if (allHeroesSnapshotStatistic) {
-      const { matchAwardsStatistic, gameHistoryStatistic } = allHeroesSnapshotStatistic;
+    if (heroesTotalSnapshotStatistic) {
+      const { matchAwardsStatistic, gameHistoryStatistic } = heroesTotalSnapshotStatistic;
       return {
         name: statName,
         value: this.owHeroData.calculateStatPerMinute(matchAwardsStatistic.totalMedals, gameHistoryStatistic.timePlayed),
@@ -167,19 +167,19 @@ export class CareerComponent implements OnInit {
   }
 
 
-  createAllCombatChartData(snapshotStats: SnapshotStats): ChartData {
-    const { allHeroesSnapshotStatistic } = snapshotStats;
+  createAllCombatChartData(snapshotStats: TransformedStats): ChartData {
+    const { heroesTotalSnapshotStatistic } = snapshotStats;
     return <ChartData>{
       xAxisLabels: ['Kills', 'Solo Kills', 'Obj. Kills', 'Assists', 'Deaths'],
       datasets: [
         {
           label: 'Combat',
           data: [
-            this.createCombatChartAverageKillsData(allHeroesSnapshotStatistic),
-            this.createCombatChartAverageSoloKillsData(allHeroesSnapshotStatistic),
-            this.createCombatChartAverageObjectiveKillsData(allHeroesSnapshotStatistic),
-            this.createCombatChartAverageAssistsData(allHeroesSnapshotStatistic),
-            this.createCombatChartAverageDeathsData(allHeroesSnapshotStatistic)
+            this.createCombatChartAverageKillsData(heroesTotalSnapshotStatistic),
+            this.createCombatChartAverageSoloKillsData(heroesTotalSnapshotStatistic),
+            this.createCombatChartAverageObjectiveKillsData(heroesTotalSnapshotStatistic),
+            this.createCombatChartAverageAssistsData(heroesTotalSnapshotStatistic),
+            this.createCombatChartAverageDeathsData(heroesTotalSnapshotStatistic)
           ]
         }
       ],
@@ -188,36 +188,36 @@ export class CareerComponent implements OnInit {
     };
   }
 
-  createCombatChartAverageKillsData(allHeroesSnapshotStatistics: HeroSnapshotStats): number {
-    if ( allHeroesSnapshotStatistics ) {
-      const { combatLifetimeStatistic , gameHistoryStatistic } = allHeroesSnapshotStatistics;
+  createCombatChartAverageKillsData(heroesTotalSnapshotStatistics: HeroSnapshotStats): number {
+    if ( heroesTotalSnapshotStatistics ) {
+      const { combatLifetimeStatistic , gameHistoryStatistic } = heroesTotalSnapshotStatistics;
       return this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.finalBlows, gameHistoryStatistic.timePlayed);
     } else {
       return 0;
     }
   }
 
-  createCombatChartAverageSoloKillsData(allHeroesSnapshotStatistics: HeroSnapshotStats): number {
-    if ( allHeroesSnapshotStatistics ) {
-      const { combatLifetimeStatistic , gameHistoryStatistic } = allHeroesSnapshotStatistics;
+  createCombatChartAverageSoloKillsData(heroesTotalSnapshotStatistics: HeroSnapshotStats): number {
+    if ( heroesTotalSnapshotStatistics ) {
+      const { combatLifetimeStatistic , gameHistoryStatistic } = heroesTotalSnapshotStatistics;
       return this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.soloKills, gameHistoryStatistic.timePlayed);
     } else {
       return 0;
     }
   }
 
-  createCombatChartAverageObjectiveKillsData(allHeroesSnapshotStatistics: HeroSnapshotStats): number {
-    if ( allHeroesSnapshotStatistics ) {
-      const { combatLifetimeStatistic , gameHistoryStatistic } = allHeroesSnapshotStatistics;
+  createCombatChartAverageObjectiveKillsData(heroesTotalSnapshotStatistics: HeroSnapshotStats): number {
+    if ( heroesTotalSnapshotStatistics ) {
+      const { combatLifetimeStatistic , gameHistoryStatistic } = heroesTotalSnapshotStatistics;
       return this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.objectiveKills, gameHistoryStatistic.timePlayed);
     } else {
       return 0;
     }
   }
 
-  createCombatChartAverageAssistsData(allHeroesSnapshotStatistics: HeroSnapshotStats): number {
-    if ( allHeroesSnapshotStatistics ) {
-      const { combatLifetimeStatistic , gameHistoryStatistic } = allHeroesSnapshotStatistics;
+  createCombatChartAverageAssistsData(heroesTotalSnapshotStatistics: HeroSnapshotStats): number {
+    if ( heroesTotalSnapshotStatistics ) {
+      const { combatLifetimeStatistic , gameHistoryStatistic } = heroesTotalSnapshotStatistics;
       return this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.offensiveAssists +
         combatLifetimeStatistic.defensiveAssists, gameHistoryStatistic.timePlayed);
     } else {
@@ -225,26 +225,26 @@ export class CareerComponent implements OnInit {
     }
   }
 
-  createCombatChartAverageDeathsData(allHeroesSnapshotStatistics: HeroSnapshotStats): number {
-    if ( allHeroesSnapshotStatistics ) {
-      const { combatLifetimeStatistic , gameHistoryStatistic } = allHeroesSnapshotStatistics;
+  createCombatChartAverageDeathsData(heroesTotalSnapshotStatistics: HeroSnapshotStats): number {
+    if ( heroesTotalSnapshotStatistics ) {
+      const { combatLifetimeStatistic , gameHistoryStatistic } = heroesTotalSnapshotStatistics;
       return this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.deaths, gameHistoryStatistic.timePlayed);
     } else {
       return 0;
     }
   }
 
-  createAllGameChartData(snapshotStats: SnapshotStats): ChartData {
-    const { allHeroesSnapshotStatistic } = snapshotStats;
+  createAllGameChartData(snapshotStats: TransformedStats): ChartData {
+    const { heroesTotalSnapshotStatistic } = snapshotStats;
     return {
       xAxisLabels: ['Damage', 'Blocked', 'Healing'],
       datasets: [
         {
           label: 'Game',
           data: [
-            this.createGameChartDamageDoneData(allHeroesSnapshotStatistic),
-            this.createGameChartDamageBlockedData(allHeroesSnapshotStatistic),
-            this.createGameChartHealingDoneData(allHeroesSnapshotStatistic)
+            this.createGameChartDamageDoneData(heroesTotalSnapshotStatistic),
+            this.createGameChartDamageBlockedData(heroesTotalSnapshotStatistic),
+            this.createGameChartHealingDoneData(heroesTotalSnapshotStatistic)
           ]
         }
       ],
@@ -253,27 +253,27 @@ export class CareerComponent implements OnInit {
     };
   }
 
-  createGameChartDamageDoneData(allHeroesSnapshotStatistics: HeroSnapshotStats): number {
-    if ( allHeroesSnapshotStatistics ) {
-      const { combatLifetimeStatistic , gameHistoryStatistic } = allHeroesSnapshotStatistics;
+  createGameChartDamageDoneData(heroesTotalSnapshotStatistics: HeroSnapshotStats): number {
+    if ( heroesTotalSnapshotStatistics ) {
+      const { combatLifetimeStatistic , gameHistoryStatistic } = heroesTotalSnapshotStatistics;
       return this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.damageDone, gameHistoryStatistic.timePlayed);
     } else {
       return 0;
     }
   }
 
-  createGameChartDamageBlockedData(allHeroesSnapshotStatistics: HeroSnapshotStats): number {
-    if ( allHeroesSnapshotStatistics ) {
-      const { combatLifetimeStatistic , gameHistoryStatistic } = allHeroesSnapshotStatistics;
+  createGameChartDamageBlockedData(heroesTotalSnapshotStatistics: HeroSnapshotStats): number {
+    if ( heroesTotalSnapshotStatistics ) {
+      const { combatLifetimeStatistic , gameHistoryStatistic } = heroesTotalSnapshotStatistics;
       return this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.damageBlocked, gameHistoryStatistic.timePlayed);
     } else {
       return 0;
     }
   }
 
-  createGameChartHealingDoneData(allHeroesSnapshotStatistics: HeroSnapshotStats): number {
-    if ( allHeroesSnapshotStatistics ) {
-      const { combatLifetimeStatistic , gameHistoryStatistic } = allHeroesSnapshotStatistics;
+  createGameChartHealingDoneData(heroesTotalSnapshotStatistics: HeroSnapshotStats): number {
+    if ( heroesTotalSnapshotStatistics ) {
+      const { combatLifetimeStatistic , gameHistoryStatistic } = heroesTotalSnapshotStatistics;
       return this.owHeroData.calculateStatPerMinute(combatLifetimeStatistic.healingDone, gameHistoryStatistic.timePlayed);
     } else {
       return 0;

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
-  SnapshotStats,
+  TransformedStats,
   HeroSnapshotStats,
   CombatLifetimeStats,
   GameHistoryStats,
@@ -36,7 +36,7 @@ export class HeroCardHeaderComponent implements OnInit {
   }
 
   private _heroSnap: HeroSnapshotStats;
-  private _snapshotStats: SnapshotStats;
+  private _snapshotStats: TransformedStats;
   private heroData: OverwatchStaticData;
   private dataStore: Array<any>;
 
@@ -66,9 +66,9 @@ export class HeroCardHeaderComponent implements OnInit {
     let hs_ghs: GameHistoryStats    = valid( hs ) ? hs.gameHistoryStatistic    : null;
     let hs_mas: MatchAwardsStats    = valid( hs ) ? hs.matchAwardsStatistic    : null;
 
-    let ss:      SnapshotStats      = this._snapshotStats;
-    let ahs:     HeroSnapshotStats  = valid( ss ) ? ss.allHeroesSnapshotStatistic : null;
-    let ahs_ghs: GameHistoryStats   = valid( ss ) ? ahs.gameHistoryStatistic      : null;
+    let ss:      TransformedStats      = this._snapshotStats;
+    let hts:     HeroSnapshotStats  = valid( ss ) ? ss.heroesTotalSnapshotStatistic : null;
+    let hts_ghs: GameHistoryStats   = valid( ss ) ? hts.gameHistoryStatistic      : null;
 
     let prop:   string;
     let value:  any;
@@ -77,8 +77,8 @@ export class HeroCardHeaderComponent implements OnInit {
     // -----------------------------------------------------
 
     prop   = 'timePlayedAsPercentage';
-    if ( valid( ahs_ghs ) ) {
-      value  = valid( ahs_ghs.timePlayed ) ? Math.round( (hs_ghs.timePlayed / ahs_ghs.timePlayed) * 100 ) : 0;
+    if ( valid( hts_ghs ) ) {
+      value  = valid( hts_ghs.timePlayed ) ? Math.round( (hs_ghs.timePlayed / hts_ghs.timePlayed) * 100 ) : 0;
       change = 0;
     }
     put( prop, change, value, store );
@@ -167,9 +167,9 @@ export class HeroCardHeaderComponent implements OnInit {
     // -----------------------------------------------------
 
     prop   = 'onfirePercentage';
-    if ( valid( hs_cls , ahs_ghs ) ) {
+    if ( valid( hs_cls , hts_ghs ) ) {
      let numerator   = valid( hs_cls.timeSpentOnFire  ) ? hs_cls.timeSpentOnFire  : 0;
-     let denominator = valid( ahs_ghs.timeSpentOnFire ) ? ahs_ghs.timeSpentOnFire : 0;
+     let denominator = valid( hts_ghs.timeSpentOnFire ) ? hts_ghs.timeSpentOnFire : 0;
      value  = valid( numerator , denominator ) ? Math.round((numerator / denominator) * 100) : 0;
      change = 0;
     }
@@ -197,7 +197,7 @@ export class HeroCardHeaderComponent implements OnInit {
     });
   }
 
-  calcTotalFromSnapshot(ss: SnapshotStats, block: string, key: string): number {
+  calcTotalFromSnapshot(ss: TransformedStats, block: string, key: string): number {
     return ss.heroSnapshotStatistics.reduce((acc, hss) => {
       if (this.objHasKey(hss, block)) {
         let obj = hss[block];

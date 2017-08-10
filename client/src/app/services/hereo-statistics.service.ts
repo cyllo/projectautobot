@@ -29,7 +29,7 @@ export class HeroStatistics {
   getSnapshot() {
     return this.apollo.query<SnapshotStatsAverageSearchResponse>({
       query: snapshotStatsAverageSearchQuery,
-      variables: { isCompetitive: true }
+      variables: { type: 'COMPETITIVE' }
     })
     .filter(s => !!s.data)
     .map(({ data: { snapshotsStatisticsAverage: { heroSnapshotStatistics } } }) => heroSnapshotStatistics);
