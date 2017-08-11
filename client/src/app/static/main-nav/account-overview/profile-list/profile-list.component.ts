@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { GamerTagService } from '../../../../services';
+import { Player } from '../../../../models';
 
 @Component({
   selector: 'ow-profile-list',
@@ -6,51 +9,18 @@ import { Component } from '@angular/core';
   styleUrls: ['profile-list.component.scss']
 })
 
-export class ProfileListComponent {
+export class ProfileListComponent implements OnInit {
+  @Input() battleNetTag: string;
 
-  players = [
-    {
-      competitiveLevel: 2320,
-      competitiveRankUrl: 'https://blzgdapipro-a.akamaihd.net/game/rank-icons/season-2/rank-3.png',
-      id: 1,
-      level: 70,
-      levelUrl: 'https://blzgdapipro-a.akamaihd.net/game/playerlevelrewards/0x025000000000091E_Border.png',
-      overwatchName: 'cyllo',
-      platform: 'pc',
-      portraitUrl: 'https://blzgdapipro-a.akamaihd.net/game/unlocks/0x02500000000010B9.png',
-      region: 'us',
-      tag: 'cyllo#2112'
-    },
-    {
-      competitiveLevel: 2320,
-      competitiveRankUrl: 'https://blzgdapipro-a.akamaihd.net/game/rank-icons/season-2/rank-3.png',
-      id: 1,
-      level: 70,
-      levelUrl: 'https://blzgdapipro-a.akamaihd.net/game/playerlevelrewards/0x025000000000091E_Border.png',
-      overwatchName: 'cyllo',
-      platform: 'pc',
-      portraitUrl: 'https://blzgdapipro-a.akamaihd.net/game/unlocks/0x02500000000010B9.png',
-      region: 'us',
-      tag: 'cyllo#2112'
-    },
-    {
-      competitiveLevel: 2320,
-      competitiveRankUrl: 'https://blzgdapipro-a.akamaihd.net/game/rank-icons/season-2/rank-3.png',
-      id: 1,
-      level: 70,
-      levelUrl: 'https://blzgdapipro-a.akamaihd.net/game/playerlevelrewards/0x025000000000091E_Border.png',
-      overwatchName: 'cyllo',
-      platform: 'pc',
-      portraitUrl: 'https://blzgdapipro-a.akamaihd.net/game/unlocks/0x02500000000010B9.png',
-      region: 'us',
-      tag: 'cyllo#2112'
-    }
-  ];
+  players$: Observable<Player[]>;
 
-  constructor() {}
+  constructor(private gamerTagService: GamerTagService) {}
 
-  onSelect(player) {
-    console.log(player);
+  ngOnInit() {
+    // battleNetTag can be null if they did not register through
+    // battle.net and/or have not claimed their account.
+    const tag = this.battleNetTag;
+    if (tag) { this.players$ = this.gamerTagService.find(tag); }
   }
 
 }

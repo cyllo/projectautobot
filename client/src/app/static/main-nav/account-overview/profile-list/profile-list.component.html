@@ -1,4 +1,4 @@
-<div class="profile-list" md-list-item [ngStyle]="{ 'padding': '0 16px' }">
+<div class="profile-list" md-list-item *ngIf="players$ | async">
 
   <div class="flex-layout" fxLayout="row">
 
@@ -11,20 +11,18 @@
       </div>
 
       <div class="list-content-wrapper" fxLayout="row">
-        
-        <div class="list-content pr-2"
+
+        <div class="list-content"
              fxLayout="column"
              fxLayoutGap="8px"
              fxFlex="grow"
              [perfect-scrollbar]>
 
-          <div fxLayout="row" fxFlex="noshrink" *ngFor="let player of players">
+          <div fxLayout="row" fxFlex="noshrink" *ngFor="let player of players$ | async">
 
             <div fxLayout="column" fxFlex="grow">
 
-              <ow-player-profile-button [player]="player"
-                (playerSelected)="onSelect(player)">
-              </ow-player-profile-button>
+              <ow-player-profile-button [player]="player"></ow-player-profile-button>
 
             </div>
 

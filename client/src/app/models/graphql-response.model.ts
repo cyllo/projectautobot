@@ -1,4 +1,4 @@
 
 export interface GraphqlResponse {
-  data: any
+  data: any;
 }

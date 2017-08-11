@@ -1,19 +1,31 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { Player } from '../../models';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ow-player-profile-button',
   templateUrl: 'player-profile-button.component.html',
   styleUrls: ['player-profile-button.component.scss']
 })
-export class PlayerProfileButtonComponent {
-  @Input('player') player;
-  @Output() playerSelected = new EventEmitter();
+export class PlayerProfileButtonComponent implements OnInit {
+  @Input('player') player: Player;
 
-  constructor () {}
+  public async: any;
 
-  onButtonClicked() {
-    console.log('test:', this.player);
-    this.playerSelected.emit();
+  playerData$: Observable<Player>;
+
+  constructor (private router: Router) {}
+
+  ngOnInit() {
+    this.playerData$ = Observable.of(this.player);
+  }
+
+  navigateToProfile(player$: Observable<Player>) {
+    player$.subscribe(player => {
+      const {platform, region, tag} = player;
+      this.router.navigate(['./profile', platform, region, tag]);
+    });
   }
 
 }
