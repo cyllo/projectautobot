@@ -1,0 +1,133 @@
+<div 
+  class="club flex-layout"
+  fxLayout="row"
+  fxLayoutAlign="start center"
+  tabindex="0"
+  fxFlex="grow">
+
+  <td-expansion-panel 
+    class="flex-layout"
+    fxLayout="column"
+    fxFlex="grow"
+    (expanded)="expandedEvent()"
+    (collapsed)="collapsedEvent()"
+    [disableRipple]="true"
+    [expand]="true">
+
+    <ng-template td-expansion-panel-header>
+      <div class="flex-layout"
+           fxLayout="row"
+           fxLayoutAlign="start center"
+           fxFlex="grow">
+
+        <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
+             <button 
+              class="min-width-0"
+              color="warn"
+              (click)="deleteClub(club.id)"
+              type="button"
+              [hidden]="!clubNameEditInProgress"
+              md-button>
+              <md-icon>delete_forever</md-icon>
+            </button>    
+
+          <button 
+            class="btn-content-toggle min-width-0"
+            [ngClass]="{ 'collapsed' : expansionPanelCollapsed }"
+            [hidden]="clubNameEditInProgress"
+            md-button>
+            <md-icon>keyboard_arrow_down</md-icon>
+          </button>
+        </div>
+
+        <div class="flex-layout" fxLayout="column" fxFlex="grow">
+          <input 
+            type="text"
+            #clubNameEdit
+            value="{{ club.name }}"
+            (click)="clubNameEditStart($event)"
+            tabindex="0"
+            [disabled]="!(club.name !== 'General')">
+        </div>
+
+        <div class="flex-layout" fxLayout="column" fxFlex="noshrink" *ngIf="club.name !== 'General'">
+
+          <button class="min-width-0" *ngIf="clubNameEditInProgress" (click)="updateClub(club.id, clubNameEdit.value, $event)" md-button>
+            <md-icon>check</md-icon>
+          </button>
+
+          <button class="min-width-0"
+                  (click)="compareProfiles(club.friendships)"
+                  *ngIf="!clubNameEditInProgress"
+                  md-button>
+            <md-icon>compare_arrows</md-icon>
+          </button>
+        </div>
+      </div>
+    </ng-template>
+
+    <div class="flex-layout pt-3"
+         fxLayout="column"
+         fxLayoutGap="14px"
+         fxFlex="grow"
+         [dragula]='"bag-one"'
+         [attr.data-id]="club.id"
+         [dragulaModel]='club.friendships'>
+
+      <div class="player-card flex-layout pb-2"
+           fxLayout="row"
+           fxLayoutAlign="start center"
+           fxLayoutGap="8px"
+           fxFlex="noshrink"
+           [attr.data-id]="friendship.id"
+           *ngFor="let friendship of club.friendships">
+
+        <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
+
+          <a href="#" draggable="false">
+            <img class="md-image md-image-circle md-image-36" draggable="false" src="https://blzgdapipro-a.akamaihd.net/game/unlocks/0x0250000000000D6A.png">
+          </a>
+        </div>
+
+        <div class="flex-layout" fxLayout="column" fxFlex="grow">
+
+          <div class="flex-layout" fxLayout="row" fxFlex="grow">
+              <span class="player-tag">{{ friendship.friend.displayName }}</span>
+          </div>
+
+          <div class="skill-rating flex-layout"
+               fxLayout="row"
+               fxLayoutAlign="start center"
+               fxFlex="grow">
+
+            <img width="18" src="https://blzgdapipro-a.akamaihd.net/game/rank-icons/season-2/rank-7.png">
+            <span class="ml-1">2315</span>
+
+          </div>
+
+        </div>
+
+        <div 
+        class="flex-layout"
+        fxLayout="column"
+        fxLayoutGap="8px"
+        fxFlex="noshrink">
+        
+        <md-menu #clubFriendMenu="mdMenu">
+          <button md-menu-item (click)="deleteFriend(friendship.id)"> Unfriend </button>
+          <button *ngIf="club.name !== 'General'" md-menu-item (click)="removeFriend(friendship.id, club.id)"> Remove from group </button>
+        </md-menu>
+
+          <button md-button class="min-width-0" [mdMenuTriggerFor]="clubFriendMenu" [disableRipple]="true">
+            <md-icon>keyboard_arrow_right</md-icon>
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </td-expansion-panel>
+
+</div>

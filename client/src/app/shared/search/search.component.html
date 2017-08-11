@@ -1,13 +1,7 @@
-<div [formGroup]="form" class="form-group mx-0 my-0">
-  <div class="form-icon d-flex align-items-center justify-content-center">
-    <i class="fa fa-search" aria-hidden="true" *ngIf="!searchInProgress"></i>
-    <i class="fa fa-spinner fa-pulse fa-3x fa-fw" aria-hidden="true" *ngIf="searchInProgress"></i>
+<form class="main-search-form" [formGroup]="searchForm">
+  <div class="form-icon">
+    <md-icon *ngIf="!searchInProgress">search</md-icon>
+    <md-spinner color="accent" *ngIf="searchInProgress"></md-spinner>
   </div>
-  <input
-    type="text"
-    id="user-search-form"
-    class="form-control"
-    formControlName="{{ controlName }}"
-    placeholder="{{ placeholder }}"
-    (keyup.enter)='onKeyUp()'>
-</div>
+  <input type="text" placeholder="{{ placeholder }}" formControlName="searchFormInput">
+</form>

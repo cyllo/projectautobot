@@ -1,21 +1,95 @@
-<div class="col-xl-2 col-lg-2 sidebar sidebar-left hidden-md-down" #sidebarleft>
-  <div class="container-fluid">
-    <div class="row flex-column">
-      <section class="col-4">
-        Section 1
-      </section>
-      <!-- end section -->
-      <section class="col-4">
-        Section 1
-      </section>
-      <!-- end section -->
-      <section class="col-4">
-        Section 1
-      </section>
-      <!-- end section -->
-    </div>
-    <!-- end .flex-column -->
+<div class="sidebar-left fixed-left flex-layout"
+     fxLayout="column"
+     fxFlex="grow"
+     fxHide.lt-sm>
+
+  <div class="flex-layout" fxLayout="column" fxFlex="grow">
+
+    <md-sidenav-container fxLayout="column" fxFlex="grow">
+
+      <md-sidenav #sidenav mode="side" opened="false" align="end"
+                  (open-start)='onSideNavOpenStart($event)'
+                  (close-start)='onSideNavCloseStart($event)'>
+
+        <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="grow">
+
+          <ow-secondary-content
+            class="flex-layout"
+            fxLayout="column"
+            fxFlex="grow">
+          </ow-secondary-content>
+
+        </div>
+
+      </md-sidenav>
+
+      <div class="flex-layout py-3 px-2" fxLayout="column" fxFlex="grow" fxLayoutGap="24px">
+
+        <div class="flex-layout" fxLayout="column" fxFlex="grow" fxLayoutGap="8px">
+
+          <div class="flex-layout px-1 py-1" fxLayout="column">
+
+            <button md-icon-button class="btn-sidebar-toggle"
+                    [ngClass]="{ 'collapsed' : sideNavOpen }"
+                    [mdTooltipPosition]="'right'"
+                    mdTooltip="{{ sideNavOpen ? 'Close Menu' : 'Open Menu' }}"
+                    (click)="sidenav.toggle()">
+              <md-icon>add</md-icon>
+            </button>
+
+          </div>
+
+          <div class="flex-layout px-1 py-1" fxLayout="column">
+
+            <button md-icon-button mdTooltip="Friends" [mdTooltipPosition]="'right'">
+              <md-icon>gamepad</md-icon>
+            </button>
+
+          </div>
+
+          <div class="flex-layout px-1 py-1" fxLayout="column">
+
+            <button md-icon-button mdTooltip="Following" [mdTooltipPosition]="'right'">
+              <md-icon>favorite_border</md-icon>
+            </button>
+
+          </div>
+
+        </div>
+
+        <div class="flex-layout" fxLayout="column">
+
+          <div class="flex-layout px-1 py-1" fxLayout="column" fxFlex="grow">
+
+            <md-menu class="min-width-0" #appMenu="mdMenu" [overlapTrigger]="false"
+                     xPosition="after" yPosition="above">
+
+              <div class="flex-layout px-1 py-1" fxLayout="column"
+                   *ngFor="let theme of appThemesCatalog">
+
+                <button md-icon-button mdTooltip="{{ theme.name }}"
+                        [mdTooltipPosition]="'right'"
+                        (click)="loadTheme(theme)">
+                  <ow-theme-picker-swatch [theme]="theme"></ow-theme-picker-swatch>
+                </button>
+
+              </div>
+
+            </md-menu>
+
+            <button md-icon-button [mdMenuTriggerFor]="appMenu"
+                    mdTooltip="Change Theme" [mdTooltipPosition]="'right'">
+               <md-icon>format_color_fill</md-icon>
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </md-sidenav-container>
+
   </div>
-  <!-- end .container-fluid -->
+
 </div>
-<!-- end .sidebar-left -->

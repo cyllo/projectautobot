@@ -1,153 +1,17 @@
-@import "../../../style/colors";
+:host /deep/ .main-nav {
 
-.main-nav {
+  .main-search-form {
 
-  background-color: $white;
-  box-shadow: 0 0 34px 0 rgba(63, 66, 87, 0.1);
+    .form-icon {
+      padding: 0 14px !important;
+    }
 
-  .navbar {
-    min-height: 4rem;
-  }
-  .search-form {
-    top: 0;
-    left: 50%;
-    position: absolute;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 40%;
-    height: 100%;
-  }
-  .search-form form {
-    height: 100%;
-    overflow: hidden;
-  }
-  .navbar-brand {
-    display: block;
-    width: 100%;
-    max-width: 2.5rem;
-  }
-  .navbar-brand img {
-    width: 100%;
-  }
-}
+    input[type="text"] {
+      border-radius: 3px;
+      padding-left: 66px !important;
+      height: 48px;
+    }
 
-:host /deep/ .search-form {
-  .form-group,
-  .form-control {
-    height: 100%;
   }
-  .form-icon i {
-    color: $white;
-    font-size: 1.3rem;
-  }
-  input {
-    font-size: 0.75rem;
-    color: $white;
-    background-color: $purple-dark;
-    border-radius: 0;
-    border: 0;
-    outline: none;
-    box-shadow: none;
-    -webkit-transition: all 150ms ease-in-out;
-    -moz-transition: all 150ms ease-in-out;
-    -ms-transition: all 150ms ease-in-out;
-    -o-transition: all 150ms ease-in-out;
-    transition: all 150ms ease-in-out;
-  }
-  /* WebKit, Blink, Edge */
-   ::-webkit-input-placeholder {
-    color: $white;
-    -webkit-transition: all 150ms ease-in-out;
-    -moz-transition: all 150ms ease-in-out;
-    -ms-transition: all 150ms ease-in-out;
-    -o-transition: all 150ms ease-in-out;
-    transition: all 150ms ease-in-out;
-  }
-  input:hover::-webkit-input-placeholder {
-    color: transparent;
-  }
-  input:focus::-webkit-input-placeholder {
-    color: transparent;
-  }
-  /* Mozilla Firefox 4 to 18 */
-   :-moz-placeholder {
-    color: $white;
-    opacity: 1;
-    -webkit-transition: all 150ms ease-in-out;
-    -moz-transition: all 150ms ease-in-out;
-    -ms-transition: all 150ms ease-in-out;
-    -o-transition: all 150ms ease-in-out;
-    transition: all 150ms ease-in-out;
-  }
-  input:hover :-moz-placeholder {
-    color: transparent;
-  }
-  input:focus :-moz-placeholder {
-    color: transparent;
-  }
-  /* Mozilla Firefox 19+ */
-   ::-moz-placeholder {
-    color: $white;
-    opacity: 1;
-    -webkit-transition: all 150ms ease-in-out;
-    -moz-transition: all 150ms ease-in-out;
-    -ms-transition: all 150ms ease-in-out;
-    -o-transition: all 150ms ease-in-out;
-    transition: all 150ms ease-in-out;
-  }
-  input:hover ::-moz-placeholder {
-    color: transparent;
-  }
-  input:focus ::-moz-placeholder {
-    color: transparent;
-  }
-  /* Internet Explorer 10-11 */
-   :-ms-input-placeholder {
-    color: $white;
-    -webkit-transition: all 150ms ease-in-out;
-    -moz-transition: all 150ms ease-in-out;
-    -ms-transition: all 150ms ease-in-out;
-    -o-transition: all 150ms ease-in-out;
-    transition: all 150ms ease-in-out;
-  }
-  input:hover :-ms-input-placeholder {
-    color: transparent;
-  }
-  input:focus :-ms-input-placeholder {
-    color: transparent;
-  }
-  /* Microsoft Edge */
-   ::-ms-input-placeholder {
-    color: $white;
-    -webkit-transition: all 150ms ease-in-out;
-    -moz-transition: all 150ms ease-in-out;
-    -ms-transition: all 150ms ease-in-out;
-    -o-transition: all 150ms ease-in-out;
-    transition: all 150ms ease-in-out;
-  }
-  input:hover ::-ms-input-placeholder {
-    color: transparent;
-  }
-  input:focus ::-ms-input-placeholder {
-    color: transparent;
-  }
-}
 
-@media (max-width: 991px) {
-  .search-form {
-    max-width: 50% !important;
-  }
-  .navbar-brand {
-    display: block;
-    width: 100%;
-    max-width: 2.5rem;
-    top: 50%;
-    left: -0.5rem;
-    position: absolute;
-    transform: translate(-100%, -50%);
-    margin: 0;
-  }
-  .navbar-brand img {
-    width: 100%;
-  }
 }

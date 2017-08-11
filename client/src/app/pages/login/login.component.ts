@@ -3,6 +3,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthorizationService } from '../../services';
 import { Credentials } from '../../models';
 import { Location } from '@angular/common';
+import { MdSnackBar } from '@angular/material';
+
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 @Component({
   selector: 'ow-login',
@@ -15,11 +18,12 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginError: boolean;
   constructor(private authorizationService: AuthorizationService,
-    private location: Location) {}
+    private location: Location,
+    private snackBar: MdSnackBar) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.pattern(EMAIL_REGEX)]),
       password: new FormControl('', [Validators.required])
     });
   }
@@ -29,9 +33,15 @@ export class LoginComponent implements OnInit {
     .subscribe(() => {
       this.loginError = false;
       this.location.back();
-    }, error => {
-      console.log('Login Error: ', error);
-      this.loginError = true;
+    }, error => this.onError(error));
+  }
+
+  onError(e) {
+    console.log('Login Error: ', e);
+    this.loginError = true;
+    this.snackBar.open('Problem logging in, try again.', 'ok', {
+      duration: 5000
     });
   }
+
 }

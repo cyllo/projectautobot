@@ -1,0 +1,25 @@
+.profile-list {
+
+  padding: 0 16px;
+
+  span {
+    line-height: 1;
+  }
+
+  .list-content-wrapper {
+    overflow: hidden;
+  }
+  
+  .list-content {
+    max-height: 156px;
+  }
+
+}
+
+:host /deep/ .profile-list {
+  .list-content {
+    button {
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,67 @@
+<button md-button
+        class="player-profile-button px-2 py-2"
+        (click)="navigateToProfile(playerData$)"
+        *ngIf="playerData$ | async">
+
+  <div fxLayout="row"
+       fxLayoutAlign="start center"
+       fxLayoutGap="8px">
+
+    <div fxLayout="column">
+        <img class="md-image md-image-48" [src]="player.portraitUrl">
+    </div>
+
+    <div class="flex-layout"
+         fxLayout="column"
+         fxLayoutGap="2px"
+         fxFlex="grow">
+
+        <div class="flex-layout" fxLayout="row">
+          <span class="mat-caption text-overflow">
+            <small>{{ (playerData$ | async).tag }}</small>
+          </span>
+        </div>
+
+        <div class="flex-layout" fxLayout="row">
+          <span class="mat-caption text-overflow">
+            <strong>{{ (playerData$ | async).overwatchName }}</strong>
+          </span>
+        </div>
+
+        <div class="flex-layout"
+             fxLayout="row"
+             fxLayoutAlign="start center">
+
+          <div fxLayout="column">
+            <img class="md-image md-image-18" [src]="player.competitiveRankUrl">
+          </div>
+
+          <div fxLayout="column">
+            <span class="mat-caption ml-1">{{ (playerData$ | async).competitiveLevel }}</span>
+          </div>
+
+          <div class="pl-1" fxLayout="column">
+            <span class="platform-region mini-pr text-uppercase"
+                  *ngIf="player.platform">
+              {{ (playerData$ | async).platform }}
+            </span>
+          </div>
+
+          <div class="pl-1" fxLayout="column">
+            <span class="platform-region mini-pr text-uppercase"
+                  *ngIf="player.region">
+              {{ (playerData$ | async).region }}
+            </span>
+          </div>
+
+        </div>
+
+    </div>
+
+    <div fxLayout="column">
+      <md-icon>chevron_right</md-icon>
+    </div>
+
+  </div>
+
+</button>

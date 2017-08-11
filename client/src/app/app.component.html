@@ -1,36 +1,16 @@
-<header class="container-fluid">
-  <ow-main-nav [searchInProgress]="searchInProgress" (searchTag)='onSearch($event)'></ow-main-nav>
-  <!-- ow-main-nav -->
-  <ow-main-search-results [(isOpen)]='isResultsOpen' [searchResults]='searchResults | async'></ow-main-search-results>
-  <!-- ow-main-search-results -->
-</header>
-<!-- end header -->
+<header class="fixed-top">
 
+  <ow-main-nav [searchInProgress]="searchInProgress"
+    (searchTag)='onSearch($event)'>
+  </ow-main-nav>
+
+  <ow-main-search-results [(isOpen)]='isResultsOpen'
+    [searchResults]='searchResults | async'>
+  </ow-main-search-results>
+
+</header>
 <main>
+  <ow-sidebar-left></ow-sidebar-left>
   <router-outlet></router-outlet>
 </main>
-<!-- end main -->
-
-<!--
-<main class="container-fluid">
-  <div class="row">
-    <ow-sidebar-left></ow-sidebar-left>
-    <div class="col-xl-10 offset-xl-1 col-lg-10 offset-lg-1 col-md-12">
-      <div class="container-fluid px-0 main-body">
-        <div class="row">
-          <div class="col-12">
-            <router-outlet></router-outlet>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</main>
-end main -->
-
-<!--
-<footer class="container-fluid footer-offset mx-3">
-  <ow-footer></ow-footer>
-</footer>-->
-
 <ngrx-store-log-monitor toggleCommand="ctrl-h" positionCommand="ctrl-m"></ngrx-store-log-monitor>

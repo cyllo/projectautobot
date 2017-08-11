@@ -8,3 +8,7 @@ export * from './owherodata.model';
 export * from './authorization-credentials.model';
 export * from './current-session.model';
 export * from './chartdata.model';
+export * from './graphql-response.model';
+export * from './friendship.model';
+export * from './nav-link.model';
+export * from './club.model';
