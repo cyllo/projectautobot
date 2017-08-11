@@ -29,6 +29,7 @@ export interface SnapshotStats {
   insertedAt: string;
   id?: number;
   gamerTagId: number;
+  profileSnapshotStatistic: ProfileSnapshotStats;
   quickplayHeroSnapshotStatistics: HeroSnapshotStats[];
   competitiveHeroSnapshotStatistics: HeroSnapshotStats[];
   quickplayHeroesTotalSnapshotStatistic: HeroSnapshotStats;
@@ -38,6 +39,130 @@ export interface SnapshotStats {
 export interface HeroSpecificStats {
   id: number;
   stats: any;
+}
+
+export interface ProfileSnapshotStats {
+  profileStatistic: ProfileStats;
+  leaderboardSnapshotStatistic: LeaderboardSnapshotStats;
+}
+
+export interface ProfileStats {
+  level: number;
+  competitiveLevel: number;
+  totalGamesWon: number;
+  levelUrl: string;
+  rankUrl: string;
+  competitiveRankUrl: string;
+}
+
+export interface LeaderboardSnapshotStats {
+  profileStatRankings: ProfileStatRankings;
+  heroQuickplayRankings: HeroRankings;
+  heroCompetitiveRankings: HeroRankings;
+  heroTotalQuickplayRankings: GameplayRankings;
+  heroTotalCompetitiveRankings: GameplayRankings;
+}
+
+export interface ProfileStatRankings {
+  totalGamesWon: Rankings;
+  level: Rankings;
+  competitiveLevel: Rankings;
+}
+
+export interface HeroRankings {
+  [heroId: string]: GameplayRankings;
+}
+
+export interface GameplayRankings {
+  allDamageDoneAvgPer10Min: Rankings;
+  allDamageDoneMostInGame: Rankings;
+  bronzeMedals: Rankings;
+  cards: Rankings;
+  criticalHits: Rankings;
+  criticalHitsAccuracyPercentage: Rankings;
+  criticalHitsAverage: Rankings;
+  criticalHitsMostInGame: Rankings;
+  criticalHitsMostInLife: Rankings;
+  damageBlocked: Rankings;
+  damageBlockedAverage: Rankings;
+  damageBlockedMostInGame: Rankings;
+  damageDone: Rankings;
+  damageDoneAverage: Rankings;
+  damageDoneMostInGame: Rankings;
+  damageDoneMostInLife: Rankings;
+  deaths: Rankings;
+  deathsAverage: Rankings;
+  defensiveAssists: Rankings;
+  defensiveAssistsAverage: Rankings;
+  defensiveAssistsMostInGame: Rankings;
+  eliminations: Rankings;
+  eliminationsAverage: Rankings;
+  eliminationsMostInGame: Rankings;
+  eliminationsMostInLife: Rankings;
+  eliminationsPerLife: Rankings;
+  environmentalDeaths: Rankings;
+  environmentalKills: Rankings;
+  environmentalKillsMostInGame: Rankings;
+  finalBlows: Rankings;
+  finalBlowsAverage: Rankings;
+  finalBlowsMostInGame: Rankings;
+  gamesLost: Rankings;
+  gamesPlayed: Rankings;
+  gamesTied: Rankings;
+  gamesWon: Rankings;
+  goldMedals: Rankings;
+  healingDone: Rankings;
+  healingDoneAverage: Rankings;
+  healingDoneMostInGame: Rankings;
+  healingDoneMostInLife: Rankings;
+  killStreakBest: Rankings;
+  meleeFinalBlows: Rankings;
+  meleeFinalBlowsAverage: Rankings;
+  meleeFinalBlowsMostInGame: Rankings;
+  meleeKills: Rankings;
+  meleeKillsAverage: Rankings;
+  meleeKillsMostInGame: Rankings;
+  multikillBest: Rankings;
+  multikills: Rankings;
+  objectiveKills: Rankings;
+  objectiveKillsAverage: Rankings;
+  objectiveKillsMostInGame: Rankings;
+  objectiveTime: Rankings;
+  objectiveTimeAverage: Rankings;
+  objectiveTimeMostInGame: Rankings;
+  offensiveAssists: Rankings;
+  offensiveAssistsAverage: Rankings;
+  offensiveAssistsMostInGame: Rankings;
+  reconAssists: Rankings;
+  reconAssistsMostInGame: Rankings;
+  selfHealingAverage: Rankings;
+  selfHealingMostInGame: Rankings;
+  shotsFired: Rankings;
+  shotsHit: Rankings;
+  silverMedals: Rankings;
+  soloKills: Rankings;
+  soloKillsAverage: Rankings;
+  soloKillsMostInGame: Rankings;
+  teleporterPadsDestroyed: Rankings;
+  timePlayed: Rankings;
+  timeSpentOnFire: Rankings;
+  timeSpentOnFireAverage: Rankings;
+  timeSpentOnFireMostInGame: Rankings;
+  totalMedals: Rankings;
+  turretsDestroyed: Rankings;
+  turretsDestroyedMostInGame: Rankings;
+  weaponAccuracyBestInGamePercentage: Rankings;
+  weaponAccuracyPercentage: Rankings;
+  winPercentage: Rankings;
+}
+
+export interface Rankings {
+  [gamerTagId: string]: Ranking;
+}
+
+export interface Ranking {
+  value: number;
+  rank: number;
 }
 
 export interface HeroSnapshotStats {

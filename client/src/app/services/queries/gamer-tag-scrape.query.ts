@@ -5,21 +5,25 @@ export const gamerTagScrapeMutation = gql`
     scrapeGamerTag(id: $id, tag: $tag, platform: $platform, region: $region) {
       id
       updatedAt
-      totalGamesWon
       tag
       region
       portraitUrl
       platform
       overwatchName
-      levelUrl
-      rankUrl
-      level
       insertedAt
-      competitiveRankUrl
-      competitiveLevel
       snapshotStatistics(last: $snapshotLast) {
         id
         gamerTagId
+        profileSnapshotStatistic {
+          profileStatistic {
+            level
+            levelUrl
+            rankUrl
+            competitiveLevel
+            competitiveRankUrl
+            totalGamesWon
+          }
+        }
         heroSnapshotStatistics {
           id
           heroSpecificStatistic {

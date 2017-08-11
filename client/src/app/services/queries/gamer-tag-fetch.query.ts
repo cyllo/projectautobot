@@ -5,21 +5,25 @@ export const gamerTagFetchQuery = gql`
     gamerTag(id: $id, tag: $tag, region: $region, platform: $platform) {
       id
       updatedAt
-      totalGamesWon
       tag
       region
       portraitUrl
       platform
       overwatchName
-      levelUrl
-      rankUrl
-      level
       insertedAt
-      competitiveRankUrl
-      competitiveLevel
       snapshotStatistics(last: $snapshotLast) {
         id
         gamerTagId
+        profileSnapshotStatistic {
+          profileStatistic {
+            level
+            levelUrl
+            rankUrl
+            competitiveLevel
+            competitiveRankUrl
+            totalGamesWon
+          }
+        }
         quickplayHeroSnapshotStatistics: heroSnapshotStatistics(type: QUICKPLAY) {
           ...heroStatFields
         }

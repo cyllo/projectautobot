@@ -66,6 +66,11 @@ export class ProfileService {
     return this.gamerTagService.getGamerTagStatsByTagPlatformRegion(tag, platform, region);
   }
 
+  profileStats(player: Player) {
+    const [latestSnapshot] = player.snapshotStatistics.reverse();
+    return latestSnapshot.profileSnapshotStatistic.profileStatistic;
+  }
+
   latestStatsSet(player: Player) {
     return {
       competitive: this.getLatestSnapshot(player, true),

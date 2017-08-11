@@ -50,7 +50,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
 
     this.player = Observable.merge(resolveData, socketUpdates)
       .switchMap((player) => this.profileService.addOwData(player))
-      .map((player: Player) => merge(player, this.profileService.latestStatsSet(player)));
+      .map((player: Player) => merge(player, this.profileService.latestStatsSet(player)))
+      .map((player: Player) => merge(player, this.profileService.profileStats(player)));
 
     this.selectedSnapshotData = this.player.combineLatest(this.selectedSnapshot, (player, selectedSnapshot) => {
       return player[selectedSnapshot];
