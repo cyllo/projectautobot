@@ -60,6 +60,17 @@ defmodule Api.Schema.SnapshotTypes do
     field :snapshot_statistic_id, :integer
     field :profile_statistic_id, :integer
     field :leaderboard_snapshot_statistic_id, :integer
+    field :statistics_averages_snapshot_id, :integer
+
+    field :statistics_averages_snapshot, :statistics_averages_snapshot do
+      resolve fn profile_snapshot, _, _ ->
+        batch(
+          {Api.AverageStatisticsSnapshotResolver, :get_profile_snapshots_averages_snapshots},
+          profile_snapshot,
+          &{:ok, Map.get(&1, profile_snapshot.id)}
+        )
+      end
+    end
 
     field :leaderboard_snapshot_statistic, :leaderboard_snapshot_statistic do
       resolve fn profile_snapshot, _, _ ->

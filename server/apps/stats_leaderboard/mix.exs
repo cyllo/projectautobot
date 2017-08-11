@@ -39,7 +39,6 @@ defmodule StatsLeaderboard.Mixfile do
   defp deps do
     [
       {:quantum, ">= 1.9.1"},
-      {:con_cache, "~> 0.12.0"},
       {:timex, "~> 3.1"},
       {:models, in_umbrella: true}
     ]

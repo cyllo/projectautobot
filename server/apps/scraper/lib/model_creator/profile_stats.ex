@@ -34,7 +34,8 @@ defmodule Scraper.ModelCreator.ProfileStats do
     ProfileSnapshotStatistic.create_changeset(%{
       snapshot_statistic_id: snapshot_id,
       profile_statistic_id: profile_stats_id,
-      leaderboard_snapshot_statistic_id: Map.get(profile_stats, :leaderboard_id, nil)
+      leaderboard_snapshot_statistic_id: Map.get(profile_stats, :leaderboard_id, nil),
+      statistics_averages_snapshot_id: Map.get(profile_stats, :snapshot_averages_id, nil)
     }) |> Models.Repo.insert
   end
 end

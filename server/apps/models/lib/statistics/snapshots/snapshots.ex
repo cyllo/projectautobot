@@ -1,13 +1,20 @@
 defmodule Models.Statistics.Snapshots do
+  use Models.Model
+
   alias Ecto.Multi
   alias Models.Model
   alias Models.{Enums, Repo}
-  alias Models.Statistics.Snapshots.{HeroSnapshotStatistic, SnapshotStatistic, LeaderboardSnapshotStatistic}
-  use Model
+  alias Models.Statistics.Snapshots.{
+    HeroSnapshotStatistic, SnapshotStatistic,
+    LeaderboardSnapshotStatistic, StatisticsAveragesSnapshot
+  }
 
   Model.create_model_methods(SnapshotStatistic)
   Model.create_model_methods(HeroSnapshotStatistic)
   Model.create_model_methods(LeaderboardSnapshotStatistic)
+  Model.create_model_methods(StatisticsAveragesSnapshot)
+
+  def get_first_snapshot_statistic(prop \\ :inserted_at), do: Ecto.Query.last(SnapshotStatistic, prop) |> Repo.one
 
   def get_all_of_heroes_total_statistics_by_snapshot_ids(snapshot_ids, limit \\ nil, type \\ :competitive || :quickplay) do
     from(
@@ -126,6 +133,42 @@ defmodule Models.Statistics.Snapshots do
           nil -> {:error, "No Leaderboard Snapshot found"}
           leaderboard_snapshot -> {:ok, leaderboard_snapshot}
         end
+    end
+  end
+
+  def get_latest_averages_snapshot do
+    case Repo.one(StatisticsAveragesSnapshot.latest_snapshot_query()) do
+      nil -> {:error, "No snapshot averages found"}
+      averages_snapshot -> averages_snapshot
+    end
+  end
+
+  def create_averages(averages) do
+    StatisticsAveragesSnapshot.create_changeset(averages)
+      |> Repo.insert
+  end
+
+  def create_or_get_average_snapshot do
+    with {:ok, average_snapshot} <- StatsAverages.snapshot_averages() do
+      {:ok, average_snapshot}
+    else
+      e ->
+        case Repo.one(StatisticsAveragesSnapshot.latest_snapshot_query) do
+          nil -> {:error, "No Leaderboard Snapshot found"}
+          average_snapshot -> {:ok, average_snapshot}
+        end
+    end
+  end
+
+  def find_one_average_snapshot(params) do
+    statistics_averages_snapshot = Ecto.Query.from(StatisticsAveragesSnapshot)
+      |> Model.create_model_filters(params)
+      |> Ecto.Query.first
+      |> Repo.one
+
+    case statistics_averages_snapshot do
+      nil -> {:error, "No statistics averages snapshot found #{inspect params}"}
+      statistics_averages_snapshot -> {:ok, statistics_averages_snapshot}
     end
   end
 end

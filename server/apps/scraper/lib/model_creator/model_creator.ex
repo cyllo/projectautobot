@@ -20,6 +20,7 @@ defmodule Scraper.ModelCreator do
 
       profile
         |> add_leaderboard_snapshot
+        |> add_averages_snapshot
         |> create_snapshot(gamer_tag, heroes)
     end
   end
@@ -27,6 +28,14 @@ defmodule Scraper.ModelCreator do
   defp add_leaderboard_snapshot(profile) do
     with {:ok, leaderboard} <- Snapshots.create_or_get_leaderboard_snapshot do
       Map.put(profile, :leaderboard_id, leaderboard.id)
+    else
+      _ -> profile
+    end
+  end
+
+  defp add_averages_snapshot(profile) do
+    with {:ok, snapshot_averages} <- Snapshots.create_or_get_average_snapshot() do
+      Map.put(profile, :snapshot_averages_id, snapshot_averages.id)
     else
       _ -> profile
     end

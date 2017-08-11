@@ -3,7 +3,7 @@ defmodule Models.Statistics.Snapshots.ProfileSnapshotStatistic do
 
   alias Models.Statistics.Profile
   alias Models.Statistics.Snapshots.{
-    SnapshotStatistic,
+    SnapshotStatistic, StatisticsAveragesSnapshot,
     ProfileSnapshotStatistic, LeaderboardSnapshotStatistic
   }
 
@@ -11,10 +11,11 @@ defmodule Models.Statistics.Snapshots.ProfileSnapshotStatistic do
     belongs_to :snapshot_statistic, SnapshotStatistic
     belongs_to :profile_statistic, Profile
     belongs_to :leaderboard_snapshot_statistic, LeaderboardSnapshotStatistic
+    belongs_to :statistics_averages_snapshot, StatisticsAveragesSnapshot
   end
 
   @required_fields [:snapshot_statistic_id, :profile_statistic_id]
-  @available_fields @required_fields ++ [:leaderboard_snapshot_statistic_id]
+  @available_fields @required_fields ++ [:leaderboard_snapshot_statistic_id, :statistics_averages_snapshot_id]
 
   @doc """
   Builds a changeset based on the `struct` and `params`.

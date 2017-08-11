@@ -1,6 +1,14 @@
 defmodule Api.Schema.SnapshotStatisticsAverageTypes do
   use Absinthe.Schema.Notation
 
+  object :statistics_averages_snapshot do
+    field :id, :integer
+    field :hero_total_competitive_averages, :map
+    field :hero_total_quickplay_averages, :map
+    field :hero_competitive_averages, :map
+    field :hero_quickplay_averages, :map
+  end
+
   @desc "Average stats for snapshots"
   object :snapshot_statistics_average do
     field :heroes_total_snapshot_statistic, :heroes_total_snapshot_statistic_average

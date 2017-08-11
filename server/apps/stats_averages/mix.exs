@@ -1,8 +1,8 @@
-defmodule Utility.Mixfile do
+defmodule StatsAverages.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :utility,
+    [app: :stats_averages,
      version: "0.1.0",
      build_path: "../../_build",
      config_path: "../../config/config.exs",
@@ -19,7 +19,8 @@ defmodule Utility.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
-    [extra_applications: [:logger]]
+    [extra_applications: [:logger],
+     mod: {StatsAverages.Application, []}]
   end
 
   # Dependencies can be Hex packages:
@@ -36,6 +37,8 @@ defmodule Utility.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:timex, "~> 3.1"}]
+    [{:quantum, ">= 1.9.1"},
+     {:models, in_umbrella: true},
+     {:utility, in_umbrella: true}]
   end
 end

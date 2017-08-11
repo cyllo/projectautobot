@@ -1,8 +1,8 @@
-defmodule StatsLeaderboard do
+defmodule StatsAverages do
   use GenServer
   import Logger, only: [info: 1]
 
-  alias StatsLeaderboard.LeaderboardCalculator
+  alias StatsAverages.AveragesCreator
   alias Utility.Time
 
   # API
@@ -11,17 +11,17 @@ defmodule StatsLeaderboard do
     GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
 
-  def snapshot_leaderboard_rankings do
-    GenServer.call __MODULE__, :snapshot_leaderboard_rankings
+  def snapshot_averages do
+    GenServer.call __MODULE__, :snapshot_averages
   end
 
   # SERVER
   def init(_), do: {:ok, Timex.now() |> Timex.shift(days: -1)}
 
-  def handle_call(:snapshot_leaderboard_rankings, _from, last_snapshot_time) do
+  def handle_call(:snapshot_averages, _from, last_snapshot_time) do
     with true <- Time.before_today?(last_snapshot_time),
-         {:ok, leaderboard_snapshot} <- LeaderboardCalculator.create_leaderboard_snapshot() do
-      info "Took a LeaderboardSnapshot"
+         {:ok, leaderboard_snapshot} <- AveragesCreator.create_snapshot do
+      info "Took a StatsAverageSnapshot"
 
       {:reply, {:ok, leaderboard_snapshot}, Timex.now()}
     else

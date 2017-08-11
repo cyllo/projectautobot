@@ -2,14 +2,14 @@
 # and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 
-config :stats_leaderboard, ecto_repos: []
+config :stats_averages, ecto_repos: []
 
 config :quantum, global?: true
 config :quantum, :scraper,
   cron: [
-    snapshot_leaderboards: [
+    snapshot_averages: [
       schedule: "@daily",
-      task: {StatsLeaderboard, :create_snapshot}
+      task: {StatsAverages, :snapshot_averages}
     ]
   ]
 # This configuration is loaded before any dependency and is restricted
@@ -20,11 +20,11 @@ config :quantum, :scraper,
 
 # You can configure for your application as:
 #
-#     config :stats_leaderboard, key: :value
+#     config :stats_averages, key: :value
 #
 # And access this configuration in your application as:
 #
-#     Application.get_env(:stats_leaderboard, :key)
+#     Application.get_env(:stats_averages, :key)
 #
 # Or configure a 3rd-party app:
 #

@@ -4,6 +4,7 @@ defmodule Api.Schema do
   alias Api.{
     Schema,
     LeaderboardSnapshotResolver,
+    AverageStatisticsSnapshotResolver,
     SnapshotStatisticsAverageResolver,
     GamerTagResolver, HeroResolver, UserResolver,
     SessionResolver, BlogResolver, Middleware,
@@ -138,6 +139,28 @@ defmodule Api.Schema do
 
       resolve &LeaderboardSnapshotResolver.find/2
     end
+
+    field :statistics_averages_snapshot, :statistics_averages_snapshot do
+      arg :after, :integer
+      arg :before, :integer
+      arg :last, :integer
+      arg :first, :integer
+      arg :start_date, :datetime
+      arg :end_date, :datetime
+
+      resolve &AverageStatisticsSnapshotResolver.all/2
+    end
+
+    field :statistics_averages_snapshots, list_of(:statistics_averages_snapshot) do
+      arg :after, :integer
+      arg :before, :integer
+      arg :last, :integer
+      arg :first, :integer
+      arg :start_date, :datetime
+      arg :end_date, :datetime
+
+      resolve &AverageStatisticsSnapshotResolver.find/2
+    end
   end
 
   mutation do
@@ -155,7 +178,7 @@ defmodule Api.Schema do
     field :search_gamer_tag, list_of(:gamer_tag) do
       arg :tag, non_null(:string)
 
-      resolve &GamerTagResolver.search/2
+      resolve &async(fn -> GamerTagResolver.search(&1, &2) end, timeout: 30_000)
     end
 
     @desc "Creates a User account"

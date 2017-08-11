@@ -47,7 +47,8 @@ defmodule Scraper.Mixfile do
       {:con_cache, "~> 0.12.0"},
       {:utility, in_umbrella: true},
       {:models, in_umbrella: true},
-      {:stats_leaderboard, in_umbrella: true}
+      {:stats_leaderboard, in_umbrella: true},
+      {:stats_averages, in_umbrella: true}
     ]
   end
 end

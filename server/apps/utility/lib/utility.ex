@@ -120,6 +120,11 @@ defmodule Utility do
       |> Map.new
   end
 
+  @spec merge_all(list) :: map
+  def merge_all(list) do
+    Enum.reduce(list, %{}, &Map.merge/2)
+  end
+
   def atomize_keys(map) do
     map_keys(map, fn
       key when is_bitstring(key) -> String.to_atom(key)
