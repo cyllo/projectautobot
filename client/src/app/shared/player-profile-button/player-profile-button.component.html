@@ -1,4 +1,7 @@
-<button class="player-profile-button px-2 py-2" (click)='navigateToProfile()' md-button *ngIf="player">
+<button md-button
+        class="player-profile-button px-2 py-2"
+        (click)="navigateToProfile(playerData$)"
+        *ngIf="playerData$ | async">
 
   <div fxLayout="row"
        fxLayoutAlign="start center"
@@ -15,13 +18,13 @@
 
         <div class="flex-layout" fxLayout="row">
           <span class="mat-caption text-overflow">
-            <small>{{ player.tag }}</small>
+            <small>{{ (playerData$ | async).tag }}</small>
           </span>
         </div>
 
         <div class="flex-layout" fxLayout="row">
           <span class="mat-caption text-overflow">
-            <strong>{{ player.overwatchName }}</strong>
+            <strong>{{ (playerData$ | async).overwatchName }}</strong>
           </span>
         </div>
 
@@ -34,20 +37,20 @@
           </div>
 
           <div fxLayout="column">
-            <span class="mat-caption ml-1">{{ player.competitiveLevel }}</span>
+            <span class="mat-caption ml-1">{{ (playerData$ | async).competitiveLevel }}</span>
           </div>
 
           <div class="pl-1" fxLayout="column">
             <span class="platform-region mini-pr text-uppercase"
                   *ngIf="player.platform">
-              {{ player.platform }}
+              {{ (playerData$ | async).platform }}
             </span>
           </div>
 
           <div class="pl-1" fxLayout="column">
             <span class="platform-region mini-pr text-uppercase"
                   *ngIf="player.region">
-              {{ player.region }}
+              {{ (playerData$ | async).region }}
             </span>
           </div>
 

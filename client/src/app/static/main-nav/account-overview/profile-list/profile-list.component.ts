@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { GamerTagService } from '../../../../services';
 import { Player } from '../../../../models';
-import { values, isEmpty } from 'ramda';
 
 @Component({
   selector: 'ow-profile-list',
@@ -13,14 +12,15 @@ import { values, isEmpty } from 'ramda';
 export class ProfileListComponent implements OnInit {
   @Input() battleNetTag: string;
 
-  players: Observable<Player[]>;
+  players$: Observable<Player[]>;
 
   constructor(private gamerTagService: GamerTagService) {}
 
   ngOnInit() {
-    this.players = this.gamerTagService.find(this.battleNetTag)
-      .filter((players: Player[]) => !isEmpty(players));
-    this.players.subscribe();
+    // battleNetTag can be null if they did not register through
+    // battle.net and/or have not claimed their account.
+    const tag = this.battleNetTag;
+    if (tag) { this.players$ = this.gamerTagService.find(tag); }
   }
 
 }

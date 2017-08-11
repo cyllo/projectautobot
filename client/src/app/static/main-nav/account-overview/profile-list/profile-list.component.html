@@ -1,4 +1,4 @@
-<div class="profile-list" md-list-item *ngIf="players | async">
+<div class="profile-list" md-list-item *ngIf="players$ | async">
 
   <div class="flex-layout" fxLayout="row">
 
@@ -12,13 +12,13 @@
 
       <div class="list-content-wrapper" fxLayout="row">
 
-        <div class="list-content pr-2"
+        <div class="list-content"
              fxLayout="column"
              fxLayoutGap="8px"
              fxFlex="grow"
              [perfect-scrollbar]>
 
-          <div fxLayout="row" fxFlex="noshrink" *ngFor="let player of players | async">
+          <div fxLayout="row" fxFlex="noshrink" *ngFor="let player of players$ | async">
 
             <div fxLayout="column" fxFlex="grow">
 
