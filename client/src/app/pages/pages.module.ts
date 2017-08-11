@@ -67,12 +67,8 @@ import {
     MdInputModule,
     MdButtonModule,
     MdCardModule,
-<<<<<<< 93ee6c656f3c102a18e63492f2f855c89097f279
     MdSnackBarModule,
     MdTabsModule
-=======
-    MdSnackBarModule
->>>>>>> feat: global-sidebar / main-nav / search results / login & register page
   ],
   declarations: [
     HomeComponent,
