@@ -23,11 +23,17 @@ export const UpdateClub = gql`
           insertedAt
           updatedAt
           gamerTags {
-            competitiveLevel
             id
             platform
             portraitUrl
             region
+            snapshotStatistics {
+              profileSnapshotStatistic {
+                profileStatistic {
+                  competitiveLevel
+                }
+              }
+            }
             tag
           }
         }
@@ -79,11 +85,17 @@ export const CreateClub = gql`
           battleNetId
           battleNetTag
           gamerTags {
-            competitiveLevel
             id
             platform
             portraitUrl
             region
+            snapshotStatistics {
+              profileSnapshotStatistic {
+                profileStatistic {
+                  competitiveLevel
+                }
+              }
+            }
             tag
           }
         }

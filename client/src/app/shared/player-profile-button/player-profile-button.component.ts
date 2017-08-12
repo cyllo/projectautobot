@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Player } from '../../models';
 import { Observable } from 'rxjs/Observable';
+import { assoc, last } from 'ramda';
 
 @Component({
   selector: 'ow-player-profile-button',
@@ -18,7 +19,8 @@ export class PlayerProfileButtonComponent implements OnInit {
   constructor (private router: Router) {}
 
   ngOnInit() {
-    this.playerData$ = Observable.of(this.player);
+    this.playerData$ = Observable.of(this.player)
+      .map(player => assoc('snapshotStatistics', last(player.snapshotStatistics), player));
   }
 
   navigateToProfile(player$: Observable<Player>) {

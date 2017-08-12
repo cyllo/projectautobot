@@ -23,11 +23,17 @@ export const FriendGroupsQuery = gql`
             insertedAt
             updatedAt
             gamerTags {
-              competitiveLevel
               id
               platform
               portraitUrl
               region
+              snapshotStatistics {
+                profileSnapshotStatistic {
+                  profileStatistic {
+                    competitiveLevel
+                  }
+                }
+              }
               tag
             }
           }

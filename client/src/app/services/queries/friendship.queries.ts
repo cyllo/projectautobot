@@ -13,11 +13,17 @@ export const AcceptFriendRequest = gql`
         battleNetId
         battleNetTag
         gamerTags {
-          competitiveLevel
           id
           platform
           portraitUrl
           region
+          snapshotStatistics {
+            profileSnapshotStatistic {
+              profileStatistic {
+                competitiveLevel
+              }
+            }
+          }
           tag
         }
       }
@@ -72,11 +78,17 @@ export const friendShipsQuery = gql`
           insertedAt
           updatedAt
           gamerTags {
-            competitiveLevel
             id
             platform
             portraitUrl
             region
+            snapshotStatistics {
+              profileSnapshotStatistic {
+                profileStatistic {
+                  competitiveLevel
+                }
+              }
+            }
             tag
           }
         }

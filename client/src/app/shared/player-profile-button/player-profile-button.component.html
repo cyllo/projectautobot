@@ -1,5 +1,4 @@
-<button md-button
-        class="player-profile-button px-2 py-2"
+<button md-button class="player-profile-button px-2 py-2"
         (click)="navigateToProfile(playerData$)"
         *ngIf="playerData$ | async">
 
@@ -8,7 +7,7 @@
        fxLayoutGap="8px">
 
     <div fxLayout="column">
-        <img class="md-image md-image-48" [src]="player.portraitUrl">
+        <img class="md-image md-image-48" [src]="(playerData$ | async).portraitUrl">
     </div>
 
     <div class="flex-layout"
@@ -33,11 +32,14 @@
              fxLayoutAlign="start center">
 
           <div fxLayout="column">
-            <img class="md-image md-image-18" [src]="player.competitiveRankUrl">
+            <img class="md-image md-image-18"
+            [src]="(playerData$ | async).snapshotStatistics.profileSnapshotStatistic.profileStatistic.competitiveRankUrl">
           </div>
 
           <div fxLayout="column">
-            <span class="mat-caption ml-1">{{ (playerData$ | async).competitiveLevel }}</span>
+            <span class="mat-caption ml-1">
+              {{ (playerData$ | async).snapshotStatistics.profileSnapshotStatistic.profileStatistic.competitiveLevel }}
+            </span>
           </div>
 
           <div class="pl-1" fxLayout="column">
