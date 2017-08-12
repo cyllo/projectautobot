@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const snapshotStatsAverageSearchQuery = gql`
-  query SnapshotStatsAverageSearch($isCompetitive: Boolean!) {
-    snapshotsStatisticsAverage(isCompetitive: $isCompetitive) {
+  query SnapshotStatsAverageSearch($type: SnapshotStatisticType!) {
+    snapshotsStatisticsAverage(type: $type) {
       heroSnapshotStatistics {
         matchAwardsStatistic {
           totalMedals
@@ -98,7 +98,7 @@ export const snapshotStatsAverageSearchQuery = gql`
           damageBlockedAverage
         }
       }
-      allHeroesSnapshotStatistics {
+      heroesTotalSnapshotStatistics {
         matchAwardsStatistic {
           totalMedals
           goldMedals

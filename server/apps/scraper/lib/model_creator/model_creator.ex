@@ -1,7 +1,8 @@
 defmodule Scraper.ModelCreator do
   require Logger
 
-  alias Scraper.ModelCreator.{Heroes, UserProfile, Stats}
+  alias Models.{Repo, Statistics.Snapshots}
+  alias Scraper.ModelCreator.{Heroes, UserProfile, HeroStats, ProfileStats}
 
   @spec save_profile(profile :: map) :: map
   @doc """
@@ -17,17 +18,36 @@ defmodule Scraper.ModelCreator do
         Task.start(fn -> UserProfile.save_other_platforms(gamer_tag, profile) end)
       end
 
-      quickplay_snapshot = profile
-        |> Map.get(:quickplay)
-        |> Stats.create_snapshot(gamer_tag, competitive?: false)
+      profile
+        |> add_leaderboard_snapshot
+        |> add_averages_snapshot
+        |> create_snapshot(gamer_tag, heroes)
+    end
+  end
 
-      competitive_snapshot = profile
-        |> Map.get(:competitive)
-        |> Stats.create_snapshot(gamer_tag, competitive?: true)
+  defp add_leaderboard_snapshot(profile) do
+    with {:ok, leaderboard} <- Snapshots.create_or_get_leaderboard_snapshot do
+      Map.put(profile, :leaderboard_id, leaderboard.id)
+    else
+      _ -> profile
+    end
+  end
 
+  defp add_averages_snapshot(profile) do
+    with {:ok, snapshot_averages} <- Snapshots.create_or_get_average_snapshot() do
+      Map.put(profile, :snapshot_averages_id, snapshot_averages.id)
+    else
+      _ -> profile
+    end
+  end
+
+  defp create_snapshot(profile, gamer_tag, heroes) do
+    query = HeroStats.create_snapshot_multi(profile, gamer_tag.id)
+      |> ProfileStats.create_stats_multi(profile, gamer_tag)
+
+    with {:ok, stats} <- Repo.transaction(query)  do
       %{
-        quickplay_snapshot: quickplay_snapshot,
-        competitive_snapshot: competitive_snapshot,
+        snapshot_statistics: stats,
         heroes: heroes,
         gamer_tag: gamer_tag,
         other_platforms: Map.get(profile, :other_platforms)

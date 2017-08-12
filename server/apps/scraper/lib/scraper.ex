@@ -17,18 +17,17 @@ defmodule Scraper do
          _ <- ScrapeStatusCache.mark_tag_scraped(gamer_tag.id),
          {gamer_tag, page_source} <- ProfileScraper.get_profile(gamer_tag),
          false <- HtmlHelpers.is_page_not_found?(page_source) do
-      res = {gamer_tag, page_source}
+
+      %{gamer_tag: %{id: gamer_tag_id}} = {gamer_tag, page_source}
         |> DataProcessor.get_profile_info
         |> Sorter.sort_stats
         |> ModelCreator.save_profile
 
       Task.start(fn ->
-        import IEx
-        IEx.pry
-        Api.Web.GamerTagChannel.broadcast_change(res.gamer_tag.id)
+        Api.Web.GamerTagChannel.broadcast_change(gamer_tag_id)
       end)
 
-      Game.get_gamer_tag_with_snapshots(res.gamer_tag.id)
+      Game.get_gamer_tag_with_snapshots(gamer_tag_id)
     else
       {:error, %{ms_till_can_scrape: _}} = error -> error
       true ->
@@ -73,7 +72,7 @@ defmodule Scraper do
       {:ok, ProfileSearcher.find_saved_tag(gamer_tag)}
     else
       with {:ok, gamer_tags} <- ProfileSearcher.find_profile_tag(gamer_tag),
-           gamer_tag <- ScrapeStatusCache.mark_tag_searched(gamer_tag) do
+           _ <- ScrapeStatusCache.mark_tag_searched(gamer_tag) do
         Task.start(fn -> scrape_gamer_tags(gamer_tags) end)
 
         {:ok, gamer_tags}
@@ -115,7 +114,6 @@ defmodule Scraper do
   defp filter_and_get_non_timeout_gamer_tags(gamer_tags), do: Enum.filter_map(gamer_tags, &profile_not_on_timeout?/1, &gamer_tag_info/1)
   defp gamer_tag_info(%Game.GamerTag{} = params), do: params
   defp gamer_tag_info(tag_params), do: tag_params |> Map.take([:tag, :region, :platform]) |> Game.find_or_create_gamer_tag
-
 
   defp check_gamer_tag_unscraped(gamer_tag) do
     unless ScrapeStatusCache.has_scraped_gamer_tag?(gamer_tag.id) do

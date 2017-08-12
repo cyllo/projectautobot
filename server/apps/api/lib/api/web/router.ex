@@ -1,7 +1,7 @@
 defmodule Api.Web.Router do
   use Api.Web, :router
 
-  @max_complexity 300
+  # @max_complexity 500
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -17,15 +17,15 @@ defmodule Api.Web.Router do
     pipe_through :graphql
 
     forward "/graphql", Absinthe.Plug,
-      schema: Api.Schema,
-      max_complexity: @max_complexity,
-      analyze_complexity: true
+      schema: Api.Schema
+      # max_complexity: @max_complexity,
+      # analyze_complexity: true
 
     if Mix.env() === :dev do
       forward "/graphiql", Absinthe.Plug.GraphiQL,
-        schema: Api.Schema,
-        max_complexity: @max_complexity,
-        analyze_complexity: true
+        schema: Api.Schema
+        # max_complexity: @max_complexity,
+        # analyze_complexity: true
     end
   end
 

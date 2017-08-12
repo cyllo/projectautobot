@@ -2611,7 +2611,7 @@
         }
       ],
       "gamerTagId": 1,
-      "allHeroesSnapshotStatistics": {
+      "heroesTotalSnapshotStatistics": {
         "snapshotStatisticId": 1,
         "matchAwardsStatisticId": 24,
         "matchAwardsStatistic": {
@@ -5323,7 +5323,7 @@
         }
       ],
       "gamerTagId": 1,
-      "allHeroesSnapshotStatistics": {
+      "heroesTotalSnapshotStatistics": {
         "snapshotStatisticId": 2,
         "matchAwardsStatisticId": 48,
         "matchAwardsStatistic": {
@@ -8035,7 +8035,7 @@
         }
       ],
       "gamerTagId": 1,
-      "allHeroesSnapshotStatistics": {
+      "heroesTotalSnapshotStatistics": {
         "snapshotStatisticId": 5,
         "matchAwardsStatisticId": 100,
         "matchAwardsStatistic": {
@@ -10747,7 +10747,7 @@
         }
       ],
       "gamerTagId": 1,
-      "allHeroesSnapshotStatistics": {
+      "heroesTotalSnapshotStatistics": {
         "snapshotStatisticId": 6,
         "matchAwardsStatisticId": 124,
         "matchAwardsStatistic": {
@@ -13459,7 +13459,7 @@
         }
       ],
       "gamerTagId": 1,
-      "allHeroesSnapshotStatistics": {
+      "heroesTotalSnapshotStatistics": {
         "snapshotStatisticId": 8,
         "matchAwardsStatisticId": 161,
         "matchAwardsStatistic": {
@@ -16171,7 +16171,7 @@
         }
       ],
       "gamerTagId": 1,
-      "allHeroesSnapshotStatistics": {
+      "heroesTotalSnapshotStatistics": {
         "snapshotStatisticId": 9,
         "matchAwardsStatisticId": 185,
         "matchAwardsStatistic": {

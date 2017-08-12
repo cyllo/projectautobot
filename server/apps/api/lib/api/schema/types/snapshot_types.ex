@@ -2,17 +2,29 @@ defmodule Api.Schema.SnapshotTypes do
   use Absinthe.Schema.Notation
   alias Api.SnapshotStatisticResolver
 
+  enum :snapshot_statistic_type do
+    value :competitive
+    value :quickplay
+  end
+
+  enum :hero_snapshot_statistic_type do
+    value :hero_total_competitive
+    value :hero_total_quickplay
+    value :hero_competitive
+    value :hero_quickplay
+  end
+
   @desc "Snapshot that marks gathering of all the combat and other statistics"
   object :snapshot_statistic do
     field :id, :integer
     field :gamer_tag_id, :integer
 
-    field :is_competitive, :boolean
+    field :heroes_total_snapshot_statistic, :heroes_total_snapshot_statistic do
+      arg :type, non_null(:snapshot_statistic_type)
 
-    field :all_heroes_snapshot_statistic, :all_heroes_snapshot_statistic do
-      resolve fn snapshot_statistic, _, _ ->
+      resolve fn snapshot_statistic, args, _ ->
         batch(
-          {SnapshotStatisticResolver, :get_all_heroes_statistics_by_snapshot_ids},
+          {SnapshotStatisticResolver, :get_heroes_totals_by_snapshot_ids, args},
           snapshot_statistic.id,
           &{:ok, Map.get(&1, snapshot_statistic.id)}
         )
@@ -20,17 +32,68 @@ defmodule Api.Schema.SnapshotTypes do
     end
 
     field :hero_snapshot_statistics, list_of(:hero_snapshot_statistic) do
+      arg :type, non_null(:snapshot_statistic_type)
+
+      resolve fn snapshot_statistic, arg, _ ->
+        batch(
+          {SnapshotStatisticResolver, :get_hero_statistics_by_snapshot_ids, arg},
+          snapshot_statistic.id,
+          &{:ok, Map.get(&1, snapshot_statistic.id)}
+        )
+      end
+    end
+
+    field :profile_snapshot_statistic, :profile_snapshot_statistic do
       resolve fn snapshot_statistic, _, _ ->
         batch(
-          {SnapshotStatisticResolver, :get_hero_statistics_by_snapshot_ids},
-          snapshot_statistic.id,
+          {SnapshotStatisticResolver, :get_snapshots_profile_snapshots},
+          snapshot_statistic,
           &{:ok, Map.get(&1, snapshot_statistic.id)}
         )
       end
     end
   end
 
-  object :all_heroes_snapshot_statistic do
+  object :profile_snapshot_statistic do
+    field :id, :integer
+
+    field :snapshot_statistic_id, :integer
+    field :profile_statistic_id, :integer
+    field :leaderboard_snapshot_statistic_id, :integer
+    field :statistics_averages_snapshot_id, :integer
+
+    field :statistics_averages_snapshot, :statistics_averages_snapshot do
+      resolve fn profile_snapshot, _, _ ->
+        batch(
+          {Api.AverageStatisticsSnapshotResolver, :get_profile_snapshots_averages_snapshots},
+          profile_snapshot,
+          &{:ok, Map.get(&1, profile_snapshot.id)}
+        )
+      end
+    end
+
+    field :leaderboard_snapshot_statistic, :leaderboard_snapshot_statistic do
+      resolve fn profile_snapshot, _, _ ->
+        batch(
+          {SnapshotStatisticResolver, :get_profile_snapshots_leaderboard_snapshots},
+          profile_snapshot,
+          &{:ok, Map.get(&1, profile_snapshot.id)}
+        )
+      end
+    end
+
+    field :profile_statistic, :profile_statistic do
+      resolve fn profile_snapshot, _, _ ->
+        batch(
+          {SnapshotStatisticResolver, :get_profile_snapshots_profile_stats},
+          profile_snapshot,
+          &{:ok, Map.get(&1, profile_snapshot.id)}
+        )
+      end
+    end
+  end
+
+  object :heroes_total_snapshot_statistic do
     field :id, :integer
     field :snapshot_statistic_id, :integer
     field :combat_best_statistic_id, :integer
@@ -38,6 +101,7 @@ defmodule Api.Schema.SnapshotTypes do
     field :combat_lifetime_statistic_id, :integer
     field :match_awards_statistic_id, :integer
     field :game_history_statistic_id, :integer
+    field :statistic_type, :hero_snapshot_statistic_type
 
     field :combat_best_statistic, :combat_best_statistic do
       resolve &batch_get_combat_bests/3
@@ -74,6 +138,7 @@ defmodule Api.Schema.SnapshotTypes do
     field :hero_specific_statistic_id, :integer
     field :match_awards_statistic_id, :integer
     field :game_history_statistic_id, :integer
+    field :statistic_type, :hero_snapshot_statistic_type
 
     field :combat_best_statistic, :combat_best_statistic do
       resolve &batch_get_combat_bests/3

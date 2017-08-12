@@ -10,7 +10,11 @@ config :hound,
   driver: "phantomjs", #chrome_driver",
   http: [recv_timeout: :infinity]
 
+config :quantum, global?: true
 config :quantum, :scraper,
   cron: [
-    "@daily": {Scraper, :refetch_profiles_in_db, []}
+    scrape_all_profiles: [
+      schedule: "@daily",
+      task: {Scraper, :refetch_profiles_in_db, []}
+    ]
   ]

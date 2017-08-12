@@ -1,5 +1,5 @@
 defmodule Models.Accounts.User do
-  alias Models.Accounts.{UserFriendGroup, User, Follower, Friendship}
+  alias Models.Accounts.{UserFriendGroup, User, Friendship}
   alias Models.Game
   alias Models.Game.GamerTag
   alias Comeonin.Pbkdf2

@@ -36,6 +36,6 @@ defmodule Utility.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    []
+    [{:timex, "~> 3.1"}]
   end
 end

@@ -1,4 +1,4 @@
-import { equals, propEq, merge, head, pathOr, test } from 'ramda';
+import { equals, merge, head, pathOr, test } from 'ramda';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -19,7 +19,7 @@ const graphqlErrorMessage = pathOr<string>('', ['graphQLErrors', 0, 'message']);
 const testNotFound = test(/not found/i);
 
 interface Statistic {
-  allHeroesSnapshotStatistic: {
+  heroesTotalSnapshotStatistic: {
     gameHistoryStatistic: {
       winPercentage: number;
     };
@@ -66,6 +66,11 @@ export class ProfileService {
     return this.gamerTagService.getGamerTagStatsByTagPlatformRegion(tag, platform, region);
   }
 
+  profileStats(player: Player) {
+    const [latestSnapshot] = player.snapshotStatistics.reverse();
+    return latestSnapshot.profileSnapshotStatistic.profileStatistic;
+  }
+
   latestStatsSet(player: Player) {
     return {
       competitive: this.getLatestSnapshot(player, true),
@@ -107,8 +112,8 @@ export class ProfileService {
     return this.apollo.query<StatChangeResponse>({ query: playerStatsChangeQuery, variables })
       .map((response) => {
         const { pastStatistics, currentStatistics } = response.data.gamerTag;
-        const current = currentStatistics[0].allHeroesSnapshotStatistic.gameHistoryStatistic;
-        const past = pastStatistics[0].allHeroesSnapshotStatistic.gameHistoryStatistic;
+        const current = currentStatistics[0].heroesTotalSnapshotStatistic.gameHistoryStatistic;
+        const past = pastStatistics[0].heroesTotalSnapshotStatistic.gameHistoryStatistic;
 
         return {
           winPercentage: (current.winPercentage / past.winPercentage) - 1
@@ -133,7 +138,8 @@ export class ProfileService {
   private addHeroDataToSnapshot(heroes) {
     return (snapshot) => {
       return Object.assign({}, snapshot, {
-        heroSnapshotStatistics: snapshot.heroSnapshotStatistics.map(this.addHeroesToHeroSnapshot(heroes))
+        quickplayHeroSnapshotStatistics: snapshot.quickplayHeroSnapshotStatistics.map(this.addHeroesToHeroSnapshot(heroes)),
+        competitiveHeroSnapshotStatistics: snapshot.competitiveHeroSnapshotStatistics.map(this.addHeroesToHeroSnapshot(heroes))
       });
     };
   }
@@ -141,12 +147,19 @@ export class ProfileService {
   private getLatestSnapshot(player: Player, isCompetitive: boolean) {
     if (!player.snapshotStatistics) {
       return null;
-    } else {
-      const [snapshotStatistic] = player.snapshotStatistics
-        .filter(propEq('isCompetitive', isCompetitive))
-        .reverse();
-
-      return snapshotStatistic || null;
     }
+
+    const [snapshotStatistic] = player.snapshotStatistics.reverse();
+    if (!snapshotStatistic) {
+      return null;
+    }
+
+    const gamemode = isCompetitive ? 'competitive' : 'quickplay';
+    const transformedSnapshot = {
+      heroSnapshotStatistics: snapshotStatistic[`${gamemode}HeroSnapshotStatistics`],
+      heroesTotalSnapshotStatistic: snapshotStatistic[`${gamemode}HeroesTotalSnapshotStatistic`]
+    };
+
+    return transformedSnapshot;
   }
 }

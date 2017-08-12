@@ -6,20 +6,20 @@ defmodule Scraper.Sorter do
     Logger.info "Sorting #{params.gamer_tag} stats"
 
     %{params |
-      competitive: sort_hero_and_general_stats(params.competitive),
-      quickplay: sort_hero_and_general_stats(params.quickplay)
+      competitive: sort_hero_and_total_stats(params.competitive),
+      quickplay: sort_hero_and_total_stats(params.quickplay)
     }
   end
 
-  defp sort_hero_and_general_stats(stats) do
+  defp sort_hero_and_total_stats(stats) do
     heroes_stats = sort_hero_stats(stats.heroes_stats)
-    general_stats = Stats.sort_general(stats.general_stats)
+    total_stats = Stats.sort_total(stats.total_stats)
 
     log_duplicated_stats(heroes_stats)
 
     %{stats |
       heroes_stats: heroes_stats,
-      general_stats: general_stats
+      total_stats: total_stats
     }
   end
 
@@ -43,6 +43,7 @@ defmodule Scraper.Sorter do
     stats
       |> Utility.pluck(:stats)
       |> Utility.pluck(:hero_specific)
+      |> Utility.compact
       |> count_key_occurrences
   end
 

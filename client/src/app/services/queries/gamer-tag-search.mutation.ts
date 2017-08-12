@@ -5,17 +5,26 @@ export const gamerTagSearchMutation = gql`
     searchGamerTag(tag: $tag) {
       id
       updatedAt
-      totalGamesWon
       tag
       region
       portraitUrl
       platform
       overwatchName
-      levelUrl
-      level
       insertedAt
-      competitiveRankUrl
-      competitiveLevel
+      snapshotStatistics(last: 1) {
+        id
+        gamerTagId
+        profileSnapshotStatistic {
+          profileStatistic {
+            level
+            levelUrl
+            rankUrl
+            competitiveLevel
+            competitiveRankUrl
+            totalGamesWon
+          }
+        }
+      }
     }
   }
 `;

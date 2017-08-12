@@ -120,4 +120,13 @@ defmodule Api.Schema.StatisticTypes do
 
     field :stats, :map
   end
+
+  object :profile_statistic do
+    field :competitive_level, :integer
+    field :competitive_rank_url, :string
+    field :level, :integer
+    field :level_url, :string
+    field :rank_url, :string
+    field :total_games_won, :integer
+  end
 end

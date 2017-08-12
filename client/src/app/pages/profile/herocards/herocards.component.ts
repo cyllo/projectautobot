@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SnapshotStats, HeroSnapshotStats, OverwatchStaticData } from '../../../models';
+import { TransformedStats, HeroSnapshotStats, OverwatchStaticData } from '../../../models';
 import { OverwatchHeroDataService } from '../../../services';
 
 @Component({
@@ -19,7 +19,7 @@ export class HeroCardsComponent implements OnInit {
     return this._snapshotStats;
   }
 
-  private _snapshotStats: SnapshotStats;
+  private _snapshotStats: TransformedStats;
   private heroData: OverwatchStaticData;
   sortedHeroes: Array<any>;
 

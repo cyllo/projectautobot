@@ -29,9 +29,9 @@ defmodule Scraper.DataProcessor.Stats do
       |> process_stat_return
   end
 
-  defp process_stat_return([]), do: %{general_stats: [], heroes_stats: []}
+  defp process_stat_return([]), do: %{total_stats: [], heroes_stats: []}
   defp process_stat_return(heroes_stats), do: %{
-    general_stats: TotalStatsCalculator.calculate_hero_totals(heroes_stats),
+    total_stats: TotalStatsCalculator.calculate_hero_totals(heroes_stats),
     heroes_stats: heroes_stats
   }
 

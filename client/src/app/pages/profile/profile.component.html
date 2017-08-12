@@ -28,13 +28,13 @@
                 <div class="btn-group" role="group" aria-label="Sort By Quick Play or Competitive Play">
 
                   <button type="button" class="btn btn-radio"
-                    [class.active]="snapshotStats.isCompetitive"
+                    [class.active]="snapshotStats.heroesTotalSnapshotStatistic.statisticType === 'HERO_TOTAL_COMPETITIVE'"
                     (click)="toggleSnapshotStats('competitive')">
                     <span>Competitive Play</span>
                   </button><!-- end button -->
 
                   <button type="button" class="btn btn-radio"
-                    [class.active]="!snapshotStats.isCompetitive"
+                    [class.active]="snapshotStats.heroesTotalSnapshotStatistic.statisticType === 'HERO_TOTAL_QUICKPLAY'"
                     (click)="toggleSnapshotStats('quickPlay')">
                     <span>Quick Play</span>
                   </button><!-- end button -->

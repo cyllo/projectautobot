@@ -3,7 +3,7 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
 import {
-  SnapshotStats,
+  TransformedStats,
   HeroSnapshotStats,
   OverwatchStaticData,
   HeroData,
@@ -59,7 +59,7 @@ export class OverwatchHeroDataService {
 
   // Returns a number that is the accumulation of the value of the key in every
   // hero snapshot where it exists.
-  aggregateFromSnapshot(snapshotStatistics: SnapshotStats, statSectionKey: string, heroStatKey: string): number {
+  aggregateFromSnapshot(snapshotStatistics: TransformedStats, statSectionKey: string, heroStatKey: string): number {
     const { heroSnapshotStatistics } = snapshotStatistics;
     return heroSnapshotStatistics.reduce((acc, heroStatistics) => {
       if ( heroStatistics[statSectionKey] ) {

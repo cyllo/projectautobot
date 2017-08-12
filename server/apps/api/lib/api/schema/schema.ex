@@ -3,11 +3,12 @@ defmodule Api.Schema do
   import Absinthe.Resolution.Helpers, only: [async: 2]
   alias Api.{
     Schema,
+    LeaderboardSnapshotResolver,
+    AverageStatisticsSnapshotResolver,
     SnapshotStatisticsAverageResolver,
     GamerTagResolver, HeroResolver, UserResolver,
     SessionResolver, BlogResolver, Middleware,
     HeroStatisticsAverageResolver, FriendshipResolver
-    #, SnapshotStatisticResolver
   }
 
   import_types Absinthe.Type.Custom
@@ -20,9 +21,10 @@ defmodule Api.Schema do
   import_types Schema.SessionTypes
   import_types Schema.StatisticAverageTypes
   import_types Schema.HeroStatisticsAverageTypes
+  import_types Schema.LeaderboardSnapshotStatisticTypes
   import_types Schema.SnapshotStatisticsAverageTypes
   import_types Schema.ActionTypes
-  import_types Api.Schema.FriendTypes
+  import_types Schema.FriendTypes
 
   query do
     @desc """
@@ -104,17 +106,60 @@ defmodule Api.Schema do
     end
 
     field :hero_statistics_average, :hero_statistics_average do
-      arg :hero_id, :integer
-      arg :is_competitive, :boolean
-      # arg :name, :string
+      arg :hero_id, non_null(:integer)
+      arg :type, non_null(:snapshot_statistic_type)
 
       resolve &HeroStatisticsAverageResolver.find_hero_and_average/2
     end
 
     field :snapshots_statistics_average, :snapshot_statistics_average do
-      arg :is_competitive, :boolean
+      arg :type, non_null(:snapshot_statistic_type)
 
       resolve &SnapshotStatisticsAverageResolver.average/2
+    end
+
+    field :leaderboard_snapshot_statistics, list_of(:leaderboard_snapshot_statistic) do
+      arg :after, :integer
+      arg :before, :integer
+      arg :last, :integer
+      arg :first, :integer
+      arg :start_date, :datetime
+      arg :end_date, :datetime
+
+      resolve &LeaderboardSnapshotResolver.all/2
+    end
+
+    field :leaderboard_snapshot_statistic, :leaderboard_snapshot_statistic do
+      arg :after, :integer
+      arg :before, :integer
+      arg :last, :integer
+      arg :first, :integer
+      arg :start_date, :datetime
+      arg :end_date, :datetime
+
+      resolve &LeaderboardSnapshotResolver.find/2
+    end
+
+    field :statistics_averages_snapshot, :statistics_averages_snapshot do
+      arg :after, :integer
+      arg :before, :integer
+      arg :last, :integer
+      arg :first, :integer
+      arg :start_date, :datetime
+      arg :end_date, :datetime
+
+      resolve &AverageStatisticsSnapshotResolver.all/2
+    end
+
+    field :statistics_averages_snapshots, list_of(:statistics_averages_snapshot) do
+      arg :after, :integer
+      arg :before, :integer
+      arg :last, :integer
+      arg :first, :integer
+      arg :start_date, :datetime
+      arg :end_date, :datetime
+
+      resolve &AverageStatisticsSnapshotResolver.find/2
     end
   end
 
@@ -133,7 +178,7 @@ defmodule Api.Schema do
     field :search_gamer_tag, list_of(:gamer_tag) do
       arg :tag, non_null(:string)
 
-      resolve &GamerTagResolver.search/2
+      resolve &async(fn -> GamerTagResolver.search(&1, &2) end, timeout: 30_000)
     end
 
     @desc "Creates a User account"

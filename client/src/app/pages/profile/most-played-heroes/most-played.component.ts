@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { SnapshotStats, HeroSnapshotStats, GameHistoryStats, CombatLifetimeStats, OverwatchStaticData } from '../../../models';
+import { TransformedStats, HeroSnapshotStats, GameHistoryStats, CombatLifetimeStats, OverwatchStaticData } from '../../../models';
 import { Subscription } from 'rxjs/Subscription';
 
 import { OverwatchHeroDataService } from '../../../services';
@@ -22,7 +22,7 @@ export class MostPlayedComponent implements OnInit, OnDestroy {
   }
 
   sortedHeroData: any[];
-  private _snapshotStats: SnapshotStats;
+  private _snapshotStats: TransformedStats;
   private heroData: OverwatchStaticData;
   private sub: Subscription;
 
@@ -42,10 +42,10 @@ export class MostPlayedComponent implements OnInit, OnDestroy {
     this.reset();
 
     let sort = this.sortHeroesByTimePlayed;
-    let ss:   SnapshotStats       = this._snapshotStats;
+    let ss:   TransformedStats    = this._snapshotStats;
     let hss:  HeroSnapshotStats[] = ss.heroSnapshotStatistics;
-    let ahss: HeroSnapshotStats   = ss.allHeroesSnapshotStatistic;
-    let ghs:  GameHistoryStats    = ahss.gameHistoryStatistic;
+    let htss: HeroSnapshotStats   = ss.heroesTotalSnapshotStatistic;
+    let ghs:  GameHistoryStats    = htss.gameHistoryStatistic;
 
     let timeplayed: number = ghs.timePlayed;
 

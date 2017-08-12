@@ -1,6 +1,5 @@
 defmodule Api.SnapshotStatisticsAverageResolver do
-  alias Models.Statistics.Snapshots.LatestSnapshotStatistic
+  alias Models.Statistics.Snapshots
 
-  def average(%{is_competitive: competitive}, _info), do: {:ok, LatestSnapshotStatistic.average(is_competitive: competitive)}
-  def average(_, _info), do: {:ok, LatestSnapshotStatistic.average(is_competitive: true)}
+  def average(%{type: type}, _info), do: {:ok, Snapshots.average(type)}
 end

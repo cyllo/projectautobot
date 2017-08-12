@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
-  SnapshotStats,
+  TransformedStats,
   HeroSnapshotStats,
   OverwatchStaticData,
   HeroStatBlock
@@ -34,7 +34,7 @@ export class HeroCardBodyComponent implements OnInit {
   }
 
   private _heroSnap: HeroSnapshotStats;
-  private _snapshotStats: SnapshotStats;
+  private _snapshotStats: TransformedStats;
   private heroData: OverwatchStaticData;
   statBlocks: HeroStatBlock[];
 
@@ -54,9 +54,9 @@ export class HeroCardBodyComponent implements OnInit {
   private load() {
     this.reset();
     this.statBlocks = this.statBlocks.concat(this.owHeroData.genericStatBlocksForHero(this._heroSnap,
-      this._snapshotStats.allHeroesSnapshotStatistic));
+      this._snapshotStats.heroesTotalSnapshotStatistic));
     this.statBlocks = this.statBlocks.concat(this.owHeroData.heroSpecificStatBlocksForHero(this._heroSnap,
-      this._snapshotStats.allHeroesSnapshotStatistic));
+      this._snapshotStats.heroesTotalSnapshotStatistic));
   }
 
 }

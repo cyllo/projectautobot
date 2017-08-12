@@ -9,7 +9,6 @@ defmodule Models.Game do
     :match_awards_statistic
   ]
 
-  @all_heroes_snapshot_relations @statistic_relations
   @hero_snapshot_relations [:hero, :hero_specific_statistic] ++ @statistic_relations
 
   def find_gamer_tag(%{tag: tag, platform: platform, region: region}) do
@@ -144,7 +143,6 @@ defmodule Models.Game do
 
   def get_gamer_tag_with_snapshots(id) do
     get_gamer_tag(id, snapshot_statistics: [
-      all_heroes_snapshot_statistics: @all_heroes_snapshot_relations,
       hero_snapshot_statistics: @hero_snapshot_relations
     ])
   end

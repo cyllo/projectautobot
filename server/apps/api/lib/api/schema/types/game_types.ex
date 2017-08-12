@@ -8,20 +8,13 @@ defmodule Api.Schema.GameTypes do
     field :id, :integer
 
     field :tag, :string
+
     field :user_id, :integer
     field :overwatch_name, :string
     field :portrait_url, :string
-    field :total_games_won, :integer
-
-    field :competitive_level, :integer
-    field :competitive_rank_url, :string
 
     field :region, :string
     field :platform, :string
-
-    field :level, :integer
-    field :level_url, :string
-    field :rank_url, :string
 
     timestamp_types
 
@@ -42,7 +35,6 @@ defmodule Api.Schema.GameTypes do
       arg :end_date, :datetime
       arg :after, :integer
       arg :before, :integer
-      arg :is_competitive, :boolean
 
       resolve fn gamer_tag, args, _ ->
         batch(
