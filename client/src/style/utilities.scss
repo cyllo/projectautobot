@@ -1,5 +1,5 @@
 .d-block {
-  display: block !important; 
+  display: block !important;
 }
 
 .d-inline {
@@ -11,12 +11,12 @@
 }
 
 .flex-layout {
-  min-width: 0;
-  min-height: 0;
+  min-width: 0 !important;
+  min-height: 0 !important;
 }
 
 .border-radius-50 {
-  border-radius: 50%;
+  border-radius: 50% !important;
 }
 
 .min-width-0 {
@@ -24,19 +24,19 @@
 }
 
 .text-uppercase {
-  text-transform: uppercase;
+  text-transform: uppercase !important;
 }
 
 .text-center {
-  text-align: center;
+  text-align: center !important;
 }
 
 .text-left {
-  text-align: left;
+  text-align: left !important;
 }
 
 .text-right {
-  text-align: right;
+  text-align: right !important;
 }
 
 .text-overflow {

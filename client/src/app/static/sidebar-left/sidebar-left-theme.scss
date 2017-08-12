@@ -1,6 +1,7 @@
 @mixin sidebar-left-theme($theme) {
 
   $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
@@ -20,8 +21,15 @@
 
     color: $text-color;
 
-    i:not(button > i) {
-      color: $text-color;
+    a {
+      color: mat-color($accent);
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .mat-icon {
+      color: inherit;
     }
 
     .mat-sidenav-container {
@@ -115,7 +123,14 @@
       }
 
       input[type="text"] {
-        background-color: transparent;
+        &:focus {
+          background-color: mat-color($background, card);
+          color: mat-color($foreground, text);
+        }
+      }
+
+      button:disabled {
+        color: $text-color;
       }
 
     }
@@ -125,8 +140,8 @@
     }
 
     .form-group {
-      i {
-        color: $text-color;
+      .mat-icon {
+        color: inherit;
       }
     }
 

@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component,
+         Input,
+         OnInit,
+         HostListener,
+         ViewChild,
+         ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Club } from '../../../../../models';
 import { ClubService, FriendShipService } from '../../../../../services';
@@ -13,6 +18,8 @@ import { map, prop } from 'ramda';
 
 export class ClubComponent implements OnInit {
   @Input() club: Club;
+  @ViewChild('clubEditor', { read: ElementRef }) clubEditor: ElementRef;
+  @ViewChild('expansionPanel') expansionPanel;
 
   clubNameEditInProgress: boolean;
   expansionPanelCollapsed: boolean;
@@ -32,14 +39,13 @@ export class ClubComponent implements OnInit {
     this.router.navigate(['/compare'], { queryParams: { ids: map(prop('id'), friendships)} });
   }
 
-  clubNameEditStart(event) {
+  clubNameEditStart($event) {
     this.clubNameEditInProgress = true;
-    event.stopPropagation();
+    this.stopPropagation($event);
   }
 
-  clubNameEditEnd($event) {
+  clubNameEditEnd() {
     this.clubNameEditInProgress = false;
-    $event.stopPropagation();
   }
 
   expandedEvent() {
@@ -54,10 +60,9 @@ export class ClubComponent implements OnInit {
     this.clubService.delete(id);
   }
 
-  updateClub(id, name, $event) {
+  updateClub(id, name) {
     this.clubNameEditInProgress = false;
     this.clubService.update(id, name);
-    $event.stopPropagation();
   }
 
   deleteFriend(friendshipId) {
@@ -67,4 +72,20 @@ export class ClubComponent implements OnInit {
   removeFriend(friendshipId, clubId) {
     this.clubService.removeFriendship(friendshipId, clubId);
   }
+
+  stopPropagation($event) {
+    $event.stopPropagation();
+  }
+
+  toggleExpansionPanel() {
+    console.log('toggle', this.expansionPanel.toggle());
+  }
+
+  @HostListener('document:click', ['$event.target'])
+  onDOMClick($target) {
+    if (this.clubNameEditInProgress && !this.clubEditor.nativeElement.contains($target)) {
+      this.clubNameEditEnd();
+    }
+  }
+
 }

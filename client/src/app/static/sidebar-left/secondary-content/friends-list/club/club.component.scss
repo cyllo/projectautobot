@@ -1,5 +1,7 @@
 .club {
 
+  outline: none;
+
   .club-name {
     white-space: nowrap;
     overflow: hidden;
@@ -10,6 +12,25 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .btn-club-name {
+    text-transform: none;
+    font-weight: normal;
+    font-size: inherit;
+  }
+
+  .btn-content-toggle {
+
+    .mat-icon {
+      transform: rotate(0);
+      transition: transform 0.25s cubic-bezier(0.55, 0, 0.1, 1);
+    }
+
+    &.collapsed .mat-icon {
+      transform: rotate(-90deg) !important;
+    }
+
   }
 
 }
@@ -36,6 +57,10 @@
   .td-expansion-content,
   .td-expansion-summary {
     padding: 0 8px;
+  }
+
+  md-menu {
+    margin: 0 !important;
   }
 
 }
