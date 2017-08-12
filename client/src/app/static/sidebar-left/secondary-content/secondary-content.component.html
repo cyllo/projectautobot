@@ -1,47 +1,28 @@
 <div class="secondary-content flex-layout" fxLayout="column" fxFlex="grow">
-
   <md-tab-group class="flex-layout" fxLayout="column" fxFlex="grow" [dynamicHeight]="false">
-
     <md-tab>
-
       <ng-template md-tab-label>
-
         <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center" fxFlex="grow">
           <md-icon>people</md-icon>
           <span class="ml-1">Friends ({{ friendsCount | async }})</span>
         </div>
-
       </ng-template>
-
       <div class="flex-layout" fxFlexFill>
-
         <ow-friends-list></ow-friends-list>
-
       </div>
-
     </md-tab>
-
     <md-tab>
-
       <ng-template md-tab-label>
-
         <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center" fxFlex="grow">
           <md-icon>person_add</md-icon>
           <span class="ml-1">
             Requests ({{ friendRequestCount > 99 ? '99+' : friendRequestCount }})
           </span>
         </div>
-
       </ng-template>
-
       <div class="flex-layout" fxFlexFill>
-
         <ow-friend-requests></ow-friend-requests>
-
       </div>
-
     </md-tab>
-
   </md-tab-group>
-
 </div>

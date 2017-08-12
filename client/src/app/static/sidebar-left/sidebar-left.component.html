@@ -8,16 +8,20 @@
     <md-sidenav-container fxLayout="column" fxFlex="grow">
 
       <md-sidenav #sidenav mode="side" opened="false" align="end"
-                  (open-start)='onSideNavOpenStart($event)'
-                  (close-start)='onSideNavCloseStart($event)'>
+                  (open-start)="sideNavOpen = true"
+                  (close-start)="sideNavOpen = false">
 
         <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="grow">
 
-          <ow-secondary-content
-            class="flex-layout"
-            fxLayout="column"
-            fxFlex="grow">
-          </ow-secondary-content>
+          <div *ngIf="(userLoggedIn | async); then secondaryContent; else userNotLoggedIn;"></div>
+
+          <ng-template #secondaryContent>
+            <ow-secondary-content class="flex-layout" fxLayout="column" fxFlex="grow"></ow-secondary-content>
+          </ng-template>
+
+          <ng-template #userNotLoggedIn>
+            Login to proceed.
+          </ng-template>
 
         </div>
 
@@ -29,10 +33,10 @@
 
           <div class="flex-layout px-1 py-1" fxLayout="column">
 
-            <button md-icon-button class="btn-sidebar-toggle"
+            <button md-mini-fab class="btn-sidebar-toggle"
                     [ngClass]="{ 'collapsed' : sideNavOpen }"
                     [mdTooltipPosition]="'right'"
-                    mdTooltip="{{ sideNavOpen ? 'Close Menu' : 'Open Menu' }}"
+                    mdTooltip="Toggle Menu"
                     (click)="sidenav.toggle()">
               <md-icon>add</md-icon>
             </button>

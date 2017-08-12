@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeingService, AppTheme } from '../../services';
+import { AppState, CurrentSession } from '../../models';
+import { values, all, isNil, path } from 'ramda';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ow-sidebar-left',
@@ -13,20 +17,17 @@ export class SideBarLeftComponent implements OnInit {
   sideNavOpen: boolean;
   appThemesCatalog: AppTheme[];
 
-  constructor(private themeingService: ThemeingService) {
+  userLoggedIn: Observable<boolean>;
+
+  constructor(private store: Store<AppState>,
+    private themeingService: ThemeingService) {
     this.sideNavOpen = false;
   }
 
   ngOnInit() {
     this.appThemesCatalog = Object.values(this.themeingService.themes());
-  }
-
-  onSideNavOpenStart(): void {
-    this.sideNavOpen = true;
-  }
-
-  onSideNavCloseStart(): void {
-    this.sideNavOpen = false;
+    this.userLoggedIn = this.store.select('currentSession')
+      .map((session: CurrentSession) => !all(isNil, values(path(['sessionInfo'], session))));
   }
 
   loadTheme(theme: AppTheme) {

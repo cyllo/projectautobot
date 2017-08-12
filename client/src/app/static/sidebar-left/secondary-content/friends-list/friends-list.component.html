@@ -62,14 +62,7 @@
            fxFlex="grow"
            [perfect-scrollbar]>
 
-        <div *ngIf="(clubs | async)?.length; then noClubs; else clubs;"></div>
-
-        <ng-template #noClubs>
-          Get started by adding some new friends!
-        </ng-template>
-
-        <ng-template #clubs>
-
+        <ng-container *ngIf="(clubs | async)?.length">
           <ow-club
             class="flex-layout"
             fxLayout="column"
@@ -78,8 +71,7 @@
             *ngFor="let club of clubs | async"
             [club]="club">
           </ow-club>
-
-        </ng-template>
+        </ng-container>
 
       </div>
 
@@ -91,7 +83,7 @@
     <ow-search
       [searchInProgress]="searchInProgress"
       [placeholder]="'Add a friend'"
-      (search)='onSearch($event)'>
+      (onSearch)="onSearch($event)">
     </ow-search>
   </div>
 
