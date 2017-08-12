@@ -11,6 +11,7 @@ defmodule Api.Schema.GameTypes do
 
     field :user_id, :integer
     field :overwatch_name, :string
+    field :portrait_url, :string
 
     field :region, :string
     field :platform, :string
