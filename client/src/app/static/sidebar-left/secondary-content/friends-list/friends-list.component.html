@@ -63,7 +63,8 @@
            [perfect-scrollbar]>
 
         <ng-container *ngIf="(clubs | async)?.length">
-          <ow-club fxLayout="row"
+          <ow-club class="flex-layout"
+                   fxLayout="row"
                    fxFlex="noshrink"
                    *ngFor="let club of clubs | async"
                    [club]="club">

@@ -1,4 +1,4 @@
-<div class="club flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
+<div class="club flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="grow">
 
   <td-expansion-panel
     class="flex-layout"
@@ -29,7 +29,7 @@
           </button>
         </div>
         <div class="flex-layout" fxLayout="column" fxFlex="grow">
-          <input type="text" value="{{ club.name }}"  (focusout)="clubNameEditEnd()">
+          <input type="text" value="{{ club.name }}" (focusout)="clubNameEditEnd()">
         </div>
         <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
           <button class="min-width-0" (click)="updateClub(club.id, clubNameEdit.value)" md-button>
