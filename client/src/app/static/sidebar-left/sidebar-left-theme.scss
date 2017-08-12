@@ -145,6 +145,11 @@
       }
     }
 
+    .btn-primary {
+      color: mat-color($foreground, text);
+      background-color: mat-color($background, card);
+    }
+
     input[type="text"] {
 
       background-color: $tab-content-background-color;

@@ -78,7 +78,7 @@ export class ClubComponent implements OnInit {
   }
 
   toggleExpansionPanel() {
-    console.log('toggle', this.expansionPanel.toggle());
+    this.expansionPanel.toggle();
   }
 
   @HostListener('document:click', ['$event.target'])

@@ -20,7 +20,26 @@
           </ng-template>
 
           <ng-template #userNotLoggedIn>
-            Login to proceed.
+            <div fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
+              <div fxLayout="column">
+                <div fxLayout="row">
+                  <div fxLayout="column">
+                    <p class="mat-headline text-center">To access this feature you need to:</p>
+                  </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="14px">
+                  <div fxLayout="column">
+                    <button md-button class="btn-primary" [routerLink]="'./login'">Login</button>
+                  </div>
+                  <div fxLayout="column">
+                    <span class="text-uppercase"><strong>or</strong></span>
+                  </div>
+                  <div fxLayout="column">
+                    <button md-button class="btn-primary" [routerLink]="'./register'">Register</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </ng-template>
 
         </div>

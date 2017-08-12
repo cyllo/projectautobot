@@ -65,7 +65,7 @@
         <ng-container *ngIf="(clubs | async)?.length">
           <ow-club class="flex-layout"
                    fxLayout="row"
-                   fxFlex="noshrink"
+                   fxFlex="0 0 auto"
                    *ngFor="let club of clubs | async"
                    [club]="club">
           </ow-club>

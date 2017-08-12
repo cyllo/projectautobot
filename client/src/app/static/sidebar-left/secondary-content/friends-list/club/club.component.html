@@ -1,4 +1,4 @@
-<div class="club flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="grow">
+<div class="club flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="grow" *ngIf="club">
 
   <td-expansion-panel
     class="flex-layout"
@@ -78,8 +78,7 @@
          fxLayoutGap="8px"
          fxFlex="grow"
          [dragula]='"bag-one"'
-         [attr.data-id]="club.id"
-         [dragulaModel]='club.friendships'>
+         [attr.data-id]="club.id">
 
       <div class="player-card flex-layout pb-2"
            fxLayout="row"
