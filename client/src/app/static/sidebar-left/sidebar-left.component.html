@@ -61,24 +61,17 @@
 
           <div class="flex-layout px-1 py-1" fxLayout="column" fxFlex="grow">
 
-            <md-menu class="min-width-0" #appMenu="mdMenu" [overlapTrigger]="false"
-                     xPosition="after" yPosition="above">
-
-              <div class="flex-layout px-1 py-1" fxLayout="column"
-                   *ngFor="let theme of appThemesCatalog">
-
+            <md-menu class="min-width-0" #appMenu="mdMenu" [overlapTrigger]="false" xPosition="after" yPosition="above">
+              <div class="flex-layout px-1 py-1" fxLayout="column" *ngFor="let theme of appThemesCatalog">
                 <button md-icon-button mdTooltip="{{ theme.name }}"
                         [mdTooltipPosition]="'right'"
                         (click)="loadTheme(theme)">
                   <ow-theme-picker-swatch [theme]="theme"></ow-theme-picker-swatch>
                 </button>
-
               </div>
-
             </md-menu>
 
-            <button md-icon-button [mdMenuTriggerFor]="appMenu"
-                    mdTooltip="Change Theme" [mdTooltipPosition]="'right'">
+            <button md-icon-button [mdMenuTriggerFor]="appMenu" mdTooltip="Change Theme" [mdTooltipPosition]="'right'">
                <md-icon>format_color_fill</md-icon>
             </button>
 
