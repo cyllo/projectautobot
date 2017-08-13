@@ -1,0 +1,35 @@
+@mixin news-post-card-theme($theme) {
+
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  $card-background-color: mat-color($accent);
+  $text-color: contrast-color($card-background-color);
+
+  .news-post-card {
+
+    background-color: black;
+    color: rgba($text-color, 0.87);
+
+    .content {
+      transition: background-color 0.35s ease-in-out;
+    }
+
+    &:hover {
+
+      .content {
+        background-color: rgba($card-background-color, 0.75);
+      }
+
+    }
+
+    .post-card-title {
+      color: rgba($text-color, 1);
+    }
+
+  }
+
+}

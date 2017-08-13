@@ -1,6 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './services';
 import { ProfileResolver } from './pages/profile/profile.resolver';
+import { BlogPostResolver } from './pages/resolvers';
 import {
   HomeComponent,
   FollowingComponent,
@@ -32,14 +33,14 @@ const routes: Routes = [
   { path: 'register/:code', component: UserRegistrationComponent},
   { path: 'register', component: UserRegistrationComponent },
   { path: 'news', component: NewsComponent },
-  { path: 'post/:title', component: PostComponent },
+  { path: 'post/:title', component: PostComponent, resolve: { blogPost: BlogPostResolver } },
   { path: 'friends', component: FriendsComponent },
   { path: 'profile/:platform/:region/:tag', component: ProfileComponent, resolve: { player: ProfileResolver } },
   { path: 'profile/:platform/:tag', component: ProfileComponent, resolve: { player: ProfileResolver } },
   { path: 'account', component: AccountSettingsComponent, canActivate: [AuthGuard] },
   { path: 'compare', component: CompareComponent },
   { path: '404', component: PageNotFoundComponent },
-  { path: '**', redirectTo: '/404' },
+  { path: '**', redirectTo: '/404' }
 ];
 
 export const routing = RouterModule.forRoot(routes);

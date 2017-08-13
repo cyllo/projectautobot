@@ -13,7 +13,6 @@ import {
   GamerTagService,
   OverwatchHeroDataService,
   AuthorizationService,
-  NewsService,
   ThemeingService,
   UserService
 } from './services';
@@ -24,7 +23,7 @@ import '../style/app.scss';
   selector: 'ow-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [HereosService, AuthorizationService, NewsService, ThemeingService, UserService]
+  providers: [HereosService, AuthorizationService, ThemeingService, UserService]
 })
 export class AppComponent implements OnDestroy, OnInit {
   sub: Subscription;
@@ -40,7 +39,6 @@ export class AppComponent implements OnDestroy, OnInit {
     private gamerTagService: GamerTagService,
     private hereosService: HereosService,
     private authService: AuthorizationService,
-    private newsPostService: NewsService,
     private themeingService: ThemeingService,
     private mdIconRegistry: MdIconRegistry,
     private userService: UserService
@@ -70,8 +68,6 @@ export class AppComponent implements OnDestroy, OnInit {
 
     this.themeingService.loadTheme(this.themeingService.themes().default);
     this.setDefaultFontSetClass();
-
-    this.newsPostService.getLatestPosts(3);
 
     this.currentSession
     .filter(val => !isNil(val))

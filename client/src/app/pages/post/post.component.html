@@ -1,8 +1,9 @@
-<ow-post-user-actions></ow-post-user-actions>
-<!-- end .ow-post-user-actions -->
+<div class="post" fxLayout="column" fxLayoutAlign="start center" fxFlex="grow">
 
-<div class="post-entries">
-  <ow-post-entry></ow-post-entry>
-  <ow-post-entry></ow-post-entry>
+  <div fxLayout="row" *ngFor="let post of blogPosts | async">
+    <ow-post-entry [post]="post"
+                   (next)="onNextPost($event)">
+    </ow-post-entry>
+  </div>
+
 </div>
-<!-- end .container-fluid -->

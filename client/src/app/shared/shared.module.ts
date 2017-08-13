@@ -8,7 +8,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MomentModule } from 'angular2-moment';
 import { MdIconModule,
          MdProgressSpinnerModule,
-         MdButtonModule } from '@angular/material';
+         MdButtonModule,
+         MdCardModule,
+         MdChipsModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import {
@@ -19,6 +21,7 @@ import {
   RoleComponent,
   NewsPostCardComponent,
   ImageComponent,
+  PageSpinnerComponent,
   SelectComponent,
   HeroCardComponent,
   HeroCardHeaderComponent,
@@ -53,7 +56,9 @@ import { ChartsModule } from 'ng2-charts';
     MdIconModule,
     MdProgressSpinnerModule,
     MdButtonModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MdCardModule,
+    MdChipsModule
   ],
   declarations: [
     VideoCardComponent,
@@ -62,6 +67,7 @@ import { ChartsModule } from 'ng2-charts';
     RoleComponent,
     NewsPostCardComponent,
     ImageComponent,
+    PageSpinnerComponent,
     SelectComponent,
     HeroCardComponent,
     HeroCardHeaderComponent,
@@ -88,6 +94,7 @@ import { ChartsModule } from 'ng2-charts';
     TopNewsComponent,
     NewsPostCardComponent,
     ImageComponent,
+    PageSpinnerComponent,
     SelectComponent,
     HeroCardComponent,
     ChartComponent,

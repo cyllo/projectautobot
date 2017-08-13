@@ -1,42 +1,28 @@
-import { AfterContentInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
-import { take, drop, applySpec } from 'ramda';
-
-import { NewsService } from '../../services';
-
-export const firstTwo = take(2);
-export const allButFirstTwo = drop(2);
-export const getHighlightPosts = applySpec({firstCouple: firstTwo, rest: allButFirstTwo});
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { values, reverse, isEmpty } from 'ramda';
+import { AppState, BlogPost } from '../../models';
+import { BlogPostsService } from '../../services';
 
 @Component({
   selector: 'ow-news',
   templateUrl: 'news.component.html',
   styleUrls: ['news.component.scss'],
-  providers: [NewsService]
+  providers: [BlogPostsService]
 })
-export class NewsComponent implements OnInit, AfterContentInit, OnDestroy {
-  @ViewChild('category') categoryInput;
-  @ViewChild('archive') archiveInput;
-  questionForm: FormGroup;
-  subscriptions: Subscription[] = [];
+export class NewsComponent implements OnInit {
 
-  throttle = 300;
-  scrollDistance = 1;
+  public blogPosts: Observable<BlogPost[]>;
 
-  constructor(public news: NewsService) {
-  }
+  constructor(private store: Store<AppState>,
+              private blogPostsService: BlogPostsService) {}
 
   ngOnInit() {
-    this.questionForm = new FormGroup({});
-
-    // this.news.getLatestPosts()
-  }
-
-  ngAfterContentInit() {}
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.blogPostsService.getBlogPostsAfter(30);
+    this.blogPosts = this.store.select('blogPosts')
+      .filter(val => !isEmpty(val))
+      .map(posts => reverse(values(posts)));
   }
 
 }

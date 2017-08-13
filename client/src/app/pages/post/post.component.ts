@@ -1,4 +1,11 @@
-import { Component , OnInit , HostListener } from '@angular/core';
+import { Component , OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { BlogPost, AppState } from '../../models';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { BlogPostsService } from '../../services';
+import { Subject } from 'rxjs/Subject';
+import { find, findIndex, propEq, append, last } from 'ramda';
 
 @Component({
   selector: 'ow-post',
@@ -8,23 +15,43 @@ import { Component , OnInit , HostListener } from '@angular/core';
 
 export class PostComponent implements OnInit {
 
-  constructor() {}
+  blogPosts: Observable<BlogPost[]>;
 
-  ngOnInit() {}
+  private loadNextPost$: Subject<number> = new Subject<number>();
 
-  @HostListener('window:scroll', ['$event'])
-  onScroll( event ) {
-    event.preventDefault();
+  constructor(private activatedRoute: ActivatedRoute,
+    private store: Store<AppState>,
+    private blogPostsService: BlogPostsService) {
+      console.log(this.store);
+    }
+
+  ngOnInit() {
+
+    this.activatedRoute.data.subscribe(data => {
+      this.blogPosts = Observable.of([data.blogPost]);
+    });
+
+    this.loadNextPost$
+      .distinctUntilChanged((a, b) => a !== b)
+      .subscribe(id => this.loadNextPost(id));
+
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize( event ) {
-    event.preventDefault();
+  loadNextPost(id: number) {
+    this.blogPostsService.posts$
+      .filter(posts => find(propEq('id', id), posts) !== last(posts))
+      .subscribe(posts => {
+        const i = findIndex(propEq('id', id), posts);
+        this.blogPosts
+          .map(p => append(posts[i + 1], p))
+          .subscribe();
+      });
+    // this.blogPostsService.getBlogPostsBefore(1, id);
   }
 
-  @HostListener('window:DOMContentLoaded', ['$event'])
-  onDOMLoaded( event ) {
-    event.preventDefault();
+  onNextPost(id: number) {
+    this.loadNextPost$.next(id);
   }
+
 
 }

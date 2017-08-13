@@ -20,7 +20,9 @@ export class PlayerProfileButtonComponent implements OnInit {
 
   ngOnInit() {
     this.playerData$ = Observable.of(this.player)
-      .map(player => assoc('snapshotStatistics', last(player.snapshotStatistics), player));
+      .map(player => player.snapshotStatistics ?
+        assoc('snapshotStatistics', last(player.snapshotStatistics), player) : player
+      );
   }
 
   navigateToProfile(player$: Observable<Player>) {

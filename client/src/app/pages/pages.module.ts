@@ -8,11 +8,18 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SharedModule } from '../shared/shared.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MomentModule } from 'angular2-moment';
 import { MdInputModule,
          MdButtonModule,
          MdCardModule,
          MdSnackBarModule,
-         MdTabsModule } from '@angular/material';
+         MdTabsModule,
+         MdIconModule,
+         MdListModule,
+         MdSelectModule,
+         MdProgressSpinnerModule,
+         MdChipsModule,
+         MdSlideToggleModule } from '@angular/material';
 
 import {
   HomeComponent,
@@ -68,7 +75,14 @@ import {
     MdButtonModule,
     MdCardModule,
     MdSnackBarModule,
-    MdTabsModule
+    MdTabsModule,
+    MdIconModule,
+    MdListModule,
+    MdSelectModule,
+    MdProgressSpinnerModule,
+    MomentModule,
+    MdChipsModule,
+    MdSlideToggleModule
   ],
   declarations: [
     HomeComponent,

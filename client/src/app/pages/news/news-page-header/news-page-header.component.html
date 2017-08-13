@@ -1,31 +1,77 @@
-<div class="news-page-header pl-3" #newspageheader>
-  <div class="user-actions d-flex align-items-center px-3" ngbDropdown>
-    <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
-        Search Input goes here
+<div class="news-page-header fixed-top"
+     ngStyle.gt-xs="padding-left: 64px; margin-top: 64px;"
+     fxLayout="row"
+     fxLayoutAlign="start center"
+     fxFlex="grow">
+
+  <div class="content"
+       fxLayout="row"
+       fxLayoutAlign="start center"
+       fxLayoutGap="30px"
+       fxFlex="grow">
+
+    <div *ngIf="searchIsOpen; then search; else userActions;"></div>
+
+    <ng-template #search>
+      <div fxLayout="column" fxFlex="grow">
+        <ow-search></ow-search>
+      </div>
+    </ng-template>
+
+    <ng-template #userActions>
+
+      <div fxLayout="column" fxFlex="grow">
+
+        <div fxLayout="row"
+             fxLayoutAlign="start center"
+             fxLayoutGap="30px"
+             fxFlex="grow">
+
+          <div class="flex-layout" fxLayout="column" fxFlex="grow" fxHide.gt-md>
+
+            <md-select placeholder="Category" [(ngModel)]="currentCategory">
+
+              <md-option *ngFor="let category of categories" [value]="category">
+                {{ category }}
+              </md-option>
+
+            </md-select>
+
+          </div>
+
+          <div class="flex-layout" fxLayout="column" fxFlex="grow" fxHide.lt-lg>
+
+            <md-chip-list>
+              <md-chip class="mx-2" *ngFor="let category of categories">
+                {{ category }}
+              </md-chip>
+            </md-chip-list>
+
+          </div>
+
+          <div fxLayout="column" fxFlex="noshrink" fxHide.lt-sm>
+            <md-select placeholder="Posts Per Page" [(ngModel)]="postsPerPage">
+               <md-option [value]="30">30</md-option>
+            </md-select>
+          </div>
+
+          <div fxLayout="column" fxFlex="noshrink" fxHide.lt-sm>
+            <md-slide-toggle>Slide me!</md-slide-toggle>
+          </div>
+
+        </div>
+
+      </div>
+
+    </ng-template>
+
+    <div fxLayout="column" fxFlex="noshrink">
+      <button (click)="toggleSearch()" md-button>
+        <md-icon *ngIf="searchIsOpen">close</md-icon>
+        <md-icon *ngIf="!searchIsOpen">search</md-icon>
+      </button>
     </div>
-    <button class="btn-search px-3 py-3" id="dropdownBasic1" ngbDropdownToggle>
-      <i class="fa fa-search"></i>
-    </button>
-    <!-- end .btn-search -->
+
   </div>
-  <!-- end .user-actions -->
-  <div class="list-container text-center">
-    <ul class="post-categories py-3">
-      <li class="category">
-        <button class="category-link current px-2 py-2 mx-2">All</button>
-      </li>
-      <!-- end .category -->
-      <li class="category">
-        <button class="category-link px-2 py-2 mx-2">Patch Notes</button>
-      </li>
-      <!-- end .category -->
-      <li class="category">
-        <button class="category-link px-2 py-2 mx-2">Patch Notes</button>
-      </li>
-      <!-- end .category -->
-    </ul>
-    <!-- end .post-categories -->
-  </div>
-  <!-- end .list-container -->
+
 </div>
-<!-- end .news-page-header -->
