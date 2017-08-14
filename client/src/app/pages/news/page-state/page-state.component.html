@@ -3,7 +3,7 @@
 
     <div fxLayout="column" fxFlex="noshrink">
       <md-slide-toggle [checked]="reverseOrder" (change)="sortOrderChanged($event, state)">
-        <span class="text-uppercase">{{ sortDescending ? 'Latest' : 'Oldest' }}</span>
+        <span class="text-uppercase">{{ reverseOrder ? 'Latest' : 'Oldest' }}</span>
       </md-slide-toggle>
     </div>
 
