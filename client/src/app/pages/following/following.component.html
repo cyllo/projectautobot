@@ -1,20 +1,103 @@
 <div class="following px-3 pt-3">
-
   <md-tab-group>
-
     <md-tab label="Overview">
       <div class="pt-3" fxLayout="row" fxLayoutWrap>
-        <div class="px-3 pb-3" fxLayout="column"
+        <div class="px-3 pb-3"
+             fxLayout="column"
              fxFlex.xs="100%"
              fxFlex.sm="50%"
              fxFlex.md="33.333%"
-             fxFlex.lg="20%"
+             fxFlex.lg="33.333%"
              *ngFor="let player of players">
-          <ow-player-profile-button [player]="player"></ow-player-profile-button>
+
+          <div class="py-2 py-2">
+
+            <div class="player text-uppercase" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+
+              <div fxLayout="column" class="noshrink">
+                  <img class="md-image md-image-48" [src]="player.portraitUrl">
+              </div>
+
+              <div class="flex-layout"
+                   fxLayout="column"
+                   fxLayoutGap="2px"
+                   fxFlex="grow">
+
+                  <div class="flex-layout" fxLayout="row">
+                    <span class="mat-caption text-overflow">
+                      <small>{{ player.tag }}</small>
+                    </span>
+                  </div>
+
+                  <div class="flex-layout" fxLayout="row">
+                    <span class="mat-caption text-overflow">
+                      <strong>{{ player.overwatchName }}</strong>
+                    </span>
+                  </div>
+
+                  <div class="flex-layout"
+                       fxLayout="row"
+                       fxLayoutGap="4px"
+                       fxLayoutAlign="start center">
+
+                    <div fxLayout="column" *ngIf="player.snapshotStatistics">
+                      <div fxLayout="row">
+                        <div fxLayout="column">
+                          <img class="md-image md-image-18"
+                          [src]="player.snapshotStatistics.profileSnapshotStatistic.profileStatistic.competitiveRankUrl">
+                        </div>
+                        <div fxLayout="column">
+                          <span class="mat-caption ml-1">
+                            {{ player.snapshotStatistics.profileSnapshotStatistic.profileStatistic.competitiveLevel }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div fxLayout="column">
+                      <span class="platform-region mini-pr text-uppercase"
+                            *ngIf="player.platform">
+                        {{ player.platform }}
+                      </span>
+                    </div>
+
+                    <div fxLayout="column">
+                      <span class="platform-region mini-pr text-uppercase"
+                            *ngIf="player.region">
+                        {{ player.region }}
+                      </span>
+                    </div>
+
+                  </div>
+
+              </div>
+
+              <div fxLayout="column" fxFlex="noshrink">
+
+                <div fxLayout="row" fxLayoutGap="8px">
+
+                  <div fxLayout="column">
+                    <button class="min-width-0" color="warn" md-button mdTooltip="Unfollow">
+                      <md-icon>favorite_border</md-icon>
+                    </button>
+                  </div>
+
+                  <div fxLayout="column">
+                    <button class="min-width-0" md-button mdTooltip="View Profile">
+                      <md-icon>chevron_right</md-icon>
+                    </button>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
       </div>
     </md-tab>
-
   </md-tab-group>
-
 </div>
