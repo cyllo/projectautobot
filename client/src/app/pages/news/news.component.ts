@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { BlogPost, NewsPageState } from '../../models';
 import { BlogPostsService } from '../../services';
-import { reverse, assoc, isEmpty } from 'ramda';
+import { reverse, isEmpty } from 'ramda';
 
 @Component({
   selector: 'ow-news',
@@ -24,17 +24,14 @@ export class NewsComponent implements OnInit {
 
     this.newsPosts$
       .distinctUntilChanged((a: NewsPageState, b: NewsPageState) =>
-        a.category       !== b.category ||
-        b.sortDescending !== b.sortDescending ||
-        a.postsPerPage   !== b.postsPerPage ||
-        a.loadNextPage   !== b.loadNextPage)
+        a.category     !== b.category ||
+        b.reverseOrder !== b.reverseOrder)
       .subscribe((state: NewsPageState) => this.updatePageState(state));
 
     this.newsPosts$.next(this.state = {
       category: 0,
-      sortDescending: true,
-      postsPerPage: 30,
-      loadNextPage: false
+      reverseOrder: true,
+      postsPerPage: 8
     });
     this.blogPostsService.getBlogPostsAfter(this.state.postsPerPage);
   }
@@ -44,16 +41,20 @@ export class NewsComponent implements OnInit {
   }
 
   updatePageState(state: NewsPageState) {
-    const {sortDescending} = state;
+    console.log('updatePageState()');
+    const {reverseOrder} = state;
     this.blogPosts = this.blogPostsService.posts$
       .filter(arr => !isEmpty(arr))
-      .map(blogPosts => sortDescending ? blogPosts : reverse(blogPosts))
-      .do(console.log.bind(console))
-      .do(() => this.state = assoc('loadNextPage', false, state));
+      .map(blogPosts => reverseOrder ? blogPosts : reverse(blogPosts))
+      .do(console.log.bind(console));
   }
 
-  onScroll(state) {
-    this.newsPosts$.next(assoc('loadNextPage', true, state));
+  onScrollUp(state) {
+    console.log('scrolled up event', state);
+  }
+
+  onScrollDown(state) {
+    console.log('scrolled down event', state);
   }
 
 

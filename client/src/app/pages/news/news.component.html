@@ -8,9 +8,11 @@
 
   <div class="news"
        infiniteScroll
-       [infiniteScrollDistance]="0.3"
-       [infiniteScrollThrottle]="750"
-       (scrolled)="onScroll(state)">
+       [infiniteScrollDistance]="0"
+       [infiniteScrollUpDistance]="1"
+       [infiniteScrollThrottle]="250"
+       (scrolledUp)="onScrollUp(state)"
+       (scrolled)="onScrollDown(state)">
 
     <div class="news-page-header fixed-top"
          ngStyle.gt-xs="padding-left: 64px; margin-top: 64px;"
