@@ -1,5 +1,5 @@
 defmodule Models.Model do
-  import Ecto.Query, only: [limit: 2, order_by: 2, where: 3, from: 2, subquery: 1]
+  import Ecto.Query, only: [limit: 2, order_by: 2, where: 3, from: 2, subquery: 1, exclude: 2]
   import Logger, only: [debug: 1]
 
   defmacro __using__(_) do
@@ -50,9 +50,9 @@ defmodule Models.Model do
   end
 
   def create_model_filters(query, params) when is_map(params), do: create_model_filters(query, Map.to_list(params))
-  def create_model_filters(query, params), do: Enum.reduce(params, query, &create_model_filter/2)
+  def create_model_filters(query, params), do: Enum.reduce(params, order_by(query, asc: :id), &create_model_filter/2)
   def create_model_filter({:first, val}, query), do: limit(query, ^val)
-  def create_model_filter({:last, val}, query), do: from(query, order_by: [desc: :inserted_at], limit: ^val) |> subquery |> order_by(asc: :inserted_at)
+  def create_model_filter({:last, val}, query), do: query |> exclude(:order_by) |> from(order_by: [desc: :inserted_at], limit: ^val) |> subquery |> order_by(asc: :inserted_at)
   def create_model_filter({:start_date, val}, query), do: where(query, [m], m.inserted_at >= ^(val))
   def create_model_filter({:end_date, val}, query), do: where(query, [m], m.inserted_at <= ^val)
   def create_model_filter({:before, id}, query), do: where(query, [m], m.id < ^id)
@@ -140,14 +140,14 @@ defmodule Models.Model do
       import Ecto.Query, only: [from: 2]
 
       @spec unquote(fn_name)() :: [unquote(model)]
-      def unquote(fn_name)(), do: Models.Repo.all(unquote(model))
+      def unquote(fn_name)(), do: Models.Repo.all(unquote(model), order_by: :id)
 
       @spec unquote(fn_name)(params :: map | list) :: [unquote(model)]
       def unquote(fn_name)(params), do: unquote(model) |> Models.Model.create_model_filters(params) |> Models.Repo.all
 
       @spec unquote(fn_name)(where :: Keyword.t, preload :: Keyword.t) :: [unquote(model)]
       def unquote(fn_name)(where, preload \\ []) do
-        from(unquote(model), where: ^where, preload: ^preload) |> Models.Repo.all
+        from(unquote(model), where: ^where, preload: ^preload) |> Models.Repo.all(order_by: :id)
       end
     end
   end

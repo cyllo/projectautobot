@@ -46,8 +46,6 @@ defmodule Scraper.SessionServer do
   def handle_call({:navigate_to, url}, _from, state) do
     navigate_to url
 
-    Process.sleep @navigation_timeout
-
     sleep_till_loaded url
 
     reply_ok state
@@ -75,12 +73,19 @@ defmodule Scraper.SessionServer do
 
       retries <= 0 && session_restart_retries >= 0 ->
         restart_session url
-        Process.sleep @navigation_timeout
-        sleep_till_loaded url, session_restart_retries - 1
+        wait_ms(self(), @navigation_timeout)
+
+        receive do
+          :wait_ms -> sleep_till_loaded url, session_restart_retries - 1
+        end
+
 
       !page_loaded? ->
-        Process.sleep @check_for_loaded_interval
-        sleep_till_loaded url, session_restart_retries, retries - 1
+        wait_ms(self(), @check_for_loaded_interval)
+
+        receive do
+          :wait_ms -> sleep_till_loaded url, session_restart_retries, retries - 1
+        end
     end
   end
 
@@ -93,4 +98,7 @@ defmodule Scraper.SessionServer do
   end
 
   defp reply_ok(state, resp \\ :ok), do: {:reply, resp, state}
+  defp wait_ms(pid, ms) do
+    Process.send_after(pid, :wait_ms, ms)
+  end
 end
