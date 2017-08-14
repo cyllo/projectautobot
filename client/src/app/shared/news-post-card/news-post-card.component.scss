@@ -1,136 +1,60 @@
-@import "../../../style/colors";
+:host /deep/ .news-post-card {
 
-.news-post-card {
-
-  position: relative;
-  color: $gray-lighter;
-  font-size: 0.85rem;
+  padding: 0;
+  line-height: 0;
   overflow: hidden;
-  height: 100%;
 
-  a {
-    color: inherit;
+  .content {
+    line-height: 1.3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 24px;
   }
 
-  p {
-    letter-spacing: 0.05rem;
+  .mat-card-image {
+    margin: 0;
   }
 
-  .news-post-card-body {
-    position: relative;
+  .slice-container {
     overflow: hidden;
-    // height: 100%;
   }
 
-  .post-overview {
-    top: 0;
-    left: 0;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    padding: 0 25%;
-    z-index: 15;
-    background-image: radial-gradient(rgba(0, 0, 0, 0.05) 15%, transparent 16%),
-    radial-gradient(rgba(0, 0, 0, 0.05) 15%, transparent 16%);
-    background-size: 5px 5px;
-    background-position: center center;
-    -webkit-transition: background-color 400ms ease-out;
-    -moz-transition: background-color 400ms ease-out;
-    -ms-transition: background-color 400ms ease-out;
-    -o-transition: background-color 400ms ease-out;
-    transition: background-color 400ms ease-out;
-  }
-
-  .thumbnail {
-    height: 100%;
-    min-height: calc(15rem + 35vh);
-    position: relative;
-    z-index: 0;
-  }
-
-  .thumbnail img {
-    top: 0;
-    left: 0;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: center center;
-  }
-
-  .post-category {
-    color: $white;
-    margin-bottom: 0.5rem;
-    display: inline-block;
-    -webkit-transition: margin-top 400ms ease-out, margin-bottom 400ms ease-out;
-    -moz-transition: margin-top 400ms ease-out, margin-bottom 400ms ease-out;
-    -ms-transition: margin-top 400ms ease-out, margin-bottom 400ms ease-out;
-    -o-transition: margin-top 400ms ease-out, margin-bottom 400ms ease-out;
-    transition: margin-top 400ms ease-out, margin-bottom 400ms ease-out;
-  }
-
-  .post-title {
-    color: $white;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    line-height: 1;
-  }
-
-  .author {
-    color: $white;
-  }
-
-  .creation-breadcrumb {
-    display: none;
-    color: $white;
-    margin-bottom: 1rem;
-    position: relative;
+  .slice {
     transform: translateY(-100%);
     opacity: 0;
-    -webkit-transition: transform 400ms ease-out, opacity 400ms ease-out;
-    -moz-transition: transform 400ms ease-out, opacity 400ms ease-out;
-    -ms-transition: transform 400ms ease-out, opacity 400ms ease-out;
-    -o-transition: transform 400ms ease-out, opacity 400ms ease-out;
-    transition: transform 400ms ease-out, opacity 400ms ease-out;
+    transition: transform 0.35s cubic-bezier(0.55, 0, 0.1, 1),
+                opacity 0.35s cubic-bezier(0.55, 0, 0.1, 1);
   }
 
-  .post-summary {
-    display: none;
-    font-size: 1rem;
-    line-height: 1.3;
-    transform: translateY(-30%);
-    opacity: 0;
-    -webkit-transition: transform 400ms ease-out, opacity 400ms ease-out;
-    -moz-transition: transform 400ms ease-out, opacity 400ms ease-out;
-    -ms-transition: transform 400ms ease-out, opacity 400ms ease-out;
-    -o-transition: transform 400ms ease-out, opacity 400ms ease-out;
-    transition: transform 400ms ease-out, opacity 400ms ease-out;
+  .post-card-title {
+    line-height: 1.2;
+    transition: margin-top 0.35s cubic-bezier(0.55, 0, 0.1, 1),
+                margin-bottom 0.35s cubic-bezier(0.55, 0, 0.1, 1);
   }
 
-  :hover {
-    .post-overview {
-      background-color: rgba(83, 68, 117, 0.85);
+  .mat-chip-list {
+    .mat-chip-list-wrapper {
+      justify-content: center;
     }
-    .post-category {
-      margin-top: 1rem;
-      margin-bottom: 1.5rem;
+  }
+
+  &:hover {
+
+    cursor: pointer;
+
+    .post-card-title {
+      margin-top: 8px;
+      margin-bottom: -8px;
     }
-    .creation-breadcrumb,
-    .post-summary {
-      display: block;
+
+    .slice {
       transform: translateY(0);
       opacity: 1;
     }
-    .post-category {
-      border-bottom: 1px solid $yellow;
-    }
+
   }
 
-}
-
-.news-post-card.featured-post {
-  .post-title {
-    font-size: 2.5rem;
-  }
 }

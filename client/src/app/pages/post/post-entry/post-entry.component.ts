@@ -1,4 +1,5 @@
-import { Component , OnInit , HostListener , ViewChild } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { BlogPost } from '../../../models';
 
 @Component({
   selector: 'ow-post-entry',
@@ -6,27 +7,10 @@ import { Component , OnInit , HostListener , ViewChild } from '@angular/core';
   styleUrls: [ 'post-entry.component.scss' ]
 })
 export class PostEntryComponent implements OnInit {
-  @ViewChild('postentry') _elPost;
-  @ViewChild('postheader') _elPostHeader;
+  @Input() post: BlogPost;
 
   constructor() {}
 
   ngOnInit() {}
-
-  @HostListener('window:scroll', ['$event'])
-  onScroll( event ): void {
-    event.preventDefault();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize( event ): void {
-    event.preventDefault();
-  }
-
-  @HostListener('window:DOMContentLoaded', ['$event'])
-  onDOMLoaded( event ): void {
-    event.preventDefault();
-  }
-
 
 }

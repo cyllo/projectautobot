@@ -33,7 +33,8 @@ import { ApolloClient } from 'apollo-client';
 import { httpInterceptor } from './app.http-interceptor';
 
 import { ProfileResolver } from './pages/profile/profile.resolver';
-import { GamerTagService, ProfileService } from './services';
+import { BlogPostResolver } from './pages/resolvers';
+import { GamerTagService, ProfileService, BlogPostsService } from './services';
 import { AppComponent } from './app.component';
 import * as staticComponents from './static';
 import { routing } from './app.routing';
@@ -142,7 +143,9 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AuthGuard,
     AuthorizationService,
     ClubService,
-    FriendShipService
+    FriendShipService,
+    BlogPostsService,
+    BlogPostResolver
   ],
   bootstrap: [AppComponent]
 })

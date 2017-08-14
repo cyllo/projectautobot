@@ -1,5 +1,5 @@
-import { Component, OnInit, Input , AfterViewInit } from '@angular/core';
-
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { BlogPost } from '../../models';
 
 @Component({
@@ -7,14 +7,15 @@ import { BlogPost } from '../../models';
   templateUrl: 'news-post-card.component.html',
   styleUrls: ['news-post-card.component.scss']
 })
-export class NewsPostCardComponent implements OnInit, AfterViewInit {
-  @Input() post: BlogPost;
-  @Input() featuredPost: boolean;
+export class NewsPostCardComponent implements OnInit {
+  @Input('post') post: BlogPost;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
 
-  ngAfterViewInit() {}
+  loadPost() {
+    this.router.navigate(['./post', this.post.title]);
+  }
 
 }

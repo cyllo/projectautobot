@@ -1,42 +1,61 @@
-import { AfterContentInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
-import { take, drop, applySpec } from 'ramda';
-
-import { NewsService } from '../../services';
-
-export const firstTwo = take(2);
-export const allButFirstTwo = drop(2);
-export const getHighlightPosts = applySpec({firstCouple: firstTwo, rest: allButFirstTwo});
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { BlogPost, NewsPageState } from '../../models';
+import { BlogPostsService } from '../../services';
+import { reverse, isEmpty } from 'ramda';
 
 @Component({
   selector: 'ow-news',
   templateUrl: 'news.component.html',
   styleUrls: ['news.component.scss'],
-  providers: [NewsService]
+  providers: [BlogPostsService]
 })
-export class NewsComponent implements OnInit, AfterContentInit, OnDestroy {
-  @ViewChild('category') categoryInput;
-  @ViewChild('archive') archiveInput;
-  questionForm: FormGroup;
-  subscriptions: Subscription[] = [];
+export class NewsComponent implements OnInit {
 
-  throttle = 300;
-  scrollDistance = 1;
+  blogPosts: Observable<BlogPost[]>;
+  state: NewsPageState;
 
-  constructor(public news: NewsService) {
-  }
+  private newsPosts$: Subject<NewsPageState> = new Subject<NewsPageState>();
+
+  constructor(private blogPostsService: BlogPostsService) {}
 
   ngOnInit() {
-    this.questionForm = new FormGroup({});
 
-    // this.news.getLatestPosts()
+    this.newsPosts$
+      .distinctUntilChanged((a: NewsPageState, b: NewsPageState) =>
+        a.category     !== b.category ||
+        b.reverseOrder !== b.reverseOrder)
+      .subscribe((state: NewsPageState) => this.updatePageState(state));
+
+    this.newsPosts$.next(this.state = {
+      category: 0,
+      reverseOrder: true,
+      postsPerPage: 8
+    });
+    this.blogPostsService.getBlogPostsAfter(this.state.postsPerPage);
   }
 
-  ngAfterContentInit() {}
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  onPageStateChange(state: NewsPageState) {
+    this.newsPosts$.next(state);
   }
+
+  updatePageState(state: NewsPageState) {
+    console.log('updatePageState()');
+    const {reverseOrder} = state;
+    this.blogPosts = this.blogPostsService.posts$
+      .filter(arr => !isEmpty(arr))
+      .map(blogPosts => reverseOrder ? blogPosts : reverse(blogPosts))
+      .do(console.log.bind(console));
+  }
+
+  onScrollUp(state) {
+    console.log('scrolled up event', state);
+  }
+
+  onScrollDown(state) {
+    console.log('scrolled down event', state);
+  }
+
 
 }

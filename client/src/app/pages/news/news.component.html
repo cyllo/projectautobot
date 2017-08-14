@@ -1,58 +1,57 @@
-<ow-news-page-header></ow-news-page-header>
+<div *ngIf="!(blogPosts | async); then search; else news;"></div>
 
-<div class="news pt-3" id="news-body">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-xl-10 offset-xl-1 col-lg-10 offset-lg-1 col-md-12">
-        <div class="row">
+<ng-template #search>
+  <ow-page-spinner></ow-page-spinner>
+</ng-template>
 
-          <div class="col-lg-8 col-12 mb-5">
-            <ow-news-post-card [featuredPost]="true"></ow-news-post-card>
-            <!-- end ow-news-post-card -->
-          </div>
-          <!-- end .col.featured-post -->
+<ng-template #news>
 
-          <div class="col-lg-4 col-sm-6 col-12 mb-5">
-            <ow-news-post-card></ow-news-post-card>  
-          </div>
-          <!-- end .col -->
+  <div class="news"
+       infiniteScroll
+       [infiniteScrollDistance]="0"
+       [infiniteScrollUpDistance]="1"
+       [infiniteScrollThrottle]="250"
+       (scrolledUp)="onScrollUp(state)"
+       (scrolled)="onScrollDown(state)">
 
-          <div class="col-lg-4 col-sm-6 col-12 mb-5">
-            <ow-news-post-card></ow-news-post-card>  
-          </div>
-          <!-- end .col -->
+    <div class="news-page-header fixed-top"
+         ngStyle.gt-xs="padding-left: 64px; margin-top: 64px;"
+         fxLayout="row"
+         fxLayoutAlign="start center"
+         fxFlex="grow">
 
-          <div class="col-lg-4 col-sm-6 col-12 mb-5">
-            <ow-news-post-card></ow-news-post-card>  
-          </div>
-          <!-- end .col -->
+      <div class="content"
+           fxLayout="row"
+           fxLayoutAlign="start center"
+           fxLayoutGap="30px"
+           fxFlex="grow">
 
-          <div class="col-lg-4 col-sm-6 col-12 mb-5">
-            <ow-news-post-card></ow-news-post-card>  
-          </div>
-          <!-- end .col -->
-
-          <div class="col-lg-4 col-sm-6 col-12 mb-5">
-            <ow-news-post-card></ow-news-post-card>  
-          </div>
-          <!-- end .col -->
-
-          <div class="col-lg-4 col-sm-6 col-12 mb-5">
-            <ow-news-post-card></ow-news-post-card>  
-          </div>
-          <!-- end .col -->
-
-          <div class="col-lg-4 col-sm-6 col-12 mb-5">
-            <ow-news-post-card></ow-news-post-card>  
-          </div>
-          <!-- end .col -->
+        <div fxLayout="column" fxFlex="grow">
+          <ow-page-state [state]="state"
+                         (change)="onPageStateChange($event)"></ow-page-state>
         </div>
-        <!-- end .row -->
+
       </div>
-      <!-- end .col -->
+
     </div>
-    <!-- end .row -->
+
+    <div class="px-3 py-3" fxLayout="row" fxFlex="grow" fxLayoutWrap>
+
+      <div class="px-3 py-3"
+           fxLayout="column"
+           fxLayoutAlign="center center"
+           fxFlex.xs="100%"
+           fxFlex.sm="50%"
+           fxFlex.md="33.333%"
+           fxFlex.lg="25%"
+           *ngFor="let post of blogPosts | async">
+
+        <ow-news-post-card [post]="post"></ow-news-post-card>
+
+      </div>
+
+    </div>
+
   </div>
-  <!-- end .container-fluid -->
-</div>
-<!-- end .news -->
+
+</ng-template>

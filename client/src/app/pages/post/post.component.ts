@@ -1,4 +1,7 @@
-import { Component , OnInit , HostListener } from '@angular/core';
+import { Component , OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { BlogPost } from '../../models';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ow-post',
@@ -8,23 +11,14 @@ import { Component , OnInit , HostListener } from '@angular/core';
 
 export class PostComponent implements OnInit {
 
-  constructor() {}
+  blogPosts: Observable<BlogPost[]>;
 
-  ngOnInit() {}
+  constructor(private activatedRoute: ActivatedRoute) {}
 
-  @HostListener('window:scroll', ['$event'])
-  onScroll( event ) {
-    event.preventDefault();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize( event ) {
-    event.preventDefault();
-  }
-
-  @HostListener('window:DOMContentLoaded', ['$event'])
-  onDOMLoaded( event ) {
-    event.preventDefault();
+  ngOnInit() {
+    this.activatedRoute.data.subscribe(data => {
+      this.blogPosts = Observable.of([data.blogPost]);
+    });
   }
 
 }

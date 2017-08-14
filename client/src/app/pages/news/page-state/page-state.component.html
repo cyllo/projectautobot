@@ -1,0 +1,11 @@
+<div fxLayout="column" fxFlex="grow">
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30px" fxFlex="grow">
+
+    <div fxLayout="column" fxFlex="noshrink">
+      <md-slide-toggle [checked]="reverseOrder" (change)="sortOrderChanged($event, state)">
+        <span class="text-uppercase">{{ reverseOrder ? 'Latest' : 'Oldest' }}</span>
+      </md-slide-toggle>
+    </div>
+
+  </div>
+</div>

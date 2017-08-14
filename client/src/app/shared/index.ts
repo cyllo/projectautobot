@@ -4,6 +4,7 @@ export * from './search';
 export * from './role';
 export * from './news-post-card';
 export * from './image';
+export * from './page-spinner';
 export * from './select';
 export * from './schedule';
 export * from './hero-card';

@@ -1,2 +1,2 @@
-export * from './news-page-header';
+export * from './page-state';
 export * from './news.component';

@@ -1,59 +1,32 @@
-@import "../../../../style/colors";
+:host /deep/ .post {
 
-.post-entry {
+  padding: 60px 24px;
 
-    font-size: 1rem;
-    letter-spacing: 0.08rem;
+  .content {
+
+    font-size: 16px;
     line-height: 1.5;
+    letter-spacing: 0.05rem;
 
-    .post-header {
-
-        padding: 0 !important;
-
-        .post-header-inner {
-            padding: 0 calc(2rem + 9vw);
-        }
-
-        .split {
-            overflow: hidden;
-            .part {
-                float: left;
-                width: 50%;
-            }
-        }
-
-        .post-title {
-            letter-spacing: 0.25rem;
-        }
-
-        .post-meta {
-            padding: 0 calc(1rem + 0.5vw);
-        }
-
-        .post-short,
-        .post-author,
-        .post-date-time {
-            font-weight: 300;
-        }
-
+    p {
+      width: 75%;
     }
 
-    .post-body {
+  }
 
-        p {
-            font-weight: 300;
-            padding: 0 calc(2rem + 8vw);
-            margin-bottom: 2rem;
-            line-height: 2;
-        }
+  .post-body {
+    max-width: 960px;
+  }
 
-        img {
-            width: 100%;
-            max-width: 80%;
-            margin-top: 3rem;
-            margin-bottom: 3rem;
-        }
-
+  .post-thumbnail {
+    img {
+      width: 100%;
     }
+  }
+
+  .meta-data,
+  .post-thumbnail {
+    padding: 16px 0;
+  }
 
 }
