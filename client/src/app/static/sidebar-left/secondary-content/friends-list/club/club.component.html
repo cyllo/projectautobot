@@ -19,7 +19,7 @@
            fxLayoutAlign="start center"
            fxFlex="grow"
            (click)="stopPropagation($event)"
-           (blur)="clubNameEditEnd()"
+           (blur)="toggleClubNameEdit()"
            [hidden]="!clubNameEditInProgress"
            #clubEditor>
 
@@ -29,7 +29,7 @@
           </button>
         </div>
         <div class="flex-layout" fxLayout="column" fxFlex="grow">
-          <input type="text" value="{{ club.name }}" (focusout)="clubNameEditEnd()">
+          <input type="text" value="{{ club.name }}" (focusout)="toggleClubNameEdit()">
         </div>
         <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
           <button class="min-width-0" (click)="updateClub(club.id, clubNameEdit.value)" md-button>
@@ -57,7 +57,7 @@
         <div class="flex-layout" fxLayout="column" fxFlex="grow">
           <button class="btn-club-name text-left"
                   md-button
-                  (click)="clubNameEditStart($event)"
+                  (click)="toggleClubNameEdit($event)"
                   [disabled]="!(club.name !== 'General')">
             ({{ club.friendships.length }}) {{ club.name }}
           </button>

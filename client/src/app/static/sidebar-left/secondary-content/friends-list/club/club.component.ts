@@ -39,13 +39,11 @@ export class ClubComponent implements OnInit {
     this.router.navigate(['/compare'], { queryParams: { ids: map(prop('id'), friendships)} });
   }
 
-  clubNameEditStart($event) {
-    this.clubNameEditInProgress = true;
-    this.stopPropagation($event);
-  }
-
-  clubNameEditEnd() {
-    this.clubNameEditInProgress = false;
+  toggleClubNameEdit($event = null) {
+    this.clubNameEditInProgress = !this.clubNameEditInProgress;
+    if ($event) {
+      this.stopPropagation($event);
+    }
   }
 
   expandedEvent() {
@@ -84,7 +82,7 @@ export class ClubComponent implements OnInit {
   @HostListener('document:click', ['$event.target'])
   onDOMClick($target) {
     if (this.clubNameEditInProgress && !this.clubEditor.nativeElement.contains($target)) {
-      this.clubNameEditEnd();
+      this.toggleClubNameEdit();
     }
   }
 
