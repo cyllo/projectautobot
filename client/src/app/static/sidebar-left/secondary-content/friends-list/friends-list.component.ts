@@ -52,7 +52,8 @@ export class SidebarFriendsListComponent implements OnInit {
 
     this.dragula.setOptions('bag-one', {
       copy: true,
-      copySortSource: false
+      copySortSource: false,
+      revertOnSpill: true
     });
 
     this.dragula.drop.withLatestFrom(this.store.select('clubs'), ([, target, destination, source], clubs) => {
@@ -63,8 +64,9 @@ export class SidebarFriendsListComponent implements OnInit {
 
       if (!dupe && destination && sourceClubId !== destinationClubId) {
         const friendship = find(propEq('id', friendshipId), <any[]>prop('friendships', clubs[sourceClubId]));
-        console.log('this exists?', dupe);
         return { friendship, destinationClubId };
+      } else {
+        this.dragula.find('bag-one').drake.cancel(true);
       }
     })
     .filter(res => !isNil(res))

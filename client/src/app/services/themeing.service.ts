@@ -33,15 +33,11 @@ export class ThemeingService {
     }
   };
 
-  private elBody: any;
   private currentTheme: AppTheme;
 
   constructor(private overlayContainer: OverlayContainer) {}
 
-  load() {
-    if (this.elBody) { return; }
-    this.elBody = document.getElementsByTagName('body')[0];
-  }
+  load() {}
 
   loadTheme(theme: AppTheme): void {
     this.overlayContainer.themeClass = theme.selector;
@@ -59,12 +55,14 @@ export class ThemeingService {
   private addTheme(theme: AppTheme): void {
     theme.active = true;
     this.currentTheme = theme;
-    this.elBody.classList.add(this.currentTheme.selector);
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.add(this.currentTheme.selector);
   }
 
   private removeTheme(theme: AppTheme): void {
     theme.active = false;
-    this.elBody.classList.remove(theme.selector);
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.remove(theme.selector);
   }
 
   find(theme: string): AppTheme {

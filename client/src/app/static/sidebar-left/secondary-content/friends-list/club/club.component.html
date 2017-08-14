@@ -1,78 +1,84 @@
-<div 
-  class="club flex-layout"
-  fxLayout="row"
-  fxLayoutAlign="start center"
-  tabindex="0"
-  fxFlex="grow">
+<div class="club flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="grow" *ngIf="club">
 
-  <td-expansion-panel 
+  <td-expansion-panel
     class="flex-layout"
     fxLayout="column"
     fxFlex="grow"
     (expanded)="expandedEvent()"
     (collapsed)="collapsedEvent()"
     [disableRipple]="true"
-    [expand]="true">
+    [expand]="true"
+    #expansionPanel>
 
     <ng-template td-expansion-panel-header>
+
+      <div *ngIf="clubNameEditInProgress; then clubEditHeader; else clubHeader;"></div>
+
       <div class="flex-layout"
            fxLayout="row"
            fxLayoutAlign="start center"
-           fxFlex="grow">
+           fxFlex="grow"
+           (click)="stopPropagation($event)"
+           (blur)="toggleClubNameEdit()"
+           [hidden]="!clubNameEditInProgress"
+           #clubEditor>
 
         <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
-             <button 
-              class="min-width-0"
-              color="warn"
-              (click)="deleteClub(club.id)"
-              type="button"
-              [hidden]="!clubNameEditInProgress"
-              md-button>
-              <md-icon>delete_forever</md-icon>
-            </button>    
+          <button md-button class="min-width-0" (click)="deleteClub(club.id)" [hidden]="!clubNameEditInProgress">
+            <md-icon>delete_forever</md-icon>
+          </button>
+        </div>
+        <div class="flex-layout" fxLayout="column" fxFlex="grow">
+          <input type="text" value="{{ club.name }}" (focusout)="toggleClubNameEdit()">
+        </div>
+        <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
+          <button class="min-width-0" (click)="updateClub(club.id, clubNameEdit.value)" md-button>
+            <md-icon>check</md-icon>
+          </button>
+        </div>
 
-          <button 
-            class="btn-content-toggle min-width-0"
-            [ngClass]="{ 'collapsed' : expansionPanelCollapsed }"
-            [hidden]="clubNameEditInProgress"
-            md-button>
+      </div>
+
+      <div class="flex-layout"
+           fxLayout="row"
+           fxLayoutAlign="start center"
+           fxFlex="grow"
+           (click)="stopPropagation($event)"
+           [hidden]="clubNameEditInProgress">
+
+        <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
+          <button md-button
+                  class="btn-content-toggle min-width-0"
+                  [ngClass]="{ 'collapsed' : expansionPanelCollapsed }"
+                  (click)="toggleExpansionPanel()">
             <md-icon>keyboard_arrow_down</md-icon>
           </button>
         </div>
-
         <div class="flex-layout" fxLayout="column" fxFlex="grow">
-          <input 
-            type="text"
-            #clubNameEdit
-            value="{{ club.name }}"
-            (click)="clubNameEditStart($event)"
-            tabindex="0"
-            [disabled]="!(club.name !== 'General')">
-        </div>
-
-        <div class="flex-layout" fxLayout="column" fxFlex="noshrink" *ngIf="club.name !== 'General'">
-
-          <button class="min-width-0" *ngIf="clubNameEditInProgress" (click)="updateClub(club.id, clubNameEdit.value, $event)" md-button>
-            <md-icon>check</md-icon>
+          <button class="btn-club-name text-left"
+                  md-button
+                  (click)="toggleClubNameEdit($event)"
+                  [disabled]="!(club.name !== 'General')">
+            ({{ club.friendships.length }}) {{ club.name }}
           </button>
-
-          <button class="min-width-0"
-                  (click)="compareProfiles(club.friendships)"
-                  *ngIf="!clubNameEditInProgress"
-                  md-button>
+        </div>
+        <div class="flex-layout" fxLayout="column" fxFlex="noshrink" *ngIf="club.name !== 'General'">
+          <button md-button class="min-width-0" (click)="compareProfiles(club.friendships)">
             <md-icon>compare_arrows</md-icon>
           </button>
         </div>
+
       </div>
+
     </ng-template>
 
-    <div class="flex-layout pt-3"
+    <div class="club-bag flex-layout"
+         [ngClass]="{ 'pt-2': club.friendships.length, 'py-3': !club.friendships.length }"
          fxLayout="column"
-         fxLayoutGap="14px"
+         fxLayoutGap="8px"
          fxFlex="grow"
          [dragula]='"bag-one"'
-         [attr.data-id]="club.id"
-         [dragulaModel]='club.friendships'>
+         [attr.data-id]="club.id">
 
       <div class="player-card flex-layout pb-2"
            fxLayout="row"
@@ -84,7 +90,7 @@
 
         <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
 
-          <a href="#" draggable="false">
+          <a href="#" draggable="false" [ngStyle]="{ 'font-size': '0px' }">
             <img class="md-image md-image-circle md-image-36" draggable="false" src="https://blzgdapipro-a.akamaihd.net/game/unlocks/0x0250000000000D6A.png">
           </a>
         </div>
@@ -107,19 +113,21 @@
 
         </div>
 
-        <div 
-        class="flex-layout"
-        fxLayout="column"
-        fxLayoutGap="8px"
-        fxFlex="noshrink">
-        
-        <md-menu #clubFriendMenu="mdMenu">
-          <button md-menu-item (click)="deleteFriend(friendship.id)"> Unfriend </button>
-          <button *ngIf="club.name !== 'General'" md-menu-item (click)="removeFriend(friendship.id, club.id)"> Remove from group </button>
-        </md-menu>
+        <div class="flex-layout" fxLayout="column" fxLayoutGap="8px" fxFlex="noshrink">
 
-          <button md-button class="min-width-0" [mdMenuTriggerFor]="clubFriendMenu" [disableRipple]="true">
-            <md-icon>keyboard_arrow_right</md-icon>
+          <md-menu #clubFriendMenu="mdMenu">
+            <button md-menu-item color="warn" (click)="deleteFriend(friendship.id)">
+              <md-icon>delete_forever</md-icon>
+              <span>Unfriend</span>
+            </button>
+            <button md-menu-item *ngIf="club.name !== 'General'" (click)="removeFriend(friendship.id, club.id)">
+              <md-icon>favorite_border</md-icon>
+              <span>Remove from group</span>
+            </button>
+          </md-menu>
+
+          <button md-icon-button [mdMenuTriggerFor]="clubFriendMenu">
+            <md-icon>more_horiz</md-icon>
           </button>
 
         </div>

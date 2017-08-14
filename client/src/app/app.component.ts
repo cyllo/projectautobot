@@ -68,7 +68,6 @@ export class AppComponent implements OnDestroy, OnInit {
 
     this.currentSession = this.store.select('currentSession');
 
-    this.themeingService.load();
     this.themeingService.loadTheme(this.themeingService.themes().default);
     this.setDefaultFontSetClass();
 

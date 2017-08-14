@@ -8,16 +8,39 @@
     <md-sidenav-container fxLayout="column" fxFlex="grow">
 
       <md-sidenav #sidenav mode="side" opened="false" align="end"
-                  (open-start)='onSideNavOpenStart($event)'
-                  (close-start)='onSideNavCloseStart($event)'>
+                  (open-start)="sideNavOpen = true"
+                  (close-start)="sideNavOpen = false">
 
         <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="grow">
 
-          <ow-secondary-content
-            class="flex-layout"
-            fxLayout="column"
-            fxFlex="grow">
-          </ow-secondary-content>
+          <div *ngIf="(userLoggedIn | async); then secondaryContent; else userNotLoggedIn;"></div>
+
+          <ng-template #secondaryContent>
+            <ow-secondary-content class="flex-layout" fxLayout="column" fxFlex="grow"></ow-secondary-content>
+          </ng-template>
+
+          <ng-template #userNotLoggedIn>
+            <div fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
+              <div fxLayout="column">
+                <div fxLayout="row">
+                  <div fxLayout="column">
+                    <p class="mat-headline text-center">To access this feature you need to:</p>
+                  </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="14px">
+                  <div fxLayout="column">
+                    <button md-button class="btn-primary" [routerLink]="'./login'">Login</button>
+                  </div>
+                  <div fxLayout="column">
+                    <span class="text-uppercase"><strong>or</strong></span>
+                  </div>
+                  <div fxLayout="column">
+                    <button md-button class="btn-primary" [routerLink]="'./register'">Register</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
 
         </div>
 
@@ -32,7 +55,7 @@
             <button md-icon-button class="btn-sidebar-toggle"
                     [ngClass]="{ 'collapsed' : sideNavOpen }"
                     [mdTooltipPosition]="'right'"
-                    mdTooltip="{{ sideNavOpen ? 'Close Menu' : 'Open Menu' }}"
+                    mdTooltip="Toggle Menu"
                     (click)="sidenav.toggle()">
               <md-icon>add</md-icon>
             </button>
@@ -50,7 +73,7 @@
           <div class="flex-layout px-1 py-1" fxLayout="column">
 
             <button md-icon-button mdTooltip="Following" [mdTooltipPosition]="'right'">
-              <md-icon>favorite_border</md-icon>
+              <md-icon>favorite</md-icon>
             </button>
 
           </div>
@@ -61,24 +84,17 @@
 
           <div class="flex-layout px-1 py-1" fxLayout="column" fxFlex="grow">
 
-            <md-menu class="min-width-0" #appMenu="mdMenu" [overlapTrigger]="false"
-                     xPosition="after" yPosition="above">
-
-              <div class="flex-layout px-1 py-1" fxLayout="column"
-                   *ngFor="let theme of appThemesCatalog">
-
+            <md-menu class="min-width-0" #appMenu="mdMenu" [overlapTrigger]="false" xPosition="after" yPosition="above">
+              <div class="flex-layout px-1 py-1" fxLayout="column" *ngFor="let theme of appThemesCatalog">
                 <button md-icon-button mdTooltip="{{ theme.name }}"
                         [mdTooltipPosition]="'right'"
                         (click)="loadTheme(theme)">
                   <ow-theme-picker-swatch [theme]="theme"></ow-theme-picker-swatch>
                 </button>
-
               </div>
-
             </md-menu>
 
-            <button md-icon-button [mdMenuTriggerFor]="appMenu"
-                    mdTooltip="Change Theme" [mdTooltipPosition]="'right'">
+            <button md-icon-button [mdMenuTriggerFor]="appMenu" mdTooltip="Change Theme" [mdTooltipPosition]="'right'">
                <md-icon>format_color_fill</md-icon>
             </button>
 

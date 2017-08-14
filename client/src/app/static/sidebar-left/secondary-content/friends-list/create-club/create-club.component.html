@@ -1,0 +1,17 @@
+<form  [formGroup]="clubForm" (ngSubmit)="createClub(clubForm.value); clubForm.reset()">
+  <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
+    <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
+      <button class="min-width-0" md-button type="button" (click)="cancel()" mdTooltip="Cancel">
+        <md-icon>cancel</md-icon>
+      </button>
+    </div>
+    <div class="flex-layout px-2" fxLayout="column" fxFlex="grow">
+      <input type="text" required formControlName="name" placeholder="Enter a Club Name">
+    </div>
+    <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
+      <button class="min-width-0" md-button type="submit" [disabled]="!clubForm.valid" mdTooltip="Submit">
+        <md-icon>add</md-icon>
+      </button>
+    </div>
+  </div>
+</form>

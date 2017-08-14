@@ -1,44 +1,34 @@
 <div class="friend-requests py-3" fxLayout="column" fxFlexFill>
 
-  <div class="px-3 flex-layout"
-       fxLayout="column"
-       fxFlex="grow"
-       *ngIf="!friendRequestCount">
+  <div *ngIf="!friendRequestCount; then noFriendRequests; else showFriendRequests;"></div>
 
-    <div fxLayout="column" fxLayoutAlign="end center" fxFlex="1 1 55%">
-      <p class="text-heading mat-display-2 mb-2">Did you try turning it on and off?</p>
+  <ng-template #noFriendRequests>
+    <div class="px-3 flex-layout" fxLayout="column" fxFlex="grow">
+      <div fxLayout="column" fxLayoutAlign="end center" fxFlex="1 1 55%">
+        <p class="text-heading mat-display-2 mb-2">Did you try turning it on and off?</p>
+      </div>
+      <div fxLayout="column" fxFlex="1 1 45%">
+        <p>There's nothing to see here.</p>
+      </div>
     </div>
+  </ng-template>
 
-    <div fxLayout="column" fxFlex="1 1 45%">
-      <p>There's nothing to see here.</p>
+  <ng-template #showFriendRequests>
+    <div class="ow-tab-content flex-layout" fxLayout="column" fxFlex="grow" [perfect-scrollbar]>
+      <md-list class="flex-layout" fxLayout="column" fxFlex="noshrink">
+        <md-list-item class="flex-layout"
+                      fxLayout="row"
+                      fxFlex="nogrow"
+                      *ngFor="let request of friendRequests | async | owValuesPipe">
+          <ow-friend-request-card
+              class="flex-layout"
+              fxLayout="column"
+              fxFlex="grow"
+              [friendShip]="request">
+          </ow-friend-request-card>
+        </md-list-item>
+      </md-list>
     </div>
-
-  </div>
-
-  <div class="ow-tab-content flex-layout"
-       fxLayout="column"
-       fxFlex="grow"
-       [perfect-scrollbar]
-       *ngIf="friendRequestCount">
-
-    <md-list class="flex-layout" fxLayout="column" fxFlex="noshrink">
-
-      <md-list-item class="flex-layout"
-                    fxLayout="row"
-                    fxFlex="nogrow"
-                    *ngFor="let request of friendRequests | async | owValuesPipe">
-
-        <ow-friend-request-card
-            class="flex-layout"
-            fxLayout="column"
-            fxFlex="grow"
-            [friendShip]="request">
-        </ow-friend-request-card>
-
-      </md-list-item>
-
-    </md-list>
-
-  </div>
+  </ng-template>
 
 </div>

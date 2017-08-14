@@ -2,12 +2,12 @@
 
   .btn-sidebar-toggle {
 
-    i {
+    md-icon {
       transform: rotate(0);
       transition: transform 0.25s cubic-bezier(0.55, 0, 0.1, 1);
     }
 
-    &.collapsed i {
+    &.collapsed md-icon {
       transform: rotate(45deg);
     }
 
