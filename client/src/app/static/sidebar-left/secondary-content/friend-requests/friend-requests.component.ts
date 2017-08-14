@@ -19,8 +19,7 @@ export class FriendRequestsComponent implements OnInit {
 
   ngOnInit() {
     this.friendRequests = this.store.select('friendships')
-    .map(friendships => filter(propEq('isAccepted', false), values(friendships)))
-    .do(requests => console.log('friend requests: ', requests));
+    .map(friendships => filter(propEq('isAccepted', false), values(friendships)));
 
     this.friendRequests
     .subscribe(friendRequests => {

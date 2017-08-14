@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { values, reverse, isEmpty } from 'ramda';
-import { AppState, BlogPost } from '../../models';
+import { Subject } from 'rxjs/Subject';
+import { BlogPost, NewsPageState } from '../../models';
 import { BlogPostsService } from '../../services';
+import { reverse, assoc, isEmpty } from 'ramda';
 
 @Component({
   selector: 'ow-news',
@@ -13,16 +13,48 @@ import { BlogPostsService } from '../../services';
 })
 export class NewsComponent implements OnInit {
 
-  public blogPosts: Observable<BlogPost[]>;
+  blogPosts: Observable<BlogPost[]>;
+  state: NewsPageState;
 
-  constructor(private store: Store<AppState>,
-              private blogPostsService: BlogPostsService) {}
+  private newsPosts$: Subject<NewsPageState> = new Subject<NewsPageState>();
+
+  constructor(private blogPostsService: BlogPostsService) {}
 
   ngOnInit() {
-    this.blogPostsService.getBlogPostsAfter(30);
-    this.blogPosts = this.store.select('blogPosts')
-      .filter(val => !isEmpty(val))
-      .map(posts => reverse(values(posts)));
+
+    this.newsPosts$
+      .distinctUntilChanged((a: NewsPageState, b: NewsPageState) =>
+        a.category       !== b.category ||
+        b.sortDescending !== b.sortDescending ||
+        a.postsPerPage   !== b.postsPerPage ||
+        a.loadNextPage   !== b.loadNextPage)
+      .subscribe((state: NewsPageState) => this.updatePageState(state));
+
+    this.newsPosts$.next(this.state = {
+      category: 0,
+      sortDescending: true,
+      postsPerPage: 30,
+      loadNextPage: false
+    });
+    this.blogPostsService.getBlogPostsAfter(this.state.postsPerPage);
   }
+
+  onPageStateChange(state: NewsPageState) {
+    this.newsPosts$.next(state);
+  }
+
+  updatePageState(state: NewsPageState) {
+    const {sortDescending} = state;
+    this.blogPosts = this.blogPostsService.posts$
+      .filter(arr => !isEmpty(arr))
+      .map(blogPosts => sortDescending ? blogPosts : reverse(blogPosts))
+      .do(console.log.bind(console))
+      .do(() => this.state = assoc('loadNextPage', false, state));
+  }
+
+  onScroll(state) {
+    this.newsPosts$.next(assoc('loadNextPage', true, state));
+  }
+
 
 }

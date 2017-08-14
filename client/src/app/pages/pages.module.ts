@@ -51,9 +51,8 @@ import {
   HeroesTableComponent,
   PageNotFoundComponent,
   LoginComponent,
-  NewsPageHeaderComponent,
+  NewsPageStateComponent,
   PostEntryComponent,
-  PostUserActionsComponent,
   UserRegistrationComponent,
   AccountSettingsComponent,
   ListOfCompareableHeroesComponent
@@ -114,9 +113,8 @@ import {
     HeroesTableComponent,
     PageNotFoundComponent,
     LoginComponent,
-    NewsPageHeaderComponent,
+    NewsPageStateComponent,
     PostEntryComponent,
-    PostUserActionsComponent,
     UserRegistrationComponent,
     AccountSettingsComponent,
     ListOfCompareableHeroesComponent

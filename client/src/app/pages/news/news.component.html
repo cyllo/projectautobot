@@ -6,9 +6,32 @@
 
 <ng-template #news>
 
-  <div class="news">
+  <div class="news"
+       infiniteScroll
+       [infiniteScrollDistance]="0.3"
+       [infiniteScrollThrottle]="750"
+       (scrolled)="onScroll(state)">
 
-    <ow-news-page-header></ow-news-page-header>
+    <div class="news-page-header fixed-top"
+         ngStyle.gt-xs="padding-left: 64px; margin-top: 64px;"
+         fxLayout="row"
+         fxLayoutAlign="start center"
+         fxFlex="grow">
+
+      <div class="content"
+           fxLayout="row"
+           fxLayoutAlign="start center"
+           fxLayoutGap="30px"
+           fxFlex="grow">
+
+        <div fxLayout="column" fxFlex="grow">
+          <ow-page-state [state]="state"
+                         (change)="onPageStateChange($event)"></ow-page-state>
+        </div>
+
+      </div>
+
+    </div>
 
     <div class="px-3 py-3" fxLayout="row" fxFlex="grow" fxLayoutWrap>
 

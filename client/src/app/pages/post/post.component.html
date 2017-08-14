@@ -1,9 +1,5 @@
 <div class="post" fxLayout="column" fxLayoutAlign="start center" fxFlex="grow">
-
   <div fxLayout="row" *ngFor="let post of blogPosts | async">
-    <ow-post-entry [post]="post"
-                   (next)="onNextPost($event)">
-    </ow-post-entry>
+    <ow-post-entry [post]="post"></ow-post-entry>
   </div>
-
 </div>
