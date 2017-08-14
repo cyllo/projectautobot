@@ -19,7 +19,8 @@ import { MdInputModule,
          MdSelectModule,
          MdProgressSpinnerModule,
          MdChipsModule,
-         MdSlideToggleModule } from '@angular/material';
+         MdSlideToggleModule,
+         MdTooltipModule } from '@angular/material';
 
 import {
   HomeComponent,
@@ -81,7 +82,8 @@ import {
     MdProgressSpinnerModule,
     MomentModule,
     MdChipsModule,
-    MdSlideToggleModule
+    MdSlideToggleModule,
+    MdTooltipModule
   ],
   declarations: [
     HomeComponent,

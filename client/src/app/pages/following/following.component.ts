@@ -13,8 +13,14 @@ export class FollowingComponent implements OnInit {
     for (let i = 0; i < 10; ++i) {
       this.players.push(
         {
-          competitiveLevel: 2320,
-          competitiveRankUrl: 'https://blzgdapipro-a.akamaihd.net/game/rank-icons/season-2/rank-3.png',
+          snapshotStatistics: {
+            profileSnapshotStatistic: {
+              profileStatistic: {
+                competitiveLevel: 2320,
+                competitiveRankUrl: 'https://blzgdapipro-a.akamaihd.net/game/rank-icons/season-2/rank-3.png',
+              }
+            }
+          },
           id: 1,
           level: 70,
           levelUrl: 'https://blzgdapipro-a.akamaihd.net/game/playerlevelrewards/0x025000000000091E_Border.png',
