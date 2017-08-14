@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeingService, AppTheme } from '../../services';
 import { AppState } from '../../models';
-import { values, isNil } from 'ramda';
+import { isNil } from 'ramda';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
