@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeingService, AppTheme } from '../../services';
 import { AppState, CurrentSession } from '../../models';
-import { values, all, isNil, path } from 'ramda';
+import { values, all, isNil, path, map } from 'ramda';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
@@ -27,7 +27,7 @@ export class SideBarLeftComponent implements OnInit {
   ngOnInit() {
     this.appThemesCatalog = Object.values(this.themeingService.themes());
     this.userLoggedIn = this.store.select('currentSession')
-      .map((session: CurrentSession) => !all(isNil, values(path(['sessionInfo'], session))));
+      .map(currentSession => !isNil(currentSession));
   }
 
   loadTheme(theme: AppTheme) {
