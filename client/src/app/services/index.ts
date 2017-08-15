@@ -11,4 +11,5 @@ export * from './blogposts.service';
 export * from './socket.service';
 export * from './themeing.service';
 export * from './club.service';
+export * from './follow.service';
 export * from './friendship.service';

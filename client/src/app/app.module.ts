@@ -38,6 +38,7 @@ import { GamerTagService, ProfileService, BlogPostsService } from './services';
 import { AppComponent } from './app.component';
 import * as staticComponents from './static';
 import { routing } from './app.routing';
+
 import { OrderByPipe, ValuesPipe } from './pipes';
 import {
   PlayersService,
@@ -61,7 +62,9 @@ import {
   currentSession,
   snapshotData,
   friendships,
-  clubs
+  clubs,
+  followedUsers,
+  followedGamerTags
 } from './reducers';
 import { SharedModule } from './shared';
 import { PagesModule } from './pages';
@@ -79,6 +82,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 @NgModule({
   imports: [
+    routing,
     NgbModule.forRoot(),
     SharedModule.forRoot(),
     PagesModule.forRoot(),
@@ -94,6 +98,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       currentSession,
       friendships,
       clubs,
+      followedUsers,
+      followedGamerTags,
       router: routerReducer,
       snapshotStats: snapshotData,
     }, {
@@ -111,7 +117,6 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     JsonpModule,
     FormsModule,
     ReactiveFormsModule,
-    routing,
     MdMenuModule,
     MdSidenavModule,
     MdButtonModule,

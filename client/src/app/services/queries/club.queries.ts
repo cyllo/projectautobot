@@ -27,14 +27,20 @@ export const UpdateClub = gql`
             platform
             portraitUrl
             region
+            tag
+            overwatchName
             snapshotStatistics {
               profileSnapshotStatistic {
                 profileStatistic {
                   competitiveLevel
+                  competitiveRankUrl
+                  level
+                  levelUrl
+                  rankUrl
+                  totalGamesWon
                 }
               }
             }
-            tag
           }
         }
       }

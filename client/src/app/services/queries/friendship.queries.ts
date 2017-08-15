@@ -64,6 +64,7 @@ export const RemoveFriend = gql`
 export const friendShipsQuery = gql`
   query friendShipsQuery($isIncoming: Boolean, $isAccepted: Boolean) {
     me {
+      id
       friendships(isIncoming: $isIncoming, isAccepted: $isAccepted) {
         id
         insertedAt
@@ -82,6 +83,7 @@ export const friendShipsQuery = gql`
             platform
             portraitUrl
             region
+            tag
             snapshotStatistics {
               profileSnapshotStatistic {
                 profileStatistic {
@@ -89,7 +91,6 @@ export const friendShipsQuery = gql`
                 }
               }
             }
-            tag
           }
         }
       }

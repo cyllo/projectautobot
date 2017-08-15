@@ -1,0 +1,98 @@
+<div class="py-2 py-2">
+
+  <div class="player text-uppercase" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+
+    <div fxLayout="column" class="noshrink">
+        <img class="md-image md-image-48" [src]="gamerTag.portraitUrl">
+    </div>
+
+    <div class="flex-layout"
+          fxLayout="column"
+          fxLayoutGap="2px"
+          fxFlex="grow">
+
+        <div class="flex-layout" fxLayout="row">
+          <span class="mat-caption text-overflow">
+            <small>{{ gamerTag.tag }}</small>
+          </span>
+        </div>
+
+        <div class="flex-layout" fxLayout="row">
+          <span class="mat-caption text-overflow">
+            <strong>{{ gamerTag.overwatchName }}</strong>
+          </span>
+        </div>
+
+        <div class="flex-layout"
+              fxLayout="row"
+              fxLayoutGap="4px"
+              fxLayoutAlign="start center">
+
+          <div fxLayout="column" *ngIf="gamerTag.snapshotStatistics">
+            <div fxLayout="row">
+              <div fxLayout="column">
+                <img class="md-image md-image-18"
+                [src]="gamerTag.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveRankUrl">
+              </div>
+              <div fxLayout="column">
+                <span class="mat-caption ml-1">
+                  {{ gamerTag.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveLevel }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div fxLayout="column">
+            <span class="platform-region mini-pr text-uppercase"
+                  *ngIf="gamerTag.platform">
+              {{ gamerTag.platform }}
+            </span>
+          </div>
+
+          <div fxLayout="column">
+            <span class="platform-region mini-pr text-uppercase"
+                  *ngIf="gamerTag.region">
+              {{ gamerTag.region }}
+            </span>
+          </div>
+
+        </div>
+
+    </div>
+
+    <div fxLayout="column" fxFlex="noshrink">
+
+      <div fxLayout="row" fxLayoutGap="8px">
+
+        <div fxLayout="column" *ngIf="profileMode">
+          <button class="min-width-0" color="warn" (click)="unfollow(gamerTag.id)" md-button mdTooltip="Unfollow">
+            <md-icon>favorite_border</md-icon>
+          </button>
+        </div>
+
+        <div *ngIf="gamerTag.platform === 'pc'; then pcProfileBlock; else consoleProfileBlock"></div>
+
+        <ng-template #consoleProfileBlock>
+          <div fxLayout="column">
+            <a class="min-width-0" mdTooltip="View Profile" [routerLink]="['/profile', gamerTag.platform, gamerTag.tag]">
+              <md-icon>chevron_right</md-icon>
+            </a>
+          </div>
+        </ng-template>
+        
+        <ng-template #pcProfileBlock>
+          <div fxLayout="column">
+            <a class="min-width-0" mdTooltip="View Profile" [routerLink]="['/profile', gamerTag.platform, gamerTag.region, gamerTag.tag]">
+              <md-icon>chevron_right</md-icon>
+            </a>
+          </div>
+        </ng-template>
+        
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

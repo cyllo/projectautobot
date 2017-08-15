@@ -23,7 +23,7 @@ import {
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'following', component: FollowingComponent },
+  { path: 'following', component: FollowingComponent, canActivate: [AuthGuard] },
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'heroes', component: HeroesComponent },
   { path: 'hero/:hero', component: HeroComponent },
@@ -35,8 +35,8 @@ const routes: Routes = [
   { path: 'news', component: NewsComponent },
   { path: 'post/:title', component: PostComponent, resolve: { blogPost: BlogPostResolver } },
   { path: 'friends', component: FriendsComponent },
-  { path: 'profile/:platform/:region/:tag', component: ProfileComponent, resolve: { player: ProfileResolver } },
-  { path: 'profile/:platform/:tag', component: ProfileComponent, resolve: { player: ProfileResolver } },
+  { path: 'profile/:platform/:region/:tag', component: ProfileComponent, resolve: { player: ProfileResolver } }, // pc
+  { path: 'profile/:platform/:tag', component: ProfileComponent, resolve: { player: ProfileResolver } }, // console
   { path: 'account', component: AccountSettingsComponent, canActivate: [AuthGuard] },
   { path: 'compare', component: CompareComponent },
   { path: '404', component: PageNotFoundComponent },
