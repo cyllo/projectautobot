@@ -70,8 +70,13 @@ defmodule Api.UserResolver do
 
   defp get_and_follow_user(user, following_id) do
     with {:ok, following_user} <- Accounts.get_user(following_id),
-         {:ok, following_user} <- Accounts.create_user_follower(following_user, user) do
-      {:ok, %{following: following_user, user: user}}
+         {:ok, %{inserted_at: inserted_at, updated_at: updated_at}} <- Accounts.create_user_follower(following_user, user) do
+      {:ok, %{
+        following: following_user,
+        user: user,
+        inserted_at: inserted_at,
+        updated_at: updated_at
+      }}
     end
   end
 end

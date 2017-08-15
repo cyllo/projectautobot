@@ -19,8 +19,6 @@ defmodule Api.SnapshotStatisticResolver do
   def get_snapshots_profile_snapshots(_, snapshots), do: preload_id_map(snapshots, :profile_snapshot_statistic)
   def get_profile_snapshots_gamer_tags(_, profile_snapshots), do: preload_id_map(profile_snapshots, :gamer_tag)
   def get_profile_snapshots_profile_stats(_, profile_snapshots) do
-    import IEx
-    IEx.pry
     preload_id_map(profile_snapshots, :profile_statistic)
   end
 

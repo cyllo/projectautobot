@@ -44,15 +44,15 @@ defmodule Models.Accounts do
 
       iex> {:ok, user} = Models.Accounts.create_user(%{display_name: "Test", password: "password", email: "eamil@g.ca"})
       iex> {:ok, new_user} = Models.Accounts.create_user(%{display_name: "Tester", password: "password", email: "email@g.ca"})
-      iex> {:ok, user} = Models.Accounts.create_user_follower user, new_user
-      iex> length(user.followers)
+      iex> {:ok, _} = Models.Accounts.create_user_follower user, new_user
+      iex> length(Repo.get(user.id, :followers).followers)
       1
 
 
   """
   def create_user_follower(user, user_follower) do
-    with {:ok, _} <- %Follower{user: user, follower: user_follower} |> Follower.changeset |> Repo.insert do
-      {:ok, Repo.preload(user, :followers)}
+    with {:ok, follower} <- %Follower{user: user, follower: user_follower} |> Follower.changeset |> Repo.insert do
+      {:ok, follower}
     end
   end
 
