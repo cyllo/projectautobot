@@ -1,100 +1,60 @@
-<div class="profile" *ngIf="player | async as playerData">
-  <div *ngIf="selectedSnapshotData | async as snapshotStats; else noSnapshotsBlock">
+<div class="profile flex-layout" fxLayout="row" *ngIf="player | async as playerData">
 
-    <section class="header pt-4 mb-3" *ngIf="playerData">
+  <div *ngIf="selectedSnapshotData | async as snapshotStats; else loadingProfile;">
 
-      <ow-platform-region [player]="playerData"
-        [players]="players | async"
-        (change)="changePlatformRegion($event)">
-      </ow-platform-region><!-- end ow-platform-region -->
+    <div class="flex-layout" fxLayout="column" fxFlex="grow" fxLayoutGap="14px">
 
-      <ow-profile-header [player]="playerData"></ow-profile-header>
-      <!-- end ow-profile-header -->
+      <div class="profile-header flex-layout px-3"
+           fxLayout="row"
+           fxLayoutGap.gt-sm="30px"
+           fxFlex="noshrink"
+           fxLayoutWrap
+           *ngIf="playerData">
+        <div class="flex-layout pt-3" fxLayout="column" fxFlex.lt-md="100%" fxFlex.gt-sm="initial">
+          <ow-platform-region
+            [player]="playerData"
+            [players]="players | async"
+            (change)="changePlatformRegion($event)">
+          </ow-platform-region>
+        </div>
+        <div class="flex-layout pt-3" fxLayout="column" fxFlex.lt-md="100%" fxFlex.gt-sm="initial">
+          <div ngStyle.gt-sm="padding-top: 22px;">
+            <ow-quick-comp-toggle (change)="toggleSnapshotStats($event)"></ow-quick-comp-toggle>
+          </div>
+        </div>
+      </div><!-- end .profile-header -->
 
-    </section><!-- end .header -->
+      <div class="profile-body flex-layout"
+           fxLayout="row"
+           fxFlex="noshrink"
+           fxLayoutWrap
+           *ngIf="playerData && selectedSnapshotData">
 
-    <div class="container mb-3">
+        <div class="flex-layout" fxLayout="column" fxFlex.lt-lg="100%" fxFlex.lg="360px">
+          <div class="flex-layout" fxLayout="row" fxFlex="noshrink" fxLayoutWrap>
+            <div class="flex-layout px-3 py-3" fxLayout="column" fxFlex.lt-md="100%" fxFlex.md="50%" fxFlex.lg="100%">
+              <ow-profile-overview [player]="playerData"></ow-profile-overview>
+            </div>
+            <div class="flex-layout px-3 py-3" fxLayout="column" fxFlex.lt-md="100%" fxFlex.md="50%" fxFlex.lg="100%">
+              <ow-skill-rating-trend></ow-skill-rating-trend>
+            </div>
+          </div>
+        </div>
 
-      <div class="row">
+        <div class="flex-layout pt-3" fxLayout="column" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="100%" fxFlex.lg="auto">
+          <div fxLayout="row">
+            <div fxLayout="column">
+              <ow-career [snapshotStats]="snapshotStats"></ow-career>
+            </div>
+          </div>
+        </div>
 
-        <div class="col">
-
-          <div class="content rounded px-3 pt-3">
-
-            <div class="row align-items-center">
-
-              <div class="col-md-6 text-md-left col-12 text-center mb-3">
-
-                <div class="btn-group" role="group" aria-label="Sort By Quick Play or Competitive Play">
-
-                  <button type="button" class="btn btn-radio"
-                    [class.active]="snapshotStats.heroesTotalSnapshotStatistic.statisticType === 'HERO_TOTAL_COMPETITIVE'"
-                    (click)="toggleSnapshotStats('competitive')">
-                    <span>Competitive Play</span>
-                  </button><!-- end button -->
-
-                  <button type="button" class="btn btn-radio"
-                    [class.active]="snapshotStats.heroesTotalSnapshotStatistic.statisticType === 'HERO_TOTAL_QUICKPLAY'"
-                    (click)="toggleSnapshotStats('quickPlay')">
-                    <span>Quick Play</span>
-                  </button><!-- end button -->
-
-                </div><!-- end .btn-group -->
-
-              </div><!-- end .col-6 -->
-
-              <div class="col-md-6 text-md-right col-12 text-center mb-3">
-
-                <button type="button" class="btn btn-connect-battlenet">
-                  <i class="fa fa-connectdevelop" aria-hidden="true"></i>
-                  <span>Connect your Battle.net to claim.</span>
-                </button><!-- end button -->
-
-              </div><!-- end .col-6 -->
-
-            </div><!-- end .row -->
-
-          </div><!-- end .content -->
-
-        </div><!-- end .col -->
-
-      </div><!-- end .row -->
+      </div>
 
     </div>
-    <!-- end .container -->
 
-    <div class="container mb-3">
-
-      <div class="row">
-
-        <div class="col-lg-9 col-12 mb-3">
-
-          <div class="content rounded px-3 py-3">
-
-            <ow-profile-page-tabs [snapshotStats]="snapshotStats"></ow-profile-page-tabs>
-            <!-- end ow-profile-page-tabs -->
-
-          </div><!-- end .content -->
-
-        </div><!-- end .col -->
-
-        <div class="col-lg-3 col-12 mb-3">
-
-          <div class="content rounded px-3 py-3">
-
-            <ow-lifetime-stats [snapshotStats]="snapshotStats"></ow-lifetime-stats>
-
-          </div><!-- end .content -->
-
-        </div><!-- end .col -->
-
-      </div><!-- end .row -->
-
-    </div><!-- end .container -->
-
-  </div>
 </div>
-<ng-template #noSnapshotsBlock>
-  <h1>Loading...</h1>
-<ng-template>
-<!-- end .profile -->
+
+<ng-template #loadingProfile>
+  <ow-page-spinner></ow-page-spinner>
+</ng-template>
