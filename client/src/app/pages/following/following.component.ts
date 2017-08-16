@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AppState, User, GamerTag } from '../../models';
+import { Store } from '@ngrx/store';
+import { values } from 'ramda';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ow-following',
@@ -7,35 +11,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FollowingComponent implements OnInit {
 
-  players: any[] = [];
+  followedUsers: Observable<User[]>;
+  followedGamerTags: Observable<GamerTag[]>;
 
-  constructor() {
-    for (let i = 0; i < 10; ++i) {
-      this.players.push(
-        {
-          snapshotStatistics: {
-            profileSnapshotStatistic: {
-              profileStatistic: {
-                competitiveLevel: 2320,
-                competitiveRankUrl: 'https://blzgdapipro-a.akamaihd.net/game/rank-icons/season-2/rank-3.png',
-              }
-            }
-          },
-          id: 1,
-          level: 70,
-          levelUrl: 'https://blzgdapipro-a.akamaihd.net/game/playerlevelrewards/0x025000000000091E_Border.png',
-          overwatchName: 'cyllo',
-          platform: 'pc',
-          portraitUrl: 'https://blzgdapipro-a.akamaihd.net/game/unlocks/0x02500000000008ED.png',
-          region: 'us',
-          tag: 'cyllo#2112'
-        }
-      );
-    }
-  }
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    console.log('Hello following');
+    this.followedUsers = this.store.select('followedUsers').map(following => <User[]>values(following));
+    this.followedGamerTags = this.store.select('followedGamerTags').map(followedGamerTags => <GamerTag[]>values(followedGamerTags));
   }
-
 }

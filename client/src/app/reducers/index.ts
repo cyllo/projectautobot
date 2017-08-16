@@ -13,6 +13,8 @@ export * from './blog-post.reducer';
 export * from './current-session.reducer';
 export * from './friendship.reducer';
 export * from './clubs.reducer';
+export * from './following-user.reducer';
+export * from './following-gamertag.reducer';
 
 export function getPlayerDataCollectionState(state$: Observable<AppState>) {
   return state$.select(playerDataCollection => playerDataCollection);

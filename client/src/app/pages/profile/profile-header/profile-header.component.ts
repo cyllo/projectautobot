@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Player, TransformedStats, HeroSnapshotStats, GameHistoryStats, MatchAwardsStats } from '../../../models';
-import { FollowService } from '../follow.service';
-import { ProfileService } from '../../../services';
+import { ProfileService, FollowService } from '../../../services';
 
 @Component({
   selector: 'ow-profile-header',

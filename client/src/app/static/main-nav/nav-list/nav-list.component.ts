@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { NavLink } from '../../../models';
+import { Component, OnInit } from '@angular/core';
+import { NavLink, AppState } from '../../../models';
+import { Store } from '@ngrx/store';
+import { drop, take, filter, propEq } from 'ramda';
 
 @Component({
   selector: 'ow-nav-list',
@@ -7,7 +9,7 @@ import { NavLink } from '../../../models';
   styleUrls: ['nav-list.component.scss']
 })
 
-export class NavListComponent {
+export class NavListComponent implements OnInit {
 
   navLinks: NavLink[] = [
     {
@@ -28,14 +30,19 @@ export class NavListComponent {
     }
   ];
 
-  constructor() {}
+  firstTwo: NavLink[];
+  remaining: NavLink[];
 
-  firstTwoNavLinks() {
-    return this.navLinks.slice(0, 2);
+  constructor(private store: Store<AppState>) {}
+
+  ngOnInit() {
+    this.store.select('currentSession').subscribe(currentSession => {
+        const authSafe = currentSession
+        ? this.navLinks
+        : filter(navLink => !propEq('name', 'Following', navLink), this.navLinks);
+
+        this.firstTwo = take(2, authSafe);
+        this.remaining = drop(2, authSafe);
+    });
   }
-
-  remainingNavLinks() {
-    return this.navLinks.slice(2);
-  }
-
 }

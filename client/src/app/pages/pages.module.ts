@@ -9,6 +9,7 @@ import { SharedModule } from '../shared/shared.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MomentModule } from 'angular2-moment';
+import { RouterModule } from '@angular/router';
 import { MdInputModule,
          MdButtonModule,
          MdCardModule,
@@ -25,6 +26,8 @@ import { MdInputModule,
 import {
   HomeComponent,
   FollowingComponent,
+  FollowedUserComponent,
+  GamerTagCardComponent,
   LeaderboardComponent,
   HeroesComponent,
   HeroComponent,
@@ -61,6 +64,7 @@ import {
 
 @NgModule({
   imports: [
+    RouterModule,
     NgbModule.forRoot(),
     SharedModule.forRoot(),
     FormsModule,
@@ -88,6 +92,8 @@ import {
   declarations: [
     HomeComponent,
     FollowingComponent,
+    FollowedUserComponent,
+    GamerTagCardComponent,
     LeaderboardComponent,
     HeroesComponent,
     HeroComponent,
@@ -124,6 +130,8 @@ import {
   exports: [
     HomeComponent,
     FollowingComponent,
+    FollowedUserComponent,
+    GamerTagCardComponent,
     LeaderboardComponent,
     HeroesComponent,
     HeroComponent,

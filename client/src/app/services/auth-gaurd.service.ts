@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppState } from '../models';
-
+import { AppState, CurrentSession } from '../models';
+import { isNil } from 'ramda';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -10,8 +10,8 @@ export class AuthGuard implements CanActivate {
 
   canActivate() {
     return this.store.select('currentSession')
-    .map(({ sessionInfo }) => {
-      if (sessionInfo) {
+    .map((currentSession: CurrentSession) => {
+      if (!isNil(currentSession) && !isNil(currentSession.sessionInfo)) {
         return true;
       }
       this.router.navigate(['./news']);

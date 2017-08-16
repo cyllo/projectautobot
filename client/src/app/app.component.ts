@@ -61,7 +61,7 @@ export class AppComponent implements OnDestroy, OnInit {
     const session = JSON.parse(window.localStorage.getItem('session'));
 
     if (session) {
-      this.authService.setCurrentSession(session);
+      this.authService.refreshAppState(session);
     }
 
     this.currentSession = this.store.select('currentSession');

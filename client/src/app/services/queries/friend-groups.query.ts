@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 export const FriendGroupsQuery = gql`
   query friendGroupsQuery {
     me {
+      id
       friendGroups {
         id
         insertedAt

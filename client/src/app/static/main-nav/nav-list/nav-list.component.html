@@ -15,7 +15,7 @@
           md-list-item
           fxLayout="column"
           fxFlex="noshrink"
-          *ngFor="let link of firstTwoNavLinks()"
+          *ngFor="let link of firstTwo"
           routerLink="{{ link.routerLink }}">{{ link.name }}</a>
     </md-nav-list>
 
@@ -26,7 +26,7 @@
     <md-menu class="main-nav-menu" #appMenu="mdMenu" [overlapTrigger]="false">
       <md-nav-list fxFlex="180px" dense>
          <a md-list-item
-            *ngFor="let link of remainingNavLinks()"
+            *ngFor="let link of remaining"
             routerLink="{{ link.routerLink }}">{{ link.name }}</a>
       </md-nav-list>
     </md-menu>
