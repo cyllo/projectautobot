@@ -10,7 +10,8 @@
     <div fxLayout="row">
       <div fxLayout="column" *ngFor="let platform of platforms">
         <button md-button class="min-width-0"
-                [class.mat-accent]="player.platform === platform.code"
+                [class.mat-primary]="player.platform === platform.code"
+                [class.mat-accent]="platformAvailable(platform.code) && player.platform !== platform.code"
                 [disabled]="!platformAvailable(platform.code)"
                 (click)="changePlatform(platform.code)">
           {{ platform.name }}
@@ -29,7 +30,8 @@
     <div fxLayout="row">
       <div fxLayout="column" *ngFor="let region of regions">
         <button md-button class="min-width-0"
-                [class.mat-accent]="player.region === region.code"
+                [class.mat-primary]="player.region === region.code"
+                [class.mat-accent]="regionAvailable(region.code) && player.region !== region.code"
                 [disabled]="!regionAvailable(region.code)"
                 (click)="changeRegion(region.code)">
           {{ region.name }}

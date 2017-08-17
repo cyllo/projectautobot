@@ -1,2 +1,7 @@
-.profile {
+:host /deep/ .profile {
+  .chart {
+    canvas {
+      max-width: 800px !important;
+    }
+  }
 }

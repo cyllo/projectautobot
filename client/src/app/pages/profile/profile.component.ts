@@ -49,7 +49,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
 
         return firstCombine === secondCombine;
       })
-      .withLatestFrom(this.selectedPlayer, (players, selection: Player) => {
+      .withLatestFrom(this.selectedPlayer, (players: any[], selection: Player) => {
         return find((player: Player) => {
           return player.tag === replace('-', '#', selection.tag) &&
           player.region === selection.region && player.platform === selection.platform;
@@ -96,10 +96,10 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
     let playerStream;
     if (target.region) {
       playerStream = this.players.withLatestFrom(this.selectedPlayer,
-        (players, selection) => path([replace('#', '-', selection.tag), target.platform, target.region], players));
+        (players: any, selection: any) => path([replace('#', '-', selection.tag), target.platform, target.region], players));
     } else {
       playerStream = this.players.withLatestFrom(this.selectedPlayer,
-        (players, selection) => path([replace('#', '-', selection.tag), target.platform], players));
+        (players: any, selection: any) => path([replace('#', '-', selection.tag), target.platform], players));
     }
 
     playerStream.first().subscribe((player: Player) => {

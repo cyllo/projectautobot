@@ -11,7 +11,8 @@ import { MdIconModule,
          MdButtonModule,
          MdCardModule,
          MdChipsModule,
-         MdSlideToggleModule } from '@angular/material';
+         MdSlideToggleModule,
+         MdProgressBarModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import {
@@ -60,7 +61,8 @@ import { ChartsModule } from 'ng2-charts';
     FlexLayoutModule,
     MdCardModule,
     MdChipsModule,
-    MdSlideToggleModule
+    MdSlideToggleModule,
+    MdProgressBarModule
   ],
   declarations: [
     VideoCardComponent,

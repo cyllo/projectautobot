@@ -3,7 +3,6 @@ import { OverwatchHeroDataService } from '../../../services';
 import { TransformedStats,
          OverwatchStaticData,
          ChartData,
-         ChartDataset,
          ChartType } from '../../../models';
 
 @Component({
@@ -22,28 +21,52 @@ export class CareerComponent implements OnInit {
     this.load();
   }
 
-  _snapshotStats: TransformedStats;
-
-  charts: ChartData[] = [];
-
-  /*
-  chart: ChartData = {
-    xAxisLabels: ['1', '2', '3', '4', '5', '6', '7'],
-    datasets: [{
-        label: 'Skill Rating',
-        data: [200, 200, 200, 200, 200, 200, 200]
-    }],
-    chartType: ChartType.line,
-    legend: false
-  };
-  */
-
+  private _snapshotStats: TransformedStats;
   private overwatchStaticData: OverwatchStaticData;
+
+  combatChart: ChartData;
+  gameChart: ChartData;
 
   constructor(private owHeroData: OverwatchHeroDataService) {}
 
   load() {
     console.log(this._snapshotStats);
+    const { combatLifetimeStatistic, gameHistoryStatistic } = this.snapshotStats.heroesTotalSnapshotStatistic;
+    const timePlayed = gameHistoryStatistic.timePlayed / 60;
+
+    this.combatChart = {
+      xAxisLabels: ['Eliminations', 'Kills', 'Deaths', 'Damage'],
+      datasets:
+      [{
+        label: 'Combat Performance',
+        data:
+        [
+          combatLifetimeStatistic.eliminations / timePlayed,
+          combatLifetimeStatistic.finalBlows / timePlayed,
+          combatLifetimeStatistic.deaths / timePlayed,
+          combatLifetimeStatistic.damageDone / timePlayed
+        ]
+      }],
+      chartType: ChartType.polarArea,
+      legend: true
+    };
+
+    this.gameChart = {
+      xAxisLabels: ['Blocked', 'Healing', 'Assists'],
+      datasets:
+      [{
+        label: 'Supporting Performance',
+        data:
+        [
+          combatLifetimeStatistic.damageBlocked / timePlayed,
+          combatLifetimeStatistic.healingDone / timePlayed,
+          (combatLifetimeStatistic.offensiveAssists + combatLifetimeStatistic.defensiveAssists) / timePlayed
+        ]
+      }],
+      chartType: ChartType.polarArea,
+      legend: true
+    };
+
   }
 
   ngOnInit() {
@@ -52,8 +75,8 @@ export class CareerComponent implements OnInit {
 
     this.owHeroData.data$.subscribe(res => this.overwatchStaticData = res);
 
-    // const { combatLifetimeStatistic, gameHistoryStatistic } = this.snapshotStats;
-    // //const timePlayed = gameHistoryStatistic.timePlayed / 60;
+    //
+    // //
     //
     // const combatChart = {
     //   xAxisLabels: ['Eliminations', 'K/D Ratio', 'Damage'],
@@ -67,10 +90,6 @@ export class CareerComponent implements OnInit {
     //   }]
     // };
 
-  }
-
-  addChart(data: ChartData) {
-    this.charts.push(data);
   }
 
 }

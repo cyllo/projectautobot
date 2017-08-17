@@ -1,198 +1,91 @@
-<div class="hero-card-header">
+<div class="flex-layout" fxLayout="row">
+  <md-progress-bar mode="determinate" [value]="stat('timePlayedAsPercentage').value"></md-progress-bar>
+</div>
+<div class="flex-layout pt-3" fxLayout="row" fxLayoutAlign="start center">
 
-  <div class="row">
-
-    <div class="col-12 mb-3">
-      <ngb-progressbar type="stp" [value]="stat('timePlayedAsPercentage').value" [max]="100"></ngb-progressbar>
-    </div>
-    <!-- end .col -->
-
+  <div class="flex-layout px-2" fxLayout="column" fxFlex="noshrink">
+    <ow-hero-portrait [owCode]="heroSnap.hero.code"></ow-hero-portrait>
   </div>
-  <!-- end .row -->
 
-  <section class="row align-items-center">
+  <div class="flex-layout px-2" fxLayout="column" fxLayoutGap="4px" fxFlex="grow">
+    <div class="flex-layout" fxLayout="row">
+      <span class="text-uppercase"><strong>{{ heroSnap.hero.name }}</strong></span>
+    </div>
+    <div class="flex-layout" fxLayout="row">
+      <div class="flex-layout" fxLayout="column">
+        <img width="18" src="{{ iconUrl(heroSnap.hero.role) }}">
+      </div>
+      <div class="flex-layout" fxLayout="column">
+        <span class="mat-caption text-uppercase ml-1">{{ roleToString(heroSnap.hero.role) }}</span>
+      </div>
+    </div>
+  </div>
 
-    <div class="col-auto pl-3 mb-3">
-      <ow-hero-portrait [owCode]="heroSnap.hero.code"></ow-hero-portrait>
-      <!-- end ow-hero-portrait -->
-    </div><!-- end .col-auto -->
+  <div class="flex-layout px-2" fxLayout="column" fxFlex="noshrink">
+    <div class="flex-layout" fxLayout="row">
+      <span class="mat-caption text-uppercase">{{ stat('gamesplayed').value || '1' }}</span>
+    </div>
+    <div class="flex-layout" fxLayout="row">
+      <div class="flex-layout" fxLayout="column">
+        <span class="mat-caption text-uppercase">Games Played</span>
+      </div>
+    </div>
+  </div>
 
-    <div class="col mb-3">
+  <div class="flex-layout px-2" fxLayout="column" fxFlex="noshrink">
+    <div class="flex-layout" fxLayout="row">
+      <span class="value small">{{ stat('onfire').value || '-' }} mins</span>
+    </div>
+    <div class="flex-layout" fxLayout="row">
+      <div class="flex-layout" fxLayout="column">
+        <span class="mat-caption text-uppercase">On Fire</span>
+      </div>
+    </div>
+  </div>
 
-      <div class="hero-name">
-        <span class="text-uppercase font-weight-bold">{{ heroSnap.hero.name }}</span>
-      </div><!-- end .hero-name -->
+  <div class="flex-layout px-2" fxLayout="column" fxFlex="noshrink">
+    <div fxLayout="row">
+      <div class="flex-layout" fxLayout="column">
+        <div class="medals">
+          <span class="medal gold mat-caption">{{ stat('medals-gold').value   || 0 }}</span>
+          <span class="medal silver mat-caption">{{ stat('medals-silver').value || 0 }}</span>
+          <span class="medal bronze mat-caption">{{ stat('medals-bronze').value || 0 }}</span>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row">
+      <div class="flex-layout" fxLayout="column">
+        <span class="mat-caption text-uppercase">Medals</span>
+      </div>
+    </div>
+  </div>
 
-      <div class="hero-role d-flex align-items-center mb-1">
-        <img src="{{ iconUrl(heroSnap.hero.role) }}" alt="" class="role-icon-sm mr-1">
-        <span class="small text-uppercase">{{ roleToString(heroSnap.hero.role) }}</span>
-      </div><!-- end .hero-role -->
+  <div class="flex-layout px-2" fxLayout="column" fxFlex="noshrink">
+    <div class="flex-layout" fxLayout="row">
+      <span class="value">
+        {{ stat('wins').value || 0 }}
+        {{ stat('loss').value ? ' - ' + stat('loss').value : '' }}
+      </span>
+    </div>
+    <div class="flex-layout" fxLayout="row">
+      <div class="flex-layout" fxLayout="column">
+        <span class="mat-caption text-uppercase">Wins / Loss</span>
+      </div>
+    </div>
+  </div>
 
-      <div class="games-played">
-        <span class="text-light text-uppercase">{{ stat('gamesplayed').value || '1' }} Games Played</span>
-      </div><!-- end .games-played -->
-
-    </div><!-- end .col -->
-
-    <div class="col-12">
-    
-      <div class="row">
-
-        <div class="col-md text-md-right col-6 data-entry mb-3">
-
-          <div class="row">
-            <div class="col">
-              <span class="change text-light">( - )</span>
-            </div>
-          </div><!-- end .row -->
-
-          <div class="row">
-
-            <div class="col">
-
-              <div class="inner-value">
-
-                <div class="row">
-
-                  <div class="col text-left">
-                    <i class="fa fa-clock-o" aria-hidden="true"></i>
-                    <span class="value small">{{ stat('onfire').value || '-' }} mins</span>
-                  </div>
-
-                </div>
-
-                <div class="row align-items-center">
-
-                  <div class="col">
-                    <ngb-progressbar type="stp" [value]="25" [max]="100"></ngb-progressbar>
-                  </div>
-
-                  <div class="col-auto pr-3">
-                    <i class="fa fa-free-code-camp" aria-hidden="true"></i>
-                  </div>
-
-                </div><!-- end .row -->
-
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="row">
-            <div class="col">
-              <span class="label text-uppercase text-light">On Fire</span>
-            </div>
-          </div><!-- end .row -->
-
-        </div><!-- end .col.data-entry -->
-
-        <div class="col-md text-md-right col-6 data-entry mb-3">
-
-          <div class="row">
-            <div class="col">
-              <span class="change text-light">( - )</span>
-            </div>
-          </div><!-- end .row -->
-
-          <div class="row">
-
-            <div class="col">
-
-              <div class="inner-value">
-
-                <div class="medals">
-                  <span class="medal gold rounded mr-1">{{ stat('medals-gold').value   || 0 }}</span>
-                  <span class="medal silver rounded mr-1">{{ stat('medals-silver').value || 0 }}</span>
-                  <span class="medal bronze rounded">{{ stat('medals-bronze').value || 0 }}</span>
-                </div>
-
-              </div>
-              
-            </div>
-
-          </div>
-
-          <div class="row">
-            <div class="col">
-              <span class="label text-uppercase text-light">Medals</span>
-            </div>
-          </div><!-- end .row -->
-
-        </div><!-- end .col.data-entry -->
-
-        <div class="col-md text-md-right col-6 data-entry mb-3">
-
-          <div class="row">
-            <div class="col">
-              <span class="change text-light">( - )</span>
-            </div>
-          </div><!-- end .row -->
-
-          <div class="row">
-
-            <div class="col">
-
-              <div class="inner-value">
-
-                <span class="value">
-                  {{ stat('wins').value || 0 }}
-                  {{ stat('loss').value ? ' - ' + stat('loss').value : '' }}
-                </span>
-
-              </div>
-              
-            </div>
-
-          </div>
-
-          <div class="row">
-            <div class="col">
-              <span class="label text-uppercase text-light">Win - Loss</span>
-            </div>
-          </div><!-- end .row -->
-
-        </div><!-- end .col.data-entry -->
-
-        <div class="col-md text-md-right col-6 data-entry mb-3">
-
-          <div class="row">
-            <div class="col">
-              <span class="change text-light">( - )</span>
-            </div>
-          </div><!-- end .row -->
-
-          <div class="row">
-
-            <div class="col">
-
-              <div class="inner-value">
-
-                <span class="value">
-                  {{ ( stat('winrate').value | number : '1.2-2' ) || '-' }}
-                  {{ stat('winrate').value ? '%' : ''}}
-                </span>
-
-              </div>
-              
-            </div>
-
-          </div>
-
-          <div class="row">
-            <div class="col">
-              <span class="label text-uppercase text-light">Win Rate</span>
-            </div>
-          </div><!-- end .row -->
-
-        </div><!-- end .col.data-entry -->
-
-      </div><!-- end .row -->
-
-    </div><!-- end .col -->
-    
-  </section>
-  <!-- end .row -->
+  <div class="flex-layout px-2" fxLayout="column" fxFlex="noshrink">
+    <div class="flex-layout" fxLayout="row">
+      <span class="value">
+        {{ ( stat('winrate').value | number : '1.2-2' ) || '-' }}
+        {{ stat('winrate').value ? '%' : ''}}
+      </span>
+    </div>
+    <div class="flex-layout" fxLayout="row">
+      <div class="flex-layout" fxLayout="column">
+        <span class="mat-caption text-uppercase">Win Rate</span>
+      </div>
+    </div>
+  </div>
 
 </div>
-<!-- end .hero-card-header -->
