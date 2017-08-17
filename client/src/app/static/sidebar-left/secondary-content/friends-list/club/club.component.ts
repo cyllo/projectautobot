@@ -5,9 +5,9 @@ import { Component,
          ViewChild,
          ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { Club } from '../../../../../models';
+import { Club, Friendship } from '../../../../../models';
 import { ClubService, FriendShipService } from '../../../../../services';
-import { map, prop } from 'ramda';
+import { map, prop, flatten, path } from 'ramda';
 
 @Component({
   selector: 'ow-club',
@@ -35,8 +35,12 @@ export class ClubComponent implements OnInit {
 
   ngOnInit() {}
 
-  compareProfiles(friendships) {
-    this.router.navigate(['/compare'], { queryParams: { ids: map(prop('id'), friendships)} });
+  compareProfiles(friendships: Friendship[]) {
+    this.router.navigate(['/compare'], {
+      queryParams: {
+        ids: map(prop('tag'), flatten(map(path(['friend', 'gamerTags']), friendships)))
+      }
+    });
   }
 
   toggleClubNameEdit($event = null) {
