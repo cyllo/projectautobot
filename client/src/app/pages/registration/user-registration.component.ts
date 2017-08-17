@@ -62,7 +62,7 @@ export class UserRegistrationComponent implements OnInit {
         this.createUserError = false;
         this.router.navigate(['./news']);
       },
-      error => this.onError(error));
+      () => this.onError());
   }
 
   bnetAuth() {
@@ -70,8 +70,7 @@ export class UserRegistrationComponent implements OnInit {
     window.location.assign(authUrl);
   }
 
-  onError(e) {
-    console.log('Login Error: ', e);
+  onError() {
     this.createUserError = true;
     this.snackBar.open('Problem creating account, try again.', 'ok', {
       duration: 5000

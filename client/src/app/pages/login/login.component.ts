@@ -33,11 +33,10 @@ export class LoginComponent implements OnInit {
     .subscribe(() => {
       this.loginError = false;
       this.location.back();
-    }, error => this.onError(error));
+    }, () => this.onError());
   }
 
-  onError(e) {
-    console.log('Login Error: ', e);
+  onError() {
     this.loginError = true;
     this.snackBar.open('Problem logging in, try again.', 'ok', {
       duration: 5000

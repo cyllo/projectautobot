@@ -21,14 +21,6 @@ export class ChartComponent implements OnInit {
 
   public ngOnInit() {
     this.options = mergeAll([this.createBaseChartStyleOptions(), this.createChartTypeSpecificOptions(this.chartType)]);
-
-    const { datasets , labels , chartType , legend } = this;
-    console.log(
-      'data: ', datasets,
-      'labels: ', labels,
-      'chartType: ', chartType,
-      'legend: ', legend
-    );
   }
 
   chartClicked(event: any): void {

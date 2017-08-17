@@ -1,18 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ow-friends',
   templateUrl: 'friends.component.html',
   styleUrls: ['friends.component.scss']
 })
-export class FriendsComponent implements OnInit {
+export class FriendsComponent {
 
   constructor() {
     // Do stuff
-  }
-
-  ngOnInit() {
-    console.log('Hello friends');
   }
 
 }

@@ -1,6 +1,5 @@
 import { createNetworkInterface } from 'apollo-client';
-import { pathOr } from 'ramda';
-
+import * as Cookies from 'js-cookie';
 export const httpInterceptor = createNetworkInterface({
   uri: '/graphql'
 });
@@ -8,9 +7,7 @@ export const httpInterceptor = createNetworkInterface({
 httpInterceptor.use([{
   applyMiddleware(req, next) {
     req.options.headers = !req.options.headers ? {} : req.options.headers;
-    const session = JSON.parse(window.localStorage.getItem('session'));
-    const token = pathOr(null, ['sessionInfo', 'token'], session);
-    req.options.headers.authorization =  `Bearer ${token}`;
+    req.options.headers.authorization =  `Bearer ${Cookies.get('ow-auth-token')}`;
     next();
   }
 }]);

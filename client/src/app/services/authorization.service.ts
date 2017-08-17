@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { dissoc, prop } from 'ramda';
 import { listFollowedUsers, listFollowedGamerTags, login } from '../reducers';
+import * as Cookies from 'js-cookie';
 
 const getUserProps = user => dissoc('following', user);
 const getFollowedUsers = user => <User[]>prop('following', user);
@@ -40,8 +41,9 @@ export class AuthorizationService {
     .subscribe(({data: { logoutUser: loggedOut } }: GraphqlResponse ) => {
       if (loggedOut) {
         this.store.dispatch({ type: 'LOG_OUT' });
-        window.localStorage.removeItem('session');
+        Cookies.remove('ow-auth-token');
         this.router.navigate(['./news']);
+        this.apollo.getClient().resetStore();
       }
     });
   }
@@ -52,7 +54,8 @@ export class AuthorizationService {
     }).map(({ data: { me: currentUser } }: GraphqlResponse) => currentUser)
     .subscribe(currentUser => {
       this.setAppState({
-        sessionInfo, user: getUserProps(currentUser),
+        sessionInfo,
+        user: getUserProps(currentUser),
         followedUsers: getFollowedUsers(currentUser),
         followedGamerTags: getFollowedGamerTags(currentUser)
       });
@@ -60,11 +63,13 @@ export class AuthorizationService {
   }
 
   setAppState({ sessionInfo, user, followedUsers, followedGamerTags }) {
+
     if (sessionInfo) {
-      window.localStorage.setItem('session', JSON.stringify({ sessionInfo, user }));
-      this.store.dispatch(login({ sessionInfo, user }));
-      this.store.dispatch(listFollowedUsers(followedUsers));
-      this.store.dispatch(listFollowedGamerTags(followedGamerTags));
+      Cookies.set('ow-auth-token', sessionInfo.token, { expires: new Date(sessionInfo.exp) });
     }
+
+    this.store.dispatch(login({ user }));
+    this.store.dispatch(listFollowedUsers(followedUsers));
+    this.store.dispatch(listFollowedGamerTags(followedGamerTags));
   }
 }

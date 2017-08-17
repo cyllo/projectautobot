@@ -8,7 +8,7 @@ import {
 import { Action, Store } from '@ngrx/store';
 import { AppState, CurrentSession } from '../../models';
 import { Observable } from 'rxjs/Observable';
-import { values, all, isNil, path } from 'ramda';
+import { isNil } from 'ramda';
 
 @Component({
   selector: 'ow-main-nav',
@@ -29,8 +29,11 @@ export class MainNavComponent implements  OnInit {
   }
 
   ngOnInit() {
-    this.currentSession.subscribe(session =>
-      this.userLoggedIn = !all(isNil, values(path(['sessionInfo'], session))));
+    this.currentSession
+    .map(session => !isNil(session))
+    .subscribe(session => {
+      this.userLoggedIn = session;
+    });
   }
 
   onSearch(tag: string) {
