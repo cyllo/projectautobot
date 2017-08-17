@@ -41,9 +41,9 @@ export class AuthorizationService {
     .subscribe(({data: { logoutUser: loggedOut } }: GraphqlResponse ) => {
       if (loggedOut) {
         this.store.dispatch({ type: 'LOG_OUT' });
-        Cookies.remove('ow-auth-token');
-        this.router.navigate(['./news']);
         this.apollo.getClient().resetStore();
+        Cookies.remove('ow-auth-token');
+        this.router.navigate(['']);
       }
     });
   }
