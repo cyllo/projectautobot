@@ -41,7 +41,8 @@ end
 release :server do
   set version: "0.1.0"
   set commands: [
-    "migrate": "rel/commands/migrate.sh"
+    "migrate": "rel/commands/migrate.sh",
+    "generate_beta_code": "rel/commands/generate_beta_code.sh"
   ]
   set applications: [
     :runtime_tools,

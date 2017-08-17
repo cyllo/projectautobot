@@ -72,6 +72,9 @@ module.exports = function makeWebpackConfig() {
   config.resolve = {
     // only discover files that have those extensions
     extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html'],
+    alias: {
+      'phoenix-ts': root('node_modules/phoenix-ts/dist/phoenix.es5.js')
+    }
   };
 
   var atlOptions = '';

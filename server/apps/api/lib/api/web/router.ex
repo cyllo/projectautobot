@@ -5,6 +5,10 @@ defmodule Api.Web.Router do
 
   pipeline :browser do
     plug :accepts, ["html"]
+
+    if Mix.env() === :prod do
+      plug Api.BasicAuth
+    end
     # plug :protect_from_forgery
     # plug :put_secure_browser_headers
   end

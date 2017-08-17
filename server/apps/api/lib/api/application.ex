@@ -15,7 +15,12 @@ defmodule Api.Application do
       supervisor(ConCache, [
         [ttl_check: :timer.seconds(5), ttl: Api.JWTGenerator.token_ttl() - 200], #TTL - 200 for time to process
         [name: :session_token_store]
-      ])
+      ], id: :session_token_store),
+
+      supervisor(ConCache, [
+        [ttl_check: :timer.seconds(5), ttl: :timer.hours(24)],
+        [name: :beta_token_store]
+      ], id: :beta_token_store)
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
