@@ -62,7 +62,11 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
       .do((data) => this.store.dispatch({ type: 'UPDATE_PLAYER', payload: data }));
 
     this.player = Observable.merge(resolveData, socketUpdates)
-      .switchMap((player) => this.profileService.addOwData(player))
+      .switchMap((player) => {
+        console.log('switch map: ', player);
+        return this.profileService.addOwData(player);
+      })
+      .do(player => console.log('after switch', player))
       .map((player: Player) => merge(player, this.profileService.latestStatsSet(player)))
       .map((player: Player) => merge(player, this.profileService.profileStats(player)));
 
