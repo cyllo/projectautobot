@@ -14,8 +14,16 @@ defmodule Scraper do
 
   def scrape_gamer_tag(%Game.GamerTag{} = gamer_tag) do
     with {:ok, _} <- check_gamer_tag_unscraped(gamer_tag),
-         _ <- ScrapeStatusCache.mark_tag_scraped(gamer_tag.id),
-         {gamer_tag, page_source} <- ProfileScraper.get_profile(gamer_tag),
+         _ <- ScrapeStatusCache.mark_tag_scraped(gamer_tag.id) do
+      scrape_gamer_tag_without_status_check(gamer_tag)
+    else
+      {:error, %{ms_till_can_scrape: _}} = error -> error
+      e -> e
+    end
+  end
+
+  def scrape_gamer_tag_without_status_check(%Game.GamerTag{} = gamer_tag) do
+    with {gamer_tag, page_source} <- ProfileScraper.get_profile(gamer_tag),
          false <- HtmlHelpers.is_page_not_found?(page_source) do
 
       %{gamer_tag: %{id: gamer_tag_id}} = {gamer_tag, page_source}
@@ -29,7 +37,6 @@ defmodule Scraper do
 
       Game.get_gamer_tag_with_snapshots(gamer_tag_id)
     else
-      {:error, %{ms_till_can_scrape: _}} = error -> error
       true ->
         {:error, %{
           message: "Profile not found with #{inspect gamer_tag}",
@@ -39,6 +46,7 @@ defmodule Scraper do
         }}
       e ->
         ScrapeStatusCache.unmark_tag_scraped(gamer_tag.id)
+
         e
     end
   end

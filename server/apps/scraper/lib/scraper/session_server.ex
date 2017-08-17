@@ -98,7 +98,5 @@ defmodule Scraper.SessionServer do
   end
 
   defp reply_ok(state, resp \\ :ok), do: {:reply, resp, state}
-  defp wait_ms(pid, ms) do
-    Process.send_after(pid, :wait_ms, ms)
-  end
+  defp wait_ms(pid, ms), do: Process.send_after(pid, :wait_ms, ms)
 end
