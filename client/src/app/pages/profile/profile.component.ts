@@ -35,7 +35,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
     const resolveData: Observable<Player> = activatedRoute.data
       .take(1)
       .map(prop<Player>('player'))
-      .do(a => console.log('Route Data Change: ', a))
       .distinctUntilChanged((newPlayer: Player, oldPlayer: Player) => {
         const firstCombine = newPlayer.tag + newPlayer.platform + newPlayer.region,
               secondCombine = oldPlayer.tag + oldPlayer.platform + oldPlayer.region;

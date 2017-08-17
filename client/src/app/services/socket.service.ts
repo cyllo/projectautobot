@@ -36,7 +36,6 @@ export class SocketService {
       const oldOnMessage = channel.onMessage.bind(channel);
 
       channel.onMessage = (event, payload, ref) => {
-        console.log(event, camelizeKeys(payload));
         oldOnMessage(event, camelizeKeys(payload), ref);
         observer.next({ event, payload: camelizeKeys(payload) });
 

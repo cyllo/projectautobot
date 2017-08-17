@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthorizationService } from '../../../services';
-import { CurrentUser, AppState } from '../../../models';
+import { User, AppState } from '../../../models';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { isNil } from 'ramda';
 
 @Component({
   selector: 'ow-account-overview',
@@ -21,13 +22,15 @@ export class AccountOverviewComponent implements OnInit {
    */
   public async: any;
 
-  currentUser$: Observable<CurrentUser>;
+  currentUser$: Observable<User>;
   userProfiles: any;
 
   constructor(private store: Store<AppState>, private authService: AuthorizationService) {}
 
   ngOnInit() {
-    this.currentUser$ = this.store.select('currentSession').map(({ user }) => user);
+    this.currentUser$ = this.store.select('currentSession')
+    .filter(session => !isNil(session))
+    .map(({ user }) => user);
   }
 
   signOut() {

@@ -17,8 +17,6 @@ export class LeaderboardComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('Hello leaderboard');
-
     this.columns = [
       { prop : 'player' },
       { name : 'skillrating' }

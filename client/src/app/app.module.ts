@@ -156,9 +156,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 })
 export class AppModule {
   constructor(public appRef: ApplicationRef) { }
-  hmrOnInit(store) {
-    console.log('HMR store', store);
-  }
+
   hmrOnDestroy(store) {
     let cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
     // recreate elements

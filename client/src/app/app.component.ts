@@ -7,6 +7,7 @@ import { AppState, Player, CurrentSession } from './models';
 import { searchGamerTag } from './reducers';
 import { MdIconRegistry } from '@angular/material';
 import { isNil } from 'ramda';
+import * as Cookies from 'js-cookie';
 
 import {
   HereosService,
@@ -58,8 +59,7 @@ export class AppComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    const session = JSON.parse(window.localStorage.getItem('session'));
-
+    const session = Cookies.get('ow-auth-token');
     if (session) {
       this.authService.refreshAppState(session);
     }

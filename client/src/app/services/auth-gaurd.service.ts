@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
   canActivate() {
     return this.store.select('currentSession')
     .map((currentSession: CurrentSession) => {
-      if (!isNil(currentSession) && !isNil(currentSession.sessionInfo)) {
+      if (!isNil(currentSession)) {
         return true;
       }
       this.router.navigate(['./news']);

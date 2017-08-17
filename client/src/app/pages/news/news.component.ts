@@ -41,12 +41,10 @@ export class NewsComponent implements OnInit {
   }
 
   updatePageState(state: NewsPageState) {
-    console.log('updatePageState()');
     const {reverseOrder} = state;
     this.blogPosts = this.blogPostsService.posts$
       .filter(arr => !isEmpty(arr))
-      .map(blogPosts => reverseOrder ? blogPosts : reverse(blogPosts))
-      .do(console.log.bind(console));
+      .map(blogPosts => reverseOrder ? blogPosts : reverse(blogPosts));
   }
 
   onScrollUp(state) {
