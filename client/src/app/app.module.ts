@@ -4,7 +4,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
-import { routerReducer, RouterStoreModule } from '@ngrx/router-store';
+import { RouterStoreModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
@@ -30,8 +30,10 @@ import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
 import { ApolloModule } from 'apollo-angular';
 import { ApolloClient } from 'apollo-client';
-import { httpInterceptor } from './app.http-interceptor';
+import { values } from 'ramda';
+import { MomentModule } from 'angular2-moment';
 
+import { httpInterceptor } from './app.http-interceptor';
 import { ProfileResolver } from './pages/profile/profile.resolver';
 import { BlogPostResolver } from './pages/resolvers';
 import { GamerTagService, ProfileService, BlogPostsService } from './services';
@@ -48,24 +50,8 @@ import {
   SocketService,
   FriendShipService,
   ClubService } from './services';
-import { values } from 'ramda';
 
-import { MomentModule } from 'angular2-moment';
-
-import {
-  players,
-  playerDataCollection,
-  searchPlayerTag,
-  heroesData,
-  currentHeroData,
-  blogPosts,
-  currentSession,
-  snapshotData,
-  friendships,
-  clubs,
-  followedUsers,
-  followedGamerTags
-} from './reducers';
+import { reducerStack, initialStates } from './reducers';
 import { SharedModule } from './shared';
 import { PagesModule } from './pages';
 
@@ -88,26 +74,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PagesModule.forRoot(),
     ApolloModule.forRoot(() => new ApolloClient({ networkInterface: httpInterceptor })),
     StoreDevtoolsModule.instrumentStore(instrumentOptions),
-    StoreModule.provideStore({
-      players,
-      playerDataCollection,
-      search: searchPlayerTag,
-      heroes: heroesData,
-      currentHero: currentHeroData,
-      blogPosts,
-      currentSession,
-      friendships,
-      clubs,
-      followedUsers,
-      followedGamerTags,
-      router: routerReducer,
-      snapshotStats: snapshotData,
-    }, {
-      blogPost: {},
-      players: [],
-      router: {},
-      snapshotStats: {}
-    }),
+    StoreModule.provideStore(reducerStack, initialStates),
     RouterStoreModule.connectRouter(),
     BrowserModule,
     MomentModule,

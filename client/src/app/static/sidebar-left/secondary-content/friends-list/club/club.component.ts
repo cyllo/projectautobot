@@ -7,7 +7,7 @@ import { Component,
 import { Router } from '@angular/router';
 import { Club, Friendship } from '../../../../../models';
 import { ClubService, FriendShipService } from '../../../../../services';
-import { map, prop, flatten, path } from 'ramda';
+import { map, pluck, compose, flatten, path } from 'ramda';
 
 @Component({
   selector: 'ow-club',
@@ -36,9 +36,11 @@ export class ClubComponent implements OnInit {
   ngOnInit() {}
 
   compareProfiles(friendships: Friendship[]) {
+    const friendshipGamerTags = compose(flatten, map(path(['friend', 'gamerTags'])));
+
     this.router.navigate(['/compare'], {
       queryParams: {
-        ids: map(prop('tag'), flatten(map(path(['friend', 'gamerTags']), friendships)))
+        ids: pluck('tag', friendshipGamerTags(friendships))
       }
     });
   }
