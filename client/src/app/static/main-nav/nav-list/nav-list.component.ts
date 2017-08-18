@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavLink, AppState } from '../../../models';
 import { Store } from '@ngrx/store';
-import { take, takeLast, filter, propEq } from 'ramda';
+import { take, filter, propEq } from 'ramda';
 
 @Component({
   selector: 'ow-nav-list',
