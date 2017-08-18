@@ -4,7 +4,7 @@
      fxLayoutGap="8px"
      fxHide.lt-md>
 
-  <div fxLayout="column">
+  <div fxLayout="column" *ngIf="firstTwo">
 
     <md-nav-list class="main-nav-menu"
                  [ngStyle]="{ padding: 0 }"
@@ -21,7 +21,7 @@
 
   </div>
 
-  <div fxLayout="column">
+  <div fxLayout="column" *ngIf="remaining">
 
     <md-menu class="main-nav-menu" #appMenu="mdMenu" [overlapTrigger]="false">
       <md-nav-list fxFlex="180px" dense>
