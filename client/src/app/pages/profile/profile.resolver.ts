@@ -17,7 +17,7 @@ export class ProfileResolver implements Resolve<Player> {
     return this.profileService.findOrScrapeGamerTag(route.params.tag, route.params.platform, route.params.region)
     .map((gamerTag: any) => {
       const connectedTags: any = prop('connectedGamerTags', gamerTag);
-      return [...connectedTags, omit('connectedGamerTags', gamerTag)];
+      return [...connectedTags, omit(['connectedGamerTags'], gamerTag)];
     })
     .do((player) => this.store.dispatch({ type: 'ADD_PLAYERS', payload: player }))
     .catch(() => this.redirectOnError());
