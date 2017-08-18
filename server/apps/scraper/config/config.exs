@@ -15,6 +15,6 @@ config :quantum, :scraper,
   cron: [
     scrape_all_profiles: [
       schedule: "@daily",
-      task: {Scraper, :refetch_profiles_in_db, []}
+      task: &Scraper.refetch_profiles_in_db/0
     ]
   ]

@@ -33,7 +33,7 @@ defmodule Api.Web.Router do
     end
   end
 
-  if Mix.env() !== :dev do
+  if Mix.env() === :prod do
     scope "/" do
       pipe_through :browser
 

@@ -9,7 +9,7 @@ config :quantum, :scraper,
   cron: [
     snapshot_averages: [
       schedule: "@daily",
-      task: {StatsAverages, :snapshot_averages}
+      task: &StatsAverages.snapshot_averages/0
     ]
   ]
 # This configuration is loaded before any dependency and is restricted

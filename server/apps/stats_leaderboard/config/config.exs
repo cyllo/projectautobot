@@ -9,7 +9,7 @@ config :quantum, :scraper,
   cron: [
     snapshot_leaderboards: [
       schedule: "@daily",
-      task: {StatsLeaderboard, :create_snapshot}
+      task: &StatsLeaderboard.create_snapshot/0
     ]
   ]
 # This configuration is loaded before any dependency and is restricted

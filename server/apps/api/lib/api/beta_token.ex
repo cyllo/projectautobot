@@ -3,13 +3,24 @@ defmodule Api.BetaToken do
 
   def basic_auth_login(conn, username, password) do
     cond do
-      is_invite_code?(username) and is_invite_code?(password) ->
-        delete_invite_code(username)
-        delete_resp_header(conn, "authorization")
-
       user = login_user(username, password) ->
         %{exp: exp, token: token} = user
         put_resp_header(conn, "Set-Cookie", create_authorization_header(token, exp))
+
+      is_used_code?(username) and is_used_code?(password) -> conn
+
+      is_invite_code?(username) and is_invite_code?(password) and is_unused_code?(username) ->
+        use_invite_code(username)
+
+        Task.start(fn ->
+          Process.send_after self(), :expire, :timer.minutes(5)
+
+          receive do
+            :expire -> delete_invite_code(username)
+          end
+        end)
+
+        conn
 
       true -> basic_auth_error(conn)
     end
@@ -29,9 +40,12 @@ defmodule Api.BetaToken do
     end
   end
 
-  defp save_invite_code(code), do: ConCache.put(:beta_token_store, code, true)
-  defp is_invite_code?(code), do: ConCache.get(:beta_token_store, code) || false
   defp delete_invite_code(code), do: ConCache.delete(:beta_token_store, code)
+  defp save_invite_code(code), do: ConCache.put(:beta_token_store, code, true)
+  defp use_invite_code(code), do: ConCache.put(:beta_token_store, code, "used")
+  defp is_used_code?(code), do: ConCache.get(:beta_token_store, code) === "used"
+  defp is_unused_code?(code), do: ConCache.get(:beta_token_store, code) === true
+  defp is_invite_code?(code), do: ConCache.get(:beta_token_store, code) || false
 
   defp create_authorization_header(token, exp) do
     "authorization=" <> "Bearer #{token}; Expires=#{format_expiry(exp)}; Secure"
