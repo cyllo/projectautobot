@@ -1,0 +1,11 @@
+<div class="quick-comp-toggle" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+  <div class="pr-2" fxLayout="column">
+    <span class="mat-caption text-uppercase">Quick Play</span>
+  </div>
+  <div fxLayout="column">
+    <md-slide-toggle color="primary" [checked]="true" (change)="onToggle($event)"></md-slide-toggle>
+  </div>
+  <div fxLayout="column">
+    <span class="mat-caption text-uppercase">Competitive Play</span>
+  </div>
+</div>

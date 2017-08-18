@@ -1,69 +1,53 @@
-<div class="career" *ngIf="snapshotStats && charts && statBlocks">
+<div class="career flex-layout" fxLayout="row" *ngIf="snapshotStats">
+  <div fxLayout="column" fxLayoutGap="8px">
+    <div fxLayout="row">
+      <md-card>
+        <md-card-header>
+          <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start end">
+            <div fxLayout="column">
+              <span class="text-uppercase"><strong>Career</strong></span>
+            </div>
+            <div fxLayout="column">
+              <span class="mat-caption">All statisitcs are per minute averages.</span>
+            </div>
+          </div>
+        </md-card-header>
+        <md-card-content>
+          <div class="pt-3" fxLayout="row">
+            <div class="flex-layout"
+                 fxLayout="column"
+                 fxFlex="50%"
+                 *ngIf="combatChart">
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <span class="mat-caption text-uppercase">Combat</span>
+              </div>
+              <div fxLayout="row">
+                <ow-chart [chartType]="combatChart.chartType"
+                  [labels] = "combatChart.xAxisLabels"
+                  [datasets]="combatChart.datasets"
+                  [legend]="combatChart.legend">
+                </ow-chart>
+              </div>
+            </div>
+            <div class="flex-layout"
+                 fxLayout="column"
+                 fxFlex="50%"
+                 *ngIf="combatChart">
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <span class="mat-caption text-uppercase">Game</span>
+              </div>
+              <div fxLayout="row">
+                <ow-chart [chartType]="gameChart.chartType"
+                  [labels] = "gameChart.xAxisLabels"
+                  [datasets]="gameChart.datasets"
+                  [legend]="gameChart.legend">
+                </ow-chart>
+              </div>
+            </div>
+          </div>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
 
-  <section class="row mb-3">
-
-    <div class="col-12 mb-3">
-
-      <div class="header">
-        <span class="text-uppercase font-weight-bold mb-1">Career</span>
-        <span class="small text-light">All statistics are per min averages.</span>
-      </div><!-- end .header -->
-
-    </div><!-- end .col -->
-
-    <div class="col-md-4 col-12 pt-3">
-
-      <div class="row">
-
-        <div class="col-md-6 col-4 mb-3" *ngFor="let stat of statBlocks">
-
-          <div class="overall-data text-center mb-md-3 mb-0">
-
-            <div class="data mb-2">
-              <span>{{ stat.value | number : '1.0-2' }}</span>
-            </div><!-- end .data -->
-
-            <div class="mb-2">
-              <ngb-progressbar type="stp" [value]="25"></ngb-progressbar>
-            </div><!-- end .progress -->
-
-            <div class="label mb-1">
-              <span class="text-uppercase font-weight-bold">{{ stat.name }}</span>
-            </div><!-- end .label -->
-
-            <div class="rating">
-              <span class="text-uppercase text-light">Top 0%</span>
-            </div><!-- end .rating -->
-
-          </div><!-- end .overall-data -->
-
-        </div><!-- end .col -->
-
-      </div><!-- end .row -->
-
-    </div><!-- end .col -->
-
-    <div class="col-md-8 col-12 mb-3">
-
-      <div class="row">
-
-        <div class="col-sm-6 col-12 mb-3" *ngFor="let chart of charts">
-
-          <div class="chart rounded">
-            <ow-chart [chartType]="chart.chartType"
-              [labels] = "chart.xAxisLabels"
-              [datasets]="chart.datasets"
-              [legend]="chart.legend">
-            </ow-chart><!-- end ow-chart -->
-
-          </div><!-- end .chart -->
-
-        </div><!-- end .col -->
-
-      </div><!-- end .row -->
-
-    </div><!-- end .col -->
-
-  </section><!-- end section -->
-
-</div><!-- end .career -->
+</div>

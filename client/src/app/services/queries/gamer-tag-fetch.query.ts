@@ -37,6 +37,42 @@ export const gamerTagFetchQuery = gql`
           ...totalStatFields
         }
       }
+      connectedGamerTags {
+        id
+        updatedAt
+        tag
+        region
+        portraitUrl
+        platform
+        overwatchName
+        insertedAt
+        snapshotStatistics(last: $snapshotLast) {
+          id
+          gamerTagId
+          profileSnapshotStatistic {
+            profileStatistic {
+              level
+              levelUrl
+              rankUrl
+              competitiveLevel
+              competitiveRankUrl
+              totalGamesWon
+            }
+          }
+          quickplayHeroSnapshotStatistics: heroSnapshotStatistics(type: QUICKPLAY) {
+            ...heroStatFields
+          }
+          competitiveHeroSnapshotStatistics: heroSnapshotStatistics(type: COMPETITIVE) {
+            ...heroStatFields
+          }
+          quickplayHeroesTotalSnapshotStatistic: heroesTotalSnapshotStatistic(type: QUICKPLAY) {
+            ...totalStatFields
+          }
+          competitiveHeroesTotalSnapshotStatistic: heroesTotalSnapshotStatistic(type: COMPETITIVE) {
+            ...totalStatFields
+          }
+        }
+      }
     }
   }
 

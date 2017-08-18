@@ -1,4 +1,4 @@
-import { prop, merge, path } from 'ramda';
+import { prop, merge, path, find, replace } from 'ramda';
 import { Component, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
 import { AppState, Player } from '../../models';
 import { Store } from '@ngrx/store';
@@ -14,8 +14,9 @@ import { ProfileService } from '../../services';
   styleUrls: ['profile.component.scss'],
 })
 export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
-  players: Observable<Object>;
+  players: Observable<object>;
   player: Observable<Player>;
+  selectedPlayer: Observable<object>;
 
   platform: string;
   region: string;
@@ -32,14 +33,27 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   ) {
     this.players = this.store.select('players');
 
+    this.players.subscribe(x => console.log('store', x));
+
+    this.selectedPlayer = activatedRoute.paramMap.map(paramMap => ({
+      tag: paramMap.get('tag'),
+      platform: paramMap.get('platform'),
+      region: paramMap.get('region')
+    }));
+
     const resolveData: Observable<Player> = activatedRoute.data
-      .take(1)
       .map(prop<Player>('player'))
       .distinctUntilChanged((newPlayer: Player, oldPlayer: Player) => {
         const firstCombine = newPlayer.tag + newPlayer.platform + newPlayer.region,
               secondCombine = oldPlayer.tag + oldPlayer.platform + oldPlayer.region;
 
         return firstCombine === secondCombine;
+      })
+      .withLatestFrom(this.selectedPlayer, (players: any[], selection: Player) => {
+        return find((player: Player) => {
+          return player.tag === replace('-', '#', selection.tag) &&
+          player.region === selection.region && player.platform === selection.platform;
+        }, players);
       });
 
     const socketUpdates: Observable<Player> = activatedRoute.data
@@ -48,7 +62,11 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
       .do((data) => this.store.dispatch({ type: 'UPDATE_PLAYER', payload: data }));
 
     this.player = Observable.merge(resolveData, socketUpdates)
-      .switchMap((player) => this.profileService.addOwData(player))
+      .switchMap((player) => {
+        console.log('switch map: ', player);
+        return this.profileService.addOwData(player);
+      })
+      .do(player => console.log('after switch', player))
       .map((player: Player) => merge(player, this.profileService.latestStatsSet(player)))
       .map((player: Player) => merge(player, this.profileService.profileStats(player)));
 
@@ -80,14 +98,17 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
 
   changePlatformRegion(target: any) {
     let playerStream;
-
     if (target.region) {
-      playerStream = this.players.pluck(target.platform, target.region);
+      playerStream = this.players.withLatestFrom(this.selectedPlayer,
+        (players: any, selection: any) => path([replace('#', '-', selection.tag), target.platform, target.region], players));
     } else {
-      playerStream = this.players.pluck(target.platform);
+      playerStream = this.players.withLatestFrom(this.selectedPlayer,
+        (players: any, selection: any) => path([replace('#', '-', selection.tag), target.platform], players));
     }
 
-    playerStream.subscribe((player: Player) => this.profileService.goto(player));
+    playerStream.first().subscribe((player: Player) => {
+     this.profileService.goto(player);
+    });
   }
 
   ngOnDestroy() {

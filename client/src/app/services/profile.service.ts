@@ -67,8 +67,13 @@ export class ProfileService {
   }
 
   profileStats(player: Player) {
+    console.log('profileStats', player);
+
     const [latestSnapshot] = player.snapshotStatistics.reverse();
-    return latestSnapshot.profileSnapshotStatistic.profileStatistic;
+    if (latestSnapshot) {
+      return latestSnapshot.profileSnapshotStatistic.profileStatistic;
+    }
+    return [];
   }
 
   latestStatsSet(player: Player) {

@@ -1,99 +1,42 @@
-<div class="platform-region" *ngIf="player">
+<div class="platform-region" fxLayout="row" fxLayoutGap.gt-sm="30px" *ngIf="player" fxLayoutWrap>
 
-  <div class="container">
+  <div fxLayout="column"
+       fxFlex.lt-sm="100%"
+       fxFlex.lt-md="50%"
+       fxFlex.gt-sm="initial">
+    <div fxLayout="row">
+      <span class="mat-caption text-uppercase">Platform</span>
+    </div>
+    <div fxLayout="row">
+      <div fxLayout="column" *ngFor="let platform of platforms">
+        <button md-button class="min-width-0"
+                [class.mat-primary]="player.platform === platform.code"
+                [class.mat-accent]="platformAvailable(platform.code) && player.platform !== platform.code"
+                [disabled]="!platformAvailable(platform.code)"
+                (click)="changePlatform(platform.code)">
+          {{ platform.name }}
+        </button>
+      </div>
+    </div>
+  </div>
 
-    <div class="row align-items-center">
+  <div fxLayout="column"
+       fxFlex.lt-sm="100%"
+       fxFlex.lt-md="50%"
+       fxFlex.gt-sm="initial">
+    <div fxLayout="row">
+      <span class="mat-caption text-uppercase">Region</span>
+    </div>
+    <div fxLayout="row">
+      <div fxLayout="column" *ngFor="let region of regions">
+        <button md-button class="min-width-0"
+                [class.mat-primary]="player.region === region.code"
+                [class.mat-accent]="regionAvailable(region.code) && player.region !== region.code"
+                [disabled]="!regionAvailable(region.code)"
+                (click)="changeRegion(region.code)">
+          {{ region.name }}
+        </button>
+      </div>
+    </div>
 
-      <div class="col-md-6 col-12">
-
-        <div class="platforms">
-
-          <div class="label text-uppercase">
-            Platform
-          </div><!-- end .label -->
-
-          <div class="btn-group" role="group" aria-label="platform">
-
-            <button type="button" class="btn btn-radio"
-              [class.active]="player.platform === 'pc'"
-              [disabled]="!platformAvailable('pc')"
-              (click)="changePlatform('pc')">
-              <span class="text-uppercase">PC</span>
-            </button><!-- end button -->
-
-            <button type="button" class="btn btn-radio"
-              [class.active]="player.platform === 'xbl'"
-              [disabled]="!platformAvailable('xbl')"
-              (click)="changePlatform('xbl')">
-              <span class="text-uppercase">XBL</span>
-            </button><!-- end button -->
-
-            <button type="button" class="btn btn-radio"
-              [class.active]="player.platform === 'psn'"
-              [disabled]="!platformAvailable('psn')"
-              (click)="changePlatform('psn')">
-              <span class="text-uppercase">PSN</span>
-            </button><!-- end button -->
-
-          </div><!-- end .btn-group -->
-
-        </div><!-- end .platforms -->
-
-      </div><!-- end .col -->
-
-      <div class="col-md-6 text-md-right col-12">
-
-        <div class="regions">
-
-          <div class="label text-uppercase">
-            Region
-          </div><!-- end .label -->
-
-          <div class="btn-group" role="group" aria-label="platform">
-
-            <button type="button" class="btn btn-radio"
-              [class.active]="player.region === 'us'"
-              [disabled]="!regionAvailable('us')"
-              (click)="changeRegion('us')">
-              <span class="text-uppercase">US</span>
-            </button><!-- end button -->
-
-            <button type="button" class="btn btn-radio"
-              [class.active]="player.region === 'eu'"
-              [disabled]="!regionAvailable('eu')"
-              (click)="changeRegion('eu')">
-              <span class="text-uppercase">EU</span>
-            </button><!-- end button -->
-
-            <button type="button" class="btn btn-radio"
-              [class.active]="player.region === 'kr'"
-              [disabled]="!regionAvailable('kr')"
-              (click)="changeRegion('kr')">
-              <span class="text-uppercase">KR</span>
-            </button><!-- end button -->
-
-            <button type="button" class="btn btn-radio"
-              [class.active]="player.region === 'ch'"
-              [disabled]="!regionAvailable('ch')"
-              (click)="changeRegion('ch')">
-              <span class="text-uppercase">CH</span>
-            </button><!-- end button -->
-
-            <button type="button" class="btn btn-radio"
-              [class.active]="player.region === ''"
-              [disabled]="!regionAvailable('')"
-              (click)="changeRegion('')">
-              <span class="text-uppercase">Global</span>
-            </button><!-- end button -->
-
-          </div><!-- end .btn-group -->
-
-        </div><!-- end .regions -->
-
-      </div><!-- end .col -->
-
-    </div><!-- end .row -->
-
-  </div><!-- end .container -->
-
-</div><!-- end .platform-region -->
+  </div>

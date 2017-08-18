@@ -13,3 +13,4 @@ export * from './friendship.model';
 export * from './nav-link.model';
 export * from './club.model';
 export * from './news-page.model';
+export * from './platform-region.model';
