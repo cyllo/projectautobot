@@ -1,5 +1,8 @@
-<div class="hero-card {{ filter(heroSnap.hero.name) }} rounded px-3 pt-3 mb-3" *ngIf="heroSnap">
-    <ow-hero-card-header [snapshotStats]="snapshotStats" [heroSnap]="heroSnap"></ow-hero-card-header>
-    <ow-hero-card-body [snapshotStats]="snapshotStats" [heroSnap]="heroSnap"></ow-hero-card-body>
-</div>
-<!-- end .hero-card -->
+<md-card class="flex-layout hero-card {{ filter(heroSnap.hero.name) }} rounded px-3 pt-3 mb-3" *ngIf="heroSnap">
+  <md-card-content>
+    <div class="flex-layout" fxLayout="column" fxFlex="100%">
+      <ow-hero-card-header [snapshotStats]="snapshotStats" [heroSnap]="heroSnap"></ow-hero-card-header>
+      <ow-hero-card-body [snapshotStats]="snapshotStats" [heroSnap]="heroSnap"></ow-hero-card-body>
+    </div>
+  </md-card-content>
+</md-card>

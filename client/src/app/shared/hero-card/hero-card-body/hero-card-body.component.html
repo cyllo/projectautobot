@@ -1,21 +1,26 @@
-<div class="hero-card-body pt-3">
-  <div class="row" *ngIf="statBlocks">
-    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6 mb-3" *ngFor="let block of statBlocks">
-      <div class="row mb-1">
-        <div class="col-12 value">
-          <span class="font-weight-bold">{{ block.value ? ( block.value | number : '1.0-2' ) : '-' }}</span>
-          <span *ngIf="block.value">{{ block.format }}</span>
-        </div>
-      </div>
-      <div class="row mb-1">
-        <div class="col-12">
-          <ngb-progressbar type="stp" [value]="block.percent || 0" [max]="100"></ngb-progressbar>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <span class="label text-uppercase text-light">{{ block.name }}</span>
+<div class="flex-layout pt-3" fxLayout="row" fxLayoutWrap>
+  <div class="pt-3" fxLayout="column" fxFlex="20%" *ngFor="let block of statBlocks">
+    <div fxLayout="row">
+      <div fxLayout="column">
+        <div fxLayout="row">
+          <div fxLayout="column">
+            <span><strong>{{ block.value ? ( block.value | number : '1.0-2' ) : '-' }}</strong></span>
+          </div>
+          <div fxLayout="column">
+            <span *ngIf="block.value">{{ block.format }}</span>
+          </div>
         </div>
       </div>
     </div>
+    <div fxLayout="row">
+      <div fxLayout="column">
+        <md-progress-bar mode="determinate" [value]="block.percent || 0"></md-progress-bar>
+      </div>
+    </div>
+    <div fxLayout="row">
+      <div fxLayout="column">
+        <span class="mat-caption text-uppercase">{{ block.name }}</span>
+      </div>
+    </div>
+  </div>
 </div>
