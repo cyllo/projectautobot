@@ -7,10 +7,7 @@ config :stats_averages, ecto_repos: []
 config :quantum, global?: true
 config :quantum, :scraper,
   cron: [
-    snapshot_averages: [
-      schedule: "@daily",
-      task: &StatsAverages.snapshot_averages/0
-    ]
+    "@daily": {StatsAverages, :snapshot_averages, []}
   ]
 # This configuration is loaded before any dependency and is restricted
 # to this project. If another project depends on this project, this

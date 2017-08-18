@@ -50,7 +50,9 @@ release :server do
     :gen_stage,
     api: :permanent,
     models: :permanent,
-    scraper: :permanent
+    scraper: :permanent,
+    stats_leaderboard: :permanent,
+    stats_averages: :permanent
   ]
 end
 

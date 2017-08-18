@@ -13,8 +13,5 @@ config :hound,
 config :quantum, global?: true
 config :quantum, :scraper,
   cron: [
-    scrape_all_profiles: [
-      schedule: "@daily",
-      task: &Scraper.refetch_profiles_in_db/0
-    ]
+    "@daily": {Scraper, :refetch_profiles_in_db, []}
   ]

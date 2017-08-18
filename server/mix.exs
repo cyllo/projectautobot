@@ -25,7 +25,7 @@ defmodule StopThePayload.Mixfile do
   defp deps do
     [
       {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
-      {:distillery, "~> 1.0"}
+      {:distillery, "~> 1.0", runtime: false}
     ]
   end
 
