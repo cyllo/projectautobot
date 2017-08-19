@@ -1,29 +1,11 @@
-import { path, assoc, clone } from 'ramda';
+import { path, clone } from 'ramda';
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { Player } from '../models';
+import { GamerTag, GamerTagSearchResponse, GamerTagFetchResponse, GamerTagScrapeResponse } from '../models';
 import { gamerTagSearchMutation, gamerTagScrapeMutation, gamerTagFetchQuery } from './queries';
 
-interface GamerTagSearchResponse {
-  searchGamerTag: Player[];
-  loading: boolean;
-}
-
-export interface GamerTagFetchResponse {
-  gamerTag: Player;
-  loading: boolean;
-}
-
-export interface GamerTagScrapeResponse {
-  scrapeGamerTag: Player;
-  loading: boolean;
-}
-
-const scrapeGamerTagData = path<Player>(['data', 'scrapeGamerTag']);
-const gamerTagData = path<Player>(['data', 'gamerTag']);
-
-const addSnapshotLast = assoc<any>('snapshotLast');
-const clonePlayer = (player: Player) => clone<Player>(player);
+const scrapeGamerTagData = path<GamerTag>(['data', 'scrapeGamerTag']);
+const gamerTagData = path<GamerTag>(['data', 'gamerTag']);
 
 @Injectable()
 export class GamerTagService {
@@ -31,43 +13,31 @@ export class GamerTagService {
 
   find(tag) {
     return this.apollo.mutate<GamerTagSearchResponse>({ mutation: gamerTagSearchMutation, variables: { tag } })
-      .map(({ data }) => data.searchGamerTag)
-      .map(clone);
+    .map(({ data }) => data.searchGamerTag)
+    .map(clone);
   }
 
-  getGamerTagStatsById(id: number, numSnapshots = 2) {
+  getById(id: number, numSnapshots = 2) {
     return this.apollo.query<GamerTagFetchResponse>({
       query: gamerTagFetchQuery,
-      variables: addSnapshotLast(numSnapshots, { id })
+      variables: { id, snapshotLast: numSnapshots }
     })
-      .map(gamerTagData)
-      .map(clonePlayer);
+    .map(gamerTagData);
   }
 
-  getGamerTagStatsByTagPlatformRegion(tag: string, platform: string, region = '', numSnapshots = 2) {
+  getByProfileKey(tag: string, platform: string, region = '', numSnapshots = 2) {
     return this.apollo.query<GamerTagFetchResponse>({
       query: gamerTagFetchQuery,
-      variables: addSnapshotLast(numSnapshots, { tag, platform, region })
+      variables: { tag, platform, region, snapshotLast: numSnapshots}
     })
-      .map(gamerTagData)
-      .map(clonePlayer);
+    .map(gamerTagData);
   }
 
-  scrapeGamerTagById(id: number, numSnapshots = 2) {
+  scrape(tag: string, platform: string, region = '', numSnapshots = 2) {
     return this.apollo.mutate<GamerTagScrapeResponse>({
       mutation: gamerTagScrapeMutation,
-      variables: addSnapshotLast(numSnapshots, { id })
+      variables: { tag, platform, region, snapshotLast: numSnapshots}
     })
-      .map(scrapeGamerTagData)
-      .map(clonePlayer);
-  }
-
-  scrapeGamerTagByTagPlatformRegion(tag: string, platform: string, region = '', numSnapshots = 2) {
-    return this.apollo.mutate<GamerTagScrapeResponse>({
-      mutation: gamerTagScrapeMutation,
-      variables: addSnapshotLast(numSnapshots, { tag, platform, region })
-    })
-      .map(scrapeGamerTagData)
-      .map(clonePlayer);
+    .map(scrapeGamerTagData);
   }
 }

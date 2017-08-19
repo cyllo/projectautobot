@@ -34,12 +34,13 @@ import { values } from 'ramda';
 import { MomentModule } from 'angular2-moment';
 
 import { httpInterceptor } from './app.http-interceptor';
-import { ProfileResolver } from './pages/profile/profile.resolver';
 import { BlogPostResolver } from './pages/resolvers';
 import { GamerTagService, ProfileService, BlogPostsService } from './services';
 import { AppComponent } from './app.component';
 import * as staticComponents from './static';
 import { routing } from './app.routing';
+import '@ngrx/core/add/operator/select';
+
 
 import { OrderByPipe, ValuesPipe } from './pipes';
 import {
@@ -106,7 +107,6 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   declarations,
   providers: [
-    ProfileResolver,
     GamerTagService,
     ProfileService,
     SocketService,

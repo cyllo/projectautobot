@@ -30,7 +30,8 @@
         <div class="flex-layout"
              fxLayout="row"
              fxLayoutGap="4px"
-             fxLayoutAlign="start center">
+             fxLayoutAlign="start center"
+             *ngIf="resultsMode">
 
           <div fxLayout="column" *ngIf="(playerData$ | async).snapshotStatistics">
             <div fxLayout="row">

@@ -1,6 +1,9 @@
-<div class="profile flex-layout px-3 pt-3" fxLayout="row" *ngIf="player | async as playerData">
+<div *ngIf="searching | async; then loadingProfile; else displayProfileBlock"></div>
 
-  <div *ngIf="selectedSnapshotData | async as snapshotStats; else loadingProfile;">
+<ng-template #displayProfileBlock>
+  <div class="profile flex-layout px-3 pt-3" fxLayout="row" *ngIf="displayProfile | async as playerData;">
+
+  <div *ngIf="selectedSnapshotData | async as snapshotStats;">
 
     <div class="flex-layout" fxLayout="column" fxFlex="grow">
 
@@ -12,11 +15,11 @@
            *ngIf="playerData">
 
         <div class="flex-layout" fxLayout="column" fxFlex.lt-md="100%" fxFlex.gt-sm="initial">
-          <ow-platform-region
+           <ow-platform-region
             [player]="playerData"
             [players]="players | async"
             (change)="changePlatformRegion($event)">
-          </ow-platform-region>
+          </ow-platform-region> 
         </div><!-- end column -->
 
         <div class="flex-layout" fxLayout="column" fxFlex.lt-md="100%" fxFlex.gt-sm="initial">
@@ -40,11 +43,11 @@
                fxFlex="noshrink" fxLayoutWrap>
 
             <div class="flex-layout px-3 pt-3" fxLayout="column" fxFlex.lt-md="100%" fxFlex.md="50%" fxFlex.lg="100%">
-              <ow-profile-overview [player]="playerData"></ow-profile-overview>
+                 <ow-profile-overview [player]="playerData"></ow-profile-overview>   
             </div><!-- end column -->
 
             <div class="flex-layout px-3 pt-3" fxLayout="column" fxFlex.lt-md="100%" fxFlex.md="50%" fxFlex.lg="100%">
-              <ow-skill-rating-trend></ow-skill-rating-trend>
+                <ow-skill-rating-trend></ow-skill-rating-trend>  
             </div><!-- end column -->
 
           </div><!-- end row -->
@@ -52,16 +55,16 @@
 
         <div class="flex-layout pt-3" fxLayout="column" fxFlex.lt-lg="100%" fxFlex.gt-md="75%">
 
-          <ow-profile-page-tabs [snapshotStats]="snapshotStats"></ow-profile-page-tabs>
+            <ow-profile-page-tabs [snapshotStats]="snapshotStats"></ow-profile-page-tabs>  
 
         </div>
 
       </div><!-- end .profile-body -->
 
     </div><!-- end column -->
-
-</div><!-- end .profile -->
-
+  </div><!-- end .profile -->
+  </div>
+</ng-template>
 <ng-template #loadingProfile>
-  <ow-page-spinner></ow-page-spinner>
+   <ow-page-spinner></ow-page-spinner> 
 </ng-template>

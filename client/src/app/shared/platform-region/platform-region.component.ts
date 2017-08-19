@@ -1,4 +1,4 @@
-import { path } from 'ramda';
+import { path, values, head, prop } from 'ramda';
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { Player, PlatformRegion } from '../../models';
 
@@ -56,9 +56,7 @@ export class PlatformRegionComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    console.log(this.player, this.players);
-  }
+  ngOnInit() {}
 
   platformAvailable(platform: string) {
     const tag = this.player.tag.replace('#', '-');
@@ -72,9 +70,16 @@ export class PlatformRegionComponent implements OnInit {
   }
 
   changePlatform(platform: string) {
+    const getDefaultRegion = (currentProfile, playerStore) => {
+      if (platform === 'pc' && this.player.platform !== 'pc') {
+        return prop('region', head(values(path([currentProfile.tag, platform], playerStore))));
+      }
+      return currentProfile.region;
+    };
+
     this.change.emit({
       platform,
-      region: this.player.region
+      region: getDefaultRegion(this.player, this.players)
     });
   }
 

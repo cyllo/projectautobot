@@ -1,37 +1,38 @@
-import { equals, merge, head, pathOr, test } from 'ramda';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Apollo } from 'apollo-angular';
 import { ApolloError } from 'apollo-client';
+import { Store } from '@ngrx/store';
+import {
+  merge,
+  pathOr,
+  test,
+  isNil,
+  not,
+  compose,
+  find,
+  equals,
+  replace,
+  last,
+  propOr
+} from 'ramda';
 
-import { Player } from '../models';
+import { Player, GamerTag, AppState, StatChangeResponse } from '../models';
 
 import { GamerTagService } from './gamer-tag.service';
 import { SocketService } from './socket.service';
 import { OverwatchHeroDataService } from './owherodata.service';
 import { OverwatchStaticData } from '../models';
 import { playerStatsChangeQuery } from './queries';
+import { addProfile, searchTag } from '../reducers';
 
 const GAMER_TAG_CHANNEL = 'gamer_tag:lobby';
 
+const notNil = compose(not, isNil);
+
 const graphqlErrorMessage = pathOr<string>('', ['graphQLErrors', 0, 'message']);
-const testNotFound = test(/not found/i);
-
-interface Statistic {
-  heroesTotalSnapshotStatistic: {
-    gameHistoryStatistic: {
-      winPercentage: number;
-    };
-  };
-}
-
-interface StatChangeResponse {
-  gamerTag: {
-    currentStatistics: Statistic[];
-    pastStatistics: Statistic[];
-  };
-}
+const mustWait = test(/must wait/i);
 
 @Injectable()
 export class ProfileService {
@@ -40,43 +41,42 @@ export class ProfileService {
     private gamerTagService: GamerTagService,
     private socketService: SocketService,
     private owHeroData: OverwatchHeroDataService,
-    private apollo: Apollo
+    private apollo: Apollo,
+    private store: Store<AppState>,
   ) { }
 
-  goto(player: Player) {
-    const tag = player.tag.replace('#', '-');
-
-    if (player.region) {
-      this.router.navigate(['./profile', player.platform, player.region, tag]);
-    } else {
-      this.router.navigate(['./profile', player.platform, tag]);
-    }
+  goto({ tag, platform, region }: GamerTag) {
+    const destination = platform === 'pc'
+    ? ['./profile', platform, region, replace('#', '-', tag)]
+    : ['./profile', platform, replace('#', '-', tag)];
+    this.router.navigate(destination);
   }
 
-  findOrScrapeGamerTag(tag, platform, region) {
-    return this.findPlayer(tag, platform, region)
-      .catch((error) => this.onErrorScrapeGamerTag({tag, platform, region}, error));
+  find(tag, platform, region) {
+    this.scrape(tag, platform, region)
+    .catch((error: ApolloError) => {
+      return mustWait(graphqlErrorMessage(error))
+      ? this.findPlayer(tag, platform, region)
+      : Observable.throw(error);
+    })
+    .mergeMap((gamerTag: GamerTag) => <Observable<GamerTag>>this.addOwData(gamerTag))
+    .do(() => this.store.dispatch(searchTag({ searching: false })))
+    .subscribe(gamerTag => this.store.dispatch(addProfile(gamerTag)));
   }
 
-  scrapeGamerTag(tag, platform, region) {
-    return this.gamerTagService.scrapeGamerTagByTagPlatformRegion(tag, platform, region);
+  scrape(tag, platform, region) {
+    return this.gamerTagService.scrape(tag, platform, region);
   }
 
   findPlayer(tag, platform, region) {
-    return this.gamerTagService.getGamerTagStatsByTagPlatformRegion(tag, platform, region);
+    return this.gamerTagService.getByProfileKey(tag, platform, region);
   }
 
-  profileStats(player: Player) {
-    console.log('profileStats', player);
-
-    const [latestSnapshot] = player.snapshotStatistics.reverse();
-    if (latestSnapshot) {
-      return latestSnapshot.profileSnapshotStatistic.profileStatistic;
-    }
-    return [];
+  profileStats(player: GamerTag) {
+    return pathOr([], ['profileSnapshotStatistic', 'profileStatistic'], last(<Array<any>>propOr([], 'snapshotStatistics', player)));
   }
 
-  latestStatsSet(player: Player) {
+  latestStatsSet(player: GamerTag) {
     return {
       competitive: this.getLatestSnapshot(player, true),
       quickPlay: this.getLatestSnapshot(player, false)
@@ -84,11 +84,13 @@ export class ProfileService {
   }
 
   observeChanges(playerId: number) {
-    return this.socketService.join(GAMER_TAG_CHANNEL)
+    this.socketService.join(GAMER_TAG_CHANNEL)
       .let(this.socketService.filterEvent('change'))
-      .map(({ gamerTags }) => head<number>(gamerTags))
-      .filter(equals(playerId))
-      .switchMap((id) => this.gamerTagService.getGamerTagStatsById(id));
+      .pluck('gamerTags')
+      .map((val: number[]) => find(equals(playerId), val))
+      .filter(notNil)
+      .mergeMap((id: number) => this.gamerTagService.getById(id))
+      .subscribe((data: GamerTag) => this.store.dispatch(addProfile(data)));
   }
 
   leaveChangesChannel() {
@@ -109,7 +111,7 @@ export class ProfileService {
     }
   }
 
-  getOverviewStatChanges(player: Player) {
+  getOverviewStatChanges(player: GamerTag) {
     const since = new Date();
     since.setDate(since.getDate() - 1);
 
@@ -125,15 +127,7 @@ export class ProfileService {
         };
       });
   }
-
-  private onErrorScrapeGamerTag({ tag, platform, region }, apolloError: ApolloError) {
-    if (testNotFound(graphqlErrorMessage(apolloError))) {
-      return this.scrapeGamerTag(tag, platform, region);
-    } else {
-      return Observable.throw(apolloError);
-    }
-  }
-
+// INTERNAL PRIVATE METHODS
   private addHeroesToHeroSnapshot(heroes) {
     return function(heroSnapshot) {
       return Object.assign({}, heroSnapshot, { hero: heroes.heroes.find(({ code }) => code === heroSnapshot.hero.code) });
@@ -149,7 +143,7 @@ export class ProfileService {
     };
   }
 
-  private getLatestSnapshot(player: Player, isCompetitive: boolean) {
+  private getLatestSnapshot(player: GamerTag, isCompetitive: boolean) {
     if (!player.snapshotStatistics) {
       return null;
     }
