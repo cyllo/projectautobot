@@ -3,14 +3,23 @@ import { Player, TransformedStats, HeroSnapshotStats, GameHistoryStats, MatchAwa
 import { ProfileService, FollowService } from '../../../services';
 
 @Component({
-  selector: 'ow-profile-header',
-  templateUrl: 'profile-header.component.html',
-  styleUrls: ['profile-header.component.scss'],
+  selector: 'ow-profile-overview',
+  templateUrl: 'overview.component.html',
+  styleUrls: ['overview.component.scss'],
   providers: [ProfileService, FollowService]
 })
 
-export class ProfileHeaderComponent implements OnInit {
-  @Input() player: Player;
+export class ProfileOverviewComponent implements OnInit {
+  @Input('player')
+  get player(): Player {
+    return this._player;
+  }
+  set player(player: Player) {
+    this._player = player;
+    this.load();
+  }
+
+  private _player: Player;
 
   snapshotStats: TransformedStats;
   renewInProgress = false;
@@ -19,6 +28,10 @@ export class ProfileHeaderComponent implements OnInit {
   };
 
   constructor(private profileService: ProfileService, private followService: FollowService) {}
+
+  load() {
+
+  }
 
   ngOnInit() {
     this.profileService.getOverviewStatChanges(this.player)

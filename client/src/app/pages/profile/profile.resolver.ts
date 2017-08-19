@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { Player } from '../../models';
 import { AppState } from '../../models';
 import { ProfileService } from '../../services/profile.service';
+import { prop, omit } from 'ramda';
 
 
 @Injectable()
@@ -14,14 +15,16 @@ export class ProfileResolver implements Resolve<Player> {
 
   resolve(route: ActivatedRouteSnapshot): Observable<Player> {
     return this.profileService.findOrScrapeGamerTag(route.params.tag, route.params.platform, route.params.region)
-      .do((player) => this.store.dispatch({ type: 'NEW_PLAYER', payload: player }))
-      .catch(() => this.redirectOnError());
+    .map((gamerTag: any) => {
+      const connectedTags: any = prop('connectedGamerTags', gamerTag);
+      return [...connectedTags, omit(['connectedGamerTags'], gamerTag)];
+    })
+    .do((player) => this.store.dispatch({ type: 'ADD_PLAYERS', payload: player }))
+    .catch(() => this.redirectOnError());
   }
-
 
   redirectOnError() {
     this.router.navigate(['']);
-
     return Observable.of({});
   }
 }

@@ -1,43 +1,21 @@
-<div class="profile-page-tabs" *ngIf="snapshotStats">
-
-  <section class="row">
-
-    <div class="col-12 ngb-tabset mb-3">
-
-      <ngb-tabset #t="ngbTabset">
-
-        <ngb-tab id="tab-overview">
-
-          <ng-template ngbTabTitle>Overview</ng-template>
-
-          <ng-template ngbTabContent>
-
-            <div class="container-fluid">
-
-              <div class="row">
-
-                <div class="col-12 pt-3">
-
-                  <ow-career [snapshotStats]="snapshotStats"></ow-career>
-
-                  <ow-most-played [snapshotStats]="snapshotStats"></ow-most-played>
-                  <ow-hero-cards [snapshotStats]="snapshotStats"></ow-hero-cards>
-                  <!-- end ow-hero-cards -->
-
-                </div><!-- end .col -->
-
-              </div><!-- end .row -->
-
-            </div><!-- end .container-fluid -->
-
-          </ng-template>
-
-        </ngb-tab><!-- end ngb-tab -->
-
-      </ngb-tabset><!-- end ngb-tabset -->
-
-    </div><!-- end .col -->
-
-  </section><!-- end section -->
-
-</div><!-- end .profile-page-tabs -->
+<md-tab-group>
+  <md-tab label="Overview">
+    <div class="flex-layout pt-3" fxLayout="row" fxFlex="100%" fxLayoutWrap>
+      <div class="flex-layout" fxLayout="column" fxFlex.lt-lg="100%" fxFlex.gt-md="40%">
+        <div class="flex-layout" fxLayout="row">
+          <div class="flex-layout px-3 pt-3" fxLayout="column" fxFlex="grow">
+            <ow-career [snapshotStats]="snapshotStats"></ow-career>
+          </div>
+        </div>
+        <div class="flex-layout" fxLayout="row">
+          <div class="flex-layout px-3 pt-3" fxLayout="column" fxFlex="grow">
+            <ow-most-played [snapshotStats]="snapshotStats"></ow-most-played>
+          </div>
+        </div>
+      </div>
+      <div class="flex-layout" fxLayout="column" fxFlex.lt-lg="100%" fxFlex.gt-md="60%">
+        <ow-hero-cards [snapshotStats]="snapshotStats"></ow-hero-cards>
+      </div>
+    </div>
+  </md-tab>
+</md-tab-group>

@@ -1,97 +1,52 @@
-<div class="most-played-heroes" *ngIf="snapshotStats && sortedHeroData">
-
-  <section class="row mb-3">
-
-    <div class="col-12 mb-3">
-      
-      <div class="row align-items-center">
-
-        <div class="col">
-          <span class="text-uppercase font-weight-bold mb-2">Favorite Heroes</span>
-        </div><!-- end .col -->
-
-        <div class="col-auto px-3 text-right mb-2">
-
-          <div ngbDropdown class="d-inline-block">
-
-            <button class="btn btn-outline-primary small" id="dropdownBasic1" ngbDropdownToggle>Time Played</button>
-            
-            <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
-              <button class="dropdown-item pl-2 pr-4 py-2">Win Rate</button>
-              <button class="dropdown-item pl-2 pr-4 py-2">Another Stat</button>
-              <button class="dropdown-item pl-2 pr-4 py-2">Another Stat</button>
-            </div><!-- end .dropdown-menu -->
-
-          </div><!-- end ngbDropdown -->
-
-        </div><!-- end .col -->
-
-      </div><!-- end .row -->
-
-    </div><!-- end .col -->
-
-    <div class="col-12">
-
-      <div class="row">
-
-          <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6 mb-1" *ngFor="let hero of sortedHeroData">
-
-            <div class="row align-items-center">
-
-              <div class="col-auto pl-3 mb-2">
-                <ow-hero-portrait [owCode]="hero.code"></ow-hero-portrait>
-                <!-- end ow-hero-portrait -->
-              </div><!-- end .col-auto -->
-
-              <div class="col mb-2">
-
-                <div class="hero-name mb-1">
-                  <span class="text-uppercase font-weight-bold">{{ hero.name }}</span>
-                </div><!-- end .hero-name -->
-
-                <div class="hero-role d-flex align-items-center mb-1">
-                  <img src="{{ hero.icon }}" alt="" class="role-icon-sm mr-1">
-                  <span class="small text-uppercase">{{ hero.role }}</span>
-                </div><!-- end .hero-role -->
-
-                <div class="hero-playtime">
-                  <ngb-progressbar type="stp" [value]="hero.amountPlayed" [max]="100"></ngb-progressbar>
-                </div><!-- end .hero-playtime -->
-                
-              </div><!-- end .col -->
-
-            </div><!-- end .row -->
-
-            <div class="row">
-
-              <div class="col-12 data-entry" *ngFor="let data of hero.data">
-
-                <div class="inner pt-2 px-2">
-
-                  <div class="row align-items-center">
-
-                    <div class="col mb-2">
-                      <span class="text-uppercase">{{ data.name }}</span>
-                    </div><!-- end .col -->
-
-                    <div class="col mb-2 text-right">
-                      <span class="text-light">{{ data.value }}</span>
-                    </div><!-- end .col -->
-
-                  </div><!-- end .row -->
-
-                </div><!-- end .inner -->
-                
-              </div><!-- end .col -->
-
-            </div><!-- end .row -->
-
-          </div><!-- end .col -->
-
-      </div><!-- end .row -->
-
-    </div><!-- end .col -->
-
-  </section><!-- end section -->
-
-</div><!-- end .most-played-heroes -->
+<div class="most-played" fxLayout="row" *ngIf="sortedHeroData">
+  <div fxLayout="column" fxFlex="grow">
+    <div fxLayout="row">
+      <md-card fxFlex="100%">
+        <md-card-header>
+          <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start end">
+            <div fxLayout="column">
+              <span class="text-uppercase"><strong>Favorite Heroes</strong></span>
+            </div>
+          </div>
+        </md-card-header>
+        <md-card-content>
+          <div class="pt-3" fxLayout="row" fxFlex="100%">
+            <div fxLayout="column" fxLayoutGap="14px" fxFlex="100%">
+              <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let hero of sortedHeroData">
+                <div class="px-2" fxLayout="column" fxFlex="auto">
+                  <img class="hero-thumbnail md-image md-image-48" [src]="hero.portraitUrl">
+                </div>
+                <div class="px-2" fxLayout="column" fxFlex="grow">
+                  <div fxLayout="row">
+                    <span class="text-uppercase"><strong>{{ hero.name }}</strong></span>
+                  </div>
+                  <div fxLayout="row">
+                   <div fxLayout="column">
+                     <span class="mat-caption text-uppercase">{{ hero.role }}</span>
+                   </div>
+                  </div>
+                </div>
+                <div class="px-2" fxLayout="column" fxFlex="grow">
+                  <div fxLayout="row">
+                    <span class="mat-caption text-uppercase">{{ hero.kdratio | number : '1.2-2' }}:1</span>
+                  </div>
+                  <div fxLayout="row">
+                   <span class="mat-caption text-uppercase">{{ hero.kills }}/{{ hero.deaths }}</span>
+                  </div>
+                </div>
+                <div class="px-2" fxLayout="column" fxFlex="noshrink">
+                  <div fxLayout="row">
+                    <span class="mat-caption text-uppercase">{{ hero.winRate | number : '1.2-2' }}% Won</span>
+                  </div>
+                  <div fxLayout="row">
+                    <span class="mat-caption text-uppercase">{{ hero.wins }} Wins</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+</div>

@@ -21,7 +21,8 @@ import { MdInputModule,
          MdProgressSpinnerModule,
          MdChipsModule,
          MdSlideToggleModule,
-         MdTooltipModule } from '@angular/material';
+         MdTooltipModule,
+         MdToolbarModule } from '@angular/material';
 
 import {
   HomeComponent,
@@ -45,7 +46,7 @@ import {
   HeroSkillsComponent,
   HeroPageTabsComponent,
   HeroCareerComponent,
-  ProfileHeaderComponent,
+  ProfileOverviewComponent,
   ProfilePageTabsComponent,
   HeroWallCatalogComponent,
   CompareComponent,
@@ -59,7 +60,8 @@ import {
   PostEntryComponent,
   UserRegistrationComponent,
   AccountSettingsComponent,
-  ListOfCompareableHeroesComponent
+  ListOfCompareableHeroesComponent,
+  SkillRatingTrendComponent
 } from './index';
 
 @NgModule({
@@ -87,7 +89,8 @@ import {
     MomentModule,
     MdChipsModule,
     MdSlideToggleModule,
-    MdTooltipModule
+    MdTooltipModule,
+    MdToolbarModule
   ],
   declarations: [
     HomeComponent,
@@ -111,7 +114,7 @@ import {
     HeroSkillsComponent,
     HeroPageTabsComponent,
     HeroCareerComponent,
-    ProfileHeaderComponent,
+    ProfileOverviewComponent,
     ProfilePageTabsComponent,
     HeroWallCatalogComponent,
     CompareComponent,
@@ -125,7 +128,8 @@ import {
     PostEntryComponent,
     UserRegistrationComponent,
     AccountSettingsComponent,
-    ListOfCompareableHeroesComponent
+    ListOfCompareableHeroesComponent,
+    SkillRatingTrendComponent
   ],
   exports: [
     HomeComponent,
@@ -149,7 +153,6 @@ import {
     HeroSkillsComponent,
     HeroPageTabsComponent,
     HeroCareerComponent,
-    ProfileHeaderComponent,
     ProfilePageTabsComponent,
     LoginComponent,
     UserRegistrationComponent,

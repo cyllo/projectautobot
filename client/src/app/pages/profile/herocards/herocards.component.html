@@ -1,40 +1,11 @@
 <div class="hero-cards" *ngIf="snapshotStats">
-  <div class="row">
-    <div class="col-12 mb-2">
-      <span class="text-uppercase font-weight-bold">Heroes</span>
-    </div>
-    <!-- end .col -->
-  </div>
-  <!-- end .row -->
-  <div class="row">
-    <div class="col-12">
-      <ngb-tabset type="pills">
-        <ngb-tab *ngFor="let heroes of sortedHeroes">
-          <ng-template ngbTabTitle>
-            <span class="small d-flex align-items-center">{{ heroes.roleName }}</span>
-          </ng-template>
-          <!-- end ng-template -->
-          <ng-template ngbTabContent>
-            <div class="container-fluid px-0 pt-3">
-              <div class="row">
-                <div class="col-12" *ngFor="let heroSnap of heroes.value">
-                  <ow-hero-card [snapshotStats]="snapshotStats" [heroSnap]="heroSnap"></ow-hero-card>
-                  <!-- end ow-hero-card -->
-                </div>
-                <!-- end .col -->
-              </div>
-              <!-- end .row -->
-            </div>
-            <!-- end .container-fluid -->
-          </ng-template>
-          <!-- end ng-template -->
-        </ngb-tab>
-        <!-- end ngb-tab -->
-      </ngb-tabset>
-      <!-- end ngb-tabset -->
-    </div>
-    <!-- end .col -->
-  </div>
-  <!-- end .row -->
-</div>
-<!-- end .hero-cards -->
+  <md-tab-group>
+    <md-tab *ngFor="let heroes of sortedHeroes" label="{{ heroes.roleName }}">
+      <div class="pt-3" fxLayout="row" fxFlex="100%" *ngFor="let heroSnap of heroes.value">
+        <div fxLayout="column" fxFlex="grow">
+          <ow-hero-card [snapshotStats]="snapshotStats" [heroSnap]="heroSnap"></ow-hero-card>
+          <!-- end ow-hero-card -->
+        </div>
+      </div>
+    </md-tab>
+  </md-tab-group>

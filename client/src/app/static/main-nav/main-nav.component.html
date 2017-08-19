@@ -9,6 +9,10 @@
          fxFlex="grow">
 
       <div fxLayout="column">
+        <img src="img/stplogo_old.svg" width="36">
+      </div>
+
+      <div fxLayout="column">
 
         <ow-nav-list></ow-nav-list>
 
@@ -36,7 +40,7 @@
       <div fxLayout="column">
 
         <div *ngIf="userLoggedIn; then accountOverview; else userActions;"></div>
-        
+
         <ng-template #accountOverview>
           <ow-account-overview></ow-account-overview>
         </ng-template>
