@@ -9,11 +9,11 @@ docker build -t stp . &&
 docker rm stp-container || true &&
 docker create --name stp-container stp &&
 docker cp stp-container:/home/server/_build/prod/rel/server/releases/0.1.0/server.tar.gz ./ &&
-scp server.tar.gz root@45.58.35.81:/root &&
+scp server.tar.gz stop@45.58.35.81:/home/stop &&
 rm server.tar.gz &&
-ssh -t root@45.58.35.81 /bin/bash << EOF
+ssh -t stop@45.58.35.81 /bin/bash << EOF
   PORT=4000
-  cd /root &&
+  cd /home/stop &&
   tar -xzf server.tar.gz &&
   echo "Stoping Server..." &&
   ./bin/server stop || true &&
