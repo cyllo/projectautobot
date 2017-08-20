@@ -1,5 +1,5 @@
 defmodule Api.BetaToken do
-  import Plug.Conn, only: [halt: 1, delete_resp_header: 2, put_resp_header: 3, send_resp: 3]
+  import Plug.Conn, only: [halt: 1, put_resp_header: 3, send_resp: 3]
 
   def basic_auth_login(conn, username, password) do
     cond do
@@ -32,6 +32,7 @@ defmodule Api.BetaToken do
       |> halt()
   end
 
+  def create_invite_codes(n), do: Enum.map(0..n, fn _ -> create_invite_code() end)
   def create_invite_code do
     code = Ecto.UUID.generate()
 
