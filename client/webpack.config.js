@@ -15,6 +15,7 @@ var { CheckerPlugin } = require('awesome-typescript-loader');
  * Get npm lifecycle event to identify the environment
  */
 var ENV = process.env.npm_lifecycle_event;
+var {NODE_ENV} = process.env;
 var isTestWatch = ENV === 'test-watch';
 var isTest = ENV === 'test' || isTestWatch;
 var isProd = ENV === 'build';
@@ -167,7 +168,8 @@ module.exports = function makeWebpackConfig() {
     new webpack.DefinePlugin({
       // Environment helpers
       'process.env': {
-        ENV: JSON.stringify(ENV)
+        ENV: JSON.stringify(ENV),
+        NODE_ENV: JSON.stringify(NODE_ENV)
       }
     }),
 

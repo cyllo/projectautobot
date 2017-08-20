@@ -48,7 +48,7 @@ RUN \
   cd /home/server && \
   asdf global elixir 1.4.5 && \
   asdf global erlang 20.0 && \
-  PATH=$HOME/.cargo/bin:$PATH MIX_ENV=prod mix deps.get
+  PATH=$HOME/.cargo/bin:$PATH MIX_ENV=prod mix do deps.get, phx.digest
 
 RUN \
   cd /home/server && \
