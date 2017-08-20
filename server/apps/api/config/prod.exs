@@ -15,7 +15,7 @@ use Mix.Config
 # which you typically run after static files are built.
 config :api, Api.Web.Endpoint,
   on_init: {Api.Web.Endpoint, :load_from_system_env, []},
-  url: [host: "45.58.35.81", port: 4000],
+  url: [host: "stopthepayload.gg", port: 4000],
   server: true,
   http: [compress: true],
   cache_static_manifest: "priv/static/cache_manifest.json"

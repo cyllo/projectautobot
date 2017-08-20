@@ -5,11 +5,15 @@ defmodule Api.Web.UserSocket do
   # channel "room:*", Api.Web.RoomChannel
 
   ## Transports
-  transport :websocket, Phoenix.Transports.WebSocket,
-    check_origin: [
-      "//localhost:4000",
-      "//stopthepayload.gg"
-    ]
+  if Mix.env() === :prod do
+    transport :websocket, Phoenix.Transports.WebSocket,
+      check_origin: [
+        "//stopthepayload.gg"
+      ]
+  else
+    transport :websocket, Phoenix.Transports.WebSocket
+  end
+
   # transport :longpoll, Phoenix.Transports.LongPoll
 
   channel "gamer_tag:*", Api.Web.GamerTagChannel
