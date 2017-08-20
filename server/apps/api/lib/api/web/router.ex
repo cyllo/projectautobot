@@ -33,11 +33,11 @@ defmodule Api.Web.Router do
     end
   end
 
-  if Mix.env() === :prod do
+  # if Mix.env() === :prod do
     scope "/" do
       pipe_through :browser
 
       get "/*path", StaticPageController, :index
     end
-  end
+  # end
 end
