@@ -8,7 +8,7 @@
     "noEmitHelpers": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "lib": ["es2015", "es2017", "dom"]
+    "lib": ["es2015", "es2017", "dom", "esnext.asynciterable"]
   },
   "compileOnSave": false,
   "buildOnSave": false,
