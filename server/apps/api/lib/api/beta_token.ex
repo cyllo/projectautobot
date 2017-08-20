@@ -32,6 +32,7 @@ defmodule Api.BetaToken do
       |> halt()
   end
 
+  def create_invite_codes(n) when is_bitstring(n), do: Enum.map(0..String.to_integer(n), fn _ -> create_invite_code() end)
   def create_invite_codes(n), do: Enum.map(0..n, fn _ -> create_invite_code() end)
   def create_invite_code do
     code = Ecto.UUID.generate()
