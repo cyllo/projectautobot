@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Player } from '../../models';
 import { Observable } from 'rxjs/Observable';
-import { assoc, last } from 'ramda';
+import { assoc, last, replace } from 'ramda';
 
 @Component({
   selector: 'ow-player-profile-button',
@@ -28,7 +28,11 @@ export class PlayerProfileButtonComponent implements OnInit {
   navigateToProfile(player$: Observable<Player>) {
     player$.subscribe(player => {
       const {platform, region, tag} = player;
-      this.router.navigate(['./profile', platform, region, tag]);
+      const cleanTag = replace('#', '-', tag);
+      const destination = platform === 'pc'
+      ? ['./profile', platform, region, cleanTag]
+      : ['./profile', platform, cleanTag];
+      this.router.navigate(destination);
     });
   }
 
