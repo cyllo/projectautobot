@@ -13,7 +13,7 @@ interface SocketMessage {
 @Injectable()
 export class SocketService {
   private _isConnected = false;
-  private _socket = new Socket('ws://localhost:4000/socket', {});
+  private _socket = new Socket(process.env.NODE_ENV === 'production' ? 'wss://stopthepayload.gg/socket' : 'ws://localhost:4000/socket', {});
   private _channels = {};
 
   public connect() {
