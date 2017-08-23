@@ -59,6 +59,8 @@ import {
   NewsPageStateComponent,
   PostEntryComponent,
   UserRegistrationComponent,
+  UserRegistrationFormComponent,
+  UserLoginFormComponent,
   AccountSettingsComponent,
   ListOfCompareableHeroesComponent,
   SkillRatingTrendComponent
@@ -127,6 +129,8 @@ import {
     NewsPageStateComponent,
     PostEntryComponent,
     UserRegistrationComponent,
+    UserRegistrationFormComponent,
+    UserLoginFormComponent,
     AccountSettingsComponent,
     ListOfCompareableHeroesComponent,
     SkillRatingTrendComponent
