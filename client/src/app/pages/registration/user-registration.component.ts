@@ -1,20 +1,15 @@
-import { merge } from 'ramda';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UserService, AuthorizationService, ClubService } from '../../services';
-import { User } from '../../models';
+import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MdSnackBar } from '@angular/material';
-
-const DISPLAY_NAME_REGEX = /^[A-Za-z\s.\(\)0-9]{3,}$/;
-const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-const PASSWORD_REGEX = /^(?=.*[a-z]+.*)(?=.*[A-Z]+.*)(?=.*[0-9]+.*)(.{8,})$/;
+import { User } from '../../models';
+import { UserService, AuthorizationService, ClubService, ErrorHandlerService } from '../../services';
+import { merge } from 'ramda';
 
 @Component({
   selector: 'ow-user-registration',
   templateUrl: 'user-registration.component.html',
   styleUrls: ['user-registration.component.scss'],
-  providers: [UserService, ClubService]
+  providers: [UserService, ClubService, ErrorHandlerService]
 })
 
 export class UserRegistrationComponent implements OnInit {
@@ -29,32 +24,25 @@ export class UserRegistrationComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private authorizationService: AuthorizationService,
     private router: Router,
-    private snackBar: MdSnackBar,
-    private club: ClubService) {
+    private club: ClubService,
+    private error: ErrorHandlerService) {
       this.clientId = '6qeqp658bnjufty4c2rfjzvw4buz78x3';
-      this.redirectUri = 'https://localhost:8080/register';
+      const { protocol, hostname, port } = window.location;
+      this.redirectUri = `${protocol}//${hostname}${port ? ':' + port : ''}/register`;
     }
 
 
   ngOnInit() {
-    this.registrationForm = new FormGroup({
-      displayName: new FormControl('', [Validators.required, Validators.pattern(DISPLAY_NAME_REGEX)]),
-      password: new FormControl('', [Validators.required, Validators.pattern(PASSWORD_REGEX)]),
-      email: new FormControl('', [Validators.required, Validators.pattern(EMAIL_REGEX)])
-    });
-
     this.activatedRoute.queryParams
     .filter(({ code }) => code)
     .map(({ code }) => code)
     .subscribe(val => {
       this.bnetCode = val;
     });
-
   }
 
   onSubmit(newUser: User) {
     const { email, password } = newUser;
-
     this.userService.create(merge(newUser, { clientAuthToken: this.bnetCode }))
       .switchMap(() => this.authorizationService.login({ email, password }))
       .do(() => this.club.create('General'))
@@ -62,19 +50,20 @@ export class UserRegistrationComponent implements OnInit {
         this.createUserError = false;
         this.router.navigate(['./news']);
       },
-      () => this.onError());
+      (error) => this.onError(error));
   }
 
   bnetAuth() {
-    const authUrl = `https://us.battle.net/oauth/authorize?client_id=${this.clientId}&response_type=code&redirect_uri=${this.redirectUri}`;
-    window.location.assign(authUrl);
+    const baseUrl      = 'https://us.battle.net/oauth/authorize';
+    const clientId     = `client_id=${this.clientId}`;
+    const responseType = 'response_type=code';
+    const redirectUri  = `redirect_uri=${this.redirectUri}`;
+    window.location.assign(baseUrl + '?' + clientId + '&' + responseType + '&' + redirectUri);
   }
 
-  onError() {
+  onError(error) {
     this.createUserError = true;
-    this.snackBar.open('Problem creating account, try again.', 'ok', {
-      duration: 5000
-    });
+    this.error.show(error);
   }
 
 }

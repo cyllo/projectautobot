@@ -4,58 +4,7 @@
 
     <div class="py-3" fxLayout="column">
 
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
-
-        <div fxLayout="column" fxLayoutGap="36px" fxFlex="300px">
-
-          <div fxLayout="row" fxFlex="noshrink">
-
-            <div fxLayout="column" fxLayoutGap="8px" fxFlex="grow">
-
-              <div fxLayout="row" fxFlex="noshrink">
-                <div fxLayout="column" fxFlex="grow">
-                  <md-input-container fxFlexFill>
-                    <input mdInput type="email" placeholder="E-mail" formControlName="email">
-                    <md-error *ngIf="loginForm.controls.email.hasError('pattern')">
-                      Please enter a valid email address.
-                    </md-error>
-                    <md-error *ngIf="loginForm.controls.email.hasError('required')">
-                      Email is <strong>required</strong>
-                    </md-error>
-                  </md-input-container>
-                </div>
-              </div>
-
-              <div class="password-field" fxLayout="row" fxFlex="noshrink">
-                <div fxLayout="column" fxFlex="grow">
-                  <md-input-container fxFlexFill>
-                    <input mdInput type="password" placeholder="Password" formControlName="password">
-                    <md-error *ngIf="loginForm.controls.password.hasError('pattern')">
-                      Your password must be at least 8 characters long and contain atleast 1 uppercase alphabetic character, 1 numeric character, and 1 special character.
-                    </md-error>
-                    <md-error *ngIf="loginForm.controls.password.hasError('required')">
-                      Password is <strong>required</strong>
-                    </md-error>
-                  </md-input-container>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div fxLayout="row" fxLayoutGap="14px" fxFlex="noshrink">
-            <div fxLayout="column" fxFlex="50%">
-              <!-- spacer -->
-            </div>
-            <div fxLayout="column" fxFlex="50%">
-              <button type="submit" md-button [disabled]="!loginForm.valid">Login</button>
-            </div>
-          </div>
-
-        </div>
-
-      </form>
+      <ow-user-login-form (submit)="onSubmit($event)"></ow-user-login-form>
 
     </div>
 
