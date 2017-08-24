@@ -37,16 +37,19 @@ export class MostPlayedComponent implements OnInit {
     const sorted = slice(0, 5, this.sortheroes(this.snapshotStats));
     this.sortedHeroData = map((heroSnap) => {
       const { combatLifetimeStatistic, gameHistoryStatistic } = heroSnap;
-      return {
-        name: heroSnap.hero.name,
-        portraitUrl: heroSnap.hero.portraitUrl,
-        role: this.roleToString(heroSnap.hero.role),
-        kills: combatLifetimeStatistic.finalBlows,
-        deaths: combatLifetimeStatistic.deaths,
-        kdratio: combatLifetimeStatistic.finalBlows / combatLifetimeStatistic.deaths,
-        wins: gameHistoryStatistic.gamesWon,
-        winRate: gameHistoryStatistic.winPercentage,
-      };
+      if (heroSnap.hero) {
+        return {
+          name: heroSnap.hero.name,
+          portraitUrl: heroSnap.hero.portraitUrl,
+          role: this.roleToString(heroSnap.hero.role),
+          kills: combatLifetimeStatistic.finalBlows,
+          deaths: combatLifetimeStatistic.deaths,
+          kdratio: combatLifetimeStatistic.finalBlows / combatLifetimeStatistic.deaths,
+          wins: gameHistoryStatistic.gamesWon,
+          winRate: gameHistoryStatistic.winPercentage,
+        };
+      }
+      return null;
     }, sorted);
   }
 
