@@ -1,0 +1,5 @@
+mutation unfollowGamerTag($gamerTagId: Int!) {
+  unfollowGamerTag(gamerTagId: $gamerTagId) {
+    unfollowed
+  }
+}

@@ -1,0 +1,11 @@
+#import "./friend-ship-fields.gql"
+#import "../user/user-fields.gql"
+
+mutation RequestFriendship($id: Int) {
+  sendFriendRequest(friendUserId: $id) {
+    ...FriendshipFields
+    friend {
+      ...UserFields
+    }
+  }
+}

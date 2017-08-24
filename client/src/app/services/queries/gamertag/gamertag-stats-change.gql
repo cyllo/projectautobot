@@ -1,0 +1,28 @@
+#import "./profile-snapshot-statistic.gql"
+#import "../statistics/game-history-statistic.gql"
+
+query PlayerStatsChangeQuery($id: Int, $since: DateTime) {
+    gamerTag(id: $id) {
+      id
+      currentStatistics: snapshotStatistics(last: 1) {
+        ...ProfileStatistic
+        heroesTotalSnapshotStatistic(type: COMPETITIVE) {
+          id
+          gameHistoryStatistic {
+            id
+            ...GameHistoryStatistic
+          }
+        }
+      }
+      pastStatistics: snapshotStatistics(startDate: $since, first: 1) {
+        ...ProfileStatistic
+        heroesTotalSnapshotStatistic(type: COMPETITIVE) {
+          id
+          gameHistoryStatistic {
+            id
+            ...GameHistoryStatistic
+          }
+        }
+      }
+    }
+  }

@@ -1,0 +1,7 @@
+fragment HeroFields on Hero {
+  id
+  code
+  insertedAt
+  name
+  updatedAt
+}

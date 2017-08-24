@@ -1,0 +1,5 @@
+mutation deleteClub($id: Int!) {
+  deleteFriendGroup(id: $id) {
+    deleted
+  }
+}

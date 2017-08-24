@@ -1,0 +1,7 @@
+#import "./hero-fields.gql"
+
+query {
+  heroes {
+    ...HeroFields
+  }
+}

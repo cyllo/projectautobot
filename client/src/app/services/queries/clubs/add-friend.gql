@@ -1,0 +1,5 @@
+mutation addFriend($friendshipId: Int!, $clubId: Int!) {
+  addFriendGroupFriendship(friendshipId: $friendshipId, userFriendGroupId: $clubId) {
+    id
+  }
+}

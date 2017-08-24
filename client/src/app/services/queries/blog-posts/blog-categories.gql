@@ -1,0 +1,7 @@
+#import "./blog-category-fields.gql"
+
+query BlogCategories {
+  blogCategories {
+    ...BlogCategoryFields
+  }
+}

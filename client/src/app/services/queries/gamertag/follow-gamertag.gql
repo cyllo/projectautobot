@@ -1,0 +1,6 @@
+mutation FollowGamerTag($gamerTagId: Int!) {
+  followGamerTag(gamerTagId: $gamerTagId) {
+    insertedAt
+    updatedAt
+  }
+}

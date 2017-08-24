@@ -4,7 +4,7 @@ import { propEq, filter, values } from 'ramda';
 import { Dispatcher, Store } from '@ngrx/store';
 
 import { ClubService } from '../services';
-import { SendFriendRequest, AcceptFriendRequest, RejectFriendRequest, RemoveFriend } from './queries';
+import { RequestFriendship, AcceptFriendship, RejectFriendship, RemoveFriend } from './queries';
 import { rejectFriendRequest, updateFriendship, deleteFriendship } from '../reducers';
 import { AppState, GraphqlResponse } from '../models';
 
@@ -21,7 +21,7 @@ export class FriendShipService {
 
   request(id) {
     return this.apollo.mutate({
-      mutation: SendFriendRequest,
+      mutation: RequestFriendship,
       variables: { id }
     })
     .map(({ data: { sendFriendRequest: friendship } }: GraphqlResponse) => friendship);
@@ -29,7 +29,7 @@ export class FriendShipService {
 
   accept(friendUserId, friendshipId) {
     return this.apollo.mutate({
-      mutation: AcceptFriendRequest,
+      mutation: AcceptFriendship,
       variables: { friendUserId, friendshipId }
     })
     .map(({ data: { acceptFriendRequest }}: GraphqlResponse) => acceptFriendRequest)
@@ -44,7 +44,7 @@ export class FriendShipService {
 
   reject(friendUserId, friendshipId) {
     return this.apollo.mutate({
-      mutation: RejectFriendRequest,
+      mutation: RejectFriendship,
       variables: { friendUserId, friendshipId }
     })
     .map(({ data: { rejectFriendRequest: { rejected } } }: GraphqlResponse) => rejected)

@@ -1,0 +1,28 @@
+#import "./user-fields.gql"
+#import "../gamertag/gamer-tag-fields.gql"
+#import "../gamertag/profile-snapshot-statistic.gql"
+
+query getCurrentUserQuery {
+  me {
+    ...UserFields
+    followedGamerTags {
+      ...GamerTagFields
+      snapshotStatistics(last: 1) {
+        id
+        gamerTagId
+        ...ProfileStatistic
+      }
+    }
+    following {
+      ...UserFields
+      gamerTags {
+        ...GamerTagFields
+        snapshotStatistics(last: 1) {
+          id
+          gamerTagId
+          ...ProfileStatistic
+        }
+      }
+    }
+  }
+}

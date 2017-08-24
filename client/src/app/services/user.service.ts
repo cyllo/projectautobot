@@ -4,11 +4,11 @@ import { User, GraphqlResponse } from '../models';
 import { getFriendRequests, getClubs } from '../reducers';
 import { Dispatcher } from '@ngrx/store';
 import {
-  CreateUserMutation,
-  ConnectUserToBattleNetMutation,
-  userSearchQuery,
-  friendShipsQuery,
-  FriendGroupsQuery } from './queries';
+  CreateUser,
+  ConnectToBattlenet,
+  FindUser,
+  Friendships,
+  Clubs } from './queries';
 
 interface UserParams extends User {
   clientAuthToken: string;
@@ -24,28 +24,28 @@ export class UserService {
 
   create({ password, email, displayName, clientAuthToken }: UserParams) {
     return this.apollo.mutate({
-      mutation: CreateUserMutation,
+      mutation: CreateUser,
       variables: { password, displayName, email, clientAuthToken }
     });
   }
 
   find(displayName) {
     return this.apollo.query({
-      query: userSearchQuery,
+      query: FindUser,
       variables: { displayName }
     }).map(({ data: { users } }: SearchResponse) => users);
   }
 
   connectToBattleNet(clientAuthToken) {
     return this.apollo.mutate({
-      mutation: ConnectUserToBattleNetMutation,
+      mutation: ConnectToBattlenet,
       variables: { clientAuthToken }
     });
   }
 
   listFriendRequests() {
     return this.apollo.query({
-      query: friendShipsQuery,
+      query: Friendships,
       variables: { isIncoming: true}
     })
     .map(({ data: { me: { friendships: friendRequests } } }: GraphqlResponse) => friendRequests)
@@ -55,7 +55,7 @@ export class UserService {
 
   listClubs() {
     return this.apollo.query({
-      query: FriendGroupsQuery
+      query: Clubs
     })
     .map(({ data: {me: { friendGroups: clubs } } }: GraphqlResponse ) => clubs)
     .subscribe(clubs => this.dispatcher.dispatch(getClubs(clubs)));

@@ -1,0 +1,34 @@
+#import "./user-fields.gql"
+#import "../gamertag/gamer-tag-fields.gql"
+#import "../gamertag/profile-snapshot-statistic.gql"
+
+mutation LoginUser($password: String!, $email: String!) {
+  loginUser(password: $password, email: $email) {
+    sessionInfo {
+      exp
+      token
+    }
+    user {
+      ...UserFields
+      following {
+        ...UserFields
+        gamerTags {
+          ...GamerTagFields
+          snapshotStatistics(last: 1) {
+            id
+            gamerTagId
+            ...ProfileStatistic
+          }
+        }
+      }
+      followedGamerTags {
+        ...GamerTagFields
+        snapshotStatistics(last: 1) {
+          id
+          gamerTagId
+          ...ProfileStatistic
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+#import "./club-fields.gql"
+#import "../user/user-fields.gql"
+#import "../gamertag/gamer-tag-fields.gql"
+#import "../gamertag/profile-snapshot-statistic.gql"
+#import "../friend-ship/friend-ship-fields.gql"
+
+mutation UpdateClub($id: Int!, $name: String!) {
+  updateFriendGroup(id: $id, name: $name) {
+    ...ClubFields
+    friendships {
+      ...FriendshipFields
+      friend {
+        ...UserFields
+        gamerTags {
+          ...GamerTagFields
+          snapshotStatistics(last: 1) {
+            id
+            gamerTagId
+            ...ProfileStatistic
+          }
+        }
+      }
+    }
+  }
+}

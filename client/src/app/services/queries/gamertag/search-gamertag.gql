@@ -1,0 +1,13 @@
+#import "./gamer-tag-fields.gql"
+#import "./profile-snapshot-statistic.gql"
+
+mutation GamerTagSearch($tag: String!) {
+  searchGamerTag(tag: $tag) {
+    ...GamerTagFields
+    snapshotStatistics(last: 1) {
+      id
+      gamerTagId
+      ...ProfileStatistic
+    }
+  }
+}

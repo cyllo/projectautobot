@@ -1,0 +1,10 @@
+fragment BlogPostFields on BlogPost {
+  id
+  thumbnailUrl
+  heroImageUrl
+  title
+  summary
+  content
+  insertedAt
+  updatedAt
+}

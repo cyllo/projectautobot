@@ -1,0 +1,7 @@
+fragment FriendshipFields on Friendship {
+  id
+  friendId
+  isAccepted
+  insertedAt
+  updatedAt
+}

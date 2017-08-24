@@ -1,0 +1,29 @@
+fragment CombatLifeStatistic on CombatLifetimeStatistic {
+  weaponAccuracyPercentage
+  turretsDestroyed
+  timeSpentOnFire
+  teleporterPadsDestroyed
+  soloKills
+  shotsHit
+  shotsFired
+  reconAssists
+  offensiveAssists
+  objectiveTime
+  objectiveKills
+  multikills
+  multikillBest
+  meleeKills
+  meleeFinalBlows
+  healingDone
+  finalBlows
+  environmentalKills
+  environmentalDeaths
+  eliminationsPerLife
+  eliminations
+  defensiveAssists
+  deaths
+  damageDone
+  damageBlocked
+  criticalHitsAccuracyPercentage
+  criticalHits
+}

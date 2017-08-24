@@ -1,0 +1,4 @@
+fragment BlogCategoryFields on BlogCategory {
+  id
+  name
+}

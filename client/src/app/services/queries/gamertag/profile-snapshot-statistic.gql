@@ -1,0 +1,13 @@
+fragment ProfileStatistic on SnapshotStatistic {
+  profileSnapshotStatistic {
+    id
+    profileStatistic {
+      competitiveLevel
+      competitiveRankUrl
+      level
+      levelUrl
+      rankUrl
+      totalGamesWon
+    }
+  }
+}

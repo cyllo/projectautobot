@@ -1,0 +1,5 @@
+mutation removeFriend($friendshipId: Int) {
+    removeFriend(friendshipId: $friendshipId) {
+      removed
+    }
+  }

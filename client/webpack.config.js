@@ -72,7 +72,7 @@ module.exports = function makeWebpackConfig() {
    */
   config.resolve = {
     // only discover files that have those extensions
-    extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html'],
+    extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html', '.gql'],
     alias: {
       'phoenix-ts': root('node_modules/phoenix-ts/dist/phoenix.es5.js')
     }
@@ -93,6 +93,12 @@ module.exports = function makeWebpackConfig() {
   config.module = {
     rules: [
       // Support for .ts files.
+      {
+        enforce: 'pre',
+        test: /\.(graphql|gql)$/,
+        include: root('src/app/services/queries/'),
+        loader: 'eslint-loader'
+      },
       {
         test: /\.ts$/,
         loaders: ['awesome-typescript-loader?' + atlOptions, 'angular2-template-loader', '@angularclass/hmr-loader'],
@@ -132,7 +138,12 @@ module.exports = function makeWebpackConfig() {
 
       // support for .html as raw text
       // todo: change the loader to something that adds a hash to images
-      {test: /\.html$/, loader: 'raw-loader',  exclude: root('src', 'public')}
+      {test: /\.html$/, loader: 'raw-loader',  exclude: root('src', 'public')},
+      {
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader'
+      }
     ]
   };
 

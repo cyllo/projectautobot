@@ -1,0 +1,15 @@
+#import "./blog-category-fields.gql"
+#import "./author-fields.gql"
+#import "./blog-post-fields.gql"
+
+query BlogPostsBefore($last: Int!, $before: Int!) {
+  blogPosts(last: $last, before: $before) {
+    ...BlogPostFields
+    author {
+      ...AuthorFields
+    }
+    blogCategories {
+      ...BlogCategoryFields
+    }
+  }
+}

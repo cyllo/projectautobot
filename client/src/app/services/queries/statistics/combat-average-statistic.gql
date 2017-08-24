@@ -1,0 +1,17 @@
+fragment CombatAverageStatistic on CombatAverageStatistic {
+  timeSpentOnFireAverage
+  soloKillsAverage
+  selfHealingAverage
+  offensiveAssistsAverage
+  objectiveTimeAverage
+  objectiveKillsAverage
+  meleeKillsAverage
+  meleeFinalBlowsAverage
+  healingDoneAverage
+  finalBlowsAverage
+  eliminationsAverage
+  defensiveAssistsAverage
+  deathsAverage
+  damageDoneAverage
+  damageBlockedAverage
+}

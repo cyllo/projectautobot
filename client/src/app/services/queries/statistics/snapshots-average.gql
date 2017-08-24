@@ -1,0 +1,48 @@
+#import "../hero/hero-fields.gql"
+#import "./match-award-statistic-field.gql"
+#import "./game-history-statistic.gql"
+#import "./combat-life-statistic.gql"
+#import "./combat-best-statistic.gql"
+#import "./combat-average-statistic.gql"
+
+query SnapshotStatsAverageSearch($type: SnapshotStatisticType!) {
+    snapshotsStatisticsAverage(type: $type) {
+      heroSnapshotStatistics {
+        matchAwardsStatistic {
+          ...MatchAwardStatistic
+        }
+        hero {
+          ...HeroFields
+        }
+        gameHistoryStatistic {
+          ...GameHistoryStatistic
+        }
+        combatLifetimeStatistic {
+          ...CombatLifeStatistic
+        }
+        combatBestStatistic {
+          ...CombatBestStatistic
+        }
+        combatAverageStatistic {
+          ...CombatAverageStatistic
+        }
+      }
+      heroesTotalSnapshotStatistic {
+        matchAwardsStatistic {
+          ...MatchAwardStatistic
+        }
+        gameHistoryStatistic {
+          ...GameHistoryStatistic
+        }
+        combatLifetimeStatistic {
+          ...CombatLifeStatistic
+        }
+        combatBestStatistic {
+          ...CombatBestStatistic
+        }
+        combatAverageStatistic {
+          ...CombatAverageStatistic
+        }
+      }
+    }
+  }
