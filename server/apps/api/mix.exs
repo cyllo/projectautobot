@@ -42,10 +42,11 @@ defmodule Api.Mixfile do
       {:joken, "~> 1.4.0"},
       {:con_cache, "~> 0.12.0"},
       {:proper_case, "~> 1.0.0"},
+      {:models, in_umbrella: true},
       {:utility, in_umbrella: true},
-      {:battle_net, in_umbrella: true},
       {:scraper, in_umbrella: true},
-      {:models, in_umbrella: true}
+      {:battle_net, in_umbrella: true},
+      {:profile_watch, in_umbrella: true}
     ]
   end
 end

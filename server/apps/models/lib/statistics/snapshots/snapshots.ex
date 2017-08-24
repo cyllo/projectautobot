@@ -125,7 +125,7 @@ defmodule Models.Statistics.Snapshots do
   end
 
   def create_or_get_leaderboard_snapshot do
-    with {:ok, leaderboard_snapshot} <- StatsLeaderboard.snapshot_leaderboard_rankings do
+    with {:ok, leaderboard_snapshot} <- StatsLeaderboard.snapshot_rankings do
       {:ok, leaderboard_snapshot}
     else
       _ ->
@@ -149,7 +149,7 @@ defmodule Models.Statistics.Snapshots do
   end
 
   def create_or_get_average_snapshot do
-    with {:ok, average_snapshot} <- StatsAverages.snapshot_averages() do
+    with {:ok, average_snapshot} <- StatsAverages.snapshot() do
       {:ok, average_snapshot}
     else
       _ ->

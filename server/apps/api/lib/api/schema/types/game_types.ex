@@ -66,6 +66,12 @@ defmodule Api.Schema.GameTypes do
     end
   end
 
+  @desc "Status of a gamer tag being watched"
+  object :gamer_tag_watch_status do
+    field :gamer_tag, :gamer_tag
+    field :is_watched, :boolean
+  end
+
   @desc "Overwatch heroes"
   object :hero do
     field :id, :integer

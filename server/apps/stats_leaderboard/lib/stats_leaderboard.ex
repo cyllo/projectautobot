@@ -11,7 +11,7 @@ defmodule StatsLeaderboard do
     GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
 
-  def snapshot_leaderboard_rankings do
+  def snapshot_rankings do
     GenServer.call __MODULE__, :snapshot_leaderboard_rankings
   end
 

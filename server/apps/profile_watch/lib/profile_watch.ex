@@ -22,27 +22,35 @@ defmodule ProfileWatch do
 
   def handle_call({:start_watch, gamer_tag}, _from, state) do
     with :ok <- ProfileWatchList.add_to_list(gamer_tag),
-         {:ok, pid} <- ProfileWatcherServer.start_link(gamer_tag) do
+         {:ok, _} <- ProfileWatcherServer.start_link(gamer_tag) do
       info "Starting to watch profile #{inspect get_gamer_tag_info(gamer_tag)}"
 
-      {:reply, {:ok, gamer_tag}, Map.put(state, gamer_tag.id, pid)}
+      {:reply, {:ok, gamer_tag}, state}
     else
+      {:error, e} = error ->
+        error "Start Watch error: #{inspect(e)}"
+
+        {:reply, error, state}
       e ->
         error "Start Watch error: #{inspect(e)}"
+
         {:reply, {:error, e}, state}
     end
   end
 
   def handle_call({:end_watch, gamer_tag}, _from, state) do
-    with :ok <- ProfileWatchList.remove_from_list(gamer_tag),
-         {:ok, pid} <- Map.fetch(state, gamer_tag.id),
-         {:ok, _} <- ProfileWatcherServer.end_watch(pid) do
+    with :ok <- ProfileWatchList.remove_from_list(gamer_tag) do
       info "Ending profile watch #{inspect get_gamer_tag_info(gamer_tag)}"
 
-      {:reply, {:ok, gamer_tag}, Map.delete(state, gamer_tag.id)}
+      {:reply, {:ok, gamer_tag}, state}
     else
+      {:error, e} = error ->
+        error "End Watch error: #{inspect(e)}"
+        {:reply, error, state}
+
       e ->
         error "End Watch error: #{inspect(e)}"
+
         {:reply, {:error, e}, state}
     end
   end

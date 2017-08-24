@@ -422,6 +422,24 @@ defmodule Api.Schema do
     end
 
     @desc """
+      Starts watching a GamerTag
+    """
+    field :start_gamer_tag_watch, :gamer_tag_watch_status do
+      arg :id, non_null(:integer)
+
+      resolve &GamerTagResolver.start_watch/2
+    end
+
+    @desc """
+      Ends watching a GamerTag
+    """
+    field :end_gamer_tag_watch, :gamer_tag_watch_status do
+      arg :id, non_null(:integer)
+
+      resolve &GamerTagResolver.end_watch/2
+    end
+
+    @desc """
       Delete a BlogPost
 
       Restrictions: Admin Only

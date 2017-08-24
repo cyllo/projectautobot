@@ -16,8 +16,9 @@ defmodule ProfileWatch.Application do
       # worker(ProfileWatch.Worker, [arg1, arg2, arg3]),
       supervisor(ProfileWatch, []),
       supervisor(ConCache, [
-        [name: :scraper_profile_watch_store]
-      ], id: :profile_watch_cache)
+        [],
+        [name: :profile_scrape_watch]
+      ])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

@@ -12,6 +12,20 @@ defmodule Api.GamerTagResolver do
   def scrape(%{platform: _, tag: _} = params, _info), do: scrape_by_tag_platform_region(params, [:platform, :tag])
   def scrape(_, _info), do: {:error, "Must provide one of id, platform/region/tag or platform/tag if xbl/psn"}
 
+  def start_watch(%{id: gamer_tag_id}, _info) do
+    with {:ok, gamer_tag} <- Game.get_gamer_tag(gamer_tag_id),
+         {:ok, gamer_tag} <- ProfileWatch.start_watch(gamer_tag) do
+      {:ok, %{gamer_tag: gamer_tag, is_watched: true}}
+    end
+  end
+
+  def end_watch(%{id: gamer_tag_id}, _info) do
+    with {:ok, gamer_tag} <- Game.get_gamer_tag(gamer_tag_id),
+         {:ok, gamer_tag} <- ProfileWatch.end_watch(gamer_tag) do
+      {:ok, %{gamer_tag: gamer_tag, is_watched: false}}
+    end
+  end
+
   def search(%{tag: tag}, _info), do: Scraper.search_tag(tag)
 
   def get_gamer_tags_user(_, gamer_tags), do: preload_id_map(gamer_tags, :user)

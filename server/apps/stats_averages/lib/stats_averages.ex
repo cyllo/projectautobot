@@ -11,7 +11,7 @@ defmodule StatsAverages do
     GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
 
-  def snapshot_averages do
+  def snapshot do
     GenServer.call __MODULE__, :snapshot_averages
   end
 
