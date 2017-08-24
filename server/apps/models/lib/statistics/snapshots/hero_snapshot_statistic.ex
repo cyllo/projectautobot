@@ -2,7 +2,7 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
   use Models.Model
   alias Models.Statistics.Snapshots.{HeroSnapshotStatistic, SnapshotStatistic}
   alias Models.Statistics.{
-    HeroSpecific, CombatAverage, CombatBest,
+    CombatAverage, CombatBest,
     CombatLifetime, GameHistory, MatchAward
   }
 

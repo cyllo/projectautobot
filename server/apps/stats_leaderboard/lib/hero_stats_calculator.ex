@@ -1,5 +1,4 @@
 defmodule StatsLeaderboard.HeroStatsCalculator do
-  import Models.Enums, only: [create_stats_type: 2]
   alias StatsLeaderboard.RankingsCalculator
 
   @rankable_hero_snapshot_stats_keys [

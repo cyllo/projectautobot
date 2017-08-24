@@ -1,7 +1,7 @@
 defmodule Models.Statistics do
   require Models.Model
 
-  alias Models.{Repo, Model}
+  alias Models.Model
   alias Models.Statistics.{CombatAverage, CombatBest, CombatLifetime, GameHistory, MatchAward, HeroSpecific, Profile}
 
   Model.create_model_methods(CombatAverage)

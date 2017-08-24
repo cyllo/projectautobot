@@ -81,6 +81,4 @@ defmodule Models.Accounts.Friendship do
       |> where([u], u.user_id in ^Utility.pluck(users, :id))
       |> where(is_accepted: false, is_sender: false)
   end
-
-  defp params_to_query(_, query), do: query
 end

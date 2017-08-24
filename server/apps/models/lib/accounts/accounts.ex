@@ -214,6 +214,14 @@ defmodule Models.Accounts do
     end
   end
 
+  def get_friend(user_id, friend_id) do
+    if user_id === friend_id do
+      {:error, "You cannot use yourself as friend"}
+    else
+      get_user(friend_id)
+    end
+  end
+
   defp verify_unaccepted_friendship(%{is_accepted: true}), do: {:error, "Friendship is already accepted"}
   defp verify_unaccepted_friendship(%{is_accepted: false}), do: :ok
 
@@ -224,14 +232,6 @@ defmodule Models.Accounts do
         [%{is_accepted: true}, %{is_accepted: true}] -> {:error, "You are already friends with #{friend.display_name}"}
         friendships when is_list(friendships) -> {:ok, sort_friendships_by_user_friend(friendships, user.id, friend.id)}
       end
-    end
-  end
-
-  def get_friend(user_id, friend_id) do
-    if user_id === friend_id do
-      {:error, "You cannot use yourself as friend"}
-    else
-      get_user(friend_id)
     end
   end
 

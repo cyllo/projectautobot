@@ -1,6 +1,6 @@
 defmodule Models.HeroesCache do
   alias Models.{HeroesCache, Game}
-  import Logger, only: [info: 1, warn: 1]
+  import Logger, only: [info: 1]
 
   def is_not_in_cache?(%{name: name}) do
     if cache() do

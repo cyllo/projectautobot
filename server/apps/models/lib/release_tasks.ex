@@ -28,13 +28,6 @@ defmodule Models.ReleaseTasks do
     # Run migrations
     Enum.each(@myapps, &run_migrations_for/1)
 
-    # Run the seed script if it exists
-    seed_script = Path.join([priv_dir(:models), "repo", "seeds.exs"])
-    if File.exists?(seed_script) do
-      IO.puts "Running seed script.."
-      Code.eval_file(seed_script)
-    end
-
     # Signal shutdown
     IO.puts "Success!"
     :init.stop()
@@ -48,5 +41,4 @@ defmodule Models.ReleaseTasks do
   end
 
   defp migrations_path(app), do: Path.join([priv_dir(app), "repo", "migrations"])
-  defp seed_path(app), do: Path.join([priv_dir(app), "repo", "seeds.exs"])
 end

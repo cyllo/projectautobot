@@ -1,6 +1,6 @@
 defmodule Models.Statistics.Snapshots.LeaderboardSnapshotStatistic do
   use Models.Model
-  alias Models.Statistics.Snapshots.{LeaderboardSnapshotStatistic, SnapshotStatistic}
+  alias Models.Statistics.Snapshots.LeaderboardSnapshotStatistic
 
   schema "leaderboard_snapshot_statistics" do
     field :hero_total_competitive_rankings, :map

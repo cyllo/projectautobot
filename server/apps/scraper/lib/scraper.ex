@@ -22,6 +22,13 @@ defmodule Scraper do
     end
   end
 
+  def scrape_gamer_tag(gamer_tag) do
+    gamer_tag
+      |> Game.find_or_create_gamer_tag
+      |> Utility.unwrap_ok_or_raise
+      |> scrape_gamer_tag
+  end
+
   def scrape_gamer_tag_without_status_check(%Game.GamerTag{} = gamer_tag) do
     with {gamer_tag, page_source} <- ProfileScraper.get_profile(gamer_tag),
          false <- HtmlHelpers.is_page_not_found?(page_source) do
@@ -51,12 +58,6 @@ defmodule Scraper do
     end
   end
 
-  def scrape_gamer_tag(gamer_tag) do
-    gamer_tag
-      |> Game.find_or_create_gamer_tag
-      |> Utility.unwrap_ok_or_raise
-      |> scrape_gamer_tag
-  end
 
   def scrape_gamer_tags(gamer_tags) do
     case filter_and_get_non_timeout_gamer_tags(gamer_tags) do

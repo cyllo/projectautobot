@@ -16,7 +16,7 @@ defmodule Models.Statistics.Snapshots do
 
   def get_first_snapshot_statistic(prop \\ :inserted_at), do: Ecto.Query.last(SnapshotStatistic, prop) |> Repo.one
 
-  def get_all_of_heroes_total_statistics_by_snapshot_ids(snapshot_ids, limit \\ nil, type \\ :competitive || :quickplay) do
+  def get_all_of_heroes_total_statistics_by_snapshot_ids(snapshot_ids, limit \\ nil, type \\ :competitive) do # type \\ :competitive | :quickplay
     from(
       ahs in HeroSnapshotStatistic,
       where: ahs.id in ^snapshot_ids,
@@ -26,7 +26,7 @@ defmodule Models.Statistics.Snapshots do
       |> Repo.all
   end
 
-  def get_all_hero_statistics_by_snapshot_ids(snapshot_ids, type \\ :competitive || :quickplay) do
+  def get_all_hero_statistics_by_snapshot_ids(snapshot_ids, type \\ :competitive) do # type \\ :competitive | :quickplay
     from(hs in HeroSnapshotStatistic, where: hs.snapshot_statistic_id in ^snapshot_ids)
       |> HeroSnapshotStatistic.heroes_query(type)
       |> Repo.all
@@ -128,7 +128,7 @@ defmodule Models.Statistics.Snapshots do
     with {:ok, leaderboard_snapshot} <- StatsLeaderboard.snapshot_leaderboard_rankings do
       {:ok, leaderboard_snapshot}
     else
-      e ->
+      _ ->
         case Repo.one(LeaderboardSnapshotStatistic.latest_snapshot_query) do
           nil -> {:error, "No Leaderboard Snapshot found"}
           leaderboard_snapshot -> {:ok, leaderboard_snapshot}
@@ -152,7 +152,7 @@ defmodule Models.Statistics.Snapshots do
     with {:ok, average_snapshot} <- StatsAverages.snapshot_averages() do
       {:ok, average_snapshot}
     else
-      e ->
+      _ ->
         case Repo.one(StatisticsAveragesSnapshot.latest_snapshot_query) do
           nil -> {:error, "No Leaderboard Snapshot found"}
           average_snapshot -> {:ok, average_snapshot}

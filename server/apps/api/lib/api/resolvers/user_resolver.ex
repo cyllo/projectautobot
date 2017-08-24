@@ -1,7 +1,7 @@
 defmodule Api.UserResolver do
   import Api.Helpers, only: [preload_id_map: 3, convert_to_id_map: 3]
 
-  alias Models.{Accounts, Game, Accounts.UserFriendGroup}
+  alias Models.{Accounts, Game}
 
   def current(_, %{context: %{current_user: user}}), do: {:ok, user}
   def all(%{search: identifier}, %{context: %{current_user: user}}), do: {:ok, Accounts.search_users_excluding_user(identifier, user.id)}
