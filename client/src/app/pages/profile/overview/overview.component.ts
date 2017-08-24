@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Player, TransformedStats, HeroSnapshotStats, GameHistoryStats, MatchAwardsStats } from '../../../models';
+import { GamerTag, TransformedStats, HeroSnapshotStats, GameHistoryStats, MatchAwardsStats } from '../../../models';
 import { ProfileService, FollowService } from '../../../services';
 
 @Component({
@@ -11,15 +11,15 @@ import { ProfileService, FollowService } from '../../../services';
 
 export class ProfileOverviewComponent implements OnInit {
   @Input('player')
-  get player(): Player {
+  get player(): GamerTag {
     return this._player;
   }
-  set player(player: Player) {
+  set player(player: GamerTag) {
     this._player = player;
     this.load();
   }
 
-  private _player: Player;
+  private _player: GamerTag;
 
   snapshotStats: TransformedStats;
   renewInProgress = false;
@@ -44,7 +44,7 @@ export class ProfileOverviewComponent implements OnInit {
     this.renewInProgress = !this.renewInProgress;
   }
 
-  follow(player: Player) {
+  follow(player: GamerTag) {
     this.followService.followGamerTag(player.id);
   }
 

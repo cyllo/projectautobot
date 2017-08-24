@@ -20,3 +20,7 @@ export function searchGamerTag(state$: Observable<Search>) {
   return state$.select(state => state.search)
     .filter(search => Boolean(search.tag));
 }
+
+export function searchTag(payload) {
+  return {type: 'GET_PLAYER_TAG', payload};
+}

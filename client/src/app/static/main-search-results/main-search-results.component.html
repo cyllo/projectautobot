@@ -47,8 +47,7 @@
              fxFlex.lg="0 1 20%"
              *ngFor='let player of searchResults'>
 
-          <ow-player-profile-button [player]="player"
-            (playerSelected)="onSelect(player)">
+          <ow-player-profile-button [player]="player" [resultsMode]="false">
           </ow-player-profile-button>
 
         </div>

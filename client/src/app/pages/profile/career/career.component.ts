@@ -30,7 +30,6 @@ export class CareerComponent implements OnInit {
   constructor(private owHeroData: OverwatchHeroDataService) {}
 
   load() {
-    console.log(this._snapshotStats);
     const { combatLifetimeStatistic, gameHistoryStatistic } = this.snapshotStats.heroesTotalSnapshotStatistic;
     const timePlayed = gameHistoryStatistic.timePlayed / 60;
 

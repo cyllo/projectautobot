@@ -1,8 +1,7 @@
 import { routerReducer } from '@ngrx/router-store';
 import { propEq } from 'ramda';
 
-export * from './playerDataCollection.reducer';
-export * from './players.reducer';
+export * from './profiles.reducer';
 export * from './search.reducer';
 export * from './snapshot.reducer';
 export * from './heroes.reducer';
@@ -14,8 +13,7 @@ export * from './clubs.reducer';
 export * from './following-user.reducer';
 export * from './following-gamertag.reducer';
 
-import { playerDataCollection } from './playerDataCollection.reducer';
-import { players } from './players.reducer';
+import { profiles } from './profiles.reducer';
 import { searchPlayerTag } from './search.reducer';
 import { snapshotData } from './snapshot.reducer';
 import { heroesData } from './heroes.reducer';
@@ -36,8 +34,7 @@ const clearable = (reducer, defaultValue) => (state, action) => {
 };
 
 export const reducerStack = {
-  players,
-  playerDataCollection,
+  profiles,
   search: searchPlayerTag,
   heroes: heroesData,
   currentHero: currentHeroData,

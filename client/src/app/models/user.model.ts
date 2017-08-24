@@ -22,6 +22,31 @@ export interface SnapshotStatistic {
   profileSnapshotStatistic: ProfileSnapshotStatistic;
 }
 
+export interface ProfileKey {
+  tag: string;
+  platform: string;
+  region: string;
+}
+
+export interface GamerTagSearchResponse {
+  searchGamerTag: GamerTag[];
+  loading: boolean;
+}
+
+export interface GamerTagFetchResponse {
+  gamerTag: GamerTag;
+  loading: boolean;
+}
+
+export interface GamerTagScrapeResponse {
+  scrapeGamerTag: GamerTag;
+  loading: boolean;
+}
+
+export interface GamerTagState {
+  [key: string]: GamerTag;
+}
+
 export interface GamerTag {
   id: number;
   insertedAt?: Date;
@@ -56,3 +81,17 @@ export interface FollowingUserState {
   [key: number]: User;
 }
 
+export interface Statistic {
+  heroesTotalSnapshotStatistic: {
+    gameHistoryStatistic: {
+      winPercentage: number;
+    };
+  };
+}
+
+export interface StatChangeResponse {
+  gamerTag: {
+    currentStatistics: Statistic[];
+    pastStatistics: Statistic[];
+  };
+}

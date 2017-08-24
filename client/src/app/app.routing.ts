@@ -1,6 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './services';
-import { ProfileResolver } from './pages/profile/profile.resolver';
 import { BlogPostResolver } from './pages/resolvers';
 import {
   HomeComponent,
@@ -35,8 +34,8 @@ const routes: Routes = [
   { path: 'news', component: NewsComponent },
   { path: 'post/:title', component: PostComponent, resolve: { blogPost: BlogPostResolver } },
   { path: 'friends', component: FriendsComponent },
-  { path: 'profile/:platform/:region/:tag', component: ProfileComponent, resolve: { player: ProfileResolver } }, // pc
-  { path: 'profile/:platform/:tag', component: ProfileComponent, resolve: { player: ProfileResolver } }, // console
+  { path: 'profile/:platform/:region/:tag', component: ProfileComponent }, // pc
+  { path: 'profile/:platform/:tag', component: ProfileComponent }, // console
   { path: 'account', component: AccountSettingsComponent, canActivate: [AuthGuard] },
   { path: 'compare', component: CompareComponent },
   { path: '404', component: PageNotFoundComponent },

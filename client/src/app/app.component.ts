@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { AppState, Player, CurrentSession } from './models';
-import { searchGamerTag } from './reducers';
+import { searchGamerTag, addProfiles } from './reducers';
 import { MdIconRegistry } from '@angular/material';
 import { isNil } from 'ramda';
 import * as Cookies from 'js-cookie';
@@ -93,11 +93,12 @@ export class AppComponent implements OnDestroy, OnInit {
   find(search) {
     this.searchInProgress = true;
     return this.gamerTagService.find(search.tag)
-      .do((players) => {
+      .do(gamerTags => {
+        // TO DO MAKE SURE EVERY SEARCHED PROFILE IS CACHED IN THE PROFILE STORE
         this.searchInProgress = false;
         this.isResultsOpen = true;
         if (!search.searching) {
-          this.store.dispatch({ type: 'ADD_PLAYERS', payload: players });
+          this.store.dispatch(addProfiles(gamerTags));
         }
       });
   }
