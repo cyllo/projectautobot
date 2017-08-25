@@ -5,6 +5,7 @@ import { Apollo } from 'apollo-angular';
 import { ApolloError } from 'apollo-client';
 import { Store } from '@ngrx/store';
 import {
+  assoc,
   merge,
   pathOr,
   test,
@@ -15,7 +16,9 @@ import {
   equals,
   replace,
   last,
-  propOr
+  propOr,
+  propEq,
+  filter
 } from 'ramda';
 
 import { Player, GamerTag, AppState, StatChangeResponse } from '../models';
@@ -23,7 +26,6 @@ import { Player, GamerTag, AppState, StatChangeResponse } from '../models';
 import { GamerTagService } from './gamer-tag.service';
 import { SocketService } from './socket.service';
 import { OverwatchHeroDataService } from './owherodata.service';
-import { OverwatchStaticData } from '../models';
 import { playerStatsChangeQuery } from './queries';
 import { addProfile, searchTag } from '../reducers';
 
@@ -97,10 +99,10 @@ export class ProfileService {
     return this.socketService.leave(GAMER_TAG_CHANNEL);
   }
 
-  addOwData(gamerTag) {
+  addOwData(gamerTag: GamerTag) {
     if (gamerTag.snapshotStatistics) {
       return Observable.forkJoin([Observable.of(gamerTag), this.owHeroData.data$])
-        .map(([playerTag, owHeroData]: [Player, OverwatchStaticData]) => {
+        .map(([playerTag, owHeroData]: [Player, any]) => {
           return merge(playerTag, {
             snapshotStatistics: playerTag.snapshotStatistics
               .map(this.addHeroDataToSnapshot(owHeroData))
@@ -128,17 +130,27 @@ export class ProfileService {
       });
   }
 // INTERNAL PRIVATE METHODS
-  private addHeroesToHeroSnapshot(heroes) {
-    return function(heroSnapshot) {
-      return Object.assign({}, heroSnapshot, { hero: heroes.heroes.find(({ code }) => code === heroSnapshot.hero.code) });
+  private addHeroesToHeroSnapshot(heroesData) {
+    return function(accum, heroSnapshot) {
+      const { roles, heroes } = heroesData;
+      const selectedHero = heroes.find(({ code }) => code === heroSnapshot.hero.code);
+      if (selectedHero) {
+        const mapRole = (hero, roleList) =>  {
+          const [{ name }] = filter(propEq('id', hero.role), roleList);
+          return name;
+        };
+        const derp = merge(heroSnapshot, { hero: assoc('role', mapRole(selectedHero, roles), selectedHero)});
+        return accum.concat(derp);
+      }
+      return accum;
     };
   }
 
   private addHeroDataToSnapshot(heroes) {
     return (snapshot) => {
       return Object.assign({}, snapshot, {
-        quickplayHeroSnapshotStatistics: snapshot.quickplayHeroSnapshotStatistics.map(this.addHeroesToHeroSnapshot(heroes)),
-        competitiveHeroSnapshotStatistics: snapshot.competitiveHeroSnapshotStatistics.map(this.addHeroesToHeroSnapshot(heroes))
+        quickplayHeroSnapshotStatistics: snapshot.quickplayHeroSnapshotStatistics.reduce(this.addHeroesToHeroSnapshot(heroes), []),
+        competitiveHeroSnapshotStatistics: snapshot.competitiveHeroSnapshotStatistics.reduce(this.addHeroesToHeroSnapshot(heroes), [])
       });
     };
   }

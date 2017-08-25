@@ -58,6 +58,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.selectedSnapshotData = this.displayProfile.combineLatest(this.selectedSnapshot, (player, selectedSnapshot) => {
       return player[selectedSnapshot];
     });
+
   }
 
   toggleSnapshotStats(type: string) {

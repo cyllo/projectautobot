@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TransformedStats, HeroSnapshotStats, OverwatchStaticData } from '../../../models';
 import { OverwatchHeroDataService } from '../../../services';
+import { pathEq } from 'ramda';
 
 @Component({
   selector: 'ow-hero-cards',
@@ -77,9 +78,7 @@ export class HeroCardsComponent implements OnInit {
   }
 
   private getHeroesOfRole(hss: HeroSnapshotStats[], role: Number): HeroSnapshotStats[] {
-    return hss.filter((x) => {
-      return x.hero['role'] === role;
-    });
+    return hss.filter((x) =>  pathEq(['hero', 'role'], role, x));
   }
 
 }
