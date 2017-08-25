@@ -115,10 +115,6 @@ defmodule Api.Schema.SnapshotTypes do
       resolve &batch_get_combat_lifetimes/3
     end
 
-    field :hero_specific_statistic, :hero_specific_statistic do
-      resolve &batch_get_hero_specifics/3
-    end
-
     field :match_awards_statistic, :match_awards_statistic do
       resolve &batch_get_match_awards/3
     end

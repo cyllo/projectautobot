@@ -1,7 +1,12 @@
 defmodule Scraper do
-  alias Scraper.{HtmlHelpers, ProfileScraper, ProfileSearcher, DataProcessor, Sorter, ModelCreator, ScrapeStatusCache}
-  alias Models.Game
   import Logger, only: [info: 1]
+
+  alias Models.Game
+  alias Scraper.{
+    ModelCreator, ScrapeStatusCache,
+    Helpers, HtmlHelpers, ProfileScraper,
+    ProfileSearcher, DataProcessor, Sorter
+  }
 
   @max_pages_scraping 5
   @max_stats_storing 10
@@ -13,11 +18,10 @@ defmodule Scraper do
   end
 
   def scrape_gamer_tag(%Game.GamerTag{} = gamer_tag) do
-    with {:ok, _} <- check_gamer_tag_unscraped(gamer_tag),
+    with {:ok, _} <- Helpers.check_gamer_tag_unscraped(gamer_tag),
          _ <- ScrapeStatusCache.mark_tag_scraped(gamer_tag.id) do
       scrape_gamer_tag_without_status_check(gamer_tag)
     else
-      {:error, %{ms_till_can_scrape: _}} = error -> error
       e -> e
     end
   end
@@ -60,15 +64,23 @@ defmodule Scraper do
 
 
   def scrape_gamer_tags(gamer_tags) do
-    case filter_and_get_non_timeout_gamer_tags(gamer_tags) do
+    case Helpers.filter_and_get_non_timeout_gamer_tags(gamer_tags) do
       [] -> {:error, "No tags to scrape (they're all on timeout possibly?)"}
       gamer_tags ->
         case gamer_tags |> ScrapeStatusCache.mark_tags_scraped |> snapshot_tags do
           snap_results when is_list(snap_results) ->
-            snap_results
+            gamer_tags = snap_results
               |> Enum.map(&(&1 |> Tuple.to_list |> List.first))
-              |> concat_connected_gamer_tags
               |> Api.Web.GamerTagChannel.broadcast_change
+
+            Task.start(fn ->
+              gamer_tags
+                |> Enum.flat_map(&Game.get_connected_gamer_tags/1)
+                |> scrape_gamer_tags
+            end)
+
+            gamer_tags
+
           e ->
             ScrapeStatusCache.unmark_tags_scraped(gamer_tags)
             raise e
@@ -101,7 +113,7 @@ defmodule Scraper do
     info "Scraping all gamer tags"
 
     Game.get_all_gamer_tags
-      |> filter_and_get_non_timeout_gamer_tags
+      |> Helpers.filter_and_get_non_timeout_gamer_tags
       |> snapshot_tags
   end
 
@@ -117,39 +129,5 @@ defmodule Scraper do
       |> Flow.map(&ModelCreator.save_profile/1)
       |> Flow.reduce(&Map.new/0, fn(params, acc) -> Map.put(acc, params.gamer_tag, params) end)
       |> Enum.to_list
-  end
-
-  defp profile_not_on_timeout?(gamer_tag), do: !ScrapeStatusCache.has_scraped_gamer_tag?(gamer_tag.id)
-  defp filter_and_get_non_timeout_gamer_tags(gamer_tags), do: Enum.filter_map(gamer_tags, &profile_not_on_timeout?/1, &gamer_tag_info/1)
-  defp gamer_tag_info(%Game.GamerTag{} = params), do: params
-  defp gamer_tag_info(tag_params), do: tag_params |> Map.take([:tag, :region, :platform]) |> Game.find_or_create_gamer_tag
-
-  defp check_gamer_tag_unscraped(gamer_tag) do
-    unless ScrapeStatusCache.has_scraped_gamer_tag?(gamer_tag.id) do
-      {:ok, gamer_tag}
-    else
-      ms_till_can_scrape = ScrapeStatusCache.ms_before_next_scrape(gamer_tag.id)
-
-      {:error, create_wait_error(ms_till_can_scrape)}
-    end
-  end
-
-  defp create_wait_error(ms_till_can_scrape) do
-    %{
-      message: "must wait #{Utility.ms_to_min(ms_till_can_scrape)} min (#{Utility.ms_to_sec(ms_till_can_scrape)} seconds) before scraping",
-      ms_till_can_scrape: ms_till_can_scrape
-    }
-  end
-
-
-  defp concat_connected_gamer_tags(gamer_tags) do
-    Models.Repo.preload(gamer_tags, [:connected_gamer_tags])
-      |> Enum.map(fn (gamer_tag) ->
-        ScrapeStatusCache.mark_tags_searched(gamer_tag.connected_gamer_tags)
-        ScrapeStatusCache.mark_tags_scraped(gamer_tag.connected_gamer_tags)
-
-        gamer_tag.connected_gamer_tags ++ [gamer_tag]
-      end)
-      |> List.flatten
   end
 end
