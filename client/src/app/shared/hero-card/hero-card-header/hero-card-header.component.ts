@@ -226,9 +226,9 @@ export class HeroCardHeaderComponent implements OnInit {
     }).name;
   }
 
-  iconUrl(id: number): string {
+  iconUrl(name: string): string {
     return this.heroData.roles.find(role => {
-      return role.id === id;
+      return role.name === name;
     }).iconUrl;
   }
 
