@@ -61,9 +61,8 @@ export class MostPlayedComponent implements OnInit {
   }
 
   roleToString(id: number): string {
-    return this.heroData.roles.find((x) => {
-      return x.id === id;
-    }).name;
+    const role = this.heroData.roles.find(role => role.id === id);
+    return role ? role.name : `${id}`;
   }
 
 }
