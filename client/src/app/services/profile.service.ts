@@ -26,7 +26,7 @@ import { Player, GamerTag, AppState, StatChangeResponse } from '../models';
 import { GamerTagService } from './gamer-tag.service';
 import { SocketService } from './socket.service';
 import { OverwatchHeroDataService } from './owherodata.service';
-import { playerStatsChangeQuery } from './queries';
+import { GamerTagStatsChange } from './queries';
 import { addProfile, searchTag } from '../reducers';
 
 const GAMER_TAG_CHANNEL = 'gamer_tag:lobby';
@@ -118,7 +118,7 @@ export class ProfileService {
     since.setDate(since.getDate() - 1);
 
     const variables = { id: player.id, since };
-    return this.apollo.query<StatChangeResponse>({ query: playerStatsChangeQuery, variables })
+    return this.apollo.query<StatChangeResponse>({ query: GamerTagStatsChange, variables })
       .map((response) => {
         const { pastStatistics, currentStatistics } = response.data.gamerTag;
         const current = currentStatistics[0].heroesTotalSnapshotStatistic.gameHistoryStatistic;

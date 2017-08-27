@@ -1,0 +1,26 @@
+
+fragment CombatBestStatistic on CombatBestStatistic {
+  weaponAccuracyBestInGamePercentage
+  timeSpentOnFireMostInGame
+  soloKillsMostInGame
+  selfHealingMostInGame
+  reconAssistsMostInGame
+  offensiveAssistsMostInGame
+  objectiveTimeMostInGame
+  objectiveKillsMostInGame
+  multikillBest
+  meleeKillsMostInGame
+  meleeFinalBlowsMostInGame
+  killStreakBest
+  healingDoneMostInLife
+  healingDoneMostInGame
+  finalBlowsMostInGame
+  eliminationsMostInLife
+  eliminationsMostInGame
+  defensiveAssistsMostInGame
+  damageDoneMostInLife
+  damageDoneMostInGame
+  damageBlockedMostInGame
+  criticalHitsMostInLife
+  criticalHitsMostInGame
+}

@@ -1,0 +1,5 @@
+mutation removeFriendFromClub($friendshipId: Int!, $clubId: Int!) {
+  removeFriendGroupFriendship(friendshipId: $friendshipId, userFriendGroupId: $clubId) {
+    id
+  }
+}

@@ -3,7 +3,7 @@ import { Apollo } from 'apollo-angular';
 import { Store, Dispatcher } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { complement, reverse, values, isNil } from 'ramda';
-import { blogPostQuery, blogPostsAfterQuery, blogPostsBeforeQuery } from './queries';
+import { blogPost, blogPostsBefore, blogPostsAfter } from './queries';
 import { addBlogPost, getBlogPosts } from '../reducers';
 import { BlogPost, AppState, GraphqlResponse } from '../models';
 
@@ -21,7 +21,7 @@ export class BlogPostsService {
 
   public getBlogPostByTitle(title: string) {
     return this.apollo.query<{ blogPost: BlogPost }>({
-      query: blogPostQuery,
+      query: blogPost,
       variables: { title }
     })
       .map(( { data: { blogPost: post } }: GraphqlResponse ) => post )
@@ -30,7 +30,7 @@ export class BlogPostsService {
 
   public getBlogPostsBefore(last: number, before: number) {
     this.apollo.query<{ blogPosts: BlogPost[] }>({
-      query: blogPostsBeforeQuery,
+      query: blogPostsBefore,
       variables: { last , before }
     })
       .map(( { data: { blogPosts: posts } }: GraphqlResponse ) => posts )
@@ -39,7 +39,7 @@ export class BlogPostsService {
 
   public getBlogPostsAfter(first: number, after = 0) {
     this.apollo.query<{ blogPosts: BlogPost[] }>({
-      query: blogPostsAfterQuery,
+      query: blogPostsAfter,
       variables: { first, after }
     })
       .map(( { data: { blogPosts: posts } }: GraphqlResponse ) => posts )

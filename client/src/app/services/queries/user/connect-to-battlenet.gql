@@ -1,0 +1,9 @@
+mutation ConnectToBattleNet($clientAuthToken: String!) {
+  connectUserToBattleNet(clientAuthToken: $clientAuthToken) {
+    id
+    email
+    displayName
+    battleNetId
+    battleNetTag
+  }
+}

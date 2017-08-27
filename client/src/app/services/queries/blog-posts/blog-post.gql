@@ -1,0 +1,15 @@
+#import "./blog-category-fields.gql"
+#import "./author-fields.gql"
+#import "./blog-post-fields.gql"
+
+query BlogPost($title: String) {
+  blogPost(title: $title) {
+    ...BlogPostFields
+    author {
+      ...AuthorFields
+    }
+    blogCategories {
+      ...BlogCategoryFields
+    }
+  }
+}

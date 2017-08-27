@@ -3,3 +3,8 @@ export interface Heroes {
   name: string;
   code: string;
 }
+
+export interface HeroesSearchResponse {
+  heroes: Heroes[];
+  loading: boolean;
+}

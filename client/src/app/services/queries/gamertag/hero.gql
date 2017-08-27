@@ -1,0 +1,8 @@
+fragment Hero on Hero {
+    id
+    code
+    name
+    insertedAt
+    updatedAt
+
+}

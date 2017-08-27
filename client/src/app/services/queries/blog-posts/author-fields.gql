@@ -1,0 +1,7 @@
+fragment AuthorFields on User {
+  id
+  displayName
+  email
+  insertedAt
+  updatedAt
+}

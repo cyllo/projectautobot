@@ -2,7 +2,7 @@ import { path, clone } from 'ramda';
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { GamerTag, GamerTagSearchResponse, GamerTagFetchResponse, GamerTagScrapeResponse } from '../models';
-import { gamerTagSearchMutation, gamerTagScrapeMutation, gamerTagFetchQuery } from './queries';
+import { SearchGamerTag, ScrapeGamerTag, FetchGamerTag } from './queries';
 
 const scrapeGamerTagData = path<GamerTag>(['data', 'scrapeGamerTag']);
 const gamerTagData = path<GamerTag>(['data', 'gamerTag']);
@@ -12,14 +12,14 @@ export class GamerTagService {
   constructor(private apollo: Apollo) { }
 
   find(tag) {
-    return this.apollo.mutate<GamerTagSearchResponse>({ mutation: gamerTagSearchMutation, variables: { tag } })
+    return this.apollo.mutate<GamerTagSearchResponse>({ mutation: SearchGamerTag, variables: { tag } })
     .map(({ data }) => data.searchGamerTag)
     .map(clone);
   }
 
   getById(id: number, numSnapshots = 2) {
     return this.apollo.query<GamerTagFetchResponse>({
-      query: gamerTagFetchQuery,
+      query: FetchGamerTag,
       variables: { id, snapshotLast: numSnapshots }
     })
     .map(gamerTagData);
@@ -27,7 +27,7 @@ export class GamerTagService {
 
   getByProfileKey(tag: string, platform: string, region = '', numSnapshots = 2) {
     return this.apollo.query<GamerTagFetchResponse>({
-      query: gamerTagFetchQuery,
+      query: FetchGamerTag,
       variables: { tag, platform, region, snapshotLast: numSnapshots}
     })
     .map(gamerTagData);
@@ -35,7 +35,7 @@ export class GamerTagService {
 
   scrape(tag: string, platform: string, region = '', numSnapshots = 2) {
     return this.apollo.mutate<GamerTagScrapeResponse>({
-      mutation: gamerTagScrapeMutation,
+      mutation: ScrapeGamerTag,
       variables: { tag, platform, region, snapshotLast: numSnapshots}
     })
     .map(scrapeGamerTagData);

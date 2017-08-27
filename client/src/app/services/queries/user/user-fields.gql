@@ -1,0 +1,9 @@
+fragment UserFields on User {
+  id
+  battleNetId
+  battleNetTag
+  displayName
+  email
+  insertedAt
+  updatedAt
+}

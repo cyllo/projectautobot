@@ -1,0 +1,7 @@
+#import "./user-fields.gql"
+
+query Search($displayName: String!) {
+  users(search: $displayName) {
+    ...UserFields
+  }
+}

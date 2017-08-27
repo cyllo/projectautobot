@@ -1,0 +1,7 @@
+fragment MatchAwardStatistic on MatchAwardsStatistic {
+  totalMedals
+  goldMedals
+  silverMedals
+  bronzeMedals
+  cards
+}

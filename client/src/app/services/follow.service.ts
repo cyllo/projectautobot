@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { FollowGamerTagMutation, UnfollowUserMutation, UnfollowGamerTagMutation } from './queries';
+import { FollowGamerTag, UnfollowUser, UnfollowGamerTag } from './queries';
 import { GraphqlResponse, AppState } from '../models';
 import { unfollowUser, unfollowGamerTag } from '../reducers';
 import { Store } from '@ngrx/store';
@@ -12,14 +12,14 @@ export class FollowService {
 
   followGamerTag(gamerTagId) {
     return this.apollo.mutate({
-      mutation: FollowGamerTagMutation,
+      mutation: FollowGamerTag,
       variables: { gamerTagId }
     });
   }
 
   unfollowUser(userId) {
     return this.apollo.mutate({
-      mutation: UnfollowUserMutation,
+      mutation: UnfollowUser,
       variables: { userId }
     })
     .map(({ data: { unfollowUser: { unfollowed } } }: GraphqlResponse) => unfollowed)
@@ -32,7 +32,7 @@ export class FollowService {
 
   unfollowGamerTag(gamerTagId) {
     return this.apollo.mutate({
-      mutation: UnfollowGamerTagMutation,
+      mutation: UnfollowGamerTag,
       variables: { gamerTagId }
     })
     .map(({ data: { unfollowGamerTag: { unfollowed } } }: GraphqlResponse) => unfollowed)

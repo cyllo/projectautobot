@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Credentials, AppState, GraphqlResponse, User, GamerTag } from '../models';
-import { LoginUserMutation, logoutMutation, getCurrentUserQuery } from './queries';
+import { Login, Logout, CurrentUser } from './queries';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { dissoc, prop } from 'ramda';
@@ -21,7 +21,7 @@ export class AuthorizationService {
 
   login({ password, email }: Credentials ) {
     return this.apollo.mutate({
-      mutation: LoginUserMutation,
+      mutation: Login,
       variables: { email, password }
     })
     .map(({ data: { loginUser: { sessionInfo, user } } }: any) =>
@@ -36,7 +36,7 @@ export class AuthorizationService {
 
   logout() {
     return this.apollo.mutate({
-      mutation: logoutMutation
+      mutation: Logout
     })
     .subscribe(({data: { logoutUser: loggedOut } }: GraphqlResponse ) => {
       if (loggedOut) {
@@ -50,7 +50,7 @@ export class AuthorizationService {
 
   refreshAppState({ sessionInfo }) {
     return this.apollo.query({
-      query: getCurrentUserQuery
+      query: CurrentUser
     }).map(({ data: { me: currentUser } }: GraphqlResponse) => currentUser)
     .subscribe(currentUser => {
       this.setAppState({

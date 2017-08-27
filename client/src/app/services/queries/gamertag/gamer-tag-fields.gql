@@ -1,0 +1,11 @@
+
+fragment GamerTagFields on GamerTag {
+  id
+  updatedAt
+  tag
+  region
+  portraitUrl
+  platform
+  overwatchName
+  insertedAt
+}

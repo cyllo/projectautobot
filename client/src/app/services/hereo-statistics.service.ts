@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { CurrentHero } from '../models';
-import { HeroStatsAverageSearchQuery, snapshotStatsAverageSearchQuery } from './queries';
+import { HeroAverages, SnapshotAverage } from './queries';
 
 interface HeroStatsAverageSearchResponse {
   heroStatisticsAverage: CurrentHero;
@@ -19,7 +19,7 @@ export class HeroStatistics {
 
   averagesById(id) {
     return this.apollo.query<HeroStatsAverageSearchResponse>({
-      query: HeroStatsAverageSearchQuery,
+      query: HeroAverages,
       variables: { heroId: id }
     })
     .filter(s => !!s.data.heroStatisticsAverage)
@@ -28,7 +28,7 @@ export class HeroStatistics {
 
   getSnapshot() {
     return this.apollo.query<SnapshotStatsAverageSearchResponse>({
-      query: snapshotStatsAverageSearchQuery,
+      query: SnapshotAverage,
       variables: { type: 'COMPETITIVE' }
     })
     .filter(s => !!s.data)

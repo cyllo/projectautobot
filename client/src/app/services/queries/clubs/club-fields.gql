@@ -1,0 +1,6 @@
+fragment ClubFields on FriendGroup {
+  id
+  insertedAt
+  name
+  updatedAt
+}

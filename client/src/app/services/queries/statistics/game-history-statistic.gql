@@ -1,0 +1,8 @@
+fragment GameHistoryStatistic on GameHistoryStatistic {
+  winPercentage
+  timeSpentOnFire
+  timePlayed
+  gamesWon
+  gamesPlayed
+  gamesLost 
+}

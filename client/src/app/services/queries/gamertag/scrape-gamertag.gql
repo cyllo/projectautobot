@@ -1,0 +1,47 @@
+#import "./gamer-tag-fields.gql"
+#import "./profile-snapshot-statistic.gql"
+#import "./hero-snapshot-fields"
+#import "./heroes-total-snapshot-statistic.gql"
+
+mutation ScrapeGamertag($id: Int, $tag: String, $platform: String, $region: String, $snapshotLast: Int) {
+    scrapeGamerTag(id: $id, tag: $tag, platform: $platform, region: $region) {
+      ...GamerTagFields
+      snapshotStatistics(last: $snapshotLast) {
+        id
+        gamerTagId
+        ...ProfileStatistic
+        quickplayHeroSnapshotStatistics: heroSnapshotStatistics(type: QUICKPLAY) {
+          ...HeroSnapshotStatistics
+        }
+        competitiveHeroSnapshotStatistics: heroSnapshotStatistics(type: COMPETITIVE) {
+          ...HeroSnapshotStatistics
+        }
+        quickplayHeroesTotalSnapshotStatistic: heroesTotalSnapshotStatistic(type: QUICKPLAY) {
+          ...HeroesTotalSnapShot
+        }
+        competitiveHeroesTotalSnapshotStatistic: heroesTotalSnapshotStatistic(type: COMPETITIVE) {
+          ...HeroesTotalSnapShot
+        }
+      }
+      connectedGamerTags {
+        ...GamerTagFields
+        snapshotStatistics(last: $snapshotLast) {
+          id
+          gamerTagId
+          ...ProfileStatistic
+          quickplayHeroSnapshotStatistics: heroSnapshotStatistics(type: QUICKPLAY) {
+            ...HeroSnapshotStatistics
+          }
+          competitiveHeroSnapshotStatistics: heroSnapshotStatistics(type: COMPETITIVE) {
+            ...HeroSnapshotStatistics
+          }
+          quickplayHeroesTotalSnapshotStatistic: heroesTotalSnapshotStatistic(type: QUICKPLAY) {
+            ...HeroesTotalSnapShot
+          }
+          competitiveHeroesTotalSnapshotStatistic: heroesTotalSnapshotStatistic(type: COMPETITIVE) {
+            ...HeroesTotalSnapShot
+          }
+        }
+      }
+    }
+  }
