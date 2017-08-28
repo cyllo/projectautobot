@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
+import { ApolloError } from 'apollo-client';
+import { pathOr } from 'ramda';
 
 @Injectable()
 export class ErrorHandlerService {
@@ -12,4 +14,7 @@ export class ErrorHandlerService {
     });
   }
 
+  filterGraphqlMessage(error: ApolloError) {
+    return pathOr<string>('', ['graphQLErrors', 0, 'message'], error);
+  }
 }

@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthorizationService, ErrorHandlerService } from '../../services';
 import { Credentials } from '../../models';
 import { Location } from '@angular/common';
+import { Subject } from 'rxjs/Subject';
+
+
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const PASSWORD_REGEX = /^(?=.*[a-z]+.*)(?=.*[A-Z]+.*)(?=.*[0-9]+.*)(.{8,})$/;
 
 @Component({
   selector: 'ow-login',
@@ -14,25 +19,27 @@ import { Location } from '@angular/common';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginError: boolean;
-  constructor(private authorizationService: AuthorizationService,
-              private location: Location,
-              private error: ErrorHandlerService) {}
+  loginForm$ = new Subject<Credentials>();
+
+  constructor(
+    private authorizationService: AuthorizationService,
+    private location: Location,
+    private error: ErrorHandlerService) {}
 
   ngOnInit() {
-  }
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.pattern(EMAIL_REGEX)]),
+      password: new FormControl('', [Validators.required, Validators.pattern(PASSWORD_REGEX)])
+    });
 
-  onSubmit(credentials: Credentials) {
-    this.authorizationService.login(credentials)
+    this.loginForm$
+    .switchMap(credentials => this.authorizationService.login(credentials))
     .subscribe(() => {
       this.loginError = false;
       this.location.back();
-    },
-    (error) => this.onError(error));
+    }, (error) => {
+      this.loginError = true;
+      this.error.show(this.error.filterGraphqlMessage(error));
+    });
   }
-
-  onError(error) {
-    this.loginError = true;
-    this.error.show(error);
-  }
-
 }

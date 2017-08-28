@@ -3,6 +3,7 @@ import { Apollo } from 'apollo-angular';
 import { User, GraphqlResponse } from '../models';
 import { getFriendRequests, getClubs } from '../reducers';
 import { Dispatcher } from '@ngrx/store';
+import { merge } from 'ramda';
 import {
   CreateUser,
   ConnectToBattlenet,
@@ -26,7 +27,8 @@ export class UserService {
     return this.apollo.mutate({
       mutation: CreateUser,
       variables: { password, displayName, email, clientAuthToken }
-    });
+    })
+    .map(({ data: { createUser: user} }: GraphqlResponse) => merge(user, { password }));
   }
 
   find(displayName) {
