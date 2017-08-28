@@ -50,15 +50,30 @@ defmodule Models.Model do
   end
 
   def create_model_filters(query, params) when is_map(params), do: create_model_filters(query, Map.to_list(params))
-  def create_model_filters(query, params), do: Enum.reduce(params, order_by(query, asc: :id), &create_model_filter/2)
-  def create_model_filter({:first, val}, query), do: limit(query, ^val)
-  def create_model_filter({:last, val}, query), do: query |> exclude(:order_by) |> from(order_by: [desc: :inserted_at], limit: ^val) |> subquery |> order_by(asc: :inserted_at)
+  def create_model_filters(query, params), do: Enum.reduce(params, order_by(query, :id), &create_model_filter/2)
   def create_model_filter({:start_date, val}, query), do: where(query, [m], m.inserted_at >= ^(val))
   def create_model_filter({:end_date, val}, query), do: where(query, [m], m.inserted_at <= ^val)
   def create_model_filter({:before, id}, query), do: where(query, [m], m.id < ^id)
   def create_model_filter({:after, id}, query), do: where(query, [m], m.id > ^id)
+
+  def create_model_filter({:first, val}, query), do: limit(query, ^val)
+  def create_model_filter({:last, val}, query) do
+    query
+      |> exclude(:order_by)
+      |> from(order_by: [desc: :inserted_at], limit: ^val)
+      |> subquery
+      |> order_by(:id)
+  end
+
   def create_model_filter({filter_field, val}, %{from: {_, model}} = query), do: create_model_filter({filter_field, val}, model, query)
   def create_model_filter({filter_field, val}, model), do: create_model_filter({filter_field, val}, model, model)
+
+  def create_model_filter({filter_field, val}, %{from: %{query: %{from: {_, model}}}}, query) do
+    import IEx
+    IEx.pry
+    create_model_filter({filter_field, val}, model, query)
+  end
+
   def create_model_filter({filter_field, val}, model, query) do
     if filter_field in model.__schema__(:fields) do
       where(query, [m], field(m, ^filter_field) == ^val)

@@ -35,6 +35,7 @@ defmodule Api.Schema.GameTypes do
       arg :end_date, :datetime
       arg :after, :integer
       arg :before, :integer
+      arg :only_last_daily, :boolean
 
       resolve fn gamer_tag, args, _ ->
         batch(

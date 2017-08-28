@@ -55,8 +55,17 @@ defmodule Models.Statistics.Snapshots do
   end
 
   def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, opts) do
-    from(ss in SnapshotStatistic, where: ss.gamer_tag_id in ^gamer_tag_ids)
-      |> Model.create_model_filters(opts)
+    query = from(ss in SnapshotStatistic, where: ss.gamer_tag_id in ^gamer_tag_ids)
+
+    query = if Keyword.get(opts, :only_last_daily, false) do
+      SnapshotStatistic.latest_daily_query(query)
+        |> Ecto.Query.subquery
+    else
+      query
+    end
+
+    query
+      |> Model.create_model_filters(Keyword.delete(opts, :only_last_daily))
       |> Repo.all
   end
 
