@@ -18,7 +18,7 @@ defmodule Api.Application do
       ], id: :session_token_store),
 
       supervisor(ConCache, [
-        [ttl_check: :timer.seconds(5), ttl: :timer.hours(24)],
+        [],
         [name: :beta_token_store]
       ], id: :beta_token_store)
     ]
