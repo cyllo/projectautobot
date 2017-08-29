@@ -29,4 +29,7 @@ use Mix.Config
 #
 config :battle_net, ecto_repos: []
 
-import_config "config.secret.exs"
+if Mix.env !== :test do
+  import_config "#{Mix.env()}.secret.exs"
+end
+
