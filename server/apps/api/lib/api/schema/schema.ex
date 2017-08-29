@@ -48,6 +48,7 @@ defmodule Api.Schema do
 
     field :gamer_tags, list_of(:gamer_tag) do
       arg :tags, list_of(:string)
+      arg :ids, list_of(:integer)
       arg :user_id, :integer
       arg :region, :string
       arg :platform, :string
@@ -65,6 +66,7 @@ defmodule Api.Schema do
     end
 
     field :users, list_of(:user) do
+      arg :ids, list_of(:integer)
       arg :search, :string
 
       resolve &UserResolver.all/2
@@ -79,6 +81,8 @@ defmodule Api.Schema do
     end
 
     field :heroes, list_of(:hero) do
+      arg :ids, list_of(:integer)
+
       resolve &HeroResolver.all/2
     end
 
@@ -100,6 +104,7 @@ defmodule Api.Schema do
       arg :first, :integer
       arg :start_date, :datetime
       arg :end_date, :datetime
+      arg :ids, list_of(:integer)
       arg :blog_categories, list_of(non_null(:blog_category_input))
 
       resolve &BlogResolver.all/2

@@ -2,8 +2,8 @@ defmodule Api.BlogResolver do
   alias Models.Blog
   import Api.Helpers, only: [preload_id_map: 3, preload_id_map: 2]
 
-  def all(params, _info) when is_map(params), do: {:ok, Blog.get_all_posts(params)}
-  def all(_, _info), do: {:ok, Blog.get_all_posts()}
+  def all(params, _info) when params == %{}, do: {:ok, Blog.get_all_posts()}
+  def all(params, _info), do: {:ok, Blog.get_all_posts(params)}
 
   def all_categories(_, _), do: {:ok, Blog.get_all_categorys()}
 
