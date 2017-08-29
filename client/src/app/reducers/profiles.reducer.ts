@@ -1,4 +1,4 @@
-import { assocPath, dissoc, reduce, replace, prop, has, reject, propEq, compose, not, isEmpty } from 'ramda';
+import { assocPath, dissoc, reduce, replace, prop, propOr, has, reject, propEq, compose, not, isEmpty } from 'ramda';
 import { GamerTag, GamerTagState } from '../models';
 
 const notEmpty = compose(not, isEmpty);
@@ -74,7 +74,7 @@ function addConnectedProfiles(originalProfile: GamerTag, connectedProfiles: Game
 
 function addProfileToStore(profile, state) {
 
-  const connectedTags = <GamerTag[]>prop('connectedGamerTags', profile);
+  const connectedTags = <GamerTag[]>propOr([], 'connectedGamerTags', profile);
 
   if (notEmpty(connectedTags)) {
     return addConnectedProfiles(profile, connectedTags, state);

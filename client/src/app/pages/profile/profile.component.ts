@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { SnapshotStats } from '../../models/player.model';
 import { Observable } from 'rxjs/Observable';
 import { ProfileService } from '../../services';
-import { searchTag } from '../../reducers';
+
 const notNil = compose(not, isNil);
 
 @Component({
@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   selectedProfile: Observable<GamerTag>;
   displayProfile: Observable<GamerTag>;
   profileKey: Observable<ProfileKey>;
-  searching: Observable<boolean>;
+  searching: boolean;
 
   selectedSnapshot = new BehaviorSubject('competitive');
   selectedSnapshotData: Observable<SnapshotStats>;
@@ -33,7 +33,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.players = this.store.select('profiles').skipWhile(isEmpty);
-    this.searching = this.store.select('search').pluck('searching');
 
     this.profileKey = this.activatedRoute.paramMap.map(paramMap => ({
       tag: replace('#', '-', paramMap.get('tag')),
@@ -53,12 +52,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     .filter(profile => !isEmpty(profile.snapshotStatistics))
     .map((player: GamerTag) => merge(player, this.profileService.latestStatsSet(player)))
     .map((player: GamerTag) => merge(player, this.profileService.profileStats(player)))
-    .do(() => this.store.dispatch(searchTag({ searching: false })));
+    .startWith(null);
 
-    this.selectedSnapshotData = this.displayProfile.combineLatest(this.selectedSnapshot, (player, selectedSnapshot) => {
+    this.selectedSnapshotData = this.displayProfile
+    .skipWhile(notNil)
+    .combineLatest(this.selectedSnapshot, (player, selectedSnapshot) => {
       return player[selectedSnapshot];
     });
-
   }
 
   toggleSnapshotStats(type: string) {
