@@ -8,6 +8,8 @@ defmodule Utility do
 
   def filter_not_nil(values), do: Enum.filter(values, &(!is_nil(&1)))
 
+  def atom_matches?(atom, regex), do: Regex.match?(regex, Atom.to_string(atom))
+
   @spec pluck(input :: list, key :: atom|String.t) :: list
   def pluck(list, key), do: Enum.map(list, &Map.get(&1, key))
 
