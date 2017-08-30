@@ -27,7 +27,7 @@ import { GamerTagService } from './gamer-tag.service';
 import { SocketService } from './socket.service';
 import { OverwatchHeroDataService } from './owherodata.service';
 import { GamerTagStatsChange } from './queries';
-import { addProfile, searchTag } from '../reducers';
+import { addProfile } from '../reducers';
 
 const GAMER_TAG_CHANNEL = 'gamer_tag:lobby';
 
@@ -62,7 +62,6 @@ export class ProfileService {
       : Observable.throw(error);
     })
     .mergeMap((gamerTag: GamerTag) => <Observable<GamerTag>>this.addOwData(gamerTag))
-    .do(() => this.store.dispatch(searchTag({ searching: false })))
     .subscribe(gamerTag => this.store.dispatch(addProfile(gamerTag)));
   }
 

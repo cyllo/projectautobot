@@ -1,23 +1,26 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { Player } from '../../models';
+import { Store } from '@ngrx/store';
+import { GamerTag, AppState } from '../../models';
 import { Observable } from 'rxjs/Observable';
-import { assoc, replace, isNil } from 'ramda';
+import { assoc, isNil } from 'ramda';
+import { ProfileService } from '../../services';
+import { resetTagSearch } from '../../reducers';
 
 @Component({
   selector: 'ow-player-profile-button',
   templateUrl: 'player-profile-button.component.html',
-  styleUrls: ['player-profile-button.component.scss']
+  styleUrls: ['player-profile-button.component.scss'],
+  providers: [ProfileService]
 })
 export class PlayerProfileButtonComponent implements OnInit {
-  @Input('player') player: Player;
+  @Input('player') player: GamerTag;
   @Input('resultsMode') resultsMode: boolean;
 
   public async: any;
 
-  playerData$: Observable<Player>;
+  playerData$: Observable<GamerTag>;
 
-  constructor (private router: Router) {}
+  constructor(private store: Store<AppState>, private profileService: ProfileService) {}
 
   ngOnInit() {
     this.playerData$ = Observable.of(this.player)
@@ -28,15 +31,10 @@ export class PlayerProfileButtonComponent implements OnInit {
       });
   }
 
-  navigateToProfile(player$: Observable<Player>) {
-    player$.subscribe(player => {
-      const {platform, region, tag} = player;
-      const cleanTag = replace('#', '-', tag);
-      const destination = platform === 'pc'
-      ? ['./profile', platform, region, cleanTag]
-      : ['./profile', platform, cleanTag];
-      this.router.navigate(destination);
+  navigateToProfile(player$: Observable<GamerTag>) {
+    player$.take(1).subscribe(player => {
+      this.store.dispatch(resetTagSearch());
+      this.profileService.goto(player);
     });
   }
-
 }

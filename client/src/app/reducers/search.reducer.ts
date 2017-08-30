@@ -1,26 +1,37 @@
 import { Search } from '../models';
-import { Observable } from 'rxjs/Observable';
+import { GamerTag } from '../models';
+import { assoc } from 'ramda';
 
 const initialState: Search = {
-  tag: null,
+  profile: null,
   searching: false
 };
 
 export function searchPlayerTag(state: Search = initialState, { type, payload }): Search {
   switch (type) {
-    case 'GET_PLAYER_TAG':
-      return payload;
+    case 'START_SEARCH':
+      return assoc('searching', true, state);
 
+    case 'SEARCH_RESULTS':
+      let derp = assoc('searching', true, state);
+      return assoc('profile', payload, derp);
+
+    case 'RESET_SEARCH':
+      return initialState;
     default:
       return state;
   }
 }
 
-export function searchGamerTag(state$: Observable<Search>) {
-  return state$.select(state => state.search)
-    .filter(search => Boolean(search.tag));
+
+export function startTagSearch() {
+  return { type: 'START_SEARCH' };
 }
 
-export function searchTag(payload) {
-  return {type: 'GET_PLAYER_TAG', payload};
+export function searchResults(profile: GamerTag[]) {
+  return { type: 'SEARCH_RESULTS', payload: profile };
+}
+
+export function resetTagSearch() {
+  return { type: 'RESET_SEARCH' };
 }

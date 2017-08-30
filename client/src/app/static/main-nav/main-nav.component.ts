@@ -1,14 +1,12 @@
-import {
-  Component,
-  OnInit,
-  EventEmitter,
-  Input,
-  Output
-} from '@angular/core';
-import { Action, Store } from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { AppState, CurrentSession } from '../../models';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import { isNil } from 'ramda';
+import { GamerTagService } from '../../services';
+import { startTagSearch, searchResults } from '../../reducers';
+
 
 @Component({
   selector: 'ow-main-nav',
@@ -16,28 +14,35 @@ import { isNil } from 'ramda';
   styleUrls: ['main-nav.component.scss']
 })
 
-export class MainNavComponent implements  OnInit {
-  @Input() searchInProgress: boolean;
-  @Output() searchTag = new EventEmitter<Action>();
-
+export class MainNavComponent implements OnInit {
+  searchInProgress = false;
   private currentSession: Observable<CurrentSession>;
   userLoggedIn: boolean;
   searchPlaceholder = 'Search for player by battle tag, psn or xbox live';
+  onSearch$ = new Subject<string>();
 
-  constructor(private store: Store<AppState>) {
-    this.currentSession = this.store.select('currentSession');
-  }
+  constructor(
+    private store: Store<AppState>,
+    private gamerTagService: GamerTagService) {}
 
   ngOnInit() {
+    this.currentSession = this.store.select('currentSession');
+
     this.currentSession
     .map(session => !isNil(session))
     .subscribe(session => {
       this.userLoggedIn = session;
     });
-  }
 
-  onSearch(tag: string) {
-    this.searchTag.emit({ type: 'GET_PLAYER_TAG', payload: { tag: tag, searching: true } });
+    this.onSearch$
+    .do(() => {
+      this.searchInProgress = true;
+      this.store.dispatch(startTagSearch());
+    })
+    .switchMap(tag => this.gamerTagService.find(tag))
+    .subscribe(results => {
+      this.searchInProgress = false;
+      this.store.dispatch(searchResults(results));
+    });
   }
-
 }

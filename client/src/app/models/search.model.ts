@@ -1,6 +1,7 @@
 import { AppState } from './appstate.model';
+import { GamerTag } from './user.model';
 
 export interface Search extends AppState {
-  tag?: string;
+  profile?: GamerTag[];
   searching?: boolean;
 }

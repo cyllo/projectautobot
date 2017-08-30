@@ -28,7 +28,7 @@
 
             <ow-search [searchInProgress]="searchInProgress"
                        [placeholder]="searchPlaceholder"
-                       (onSearch)='onSearch($event)'>
+                       (onSearch)='onSearch$.next($event)'>
             </ow-search>
 
           </div>
@@ -56,3 +56,6 @@
   </md-toolbar>
 
 </div>
+
+<ow-main-search-results>
+</ow-main-search-results>

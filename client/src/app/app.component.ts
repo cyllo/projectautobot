@@ -1,17 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import { Subject } from 'rxjs/Subject';
-import { AppState, Player, CurrentSession } from './models';
-import { searchGamerTag, addProfiles } from './reducers';
+import { AppState, CurrentSession } from './models';
 import { MdIconRegistry } from '@angular/material';
 import { isNil } from 'ramda';
 import * as Cookies from 'js-cookie';
 
 import {
   HereosService,
-  GamerTagService,
   OverwatchHeroDataService,
   AuthorizationService,
   ThemeingService,
@@ -26,18 +22,13 @@ import '../style/app.scss';
   styleUrls: ['./app.component.scss'],
   providers: [HereosService, AuthorizationService, ThemeingService, UserService]
 })
-export class AppComponent implements OnDestroy, OnInit {
-  sub: Subscription;
+export class AppComponent implements OnInit {
   $state: Observable<AppState>;
-  searchResults = new Subject<Player[]>();
-  isResultsOpen = false;
-  searchInProgress = false;
   currentSession: Observable<CurrentSession>;
 
   constructor(
     private store: Store<AppState>,
     private owHeroData: OverwatchHeroDataService,
-    private gamerTagService: GamerTagService,
     private hereosService: HereosService,
     private authService: AuthorizationService,
     private themeingService: ThemeingService,
@@ -46,12 +37,6 @@ export class AppComponent implements OnDestroy, OnInit {
   ) {
 
     this.$state = this.store.select(s => s);
-
-    this.sub = store.let(searchGamerTag)
-      .filter(state => state.searching)
-      .do(() => this.searchResults.next([]))
-      .switchMap((search) => this.find(search))
-      .subscribe(this.searchResults);
 
     this.getHeroes();
 
@@ -86,30 +71,8 @@ export class AppComponent implements OnDestroy, OnInit {
     this.mdIconRegistry.setDefaultFontSetClass('material-icons');
   }
 
-  onSearch(action) {
-    this.store.dispatch(action);
-  }
-
-  find(search) {
-    this.searchInProgress = true;
-    return this.gamerTagService.find(search.tag)
-      .do(gamerTags => {
-        // TO DO MAKE SURE EVERY SEARCHED PROFILE IS CACHED IN THE PROFILE STORE
-        this.searchInProgress = false;
-        this.isResultsOpen = true;
-        if (!search.searching) {
-          this.store.dispatch(addProfiles(gamerTags));
-        }
-      });
-  }
-
   getHeroes() {
     return this.hereosService.get()
       .subscribe(s => this.store.dispatch({ type: 'GET_HEROES_DATA', payload: s.data.heroes }));
   }
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
-
 }
