@@ -13,4 +13,4 @@ export * from './themeing.service';
 export * from './club.service';
 export * from './follow.service';
 export * from './friendship.service';
-export * from './errorHandler.service';
+export * from './error-handler.service';

@@ -25,6 +25,7 @@ import { Player, GamerTag, AppState, StatChangeResponse } from '../models';
 
 import { GamerTagService } from './gamer-tag.service';
 import { SocketService } from './socket.service';
+import { ErrorHandlerService } from './error-handler.service';
 import { OverwatchHeroDataService } from './owherodata.service';
 import { GamerTagStatsChange } from './queries';
 import { addProfile } from '../reducers';
@@ -33,7 +34,6 @@ const GAMER_TAG_CHANNEL = 'gamer_tag:lobby';
 
 const notNil = compose(not, isNil);
 
-const graphqlErrorMessage = pathOr<string>('', ['graphQLErrors', 0, 'message']);
 const mustWait = test(/must wait/i);
 
 @Injectable()
@@ -45,6 +45,7 @@ export class ProfileService {
     private owHeroData: OverwatchHeroDataService,
     private apollo: Apollo,
     private store: Store<AppState>,
+    private errorService: ErrorHandlerService
   ) { }
 
   goto({ tag, platform, region }: GamerTag) {
@@ -57,7 +58,7 @@ export class ProfileService {
   find(tag, platform, region) {
     this.scrape(tag, platform, region)
     .catch((error: ApolloError) => {
-      return mustWait(graphqlErrorMessage(error))
+      return mustWait(this.errorService.filterGraphqlMessage(error))
       ? this.findPlayer(tag, platform, region)
       : Observable.throw(error);
     })
