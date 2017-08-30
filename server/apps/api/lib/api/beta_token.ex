@@ -50,7 +50,7 @@ defmodule Api.BetaToken do
   defp is_invite_code?(code), do: ConCache.get(:beta_token_store, code) || false
 
   defp create_authorization_header(token, exp) do
-    "authorization=" <> "Bearer #{token}; Expires=#{format_expiry(exp)}; Secure"
+    "ow-auth-token=" <> "#{token}; Expires=#{format_expiry(exp)}; Secure"
   end
 
   defp format_expiry(exp) do

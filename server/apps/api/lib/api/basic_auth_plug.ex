@@ -6,7 +6,7 @@ defmodule Api.BasicAuth do
   def init(opts), do: opts
 
   def call(conn, _opts) do
-    case get_req_header(conn, "authorization") do
+    case auth_token_cookie(conn) || get_req_header(conn, "authorization") do
       ["Bearer " <> token] -> login_user_with_token(conn, token)
 
       ["Basic " <> attempted_auth] ->
@@ -18,6 +18,15 @@ defmodule Api.BasicAuth do
 
       _ -> unauthorized(conn)
     end
+  end
+
+  defp auth_token_cookie(conn) do
+    token = conn
+      |> fetch_cookies
+      |> Map.get(:cookies, %{})
+      |> Map.get("ow-auth-token")
+
+    if token, do: ["Bearer #{token}"], else: false
   end
 
   defp unauthorized(conn) do
