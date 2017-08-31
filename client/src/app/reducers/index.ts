@@ -12,6 +12,7 @@ export * from './friendship.reducer';
 export * from './clubs.reducer';
 export * from './following-user.reducer';
 export * from './following-gamertag.reducer';
+export * from './side-bar-search-results';
 
 import { profiles } from './profiles.reducer';
 import { searchPlayerTag } from './search.reducer';
@@ -24,7 +25,8 @@ import { friendships } from './friendship.reducer';
 import { clubs } from './clubs.reducer';
 import { followedUsers } from './following-user.reducer';
 import { followedGamerTags } from './following-gamertag.reducer';
-
+import { sideBarSearchResults } from './side-bar-search-results';
+import { initialState as sideBarState } from './side-bar-search-results';
 
 const clearable = (reducer, defaultValue) => (state, action) => {
   if (propEq('type', 'LOG_OUT', action)) {
@@ -46,6 +48,7 @@ export const reducerStack = {
   followedGamerTags: clearable(followedGamerTags, {}),
   router: routerReducer,
   snapshotStats: snapshotData,
+  sideBarSearchResults: clearable(sideBarSearchResults, sideBarState)
 };
 
 export const initialStates = {

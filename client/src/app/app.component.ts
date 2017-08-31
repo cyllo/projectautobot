@@ -11,7 +11,8 @@ import {
   OverwatchHeroDataService,
   AuthorizationService,
   ThemeingService,
-  UserService
+  UserService,
+  FriendShipService
 } from './services';
 
 import '../style/app.scss';
@@ -20,7 +21,7 @@ import '../style/app.scss';
   selector: 'ow-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [HereosService, AuthorizationService, ThemeingService, UserService]
+  providers: [HereosService, AuthorizationService, ThemeingService, UserService, FriendShipService]
 })
 export class AppComponent implements OnInit {
   $state: Observable<AppState>;
@@ -49,7 +50,7 @@ export class AppComponent implements OnInit {
       this.authService.refreshAppState(session);
     }
 
-    this.currentSession = this.store.select('currentSession');
+    this.currentSession = this.store.select('currentSession').skipWhile(isNil);
 
     this.themeingService.loadTheme(this.themeingService.themes().default);
     this.setDefaultFontSetClass();
@@ -58,11 +59,6 @@ export class AppComponent implements OnInit {
     .filter(val => !isNil(val))
     .subscribe(() => {
       this.userService.listFriendRequests();
-    });
-
-    this.currentSession
-    .filter(val => !isNil(val))
-    .subscribe(() => {
       this.userService.listClubs();
     });
   }
