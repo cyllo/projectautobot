@@ -1,8 +1,16 @@
-.leaderboard {
-
-    height: 100%;
-
-    > .row.content {
-        min-height: 100%;
+:host /deep/ .leaderboard {
+  .main-search-form {
+    .form-icon {
+      padding: 0 14px;
     }
+    input[type="text"] {
+      padding: 14px 48px;
+    }
+  }
+  .chart {
+    canvas {
+      height: 150px !important;
+      max-height: 150px !important;
+    }
+  }
 }

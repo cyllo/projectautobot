@@ -1,45 +1,84 @@
-<div class="leaderboard container-fluid">
+<div class="leaderboard flex-layout pt-3 px-3" fxLayout="column" fxLayoutGap="14px" fxFlex>
 
-  <div class="container">
-    <div class="row content py-3">
+  <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink" fxLayoutWrap>
 
-      <div class="col-12 skill-rating-distribution">
-
-        <div class="row">
-
-          <div class="col-12">
-            <p class="font-weight-bold mb-1">Skill Rating Distribution</p>
-            <p class="small text-uppercase">Showing players in All Regions</p>
-          </div>
-          <!-- end .col -->
-
-        </div>
-        <!-- end .row -->
-
-        <div class="row">
-
-          <div class="col-12">
-
-            <ngx-datatable class="material" 
-              [rows] = "rows"
-              [columns] = "columns" 
-              #leaderboardtable>
-            </ngx-datatable>
-            <!-- end ngx-datatable -->
-
-          </div>
-          <!-- end .col -->
-
-        </div>
-        <!-- end .row -->
-
-      </div>
-      <!-- end .col -->
-
+    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="20%" fxFlex.lt-md="33.333%">
+      <md-select placeholder="Platform" [(ngModel)]="selectedPlatform">
+         <md-option *ngFor="let platform of platforms" [value]="platform.value">{{ platform.name }}</md-option>
+      </md-select>
     </div>
-    <!-- end .row -->
+
+    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="20%" fxFlex.lt-md="33.333%">
+      <md-select placeholder="Region" [(ngModel)]="selectedRegion">
+         <md-option *ngFor="let region of regions" [value]="region.value">{{ region.name }}</md-option>
+      </md-select>
+    </div>
+
+    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="20%" fxFlex.lt-md="33.333%">
+      <md-select placeholder="Sorting Method" [(ngModel)]="selectedSortingMethod">
+         <md-option *ngFor="let method of sortingMethods" [value]="method.value">{{ method.name }}</md-option>
+      </md-select>
+    </div>
+
+    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="40%" fxFlex.lt-md>
+      <ow-search [placeholder]="'Search by Battle Tag or Gamer Tag'"></ow-search>
+    </div>
+
   </div>
-  <!-- end .container -->
+
+  <div class="flex-layout" fxLayout="row" fxFlex="noshrink" fxLayoutWrap>
+    <div class="flex-layout" fxLayout="column" fxLayoutGap="14px" fxFlex>
+      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
+        <span class="mat-caption text-uppercase"><strong>Skill Rating Distribution</strong></span>
+      </div>
+      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <ow-chart
+            [chartType]="srdChart.chartType"
+            [labels] = "srdChart.xAxisLabels"
+            [datasets]="srdChart.datasets"
+            [legend]="srdChart.legend">
+          </ow-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex-layout" fxLayout="row" fxFlex="noshrink" fxLayoutWrap>
+    <div class="flex-layout" fxLayout="column" fxFlex>
+      <md-table #table [dataSource]="dataSource">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Position Column -->
+        <ng-container mdColumnDef="position">
+          <md-header-cell *mdHeaderCellDef> No. </md-header-cell>
+          <md-cell *mdCellDef="let element"> {{element.position}} </md-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container mdColumnDef="name">
+          <md-header-cell *mdHeaderCellDef> Name </md-header-cell>
+          <md-cell *mdCellDef="let element"> {{element.name}} </md-cell>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container mdColumnDef="weight">
+          <md-header-cell *mdHeaderCellDef> Weight </md-header-cell>
+          <md-cell *mdCellDef="let element"> {{element.weight}} </md-cell>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container mdColumnDef="symbol">
+          <md-header-cell *mdHeaderCellDef> Symbol </md-header-cell>
+          <md-cell *mdCellDef="let element"> {{element.symbol}} </md-cell>
+        </ng-container>
+
+        <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
+        <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
+      </md-table>
+    </div>
+  </div>
 
 </div>
-<!-- end .leaderboard -->

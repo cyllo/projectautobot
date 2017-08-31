@@ -19,11 +19,11 @@ export class NavListComponent implements OnInit {
     {
       name: 'Following',
       routerLink: '/following'
+    },
+    {
+      name: 'Leaderboard',
+      routerLink: '/leaderboard'
     }
-    // {
-    //   name: 'Leaderboard',
-    //   routerLink: '/leaderboard'
-    // },
     // {
     //   name: 'Heroes',
     //   routerLink: '/heroes'

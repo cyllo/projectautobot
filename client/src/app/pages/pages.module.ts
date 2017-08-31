@@ -22,7 +22,8 @@ import { MdInputModule,
          MdChipsModule,
          MdSlideToggleModule,
          MdTooltipModule,
-         MdToolbarModule } from '@angular/material';
+         MdToolbarModule,
+         MdTableModule } from '@angular/material';
 
 import {
   HomeComponent,
@@ -90,7 +91,8 @@ import {
     MdChipsModule,
     MdSlideToggleModule,
     MdTooltipModule,
-    MdToolbarModule
+    MdToolbarModule,
+    MdTableModule
   ],
   declarations: [
     HomeComponent,
