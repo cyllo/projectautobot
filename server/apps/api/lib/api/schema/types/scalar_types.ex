@@ -9,8 +9,8 @@ defmodule Api.Schema.ScalarTypes do
   end
 
   scalar :map, description: "JSON(b) type" do
-    parse &ProperCase.to_snake_case(Map.get(&1, :value))
-    serialize &ProperCase.to_camel_case/1
+    parse &Utility.KeyCase.to_snake_case(Map.get(&1, :value))
+    serialize &Utility.KeyCase.to_camel_case/1
   end
 
   scalar :decimal, description: "Decimal precision 2 type" do

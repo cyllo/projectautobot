@@ -46,7 +46,8 @@ defmodule Api.Mixfile do
       {:utility, in_umbrella: true},
       {:scraper, in_umbrella: true},
       {:battle_net, in_umbrella: true},
-      {:profile_watch, in_umbrella: true}
+      {:profile_watch, in_umbrella: true},
+      {:snapshot_stats_differ, in_umbrella: true}
     ]
   end
 end

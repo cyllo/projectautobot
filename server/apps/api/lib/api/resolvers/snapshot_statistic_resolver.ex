@@ -4,6 +4,8 @@ defmodule Api.SnapshotStatisticResolver do
 
   import Api.Helpers, only: [preload_id_map: 2, convert_to_id_map: 3, convert_to_id_map: 2]
 
+  def diff(%{snapshot_statistic_a_id: a, snapshot_statistic_b_id: b}, _info), do: SnapshotStatsDiffer.diff_snapshot_id(a, b)
+
   def get_gamer_tag_snapshot_statistics(params, gamer_tag_ids) do
     gamer_tag_ids
       |> Snapshots.get_snapshot_statistics_by_gamer_tag_ids(params)

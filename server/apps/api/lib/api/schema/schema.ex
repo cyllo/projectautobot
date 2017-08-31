@@ -3,6 +3,7 @@ defmodule Api.Schema do
   import Absinthe.Resolution.Helpers, only: [async: 2]
   alias Api.{
     Schema,
+    SnapshotStatisticResolver,
     LeaderboardSnapshotResolver,
     AverageStatisticsSnapshotResolver,
     SnapshotStatisticsAverageResolver,
@@ -25,6 +26,7 @@ defmodule Api.Schema do
   import_types Schema.SnapshotStatisticsAverageTypes
   import_types Schema.ActionTypes
   import_types Schema.FriendTypes
+  import_types Schema.SnapshotStatisticsDifferenceTypes
 
   query do
     @desc """
@@ -165,6 +167,14 @@ defmodule Api.Schema do
       arg :end_date, :datetime
 
       resolve &AverageStatisticsSnapshotResolver.find/2
+    end
+
+    @desc "Diffs a snapshot statistic pair, diff returns difference from a -> b"
+    field :snapshot_statistic_difference, :snapshot_statistic_difference do
+      arg :snapshot_statistic_a_id, non_null(:integer)
+      arg :snapshot_statistic_b_id, non_null(:integer)
+
+      resolve &SnapshotStatisticResolver.diff/2
     end
   end
 
