@@ -1,0 +1,73 @@
+<div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="14px" fxFlex="noshrink">
+  <div class="flex-layout" fxLayout="column" fxFlex="grow">
+    <span class="mat-caption matching">{{ (searchResults | async).length }} results found.</span>
+  </div>
+  <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
+    <button class="min-width-0" (click)="toggleDisplay$.next()" md-button>
+      <md-icon>close</md-icon>
+    </button>
+  </div>
+</div>
+
+<div class="ow-tab-content flex-layout px-2 py-2" fxLayout="column" fxLayoutAlign="start" fxFlex="grow" [perfect-scrollbar]>
+  <div 
+    class="search-results player-card" 
+    fxLayout="column"
+    fxLayoutGap="14px"
+    fxFlex="grow">
+   
+    <div 
+    class="flex-layout"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="8px"
+    *ngFor="let user of searchResults | async ">
+      <div fxLayout="column" fxLayoutGap="12px" fxFlex="grow">
+        <h3 class="mat-h3">{{ user.displayName }}</h3>
+
+        <div *ngIf="user.gamerTags.length">
+          <div *ngFor="let profile of user.gamerTags | owHasSnapshot">
+   
+            <a draggable="false" (click)="goto(profile)">
+              <img class="md-image md-image-circle md-image-36" draggable="false" [src]="profile.portraitUrl">
+            </a>
+
+            <div class="flex-layout" fxLayout="column" fxFlex="grow">
+              <div class="flex-layout player-tag" fxLayout="row" fxFlex="grow">
+                 {{profile.overwatchName}}
+              </div>
+              <div fxLayout="row" class="skill-rating flex-layout" fxLayoutAlign="start center" fxFlex="grow" *ngIf="profile.snapshotStatistics">
+                <img width="18" [src]="profile.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveRankUrl">
+                <span class="ml-1">SR {{ profile.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveLevel }}</span>
+                <span class="ml-1">{{ profile.region }}</span>
+                <span class="ml-1">{{ profile.platform }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div 
+      class="flex-layout"
+      fxLayout="column"
+      fxFlex="noshrink"
+      fxFlexAlign="end">
+      <div *ngIf="user.pending; then pendingBlock; else addBlock"></div>
+
+      <ng-template #pendingBlock>
+        <button class="min-width-0" md-button [disabled]="true">
+          <md-icon>call_made</md-icon>
+        </button>
+      </ng-template>
+      
+      <ng-template #addBlock>
+        <button class="min-width-0" md-button (click)="addFriend$.next(user.id)">
+          <md-icon>add</md-icon>
+        </button>
+      </ng-template>
+        
+      </div>
+    
+    </div>
+  </div>
+</div>

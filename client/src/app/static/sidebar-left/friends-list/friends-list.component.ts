@@ -1,54 +1,58 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { UserService, ClubService } from '../../../../services';
+import { UserService, ClubService, FriendShipService, notEmpty } from '../../../services';
 import { Store } from '@ngrx/store';
-import { AppState, Club, User } from '../../../../models';
+import { AppState, Club } from '../../../models';
 import { Observable } from 'rxjs/Observable';
-import { values, path, find, propEq, prop, isNil, filter, length, isEmpty } from 'ramda';
+import { Subject } from 'rxjs/Subject';
+import { values, path, find, propEq, prop, isNil, filter, length, isEmpty, propOr } from 'ramda';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
-
-
+import { startSideBarSearch, completeSideBarSearch } from '../../../reducers';
 
 @Component({
   selector: 'ow-friends-list',
   templateUrl: 'friends-list.component.html',
-  styleUrls: [ 'friends-list.component.scss' ],
-  providers: [UserService, DragulaService, ClubService]
+  styleUrls: ['friends-list.component.scss'],
+  providers: [UserService, DragulaService, ClubService, FriendShipService]
 })
 
 export class SidebarFriendsListComponent implements OnInit {
-  openSearchResults: boolean;
-  searchInProgress: boolean;
-  clubCreationPending: boolean;
   hasFriends: Observable<boolean>;
-  questionForm: FormGroup;
-
-  searchResults: User[];
-
+  toggleClubCreation$ = new Subject<boolean>();
+  onSearch$ = new Subject<string>();
+  sideBarSearchResults: Observable<any>;
+  destroyer$ = new Subject();
+  generalClub: Observable<Club>;
 
   clubs: Observable<Club[]>;
-  clubCount: number;
 
   constructor(
-    private userService: UserService,
     private store: Store<AppState>,
     private dragula: DragulaService,
-    private clubService: ClubService
-  ) {
-    this.clubCreationPending = false;
-    this.openSearchResults = false;
-    this.searchInProgress = false;
-  }
+    private clubService: ClubService,
+    private friendshipService: FriendShipService
+  ) {}
 
   ngOnInit() {
-    this.clubs = this.store.select('clubs').map(clubs => values(clubs));
+    this.clubs = this.store.select('clubs').map(clubs => values(clubs)).skipWhile(isEmpty);
 
-    this.hasFriends = this.clubs
-    .filter(clubs => !isEmpty(clubs))
+    this.toggleClubCreation$.startWith(false);
+
+    this.sideBarSearchResults = this.store.select('sideBarSearchResults').share();
+
+    this.generalClub = this.clubs
     .map(clubs => {
       const [generalClub] = filter(propEq('name', 'General'), clubs);
-      return length(<any[]>prop('friendships', generalClub)) > 0;
+      return generalClub;
     });
+
+    this.hasFriends = this.generalClub
+    .takeWhile(notEmpty)
+    .map(generalClub => length(<any[]>propOr([], 'friendships', generalClub)) > 0)
+    .defaultIfEmpty(false);
+
+    this.onSearch$.do(() => this.store.dispatch(startSideBarSearch()))
+    .switchMap((displayName: string) => this.friendshipService.search(displayName))
+    .subscribe(users => this.store.dispatch(completeSideBarSearch(users)));
 
     this.dragula.setOptions('bag-one', {
       copy: true,
@@ -71,20 +75,5 @@ export class SidebarFriendsListComponent implements OnInit {
     })
     .filter(res => !isNil(res))
     .subscribe(({ friendship, destinationClubId }) => this.clubService.addFriendship(friendship, destinationClubId));
-  }
-
-
-  toggleClubCreation() {
-    this.clubCreationPending = !this.clubCreationPending;
-  }
-
-  onSearch(displayName) {
-    this.searchInProgress = true;
-    this.userService.find(displayName)
-    .subscribe(users => {
-      this.searchResults = users;
-      this.openSearchResults = true;
-      this.searchInProgress = false;
-    });
   }
 }

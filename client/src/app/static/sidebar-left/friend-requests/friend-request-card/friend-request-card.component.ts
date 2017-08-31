@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FriendShipService } from '../../../../../services';
+import { FriendShipService } from '../../../../services';
 
 
 @Component({
