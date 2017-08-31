@@ -24,8 +24,9 @@ import { MdSidenavModule,
          MdToolbarModule,
          MdIconModule,
          MdProgressSpinnerModule,
-         MdCheckboxModule } from '@angular/material';
-import { CovalentExpansionPanelModule } from '@covalent/core';
+         MdCheckboxModule,
+         MdExpansionModule } from '@angular/material';
+
 import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
 import { ApolloModule } from 'apollo-angular';
@@ -99,11 +100,11 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MdSnackBarModule,
     PerfectScrollbarModule,
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
-    CovalentExpansionPanelModule,
     MdToolbarModule,
     MdIconModule,
     MdProgressSpinnerModule,
-    MdCheckboxModule
+    MdCheckboxModule,
+    MdExpansionModule
   ],
   declarations,
   providers: [

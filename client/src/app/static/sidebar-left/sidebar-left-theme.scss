@@ -78,44 +78,6 @@
 
     }
 
-    .td-expansion-panel {
-
-      background-color: transparent;
-      -webkit-box-shadow: none;
-      box-shadow: none;
-
-      &.td-expanded {
-
-        .td-expansion-panel-header {
-          border-bottom-left-radius: 0;
-          border-bottom-right-radius: 0;
-        }
-
-        .td-expansion-content {
-          border-top-left-radius: 0;
-          border-top-right-radius: 0;
-        }
-
-      }
-
-    }
-
-    .td-expansion-panel-header {
-
-      background-color: $tab-content-background-color;
-
-      &:hover:not(.mat-disabled),
-      &:focus:not(.mat-disabled) {
-        background-color: $tab-content-background-color !important;
-      }
-
-    }
-
-    .td-expansion-content {
-      border: 1px solid $border-color;
-      border-top: 0;
-    }
-
     .club {
 
       .player-card:not(:last-child) {
@@ -129,8 +91,17 @@
         }
       }
 
-      button:disabled {
-        color: $text-color;
+    }
+
+    .mat-expansion-panel {
+      background-color: $background-color;
+      color: $background-contrast-color;
+      box-shadow: none;
+
+      button,
+      button:disabled,
+      .mat-expansion-indicator::after {
+        color: $background-contrast-color;
       }
 
     }

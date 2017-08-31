@@ -18,8 +18,7 @@ import { map, pluck, compose, flatten, path } from 'ramda';
 
 export class ClubComponent implements OnInit {
   @Input() club: Club;
-  @ViewChild('clubEditor', { read: ElementRef }) clubEditor: ElementRef;
-  @ViewChild('expansionPanel') expansionPanel;
+  @ViewChild('clubNameEditor', {read: ElementRef}) clubNameEditor: ElementRef;
 
   clubNameEditInProgress: boolean;
   expansionPanelCollapsed: boolean;
@@ -45,21 +44,6 @@ export class ClubComponent implements OnInit {
     });
   }
 
-  toggleClubNameEdit($event = null) {
-    this.clubNameEditInProgress = !this.clubNameEditInProgress;
-    if ($event) {
-      this.stopPropagation($event);
-    }
-  }
-
-  expandedEvent() {
-    this.expansionPanelCollapsed = false;
-  }
-
-  collapsedEvent() {
-    this.expansionPanelCollapsed = true;
-  }
-
   deleteClub(id) {
     this.clubService.delete(id);
   }
@@ -81,13 +65,13 @@ export class ClubComponent implements OnInit {
     $event.stopPropagation();
   }
 
-  toggleExpansionPanel() {
-    this.expansionPanel.toggle();
+  toggleClubNameEdit() {
+    this.clubNameEditInProgress = !this.clubNameEditInProgress;
   }
 
   @HostListener('document:click', ['$event.target'])
   onDOMClick($target) {
-    if (this.clubNameEditInProgress && !this.clubEditor.nativeElement.contains($target)) {
+    if (this.clubNameEditInProgress && !this.clubNameEditor.nativeElement.contains($target)) {
       this.toggleClubNameEdit();
     }
   }

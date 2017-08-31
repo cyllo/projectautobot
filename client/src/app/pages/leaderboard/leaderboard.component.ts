@@ -10,7 +10,7 @@ import { MdSort } from '@angular/material';
 
 export class LeaderboardComponent implements OnInit {
   @ViewChild(MdSort) sort: MdSort;
-  
+
   selectedPlatform = 'pc';
   platforms = [
     {
