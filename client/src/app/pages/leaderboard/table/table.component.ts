@@ -35,40 +35,6 @@ interface PlayerLeaderboardDataEntry {
   mostPlayedHeroes: Hero[];
 }
 
-@Component({
-  selector: 'ow-leaderboard-table',
-  templateUrl: 'table.component.html',
-  styleUrls: ['table.component.scss']
-})
-export class LeaderboardTableComponent implements OnInit {
-
-  @ViewChild(MdSort) sort: MdSort;
-  dataSource: LeaderboardTableDataSource | null;
-
-  displayedColumns = [
-    'position',
-    'platform',
-    'region',
-    'player',
-    'level',
-    'competitiveRating',
-    'timeOnFire',
-    'kdRatio',
-    'wins',
-    'lost',
-    'winRate',
-    'timePlayed',
-    'mostPlayedHeroes'
-  ];
-
-  constructor() {}
-
-  ngOnInit() {
-    this.dataSource = new LeaderboardTableDataSource(this.sort);
-  }
-
-}
-
 /**
  * Data source to provide what data should be rendered in the table. Note that the data source
  * can retrieve its data in any way. In this case, the data source is provided a reference
@@ -132,5 +98,39 @@ export class LeaderboardTableDataSource extends DataSource<any> {
   }
 
   disconnect() {}
+
+}
+
+@Component({
+  selector: 'ow-leaderboard-table',
+  templateUrl: 'table.component.html',
+  styleUrls: ['table.component.scss']
+})
+export class LeaderboardTableComponent implements OnInit {
+
+  @ViewChild(MdSort) sort: MdSort;
+  dataSource: LeaderboardTableDataSource | null;
+
+  displayedColumns = [
+    'position',
+    'platform',
+    'region',
+    'player',
+    'level',
+    'competitiveRating',
+    'timeOnFire',
+    'kdRatio',
+    'wins',
+    'lost',
+    'winRate',
+    'timePlayed',
+    'mostPlayedHeroes'
+  ];
+
+  constructor() {}
+
+  ngOnInit() {
+    this.dataSource = new LeaderboardTableDataSource(this.sort);
+  }
 
 }

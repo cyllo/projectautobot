@@ -44,33 +44,6 @@ interface HeroesLeaderboardDataEntry {
   kdRatio: HeroKDRatio;
 }
 
-@Component({
-  selector: 'ow-heroes-table',
-  templateUrl: 'table.component.html',
-  styleUrls: ['table.component.scss']
-})
-export class HeroesTableComponent implements OnInit {
-
-  @ViewChild(MdSort) sort: MdSort;
-  dataSource: HeroesTableDataSource | null;
-
-  displayedColumns = [
-    'position',
-    'hero',
-    'pickRate',
-    'winRate',
-    'timeOnFire',
-    'kdRatio'
-  ];
-
-  constructor() {}
-
-  ngOnInit() {
-    this.dataSource = new HeroesTableDataSource(this.sort);
-  }
-
-}
-
 /**
  * Data source to provide what data should be rendered in the table. Note that the data source
  * can retrieve its data in any way. In this case, the data source is provided a reference
@@ -78,7 +51,7 @@ export class HeroesTableComponent implements OnInit {
  * the underlying data. Instead, it only needs to take the data and send the table exactly what
  * should be rendered.
  */
-export class HeroesTableDataSource extends DataSource<any> {
+class TableDataSource extends DataSource<any> {
 
   data: HeroesLeaderboardDataEntry[] = [];
 
@@ -127,5 +100,32 @@ export class HeroesTableDataSource extends DataSource<any> {
   }
 
   disconnect() {}
+
+}
+
+@Component({
+  selector: 'ow-heroes-table',
+  templateUrl: 'table.component.html',
+  styleUrls: ['table.component.scss']
+})
+export class HeroesTableComponent implements OnInit {
+
+  @ViewChild(MdSort) sort: MdSort;
+  dataSource: TableDataSource | null;
+
+  displayedColumns = [
+    'position',
+    'hero',
+    'pickRate',
+    'winRate',
+    'timeOnFire',
+    'kdRatio'
+  ];
+
+  constructor() {}
+
+  ngOnInit() {
+    this.dataSource = new TableDataSource(this.sort);
+  }
 
 }
