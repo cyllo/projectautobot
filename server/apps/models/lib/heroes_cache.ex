@@ -31,7 +31,6 @@ defmodule Models.HeroesCache do
   end
 
   def add_heroes_to_cache(heroes) do
-    info "Adding to hero cache #{inspect Utility.pluck(heroes, :name)}"
 
     cache_length = HeroesCache.cache_length()
     hero_names = get_hero_names(heroes)
@@ -40,11 +39,19 @@ defmodule Models.HeroesCache do
       length(hero_names) <= 0 -> heroes
 
       cache_length > 0 ->
-        new_hero_names = Utility.uniq_list(HeroesCache.cache_names(), hero_names)
+        new_hero_names = get_new_hero_names(hero_names)
 
-        if Enum.any?(new_hero_names), do: HeroesCache.put(heroes ++ HeroesCache.cache_list()), else: heroes_name_map(heroes)
+        if Enum.any?(new_hero_names) do
+          info "Adding to hero cache #{inspect new_hero_names}"
+
+          HeroesCache.put(heroes ++ HeroesCache.cache_list())
+        else
+          heroes_name_map(heroes)
+        end
 
       cache_length <= 0 ->
+        info "Creating hero cache #{inspect Utility.pluck(heroes, :name)}"
+
         HeroesCache.put(heroes)
     end
   end
@@ -59,9 +66,11 @@ defmodule Models.HeroesCache do
   def get_by_name(hero_name), do: Map.get(cache(), hero_name)
   def filter_not_in_cache(heroes), do: Enum.filter(heroes, &is_not_in_cache?/1)
   def cache_length, do: if (cache()), do: cache() |> Map.keys |> length, else: 0
-  def cache, do: ConCache.get(:models_store, :heroes_store)
+  def cache, do: ConCache.get(:models_store, :heroes_store) || %{}
   def cache_names, do: Map.keys(cache())
   def cache_list, do: Map.values(cache())
+
+  defp get_new_hero_names(hero_names), do: Utility.difference(hero_names, HeroesCache.cache_names()) |> Utility.difference(HeroesCache.cache_names())
   defp heroes_name_map(heroes), do: Enum.reduce(heroes, %{}, fn(hero, acc) -> Map.put(acc, Map.get(hero, :name), hero) end)
   defp get_hero_names(heroes), do: Enum.map(heroes, fn(hero) -> Map.get(hero, :name) end)
 end

@@ -1,5 +1,6 @@
 defmodule Scraper.HtmlHelpers do
   @stat_regex ~r/{count, plural.+}/
+  @page_url "link[rel=canonical]"
   @overwatch_player_platforms "#profile-platforms a"
   @page_not_found "h1.u-align-center"
   @platform_active ".is-active"
@@ -25,6 +26,12 @@ defmodule Scraper.HtmlHelpers do
     res = src |> Floki.find(query_selector) |> List.first
 
     unless res === nil, do: Floki.text(res), else: nil
+  end
+
+  def find_page_url(src) do
+    url_link = Floki.find(src, @page_url)
+
+    unless url_link === nil, do: Floki.attribute(url_link, "href") |> List.first, else: nil
   end
 
   def find_img_src(src, query_selector) do

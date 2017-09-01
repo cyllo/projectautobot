@@ -21,8 +21,6 @@ defmodule Scraper do
     with {:ok, _} <- Helpers.check_gamer_tag_unscraped(gamer_tag),
          _ <- ScrapeStatusCache.mark_tag_scraped(gamer_tag.id) do
       scrape_gamer_tag_without_status_check(gamer_tag)
-    else
-      e -> e
     end
   end
 
@@ -67,7 +65,7 @@ defmodule Scraper do
     case Helpers.filter_and_get_non_timeout_gamer_tags(gamer_tags) do
       [] -> {:error, "No tags to scrape (they're all on timeout possibly?)"}
       gamer_tags ->
-        case gamer_tags |> ScrapeStatusCache.mark_tags_scraped |> snapshot_tags do
+        case scrape_and_mark_gamer_tags(gamer_tags) do
           snap_results when is_list(snap_results) ->
             gamer_tags = snap_results
               |> Enum.map(&(&1 |> Tuple.to_list |> List.first))
@@ -88,13 +86,30 @@ defmodule Scraper do
     end
   end
 
+  defp scrape_and_mark_gamer_tags(gamer_tags) do
+    try do
+      gamer_tags
+        |> ScrapeStatusCache.mark_tags_scraped
+        |> snapshot_tags
+    rescue
+      e ->
+        ScrapeStatusCache.unmark_tags_scraped(gamer_tags)
+
+        raise e
+    end
+  end
+
   def search_tag(gamer_tag) do
     if ScrapeStatusCache.has_searched_tag?(gamer_tag) do
-      {:ok, ProfileSearcher.find_saved_tag(gamer_tag)}
+      gamer_tags = ProfileSearcher.find_saved_tags(gamer_tag)
+
+      Task.start(fn -> scrape_gamer_tags(gamer_tags) end)
+
+      {:ok, gamer_tags}
     else
       with {:ok, gamer_tags} <- ProfileSearcher.find_profile_tag(gamer_tag),
            _ <- ScrapeStatusCache.mark_tag_searched(gamer_tag) do
-        Task.start(fn -> scrape_gamer_tags(gamer_tags) end)
+         Task.start(fn -> scrape_gamer_tags(gamer_tags) end)
 
         {:ok, gamer_tags}
       else
@@ -114,7 +129,7 @@ defmodule Scraper do
 
     Game.get_all_gamer_tags
       |> Helpers.filter_and_get_non_timeout_gamer_tags
-      |> snapshot_tags
+      |> scrape_and_mark_gamer_tags
   end
 
   defp snapshot_tags(gamer_tags) do

@@ -24,7 +24,7 @@ defmodule Scraper.ProfileScraper do
 
       Logger.info "Navigating to #{ProfileUrl.tag_url(tag, params)}"
 
-      SessionServer.navigate_to pid, ProfileUrl.tag_url(tag, params)
+      SessionServer.navigate_to pid, ProfileUrl.tag_url(URI.encode(tag), params)
 
       {:ok, {tag, pid}}
     end

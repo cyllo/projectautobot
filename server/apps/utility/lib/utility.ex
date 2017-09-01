@@ -38,6 +38,12 @@ defmodule Utility do
       |> Enum.to_list
   end
 
+  @spec difference(Enum.t, Enum.t) :: Enum.t
+  def difference(list1, list2) do
+    MapSet.difference(MapSet.new(list1), MapSet.new(list2))
+      |> Enum.to_list
+  end
+
   def fetch_changeset_params(changeset, key) when is_atom(key), do: fetch_changeset_params(changeset, Atom.to_string(key))
   def fetch_changeset_params(changeset, key) do
     case changeset.params[key] do
