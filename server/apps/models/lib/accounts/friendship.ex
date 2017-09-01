@@ -75,6 +75,7 @@ defmodule Models.Accounts.Friendship do
   end
 
   defp params_to_query({:is_accepted, value}, query, _), do: where(query, is_accepted: ^value)
+  defp params_to_query({:is_incoming, false}, query, users), do: query
   defp params_to_query({:is_incoming, true}, query, users) do
     query
       |> exclude(:where)
