@@ -94,7 +94,7 @@
         <md-header-cell *mdHeaderCellDef md-sort-header>Most Played</md-header-cell>
         <md-cell *mdCellDef="let row">
           <div class="flex-layout" fxLayout="column" fxFlex *ngFor="let hero of row.mostPlayedHeroes">
-            <img class="md-image md-image-24" [src]="hero.avatarUrl">
+            <ow-hero-portrait [owCode]="hero.code"></ow-hero-portrait>
           </div>
         </md-cell>
       </ng-container>

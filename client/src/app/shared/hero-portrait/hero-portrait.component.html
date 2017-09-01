@@ -1,11 +1,5 @@
-<div class="hero-portrait">
-  <a href="{{ heroRouteUrl }}">
-    <div class="header px-1 py-1">
-      <span class="x-small">{{ heroName }}</span>
-    </div>
-    <div class="thumbnail">
-      <img src="{{ heroThumbnailUrl }}" alt="" class="md-image md-image-64">
-    </div>
+<div class="hero-portrait" *ngIf="hero">
+  <a href="./hero/{{hero.name}}">
+    <img draggable="false" class="md-image" [ngClass]="class" [src]="hero.portraitUrl" mdTooltip="{{hero.name}}">
   </a>
 </div>
-<!-- end .hero-portrait -->

@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 interface Hero {
   code: string;
   name: string;
-  avatarUrl: string;
 }
 
 interface HeroPickRate {
@@ -62,9 +61,8 @@ class TableDataSource extends DataSource<any> {
         <HeroesLeaderboardDataEntry>{
           position: i + 1,
           hero: {
-            code: '',
-            name: 'Mercy',
-            avatarUrl: 'https://d1u1mce87gyfbn.cloudfront.net/game/heroes/small/0x02E0000000000004.png'
+            code: '0x02E0000000000029',
+            name: 'Genji'
           },
           pickRate: {
             gamesPlayed: 10,

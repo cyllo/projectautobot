@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 interface Hero {
   code: string;
   name: string;
-  avatarUrl: string;
 }
 
 interface CompetitiveSkillRating {
@@ -71,19 +70,16 @@ export class LeaderboardTableDataSource extends DataSource<any> {
           timePlayed: 123456789,
           mostPlayedHeroes: [
             {
-              code: '',
-              name: 'Soldier-76',
-              avatarUrl: 'https://blzgdapipro-a.akamaihd.net/hero/soldier-76/hero-select-portrait.png'
+              code: '0x02E0000000000029',
+              name: 'Genji'
             },
             {
-              code: '',
-              name: 'Soldier-76',
-              avatarUrl: 'https://blzgdapipro-a.akamaihd.net/hero/soldier-76/hero-select-portrait.png'
+              code: '0x02E0000000000029',
+              name: 'Genji'
             },
             {
-              code: '',
-              name: 'Soldier-76',
-              avatarUrl: 'https://blzgdapipro-a.akamaihd.net/hero/soldier-76/hero-select-portrait.png'
+              code: '0x02E0000000000029',
+              name: 'Genji'
             }
           ]
         }

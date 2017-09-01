@@ -23,6 +23,7 @@
 @import '../app/static/main-nav/main-nav-theme';
 @import '../app/pages/news/news-theme';
 @import '../app/pages/profile/profile-theme';
+@import '../app/shared/hero-portrait/hero-portait-theme';
 
 // Import Components custom themes.
 @import 'themes/components/theme-picker-swatch-theme';
@@ -42,6 +43,7 @@
   @include news-theme($theme);
   @include news-post-card-theme($theme);
   @include profile-theme($theme);
+  @include hero-portrait-theme($theme);
 }
 
 body.app-theme-default {
