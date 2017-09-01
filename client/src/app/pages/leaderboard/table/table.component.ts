@@ -43,7 +43,7 @@ interface PlayerLeaderboardDataEntry {
 export class LeaderboardTableComponent implements OnInit {
 
   @ViewChild(MdSort) sort: MdSort;
-  dataSource: TableDataSource | null;
+  dataSource: LeaderboardTableDataSource | null;
 
   displayedColumns = [
     'position',
@@ -64,7 +64,7 @@ export class LeaderboardTableComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.dataSource = new TableDataSource(this.sort);
+    this.dataSource = new LeaderboardTableDataSource(this.sort);
   }
 
 }
@@ -76,7 +76,7 @@ export class LeaderboardTableComponent implements OnInit {
  * the underlying data. Instead, it only needs to take the data and send the table exactly what
  * should be rendered.
  */
-class TableDataSource extends DataSource<any> {
+export class LeaderboardTableDataSource extends DataSource<any> {
 
   data: PlayerLeaderboardDataEntry[] = [];
 

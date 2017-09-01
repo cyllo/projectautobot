@@ -52,7 +52,7 @@ interface HeroesLeaderboardDataEntry {
 export class HeroesTableComponent implements OnInit {
 
   @ViewChild(MdSort) sort: MdSort;
-  dataSource: TableDataSource | null;
+  dataSource: HeroesTableDataSource | null;
 
   displayedColumns = [
     'position',
@@ -66,7 +66,7 @@ export class HeroesTableComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.dataSource = new TableDataSource(this.sort);
+    this.dataSource = new HeroesTableDataSource(this.sort);
   }
 
 }
@@ -78,7 +78,7 @@ export class HeroesTableComponent implements OnInit {
  * the underlying data. Instead, it only needs to take the data and send the table exactly what
  * should be rendered.
  */
-class TableDataSource extends DataSource<any> {
+export class HeroesTableDataSource extends DataSource<any> {
 
   data: HeroesLeaderboardDataEntry[] = [];
 
