@@ -1,21 +1,21 @@
 {
   "roles": [
-    { 
+    {
       "name" : "Offense" ,
       "id": 0,
       "iconUrl" : "img/OffenseIcon.svg"
     },
-    { 
+    {
       "name" : "Defense" ,
       "id": 1,
       "iconUrl" : "img/DefenseIcon.svg"
     },
-    { 
+    {
       "name" : "Tank" ,
       "id": 2,
       "iconUrl" : "img/TankIcon.svg"
     },
-    { 
+    {
       "name" : "Support" ,
       "id": 3,
       "iconUrl" : "img/SupportIcon.svg"
@@ -925,6 +925,53 @@
           "isUltimateAbility": true,
           "iconUrl": "https:\/\/blzgdapipro-a.akamaihd.net\/hero\/zenyatta\/ability-transcendence\/icon-ability.png",
           "description": "Zenyatta enters a state of heightened existence for a short period of time. While transcendent, Zenyatta cannot use abilities or weapons, but is immune to damage and automatically restores his health and that of nearby allies."
+        }
+      ]
+    },
+    {
+      "code": "0x02E000000000012F",
+      "name": "Doomfist",
+      "portraitUrl": "https:\/\/blzgdapipro-a.akamaihd.net\/game\/heroes\/small\/0x02E000000000012F.png",
+      "description": "Doomfist’s cybernetics make him a highly-mobile, powerful frontline fighter. In addition to dealing ranged damage with his Hand Cannon, Doomfist can slam the ground, knock enemies into the air and off balance, or charge into the fray with his Rocket Punch. When facing a tightly packed group, Doomfist leaps out of view, then crashes down to earth with a spectacular Meteor Strike.",
+      "role": 0,
+      "synergy": [],
+      "counter": [],
+      "skills": [
+        {
+          "name": "Hand Cannon",
+          "isUltimateAbility": false,
+          "iconUrl": "https:\/\/blzgdapipro-a.akamaihd.net\/hero\/doomfist\/ability-hand-cannon\/icon-ability.png",
+          "description": "Doomfist generates temporary personal shields when he deals ability damage."
+        },
+        {
+          "name": "Seismic Slam",
+          "isUltimateAbility": false,
+          "iconUrl": "https:\/\/blzgdapipro-a.akamaihd.net\/hero\/doomfist\/ability-seismic-slam\/icon-ability.png",
+          "description": "Doomfist leaps forward and smashes into the ground, knocking nearby enemies toward him."
+        },
+        {
+          "name": "Rising Uppercut",
+          "isUltimateAbility": false,
+          "iconUrl": "https:\/\/blzgdapipro-a.akamaihd.net\/hero\/doomfist\/ability-rising-uppercut\/icon-ability.png",
+          "description": "Doomfist uppercuts enemies in front of him into the air."
+        },
+        {
+          "name": "Rocket Punch",
+          "isUltimateAbility": false,
+          "iconUrl": "https:\/\/blzgdapipro-a.akamaihd.net\/hero\/doomfist\/ability-rocket-punch\/icon-ability.png",
+          "description": "After charging up, Doomfist lunges forward and knocks an enemy back, dealing additional damage if they impact a wall."
+        },
+        {
+          "name": "The Best Defense...",
+          "isUltimateAbility": false,
+          "iconUrl": "https:\/\/blzgdapipro-a.akamaihd.net\/hero\/doomfist\/ability-the-best-defense\/icon-ability.png",
+          "description": "Doomfist generates temporary personal shields when he deals ability damage."
+        },
+        {
+          "name": "Meteor Strike",
+          "isUltimateAbility": true,
+          "iconUrl": "https:\/\/blzgdapipro-a.akamaihd.net\/hero\/doomfist\/ability-meteor-strike\/icon-ability.png",
+          "description": "Doomfist leaps into the sky, then crashes to the ground, dealing significant damage."
         }
       ]
     }

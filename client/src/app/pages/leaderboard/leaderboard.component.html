@@ -1,45 +1,18 @@
-<div class="leaderboard container-fluid">
-
-  <div class="container">
-    <div class="row content py-3">
-
-      <div class="col-12 skill-rating-distribution">
-
-        <div class="row">
-
-          <div class="col-12">
-            <p class="font-weight-bold mb-1">Skill Rating Distribution</p>
-            <p class="small text-uppercase">Showing players in All Regions</p>
-          </div>
-          <!-- end .col -->
-
-        </div>
-        <!-- end .row -->
-
-        <div class="row">
-
-          <div class="col-12">
-
-            <ngx-datatable class="material" 
-              [rows] = "rows"
-              [columns] = "columns" 
-              #leaderboardtable>
-            </ngx-datatable>
-            <!-- end ngx-datatable -->
-
-          </div>
-          <!-- end .col -->
-
-        </div>
-        <!-- end .row -->
-
-      </div>
-      <!-- end .col -->
-
-    </div>
-    <!-- end .row -->
+<div class="leaderboard flex-layout px-3"
+     fxLayout="column"
+     fxLayoutGap="14px"
+     fxFlex
+     infiniteScroll
+     [infiniteScrollDistance]="0"
+     [infiniteScrollThrottle]="250"
+     (scrolled)="onScrollDown()">
+  <div class="flex-layout" fxLayout="row" fxFlex="noshrink">
+    <ow-leaderboard-header class="flex-layout" fxLayout="column" fxFlex></ow-leaderboard-header>
   </div>
-  <!-- end .container -->
-
+  <div class="flex-layout px-3" fxLayout="row" fxFlex="noshrink" fxLayoutWrap>
+    <ow-leaderboard-chart class="flex-layout" fxLayout="column" fxFlex></ow-leaderboard-chart>
+  </div>
+  <div class="flex-layout px-3" fxLayout="row" fxFlex="noshrink" fxLayoutWrap>
+    <ow-leaderboard-table class="flex-layout" fxLayout="column" fxFlex></ow-leaderboard-table>
+  </div>
 </div>
-<!-- end .leaderboard -->

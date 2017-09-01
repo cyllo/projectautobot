@@ -1,0 +1,25 @@
+<div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
+  <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex>
+    <md-select placeholder="Platform" [(ngModel)]="selectedPlatform">
+       <md-option *ngFor="let platform of platforms" [value]="platform.value">{{ platform.name }}</md-option>
+    </md-select>
+  </div>
+
+  <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex>
+    <md-select placeholder="Region" [(ngModel)]="selectedRegion">
+       <md-option *ngFor="let region of regions" [value]="region.value">{{ region.name }}</md-option>
+    </md-select>
+  </div>
+
+  <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex>
+    <md-select placeholder="Mode" [(ngModel)]="selectedGameMode">
+       <md-option *ngFor="let mode of gameModes" [value]="mode.value">{{ mode.name }}</md-option>
+    </md-select>
+  </div>
+
+  <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex>
+    <md-select placeholder="Sorting Method" [(ngModel)]="selectedSortingMethod">
+       <md-option *ngFor="let method of sortingMethods" [value]="method.value">{{ method.name }}</md-option>
+    </md-select>
+  </div>
+</div>

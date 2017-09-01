@@ -17,13 +17,7 @@
 
 :host /deep/ .sidebar-left {
 
-  .mat-sidenav-content {
-    flex-direction: column;
-    flex: 1 1 auto;
-    min-height: 0;
-  }
-
-  .mat-sidenav {
+  .mat-drawer {
     width: 300px;
   }
 
