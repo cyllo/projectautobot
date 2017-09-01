@@ -22,7 +22,8 @@ import { MdInputModule,
          MdChipsModule,
          MdSlideToggleModule,
          MdTooltipModule,
-         MdToolbarModule } from '@angular/material';
+         MdToolbarModule,
+         MdTableModule } from '@angular/material';
 
 import {
   HomeComponent,
@@ -61,7 +62,11 @@ import {
   UserRegistrationComponent,
   AccountSettingsComponent,
   ListOfCompareableHeroesComponent,
-  SkillRatingTrendComponent
+  SkillRatingTrendComponent,
+  LeaderboardHeaderComponent,
+  LeaderboardTableComponent,
+  LeaderboardChartComponent,
+  HeroesChartComponent
 } from './index';
 
 @NgModule({
@@ -90,7 +95,8 @@ import {
     MdChipsModule,
     MdSlideToggleModule,
     MdTooltipModule,
-    MdToolbarModule
+    MdToolbarModule,
+    MdTableModule
   ],
   declarations: [
     HomeComponent,
@@ -129,7 +135,11 @@ import {
     UserRegistrationComponent,
     AccountSettingsComponent,
     ListOfCompareableHeroesComponent,
-    SkillRatingTrendComponent
+    SkillRatingTrendComponent,
+    LeaderboardHeaderComponent,
+    LeaderboardTableComponent,
+    LeaderboardChartComponent,
+    HeroesChartComponent
   ],
   exports: [
     HomeComponent,
@@ -156,7 +166,11 @@ import {
     ProfilePageTabsComponent,
     LoginComponent,
     UserRegistrationComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    LeaderboardHeaderComponent,
+    LeaderboardTableComponent,
+    LeaderboardChartComponent,
+    HeroesChartComponent
   ]
 })
 

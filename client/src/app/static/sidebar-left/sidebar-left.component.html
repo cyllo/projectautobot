@@ -5,11 +5,11 @@
 
   <div class="flex-layout" fxLayout="column" fxFlex="grow">
 
-    <md-sidenav-container fxLayout="column" fxFlex="grow">
+    <md-drawer-container fxLayout="column" fxFlex="grow">
 
-      <md-sidenav #sidenav mode="side" opened="false" align="end"
-                  (open-start)="sideNavOpen = true"
-                  (close-start)="sideNavOpen = false">
+      <md-drawer #sidenav mode="side" opened="false" align="end"
+                  (open)="sideNavOpen = true"
+                  (close)="sideNavOpen = false">
 
         <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="grow">
 
@@ -44,7 +44,7 @@
 
         </div>
 
-      </md-sidenav>
+      </md-drawer>
 
       <div class="flex-layout py-3 px-2" fxLayout="column" fxFlex="grow" fxLayoutGap="24px">
 
@@ -104,7 +104,7 @@
 
       </div>
 
-    </md-sidenav-container>
+    </md-drawer-container>
 
   </div>
 

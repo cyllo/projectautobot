@@ -1,6 +1,116 @@
 <div class="club flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="grow" *ngIf="club">
 
-  <td-expansion-panel
+  <md-expansion-panel class="flex-layout" fxFlex #expansionPanel [hideToggle]="clubNameEditInProgress">
+
+
+    <md-expansion-panel-header>
+
+      <div *ngIf="clubNameEditInProgress; then clubEditHeader; else clubHeader;"></div>
+
+      <ng-template #clubEditHeader>
+        <div class="club-name-editor flex-layout" fxLayout="row" fxLayoutGap="8px" fxFlex="noshrink" #clubNameEditor>
+          <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
+            <button md-button
+                    class="min-width-0"
+                    (click)="deleteClub(club.id); stopPropagation($event);"
+                    [hidden]="!clubNameEditInProgress"
+                    fxFlexAlign="start">
+              <md-icon>delete_forever</md-icon>
+            </button>
+          </div>
+          <div class="flex-layout" fxLayout="column" fxFlex="grow">
+            <input type="text" value="{{ club.name }}" (click)="stopPropagation($event);" (focusout)="toggleClubNameEdit();">
+          </div>
+          <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
+            <button md-button
+                    class="min-width-0"
+                    (click)="updateClub(club.id, clubNameEdit.value); stopPropagation($event);"
+                    fxFlexAlign="start">
+              <md-icon>check</md-icon>
+            </button>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #clubHeader>
+        <mat-panel-title *ngIf="club.name !== 'General'">
+          <button md-button class="min-width-0" (click)="compareProfiles(club.friendships); stopPropagation($event);">
+            <md-icon>compare_arrows</md-icon>
+          </button>
+        </mat-panel-title>
+        <mat-panel-description>
+          <button md-button
+                  fxLayoutAlign="start center"
+                  fxFlex
+                  (click)="toggleClubNameEdit($event); stopPropagation($event);"
+                  [disabled]="club.name === 'General'">
+            <span>({{ club.friendships.length }}) {{ club.name }}</span>
+          </button>
+        </mat-panel-description>
+      </ng-template>
+
+    </md-expansion-panel-header>
+
+    <div class="flex-layout pt-3" fxLayout="column" fxFlex [dragula]='"bag-one"' [attr.data-id]="club.id">
+      <div class="flex-layout py-2"
+           fxLayout="row"
+           fxLayoutAlign="start center"
+           fxLayoutGap="8px"
+           fxFlex="noshrink"
+           [attr.data-id]="friendship.id"
+           *ngFor="let friendship of club.friendships">
+
+        <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
+          <a href="#" draggable="false" [ngStyle]="{ 'font-size': '0px', 'line-height': '0px' }">
+            <img class="md-image md-image-36" draggable="false" src="https://blzgdapipro-a.akamaihd.net/game/unlocks/0x0250000000000D6A.png">
+          </a>
+        </div>
+
+        <div class="flex-layout" fxLayout="column" fxFlex="grow">
+          <div class="flex-layout" fxLayout="row" fxFlex="noshrink">
+            <span class="player-tag mat-caption"><strong>{{ friendship.friend.displayName }}</strong></span>
+          </div>
+          <div class="skill-rating flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
+            <img width="18" src="https://blzgdapipro-a.akamaihd.net/game/rank-icons/season-2/rank-7.png">
+            <span class="ml-1">2315</span>
+          </div>
+        </div>
+
+        <div class="flex-layout" fxLayout="column" fxLayoutGap="8px" fxFlex="noshrink">
+
+          <md-menu #clubFriendMenu="mdMenu">
+            <button md-menu-item color="warn" (click)="deleteFriend(friendship.id)">
+              <md-icon>delete_forever</md-icon>
+              <span>Unfriend</span>
+            </button>
+            <button md-menu-item *ngIf="club.name !== 'General'" (click)="removeFriend(friendship.id, club.id)">
+              <md-icon>favorite_border</md-icon>
+              <span>Remove from group</span>
+            </button>
+          </md-menu>
+
+          <button md-icon-button [mdMenuTriggerFor]="clubFriendMenu">
+            <md-icon>more_horiz</md-icon>
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- <md-action-row>
+      <button md-button (click)="myPanel.expanded = false">
+        <md-icon>delete_forever</md-icon>
+        <span>Delete</span>
+      </button>
+      <button md-button>
+        <md-icon>mode_edit</md-icon>
+        <span>Edit</span>
+      </button>
+    </md-action-row> -->
+  </md-expansion-panel>
+
+  <!-- <td-expansion-panel
     class="flex-layout"
     fxLayout="column"
     fxFlex="grow"
@@ -136,6 +246,6 @@
 
     </div>
 
-  </td-expansion-panel>
+  </td-expansion-panel> -->
 
 </div>

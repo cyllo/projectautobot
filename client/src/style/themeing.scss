@@ -1,6 +1,5 @@
 @import '~@angular/material/theming';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
-@import '~@covalent/core/theming/all-theme';
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 @import 'color-helper';
 
@@ -34,7 +33,6 @@
 @import 'themes/components/news-post-card-theme';
 
 @mixin component-themes($theme) {
-  @include covalent-theme($theme);
   @include mat-tabs-theme($theme);
   @include mat-sidenav-theme($theme);
   @include perfect-scrollbar-theme($theme);

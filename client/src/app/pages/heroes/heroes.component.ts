@@ -1,23 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { HeroStatistics } from '../../services';
 
 @Component({
   selector: 'ow-heroes',
   templateUrl: 'heroes.component.html',
-  styleUrls: [ 'heroes.component.scss' ],
-  providers: [HeroStatistics]
+  styleUrls: ['heroes.component.scss']
 })
+
 export class HeroesComponent implements OnInit {
-  heroes;
 
-  constructor(private heroStatistics: HeroStatistics) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.loadHeroData();
+  ngOnInit() {}
+
+  onScrollDown() {
+    console.log('reached bottom of page so loading more data');
   }
 
-  loadHeroData() {
-    return this.heroStatistics.getSnapshot()
-    .subscribe(snapshotStats => this.heroes = snapshotStats);
-  }
 }
