@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavLink, AppState } from '../../../models';
 import { Store } from '@ngrx/store';
-import { take, drop, filter, propEq } from 'ramda';
+import { take, filter, propEq } from 'ramda';
 
 @Component({
   selector: 'ow-nav-list',
@@ -17,17 +17,21 @@ export class NavListComponent implements OnInit {
       routerLink: '/news'
     },
     {
-      name: 'Leaderboard',
-      routerLink: '/leaderboard'
-    },
-    {
-      name: 'Heroes',
-      routerLink: '/heroes'
-    },
-    {
       name: 'Following',
       routerLink: '/following'
     }
+    // {
+    //   name: 'Leaderboard',
+    //   routerLink: '/leaderboard'
+    // },
+    // {
+    //   name: 'Heroes',
+    //   routerLink: '/heroes'
+    // },
+    // {
+    //   name: 'Following',
+    //   routerLink: '/following'
+    // }
   ];
 
   firstTwo: NavLink[];
@@ -40,8 +44,9 @@ export class NavListComponent implements OnInit {
         const authSafe = currentSession
         ? this.navLinks
         : filter(navLink => !propEq('name', 'Following', navLink), this.navLinks);
+
         this.firstTwo = take(2, authSafe);
-        this.remaining = drop(2, authSafe);
+        // this.remaining = takeLast(2, authSafe);
     });
   }
 }

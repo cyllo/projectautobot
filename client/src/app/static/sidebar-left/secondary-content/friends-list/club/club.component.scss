@@ -1,11 +1,11 @@
-:host /deep/ .club {
+.club {
 
   outline: none;
 
-  .club-name-editor {
-    input[type="text"] {
-      max-width: 108px;
-    }
+  .club-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   input[type="text"] {
@@ -14,42 +14,49 @@
     text-overflow: ellipsis;
   }
 
-  .mat-expansion-indicator {
-    padding: 0 14px;
+  .btn-club-name {
+    text-transform: none;
+    font-weight: normal;
+    font-size: inherit;
   }
 
-  .mat-expansion-panel-header {
+  .btn-content-toggle {
 
-    padding: 0 14px;
+    .mat-icon {
+      transform: rotate(0);
+      transition: transform 0.25s cubic-bezier(0.55, 0, 0.1, 1);
+    }
+
+    &.collapsed .mat-icon {
+      transform: rotate(-90deg) !important;
+    }
+
+  }
+
+}
+
+:host /deep/ .club {
+
+  .td-expansion-panel {
+    font-size: 12px;
+  }
+
+  .td-expansion-panel-header {
+    flex-direction: column;
+    flex: 0 1 auto;
+    border-radius: 2px;
+  }
+
+  .td-expansion-panel-header,
+  .td-expansion-content,
+  .td-expansion-summary {
     min-width: 0;
     min-height: 0;
-
-    button {
-      font-size: 12px;
-      letter-spacing: 0.075px;
-    }
-
-    .mat-content {
-      min-width: 0;
-      min-height: 0;
-      align-content: flex-start;
-      justify-content: center;
-    }
-
-    .mat-expansion-panel-header-title {
-      margin: 0;
-    }
-
-    .mat-expansion-panel-header-description {
-      align-items: center;
-      flex: 0 1 100%;
-    }
-
   }
 
-  .player-tag,
-  .skill-rating {
-    line-height: 1;
+  .td-expansion-content,
+  .td-expansion-summary {
+    padding: 0 8px;
   }
 
   md-menu {

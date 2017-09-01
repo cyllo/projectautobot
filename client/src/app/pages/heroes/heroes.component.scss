@@ -1,16 +1,1 @@
-:host /deep/ .heroes {
-  .main-search-form {
-    .form-icon {
-      padding: 0 14px;
-    }
-    input[type="text"] {
-      padding: 14px 48px;
-    }
-  }
-  .chart {
-    canvas {
-      height: 120px !important;
-      max-height: 120px !important;
-    }
-  }
-}
+@import "../../../style/colors";

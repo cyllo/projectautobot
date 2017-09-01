@@ -21,7 +21,7 @@
 
     color: $input-text-color;
     background-color: $input-background-color;
-    border: 1px solid mat-color($foreground, divider);
+    border: 1px solid $input-background-color;
     transition: all 0.25s ease-in-out;
 
     &:focus {

@@ -12,8 +12,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DragulaModule } from 'ng2-dragula';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import 'hammerjs';
 import { MdSidenavModule,
          MdButtonModule,
          MdMenuModule,
@@ -26,9 +24,8 @@ import { MdSidenavModule,
          MdToolbarModule,
          MdIconModule,
          MdProgressSpinnerModule,
-         MdCheckboxModule,
-         MdExpansionModule } from '@angular/material';
-
+         MdCheckboxModule } from '@angular/material';
+import { CovalentExpansionPanelModule } from '@covalent/core';
 import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
 import { ApolloModule } from 'apollo-angular';
@@ -102,11 +99,11 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MdSnackBarModule,
     PerfectScrollbarModule,
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
+    CovalentExpansionPanelModule,
     MdToolbarModule,
     MdIconModule,
     MdProgressSpinnerModule,
-    MdCheckboxModule,
-    MdExpansionModule
+    MdCheckboxModule
   ],
   declarations,
   providers: [

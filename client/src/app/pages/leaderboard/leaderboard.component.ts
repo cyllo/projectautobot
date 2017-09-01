@@ -8,12 +8,24 @@ import { Component, OnInit } from '@angular/core';
 
 export class LeaderboardComponent implements OnInit {
 
-  constructor() {}
+  public columns;
+  public rows;
 
-  ngOnInit() {}
+  constructor() {
+    // Do stuff
+  }
 
-  onScrollDown() {
-    console.log('reached bottom of page so loading more data');
+  ngOnInit() {
+
+    this.columns = [
+      { prop : 'player' },
+      { name : 'skillrating' }
+    ];
+
+    this.rows = [
+      { player: 'Cyllo' , skillrating: '5000'}
+    ];
+
   }
 
 }

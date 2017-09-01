@@ -41,4 +41,24 @@
     overflow-y: auto;
   }
 
+  .player-card {
+
+    span {
+      line-height: 1;
+    }
+
+    .player-tag {
+      font-size: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-bottom: 2px;
+    }
+
+    .skill-rating {
+      font-size: 10px;
+    }
+
+  }
+
 }
