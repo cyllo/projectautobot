@@ -214,6 +214,7 @@ defmodule Api.Schema do
     field :update_user, :user do
       arg :display_name, :string
       arg :email, :string
+      arg :primary_gamer_tag_id, :integer
       arg :old_password, :string
       arg :new_password, :string
 
@@ -326,6 +327,20 @@ defmodule Api.Schema do
 
       middleware Middleware.Auth
       resolve &FriendshipResolver.accept/2
+    end
+
+    @desc """
+      Sets the primary gamer tag for a friendship, this is the primary
+      profile you will see
+
+      Restrictions: User Auth
+    """
+    field :set_friendship_primary_gamer_tag, :friendship do
+      arg :friendship_id, non_null(:integer)
+      arg :gamer_tag_id, non_null(:integer)
+
+      middleware Middleware.Auth
+      resolve &FriendshipResolver.set_primary_gamer_tag/2
     end
 
     @desc """

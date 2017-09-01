@@ -10,6 +10,17 @@ defmodule Api.Schema.FriendTypes do
     field :is_accepted, :boolean
     field :user_id, :integer
     field :friend_id, :integer
+    field :primary_gamer_tag_id, :integer
+
+    field :primary_gamer_tag, :gamer_tag do
+      resolve fn friendship, _, _ ->
+        batch(
+          {FriendshipResolver, :get_primary_gamer_tags},
+          friendship,
+          &{:ok, Map.get(&1, friendship.id)}
+        )
+      end
+    end
 
     field :user, :user do
       resolve fn friendship, _, _ ->

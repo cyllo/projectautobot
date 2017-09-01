@@ -1,11 +1,13 @@
 defmodule Models.Accounts.Friendship do
   use Models.Model
   alias Ecto.Multi
+  alias Models.Game.GamerTag
   alias Models.Accounts.{User, Friendship, UserFriendGroup}
 
   schema "friendships" do
     field :is_accepted, :boolean, default: false
     field :is_sender, :boolean, default: false
+    belongs_to :primary_gamer_tag, GamerTag
     belongs_to :user, User
     belongs_to :friend, User
     many_to_many :user_friend_groups, UserFriendGroup, join_through: "user_friend_group_friendships",
@@ -14,7 +16,7 @@ defmodule Models.Accounts.Friendship do
     timestamps(type: :utc_datetime)
   end
 
-  @allowed_fields [:is_accepted, :is_sender]
+  @allowed_fields [:primary_gamer_tag_id, :is_accepted, :is_sender]
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -22,6 +24,7 @@ defmodule Models.Accounts.Friendship do
   def changeset(%Friendship{} = struct, params \\ %{}) do
     struct
       |> cast(params, @allowed_fields)
+      |> foreign_key_constraint(:primary_gamer_tag_id)
   end
 
   def create_changeset(params), do: changeset(%Friendship{}, params)

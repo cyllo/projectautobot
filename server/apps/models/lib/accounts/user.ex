@@ -14,6 +14,7 @@ defmodule Models.Accounts.User do
     field :password, :string, virtual: true
     field :password_hash, :string
     field :is_admin, :boolean, default: false
+    belongs_to :primary_gamer_tag, GamerTag
     has_many :friendships, Friendship
     has_many :gamer_tags, GamerTag
     has_many :friend_groups, UserFriendGroup
@@ -33,7 +34,7 @@ defmodule Models.Accounts.User do
   end
 
   @required_fields [:display_name, :email]
-  @allowed_fields Enum.concat(@required_fields, [:password, :battle_net_id, :battle_net_tag])
+  @allowed_fields Enum.concat(@required_fields, [:primary_gamer_tag_id, :password, :battle_net_id, :battle_net_tag])
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -42,6 +43,7 @@ defmodule Models.Accounts.User do
     user
       |> cast(params, @allowed_fields)
       |> validate_required(@required_fields)
+      |> foreign_key_constraint(:primary_gamer_tag_id, message: "primary gamer tag id doesn't exist")
       |> unique_constraint(:display_name, name: :users_display_name_index)
       |> unique_constraint(:email, name: :users_email_index)
       |> unique_constraint(:battle_net_id, name: :users_battle_net_id_index,

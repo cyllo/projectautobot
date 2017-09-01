@@ -10,6 +10,7 @@ defmodule Api.Schema.AccountTypes do
     field :email, :string
     field :battle_net_id, :integer
     field :battle_net_tag, :string
+    field :primary_gamer_tag_id, :integer
 
     field :friendships, list_of(:friendship) do
       arg :is_incoming, :boolean
@@ -43,7 +44,16 @@ defmodule Api.Schema.AccountTypes do
         )
       end
     end
-    #
+
+    field :primary_gamer_tag, :gamer_tag do
+      resolve fn user, _, _ ->
+        batch(
+          {UserResolver, :get_primary_gamer_tags},
+          user,
+          &{:ok, Map.get(&1, user.id)}
+        )
+      end
+    end
 
     field :gamer_tags, list_of(:gamer_tag) do
       resolve fn user, _, _ ->

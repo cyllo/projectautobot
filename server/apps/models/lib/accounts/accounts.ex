@@ -214,6 +214,14 @@ defmodule Models.Accounts do
     end
   end
 
+  def set_primary_gamer_tag(user, friendship_id, gamer_tag_id) do
+    with {:ok, {user_friendship, _}} <- get_friendship_tuple(user, %{friendship_id: friendship_id}) do
+      user_friendship
+        |> Friendship.changeset(%{primary_gamer_tag_id: gamer_tag_id})
+        |> Repo.update
+    end
+  end
+
   def get_friend(user_id, friend_id) do
     if user_id === friend_id do
       {:error, "You cannot use yourself as friend"}

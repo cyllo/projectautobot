@@ -1,5 +1,5 @@
 defmodule Api.UserResolver do
-  import Api.Helpers, only: [preload_id_map: 3, convert_to_id_map: 3]
+  import Api.Helpers, only: [preload_id_map: 2, preload_id_map: 3, convert_to_id_map: 3]
 
   alias Models.{Accounts, Game}
 
@@ -9,6 +9,7 @@ defmodule Api.UserResolver do
   def all(params, _info), do: Accounts.get_all_users(params)
   def find(%{identifier: identifier}, _info), do: Accounts.find_user_by_email_or_display_name(identifier)
   def find(params, _info), do: Accounts.find_user(params)
+
   def create(%{client_auth_token: token} = params, _info) do
     with {:ok, battle_net_info} <- BattleNet.get_battle_net_info(token),
          {:ok, user} <- params |> Map.drop([:client_auth_token]) |> Map.merge(battle_net_info) |> Accounts.create_user do
@@ -62,6 +63,8 @@ defmodule Api.UserResolver do
       |> Enum.map(fn {id, values} -> {id, Enum.sort_by(values, &(&1.id))} end)
       |> Map.new
   end
+
+  def get_primary_gamer_tags(_, users), do: preload_id_map(users, :primary_gamer_tag)
 
   def get_friendships(params, users) do
     Accounts.get_users_friendships(users, params)

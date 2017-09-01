@@ -16,27 +16,27 @@ end
 users = [%{
   display_name: "Tim",
   email: "tim@gmail.com",
-  password: "password"
+  password: "P@ssword1"
 }, %{
   display_name: "Bob",
   email: "bob@gmail.com",
-  password: "password"
+  password: "P@ssword1"
 }, %{
   display_name: "Chad",
   email: "chad@gmail.com",
-  password: "password"
+  password: "P@ssword1"
 }, %{
   display_name: "Nick",
   email: "nick@gmail.com",
-  password: "password"
+  password: "P@ssword1"
 }, %{
   display_name: "Kurt",
   email: "kurt@gmail.com",
-  password: "password"
+  password: "P@ssword1"
 }, %{
   display_name: "Mika",
   email: "mika@gmail.com",
-  password: "password"
+  password: "P@ssword1"
 }]
 
 # Create Users
