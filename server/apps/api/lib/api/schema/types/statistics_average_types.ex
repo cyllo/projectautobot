@@ -1,6 +1,8 @@
 defmodule Api.Schema.StatisticAverageTypes do
   use Absinthe.Schema.Notation
 
+  import Api.Schema.ScalarTypes, only: [timestamp_types: 0]
+
   object :combat_best_statistic_average do
     field :eliminations_most_in_life, :decimal
     field :eliminations_most_in_game, :decimal

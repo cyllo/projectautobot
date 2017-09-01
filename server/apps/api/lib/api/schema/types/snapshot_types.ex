@@ -2,6 +2,8 @@ defmodule Api.Schema.SnapshotTypes do
   use Absinthe.Schema.Notation
   alias Api.SnapshotStatisticResolver
 
+  import Api.Schema.ScalarTypes, only: [timestamp_types: 0]
+
   enum :snapshot_statistic_type do
     value :competitive
     value :quickplay
@@ -52,6 +54,8 @@ defmodule Api.Schema.SnapshotTypes do
         )
       end
     end
+
+    timestamp_types
   end
 
   object :profile_snapshot_statistic do
