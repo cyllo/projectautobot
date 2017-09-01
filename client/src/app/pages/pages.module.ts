@@ -62,7 +62,10 @@ import {
   UserRegistrationComponent,
   AccountSettingsComponent,
   ListOfCompareableHeroesComponent,
-  SkillRatingTrendComponent
+  SkillRatingTrendComponent,
+  LeaderboardHeaderComponent,
+  LeaderboardTableComponent,
+  LeaderboardChartComponent
 } from './index';
 
 @NgModule({
@@ -131,7 +134,10 @@ import {
     UserRegistrationComponent,
     AccountSettingsComponent,
     ListOfCompareableHeroesComponent,
-    SkillRatingTrendComponent
+    SkillRatingTrendComponent,
+    LeaderboardHeaderComponent,
+    LeaderboardTableComponent,
+    LeaderboardChartComponent
   ],
   exports: [
     HomeComponent,
@@ -158,7 +164,10 @@ import {
     ProfilePageTabsComponent,
     LoginComponent,
     UserRegistrationComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    LeaderboardHeaderComponent,
+    LeaderboardTableComponent,
+    LeaderboardChartComponent
   ]
 })
 

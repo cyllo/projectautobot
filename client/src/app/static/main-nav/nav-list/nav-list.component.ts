@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavLink, AppState } from '../../../models';
 import { Store } from '@ngrx/store';
-import { take, filter, propEq } from 'ramda';
+import { take, takeLast, filter, propEq } from 'ramda';
 
 @Component({
   selector: 'ow-nav-list',
@@ -46,7 +46,7 @@ export class NavListComponent implements OnInit {
         : filter(navLink => !propEq('name', 'Following', navLink), this.navLinks);
 
         this.firstTwo = take(2, authSafe);
-        // this.remaining = takeLast(2, authSafe);
+        this.remaining = takeLast(2, authSafe);
     });
   }
 }

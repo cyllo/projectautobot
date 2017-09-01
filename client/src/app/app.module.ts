@@ -12,6 +12,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DragulaModule } from 'ng2-dragula';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import 'hammerjs';
 import { MdSidenavModule,
          MdButtonModule,
          MdMenuModule,

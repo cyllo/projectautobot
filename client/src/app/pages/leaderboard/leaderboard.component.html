@@ -1,53 +1,18 @@
-<div class="leaderboard flex-layout pt-3 px-3" fxLayout="column" fxLayoutGap="14px" fxFlex>
-
-  <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink" fxLayoutWrap>
-
-    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="20%" fxFlex.lt-md="33.333%">
-      <md-select placeholder="Platform" [(ngModel)]="selectedPlatform">
-         <md-option *ngFor="let platform of platforms" [value]="platform.value">{{ platform.name }}</md-option>
-      </md-select>
-    </div>
-
-    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="20%" fxFlex.lt-md="33.333%">
-      <md-select placeholder="Region" [(ngModel)]="selectedRegion">
-         <md-option *ngFor="let region of regions" [value]="region.value">{{ region.name }}</md-option>
-      </md-select>
-    </div>
-
-    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="20%" fxFlex.lt-md="33.333%">
-      <md-select placeholder="Sorting Method" [(ngModel)]="selectedSortingMethod">
-         <md-option *ngFor="let method of sortingMethods" [value]="method.value">{{ method.name }}</md-option>
-      </md-select>
-    </div>
-
-    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="40%" fxFlex.lt-md>
-      <ow-search [placeholder]="'Search by Battle Tag or Gamer Tag'"></ow-search>
-    </div>
-
+<div class="leaderboard flex-layout px-3"
+     fxLayout="column"
+     fxLayoutGap="14px"
+     fxFlex
+     infiniteScroll
+     [infiniteScrollDistance]="0"
+     [infiniteScrollThrottle]="250"
+     (scrolled)="onScrollDown()">
+  <div class="flex-layout" fxLayout="row" fxFlex="noshrink">
+    <ow-leaderboard-header class="flex-layout" fxLayout="column" fxFlex></ow-leaderboard-header>
   </div>
-
-  <div class="flex-layout" fxLayout="row" fxFlex="noshrink" fxLayoutWrap>
-    <div class="flex-layout" fxLayout="column" fxLayoutGap="14px" fxFlex>
-      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
-        <span class="mat-caption text-uppercase"><strong>Skill Rating Distribution</strong></span>
-      </div>
-      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <ow-chart
-            [chartType]="srdChart.chartType"
-            [labels] = "srdChart.xAxisLabels"
-            [datasets]="srdChart.datasets"
-            [legend]="srdChart.legend">
-          </ow-chart>
-        </div>
-      </div>
-    </div>
+  <div class="flex-layout px-3" fxLayout="row" fxFlex="noshrink" fxLayoutWrap>
+    <ow-leaderboard-chart class="flex-layout" fxLayout="column" fxFlex></ow-leaderboard-chart>
   </div>
-
-  <div class="flex-layout" fxLayout="row" fxFlex="noshrink" fxLayoutWrap>
-    <div class="flex-layout" fxLayout="column" fxFlex>
-      table goes here
-    </div>
+  <div class="flex-layout px-3" fxLayout="row" fxFlex="noshrink" fxLayoutWrap>
+    <ow-leaderboard-table class="flex-layout" fxLayout="column" fxFlex></ow-leaderboard-table>
   </div>
-
 </div>
