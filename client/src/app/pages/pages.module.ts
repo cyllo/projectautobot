@@ -65,7 +65,8 @@ import {
   SkillRatingTrendComponent,
   LeaderboardHeaderComponent,
   LeaderboardTableComponent,
-  LeaderboardChartComponent
+  LeaderboardChartComponent,
+  HeroesChartComponent
 } from './index';
 
 @NgModule({
@@ -137,7 +138,8 @@ import {
     SkillRatingTrendComponent,
     LeaderboardHeaderComponent,
     LeaderboardTableComponent,
-    LeaderboardChartComponent
+    LeaderboardChartComponent,
+    HeroesChartComponent
   ],
   exports: [
     HomeComponent,
@@ -167,7 +169,8 @@ import {
     AccountSettingsComponent,
     LeaderboardHeaderComponent,
     LeaderboardTableComponent,
-    LeaderboardChartComponent
+    LeaderboardChartComponent,
+    HeroesChartComponent
   ]
 })
 

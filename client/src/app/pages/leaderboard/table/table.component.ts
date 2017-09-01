@@ -3,22 +3,23 @@ import { MdSort } from '@angular/material';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 
-export interface Hero {
+interface Hero {
+  code: string;
   name: string;
   avatarUrl: string;
 }
 
-export interface CompetitiveSkillRating {
+interface CompetitiveSkillRating {
   rankUrl: string;
   rank: number;
 }
 
-export interface Player {
+interface Player {
   tag: string;
   avatarUrl: string;
 }
 
-export interface PlayerLeaderboardDataEntry {
+interface PlayerLeaderboardDataEntry {
   position: number;
   platform: string;
   region: string;
@@ -75,7 +76,7 @@ export class LeaderboardTableComponent implements OnInit {
  * the underlying data. Instead, it only needs to take the data and send the table exactly what
  * should be rendered.
  */
-export class TableDataSource extends DataSource<any> {
+class TableDataSource extends DataSource<any> {
 
   data: PlayerLeaderboardDataEntry[] = [];
 
@@ -104,14 +105,17 @@ export class TableDataSource extends DataSource<any> {
           timePlayed: 123456789,
           mostPlayedHeroes: [
             {
+              code: '',
               name: 'Soldier-76',
               avatarUrl: 'https://blzgdapipro-a.akamaihd.net/hero/soldier-76/hero-select-portrait.png'
             },
             {
+              code: '',
               name: 'Soldier-76',
               avatarUrl: 'https://blzgdapipro-a.akamaihd.net/hero/soldier-76/hero-select-portrait.png'
             },
             {
+              code: '',
               name: 'Soldier-76',
               avatarUrl: 'https://blzgdapipro-a.akamaihd.net/hero/soldier-76/hero-select-portrait.png'
             }
