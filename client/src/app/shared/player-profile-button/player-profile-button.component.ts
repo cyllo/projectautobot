@@ -3,14 +3,14 @@ import { Store } from '@ngrx/store';
 import { GamerTag, AppState } from '../../models';
 import { Observable } from 'rxjs/Observable';
 import { assoc, isNil } from 'ramda';
-import { ProfileService } from '../../services';
+import { ProfileService, ErrorHandlerService } from '../../services';
 import { resetTagSearch } from '../../reducers';
 
 @Component({
   selector: 'ow-player-profile-button',
   templateUrl: 'player-profile-button.component.html',
   styleUrls: ['player-profile-button.component.scss'],
-  providers: [ProfileService]
+  providers: [ProfileService, ErrorHandlerService]
 })
 export class PlayerProfileButtonComponent implements OnInit {
   @Input('player') player: GamerTag;

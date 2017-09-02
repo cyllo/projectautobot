@@ -5,8 +5,8 @@ import { Component,
          ViewChild,
          ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { Club, Friendship } from '../../../../../models';
-import { ClubService, FriendShipService } from '../../../../../services';
+import { Club, Friendship } from '../../../../models';
+import { ClubService, FriendShipService } from '../../../../services';
 import { map, pluck, compose, flatten, path } from 'ramda';
 
 @Component({

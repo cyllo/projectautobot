@@ -1,7 +1,17 @@
 #import "./user-fields.gql"
+#import "../gamertag/gamer-tag-fields.gql"
+#import "../gamertag/profile-snapshot-statistic.gql"
 
 query Search($displayName: String!) {
   users(search: $displayName) {
     ...UserFields
+    gamerTags {
+      ...GamerTagFields
+      snapshotStatistics(last: 1) {
+        id
+        gamerTagId
+        ...ProfileStatistic
+      }
+    }
   }
 }
