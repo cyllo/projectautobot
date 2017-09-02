@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeingService, AppTheme } from '../../services';
 import { AppState } from '../../models';
-import { isNil } from 'ramda';
+import { isNil, length, filter, propEq, values, find, prop, isEmpty } from 'ramda';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
@@ -16,7 +16,8 @@ export class SideBarLeftComponent implements OnInit {
 
   sideNavOpen: boolean;
   appThemesCatalog: AppTheme[];
-
+  friendsCount: any;
+  friendRequestCount: number;
   userLoggedIn: Observable<boolean>;
 
   constructor(private store: Store<AppState>,
@@ -26,8 +27,22 @@ export class SideBarLeftComponent implements OnInit {
 
   ngOnInit() {
     this.appThemesCatalog = Object.values(this.themeingService.themes());
+
     this.userLoggedIn = this.store.select('currentSession')
-      .map(currentSession => !isNil(currentSession));
+    .map(currentSession => !isNil(currentSession));
+
+    this.friendsCount = this.store.select('clubs')
+    .filter(clubs => !isEmpty(clubs))
+    .map(clubs => {
+      const club = find(propEq('name', 'General'), values(clubs));
+      return length(<any[]>prop('friendships', club));
+    });
+
+    this.store.select('friendships')
+    .map(friendships => filter(propEq('isAccepted', false), values(friendships)))
+    .subscribe(friendRequests => {
+      this.friendRequestCount = length(friendRequests);
+    });
   }
 
   loadTheme(theme: AppTheme) {

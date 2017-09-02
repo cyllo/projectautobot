@@ -1,5 +1,5 @@
 import { ClubState, Club } from '../models';
-import { dissoc, assoc, propEq, reject, map } from 'ramda';
+import { dissoc, assoc, propEq, reject, map, values, find } from 'ramda';
 
 const removeClubFriendship = (friendshipId, club) => {
   return assoc('friendships', reject(propEq('id', friendshipId), club.friendships), club);
@@ -64,3 +64,8 @@ export function removeFriendship(friendshipId, clubId) {
 export function deleteFriendship(friendshipId) {
   return { type: 'DELETE_FRIENDSHIP', payload: { friendshipId } };
 }
+
+export function getGeneralClub() {
+  return state => state.map(clubState => find(propEq('name', 'General'), values(clubState)));
+}
+

@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { dissoc, prop } from 'ramda';
 import { listFollowedUsers, listFollowedGamerTags, login } from '../reducers';
 import * as Cookies from 'js-cookie';
+import { ErrorHandlerService } from './error-handler.service';
+import { Observable } from 'rxjs/Observable';
 
 const getUserProps = user => dissoc('following', user);
 const getFollowedUsers = user => <User[]>prop('following', user);
@@ -17,7 +19,9 @@ export class AuthorizationService {
 
   constructor(private apollo: Apollo,
     private store: Store<AppState>,
-    private router: Router) {}
+    private router: Router,
+    private error: ErrorHandlerService
+  ) {}
 
   login({ password, email }: Credentials ) {
     return this.apollo.mutate({
@@ -31,7 +35,11 @@ export class AuthorizationService {
       followedUsers: getFollowedUsers(user),
       followedGamerTags: getFollowedGamerTags(user)
     }))
-    .do(loginData => this.setAppState(loginData));
+    .do(loginData => this.setAppState(loginData))
+    .catch(error => {
+      this.error.show(this.error.filterGraphqlMessage(error));
+      return Observable.of(undefined);
+    });
   }
 
   logout() {

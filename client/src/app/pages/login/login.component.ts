@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthorizationService, ErrorHandlerService } from '../../services';
+import { AuthorizationService } from '../../services';
 import { Credentials } from '../../models';
 import { Location } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import { compose, not, isNil } from 'ramda';
 
+const notNil = compose(not, isNil);
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -12,18 +15,17 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
   selector: 'ow-login',
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.scss'],
-  providers: [AuthorizationService, ErrorHandlerService]
+  providers: [AuthorizationService]
 })
 
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  loginError: boolean;
   loginForm$ = new Subject<Credentials>();
-
+  derpy: Observable<any>;
   constructor(
     private authorizationService: AuthorizationService,
-    private location: Location,
-    private error: ErrorHandlerService) {}
+    private location: Location
+  ) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -33,12 +35,7 @@ export class LoginComponent implements OnInit {
 
     this.loginForm$
     .switchMap(credentials => this.authorizationService.login(credentials))
-    .subscribe(() => {
-      this.loginError = false;
-      this.location.back();
-    }, (error) => {
-      this.loginError = true;
-      this.error.show(this.error.filterGraphqlMessage(error));
-    });
+    .filter(notNil)
+    .subscribe(() => this.location.back());
   }
 }

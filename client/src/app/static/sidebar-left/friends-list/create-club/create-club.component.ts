@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ClubService } from '../../../../../services';
+import { ClubService } from '../../../../services';
 
 @Component({
   selector: 'ow-create-club',

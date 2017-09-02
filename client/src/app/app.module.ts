@@ -38,14 +38,13 @@ import { MomentModule } from 'angular2-moment';
 
 import { httpInterceptor } from './app.http-interceptor';
 import { BlogPostResolver } from './pages/resolvers';
-import { GamerTagService, ProfileService, BlogPostsService } from './services';
 import { AppComponent } from './app.component';
 import * as staticComponents from './static';
 import { routing } from './app.routing';
 import '@ngrx/core/add/operator/select';
 
 
-import { OrderByPipe, ValuesPipe } from './pipes';
+import { OrderByPipe, ValuesPipe, HasSnapshot } from './pipes';
 import {
   PlayersService,
   OverwatchHeroDataService,
@@ -53,13 +52,17 @@ import {
   AuthGuard,
   SocketService,
   FriendShipService,
+  ProfileService,
+  ErrorHandlerService,
+  GamerTagService,
+  BlogPostsService,
   ClubService } from './services';
 
 import { reducerStack, initialStates } from './reducers';
 import { SharedModule } from './shared';
 import { PagesModule } from './pages';
 
-const declarations: any[] = [AppComponent, OrderByPipe, ValuesPipe, ...values(staticComponents)];
+const declarations: any[] = [AppComponent, OrderByPipe, ValuesPipe, HasSnapshot, ...values(staticComponents)];
 export function instrumentOptions() {
   return {
     monitor: useLogMonitor({ visible: false, position: 'right' })
@@ -120,7 +123,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ClubService,
     FriendShipService,
     BlogPostsService,
-    BlogPostResolver
+    BlogPostResolver,
+    ErrorHandlerService
   ],
   bootstrap: [AppComponent]
 })

@@ -15,7 +15,7 @@ const noBnetCode = compose(isNil, prop('code'));
   selector: 'ow-user-registration',
   templateUrl: 'user-registration.component.html',
   styleUrls: ['user-registration.component.scss'],
-  providers: [UserService, ClubService, ErrorHandlerService]
+  providers: [UserService, ClubService, ErrorHandlerService, AuthorizationService]
 })
 
 export class UserRegistrationComponent implements OnInit {
