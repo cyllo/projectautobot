@@ -34,12 +34,15 @@
 
       <ng-template #clubHeader>
         <mat-panel-title *ngIf="club.name !== 'General'">
-          <button md-button class="min-width-0" (click)="compareProfiles(club.friendships); stopPropagation($event);">
+          <button md-button
+                  class="min-width-0"
+                  (click)="compareProfiles(club.friendships); stopPropagation($event);"
+                  [disabled]="club.friendships.length < 2">
             <md-icon>compare_arrows</md-icon>
           </button>
         </mat-panel-title>
         <mat-panel-description>
-          <button md-button
+          <button class="club-name" md-button
                   fxLayoutAlign="start center"
                   fxFlex
                   (click)="toggleClubNameEdit($event); stopPropagation($event);"
