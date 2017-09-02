@@ -1,17 +1,51 @@
-<div class="compared-profiles">
-  <div class="container mb-3">
-    <div class="row">
-      <div class="col">
-        <div class="content rounded pt-3">
-          <div class="container-fluid">
-            <div class="row-fluid">
-              <div class="player col-lg-5 col-md-8 col-8" *ngFor="let player of listOfPlayerTags">
-                <ow-profile-checkbox [owTag]="player"></ow-profile-checkbox>
-              </div><!-- .col -->
-            </div><!-- .row -->
-          </div><!-- .container-fluid -->
-        </div><!-- .content -->
-      </div><!-- .col -->
-    </div><!-- .row -->
-  </div><!-- .container -->
-</div><!-- .compared-profiles  -->
+<div class="compared-profiles flex-layout" fxLayout="column" fxFlex>
+  <div class="flex-layout px-3 py-3" fxLayout="row">
+    <span class="mat-caption text-uppercase"><strong>Comparing {{players.length}} profiles.</strong></span>
+  </div>
+  <div class="flex-layout" fxLayout="row" fxFlex="noshrink" fxLayoutWrap>
+    <div class="flex-layout px-3 py-3" fxLayout="column" fxFlex="grow" fxLayoutGap="8px" *ngFor="let player of players">
+      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center">
+        <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
+          <img class="md-image md-image-36" src="https://d1u1mce87gyfbn.cloudfront.net/game/unlocks/0x0250000000001270.png">
+        </div>
+        <div class="flex-layout px-2" fxLayout="column" fxFlex="grow">
+          <div class="flex-layout" fxLayout="row">
+            <span class="mat-caption text-uppercase"><strong>{{player.tag}}</strong></span>
+          </div>
+        </div>
+      </div>
+      <div class="flex-layout" fxLayout="row">
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <div class="flex-layout" fxLayout="row">
+            <span class="mat-caption text-uppercase"><strong>platform</strong></span>
+          </div>
+          <div class="flex-layout pt-1" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <md-radio-group fxLayoutGap="8px">
+                <md-radio-button value="1" checked="true">PC</md-radio-button>
+                <md-radio-button value="2">PSN</md-radio-button>
+                <md-radio-button value="2">XBL</md-radio-button>
+              </md-radio-group>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-layout" fxLayout="row">
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <div class="flex-layout" fxLayout="row">
+            <span class="mat-caption text-uppercase"><strong>region</strong></span>
+          </div>
+          <div class="flex-layout pt-1" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <md-radio-group fxLayoutGap="8px">
+                <md-radio-button value="1" checked="true">US</md-radio-button>
+                <md-radio-button value="2">KR</md-radio-button>
+                <md-radio-button value="2">CH</md-radio-button>
+              </md-radio-group>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
