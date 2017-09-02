@@ -6,7 +6,7 @@ defmodule Api.UserResolver do
   def current(_, %{context: %{current_user: user}}), do: {:ok, user}
   def all(%{search: identifier}, %{context: %{current_user: user}}), do: {:ok, Accounts.search_users_excluding_user(identifier, user.id)}
   def all(%{search: identifier}, _info), do: {:ok, Accounts.search_users(identifier)}
-  def all(params, _info), do: Accounts.get_all_users(params)
+  def all(params, _info), do: {:ok, Accounts.get_all_users(params)}
   def find(%{identifier: identifier}, _info), do: Accounts.find_user_by_email_or_display_name(identifier)
   def find(params, _info), do: Accounts.find_user(params)
 

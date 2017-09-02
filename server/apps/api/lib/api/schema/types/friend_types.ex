@@ -8,6 +8,7 @@ defmodule Api.Schema.FriendTypes do
   object :friendship do
     field :id, :integer
     field :is_accepted, :boolean
+    field :is_sender, :boolean
     field :user_id, :integer
     field :friend_id, :integer
     field :primary_gamer_tag_id, :integer

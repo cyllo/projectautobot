@@ -13,8 +13,8 @@ defmodule Api.Schema.AccountTypes do
     field :primary_gamer_tag_id, :integer
 
     field :friendships, list_of(:friendship) do
-      arg :is_incoming, :boolean
       arg :is_accepted, :boolean
+      arg :is_sender, :boolean
 
       resolve fn user, args, _ ->
         batch(
