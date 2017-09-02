@@ -59,22 +59,6 @@ export class HeroesHeaderComponent implements OnInit {
     }
   ];
 
-  selectedSortingMethod = 'pickrate';
-  sortingMethods = [
-    {
-      name: 'Pick Rate',
-      value: 'pickrate'
-    },
-    {
-      name: 'Win Rate',
-      value: 'winrate'
-    },
-    {
-      name: 'Time On Fire',
-      value: 'timeonfire'
-    }
-  ];
-
   constructor() {}
 
   ngOnInit() {}

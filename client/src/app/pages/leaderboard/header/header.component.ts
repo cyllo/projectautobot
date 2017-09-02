@@ -47,22 +47,6 @@ export class LeaderboardHeaderComponent implements OnInit {
     }
   ];
 
-  selectedSortingMethod = 'skillrating';
-  sortingMethods = [
-    {
-      name: 'Skill Rating',
-      value: 'skillrating'
-    },
-    {
-      name: 'Level',
-      value: 'level'
-    },
-    {
-      name: 'Time Played',
-      value: 'timeplayed'
-    }
-  ];
-
   constructor() {}
 
   ngOnInit() {}
