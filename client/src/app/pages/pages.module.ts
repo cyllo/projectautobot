@@ -23,7 +23,10 @@ import { MdInputModule,
          MdSlideToggleModule,
          MdTooltipModule,
          MdToolbarModule,
-         MdTableModule } from '@angular/material';
+         MdTableModule,
+         MdRadioModule,
+         MdButtonToggleModule,
+         MdCheckboxModule } from '@angular/material';
 
 import {
   HomeComponent,
@@ -96,7 +99,10 @@ import {
     MdSlideToggleModule,
     MdTooltipModule,
     MdToolbarModule,
-    MdTableModule
+    MdTableModule,
+    MdRadioModule,
+    MdButtonToggleModule,
+    MdCheckboxModule
   ],
   declarations: [
     HomeComponent,

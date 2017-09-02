@@ -1,14 +1,22 @@
-<div class="list-of-comparable-heroes">
-  <div class="row">
-    <div class="col-12">
-      <div class="header pb-3 mb-3">
-        <span class="text-uppercase font-weight-bold">Heroes</span>
-      </div><!-- .header -->
-    </div><!-- .col-12 -->
-  </div><!-- .row -->
-  <div class="row">
-    <div class="col-12" *ngFor="let hero of availableHeroes">
-      <ow-hero-checkbox></ow-hero-checkbox>
-    </div><!-- div -->
-  </div><!-- .row -->
-</div><!-- list-of-comparable-heroes -->
+<div class="flex-layout" fxLayout="column" fxFlex>
+  <div class="flex-layout pt-3" fxLayout="row">
+    <span class="text-uppercase"><strong>Heroes</strong></span>
+  </div>
+  <div class="flex-layout" fxLayout="row" fxLayoutGap="14px" fxLayoutWrap>
+    <div class="flex-layout pt-3"
+         fxLayout="column"
+         fxFlex="0 0 auto"
+         *ngFor="let hero of availableHeroes">
+      <md-button-toggle fxFlexAlign="start">
+        <div class="flex-layout py-3" fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center">
+          <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
+            <img class="md-image md-image-36" src="https://d1u1mce87gyfbn.cloudfront.net/game/heroes/small/0x02E0000000000068.png">
+          </div>
+          <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
+            <span class="mat-caption">Zarya</span>
+          </div>
+        </div>
+      </md-button-toggle>
+    </div>
+  </div>
+</div>

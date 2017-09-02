@@ -7,22 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ComparedProfilesComponent implements OnInit {
 
-  // dummy content
-  listOfPlayerTags: any[] =
-  [
-  'cyllo#2112',
-  'iMBlueDaBaDee#1921',
-  'Seagull#1894',
-  'DabbyDabDabDabs#1108',
-  'cyllo#2112',
-  'cyllo#2112',
-  'iMBlueDaBaDee#1921',
-  'Seagull#1894',
-  'DabbyDabDabDabs#1108'
-];
+  players = [];
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    for (let i = 0; i < 20; ++i) {
+      this.players.push(
+        {
+          tag: 'Seagull#1894',
+          platform: 'pc',
+          region: 'us'
+        }
+      );
+    }
+  }
 
 }

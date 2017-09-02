@@ -14,7 +14,7 @@ export class CompareComponent implements OnInit {
         { data: [2300, 2818, 1920, 3498, 4200, 4220, 4786], label: 'You' },
         { data: [1300, 1818, 2400, 1992, 3800, 3890, 4200], label: 'Others' }
       ],
-      chartType: ChartType.line,
+      chartType: ChartType.bar,
       legend: false
   };
 

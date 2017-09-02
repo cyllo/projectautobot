@@ -7,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListOfCompareableHeroesComponent implements OnInit {
 
-  availableHeroes = [1, 2, 3, 4, 5, 6, 7, 8];
+  availableHeroes = [];
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    for (let i = 0; i < 24; ++i) {
+      this.availableHeroes.push({ code: '0x02E0000000000029' });
+    }
+  }
 
 }

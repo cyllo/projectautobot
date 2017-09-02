@@ -1,74 +1,37 @@
-<div class="compare mt-3">
-  <ow-compared-profiles></ow-compared-profiles>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-9 col-12 mb-3">
+<div class="compare flex-layout px-3 pt-3" fxLayout="column" fxFlex>
+  <div class="flex-layout" fxLayout="row" fxFlex="noshrink">
+    <div class="flex-layout" fxLayout="column" fxFlex="240px">
+      <ow-compared-profiles></ow-compared-profiles>
+    </div>
+    <div class="flex-layout px-3" fxLayout="column" fxLayoutGap="30px" fxFlex>
 
-        <div class="row">
-          <div class="col-12 mb-3">
-            <div class="content rounded">
-              <div class="container-fluid pt-3">
-                <div class="row">
-                  <div class="col mb-3">
-                    <!-- <ow-comp-or-quick-play-selector></ow-comp-or-quick-play-selector> -->
-                  </div><!-- .col -->
-                </div><!-- .row -->
-              </div><!-- .container-fluid -->
-            </div><!-- .content -->
-          </div><!-- .col -->
+      <div class="flex-layout" fxLayout="row">
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <div class="flex-layout pt-3" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <ow-chart
+                [labels]="chartData.xAxisLabels"
+                [datasets]="chartData.datasets"
+                [chartType]="chartData.chartType"
+                [legend]="chartData.legend">
+              </ow-chart>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div class="row">
-          <div class="col-12 mb-3">
-            <div class="content rounded">
-              <div class="container-fluid py-3">
-                <div class="row">
-                  <div class="col">
-                    <ow-chart
-                      [chartType]="chartData.chartType"
-                      [labels] = "chartData.xAxisLabels"
-                      [datasets]="chartData.datasets"
-                      [legend]="chartData.legend"></ow-chart>
-                  </div><!-- .col -->
-                </div><!-- .row -->
-              </div><!-- .container-fluid -->
-            </div><!-- .content -->
-          </div>
-        </div><!-- .row -->
+      <div class="flex-layout" fxLayout="row">
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <ow-list-of-compareable-heroes></ow-list-of-compareable-heroes>
+        </div>
+      </div>
 
-        <div class="row">
-          <div class="col-12 mb-3">
-            <div class="content rounded">
-              <div class="container-fluid pt-3">
-                <div class="row">
-                  <div class="col-md-4 col-6 mb-3" *ngFor="let block of statBlocks">
-                    <ow-stat-category-block></ow-stat-category-block>
-                  </div><!-- .col -->
-                </div><!-- .row -->
-              </div><!-- .container-fluid -->
-            </div><!-- .content -->
-          </div>
-        </div><!-- .row -->
+      <div class="flex-layout" fxLayout="row">
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <ow-stat-category-block></ow-stat-category-block>
+        </div>
+      </div>
 
-      </div><!-- .col-9 -->
-      <div class="col-lg-3 col-12">
-
-        <div class="row">
-          <div class="col-12 mb-3">
-            <div class="content rounded">
-              <div class="container-fluid pt-3">
-                <div class="row">
-                  <div class="col">
-                    <ow-list-of-compareable-heroes></ow-list-of-compareable-heroes>
-                  </div><!-- .col -->
-                </div><!-- .row -->
-              </div><!-- .container-fluid -->
-            </div><!-- .content -->
-          </div><!-- .col -->
-        </div><!-- .row -->
-
-      </div><!-- .col-3 -->
-    </div><!-- .row -->
-  </div><!-- .container -->
+    </div>
+  </div>
 </div>
-<!-- .profile -->

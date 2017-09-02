@@ -1,38 +1,14 @@
-<div class="stat-category-block">
-  <div class="container-fluid">
-
-    <div class="row">
-      <div class="col-12">
-        <div class="header px-2 py-2">
-          <span class="small text-uppercase">Combat</span>
-        </div><!-- .header -->
-      </div><!-- .col -->
-    </div><!-- .row -->
-
-    <div class="row keys">
-
-      <div class="col-12 prop">
-        <div class="d-inline-flex align-items-center px-2 py-2">
-          <input type="checkbox" class="mr-2" checked>
-          <span class="label text-uppercase">Kills</span>
-        </div><!-- .d-inline-flex -->
-      </div><!-- .col -->
-
-      <div class="col-12 prop">
-        <div class="d-inline-flex align-items-center px-2 py-2">
-          <input type="checkbox" class="mr-2">
-          <span class="label text-uppercase">Deaths</span>
-        </div><!-- .d-inline-flex -->
-      </div><!-- .col -->
-
-      <div class="col-12 prop">
-        <div class="d-inline-flex align-items-center px-2 py-2">
-          <input type="checkbox" class="mr-2">
-          <span class="label text-uppercase">Assists</span>
-        </div><!-- .d-inline-flex -->
-      </div><!-- .col -->
-
-    </div><!-- .row -->
-
-  </div><!-- .container-fluid -->
-</div><!-- .stat-category-block -->
+<div class="stat-category-block flex-layout" fxLayout="row" fxLayoutGap="14px">
+  <div class="flex-layout" fxLayout="column" fxLayoutGap="14px" fxFlex="initial" *ngFor="let block of statBlocks">
+    <div class="flex-layout" fxLayout="row">
+      <div class="flex-layout" fxLayout="column" fxFlex>
+        <span class="text-uppercase"><strong>{{block.name}}</strong></span>
+      </div>
+    </div>
+    <div class="flex-layout" fxLayout="row" *ngFor="let stat of block.stats">
+      <div class="flex-layout" fxLayout="column" fxFlex>
+        <md-checkbox>{{stat.name}}</md-checkbox>
+      </div>
+    </div>
+  </div>
+</div>
