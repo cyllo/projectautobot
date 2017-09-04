@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { OverlayContainer } from '@angular/material';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 export interface AppTheme {
   name: string;
