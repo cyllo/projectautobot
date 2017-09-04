@@ -104,6 +104,10 @@
         color: $background-contrast-color;
       }
 
+      button:disabled:not(.club-name) {
+        color: mat-color($foreground, disabled);
+      }
+
     }
 
     .ow-tab-content {
