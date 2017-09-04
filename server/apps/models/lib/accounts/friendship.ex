@@ -1,7 +1,8 @@
 defmodule Models.Accounts.Friendship do
   use Models.Model
+
   alias Ecto.Multi
-  alias Models.Game.GamerTag
+  alias Models.{Accounts, Game.GamerTag}
   alias Models.Accounts.{User, Friendship, UserFriendGroup}
 
   schema "friendships" do
@@ -24,7 +25,8 @@ defmodule Models.Accounts.Friendship do
   def changeset(%Friendship{} = struct, params \\ %{}) do
     struct
       |> cast(params, @allowed_fields)
-      |> foreign_key_constraint(:primary_gamer_tag_id)
+      |> foreign_key_constraint(:primary_gamer_tag_id, message: "primary gamer tag id doesn't exist")
+      |> validate_primary_gamer_tag_is_friends_gamer_tag
   end
 
   def create_changeset(params), do: changeset(%Friendship{}, params)
@@ -63,6 +65,18 @@ defmodule Models.Accounts.Friendship do
     Multi.new
       |> Multi.update(:friendship_user, changeset(user_friendship, %{is_accepted: true}))
       |> Multi.update(:friendship_friend, changeset(friend_friendship, %{is_accepted: true}))
+  end
+
+  defp validate_primary_gamer_tag_is_friends_gamer_tag(changeset) do
+    validate_change(changeset, :primary_gamer_tag_id, fn _, gamer_tag_id ->
+      with {:ok, friend} <- Ecto.Changeset.get_field(changeset, :friend_id) |> Accounts.get_user(:gamer_tags),
+           :ok <- Accounts.check_gamer_tag_belongs_to(friend, gamer_tag_id) do
+        []
+      else
+        {:error, e} ->
+          [primary_gamer_tag_id: e]
+      end
+    end)
   end
 
   defp params_to_query({:is_accepted, value}, query, _), do: where(query, is_accepted: ^value)

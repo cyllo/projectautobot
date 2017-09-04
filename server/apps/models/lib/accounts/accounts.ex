@@ -222,6 +222,15 @@ defmodule Models.Accounts do
     end
   end
 
+  def check_gamer_tag_belongs_to(user, gamer_tag_id) do
+    has_gamer_tag? = user
+      |> Repo.preload(:gamer_tags)
+      |> Map.get(:gamer_tags, [])
+      |> Enum.any?(&(&1.id === gamer_tag_id))
+
+    if has_gamer_tag?, do: :ok, else: {:error, "#{user.display_name} doesn't own gamer tag id #{gamer_tag_id}"}
+  end
+
   def get_friend(user_id, friend_id) do
     if user_id === friend_id do
       {:error, "You cannot use yourself as friend"}
@@ -426,10 +435,14 @@ defmodule Models.Accounts do
 
   def get_friendship_tuple(user, %{friendship_id: friendship_id}) do
     with {:ok, user_friendship} <- get_friendship(friendship_id),
-         friendship <- find_user_friendship(user_friendship.friend_id, user_friendship.user_id) do
+         friendship <- find_user_friendship(user_friendship.friend_id, user_friendship.user_id),
+         true <- user.id === friendship.friend_id or friendship.user_id === user.id do
       friend_id = if user_friendship.user_id === user.id, do: user_friendship.friend_id, else: user_friendship.user_id
 
       {:ok, sort_friendships_by_user_friend([user_friendship, friendship], user.id, friend_id)}
+    else
+      false -> {:error, "Friendship does not belong to #{user.display_name}"}
+      e -> e
     end
   end
 

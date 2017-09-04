@@ -1,7 +1,6 @@
 defmodule Models.Accounts.User do
   alias Models.Accounts.{UserFriendGroup, User, Friendship}
-  alias Models.Game
-  alias Models.Game.GamerTag
+  alias Models.{Game, Accounts, Game.GamerTag}
   alias Comeonin.Pbkdf2
 
   use Models.Model
@@ -51,6 +50,7 @@ defmodule Models.Accounts.User do
       |> unique_constraint(:battle_net_tag, name: :users_battle_net_tag_index,
                                             message: "There is already an account associated with that battle net tag")
       |> validate_length(:password, min: 3, max: 100)
+      |> validate_primary_gamer_tag_is_owned
       |> put_gamer_tags_following
       |> put_password
   end
@@ -79,6 +79,16 @@ defmodule Models.Accounts.User do
 
     from(u in User, where: ilike(u.display_name, ^search_string),
                     or_where: ilike(u.email, ^search_string))
+  end
+
+  defp validate_primary_gamer_tag_is_owned(%{data: user} = changeset) do
+    validate_change(changeset, :primary_gamer_tag_id, fn _, primary_gamer_tag_id ->
+      with :ok <- Accounts.check_gamer_tag_belongs_to(user, primary_gamer_tag_id) do
+        []
+      else
+        {:error, e} -> [primary_gamer_tag_id: e]
+      end
+    end)
   end
 
   defp put_gamer_tags_following(changeset) do
