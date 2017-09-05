@@ -5,16 +5,19 @@ defmodule SnapshotStatsDiffer.HeroSnapshotStatsDiffer do
     RecursiveDiffer.diff(convert_to_hero_map(snapshots_a), convert_to_hero_map(snapshots_b))
   end
 
+  def is_different?(snapshots_a, snapshots_b) do
+    RecursiveDiffer.is_different?(convert_to_hero_map(snapshots_a), convert_to_hero_map(snapshots_b))
+  end
+
   defp group_by_type(snapshots), do: Enum.group_by(snapshots, &Map.get(&1, :statistic_type))
 
   defp convert_to_hero_map(snapshots) do
-    grouped_stats = snapshots |> group_by_type |> group_types_by_hero
     %{
       hero_quickplay: hero_quickplay,
       hero_competitive: hero_competitive,
       hero_total_quickplay: %{nil: hero_total_quickplay},
       hero_total_competitive: %{nil: hero_total_competitive}
-    } = grouped_stats
+    } = snapshots |> group_by_type |> group_types_by_hero
 
     %{
       hero_quickplay: hero_quickplay,

@@ -1,6 +1,7 @@
 defmodule Models.Game do
   use Models.Model
   alias Models.Game.{Hero, GamerTag, ConnectedGamerTag, GamerTagUserFollower}
+  alias Models.Statistics.Snapshots.SnapshotStatistic
   alias Models.{Repo, Model}
 
   @statistic_relations [
@@ -37,6 +38,11 @@ defmodule Models.Game do
   Model.create_model_methods(Hero)
   Model.create_model_methods(GamerTag)
   Model.create_model_methods(ConnectedGamerTag)
+
+  def preload_latest_snapshots(gamer_tag, limit \\ 1) do
+    Repo.preload(gamer_tag, snapshot_statistics: SnapshotStatistic.latest_stats_query(limit))
+      |> Map.update!(:snapshot_statistics, &Enum.take(&1, -2))
+  end
 
   def get_following_users_by_gamer_tag_ids(gamer_tag_ids) do
     from(gtuf in GamerTagUserFollower, where: gtuf.gamer_tag_id in ^gamer_tag_ids,

@@ -40,6 +40,7 @@ defmodule ProfileWatch.Mixfile do
     [{:timex, "~> 3.1"},
      {:con_cache, "~> 0.12.0"},
      {:scraper, in_umbrella: true},
-     {:models, in_umbrella: true}]
+     {:models, in_umbrella: true},
+     {:snapshot_stats_differ, in_umbrella: true}]
   end
 end
