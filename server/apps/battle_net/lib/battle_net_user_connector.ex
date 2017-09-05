@@ -13,8 +13,12 @@ defmodule BattleNet.UserConnector do
 
     info "Connecting tags to #{user.display_name}: #{inspect Enum.map(tags, &(&1.id))}"
 
-    with {:ok, user} <- Models.Accounts.update_user(user, %{primary_gamer_tag_id: get_first_gamer_tag_id(tags)}) do
-      {:ok, tags}
+    if length(tags) > 0 do
+      with {:ok, user} <- Models.Accounts.update_user(user, %{primary_gamer_tag_id: get_first_gamer_tag_id(tags)}) do
+        {:ok, tags}
+      end
+    else
+      []
     end
   end
 
