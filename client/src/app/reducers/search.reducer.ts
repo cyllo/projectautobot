@@ -1,11 +1,13 @@
 import { Search } from '../models';
 import { GamerTag } from '../models';
-import { assoc } from 'ramda';
+import { assoc, compose } from 'ramda';
 
 const initialState: Search = {
   profile: null,
   searching: false
 };
+
+const updateSearch = compose(assoc('searching', true), assoc('profile'));
 
 export function searchPlayerTag(state: Search = initialState, { type, payload }): Search {
   switch (type) {
@@ -13,8 +15,7 @@ export function searchPlayerTag(state: Search = initialState, { type, payload })
       return assoc('searching', true, state);
 
     case 'SEARCH_RESULTS':
-      let derp = assoc('searching', true, state);
-      return assoc('profile', payload, derp);
+      return updateSearch(payload, state);
 
     case 'RESET_SEARCH':
       return initialState;

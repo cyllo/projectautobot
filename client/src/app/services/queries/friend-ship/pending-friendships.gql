@@ -7,7 +7,7 @@
 query PendingFriendShipsQuery {
   me {
     id
-    incomingRequests: friendships(isIncoming: true, isAccepted: false) {
+    incomingRequests: friendships(isSender: false, isAccepted: false) {
       ...FriendshipFields
       friend {
         ...UserFields
@@ -21,7 +21,7 @@ query PendingFriendShipsQuery {
         }
       }
     }
-    outgoingRequests: friendships(isIncoming: false, isAccepted: false) {
+    outgoingRequests: friendships(isSender: true, isAccepted: false) {
       ...FriendshipFields
       friend {
         ...UserFields

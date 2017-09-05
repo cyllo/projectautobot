@@ -35,16 +35,15 @@ export class AppComponent implements OnInit {
     private themeingService: ThemeingService,
     private mdIconRegistry: MdIconRegistry,
     private userService: UserService
-  ) {
+  ) {}
 
+  ngOnInit() {
     this.$state = this.store.select(s => s);
 
     this.getHeroes();
 
     this.owHeroData.load();
-  }
 
-  ngOnInit() {
     const session = Cookies.get('ow-auth-token');
     if (session) {
       this.authService.refreshAppState(session);
