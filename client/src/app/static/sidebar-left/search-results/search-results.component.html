@@ -25,23 +25,26 @@
       <div fxLayout="column" fxLayoutGap="12px" fxFlex="grow">
         <h3 class="mat-h3">{{ user.displayName }}</h3>
 
-        <div *ngIf="user.gamerTags.length">
-          <div *ngFor="let profile of user.gamerTags | owHasSnapshot">
-   
-            <a draggable="false" (click)="goto(profile)">
-              <img class="md-image md-image-circle md-image-36" draggable="false" [src]="profile.portraitUrl">
-            </a>
-
-            <div class="flex-layout" fxLayout="column" fxFlex="grow">
-              <div class="flex-layout player-tag" fxLayout="row" fxFlex="grow">
-                 {{profile.overwatchName}}
-              </div>
-              <div fxLayout="row" class="skill-rating flex-layout" fxLayoutAlign="start center" fxFlex="grow" *ngIf="profile.snapshotStatistics">
-                <img width="18" [src]="profile.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveRankUrl">
-                <span class="ml-1">SR {{ profile.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveLevel }}</span>
-                <span class="ml-1">{{ profile.region }}</span>
-                <span class="ml-1">{{ profile.platform }}</span>
-              </div>
+        <div fxLayout="row">
+          <a draggable="false" (click)="gotoProfile$.next(user.primaryGamerTag)">
+            <img class="md-image md-image-circle md-image-36" draggable="false" [src]="user.primaryGamerTag.portraitUrl">
+          </a>
+          
+          <div class="flex-layout" fxLayout="column" fxFlex="grow">
+            <div class="flex-layout player-tag" fxLayout="row" fxFlex="grow">
+                {{user.primaryGamerTag.overwatchName}}
+            </div>
+            <div fxLayout="row" class="skill-rating flex-layout" fxLayoutAlign="start center" fxFlex="grow">
+              <div *ngIf="user.primaryGamerTag.snapshotStatistics; then statsBlock; else noStatsBlock"></div>
+  
+              <ng-template #statsBlock>
+                <img width="18" [src]="user.primaryGamerTag.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveRankUrl">
+                <span class="ml-1">SR {{ user.primaryGamerTag.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveLevel }}</span>
+              </ng-template>
+  
+              <ng-template #noStatsBlock>
+                <span class="ml-1">--</span>
+              </ng-template>
             </div>
           </div>
         </div>

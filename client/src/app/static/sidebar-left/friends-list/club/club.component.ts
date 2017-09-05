@@ -5,15 +5,16 @@ import { Component,
          ViewChild,
          ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { Club, Friendship } from '../../../../models';
-import { ClubService, FriendShipService } from '../../../../services';
+import { Club, Friendship, GamerTag } from '../../../../models';
+import { ClubService, FriendShipService, notNil, ProfileService } from '../../../../services';
 import { map, pluck, compose, flatten, path } from 'ramda';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'ow-club',
   templateUrl: 'club.component.html',
   styleUrls: [ 'club.component.scss' ],
-  providers: [ClubService, FriendShipService]
+  providers: [ClubService, FriendShipService, ProfileService]
 })
 
 export class ClubComponent implements OnInit {
@@ -22,17 +23,24 @@ export class ClubComponent implements OnInit {
 
   clubNameEditInProgress: boolean;
   expansionPanelCollapsed: boolean;
+  destroyer$ = new Subject<void>();
+  gotoProfile$ = new Subject<GamerTag>();
 
   constructor(
     private clubService: ClubService,
     private friendshipService: FriendShipService,
+    private profile: ProfileService,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.clubNameEditInProgress = false;
     this.expansionPanelCollapsed = false;
-  }
 
-  ngOnInit() {}
+    this.gotoProfile$
+    .filter(notNil)
+    .subscribe((profile: GamerTag) => this.profile.goto(profile));
+  }
 
   compareProfiles(friendships: Friendship[]) {
     const friendshipGamerTags = compose(flatten, map(path(['friend', 'gamerTags'])));
@@ -75,5 +83,4 @@ export class ClubComponent implements OnInit {
       this.toggleClubNameEdit();
     }
   }
-
 }

@@ -49,21 +49,19 @@
         <ow-create-club (blur)="toggleClubCreation$.next(false)" (inProgress)="toggleClubCreation$.next(false)"></ow-create-club>
       </ng-template>
 
-      <div class="ow-tab-content flex-layout px-2 py-2"
-           fxLayout="column"
-           fxLayoutGap="8px"
-           fxFlex="grow"
-           [perfect-scrollbar]>
-
-        <ng-container *ngIf="(clubs | async)?.length">
-          <ow-club class="flex-layout"
-                   fxLayout="row"
-                   fxFlex="0 0 auto"
-                   *ngFor="let club of clubs | async"
-                   [club]="club">
+      <div 
+        class="ow-tab-content flex-layout px-2 py-2"  
+        fxLayout="column"
+        fxLayoutGap="8px"
+        fxFlex="grow"
+        [perfect-scrollbar]>
+          <ow-club 
+            class="flex-layout"       
+            fxLayout="row"
+            fxFlex="0 0 auto"
+            *ngFor="let club of clubs | async"
+            [club]="club">
           </ow-club>
-        </ng-container>
-
       </div>
 
     </ng-template>

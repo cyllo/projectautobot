@@ -1,6 +1,59 @@
 <div class="friend-requests py-3" fxLayout="column" fxFlexFill>
 
-  <div *ngIf="!friendRequestCount; then noFriendRequests; else showFriendRequests;"></div>
+  <div *ngIf="friendRequests | async as requests; else showFriendRequests;">
+    <div class="ow-tab-content flex-layout" fxLayout="column" fxFlex="grow" [perfect-scrollbar]>
+      <md-list class="flex-layout" fxLayout="column" fxFlex="noshrink">
+        <md-list-item class="flex-layout" fxLayout="row" fxFlex="nogrow" *ngFor="let friendship of requests">
+          <div
+            class="friend-request-card player-card flex-layout py-2"
+            fxLayout="row"
+            fxLayoutAlign="start center"
+            fxLayoutGap="8px"
+            fxFlex="grow">
+
+            <div class="flex-layout" fxLayout="column" fxFlex="noshrink" *ngIf="friendship.primaryGamerTag">
+              <a href="#" draggable="false" (click)="gotoProfile$.next(friendship.primaryGamerTag)">
+                <img class="md-image md-image-circle md-image-36" draggable="false" [src]="friendship.primaryGamerTag?.portraitUrl">
+              </a>
+            </div>
+
+            <div class="flex-layout" fxLayout="column" fxFlex="grow">
+              <div class="flex-layout" fxLayout="row" fxFlex="grow">
+                <span class="player-tag">{{ friendship.friend.displayName }} </span>
+              </div>
+              <div class="skill-rating flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="grow">
+                <div *ngIf="friendship.primaryGamerTag?.snapshotStatistics; then hasStatsBlock; else noStatsBlock"></div>
+
+                <ng-template #hasStatsBlock>
+                  <img width="18" [src]="friendship.primaryGamerTag.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveRankUrl">
+                  <span class="ml-1">{{ friendship.primaryGamerTag.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveLevel }}</span>
+                </ng-template>
+
+                <ng-template #noStatsBlock>
+                  <span class="ml-1">--</span>
+                </ng-template>
+              </div>
+            </div>
+
+            <div class="flex-layout" fxLayout="column" fxLayoutGap="8px" fxFlex="noshrink">
+              <div class="flex-layout" fxLayout="row">
+                <div fxLayout="column">
+                  <button class="min-width-0" md-button mdTooltip="Ignore" (click)="ignore(friendship.friend.id, friendship.id)">
+                    <md-icon>close</md-icon>
+                  </button>
+                </div>
+                <div fxLayout="column">
+                  <button class="min-width-0" md-button mdTooltip="Accept" (click)="accept(friendship.friend.id, friendship.id)">
+                    <md-icon>check</md-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </md-list-item>
+      </md-list>
+    </div>
+  </div>
 
   <ng-template #noFriendRequests>
     <div class="px-3 flex-layout" fxLayout="column" fxFlex="grow">
@@ -10,24 +63,6 @@
       <div fxLayout="column" fxFlex="1 1 45%">
         <p>There's nothing to see here.</p>
       </div>
-    </div>
-  </ng-template>
-
-  <ng-template #showFriendRequests>
-    <div class="ow-tab-content flex-layout" fxLayout="column" fxFlex="grow" [perfect-scrollbar]>
-      <md-list class="flex-layout" fxLayout="column" fxFlex="noshrink">
-        <md-list-item class="flex-layout"
-                      fxLayout="row"
-                      fxFlex="nogrow"
-                      *ngFor="let request of friendRequests | async | owValuesPipe">
-          <ow-friend-request-card
-              class="flex-layout"
-              fxLayout="column"
-              fxFlex="grow"
-              [friendShip]="request">
-          </ow-friend-request-card>
-        </md-list-item>
-      </md-list>
     </div>
   </ng-template>
 

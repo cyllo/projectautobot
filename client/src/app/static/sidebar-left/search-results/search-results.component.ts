@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FriendShipService, ProfileService } from '../../../services';
-import { AppState, User } from '../../../models';
+import { FriendShipService, ProfileService, notNil } from '../../../services';
+import { AppState, User, GamerTag } from '../../../models';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { toggleDisplaySideBarSearch, updateSideBarSearch } from '../../../reducers';
@@ -19,6 +19,8 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   toggleDisplay$ = new Subject();
   destroyer$ = new Subject();
   addFriend$ = new Subject<number>();
+  gotoProfile$ = new Subject<GamerTag>();
+
   constructor(
     private friendShip: FriendShipService,
     private profile: ProfileService,
@@ -30,24 +32,21 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
     .pluck('users')
     .takeUntil(this.destroyer$);
 
-    this.toggleDisplay$.subscribe(() => this.store.dispatch(toggleDisplaySideBarSearch()));
+    this.toggleDisplay$.takeUntil(this.destroyer$).subscribe(() => this.store.dispatch(toggleDisplaySideBarSearch()));
 
-    // when a friend ship request is sent the search results store needs to be updated to show the pending
-    // request status
+    this.gotoProfile$.filter(notNil).subscribe((profile: GamerTag) => this.profile.goto(profile));
+
     this.addFriend$
     .switchMap(id => this.friendShip.request(id))
     .withLatestFrom(this.searchResults, ({ friendId }, users) => {
       return <User[]>map(user => assoc('pending', propEq('id', friendId, user), user), users);
     })
+    .takeUntil(this.destroyer$)
     .subscribe(users => this.store.dispatch(updateSideBarSearch(users)));
   }
 
   ngOnDestroy() {
     this.destroyer$.next();
     this.destroyer$.complete();
-  }
-
-  goto(profile) {
-    this.profile.goto(profile);
   }
 }

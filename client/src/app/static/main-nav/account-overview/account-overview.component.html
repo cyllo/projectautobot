@@ -1,4 +1,4 @@
-<div class="account-overview" fxLayout="row" *ngIf="currentUser$ | async">
+<div class="account-overview" fxLayout="row" *ngIf="currentUser$ | async as currentUser">
 
   <md-menu class="account-overview-menu" #appMenu="mdMenu"
            xPosition="before"
@@ -7,7 +7,7 @@
 
       <md-nav-list fxFlex="280px">
 
-          <ow-profile-list [battleNetTag]="(currentUser$ | async).battleNetTag"></ow-profile-list>
+          <ow-profile-list [battleNetTag]="currentUser.battleNetTag"></ow-profile-list>
 
           <div md-list-item [ngStyle]="{ 'padding': '16px' }">
             <md-checkbox (click)="preventClose($event)">
@@ -50,7 +50,7 @@
 
       <div class="flex-layout" fxLayout="column" fxFlex="grow" fxHide.lt-md>
         <span class="mat-caption text-overflow">
-          <strong>{{ (currentUser$ | async).displayName }}</strong>
+          <strong>{{ currentUser.displayName }}</strong>
         </span>
       </div>
 

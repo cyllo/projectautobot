@@ -12,7 +12,7 @@ export class ErrorHandlerService {
   constructor(private snackBar: MdSnackBar) {}
 
   show(error: string|ApolloError): void {
-    const display = error instanceof ApolloError
+    const display = error instanceof Error
     ? cleanMessage(error)
     : error;
 
