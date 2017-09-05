@@ -62,7 +62,7 @@ export class UserRegistrationComponent implements OnInit {
       this.router.navigate(['./news']);
     }, (error) => {
       this.createUserError = true;
-      this.error.show(this.error.filterGraphqlMessage(error));
+      this.error.show(error);
     });
   }
 

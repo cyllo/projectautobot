@@ -4,7 +4,6 @@ import { AuthorizationService } from '../../services';
 import { Credentials } from '../../models';
 import { Location } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
 import { compose, not, isNil } from 'ramda';
 
 const notNil = compose(not, isNil);
@@ -21,7 +20,7 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginForm$ = new Subject<Credentials>();
-  derpy: Observable<any>;
+
   constructor(
     private authorizationService: AuthorizationService,
     private location: Location

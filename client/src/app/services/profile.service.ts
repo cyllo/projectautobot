@@ -54,11 +54,12 @@ export class ProfileService {
     : ['./profile', platform, replace('#', '-', tag)];
     this.router.navigate(destination);
   }
-
+// to do fix this crap.
   find(tag, platform, region) {
     this.scrape(tag, platform, region)
     .catch((error: ApolloError) => {
-      return mustWait(this.errorService.filterGraphqlMessage(error))
+      const cleanError = this.errorService.filterGraphqlMessage(error);
+      return mustWait(cleanError.message)
       ? this.findPlayer(tag, platform, region)
       : Observable.throw(error);
     })
@@ -139,8 +140,7 @@ export class ProfileService {
           const [{ name }] = filter(propEq('id', hero.role), roleList);
           return name;
         };
-        const derp = merge(heroSnapshot, { hero: assoc('role', mapRole(selectedHero, roles), selectedHero)});
-        return accum.concat(derp);
+        return accum.concat(merge(heroSnapshot, { hero: assoc('role', mapRole(selectedHero, roles), selectedHero) }));
       }
       return accum;
     };

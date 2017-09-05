@@ -9,6 +9,7 @@ import { listFollowedUsers, listFollowedGamerTags, login } from '../reducers';
 import * as Cookies from 'js-cookie';
 import { ErrorHandlerService } from './error-handler.service';
 import { Observable } from 'rxjs/Observable';
+import { ApolloError } from 'apollo-client';
 
 const getUserProps = user => dissoc('following', user);
 const getFollowedUsers = user => <User[]>prop('following', user);
@@ -28,7 +29,7 @@ export class AuthorizationService {
       mutation: Login,
       variables: { email, password }
     })
-    .map(({ data: { loginUser: { sessionInfo, user } } }: any) =>
+    .map(({ data: { loginUser: { sessionInfo, user } } }: GraphqlResponse) =>
     ({
       sessionInfo,
       user: getUserProps(user),
@@ -37,7 +38,7 @@ export class AuthorizationService {
     }))
     .do(loginData => this.setAppState(loginData))
     .catch(error => {
-      this.error.show(this.error.filterGraphqlMessage(error));
+      this.error.show(error);
       return Observable.of(undefined);
     });
   }
@@ -59,7 +60,9 @@ export class AuthorizationService {
   refreshAppState({ sessionInfo }) {
     return this.apollo.query({
       query: CurrentUser
-    }).map(({ data: { me: currentUser } }: GraphqlResponse) => currentUser)
+    })
+    .map(({ data: { me: currentUser } }: GraphqlResponse) => currentUser)
+    .catch((error: ApolloError) => Observable.throw(this.error.filterGraphqlMessage(error)))
     .subscribe(currentUser => {
       this.setAppState({
         sessionInfo,
@@ -67,6 +70,11 @@ export class AuthorizationService {
         followedUsers: getFollowedUsers(currentUser),
         followedGamerTags: getFollowedGamerTags(currentUser)
       });
+    }, (error) => {
+      if (error.message === 'user token is not active') {
+        Cookies.remove('ow-auth-token');
+        this.router.navigate(['./login']);
+      }
     });
   }
 

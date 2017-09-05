@@ -4,10 +4,10 @@
 #import "../gamertag/profile-snapshot-statistic.gql"
 #import "../friend-ship/friend-ship-fields.gql"
 
-query friendShipsQuery($isIncoming: Boolean, $isAccepted: Boolean) {
+query friendShipsQuery($isSender: Boolean, $isAccepted: Boolean) {
   me {
     id
-    friendships(isIncoming: $isIncoming, isAccepted: $isAccepted) {
+    friendships(isSender: $isSender, isAccepted: $isAccepted) {
       ...FriendshipFields
       friend {
         ...UserFields
