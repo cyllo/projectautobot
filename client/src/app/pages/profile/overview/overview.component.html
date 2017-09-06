@@ -1,117 +1,37 @@
-<div class="overview" *ngIf="player">
+<div class="flex-layout py-3" fxLayout="row" fxLayoutWrap>
+  <div class="flex-layout px-3" fxLayout="column" fxFlex="300px" fxFlex.lt-lg="100%">
+    <div class="flex-layout" fxLayout="row" fxLayoutWrap>
+      <div class="flex-layout pt-3" fxLayout="column" fxFlex="100%" fxFlex.lt-lg="50%">
+        <ow-skill-rating-trend></ow-skill-rating-trend>
+      </div>
+      <div class="flex-layout pt-3" fxLayout="column" fxFlex="100%" fxFlex.lt-lg="50%">
+        <ow-recently-played></ow-recently-played>
+      </div>
+      <div class="flex-layout pt-3" fxLayout="column" fxFlex="100%" fxFlex.lt-lg="50%">
+        <ow-lifetime-stats></ow-lifetime-stats>
+      </div>
+      <div class="flex-layout pt-3" fxLayout="column" fxFlex="100%" fxFlex.lt-lg="50%">
+        <ow-role-performance></ow-role-performance>
+      </div>
+    </div>
+  </div>
+  <div class="flex-layout py-3 px-3" fxLayout="column" fxLayoutGap="30px" fxFlex fxFlex.lt-lg="grow">
 
-  <md-card class="primary-card">
-    <md-card-content>
-      <div fxLayout="row" fxFlex="grow">
-        <div fxLayout="column" fxLayoutGap="14px" fxFlex="grow">
+    <div class="flex-layout" fxLayout="row">
+      <ow-overall class="flex-layout pt-3" fxLayout="column" fxFlex></ow-overall>
+    </div>
 
-          <div class="flex-layout"  fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="14px">
-            <div class="player-avatar-level flex-layout" fxLayout="column" fxFlex="noshrink">
-              <span class="level px-2 py-1">{{ player.level }}</span>
-              <img class="md-image md-image-64"[src]="player.portraitUrl">
-            </div>
-            <div class="flex-layout" fxLayout="column" fxFlex="grow">
-              <div class="flex-layout" fxLayout="row">
-                <div fxLayout="column" fxFlex="noshrink">
-                  <span class="mat-caption mb-0">{{ player.tag }}</span>
-                </div>
-              </div>
-              <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
-                <div class="flex-layout" fxLayout="column">
-                  <button color="warn" md-icon-button>
-                    <md-icon>favorite_border</md-icon>
-                  </button>
-                </div>
-                <div class="flex-layout" fxLayout="column">
-                  <span class="mat-headline text-overflow mb-0"><strong>{{ player.overwatchName }}</strong></span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="pt-2" fxLayout="row">
-
-            <div fxLayout="column" fxFlex="grow">
-              <div fxLayout="row" fxLayoutAlign="center start">
-                <div fxLayout="column">
-                  <span class="mat-caption text-uppercase">Skill Rating</span>
-                </div>
-              </div>
-              <div fxLayout="row" fxLayoutAlign="center center" fxFlex="grow">
-                <div fxLayout="column">
-                  <img width="48" [src]="player.competitiveRankUrl">
-                </div>
-                <div fxLayout="column">
-                  <span><strong>{{ player.competitiveLevel }}</strong></span>
-                </div>
-              </div>
-            </div>
-
-            <div fxLayout="column" fxFlex="grow">
-              <div fxLayout="row" fxLayoutAlign="center start">
-                <div fxLayout="column">
-                  <span class="mat-caption text-uppercase">Wins</span>
-                </div>
-              </div>
-              <div fxLayout="row" fxLayoutAlign="center center">
-                <div fxLayout="column">
-                  <span class="mat-headline mb-0 pt-1"><strong>{{ player.totalGamesWon }}</strong></span>
-                </div>
-              </div>
-            </div>
-
-            <div fxLayout="column" fxFlex="grow">
-              <div fxLayout="row" fxLayoutAlign="center start">
-                <div fxLayout="column">
-                  <span class="mat-caption text-uppercase">Ranking</span>
-                </div>
-              </div>
-              <div fxLayout="row" fxLayoutAlign="center center">
-                <div fxLayout="column">
-                  <span class="mat-headline mb-0 pt-1">-</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div fxLayout="row">
-
-            <div fxLayout="column" fxFlex="50%">
-              <button class="btn-renew" md-button (click)="renew()" [ngSwitch]="renewInProgress">
-                <ng-container *ngSwitchCase="false">
-                  <md-icon>refresh</md-icon>
-                  <span class="mat-caption ml-1">Renew</span>
-                </ng-container>
-                <ng-container *ngSwitchCase="true">
-                  <md-icon>refresh</md-icon>
-                  <span class="mat-caption ml-1">Updating</span>
-                </ng-container>
-              </button>
-            </div>
-
-            <div fxLayout="column" fxFlex="50%">
-              <button md-button>
-                <md-icon>share</md-icon>
-                <span class="mat-caption ml-1">Share</span>
-              </button>
-            </div>
-
-          </div>
-
-          <div fxLayout="row">
-            <div fxLayout="column" fxFlex="100%">
-              <button class="btn-connect-battle-net" md-button>
-                <md-icon>link</md-icon>
-                <span class="mat-caption">Connect your battle.net to claim</span>
-              </button>
-            </div>
-          </div>
-
+    <div class="flex-layout" fxLayout="row" fxLayoutWrap>
+      <div class="flex-layout pt-3" fxLayout="column"  fxFlex="40%" fxFlex.lt-lg="100%">
+        <div class="flex-layout" fxLayout="row" fxFlex="noshrink">
+          <ow-most-played class="flex-layout" fxLayout="column" fxFlex></ow-most-played>
         </div>
       </div>
-    </md-card-content>
+      <div class="flex-layout pt-3" fxLayout="column" fxFlex fxFlex.lt-lg="100%">
 
-  </md-card>
+        final
 
+      </div>
+    </div>
+  </div>
 </div>

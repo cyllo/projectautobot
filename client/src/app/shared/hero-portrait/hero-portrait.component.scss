@@ -1,0 +1,9 @@
+.hero-portrait {
+  img {
+    object-fit: cover;
+    object-position: center center;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

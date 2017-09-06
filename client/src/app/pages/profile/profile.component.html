@@ -1,68 +1,95 @@
-<div *ngIf="displayProfile | async as playerData; else loadingProfile">
-  <div class="profile flex-layout px-3 pt-3" fxLayout="row">
+<div class="profile flex-layout px-3" fxLayout="column" fxLayoutGap="14px" fxFlex>
 
-    <div *ngIf="selectedSnapshotData | async as snapshotStats;">
+  <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
 
-      <div class="flex-layout" fxLayout="column" fxFlex="grow">
+    <div class="flex-layout" fxLayout="column" fxFlex>
 
-        <div class="profile-header flex-layout px-3" fxLayout="row" fxLayoutGap.gt-sm="30px" fxFlex="noshrink" fxLayoutWrap *ngIf="playerData">
-
-          <div class="flex-layout" fxLayout="column" fxFlex.lt-md="100%" fxFlex.gt-sm="initial">
-            <ow-platform-region [player]="playerData" [players]="players | async" (change)="changePlatformRegion($event)">
-            </ow-platform-region>
-          </div>
-          <!-- end column -->
-
-          <div class="flex-layout" fxLayout="column" fxFlex.lt-md="100%" fxFlex.gt-sm="initial">
-            <div ngStyle.gt-sm="padding-top: 22px;">
-              <ow-quick-comp-toggle (change)="toggleSnapshotStats($event)"></ow-quick-comp-toggle>
-            </div>
-          </div>
-          <!-- end column -->
-
-        </div>
-        <!-- end .profile-header -->
-
-        <div class="profile-body flex-layout" fxLayout="row" fxFlex="noshrink" fxLayoutWrap *ngIf="playerData && selectedSnapshotData">
-
-          <div class="flex-layout" fxLayout="column" fxFlex.lt-lg="100%" fxFlex.gt-md="25%">
-            <div class="flex-layout" fxLayout="row" fxLayoutAlign.lt-lg="start center" fxLayoutAlign.gt-md="start start" fxFlex="noshrink"
-              fxLayoutWrap>
-
-              <div class="flex-layout px-3 pt-3" fxLayout="column" fxFlex.lt-md="100%" fxFlex.md="50%" fxFlex.lg="100%">
-                <ow-profile-overview [player]="playerData"></ow-profile-overview>
-              </div>
-              <!-- end column -->
-
-              <div class="flex-layout px-3 pt-3" fxLayout="column" fxFlex.lt-md="100%" fxFlex.md="50%" fxFlex.lg="100%">
-                <ow-skill-rating-trend></ow-skill-rating-trend>
-              </div>
-              <!-- end column -->
-
-            </div>
-            <!-- end row -->
-          </div>
-          <!-- end column -->
-
-          <div class="flex-layout pt-3" fxLayout="column" fxFlex.lt-lg="100%" fxFlex.gt-md="75%">
-
-            <ow-profile-page-tabs [snapshotStats]="snapshotStats"></ow-profile-page-tabs>
-
-          </div>
-
-        </div>
-        <!-- end .profile-body -->
-
+      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap>
+        <div class="flex-layout pt-3 px-3"
+             fxLayout="column"
+             fxFlex="initial"
+             fxFlex.lt-md="grow">
+          <ow-platform-region [players]="players" [player]="player"></ow-platform-region>
+        </div><!-- end col -->
+        <div class="flex-layout pt-3 px-3"
+             fxLayout="column"
+             fxFlex="initial"
+             fxFlex.lt-md="grow">
+          <ow-quick-comp-toggle></ow-quick-comp-toggle>
+        </div><!-- end col -->
+        <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex fxFlex.lt-lg="grow">
+          <div class="flex-layout"
+               fxLayout="row"
+               fxLayoutAlign="end center"
+               fxLayoutAlign.lt-lg="start center"
+               fxLayoutGap="14px"
+               fxFlex="noshrink">
+            <div class="flex-layout" fxLayout="column" fxFlex="initial">
+              <button md-button fxLayoutAlign="center center">
+                <md-icon class="md-18 mr-1">refresh</md-icon>
+                <span class="mat-caption text-uppercase">Renew</span>
+              </button>
+            </div><!-- end column -->
+            <div class="flex-layout" fxLayout="column" fxFlex="initial">
+              <button md-button fxLayoutAlign="center center">
+                <md-icon class="md-18 mr-1">share</md-icon>
+                <span class="mat-caption text-uppercase">Share</span>
+              </button>
+            </div><!-- end column -->
+            <div class="flex-layout" fxLayout="column" fxFlex="initial">
+              <button md-button fxLayoutAlign="center center">
+                <md-icon class="md-18 mr-1">link</md-icon>
+                <span class="mat-caption text-uppercase">Claim with Battle.net</span>
+              </button>
+            </div><!-- end column -->
+          </div><!-- end row -->
+        </div><!-- end col -->
       </div>
-      <!-- end column -->
+
+      <div class="flex-layout" fxLayout="row">
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <ow-profile-header></ow-profile-header>
+        </div>
+      </div>
+
     </div>
-    <!-- end .profile -->
-  </div>
-</div>
 
+  </div><!-- end row -->
 
-  
+  <div class="flex-layout" fxLayout="row" fxFlex="noshrink">
 
-<ng-template #loadingProfile>
-   <ow-page-spinner></ow-page-spinner> 
-</ng-template>
+    <div class="flex-layout" fxLayout="column" fxFlex>
+      <md-tab-group>
+        <md-tab label="Overview">
+          <ow-profile-overview></ow-profile-overview>
+        </md-tab>
+        <md-tab label="Heroes">
+          <div class="flex-layout py-3" fxLayout="row" fxLayoutGap="14px">
+            <div class="flex-layout py-3" fxLayout="column" fxFlex>
+              <ow-heroes-table></ow-heroes-table>
+            </div>
+          </div>
+        </md-tab>
+        <md-tab label="Trends">
+          <div class="flex-layout py-3" fxLayout="row" fxLayoutGap="14px">
+            <div class="flex-layout py-3" fxLayout="column" fxFlex>
+              Trends
+            </div>
+          </div>
+        </md-tab>
+        <md-tab label="Snapshots">
+          <div class="flex-layout py-3" fxLayout="row" fxLayoutGap="14px">
+            <div class="flex-layout py-3" fxLayout="column" fxFlex>
+              Snapshots
+            </div>
+            <div class="flex-layout py-3" fxLayout="column" fxFlex>
+              Snapshots
+            </div>
+          </div>
+        </md-tab>
+      </md-tab-group>
+    </div>
+
+  </div><!-- end row -->
+
+</div><!-- end .profile -->

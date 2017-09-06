@@ -22,7 +22,8 @@ export class ChartComponent implements OnInit {
       responsive: true, // Resizes the chart canvas when its container does.
       responsiveAnimationDuration: 250, // Duration in milliseconds it takes to animate to new size after a resize event.
       maintainAspectRatio: false, // Maintain the original canvas aspect ratio (width / height) when resizing
-      scaleBeginAtZero: false
+      scaleBeginAtZero: false,
+      legend: {position: 'right'}
     };
   }
 

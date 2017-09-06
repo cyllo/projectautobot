@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartData, ChartType } from '../../../models';
+import { ChartData, ChartType } from '../../../../models';
 
 @Component({
   selector: 'ow-skill-rating-trend',

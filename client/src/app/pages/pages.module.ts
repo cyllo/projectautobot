@@ -26,7 +26,8 @@ import { MdInputModule,
          MdTableModule,
          MdRadioModule,
          MdButtonToggleModule,
-         MdCheckboxModule } from '@angular/material';
+         MdCheckboxModule,
+         MdProgressBarModule } from '@angular/material';
 
 import {
   HomeComponent,
@@ -43,15 +44,13 @@ import {
   PostComponent,
   FriendsComponent,
   ProfileComponent,
-  HeroCardsComponent,
   LifetimeStatsComponent,
-  CareerComponent,
+  ProfileHeaderComponent,
   MostPlayedComponent,
   HeroSkillsComponent,
   HeroPageTabsComponent,
   HeroCareerComponent,
   ProfileOverviewComponent,
-  ProfilePageTabsComponent,
   HeroWallCatalogComponent,
   CompareComponent,
   ComparedProfilesComponent,
@@ -69,7 +68,10 @@ import {
   LeaderboardHeaderComponent,
   LeaderboardTableComponent,
   LeaderboardChartComponent,
-  HeroesChartComponent
+  HeroesChartComponent,
+  RecentlyPlayedComponent,
+  OverallPerformanceComponent,
+  RolePerformanceComponent
 } from './index';
 
 @NgModule({
@@ -102,7 +104,8 @@ import {
     MdTableModule,
     MdRadioModule,
     MdButtonToggleModule,
-    MdCheckboxModule
+    MdCheckboxModule,
+    MdProgressBarModule
   ],
   declarations: [
     HomeComponent,
@@ -119,15 +122,13 @@ import {
     PostComponent,
     FriendsComponent,
     ProfileComponent,
-    HeroCardsComponent,
     LifetimeStatsComponent,
-    CareerComponent,
+    ProfileHeaderComponent,
     MostPlayedComponent,
     HeroSkillsComponent,
     HeroPageTabsComponent,
     HeroCareerComponent,
     ProfileOverviewComponent,
-    ProfilePageTabsComponent,
     HeroWallCatalogComponent,
     CompareComponent,
     ComparedProfilesComponent,
@@ -145,7 +146,10 @@ import {
     LeaderboardHeaderComponent,
     LeaderboardTableComponent,
     LeaderboardChartComponent,
-    HeroesChartComponent
+    HeroesChartComponent,
+    RecentlyPlayedComponent,
+    OverallPerformanceComponent,
+    RolePerformanceComponent
   ],
   exports: [
     HomeComponent,
@@ -162,21 +166,21 @@ import {
     PostComponent,
     FriendsComponent,
     ProfileComponent,
-    HeroCardsComponent,
     LifetimeStatsComponent,
-    CareerComponent,
+    ProfileHeaderComponent,
     MostPlayedComponent,
     HeroSkillsComponent,
     HeroPageTabsComponent,
     HeroCareerComponent,
-    ProfilePageTabsComponent,
     LoginComponent,
     UserRegistrationComponent,
     AccountSettingsComponent,
     LeaderboardHeaderComponent,
     LeaderboardTableComponent,
     LeaderboardChartComponent,
-    HeroesChartComponent
+    HeroesChartComponent,
+    OverallPerformanceComponent,
+    RolePerformanceComponent
   ]
 })
 

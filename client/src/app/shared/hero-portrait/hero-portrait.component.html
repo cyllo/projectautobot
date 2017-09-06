@@ -1,5 +1,5 @@
 <div class="hero-portrait" *ngIf="hero">
   <a href="./hero/{{hero.name}}">
-    <img draggable="false" class="md-image" [ngClass]="class" [src]="hero.portraitUrl" mdTooltip="{{hero.name}}">
+    <img draggable="false" class="md-image" ngClass="{{class}}" [src]="hero.portraitUrl" mdTooltip="{{hero.name}}">
   </a>
 </div>
