@@ -72,12 +72,17 @@ import {
   RecentlyPlayedComponent,
   OverallPerformanceComponent,
 <<<<<<< HEAD
+<<<<<<< HEAD
   RolePerformanceComponent,
   RecentSessionComponent,
   HeroCardsComponent
 =======
   RolePerformanceComponent
 >>>>>>> wip: profile page
+=======
+  RolePerformanceComponent,
+  RecentSessionComponent
+>>>>>>> wip: added recent sessions and role performance
 } from './index';
 
 @NgModule({
