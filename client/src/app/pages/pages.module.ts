@@ -71,7 +71,8 @@ import {
   HeroesChartComponent,
   RecentlyPlayedComponent,
   OverallPerformanceComponent,
-  RolePerformanceComponent
+  RolePerformanceComponent,
+  RecentSessionComponent
 } from './index';
 
 @NgModule({
@@ -149,7 +150,8 @@ import {
     HeroesChartComponent,
     RecentlyPlayedComponent,
     OverallPerformanceComponent,
-    RolePerformanceComponent
+    RolePerformanceComponent,
+    RecentSessionComponent
   ],
   exports: [
     HomeComponent,
@@ -180,7 +182,8 @@ import {
     LeaderboardChartComponent,
     HeroesChartComponent,
     OverallPerformanceComponent,
-    RolePerformanceComponent
+    RolePerformanceComponent,
+    RecentSessionComponent
   ]
 })
 

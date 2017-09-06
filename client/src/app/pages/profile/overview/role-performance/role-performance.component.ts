@@ -8,7 +8,20 @@ import { Component, OnInit } from '@angular/core';
 
 export class RolePerformanceComponent implements OnInit {
 
-  derp = [1, 2, 3, 4];
+  rolesData = [
+    {
+      name: 'offense'
+    },
+    {
+      name: 'defense'
+    },
+    {
+      name: 'support'
+    },
+    {
+      name: 'tank'
+    }
+  ];
 
   constructor() {}
 
