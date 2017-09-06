@@ -5,4 +5,5 @@ export * from './skill-rating-trend';
 export * from './overall';
 export * from './role-performance';
 export * from './recent-sessions';
+export * from './hero-cards';
 export * from './overview.component';
