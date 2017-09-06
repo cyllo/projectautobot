@@ -71,9 +71,13 @@ import {
   HeroesChartComponent,
   RecentlyPlayedComponent,
   OverallPerformanceComponent,
+<<<<<<< HEAD
   RolePerformanceComponent,
   RecentSessionComponent,
   HeroCardsComponent
+=======
+  RolePerformanceComponent
+>>>>>>> wip: profile page
 } from './index';
 
 @NgModule({
