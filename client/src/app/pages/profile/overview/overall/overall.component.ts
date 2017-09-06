@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ChartData, ChartType } from '../../../../models';
 
 @Component({
@@ -8,7 +8,7 @@ import { ChartData, ChartType } from '../../../../models';
 })
 
 export class OverallPerformanceComponent implements OnInit {
-
+  @Input() heroTotalAverageStatistics: any;
   generalChart: ChartData = {
     xAxisLabels: ['Kills', 'Assists', 'Deaths'],
     datasets: [{

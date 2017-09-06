@@ -1,29 +1,77 @@
-<div class="lifetime-stats flex-layout py-3 px-3" fxLayout="row">
-  <div class="flex-layout" fxLayout="column" fxFlex>
-    <div class="flex-layout" fxLayout="row">
-      <div class="flex-layout" fxLayout="column" fxFlex>
-        <span class="text-uppercase"><strong>Lifetime Statistics</strong></span>
-      </div>
+<div class="flex-layout py-3 px-3" fxLayout="column" fxLayoutAlign="start stretch" fxFlex fxFill>
+  <div class="flex-layout py-3" fxLayout="row">
+    <div class="text-uppercase"><strong>Lifetime Statistics</strong></div>
+  </div>
+
+  <div class="flex-layout" fxLayout="column" fxFill>
+    <div class="flex-layout py-3" fxLayout="row">
+      <div class="mat-caption text-uppercase">Overview</div>
     </div>
-    <div class="flex-layout" fxLayout="row" *ngFor="let statGroup of statsGroups">
-      <div class="flex-layout" fxLayout="column" fxFlex>
 
-        <div class="flex-layout py-3" fxLayout="row">
-          <div class="flex-layout" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase">{{ statGroup.groupName }}</span>
-          </div>
-        </div>
+    <div class="flex-layout" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="mat-caption text-uppercase">Games Played</div>
+      <div class="mat-caption text-uppercase">{{ gameHistory.gamesPlayed }}</div>
+    </div>
 
-        <div class="flex-layout" fxLayout="row" *ngFor="let stat of statGroup.stats">
-          <div class="flex-layout" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase">{{ stat.name }}</span>
-          </div>
-          <div class="flex-layout text-right" fxLayout="column" fxFlex="initial">
-            <span class="mat-caption text-uppercase">{{ stat.value }}</span>
-          </div>
-        </div>
+    <div class="flex-layout" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="mat-caption text-uppercase">Games Won</div>
+      <div class="mat-caption text-uppercase">{{ gameHistory.gamesWon }}</div>
+    </div>
 
-      </div>
+    <div class="flex-layout" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="mat-caption text-uppercase">Total Game Time</div>
+      <div class="mat-caption text-uppercase">{{ gameHistory.timePlayed | owSecondsToHours }}</div>
+    </div>
+
+    <div class="flex-layout" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="mat-caption text-uppercase">Win Rate</div>
+      <div class="mat-caption text-uppercase">{{ gameHistory.winPercentage | owParsePercent }}%</div>
+    </div>
+
+    <div class="flex-layout" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="mat-caption text-uppercase">Average Game Length</div>
+      <div class="mat-caption text-uppercase">{{ gameHistory.timePlayed | owAverageMatchLength:gameHistory.gamesPlayed | owSecondsToMinutes }}</div>
+    </div>
+  </div>
+
+  <div class="flex-layout" fxLayout="column" fxFill>
+    <div class="flex-layout py-3" fxLayout="row" fxFlex>
+      <div class="mat-caption text-uppercase">Combat</div>
+    </div>
+
+    <div class="flex-layout" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="mat-caption text-uppercase">Eliminations</div>
+      <div class="mat-caption text-uppercase">{{ lifetimeStats.eliminations }}</div>
+    </div>
+
+    <div class="flex-layout" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="mat-caption text-uppercase">Deaths</div>
+      <div class="mat-caption text-uppercase">{{ lifetimeStats.deaths }}</div>
+    </div>
+
+    <div class="flex-layout" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="mat-caption text-uppercase">K/D Ratio</div>
+      <div class="mat-caption text-uppercase">{{ lifetimeStats.eliminations| owKillDeathAverage:lifetimeStats.deaths }}: 1</div>
+    </div>
+
+    <div class="flex-layout" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="mat-caption text-uppercase">Accuracy</div>
+      <div class="mat-caption text-uppercase">{{ lifetimeStats.weaponAccuracyPercentage }}</div>
+    </div>
+
+    <div class="flex-layout" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="mat-caption text-uppercase">Damage Done</div>
+      <div class="mat-caption text-uppercase">{{ lifetimeStats.damageDone }}</div>
+    </div>
+
+    <div class="flex-layout" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="mat-caption text-uppercase">Damage Blocked</div>
+      <div class="mat-caption text-uppercase">{{ lifetimeStats.damageBlocked }}</div>
+    </div>
+
+    <div class="flex-layout" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="mat-caption text-uppercase">Healing Done</div>
+      <div class="mat-caption text-uppercase">{{ lifetimeStats.healingDone }}</div>
     </div>
   </div>
 </div>

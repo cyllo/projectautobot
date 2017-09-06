@@ -13,7 +13,8 @@ import { MdIconModule,
          MdChipsModule,
          MdSlideToggleModule,
          MdProgressBarModule,
-         MdTooltipModule } from '@angular/material';
+         MdTooltipModule,
+         MdRadioModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import {
@@ -40,7 +41,7 @@ import {
   TopNewsPostCardComponent,
   ProfileCheckboxComponent,
   HeroCheckboxComponent,
-  CompetitiveOrQuickPlaySelectorComponent,
+  GameModeToggleComponent,
   PlayerProfileButtonComponent
 } from './index';
 import { ChartsModule } from 'ng2-charts';
@@ -64,7 +65,8 @@ import { ChartsModule } from 'ng2-charts';
     MdChipsModule,
     MdSlideToggleModule,
     MdProgressBarModule,
-    MdTooltipModule
+    MdTooltipModule,
+    MdRadioModule
   ],
   declarations: [
     VideoCardComponent,
@@ -89,7 +91,7 @@ import { ChartsModule } from 'ng2-charts';
     TopNewsPostCardComponent,
     ProfileCheckboxComponent,
     HeroCheckboxComponent,
-    CompetitiveOrQuickPlaySelectorComponent,
+    GameModeToggleComponent,
     PlayerProfileButtonComponent
   ],
   exports: [
@@ -112,7 +114,7 @@ import { ChartsModule } from 'ng2-charts';
     HeroCatalogComponent,
     ProfileCheckboxComponent,
     HeroCheckboxComponent,
-    CompetitiveOrQuickPlaySelectorComponent,
+    GameModeToggleComponent,
     PlayerProfileButtonComponent
   ],
   providers: [ApiService]

@@ -3,7 +3,6 @@
 #import "./game-history-statistic.gql"
 #import "./combat-life-statistic.gql"
 #import "./combat-best-statistic.gql"
-#import "./combat-average-statistic.gql"
 
 query SnapshotStatsAverageSearch($type: SnapshotStatisticType!) {
     snapshotsStatisticsAverage(type: $type) {
@@ -23,9 +22,6 @@ query SnapshotStatsAverageSearch($type: SnapshotStatisticType!) {
         combatBestStatistic {
           ...CombatBestStatistic
         }
-        combatAverageStatistic {
-          ...CombatAverageStatistic
-        }
       }
       heroesTotalSnapshotStatistic {
         matchAwardsStatistic {
@@ -39,9 +35,6 @@ query SnapshotStatsAverageSearch($type: SnapshotStatisticType!) {
         }
         combatBestStatistic {
           ...CombatBestStatistic
-        }
-        combatAverageStatistic {
-          ...CombatAverageStatistic
         }
       }
     }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { GamerTag } from '../../../models';
 
 @Component({
   selector: 'ow-profile-header',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class ProfileHeaderComponent implements OnInit {
-
+  @Input() profile: GamerTag;
+  @Input() modeIndicator;
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.profile);
+  }
 
 }

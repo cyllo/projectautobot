@@ -1,4 +1,9 @@
-<div class="profile flex-layout px-3" fxLayout="column" fxLayoutGap="14px" fxFlex>
+<div
+  class="profile flex-layout px-3"
+  fxLayout="column"
+  fxLayoutGap="14px"
+  fxFlex
+  *ngIf="displayProfile | async as currentProfile; else loadingBlock">
 
   <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
 
@@ -9,13 +14,13 @@
              fxLayout="column"
              fxFlex="initial"
              fxFlex.lt-md="grow">
-          <ow-platform-region [players]="players" [player]="player"></ow-platform-region>
+          <ow-platform-region [players]="players" [currentProfile]="currentProfile" (change)="changeProfile$.next($event)"></ow-platform-region>
         </div><!-- end col -->
         <div class="flex-layout pt-3 px-3"
              fxLayout="column"
              fxFlex="initial"
              fxFlex.lt-md="grow">
-          <ow-quick-comp-toggle></ow-quick-comp-toggle>
+          <ow-game-mode-toggle (gameMode)="selectedGameMode$.next($event)" [modeIndicator]="modeIndicator"></ow-game-mode-toggle>
         </div><!-- end col -->
         <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex fxFlex.lt-lg="grow">
           <div class="flex-layout"
@@ -25,7 +30,7 @@
                fxLayoutGap="14px"
                fxFlex="noshrink">
             <div class="flex-layout" fxLayout="column" fxFlex="initial">
-              <button md-button fxLayoutAlign="center center">
+              <button md-button fxLayoutAlign="center center" (click)="reScrapeProfile$.next()">
                 <md-icon class="md-18 mr-1">refresh</md-icon>
                 <span class="mat-caption text-uppercase">Renew</span>
               </button>
@@ -48,7 +53,7 @@
 
       <div class="flex-layout" fxLayout="row">
         <div class="flex-layout" fxLayout="column" fxFlex>
-          <ow-profile-header></ow-profile-header>
+          <ow-profile-header [profile]="currentProfile" [modeIndicator]="modeIndicator | async"></ow-profile-header>
         </div>
       </div>
 
@@ -61,7 +66,7 @@
     <div class="flex-layout" fxLayout="column" fxFlex>
       <md-tab-group [(selectedIndex)]="selectedTabIndex">
         <md-tab label="Overview">
-          <ow-profile-overview></ow-profile-overview>
+          <ow-profile-overview [profile]="currentProfile" [modeIndicator]="modeIndicator | async"></ow-profile-overview>
         </md-tab>
         <md-tab label="Heroes">
           <div class="flex-layout py-3" fxLayout="row" fxLayoutGap="14px">
@@ -90,3 +95,7 @@
   </div><!-- end row -->
 
 </div><!-- end .profile -->
+
+<ng-template #loadingBlock>
+  <ow-page-spinner></ow-page-spinner>
+</ng-template>

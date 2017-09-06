@@ -27,7 +27,8 @@ import { MdSidenavModule,
          MdIconModule,
          MdProgressSpinnerModule,
          MdCheckboxModule,
-         MdExpansionModule } from '@angular/material';
+         MdExpansionModule,
+         MdRadioModule } from '@angular/material';
 
 import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
@@ -63,6 +64,7 @@ import { SharedModule } from './shared';
 import { PagesModule } from './pages';
 
 const declarations: any[] = [AppComponent, OrderByPipe, ValuesPipe, HasSnapshot, ...values(staticComponents)];
+
 export function instrumentOptions() {
   return {
     monitor: useLogMonitor({ visible: false, position: 'right' })
@@ -109,7 +111,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MdIconModule,
     MdProgressSpinnerModule,
     MdCheckboxModule,
-    MdExpansionModule
+    MdExpansionModule,
+    MdRadioModule
   ],
   declarations,
   providers: [
