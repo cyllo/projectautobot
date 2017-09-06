@@ -170,9 +170,9 @@ defmodule Models.Accounts do
 
   """
   def send_friend_request(user, future_friend_id) do
-    with {:ok, _} <- get_friend(user.id, future_friend_id),
+    with {:ok, friend} <- get_friend(user.id, future_friend_id),
          nil <- get_user_any_friendship(user.id, future_friend_id),
-         {:ok, %{user_friendship: friendship}} <- Repo.transaction(Friendship.create_friendship_query(user.id, future_friend_id)) do
+         {:ok, %{user_friendship: friendship}} <- Repo.transaction(Friendship.create_friendship_query(user, friend)) do
       {:ok, friendship}
     else
       {%Friendship{}, %Friendship{}} = friendships -> handle_send_friendship_error(user, friendships)

@@ -7,7 +7,7 @@ config :stats_leaderboard, ecto_repos: []
 config :quantum, global?: true
 config :quantum, :scraper,
   cron: [
-    "@daily": {StatsLeaderboard, :create_snapshot, []}
+    "@daily": {StatsLeaderboard, :snapshot_rankings, []}
   ]
 # This configuration is loaded before any dependency and is restricted
 # to this project. If another project depends on this project, this

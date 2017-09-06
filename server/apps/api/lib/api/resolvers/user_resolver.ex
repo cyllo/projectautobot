@@ -68,7 +68,7 @@ defmodule Api.UserResolver do
 
   def get_friendships(params, users) do
     Accounts.get_users_friendships(users, params)
-      |> convert_to_id_map(Utility.pluck(users, :id), [:user_id, :friend_id])
+      |> convert_to_id_map(Utility.pluck(users, :id), [:user_id])
   end
 
   defp get_and_follow_user(user, following_id) do

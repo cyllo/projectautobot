@@ -2,7 +2,7 @@ defmodule Models.Accounts.Friendship do
   use Models.Model
 
   alias Ecto.Multi
-  alias Models.{Accounts, Game.GamerTag}
+  alias Models.{Repo, Accounts, Game.GamerTag}
   alias Models.Accounts.{User, Friendship, UserFriendGroup}
 
   schema "friendships" do
@@ -52,13 +52,34 @@ defmodule Models.Accounts.Friendship do
     from(f in Friendship, where: [user_id: ^user_id, friend_id: ^friend_id])
   end
 
-  def create_friendship_query(user_id, friend_id) do
-    user = %Friendship{user_id: user_id, friend_id: friend_id, is_sender: true}
-    friend = %Friendship{user_id: friend_id, friend_id: user_id}
+  def create_friendship_query(%User{} = user, %User{} = friend) do
+    %{gamer_tags: user_gamer_tags} = Repo.preload(user, :gamer_tags)
+    %{gamer_tags: friend_gamer_tags} = Repo.preload(friend, :gamer_tags)
 
-    Multi.new
-      |> Multi.insert(:user_friendship, user)
-      |> Multi.insert(:friend_friendship, friend)
+    user_params = %{
+      user_id: user.id, friend_id: friend.id,
+      is_sender: true, primary_gamer_tag_id: get_first_gamer_tag_id(friend_gamer_tags)
+    }
+
+    friend_params = %{
+      user_id: friend.id, friend_id: user.id,
+      primary_gamer_tag_id: get_first_gamer_tag_id(user_gamer_tags)
+    }
+
+    create_friendship_multi(user_params, friend_params)
+  end
+
+  def create_friendship_query(user_id, friend_id) do
+    user = %{user_id: user_id, friend_id: friend_id, is_sender: true}
+    friend = %{user_id: friend_id, friend_id: user_id}
+
+    create_friendship_multi(user, friend)
+  end
+
+  def create_friendship_multi(user_friendship_params, friend_friendship_params) do
+      Multi.new
+        |> Multi.insert(:user_friendship, struct(Friendship, user_friendship_params))
+        |> Multi.insert(:friend_friendship, struct(Friendship, friend_friendship_params))
   end
 
   def accept_friendship_query(user_friendship, friend_friendship) do
@@ -77,6 +98,13 @@ defmodule Models.Accounts.Friendship do
           [primary_gamer_tag_id: e]
       end
     end)
+  end
+
+  defp get_first_gamer_tag_id(gamer_tags) do
+    case List.first(gamer_tags) do
+      nil -> nil
+      gamer_tag -> Map.get(gamer_tag, :id)
+    end
   end
 
   defp params_to_query({:is_accepted, value}, query, _), do: where(query, is_accepted: ^value)
