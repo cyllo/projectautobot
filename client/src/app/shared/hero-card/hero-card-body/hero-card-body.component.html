@@ -1,1 +1,21 @@
-test
+<div class="hero-card-body flex-layout" fxLayout="column" fxFlex>
+  <div class=" flex-layout" fxLayout="row" fxLayoutWrap>
+    <div class="flex-layout pt-3 px-2" fxLayout="column" fxFlex="16.666%" *ngFor="let stat of stats">
+      <div class="flex-layout" fxLayout="row">
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <span class="mat-caption"><strong>{{ stat.value }}</strong></span>
+        </div>
+      </div>
+      <div class="flex-layout" fxLayout="row">
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+        </div>
+      </div>
+      <div class="flex-layout pt-1" fxLayout="row">
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <span class="stat-name text-uppercase">{{ stat.name }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
