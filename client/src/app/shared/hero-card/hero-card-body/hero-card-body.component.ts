@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: [ 'hero-card-body.component.scss' ]
 })
 
-export class HeroCardBodyComponent implements OnInit {
+export class HeroCardBodyComponent {
 
   constructor() {}
 
