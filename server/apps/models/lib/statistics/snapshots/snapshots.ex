@@ -2,8 +2,7 @@ defmodule Models.Statistics.Snapshots do
   use Models.Model
 
   alias Ecto.Multi
-  alias Models.Model
-  alias Models.{Enums, Repo}
+  alias Models.{Model, Enums, Repo, Game.GamerTag}
   alias Models.Statistics.Snapshots.{
     HeroSnapshotStatistic, SnapshotStatistic,
     LeaderboardSnapshotStatistic, StatisticsAveragesSnapshot
@@ -54,19 +53,23 @@ defmodule Models.Statistics.Snapshots do
     get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, Map.to_list(opts))
   end
 
+  # TODO: Simplify query to single transaction
   def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, opts) do
-    query = from(ss in SnapshotStatistic, where: ss.gamer_tag_id in ^gamer_tag_ids)
-
     query = if Keyword.get(opts, :only_last_daily, false) do
-      SnapshotStatistic.latest_daily_query(query)
+      SnapshotStatistic.latest_daily_query
         |> Ecto.Query.subquery
     else
-      query
+      SnapshotStatistic
     end
 
-    query
-      |> Model.create_model_filters(Keyword.delete(opts, :only_last_daily))
+    from(gt in GamerTag, where: gt.id in ^gamer_tag_ids)
       |> Repo.all
+      |> Enum.flat_map(fn %{id: tag_id} ->
+        query
+          |> Ecto.Query.where(gamer_tag_id: ^tag_id)
+          |> Model.create_model_filters(Keyword.delete(opts, :only_last_daily))
+          |> Repo.all
+      end)
   end
 
   def get_gamer_tag_snapshot_statistics(gamer_tag_id) do

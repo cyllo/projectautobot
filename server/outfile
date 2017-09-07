@@ -1,0 +1,2847 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.5.7
+-- Dumped by pg_dump version 9.5.7
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+--
+-- Name: citext; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION citext; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION citext IS 'data type for case-insensitive character strings';
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- Name: hero_snapshot_statistic_type; Type: TYPE; Schema: public; Owner: bob
+--
+
+CREATE TYPE hero_snapshot_statistic_type AS ENUM (
+    'hero_total_competitive',
+    'hero_total_quickplay',
+    'hero_competitive',
+    'hero_quickplay'
+);
+
+
+ALTER TYPE hero_snapshot_statistic_type OWNER TO bob;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: blog_categories; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE blog_categories (
+    id integer NOT NULL,
+    name text NOT NULL
+);
+
+
+ALTER TABLE blog_categories OWNER TO bob;
+
+--
+-- Name: blog_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE blog_categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE blog_categories_id_seq OWNER TO bob;
+
+--
+-- Name: blog_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE blog_categories_id_seq OWNED BY blog_categories.id;
+
+
+--
+-- Name: blog_post_categories; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE blog_post_categories (
+    blog_post_id integer NOT NULL,
+    blog_category_id integer NOT NULL
+);
+
+
+ALTER TABLE blog_post_categories OWNER TO bob;
+
+--
+-- Name: blog_posts; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE blog_posts (
+    id integer NOT NULL,
+    title text NOT NULL,
+    content text NOT NULL,
+    summary text NOT NULL,
+    thumbnail_url text NOT NULL,
+    hero_image_url text NOT NULL,
+    author_id integer NOT NULL,
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE blog_posts OWNER TO bob;
+
+--
+-- Name: blog_posts_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE blog_posts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE blog_posts_id_seq OWNER TO bob;
+
+--
+-- Name: blog_posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE blog_posts_id_seq OWNED BY blog_posts.id;
+
+
+--
+-- Name: combat_average_statistics; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE combat_average_statistics (
+    id integer NOT NULL,
+    critical_hits_average numeric DEFAULT 0 NOT NULL,
+    damage_done_average numeric DEFAULT 0 NOT NULL,
+    deaths_average numeric DEFAULT 0 NOT NULL,
+    defensive_assists_average numeric DEFAULT 0 NOT NULL,
+    eliminations_average numeric DEFAULT 0 NOT NULL,
+    final_blows_average numeric DEFAULT 0 NOT NULL,
+    healing_done_average numeric DEFAULT 0 NOT NULL,
+    melee_final_blows_average numeric DEFAULT 0 NOT NULL,
+    objective_kills_average numeric DEFAULT 0 NOT NULL,
+    objective_time_average integer DEFAULT 0 NOT NULL,
+    offensive_assists_average integer DEFAULT 0 NOT NULL,
+    self_healing_average numeric DEFAULT 0 NOT NULL,
+    solo_kills_average numeric DEFAULT 0 NOT NULL,
+    time_spent_on_fire_average integer DEFAULT 0 NOT NULL,
+    damage_blocked_average integer DEFAULT 0 NOT NULL,
+    melee_kills_average numeric DEFAULT 0 NOT NULL,
+    melee_percentage_of_final_blows integer DEFAULT 0 NOT NULL,
+    weapon_accuracy integer DEFAULT 0 NOT NULL,
+    all_damage_done_avg_per_10_min integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE combat_average_statistics OWNER TO bob;
+
+--
+-- Name: combat_average_statistics_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE combat_average_statistics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE combat_average_statistics_id_seq OWNER TO bob;
+
+--
+-- Name: combat_average_statistics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE combat_average_statistics_id_seq OWNED BY combat_average_statistics.id;
+
+
+--
+-- Name: combat_best_statistics; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE combat_best_statistics (
+    id integer NOT NULL,
+    eliminations_most_in_life integer DEFAULT 0 NOT NULL,
+    eliminations_most_in_game integer DEFAULT 0 NOT NULL,
+    critical_hits_most_in_game integer DEFAULT 0 NOT NULL,
+    critical_hits_most_in_life integer DEFAULT 0 NOT NULL,
+    damage_done_most_in_game integer DEFAULT 0 NOT NULL,
+    damage_done_most_in_life integer DEFAULT 0 NOT NULL,
+    melee_final_blows_most_in_game integer DEFAULT 0 NOT NULL,
+    weapon_accuracy_best_in_game_percentage integer DEFAULT 0 NOT NULL,
+    kill_streak_best integer DEFAULT 0 NOT NULL,
+    environmental_kills_most_in_game integer DEFAULT 0 NOT NULL,
+    teleporter_pads_destroyed_most_in_game integer DEFAULT 0 NOT NULL,
+    turrets_destroyed_most_in_game integer DEFAULT 0 NOT NULL,
+    shield_generators_destroyed_most_in_game integer DEFAULT 0 NOT NULL,
+    defensive_assists_most_in_game integer DEFAULT 0 NOT NULL,
+    offensive_assists_most_in_game integer DEFAULT 0 NOT NULL,
+    final_blows_most_in_game integer DEFAULT 0 NOT NULL,
+    solo_kills_most_in_game integer DEFAULT 0 NOT NULL,
+    objective_kills_most_in_game integer DEFAULT 0 NOT NULL,
+    objective_time_most_in_game integer DEFAULT 0 NOT NULL,
+    time_spent_on_fire_most_in_game integer DEFAULT 0 NOT NULL,
+    healing_done_most_in_game integer DEFAULT 0 NOT NULL,
+    healing_done_most_in_life integer DEFAULT 0 NOT NULL,
+    self_healing_most_in_game integer DEFAULT 0 NOT NULL,
+    multikill_best integer DEFAULT 0 NOT NULL,
+    recon_assists_most_in_game integer DEFAULT 0 NOT NULL,
+    damage_blocked_most_in_game integer DEFAULT 0 NOT NULL,
+    melee_kills_most_in_game integer DEFAULT 0 NOT NULL,
+    all_damage_done_most_in_game integer DEFAULT 0 NOT NULL,
+    all_damage_done_most_in_life integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE combat_best_statistics OWNER TO bob;
+
+--
+-- Name: combat_best_statistics_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE combat_best_statistics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE combat_best_statistics_id_seq OWNER TO bob;
+
+--
+-- Name: combat_best_statistics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE combat_best_statistics_id_seq OWNED BY combat_best_statistics.id;
+
+
+--
+-- Name: combat_lifetime_statistics; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE combat_lifetime_statistics (
+    id integer NOT NULL,
+    solo_kills integer DEFAULT 0 NOT NULL,
+    eliminations integer DEFAULT 0 NOT NULL,
+    eliminations_per_life numeric DEFAULT 0 NOT NULL,
+    time_spent_on_fire integer DEFAULT 0 NOT NULL,
+    deaths integer DEFAULT 0 NOT NULL,
+    objective_kills integer DEFAULT 0 NOT NULL,
+    objective_time integer DEFAULT 0 NOT NULL,
+    environmental_kills integer DEFAULT 0 NOT NULL,
+    environmental_deaths integer DEFAULT 0 NOT NULL,
+    damage_done integer DEFAULT 0 NOT NULL,
+    shots_fired integer DEFAULT 0 NOT NULL,
+    shots_hit integer DEFAULT 0 NOT NULL,
+    critical_hits integer DEFAULT 0 NOT NULL,
+    healing_done integer DEFAULT 0 NOT NULL,
+    final_blows integer DEFAULT 0 NOT NULL,
+    melee_final_blows integer DEFAULT 0 NOT NULL,
+    multikills integer DEFAULT 0 NOT NULL,
+    recon_assists integer DEFAULT 0 NOT NULL,
+    teleporter_pads_destroyed integer DEFAULT 0 NOT NULL,
+    shield_generators_destroyed integer DEFAULT 0 NOT NULL,
+    damage_blocked integer DEFAULT 0 NOT NULL,
+    melee_kills integer DEFAULT 0 NOT NULL,
+    weapon_accuracy_percentage integer DEFAULT 0 NOT NULL,
+    critical_hits_accuracy_percentage integer DEFAULT 0 NOT NULL,
+    multikill_best integer DEFAULT 0 NOT NULL,
+    turrets_destroyed integer DEFAULT 0 NOT NULL,
+    defensive_assists integer DEFAULT 0 NOT NULL,
+    offensive_assists integer DEFAULT 0 NOT NULL,
+    barrier_damage_done integer DEFAULT 0 NOT NULL,
+    all_damage_done integer DEFAULT 0 NOT NULL,
+    hero_damage_done integer DEFAULT 0 NOT NULL,
+    time_holding_ultimate integer DEFAULT 0 NOT NULL,
+    ultimates_earned integer DEFAULT 0 NOT NULL,
+    ultimates_used integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE combat_lifetime_statistics OWNER TO bob;
+
+--
+-- Name: combat_lifetime_statistics_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE combat_lifetime_statistics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE combat_lifetime_statistics_id_seq OWNER TO bob;
+
+--
+-- Name: combat_lifetime_statistics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE combat_lifetime_statistics_id_seq OWNED BY combat_lifetime_statistics.id;
+
+
+--
+-- Name: connected_gamer_tags; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE connected_gamer_tags (
+    gamer_tag1_id integer NOT NULL,
+    gamer_tag2_id integer NOT NULL
+);
+
+
+ALTER TABLE connected_gamer_tags OWNER TO bob;
+
+--
+-- Name: followers; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE followers (
+    user_id integer NOT NULL,
+    follower_id integer NOT NULL,
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE followers OWNER TO bob;
+
+--
+-- Name: friendships; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE friendships (
+    id integer NOT NULL,
+    is_accepted boolean DEFAULT false,
+    is_sender boolean DEFAULT false,
+    user_id integer NOT NULL,
+    friend_id integer NOT NULL,
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    primary_gamer_tag_id integer
+);
+
+
+ALTER TABLE friendships OWNER TO bob;
+
+--
+-- Name: friendships_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE friendships_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE friendships_id_seq OWNER TO bob;
+
+--
+-- Name: friendships_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE friendships_id_seq OWNED BY friendships.id;
+
+
+--
+-- Name: game_history_statistics; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE game_history_statistics (
+    id integer NOT NULL,
+    games_tied integer DEFAULT 0 NOT NULL,
+    games_played integer DEFAULT 0 NOT NULL,
+    games_won integer DEFAULT 0 NOT NULL,
+    games_lost integer DEFAULT 0 NOT NULL,
+    time_played integer DEFAULT 0 NOT NULL,
+    time_spent_on_fire integer DEFAULT 0 NOT NULL,
+    win_percentage numeric DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE game_history_statistics OWNER TO bob;
+
+--
+-- Name: game_history_statistics_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE game_history_statistics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE game_history_statistics_id_seq OWNER TO bob;
+
+--
+-- Name: game_history_statistics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE game_history_statistics_id_seq OWNED BY game_history_statistics.id;
+
+
+--
+-- Name: gamer_tag_user_followers; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE gamer_tag_user_followers (
+    gamer_tag_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE gamer_tag_user_followers OWNER TO bob;
+
+--
+-- Name: gamer_tags; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE gamer_tags (
+    id integer NOT NULL,
+    tag text NOT NULL,
+    overwatch_name text,
+    portrait_url text,
+    region citext DEFAULT ''::citext NOT NULL,
+    platform citext NOT NULL,
+    user_id integer,
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE gamer_tags OWNER TO bob;
+
+--
+-- Name: gamer_tags_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE gamer_tags_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE gamer_tags_id_seq OWNER TO bob;
+
+--
+-- Name: gamer_tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE gamer_tags_id_seq OWNED BY gamer_tags.id;
+
+
+--
+-- Name: hero_snapshot_statistics; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE hero_snapshot_statistics (
+    id integer NOT NULL,
+    statistic_type hero_snapshot_statistic_type,
+    snapshot_statistic_id integer,
+    combat_best_statistic_id integer,
+    combat_average_statistic_id integer,
+    combat_lifetime_statistic_id integer,
+    match_awards_statistic_id integer,
+    game_history_statistic_id integer,
+    hero_specific_statistic_id integer,
+    hero_id integer
+);
+
+
+ALTER TABLE hero_snapshot_statistics OWNER TO bob;
+
+--
+-- Name: hero_snapshot_statistics_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE hero_snapshot_statistics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE hero_snapshot_statistics_id_seq OWNER TO bob;
+
+--
+-- Name: hero_snapshot_statistics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE hero_snapshot_statistics_id_seq OWNED BY hero_snapshot_statistics.id;
+
+
+--
+-- Name: hero_specific_statistics; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE hero_specific_statistics (
+    id integer NOT NULL,
+    stats jsonb,
+    hero_id integer
+);
+
+
+ALTER TABLE hero_specific_statistics OWNER TO bob;
+
+--
+-- Name: hero_specific_statistics_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE hero_specific_statistics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE hero_specific_statistics_id_seq OWNER TO bob;
+
+--
+-- Name: hero_specific_statistics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE hero_specific_statistics_id_seq OWNED BY hero_specific_statistics.id;
+
+
+--
+-- Name: heroes; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE heroes (
+    id integer NOT NULL,
+    name citext NOT NULL,
+    code text NOT NULL,
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE heroes OWNER TO bob;
+
+--
+-- Name: heroes_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE heroes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE heroes_id_seq OWNER TO bob;
+
+--
+-- Name: heroes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE heroes_id_seq OWNED BY heroes.id;
+
+
+--
+-- Name: leaderboard_snapshot_statistics; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE leaderboard_snapshot_statistics (
+    id integer NOT NULL,
+    hero_total_competitive_rankings jsonb,
+    hero_total_quickplay_rankings jsonb,
+    hero_competitive_rankings jsonb,
+    hero_quickplay_rankings jsonb,
+    profile_stats_rankings jsonb,
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE leaderboard_snapshot_statistics OWNER TO bob;
+
+--
+-- Name: leaderboard_snapshot_statistics_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE leaderboard_snapshot_statistics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE leaderboard_snapshot_statistics_id_seq OWNER TO bob;
+
+--
+-- Name: leaderboard_snapshot_statistics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE leaderboard_snapshot_statistics_id_seq OWNED BY leaderboard_snapshot_statistics.id;
+
+
+--
+-- Name: match_awards_statistics; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE match_awards_statistics (
+    id integer NOT NULL,
+    bronze_medals integer DEFAULT 0 NOT NULL,
+    silver_medals integer DEFAULT 0 NOT NULL,
+    gold_medals integer DEFAULT 0 NOT NULL,
+    total_medals integer DEFAULT 0 NOT NULL,
+    cards integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE match_awards_statistics OWNER TO bob;
+
+--
+-- Name: match_awards_statistics_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE match_awards_statistics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE match_awards_statistics_id_seq OWNER TO bob;
+
+--
+-- Name: match_awards_statistics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE match_awards_statistics_id_seq OWNED BY match_awards_statistics.id;
+
+
+--
+-- Name: profile_snapshot_statistics; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE profile_snapshot_statistics (
+    id integer NOT NULL,
+    snapshot_statistic_id integer,
+    profile_statistic_id integer,
+    leaderboard_snapshot_statistic_id integer,
+    statistics_averages_snapshot_id integer
+);
+
+
+ALTER TABLE profile_snapshot_statistics OWNER TO bob;
+
+--
+-- Name: profile_snapshot_statistics_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE profile_snapshot_statistics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE profile_snapshot_statistics_id_seq OWNER TO bob;
+
+--
+-- Name: profile_snapshot_statistics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE profile_snapshot_statistics_id_seq OWNED BY profile_snapshot_statistics.id;
+
+
+--
+-- Name: profile_statistics; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE profile_statistics (
+    id integer NOT NULL,
+    total_games_won integer,
+    competitive_level integer,
+    competitive_rank_url character varying(255),
+    level integer,
+    level_url character varying(255),
+    rank_url character varying(255),
+    gamer_tag_id integer
+);
+
+
+ALTER TABLE profile_statistics OWNER TO bob;
+
+--
+-- Name: profile_statistics_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE profile_statistics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE profile_statistics_id_seq OWNER TO bob;
+
+--
+-- Name: profile_statistics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE profile_statistics_id_seq OWNED BY profile_statistics.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE schema_migrations (
+    version bigint NOT NULL,
+    inserted_at timestamp without time zone
+);
+
+
+ALTER TABLE schema_migrations OWNER TO bob;
+
+--
+-- Name: snapshot_statistics; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE snapshot_statistics (
+    id integer NOT NULL,
+    gamer_tag_id integer,
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE snapshot_statistics OWNER TO bob;
+
+--
+-- Name: snapshot_statistics_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE snapshot_statistics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE snapshot_statistics_id_seq OWNER TO bob;
+
+--
+-- Name: snapshot_statistics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE snapshot_statistics_id_seq OWNED BY snapshot_statistics.id;
+
+
+--
+-- Name: statistics_averages_snapshots; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE statistics_averages_snapshots (
+    id integer NOT NULL,
+    hero_total_competitive_averages jsonb,
+    hero_total_quickplay_averages jsonb,
+    hero_competitive_averages jsonb,
+    hero_quickplay_averages jsonb,
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE statistics_averages_snapshots OWNER TO bob;
+
+--
+-- Name: statistics_averages_snapshots_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE statistics_averages_snapshots_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE statistics_averages_snapshots_id_seq OWNER TO bob;
+
+--
+-- Name: statistics_averages_snapshots_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE statistics_averages_snapshots_id_seq OWNED BY statistics_averages_snapshots.id;
+
+
+--
+-- Name: user_friend_group_friendships; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE user_friend_group_friendships (
+    id integer NOT NULL,
+    friendship_id integer,
+    user_friend_group_id integer
+);
+
+
+ALTER TABLE user_friend_group_friendships OWNER TO bob;
+
+--
+-- Name: user_friend_group_friendships_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE user_friend_group_friendships_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE user_friend_group_friendships_id_seq OWNER TO bob;
+
+--
+-- Name: user_friend_group_friendships_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE user_friend_group_friendships_id_seq OWNED BY user_friend_group_friendships.id;
+
+
+--
+-- Name: user_friend_groups; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE user_friend_groups (
+    id integer NOT NULL,
+    name text,
+    user_id integer,
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE user_friend_groups OWNER TO bob;
+
+--
+-- Name: user_friend_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE user_friend_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE user_friend_groups_id_seq OWNER TO bob;
+
+--
+-- Name: user_friend_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE user_friend_groups_id_seq OWNED BY user_friend_groups.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: bob
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    display_name citext NOT NULL,
+    email citext NOT NULL,
+    password_hash text NOT NULL,
+    battle_net_id integer,
+    battle_net_tag text,
+    is_admin boolean DEFAULT false,
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    primary_gamer_tag_id integer
+);
+
+
+ALTER TABLE users OWNER TO bob;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: bob
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE users_id_seq OWNER TO bob;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bob
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY blog_categories ALTER COLUMN id SET DEFAULT nextval('blog_categories_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY blog_posts ALTER COLUMN id SET DEFAULT nextval('blog_posts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY combat_average_statistics ALTER COLUMN id SET DEFAULT nextval('combat_average_statistics_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY combat_best_statistics ALTER COLUMN id SET DEFAULT nextval('combat_best_statistics_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY combat_lifetime_statistics ALTER COLUMN id SET DEFAULT nextval('combat_lifetime_statistics_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY friendships ALTER COLUMN id SET DEFAULT nextval('friendships_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY game_history_statistics ALTER COLUMN id SET DEFAULT nextval('game_history_statistics_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY gamer_tags ALTER COLUMN id SET DEFAULT nextval('gamer_tags_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY hero_snapshot_statistics ALTER COLUMN id SET DEFAULT nextval('hero_snapshot_statistics_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY hero_specific_statistics ALTER COLUMN id SET DEFAULT nextval('hero_specific_statistics_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY heroes ALTER COLUMN id SET DEFAULT nextval('heroes_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY leaderboard_snapshot_statistics ALTER COLUMN id SET DEFAULT nextval('leaderboard_snapshot_statistics_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY match_awards_statistics ALTER COLUMN id SET DEFAULT nextval('match_awards_statistics_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY profile_snapshot_statistics ALTER COLUMN id SET DEFAULT nextval('profile_snapshot_statistics_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY profile_statistics ALTER COLUMN id SET DEFAULT nextval('profile_statistics_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY snapshot_statistics ALTER COLUMN id SET DEFAULT nextval('snapshot_statistics_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY statistics_averages_snapshots ALTER COLUMN id SET DEFAULT nextval('statistics_averages_snapshots_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY user_friend_group_friendships ALTER COLUMN id SET DEFAULT nextval('user_friend_group_friendships_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY user_friend_groups ALTER COLUMN id SET DEFAULT nextval('user_friend_groups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Data for Name: blog_categories; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY blog_categories (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: blog_categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('blog_categories_id_seq', 1, false);
+
+
+--
+-- Data for Name: blog_post_categories; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY blog_post_categories (blog_post_id, blog_category_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: blog_posts; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY blog_posts (id, title, content, summary, thumbnail_url, hero_image_url, author_id, inserted_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: blog_posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('blog_posts_id_seq', 1, false);
+
+
+--
+-- Data for Name: combat_average_statistics; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY combat_average_statistics (id, critical_hits_average, damage_done_average, deaths_average, defensive_assists_average, eliminations_average, final_blows_average, healing_done_average, melee_final_blows_average, objective_kills_average, objective_time_average, offensive_assists_average, self_healing_average, solo_kills_average, time_spent_on_fire_average, damage_blocked_average, melee_kills_average, melee_percentage_of_final_blows, weapon_accuracy, all_damage_done_avg_per_10_min) FROM stdin;
+1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+3	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+4	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+7	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+8	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+9	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+10	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+11	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+12	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+13	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+14	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+15	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+16	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+17	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+18	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+19	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+20	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+21	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+22	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+23	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+24	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+25	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+26	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+27	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+28	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+29	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+30	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+31	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+32	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+33	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+34	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+35	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+36	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+37	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+38	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+39	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+40	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+41	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+42	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+43	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+44	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+45	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+46	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+47	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+48	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+49	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+50	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+51	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+52	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+53	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+54	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+55	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+56	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+57	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+58	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+59	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+60	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+61	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+62	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+63	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+64	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+65	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+66	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+67	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+68	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+69	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+70	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+71	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+72	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+73	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+74	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+75	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+76	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+\.
+
+
+--
+-- Name: combat_average_statistics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('combat_average_statistics_id_seq', 76, true);
+
+
+--
+-- Data for Name: combat_best_statistics; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY combat_best_statistics (id, eliminations_most_in_life, eliminations_most_in_game, critical_hits_most_in_game, critical_hits_most_in_life, damage_done_most_in_game, damage_done_most_in_life, melee_final_blows_most_in_game, weapon_accuracy_best_in_game_percentage, kill_streak_best, environmental_kills_most_in_game, teleporter_pads_destroyed_most_in_game, turrets_destroyed_most_in_game, shield_generators_destroyed_most_in_game, defensive_assists_most_in_game, offensive_assists_most_in_game, final_blows_most_in_game, solo_kills_most_in_game, objective_kills_most_in_game, objective_time_most_in_game, time_spent_on_fire_most_in_game, healing_done_most_in_game, healing_done_most_in_life, self_healing_most_in_game, multikill_best, recon_assists_most_in_game, damage_blocked_most_in_game, melee_kills_most_in_game, all_damage_done_most_in_game, all_damage_done_most_in_life) FROM stdin;
+1	5	5	13	7	0	0	0	56	5	0	0	0	0	30	14	2	1	5	69	130	14124	0	1691	0	0	0	0	1312	0
+2	8	21	0	0	0	0	0	0	8	0	0	0	0	0	1	9	2	10	104	0	0	0	0	0	0	7435	0	5823	0
+3	5	8	0	0	0	0	0	49	5	0	0	0	0	0	0	4	1	4	8	0	0	0	0	0	0	0	0	3785	0
+4	14	30	0	0	0	0	0	0	14	0	0	0	0	0	0	10	4	21	171	47	0	0	0	4	0	10771	5	8073	0
+5	13	26	0	0	0	0	0	0	13	0	0	0	0	0	0	15	5	12	41	196	0	0	0	4	0	2328	0	8783	0
+6	5	12	6	2	0	0	0	40	5	0	0	0	0	18	14	5	0	6	80	0	4714	0	202	0	0	0	0	6053	0
+7	6	25	0	0	0	0	0	37	6	0	0	0	0	0	3	17	6	12	28	48	0	0	0	3	0	0	0	11081	0
+8	1	3	0	0	0	0	0	75	1	0	0	0	0	0	0	1	0	1	22	0	0	0	0	0	0	939	0	1213	0
+9	6	12	22	7	0	0	0	39	6	0	0	0	0	0	0	9	3	4	27	0	1580	0	1022	0	0	0	0	7308	0
+10	15	30	252	118	0	0	1	39	15	0	0	0	0	0	0	14	4	15	136	83	0	0	0	4	0	5211	0	16842	0
+11	15	20	0	0	0	0	0	37	15	0	0	0	0	0	8	7	2	11	74	20	0	0	0	0	0	0	0	4613	0
+12	2	8	0	0	0	0	0	35	2	0	0	0	0	0	0	3	2	2	29	0	0	0	0	0	0	0	0	2537	0
+13	11	20	0	0	0	0	0	40	11	0	0	0	0	0	0	9	1	12	99	169	0	0	0	0	0	28898	0	10073	0
+14	106	220	293	134	0	0	1	447	106	0	0	0	0	48	40	105	31	115	888	693	20418	0	2915	15	0	55582	5	87496	0
+15	2	3	6	3	0	0	0	45	2	0	0	0	0	0	0	2	0	1	10	0	0	0	0	0	0	0	0	1798	0
+16	7	9	15	7	0	0	1	69	7	0	0	0	0	27	16	4	3	5	87	130	9831	0	2050	0	0	0	0	3038	0
+17	8	14	3	2	0	0	0	26	8	0	0	0	0	0	0	4	0	6	22	57	0	0	0	0	0	0	0	7610	0
+18	1	2	0	0	0	0	0	0	1	0	0	0	0	0	0	1	1	1	21	0	0	0	0	0	0	3691	0	2077	0
+19	6	16	0	0	0	0	0	83	6	0	0	0	0	0	0	11	5	6	30	81	0	0	0	0	0	0	0	16503	0
+20	3	4	0	0	0	0	0	0	3	0	0	0	0	0	0	3	0	0	30	0	0	0	0	0	0	4555	2	3361	0
+21	21	27	0	0	0	0	1	0	21	0	0	0	0	0	0	15	4	13	41	213	0	0	0	3	0	4266	0	9632	0
+22	12	21	5	3	0	0	0	61	12	0	0	0	0	27	23	6	1	11	93	99	5888	0	221	0	0	0	0	6877	0
+23	3	5	44	20	0	0	0	19	3	0	0	0	0	0	0	1	0	0	184	0	0	0	4493	0	0	0	0	5712	0
+24	9	11	0	0	0	0	0	34	9	0	0	0	0	0	1	7	2	8	63	97	0	0	0	0	0	0	0	9960	0
+25	16	36	0	0	0	0	1	100	16	0	0	0	0	21	10	11	2	24	225	138	0	0	0	5	0	6973	0	14158	0
+26	5	18	14	10	0	0	0	54	5	0	0	0	0	3	0	4	1	11	46	0	1079	0	665	3	0	0	0	6636	0
+27	2	5	2	2	0	0	0	26	2	0	0	0	0	6	3	1	0	2	16	0	2563	0	717	0	0	0	0	1124	0
+28	18	22	166	135	0	0	0	45	18	0	0	0	0	0	0	6	1	11	112	0	0	0	0	3	0	9141	0	9145	0
+29	7	21	0	0	0	0	1	57	7	0	0	0	0	0	7	9	0	11	78	61	0	0	0	0	0	0	0	4182	0
+30	1	3	0	0	0	0	0	12	1	0	0	0	0	5	2	0	0	1	21	0	3277	0	292	0	0	0	0	1636	0
+31	16	16	0	0	0	0	0	66	16	0	0	0	0	0	9	5	1	9	71	56	0	0	0	0	0	16068	0	6791	0
+32	137	233	255	182	0	0	4	697	137	0	0	0	0	89	71	90	21	120	1150	932	22638	0	8438	14	0	44694	2	110240	0
+33	4	12	76	26	0	0	0	23	4	0	0	0	0	0	0	8	4	5	90	0	0	0	478	0	0	0	0	3967	0
+34	4	12	76	24	0	0	0	38	4	0	0	0	0	0	0	8	3	4	33	0	0	0	454	0	0	0	0	4089	0
+35	5	7	9	7	0	0	0	100	5	0	0	0	0	29	17	3	2	5	185	0	3226	0	1643	0	0	0	0	1380	0
+36	4	10	3	1	0	0	0	31	4	0	0	0	0	0	0	7	2	6	8	0	0	0	0	0	0	0	0	5154	0
+37	24	36	23	13	0	0	0	71	24	0	0	0	0	0	0	20	10	22	65	0	0	0	0	3	0	0	0	11743	0
+38	6	19	0	0	0	0	0	0	6	0	0	0	0	0	1	13	5	9	149	131	0	0	0	0	0	16004	0	8605	0
+39	23	34	0	0	0	0	1	74	23	0	0	0	0	0	0	22	12	23	125	40	0	0	0	4	0	0	0	21224	0
+40	16	33	0	0	0	0	1	0	16	0	0	0	0	0	0	20	7	23	203	0	0	0	0	4	0	10794	8	9815	0
+41	5	17	8	6	0	0	0	50	5	0	0	0	0	0	0	6	1	14	12	0	0	0	0	0	4	0	0	3513	0
+42	3	8	19	9	0	0	0	45	3	0	0	0	0	0	0	4	4	3	2	0	0	0	383	0	0	0	0	7808	0
+43	17	26	0	0	0	0	0	0	17	0	0	0	0	0	0	15	10	13	145	0	0	0	0	5	0	4653	0	7310	0
+44	10	20	20	6	0	0	1	42	10	0	0	0	0	20	18	10	6	14	128	0	3544	0	555	0	0	0	0	7131	0
+45	3	8	5	2	0	0	0	43	3	0	0	0	0	0	0	6	4	4	33	0	0	0	0	0	0	0	0	3760	0
+46	2	3	3	3	0	0	0	11	2	0	0	0	0	0	0	1	0	2	12	0	0	0	300	0	0	0	0	516	0
+47	6	17	9	7	0	0	0	67	6	0	0	0	0	0	0	11	7	7	83	0	0	0	0	0	0	0	0	5915	0
+48	5	10	0	0	0	0	0	40	5	0	0	0	0	0	0	9	3	6	18	0	0	0	0	0	0	0	0	7024	0
+49	8	15	0	0	0	0	0	100	8	0	0	0	0	0	0	5	2	10	146	0	0	0	0	0	0	2931	0	4953	0
+50	9	32	19	10	0	0	1	50	9	0	0	0	0	0	0	16	5	19	107	0	0	0	1282	3	0	0	0	8529	0
+51	3	4	5	4	0	0	0	20	3	0	0	0	0	2	0	1	1	4	52	0	0	0	864	0	0	0	0	1116	0
+52	3	3	59	59	0	0	0	21	3	0	0	0	0	0	0	2	1	3	39	0	0	0	0	0	0	2580	0	1272	0
+53	4	10	2	1	0	0	0	35	4	0	0	0	0	0	0	7	3	2	34	0	0	0	632	0	0	1567	0	3313	0
+54	6	14	0	0	0	0	0	48	6	0	0	0	0	0	1	5	2	4	23	0	0	0	0	0	0	0	0	3541	0
+55	10	22	0	0	0	0	0	37	10	0	0	0	0	0	0	12	2	13	36	319	0	0	0	0	0	23329	0	5899	0
+56	180	372	336	178	0	0	4	946	180	0	0	0	0	51	37	211	96	215	1728	490	6770	0	6591	19	4	61858	8	137577	0
+57	0	0	10	10	0	0	0	85	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	344	0
+58	8	11	10	7	0	0	1	100	8	0	0	0	0	58	26	5	1	7	169	251	22211	0	2833	4	0	0	0	2000	0
+59	12	23	4	1	0	0	0	19	12	0	0	0	0	0	0	10	3	13	55	39	0	0	0	0	0	0	0	6632	0
+60	17	34	0	0	0	0	0	0	17	0	0	0	0	0	7	15	4	17	220	248	0	0	0	5	0	26405	0	16070	0
+61	22	43	0	0	0	0	1	84	22	0	0	0	0	0	0	28	11	25	117	292	0	0	0	4	0	0	0	22163	0
+62	17	47	0	0	0	0	3	0	17	0	0	0	0	0	0	24	5	28	232	255	0	0	0	3	0	13889	12	12194	0
+63	1	1	5	5	0	0	0	28	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	469	0
+64	1	1	9	5	0	0	0	28	1	0	0	0	0	0	0	0	0	0	12	0	0	0	0	0	0	0	0	3119	0
+65	21	31	0	0	0	0	0	0	21	0	0	0	0	0	0	13	6	16	55	245	0	0	0	4	0	6881	0	8608	0
+66	20	37	12	7	0	0	1	63	20	0	0	0	0	40	40	11	3	16	148	306	12341	0	605	3	0	0	0	11476	0
+67	2	4	8	3	0	0	0	50	2	0	0	0	0	0	0	3	0	1	30	0	0	0	0	0	0	0	0	5081	0
+68	4	4	1	1	0	0	0	40	4	0	0	0	0	0	2	2	1	2	5	0	0	0	0	0	0	0	0	1056	0
+69	10	44	0	0	0	0	0	57	10	0	0	0	0	11	4	10	1	27	302	99	0	0	0	3	0	7221	0	13963	0
+70	24	31	32	22	0	0	1	70	24	0	0	0	0	0	0	19	6	15	86	212	2479	0	1269	4	0	0	0	12563	0
+71	10	21	21	11	0	0	0	59	10	0	0	0	0	14	7	6	1	13	181	106	9222	0	2099	0	0	0	0	7126	0
+72	21	50	636	171	0	0	1	60	21	0	0	0	0	0	0	25	5	33	254	154	0	0	0	3	0	25559	0	23545	0
+73	17	40	0	0	0	0	3	56	17	0	0	0	0	0	19	19	5	23	179	321	0	0	0	5	0	0	0	11858	0
+74	4	7	0	0	0	0	0	11	4	0	0	0	0	13	6	3	1	4	75	101	6490	0	444	0	0	0	0	2386	0
+75	17	48	0	0	0	0	1	62	17	0	0	0	0	0	4	22	5	35	265	411	0	0	0	3	0	33830	0	21170	0
+76	228	477	748	243	0	0	12	872	228	0	0	0	0	136	115	215	58	275	2385	3040	52743	0	7250	41	0	113785	12	181823	0
+\.
+
+
+--
+-- Name: combat_best_statistics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('combat_best_statistics_id_seq', 76, true);
+
+
+--
+-- Data for Name: combat_lifetime_statistics; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY combat_lifetime_statistics (id, solo_kills, eliminations, eliminations_per_life, time_spent_on_fire, deaths, objective_kills, objective_time, environmental_kills, environmental_deaths, damage_done, shots_fired, shots_hit, critical_hits, healing_done, final_blows, melee_final_blows, multikills, recon_assists, teleporter_pads_destroyed, shield_generators_destroyed, damage_blocked, melee_kills, weapon_accuracy_percentage, critical_hits_accuracy_percentage, multikill_best, turrets_destroyed, defensive_assists, offensive_assists, barrier_damage_done, all_damage_done, hero_damage_done, time_holding_ultimate, ultimates_earned, ultimates_used) FROM stdin;
+1	2	37	0.34	281	106	12	505	0	0	0	0	0	57	128660	10	0	0	0	0	0	0	0	31	10	0	9	269	83	0	0	0	0	0	0
+2	2	24	1.5	0	16	13	126	0	0	0	0	0	0	0	11	0	0	0	0	0	14827	0	0	0	0	0	0	1	0	0	0	0	0	0
+3	1	13	1.08	0	12	5	14	0	0	0	0	0	0	0	5	0	0	0	0	0	0	0	43	0	0	1	0	0	0	0	0	0	0	0
+4	26	418	2.44	302	171	185	1969	4	0	0	0	0	0	0	152	0	7	0	0	0	166377	40	0	0	0	71	0	0	0	0	0	0	0	0
+5	44	321	3.3	826	97	86	256	0	0	0	0	0	0	0	154	0	5	0	0	0	26453	0	0	0	0	0	0	0	0	0	0	0	0	0
+6	0	19	1.05	0	18	8	111	0	0	0	0	0	6	7764	6	0	0	0	0	0	0	0	36	3	0	3	24	24	0	0	0	0	0	0
+7	13	52	1.44	87	36	19	55	1	0	0	0	0	0	0	34	0	2	0	0	0	0	0	22	0	0	0	0	5	0	0	0	0	0	0
+8	0	3	0.6	0	5	1	22	0	0	0	0	0	0	0	1	0	0	0	0	0	939	0	75	0	0	0	0	1	0	0	0	0	0	0
+9	3	24	0.77	0	31	7	59	0	0	0	0	0	52	2965	13	0	0	0	0	0	0	0	29	7	0	7	0	0	0	0	0	0	0	0
+10	33	339	3.02	140	112	136	1303	4	0	0	0	0	2610	0	128	1	3	0	1	0	60164	0	26	7	0	9	0	0	0	0	0	0	0	0
+11	10	138	1.6	29	86	70	487	0	0	0	0	0	0	0	41	0	0	0	0	0	0	0	26	0	0	13	0	42	0	0	0	0	0	0
+12	2	12	0.6	0	20	4	77	0	0	0	0	0	0	0	5	0	0	0	0	0	0	0	23	0	0	0	0	0	0	0	0	0	0	0
+13	2	78	1.73	285	45	38	279	0	0	0	0	0	0	0	25	0	0	0	0	0	82762	0	32	0	0	0	0	28	0	0	0	0	0	0
+14	138	1478	19.470000000000002	1950	755	584	5263	9	0	0	0	0	2725	139389	585	1	17	0	1	0	351522	40	343	27	0	113	293	184	0	0	0	0	0	0
+15	0	3	0.75	0	4	1	10	0	0	0	0	0	6	0	2	0	0	0	0	0	0	0	45	1	0	1	0	0	0	0	0	0	0	0
+16	4	87	0.75	442	115	29	584	0	0	0	0	0	91	140200	23	1	0	0	0	0	0	0	37	6	0	11	254	136	0	0	0	0	0	0
+17	0	14	4.66	56	3	6	22	0	0	0	0	0	3	0	4	0	0	0	0	0	0	0	26	5	0	0	0	0	0	0	0	0	0	0
+18	1	2	0.4	0	5	1	25	0	0	0	0	0	0	0	1	0	0	0	0	0	5155	0	0	0	0	0	0	0	0	0	0	0	0	0
+19	13	70	1.48	123	47	23	79	2	0	0	0	0	0	0	39	0	0	0	0	0	0	0	58	0	0	37	0	0	0	0	0	0	0	0
+20	0	4	1	0	4	0	30	0	0	0	0	0	0	0	3	0	0	0	0	0	4555	2	0	0	0	2	0	0	0	0	0	0	0	0
+21	36	344	3.73	1416	92	127	444	0	0	0	0	0	0	0	172	2	1	0	0	0	38164	0	0	0	0	1	0	0	0	0	0	0	0	0
+22	1	62	2.95	201	21	32	306	0	0	0	0	0	20	19716	17	0	0	0	0	0	0	0	37	3	0	5	91	70	0	0	0	0	0	0
+23	0	5	1.66	0	3	0	184	0	0	0	0	0	44	0	1	0	0	0	0	0	0	0	19	6	0	0	0	0	0	0	0	0	0	0
+24	2	19	1.72	96	11	9	71	0	0	0	0	0	0	0	11	0	0	0	0	0	0	0	27	0	0	0	0	1	0	0	0	0	0	0
+25	11	630	2.61	437	241	354	3332	0	0	0	0	0	0	0	128	4	15	0	0	0	149943	0	51	0	0	62	205	104	0	0	0	0	0	0
+26	3	45	2.14	0	21	21	100	0	0	0	0	0	38	3326	15	0	1	0	0	0	0	0	34	4	0	1	8	0	0	0	0	0	0	0
+27	0	5	1.66	0	3	2	16	0	0	0	0	0	2	2563	1	0	0	0	0	0	0	0	26	3	0	0	6	3	0	0	0	0	0	0
+28	1	50	10	0	5	21	193	0	0	0	0	0	443	0	14	0	2	0	1	0	22851	0	38	5	0	0	0	0	0	0	0	0	0	0
+29	0	44	1.91	86	23	27	135	0	0	0	0	0	0	0	16	1	0	0	0	0	0	0	32	0	0	0	0	21	0	0	0	0	0	0
+30	0	3	0.37	0	8	1	21	0	0	0	0	0	0	3277	0	0	0	0	0	0	0	0	12	0	0	0	5	2	0	0	0	0	0	0
+31	2	84	2.4	74	35	38	268	0	0	0	0	0	0	0	27	0	0	0	0	0	81125	0	35	0	0	0	0	42	0	0	0	0	0	0
+32	74	1471	40.19	2931	641	692	5820	2	0	0	0	0	647	169082	474	8	19	0	1	0	301793	2	477	33	0	120	569	379	0	0	0	0	0	0
+33	4	12	1.2	8	10	5	99	0	0	0	0	0	84	0	8	0	0	0	0	0	0	0	21	14	0	1	0	0	0	0	0	0	0	0
+34	9	36	0.85	13	42	11	90	0	0	0	0	0	248	0	23	0	0	0	0	0	0	0	32	13	0	10	0	0	0	0	0	0	0	0
+35	18	134	0.13	8614	1023	41	6441	0	0	0	0	0	161	655951	48	0	0	0	0	0	0	0	31	8	0	41	1298	728	0	0	0	0	0	0
+36	2	11	1	0	11	6	8	0	0	0	0	0	3	0	8	0	0	0	0	0	0	0	29	4	0	0	0	0	0	0	0	0	0	0
+37	317	1651	2.4	4645	687	600	1554	0	0	0	0	0	652	0	782	0	12	0	0	0	0	0	26	5	0	6	0	0	0	0	0	0	0	0
+38	39	190	0.82	993	229	66	1459	1	0	0	0	0	0	0	111	0	0	0	0	0	199512	0	0	0	0	20	0	2	0	0	0	0	0	0
+39	937	3970	1.58	8959	2508	1600	11115	89	0	0	0	0	0	0	2490	5	43	0	6	0	0	0	46	0	0	463	0	0	0	0	0	0	0	0
+40	375	3034	1.59	4041	1907	1373	15504	60	0	0	0	0	0	0	1346	11	14	0	7	0	1203074	401	0	0	0	278	0	0	0	0	0	0	0	0
+41	1	17	2.83	0	6	14	12	0	0	0	0	0	8	0	6	0	0	0	0	0	0	0	30	6	0	0	0	0	0	0	0	0	0	0
+42	4	10	0.9	0	11	3	2	0	0	0	0	0	22	0	6	0	0	0	0	0	0	0	42	2	0	0	0	0	0	0	0	0	0	0
+43	317	1931	2.18	1953	882	462	2164	0	0	0	0	0	0	0	861	0	13	0	1	0	5893	0	0	0	0	15	0	0	0	0	0	0	0	0
+44	114	931	1.16	11898	796	476	5272	0	0	0	0	0	557	339423	389	2	0	0	0	0	0	0	24	8	0	55	826	508	0	0	0	0	0	0
+45	7	22	0.57	5	38	7	94	0	0	0	0	0	10	0	13	0	0	0	0	0	0	0	30	4	0	1	0	0	0	0	0	0	0	0
+46	0	4	0.66	0	6	3	18	0	0	0	0	0	6	0	1	0	0	0	0	0	0	0	11	8	0	0	0	0	0	0	0	0	0	0
+47	45	179	0.93	270	192	71	660	0	0	0	0	0	95	0	108	0	0	0	0	0	0	0	35	9	0	5	0	0	0	0	0	0	0	0
+48	3	15	1.5	5	10	9	36	0	0	0	0	0	0	0	13	0	0	0	0	0	0	0	27	0	0	0	0	0	0	0	0	0	0	0
+49	6	104	1.38	143	75	50	419	0	0	0	0	0	0	0	29	0	0	0	0	0	18429	0	41	0	0	7	0	0	0	0	0	0	0	0
+50	18	126	1.27	267	99	65	491	0	0	0	0	0	127	10455	60	1	1	0	0	0	0	0	31	5	0	3	0	0	0	0	0	0	0	0
+51	1	10	0.58	0	17	7	76	1	0	0	0	0	8	7618	1	0	0	0	0	0	0	0	20	5	0	0	4	0	0	0	0	0	0	0
+52	3	6	0.42	0	14	3	59	0	0	0	0	0	137	0	5	0	0	0	0	0	5280	0	18	17	0	1	0	0	0	0	0	0	0	0
+53	5	15	0.38	0	39	2	75	0	0	0	0	0	6	0	9	0	0	0	0	0	3800	0	28	10	0	6	0	0	0	0	0	0	0	0
+54	4	22	1.69	0	13	6	35	0	0	0	0	0	0	0	10	0	0	0	1	0	0	0	39	0	0	0	0	2	0	0	0	0	0	0
+55	2	49	2.22	563	22	21	100	0	0	0	0	0	0	0	21	0	0	0	0	0	58931	0	32	0	0	0	0	30	0	0	0	0	0	0
+56	2231	12479	28.24	42377	8637	4901	45783	151	0	0	0	0	2124	1013447	6348	19	83	0	15	0	1494919	401	593	118	0	912	2128	1270	0	0	0	0	0	0
+57	0	0	0	0	5	0	0	0	0	0	0	0	10	0	0	0	0	0	0	0	0	0	85	14	0	0	0	0	0	0	0	0	0	0
+58	11	286	0.54	2026	521	106	2671	0	0	0	0	0	264	669078	87	2	1	0	0	0	0	0	31	8	0	18	1369	583	0	0	0	0	0	0
+59	3	23	2.87	39	8	13	55	0	0	0	0	0	4	0	10	0	0	0	0	0	0	0	19	5	0	0	0	0	0	0	0	0	0	0
+60	94	1342	1.28	2992	1046	520	9407	4	0	0	0	0	0	0	666	0	11	0	3	0	1374996	0	0	0	0	173	0	188	0	0	0	0	0	0
+61	222	1288	2.7	4415	476	474	1994	18	0	0	0	0	0	0	775	3	13	0	11	0	0	0	57	0	0	189	0	0	0	0	0	0	0	0
+62	90	1107	2.25	1696	492	499	4637	23	0	0	0	0	0	0	484	10	11	0	2	0	467136	161	0	0	0	155	0	0	0	0	0	0	0	0
+63	0	1	0.04	0	24	0	0	0	0	0	0	0	5	0	0	0	0	0	0	0	0	0	22	19	0	0	0	0	0	0	0	0	0	0
+64	0	1	0.16	0	6	0	12	0	0	0	0	0	9	0	0	0	0	0	0	0	0	0	28	4	0	0	0	0	0	0	0	0	0	0
+65	185	1769	2.67	4036	662	731	2409	0	0	0	0	0	0	0	734	0	31	0	0	0	198475	0	0	0	0	8	0	0	0	0	0	0	0	0
+66	28	496	1.96	2709	253	262	2359	0	0	0	0	0	257	194223	192	4	5	0	1	0	0	0	36	5	0	33	578	600	0	0	0	0	0	0
+67	0	4	0.4	0	10	1	30	0	0	0	0	0	8	0	3	0	0	0	0	0	0	0	50	5	0	4	0	0	0	0	0	0	0	0
+68	1	4	1.33	0	3	2	5	0	0	0	0	0	1	0	2	0	0	0	0	0	0	0	40	5	0	0	0	0	0	0	0	0	0	0
+69	2	160	2.58	159	62	79	801	0	0	0	0	0	0	0	35	0	1	0	0	0	25040	0	38	0	0	9	37	15	0	0	0	0	0	0
+70	62	558	2.15	1096	259	262	1105	1	0	0	0	0	571	43370	281	1	2	0	0	0	0	0	40	4	0	9	0	0	0	0	0	0	0	0
+71	4	284	1.74	275	163	144	1965	3	0	0	0	0	229	131991	61	0	0	0	0	0	0	0	34	4	0	22	135	46	0	0	0	0	0	0
+72	24	419	3.03	707	138	227	2133	2	0	0	0	0	4692	0	147	2	6	0	0	0	140343	0	34	7	0	7	0	0	0	0	0	0	0	0
+73	95	1226	1.57	3002	778	568	3863	0	0	0	0	0	0	0	518	10	9	0	8	0	0	0	38	0	0	139	0	558	0	0	0	0	0	0
+74	2	25	0.71	100	35	12	205	0	0	0	0	0	0	22984	9	0	0	0	0	0	0	0	10	0	0	0	38	18	0	0	0	0	0	0
+75	88	2426	2.13	6575	1134	1344	8893	37	0	0	0	0	0	0	773	7	15	0	1	0	2044706	0	35	0	0	57	0	1208	0	0	0	0	0	0
+76	911	11419	30.11	29827	6075	5244	42544	88	0	0	0	0	6050	1061646	4777	39	105	0	26	0	4250696	161	597	80	0	823	2157	3216	0	0	0	0	0	0
+\.
+
+
+--
+-- Name: combat_lifetime_statistics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('combat_lifetime_statistics_id_seq', 76, true);
+
+
+--
+-- Data for Name: connected_gamer_tags; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY connected_gamer_tags (gamer_tag1_id, gamer_tag2_id) FROM stdin;
+1	2
+\.
+
+
+--
+-- Data for Name: followers; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY followers (user_id, follower_id, inserted_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: friendships; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY friendships (id, is_accepted, is_sender, user_id, friend_id, inserted_at, updated_at, primary_gamer_tag_id) FROM stdin;
+1	t	t	1	2	2017-09-07 07:22:57.585063	2017-09-07 07:22:57.585068	\N
+2	t	f	2	1	2017-09-07 07:22:57.587566	2017-09-07 07:22:57.587572	\N
+3	t	t	1	3	2017-09-07 07:22:57.588232	2017-09-07 07:22:57.588237	\N
+4	t	f	3	1	2017-09-07 07:22:57.588886	2017-09-07 07:22:57.588891	\N
+5	t	t	1	4	2017-09-07 07:22:57.589907	2017-09-07 07:22:57.589912	\N
+6	t	f	4	1	2017-09-07 07:22:57.590427	2017-09-07 07:22:57.590431	\N
+7	t	t	1	5	2017-09-07 07:22:57.591048	2017-09-07 07:22:57.591052	\N
+8	t	f	5	1	2017-09-07 07:22:57.591583	2017-09-07 07:22:57.591587	\N
+9	t	t	1	6	2017-09-07 07:22:57.592115	2017-09-07 07:22:57.592118	\N
+10	t	f	6	1	2017-09-07 07:22:57.592751	2017-09-07 07:22:57.592755	\N
+11	t	t	2	3	2017-09-07 07:22:57.59332	2017-09-07 07:22:57.593324	\N
+12	t	f	3	2	2017-09-07 07:22:57.593895	2017-09-07 07:22:57.593899	\N
+13	t	t	2	4	2017-09-07 07:22:57.59449	2017-09-07 07:22:57.594494	\N
+14	t	f	4	2	2017-09-07 07:22:57.595027	2017-09-07 07:22:57.595031	\N
+15	t	t	2	5	2017-09-07 07:22:57.595569	2017-09-07 07:22:57.595573	\N
+16	t	f	5	2	2017-09-07 07:22:57.596271	2017-09-07 07:22:57.596275	\N
+17	t	t	2	6	2017-09-07 07:22:57.599553	2017-09-07 07:22:57.599563	\N
+18	t	f	6	2	2017-09-07 07:22:57.600507	2017-09-07 07:22:57.600512	\N
+19	t	t	3	4	2017-09-07 07:22:57.601022	2017-09-07 07:22:57.601027	\N
+20	t	f	4	3	2017-09-07 07:22:57.60161	2017-09-07 07:22:57.601616	\N
+21	t	t	3	5	2017-09-07 07:22:57.602199	2017-09-07 07:22:57.602204	\N
+22	t	f	5	3	2017-09-07 07:22:57.602839	2017-09-07 07:22:57.602843	\N
+23	t	t	3	6	2017-09-07 07:22:57.603257	2017-09-07 07:22:57.603356	\N
+24	t	f	6	3	2017-09-07 07:22:57.603855	2017-09-07 07:22:57.603859	\N
+25	t	t	4	5	2017-09-07 07:22:57.604384	2017-09-07 07:22:57.604388	\N
+26	t	f	5	4	2017-09-07 07:22:57.604915	2017-09-07 07:22:57.604919	\N
+27	t	t	4	6	2017-09-07 07:22:57.605391	2017-09-07 07:22:57.605395	\N
+28	t	f	6	4	2017-09-07 07:22:57.605967	2017-09-07 07:22:57.605973	\N
+29	t	t	5	6	2017-09-07 07:22:57.606926	2017-09-07 07:22:57.606937	\N
+30	t	f	6	5	2017-09-07 07:22:57.607609	2017-09-07 07:22:57.607613	\N
+\.
+
+
+--
+-- Name: friendships_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('friendships_id_seq', 30, true);
+
+
+--
+-- Data for Name: game_history_statistics; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY game_history_statistics (id, games_tied, games_played, games_won, games_lost, time_played, time_spent_on_fire, win_percentage) FROM stdin;
+1	0	0	8	0	7200	0	0
+2	0	0	0	0	960	0	0
+3	0	0	0	0	660	0	0
+4	0	0	15	0	10800	0	0
+5	0	0	19	0	7200	0	0
+6	0	0	1	0	1080	0	0
+7	0	0	2	0	2100	0	0
+8	0	0	0	0	180	0	0
+9	0	0	0	0	1560	0	0
+10	0	0	12	0	7200	0	0
+11	0	0	7	0	3600	0	0
+12	0	0	1	0	840	0	0
+13	0	0	2	0	3120	0	0
+14	0	0	67	0	46500	0	0
+15	0	1	0	1	240	0	0
+16	3	16	5	11	7200	0	31.25
+17	0	1	1	0	420	0	100.0
+18	0	1	0	1	180	0	0
+19	0	4	0	4	2700	0	0
+20	0	0	0	0	240	0	0
+21	0	0	0	0	44	0	0
+22	1	12	7	5	7200	0	58.333333333333336
+23	0	3	2	1	2100	0	66.66666666666666
+24	0	1	1	0	480	0	100.0
+25	0	1	0	1	840	0	0
+26	1	38	18	20	21600	0	47.368421052631575
+27	0	3	1	2	1500	0	33.33333333333333
+28	0	1	1	0	240	0	100.0
+29	0	1	1	0	1020	0	100.0
+30	0	3	1	2	1740	0	33.33333333333333
+31	0	1	0	1	420	0	0
+32	0	4	2	2	2760	0	50.0
+33	5	91	40	51	50924	0	43.956043956043956
+34	0	0	0	0	540	0	0
+35	0	0	1	0	1800	0	0
+36	0	0	54	0	68400	0	0
+37	0	0	1	0	720	0	0
+38	0	0	65	0	46800	0	0
+39	0	0	5	0	10800	0	0
+40	0	0	168	0	151200	0	0
+41	0	0	132	0	111600	0	0
+42	0	0	1	0	420	0	0
+43	0	0	0	0	660	0	0
+44	0	0	119	0	68400	0	0
+45	0	0	51	0	50400	0	0
+46	0	0	1	0	1620	0	0
+47	0	0	0	0	300	0	0
+48	0	0	6	0	7200	0	0
+49	0	0	0	0	600	0	0
+50	0	0	5	0	3600	0	0
+51	0	0	5	0	3600	0	0
+52	0	0	1	0	1020	0	0
+53	0	0	1	0	780	0	0
+54	0	0	1	0	1800	0	0
+55	0	0	2	0	960	0	0
+56	0	0	1	0	1800	0	0
+57	0	0	620	0	535020	0	0
+58	0	1	0	1	120	0	0
+59	3	67	30	37	46800	0	44.776119402985074
+60	0	0	0	0	660	0	0
+61	3	90	37	53	64800	0	41.11111111111111
+62	1	46	23	23	32400	0	50.0
+63	1	40	19	21	32400	0	47.5
+64	0	2	0	2	960	0	0
+65	0	0	0	0	240	0	0
+66	5	78	47	31	50400	0	60.256410256410255
+67	0	25	10	15	18000	0	40.0
+68	0	1	0	1	480	0	0
+69	0	0	0	0	4	0	0
+70	0	0	0	0	120	0	0
+71	0	5	4	1	3600	0	80.0
+72	1	21	13	8	14400	0	61.904761904761905
+73	1	17	11	6	10800	0	64.70588235294117
+74	0	15	8	7	10800	0	53.333333333333336
+75	2	69	29	40	54000	0	42.028985507246375
+76	0	3	0	3	2280	0	0
+77	2	107	59	48	82800	0	55.140186915887845
+78	19	587	290	297	426064	0	49.40374787052811
+\.
+
+
+--
+-- Name: game_history_statistics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('game_history_statistics_id_seq', 78, true);
+
+
+--
+-- Data for Name: gamer_tag_user_followers; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY gamer_tag_user_followers (gamer_tag_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: gamer_tags; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY gamer_tags (id, tag, overwatch_name, portrait_url, region, platform, user_id, inserted_at, updated_at) FROM stdin;
+1	DabbyDabDab#1225	DabbyDabDab	https://d1u1mce87gyfbn.cloudfront.net/game/unlocks/0x02500000000002F7.png	us	pc	7	2017-09-07 07:23:49.864159	2017-09-07 07:24:04.793188
+2	DabbyDabDabDab	DabbyDabDabDab	https://d1u1mce87gyfbn.cloudfront.net/game/unlocks/0x0250000000000C22.png		xbl	7	2017-09-07 07:23:49.891656	2017-09-07 07:24:09.004429
+\.
+
+
+--
+-- Name: gamer_tags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('gamer_tags_id_seq', 2, true);
+
+
+--
+-- Data for Name: hero_snapshot_statistics; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY hero_snapshot_statistics (id, statistic_type, snapshot_statistic_id, combat_best_statistic_id, combat_average_statistic_id, combat_lifetime_statistic_id, match_awards_statistic_id, game_history_statistic_id, hero_specific_statistic_id, hero_id) FROM stdin;
+1	hero_total_competitive	1	32	32	32	31	33	\N	\N
+2	hero_total_quickplay	1	14	14	14	13	14	\N	\N
+3	hero_competitive	1	30	30	30	29	31	29	18
+4	hero_competitive	1	28	28	28	27	29	27	15
+5	hero_competitive	1	24	24	24	23	25	23	11
+6	hero_competitive	1	27	27	27	26	28	26	14
+7	hero_competitive	1	16	16	16	14	16	15	2
+8	hero_competitive	1	31	31	31	30	32	30	19
+9	hero_competitive	1	19	19	19	17	19	18	5
+10	hero_competitive	1	18	18	18	16	18	17	4
+11	hero_competitive	1	23	23	23	22	24	22	10
+12	hero_competitive	1	26	26	26	25	27	25	13
+13	hero_competitive	1	29	29	29	28	30	28	16
+14	hero_competitive	1	21	21	21	20	22	20	8
+15	hero_competitive	1	17	17	17	15	17	16	3
+16	hero_competitive	1	15	15	15	\N	15	14	1
+17	hero_competitive	1	\N	\N	\N	19	21	\N	7
+18	hero_competitive	1	20	20	20	18	20	19	6
+19	hero_competitive	1	25	25	25	24	26	24	12
+20	hero_competitive	1	22	22	22	21	23	21	9
+21	hero_quickplay	1	10	10	10	9	10	10	15
+22	hero_quickplay	1	12	12	12	11	12	12	17
+23	hero_quickplay	1	7	7	7	7	7	7	11
+24	hero_quickplay	1	1	1	1	1	1	1	2
+25	hero_quickplay	1	13	13	13	12	13	13	19
+26	hero_quickplay	1	3	3	3	3	3	3	5
+27	hero_quickplay	1	2	2	2	2	2	2	4
+28	hero_quickplay	1	9	9	9	8	9	9	13
+29	hero_quickplay	1	11	11	11	10	11	11	16
+30	hero_quickplay	1	5	5	5	5	5	5	8
+31	hero_quickplay	1	4	4	4	4	4	4	6
+32	hero_quickplay	1	8	8	8	\N	8	8	12
+33	hero_quickplay	1	6	6	6	6	6	6	9
+34	hero_total_competitive	2	76	76	76	72	78	\N	\N
+35	hero_total_quickplay	2	56	56	56	55	57	\N	\N
+36	hero_competitive	2	74	74	74	70	76	71	18
+37	hero_competitive	2	64	64	64	62	65	61	22
+38	hero_competitive	2	72	72	72	68	74	69	15
+39	hero_competitive	2	67	67	67	\N	68	64	23
+40	hero_competitive	2	71	71	71	67	73	68	14
+41	hero_competitive	2	68	68	68	\N	70	65	24
+42	hero_competitive	2	58	58	58	56	59	55	2
+43	hero_competitive	2	75	75	75	71	77	72	19
+44	hero_competitive	2	61	61	61	59	62	58	5
+45	hero_competitive	2	60	60	60	58	61	57	4
+46	hero_competitive	2	\N	\N	\N	\N	69	\N	10
+47	hero_competitive	2	70	70	70	66	72	67	13
+48	hero_competitive	2	73	73	73	69	75	70	16
+49	hero_competitive	2	65	65	65	63	66	62	8
+50	hero_competitive	2	59	59	59	57	60	56	3
+51	hero_competitive	2	57	57	57	\N	58	54	1
+52	hero_competitive	2	63	63	63	61	64	60	7
+53	hero_competitive	2	62	62	62	60	63	59	6
+54	hero_competitive	2	69	69	69	65	71	66	12
+55	hero_competitive	2	66	66	66	64	67	63	9
+56	hero_quickplay	2	42	42	42	41	43	40	22
+57	hero_quickplay	2	52	52	52	51	53	50	15
+58	hero_quickplay	2	45	45	45	44	46	43	23
+59	hero_quickplay	2	36	36	36	35	37	34	21
+60	hero_quickplay	2	48	48	48	47	49	46	11
+61	hero_quickplay	2	51	51	51	50	52	49	14
+62	hero_quickplay	2	47	47	47	46	48	45	24
+63	hero_quickplay	2	53	53	53	52	54	51	25
+64	hero_quickplay	2	35	35	35	34	36	33	2
+65	hero_quickplay	2	55	55	55	54	56	53	19
+66	hero_quickplay	2	39	39	39	38	40	37	5
+67	hero_quickplay	2	33	33	33	32	34	31	20
+68	hero_quickplay	2	38	38	38	37	39	36	4
+69	hero_quickplay	2	46	46	46	45	47	44	10
+70	hero_quickplay	2	50	50	50	49	51	48	13
+71	hero_quickplay	2	54	54	54	53	55	52	16
+72	hero_quickplay	2	43	43	43	42	44	41	8
+73	hero_quickplay	2	37	37	37	36	38	35	3
+74	hero_quickplay	2	34	34	34	33	35	32	1
+75	hero_quickplay	2	41	41	41	40	42	39	7
+76	hero_quickplay	2	40	40	40	39	41	38	6
+77	hero_quickplay	2	49	49	49	48	50	47	12
+78	hero_quickplay	2	44	44	44	43	45	42	9
+\.
+
+
+--
+-- Name: hero_snapshot_statistics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('hero_snapshot_statistics_id_seq', 78, true);
+
+
+--
+-- Data for Name: hero_specific_statistics; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY hero_specific_statistics (id, stats, hero_id) FROM stdin;
+1	{"blaster_kills": 37, "damage_amplified": 4825, "players_resurrected": 70, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "blaster_kills_most_in_game": 5, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 2, "blaster_kills_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "damage_amplified_most_in_game": 878, "hero_damage_done_most_in_game": 1269, "hero_damage_done_most_in_life": 779, "objective_time_avg_per_10_min": 0, "damage_amplified_avg_per_10_min": 1, "hero_damage_done_avg_per_10_min": 1, "barrier_damage_done_most_in_game": 520, "defensive_assists_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0, "players_resurrected_most_in_game": 9, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 0, "players_resurrected_avg_per_10_min": 0}	2
+2	{"charge_kills": 4, "fire_strike_kills": 8, "earthshatter_kills": 1, "deaths_avg_per_10_min": 0, "charge_kills_most_in_game": 3, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "charge_kills_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "damage_blocked_avg_per_10_min": 15, "hero_damage_done_most_in_game": 4023, "hero_damage_done_most_in_life": 1595, "objective_time_avg_per_10_min": 0, "fire_strike_kills_most_in_game": 6, "earthshatter_kills_most_in_game": 1, "hero_damage_done_avg_per_10_min": 5, "barrier_damage_done_most_in_game": 1800, "fire_strike_kills_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0, "earthshatter_kills_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 2}	4
+3	{"rocket_direct_hits": 31, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "hero_damage_done_most_in_game": 2243, "hero_damage_done_most_in_life": 1360, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 6, "rocket_direct_hits_most_in_game": 17, "barrier_damage_done_most_in_game": 2153, "rocket_direct_hits_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 5}	5
+4	{"jump_pack_kills": 124, "primal_rage_kills": 36, "players_knocked_back": 831, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "melee_kills_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "shield_generators_destroyed": 1, "jump_pack_kills_most_in_game": 14, "damage_blocked_avg_per_10_min": 13, "hero_damage_done_most_in_game": 6965, "hero_damage_done_most_in_life": 2828, "objective_time_avg_per_10_min": 0, "jump_pack_kills_avg_per_10_min": 0, "primal_rage_kills_most_in_game": 5, "hero_damage_done_avg_per_10_min": 8, "barrier_damage_done_most_in_game": 1973, "primal_rage_kills_avg_per_10_min": 0, "players_knocked_back_most_in_game": 87, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 1, "players_knocked_back_avg_per_10_min": 0}	6
+5	{"teleporter_uptime": 3166, "players_teleported": 140, "sentry_turrets_kills": 181, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "teleporter_uptime_average": 0.34, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "damage_blocked_avg_per_10_min": 3, "hero_damage_done_most_in_game": 7595, "hero_damage_done_most_in_life": 3995, "objective_time_avg_per_10_min": 0, "teleporter_uptime_best_in_game": 1, "hero_damage_done_avg_per_10_min": 9, "players_teleported_most_in_game": 15, "barrier_damage_done_most_in_game": 2951, "players_teleported_avg_per_10_min": 0, "sentry_turrets_kills_most_in_game": 18, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 1, "sentry_turrets_kills_avg_per_10_min": 0}	8
+6	{"deaths_avg_per_10_min": 0, "transcendence_healing": 1738, "final_blows_avg_per_10_min": 0, "transcendence_healing_best": 702, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "hero_damage_done_most_in_game": 2664, "hero_damage_done_most_in_life": 778, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 4, "barrier_damage_done_most_in_game": 4048, "defensive_assists_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 5}	9
+7	{"riptire_kills": 15, "enemies_trapped": 13, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "riptire_kills_most_in_game": 7, "eliminations_avg_per_10_min": 0, "enemies_trapped_most_in_game": 5, "riptire_kills_avg_per_10_min": 0, "hero_damage_done_most_in_game": 9086, "hero_damage_done_most_in_life": 1136, "objective_time_avg_per_10_min": 0, "enemies_trapped_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 10, "barrier_damage_done_most_in_game": 2455, "offensive_assists_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 3}	11
+8	{"average_energy": 0.07, "energy_maximum": 17500, "graviton_surge_kills": 1, "deaths_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "projected_barriers_applied": 4, "average_energy_best_in_game": 0, "eliminations_avg_per_10_min": 0, "lifetime_energy_accumulation": 1243, "damage_blocked_avg_per_10_min": 4, "hero_damage_done_most_in_game": 1197, "hero_damage_done_most_in_life": 473, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 5, "offensive_assists_avg_per_10_min": 0, "graviton_surge_kills_most_in_game": 1, "graviton_surge_kills_avg_per_10_min": 0, "projected_barriers_applied_most_in_game": 4, "projected_barriers_applied_avg_per_10_min": 0}	12
+9	{"helix_rockets_kills": 9, "tactical_visor_kills": 3, "deaths_avg_per_10_min": 0, "biotic_fields_deployed": 25, "biotic_field_healing_done": 2965, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 1, "critical_hits_avg_per_10_min": 0, "hero_damage_done_most_in_game": 6226, "hero_damage_done_most_in_life": 1136, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 8, "barrier_damage_done_most_in_game": 1082, "helix_rockets_kills_most_in_game": 4, "tactical_visor_kills_most_in_game": 3, "barrier_damage_done_avg_per_10_min": 1, "helix_rockets_kills_avg_per_10_min": 0, "tactical_visor_kills_avg_per_10_min": 0}	13
+10	{"mech_deaths": 141, "mechs_called": 71, "selfdestruct_kills": 23, "deaths_avg_per_10_min": 0, "mechs_called_most_in_game": 7, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "mechs_called_avg_per_10_min": 0, "shield_generators_destroyed": 3, "critical_hits_avg_per_10_min": 0, "damage_blocked_avg_per_10_min": 6, "hero_damage_done_most_in_game": 6198, "hero_damage_done_most_in_life": 2998, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 7, "selfdestruct_kills_most_in_game": 4, "barrier_damage_done_most_in_game": 10634, "melee_final_blows_avg_per_10_min": 0, "selfdestruct_kills_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 5}	15
+11	{"enemies_empd": 78, "enemies_hacked": 131, "deaths_avg_per_10_min": 0, "enemies_empd_most_in_game": 9, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "enemies_empd_avg_per_10_min": 0, "enemies_hacked_most_in_game": 18, "shield_generators_destroyed": 1, "enemies_hacked_avg_per_10_min": 0, "hero_damage_done_most_in_game": 3849, "hero_damage_done_most_in_life": 2898, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 5, "barrier_damage_done_most_in_game": 1270, "offensive_assists_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 1}	16
+12	{"shields_created": 1170, "ability_damage_done": 3446.63, "meteor_strike_kills": 1, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "shields_created_most_in_game": 615, "hero_damage_done_most_in_game": 2404, "hero_damage_done_most_in_life": 826, "objective_time_avg_per_10_min": 0, "shields_created_avg_per_10_min": 1, "hero_damage_done_avg_per_10_min": 5, "ability_damage_done_most_in_game": 1871.21, "barrier_damage_done_most_in_game": 326, "meteor_strike_kills_most_in_game": 1, "ability_damage_done_avg_per_10_min": 4, "barrier_damage_done_avg_per_10_min": 1, "meteor_strike_kills_avg_per_10_min": 0}	17
+13	{"damage_amplified": 3311, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "damage_amplified_most_in_game": 1147, "damage_blocked_avg_per_10_min": 26, "hero_damage_done_most_in_game": 9625, "hero_damage_done_most_in_life": 2276, "objective_time_avg_per_10_min": 0, "damage_amplified_avg_per_10_min": 1, "hero_damage_done_avg_per_10_min": 9, "barrier_damage_done_most_in_game": 4975, "offensive_assists_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 5}	19
+14	{"deaths_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "hero_damage_done_most_in_game": 622, "hero_damage_done_most_in_life": 419, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 2}	1
+15	{"blaster_kills": 87, "damage_amplified": 7781, "players_resurrected": 60, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "blaster_kills_most_in_game": 9, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 2, "blaster_kills_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "damage_amplified_most_in_game": 817, "hero_damage_done_most_in_game": 2127, "hero_damage_done_most_in_life": 1174, "objective_time_avg_per_10_min": 0, "damage_amplified_avg_per_10_min": 1, "hero_damage_done_avg_per_10_min": 2, "barrier_damage_done_most_in_game": 1300, "defensive_assists_avg_per_10_min": 0, "melee_final_blows_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0, "players_resurrected_most_in_game": 7, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 1, "players_resurrected_avg_per_10_min": 0}	2
+16	{"turrets_kills": 9, "torbjörn_kills": 7, "molten_core_kills": 2, "armor_packs_created": 24, "deaths_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "turrets_kills_most_in_game": 9, "eliminations_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "torbjörn_kills_most_in_game": 7, "turrets_kills_avg_per_10_min": 0, "hero_damage_done_most_in_game": 5032, "hero_damage_done_most_in_life": 3003, "objective_time_avg_per_10_min": 0, "molten_core_kills_most_in_game": 2, "torbjörn_kills_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 11, "armor_packs_created_most_in_game": 24, "barrier_damage_done_most_in_game": 2478, "molten_core_kills_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "armor_packs_created_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 6}	3
+17	{"deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "damage_blocked_avg_per_10_min": 22, "hero_damage_done_most_in_game": 1506, "hero_damage_done_most_in_life": 734, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 9, "barrier_damage_done_most_in_game": 475, "barrier_damage_done_avg_per_10_min": 4}	4
+18	{"barrage_kills": 14, "rocket_direct_hits": 235, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "barrage_kills_most_in_game": 3, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "shield_generators_destroyed": 1, "barrage_kills_avg_per_10_min": 0, "hero_damage_done_most_in_game": 8855, "hero_damage_done_most_in_life": 2725, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 12, "rocket_direct_hits_most_in_game": 73, "barrier_damage_done_most_in_game": 6473, "rocket_direct_hits_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 7}	5
+50	{"mech_deaths": 15, "mechs_called": 3, "selfdestruct_kills": 1, "deaths_avg_per_10_min": 0, "mech_called_most_in_game": 1, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "mechs_called_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "damage_blocked_avg_per_10_min": 6, "objective_time_avg_per_10_min": 0, "selfdestruct_kills_most_in_game": 1, "selfdestruct_kills_avg_per_10_min": 0}	15
+19	{"jump_pack_kills": 3, "primal_rage_kills": 1, "players_knocked_back": 41, "deaths_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "melee_kills_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "jump_pack_kills_most_in_game": 3, "damage_blocked_avg_per_10_min": 17, "hero_damage_done_most_in_game": 2345, "hero_damage_done_most_in_life": 1668, "objective_time_avg_per_10_min": 0, "jump_pack_kills_avg_per_10_min": 0, "primal_rage_kills_most_in_game": 1, "hero_damage_done_avg_per_10_min": 9, "barrier_damage_done_most_in_game": 447, "primal_rage_kills_avg_per_10_min": 0, "players_knocked_back_most_in_game": 41, "barrier_damage_done_avg_per_10_min": 2, "players_knocked_back_avg_per_10_min": 0}	6
+20	{"teleporter_uptime": 2748, "players_teleported": 144, "sentry_turrets_kills": 187, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "teleporter_uptime_average": 0.34, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "damage_blocked_avg_per_10_min": 5, "hero_damage_done_most_in_game": 8507, "hero_damage_done_most_in_life": 4715, "objective_time_avg_per_10_min": 0, "teleporter_uptime_best_in_game": 1, "hero_damage_done_avg_per_10_min": 14, "players_teleported_most_in_game": 18, "barrier_damage_done_most_in_game": 2549, "melee_final_blows_avg_per_10_min": 0, "players_teleported_avg_per_10_min": 0, "sentry_turrets_kills_most_in_game": 19, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 3, "sentry_turrets_kills_avg_per_10_min": 0}	8
+21	{"deaths_avg_per_10_min": 0, "transcendence_healing": 5310, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "transcendence_healing_best": 989, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "hero_damage_done_most_in_game": 3922, "hero_damage_done_most_in_life": 2195, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 7, "barrier_damage_done_most_in_game": 3542, "defensive_assists_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 4}	9
+22	{"enemies_hooked": 11, "hooks_attempted": 32, "whole_hog_kills": 1, "deaths_avg_per_10_min": 0, "hook_accuracy_percentage": 34, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "enemies_hooked_most_in_game": 11, "self_healing_avg_per_10_min": 9, "critical_hits_avg_per_10_min": 0, "whole_hog_kills_most_in_game": 1, "enemies_hooked_avg_per_10_min": 0, "hero_damage_done_most_in_game": 4192, "hero_damage_done_most_in_life": 2338, "objective_time_avg_per_10_min": 0, "whole_hog_kills_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 8, "barrier_damage_done_most_in_game": 1477, "barrier_damage_done_avg_per_10_min": 3, "hook_accuracy_best_in_game_percentage": 34}	10
+23	{"riptire_kills": 2, "enemies_trapped": 7, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "riptire_kills_most_in_game": 2, "eliminations_avg_per_10_min": 0, "enemies_trapped_most_in_game": 5, "riptire_kills_avg_per_10_min": 0, "hero_damage_done_most_in_game": 4968, "hero_damage_done_most_in_life": 2856, "objective_time_avg_per_10_min": 0, "enemies_trapped_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 12, "barrier_damage_done_most_in_game": 4809, "offensive_assists_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 8}	11
+24	{"average_energy": 0.22, "energy_maximum": 1918400, "high_energy_kills": 206, "graviton_surge_kills": 100, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "projected_barriers_applied": 688, "average_energy_best_in_game": 1, "eliminations_avg_per_10_min": 0, "lifetime_energy_accumulation": 422438, "damage_blocked_avg_per_10_min": 7, "hero_damage_done_most_in_game": 9635, "hero_damage_done_most_in_life": 3879, "objective_time_avg_per_10_min": 0, "high_energy_kills_most_in_game": 21, "hero_damage_done_avg_per_10_min": 8, "barrier_damage_done_most_in_game": 5923, "defensive_assists_avg_per_10_min": 0, "high_energy_kills_avg_per_10_min": 0, "melee_final_blows_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0, "graviton_surge_kills_most_in_game": 10, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 4, "graviton_surge_kills_avg_per_10_min": 0, "projected_barriers_applied_most_in_game": 44, "projected_barriers_applied_avg_per_10_min": 0}	12
+25	{"helix_rockets_kills": 14, "tactical_visor_kills": 5, "deaths_avg_per_10_min": 0, "biotic_fields_deployed": 27, "biotic_field_healing_done": 3326, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 1, "critical_hits_avg_per_10_min": 0, "hero_damage_done_most_in_game": 4447, "hero_damage_done_most_in_life": 1557, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 8, "barrier_damage_done_most_in_game": 3207, "defensive_assists_avg_per_10_min": 0, "helix_rockets_kills_most_in_game": 6, "tactical_visor_kills_most_in_game": 2, "barrier_damage_done_avg_per_10_min": 4, "helix_rockets_kills_avg_per_10_min": 0, "tactical_visor_kills_avg_per_10_min": 0}	13
+26	{"deaths_avg_per_10_min": 0, "sound_barriers_provided": 6, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 3, "critical_hits_avg_per_10_min": 0, "hero_damage_done_most_in_game": 764, "hero_damage_done_most_in_life": 403, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 3, "barrier_damage_done_most_in_game": 340, "defensive_assists_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 1, "sound_barriers_provided_most_in_game": 6, "sound_barriers_provided_avg_per_10_min": 0}	14
+51	{"enemies_frozen": 11, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "enemies_frozen_most_in_game": 7, "self_healing_avg_per_10_min": 1, "critical_hits_avg_per_10_min": 0, "damage_blocked_avg_per_10_min": 2, "enemies_frozen_avg_per_10_min": 0, "objective_time_avg_per_10_min": 0}	25
+27	{"mech_deaths": 8, "mechs_called": 7, "selfdestruct_kills": 2, "deaths_avg_per_10_min": 0, "mechs_called_most_in_game": 4, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "mechs_called_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "damage_blocked_avg_per_10_min": 21, "hero_damage_done_most_in_game": 3831, "hero_damage_done_most_in_life": 3011, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 9, "selfdestruct_kills_most_in_game": 1, "barrier_damage_done_most_in_game": 5567, "selfdestruct_kills_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 10}	15
+28	{"enemies_empd": 47, "enemies_hacked": 79, "deaths_avg_per_10_min": 0, "enemies_empd_most_in_game": 13, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "enemies_empd_avg_per_10_min": 0, "enemies_hacked_most_in_game": 26, "enemies_hacked_avg_per_10_min": 0, "hero_damage_done_most_in_game": 4103, "hero_damage_done_most_in_life": 1501, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 7, "barrier_damage_done_most_in_game": 373, "melee_final_blows_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 1}	16
+29	{"enemies_slept": 2, "unscoped_accuracy": 1, "biotic_grenade_kills": 2, "deaths_avg_per_10_min": 0, "enemies_slept_most_in_game": 2, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 1, "enemies_slept_avg_per_10_min": 0, "hero_damage_done_most_in_game": 976, "hero_damage_done_most_in_life": 257, "objective_time_avg_per_10_min": 0, "unscoped_accuracy_best_in_game": 1, "hero_damage_done_avg_per_10_min": 2, "barrier_damage_done_most_in_game": 660, "defensive_assists_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 2}	18
+30	{"damage_amplified": 2515, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "damage_amplified_most_in_game": 650, "damage_blocked_avg_per_10_min": 29, "hero_damage_done_most_in_game": 4584, "hero_damage_done_most_in_life": 2745, "objective_time_avg_per_10_min": 0, "damage_amplified_avg_per_10_min": 1, "hero_damage_done_avg_per_10_min": 8, "barrier_damage_done_most_in_game": 4045, "offensive_assists_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 6}	19
+31	{"deaths_blossom_kills": 3, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 1, "critical_hits_avg_per_10_min": 0, "objective_time_avg_per_10_min": 0, "deaths_blossom_kills_most_in_game": 3, "time_spent_on_fire_avg_per_10_min": 0, "deaths_blossom_kills_avg_per_10_min": 0}	20
+32	{"pulse_bomb_kills": 6, "pulse_bombs_attached": 4, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 1, "critical_hits_avg_per_10_min": 0, "objective_time_avg_per_10_min": 0, "pulse_bomb_kills_most_in_game": 2, "pulse_bomb_kills_avg_per_10_min": 0, "pulse_bombs_attached_most_in_game": 2, "time_spent_on_fire_avg_per_10_min": 0, "pulse_bombs_attached_avg_per_10_min": 0}	1
+33	{"blaster_kills": 132, "players_resurrected": 505, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "blaster_kills_most_in_game": 7, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 1, "blaster_kills_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "objective_time_avg_per_10_min": 0, "defensive_assists_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0, "players_resurrected_most_in_game": 9, "time_spent_on_fire_avg_per_10_min": 0, "players_resurrected_avg_per_10_min": 0}	2
+34	{"dragonstrike_kills": 1, "scatter_arrow_kills": 1, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "objective_time_avg_per_10_min": 0, "dragonstrike_kills_most_in_game": 1, "scatter_arrow_kills_most_in_game": 1, "dragonstrike_kills_avg_per_10_min": 0, "scatter_arrow_kills_avg_per_10_min": 0}	21
+35	{"turrets_kills": 1267, "torbjörn_kills": 735, "molten_core_kills": 277, "armor_packs_created": 1800, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "torbjörn_kills_most_in_game": 18, "turrets_kills_avg_per_10_min": 0, "objective_time_avg_per_10_min": 0, "molten_core_kills_most_in_game": 9, "torbjörn_kills_avg_per_10_min": 0, "molten_core_kills_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "armor_packs_created_avg_per_10_min": 0}	3
+36	{"charge_kills": 27, "fire_strike_kills": 36, "earthshatter_kills": 31, "deaths_avg_per_10_min": 0, "charge_kills_most_in_game": 4, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "charge_kills_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "damage_blocked_avg_per_10_min": 16, "objective_time_avg_per_10_min": 0, "fire_strike_kills_most_in_game": 7, "earthshatter_kills_most_in_game": 4, "fire_strike_kills_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0, "earthshatter_kills_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0}	4
+37	{"barrage_kills": 699, "rocket_direct_hits": 7397, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "barrage_kills_most_in_game": 10, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "barrage_kills_avg_per_10_min": 0, "objective_time_avg_per_10_min": 0, "rocket_direct_hits_most_in_game": 69, "melee_final_blows_avg_per_10_min": 0, "rocket_direct_hits_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0}	5
+38	{"jump_pack_kills": 508, "primal_rage_kills": 341, "players_knocked_back": 4457, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "melee_kills_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "jump_pack_kills_most_in_game": 9, "damage_blocked_avg_per_10_min": 11, "objective_time_avg_per_10_min": 0, "jump_pack_kills_avg_per_10_min": 0, "primal_rage_kills_most_in_game": 9, "melee_final_blows_avg_per_10_min": 0, "primal_rage_kills_avg_per_10_min": 0, "players_knocked_back_most_in_game": 60, "time_spent_on_fire_avg_per_10_min": 0, "players_knocked_back_avg_per_10_min": 0}	6
+39	{"venom_mine_kills": 5, "scoped_critical_hits": 1, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "scoped_accuracy_percentage": 52, "eliminations_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "objective_time_avg_per_10_min": 0, "venom_mine_kills_most_in_game": 5, "venom_mine_kills_avg_per_10_min": 0, "scoped_critical_hits_most_in_game": 1, "scoped_critical_hits_avg_per_10_min": 0, "scoped_accuracy_best_in_game_percentage": 52}	7
+40	{"tank_kills": 2, "recon_kills": 2, "sentry_kills": 6, "deaths_avg_per_10_min": 0, "tank_kills_most_in_game": 2, "recon_kills_most_in_game": 2, "sentry_kills_most_in_game": 4, "solo_kills_avg_per_10_min": 0, "tank_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "recon_kills_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 1, "sentry_kills_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "objective_time_avg_per_10_min": 0}	22
+41	{"teleporter_uptime": 23939, "players_teleported": 1313, "sentry_turrets_kills": 1423, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "teleporter_uptime_average": 0.34, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "damage_blocked_avg_per_10_min": 0, "objective_time_avg_per_10_min": 0, "teleporter_uptime_best_in_game": 1, "players_teleported_most_in_game": 18, "players_teleported_avg_per_10_min": 0, "sentry_turrets_kills_most_in_game": 26, "time_spent_on_fire_avg_per_10_min": 0, "sentry_turrets_kills_avg_per_10_min": 0}	8
+42	{"deaths_avg_per_10_min": 0, "transcendence_healing": 80692, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "transcendence_healing_best": 1429, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "objective_time_avg_per_10_min": 0, "defensive_assists_avg_per_10_min": 0, "melee_final_blows_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0}	9
+43	{"dragonblades": 8, "damage_reflected": 2773, "dragonblade_kills": 4, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "damage_reflected_most_in_game": 1110, "objective_time_avg_per_10_min": 0, "dragonblade_kills_most_in_game": 3, "damage_reflected_avg_per_10_min": 2, "dragonblade_kills_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0}	23
+44	{"enemies_hooked": 5, "hooks_attempted": 12, "deaths_avg_per_10_min": 0, "hook_accuracy_percentage": 41, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "enemies_hooked_most_in_game": 3, "self_healing_avg_per_10_min": 1, "critical_hits_avg_per_10_min": 0, "enemies_hooked_avg_per_10_min": 0, "objective_time_avg_per_10_min": 0, "hook_accuracy_best_in_game_percentage": 50}	10
+45	{"deadeye_kills": 26, "fan_the_hammer_kills": 18, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "deadeye_kills_most_in_game": 4, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "deadeye_kills_avg_per_10_min": 0, "objective_time_avg_per_10_min": 0, "fan_the_hammer_kills_most_in_game": 3, "time_spent_on_fire_avg_per_10_min": 0, "fan_the_hammer_kills_avg_per_10_min": 0}	24
+46	{"riptire_kills": 5, "enemies_trapped": 5, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "riptire_kills_most_in_game": 4, "eliminations_avg_per_10_min": 0, "enemies_trapped_most_in_game": 4, "riptire_kills_avg_per_10_min": 0, "objective_time_avg_per_10_min": 0, "enemies_trapped_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0}	11
+47	{"average_energy": 0.11, "energy_maximum": 485500, "high_energy_kills": 12, "graviton_surge_kills": 10, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "projected_barriers_applied": 75, "average_energy_best_in_game": 0, "eliminations_avg_per_10_min": 0, "lifetime_energy_accumulation": 53483, "damage_blocked_avg_per_10_min": 4, "objective_time_avg_per_10_min": 0, "high_energy_kills_most_in_game": 6, "high_energy_kills_avg_per_10_min": 0, "graviton_surge_kills_most_in_game": 3, "time_spent_on_fire_avg_per_10_min": 0, "graviton_surge_kills_avg_per_10_min": 0, "projected_barriers_applied_most_in_game": 14, "projected_barriers_applied_avg_per_10_min": 0}	12
+48	{"helix_rockets_kills": 47, "tactical_visor_kills": 21, "deaths_avg_per_10_min": 0, "biotic_fields_deployed": 76, "biotic_field_healing_done": 10455, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 1, "critical_hits_avg_per_10_min": 0, "objective_time_avg_per_10_min": 0, "helix_rockets_kills_most_in_game": 12, "melee_final_blows_avg_per_10_min": 0, "tactical_visor_kills_most_in_game": 4, "time_spent_on_fire_avg_per_10_min": 0, "helix_rockets_kills_avg_per_10_min": 0, "tactical_visor_kills_avg_per_10_min": 0}	13
+49	{"deaths_avg_per_10_min": 0, "sound_barriers_provided": 10, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 2, "critical_hits_avg_per_10_min": 0, "objective_time_avg_per_10_min": 0, "defensive_assists_avg_per_10_min": 0, "sound_barriers_provided_most_in_game": 5, "sound_barriers_provided_avg_per_10_min": 0}	14
+52	{"enemy_empd": 1, "enemies_hacked": 3, "deaths_avg_per_10_min": 0, "enemy_empd_most_in_game": 1, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "enemies_empd_avg_per_10_min": 0, "enemies_hacked_most_in_game": 2, "enemies_hacked_avg_per_10_min": 0, "objective_time_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0}	16
+53	{"damage_amplified": 927, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "damage_amplified_most_in_game": 456, "damage_blocked_avg_per_10_min": 32, "objective_time_avg_per_10_min": 0, "damage_amplified_avg_per_10_min": 1, "offensive_assists_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0}	19
+54	{"deaths_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "hero_damage_done_most_in_game": 277, "hero_damage_done_most_in_life": 190, "hero_damage_done_avg_per_10_min": 2, "barrier_damage_done_most_in_game": 67, "barrier_damage_done_avg_per_10_min": 0}	1
+55	{"blaster_kills": 286, "damage_amplified": 40160, "players_resurrected": 307, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "blaster_kills_most_in_game": 11, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 2, "blaster_kills_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "damage_amplified_most_in_game": 1471, "hero_damage_done_most_in_game": 1257, "hero_damage_done_most_in_life": 939, "objective_time_avg_per_10_min": 0, "damage_amplified_avg_per_10_min": 1, "hero_damage_done_avg_per_10_min": 1, "barrier_damage_done_most_in_game": 709, "defensive_assists_avg_per_10_min": 0, "melee_final_blows_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0, "players_resurrected_most_in_game": 14, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 0, "players_resurrected_avg_per_10_min": 0}	2
+56	{"turrets_kills": 19, "torbjörn_kills": 11, "molten_core_kills": 3, "armor_packs_created": 35, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "turrets_kills_most_in_game": 19, "eliminations_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "torbjörn_kills_most_in_game": 11, "turrets_kills_avg_per_10_min": 0, "hero_damage_done_most_in_game": 5903, "hero_damage_done_most_in_life": 1754, "objective_time_avg_per_10_min": 0, "molten_core_kills_most_in_game": 3, "torbjörn_kills_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 9, "armor_packs_created_most_in_game": 35, "barrier_damage_done_most_in_game": 728, "molten_core_kills_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "armor_packs_created_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 1}	3
+57	{"charge_kills": 273, "fire_strike_kills": 561, "earthshatter_kills": 234, "deaths_avg_per_10_min": 0, "charge_kills_most_in_game": 11, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "charge_kills_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "shield_generators_destroyed": 1, "damage_blocked_avg_per_10_min": 21, "hero_damage_done_most_in_game": 6616, "hero_damage_done_most_in_life": 2672, "objective_time_avg_per_10_min": 0, "fire_strike_kills_most_in_game": 14, "earthshatter_kills_most_in_game": 8, "hero_damage_done_avg_per_10_min": 7, "barrier_damage_done_most_in_game": 2190, "fire_strike_kills_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0, "earthshatter_kills_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 2}	4
+58	{"barrage_kills": 220, "rocket_direct_hits": 2571, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "barrage_kills_most_in_game": 7, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "shield_generators_destroyed": 4, "barrage_kills_avg_per_10_min": 0, "hero_damage_done_most_in_game": 16893, "hero_damage_done_most_in_life": 5136, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 13, "rocket_direct_hits_most_in_game": 85, "barrier_damage_done_most_in_game": 6962, "melee_final_blows_avg_per_10_min": 0, "rocket_direct_hits_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 5}	5
+59	{"jump_pack_kills": 312, "primal_rage_kills": 121, "players_knocked_back": 2410, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "melee_kills_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "shield_generators_destroyed": 6, "jump_pack_kills_most_in_game": 15, "damage_blocked_avg_per_10_min": 14, "hero_damage_done_most_in_game": 12175, "hero_damage_done_most_in_life": 3814, "objective_time_avg_per_10_min": 0, "jump_pack_kills_avg_per_10_min": 0, "primal_rage_kills_most_in_game": 7, "hero_damage_done_avg_per_10_min": 9, "barrier_damage_done_most_in_game": 2243, "melee_final_blows_avg_per_10_min": 0, "primal_rage_kills_avg_per_10_min": 0, "players_knocked_back_most_in_game": 95, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 1, "players_knocked_back_avg_per_10_min": 0}	6
+60	{"deaths_avg_per_10_min": 0, "scoped_accuracy_percentage": 20, "eliminations_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "hero_damage_done_most_in_game": 284, "hero_damage_done_most_in_life": 221, "hero_damage_done_avg_per_10_min": 0, "barrier_damage_done_most_in_game": 185, "barrier_damage_done_avg_per_10_min": 0, "scoped_accuracy_best_in_game_percentage": 100}	7
+61	{"sentry_kills": 1, "deaths_avg_per_10_min": 0, "sentry_kills_most_in_game": 1, "eliminations_avg_per_10_min": 0, "sentry_kills_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "hero_damage_done_most_in_game": 3039, "hero_damage_done_most_in_life": 1125, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 13, "barrier_damage_done_most_in_game": 80, "barrier_damage_done_avg_per_10_min": 0}	22
+62	{"teleporter_uptime": 13440, "players_teleported": 846, "sentry_turrets_kills": 1044, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "teleporter_uptime_average": 0.26, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "damage_blocked_avg_per_10_min": 4, "hero_damage_done_most_in_game": 7547, "hero_damage_done_most_in_life": 3353, "objective_time_avg_per_10_min": 0, "teleporter_uptime_best_in_game": 1, "hero_damage_done_avg_per_10_min": 9, "players_teleported_most_in_game": 18, "barrier_damage_done_most_in_game": 2928, "players_teleported_avg_per_10_min": 0, "sentry_turrets_kills_most_in_game": 22, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 2, "sentry_turrets_kills_avg_per_10_min": 0}	8
+63	{"deaths_avg_per_10_min": 0, "transcendence_healing": 57851, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "transcendence_healing_best": 2015, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "hero_damage_done_most_in_game": 9473, "hero_damage_done_most_in_life": 1884, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 8, "barrier_damage_done_most_in_game": 3984, "defensive_assists_avg_per_10_min": 0, "melee_final_blows_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 3}	9
+64	{"dragonblades": 2, "damage_reflected": 381, "dragonblade_kills": 1, "deaths_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "shield_generators_destroyed": 1, "critical_hits_avg_per_10_min": 0, "damage_reflected_most_in_game": 381, "hero_damage_done_most_in_game": 2765, "hero_damage_done_most_in_life": 595, "objective_time_avg_per_10_min": 0, "dragonblade_kills_most_in_game": 1, "damage_reflected_avg_per_10_min": 1, "hero_damage_done_avg_per_10_min": 6, "barrier_damage_done_most_in_game": 1842, "dragonblade_kills_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 4}	23
+65	{"fan_the_hammer_kills": 2, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "hero_damage_done_most_in_game": 775, "hero_damage_done_most_in_life": 750, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 5, "barrier_damage_done_most_in_game": 280, "fan_the_hammer_kills_most_in_game": 2, "barrier_damage_done_avg_per_10_min": 2, "fan_the_hammer_kills_avg_per_10_min": 0}	24
+66	{"average_energy": 0.11, "energy_maximum": 432700, "high_energy_kills": 24, "graviton_surge_kills": 13, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "projected_barriers_applied": 152, "average_energy_best_in_game": 0, "eliminations_avg_per_10_min": 0, "lifetime_energy_accumulation": 50795, "damage_blocked_avg_per_10_min": 5, "hero_damage_done_most_in_game": 11386, "hero_damage_done_most_in_life": 1936, "objective_time_avg_per_10_min": 0, "high_energy_kills_most_in_game": 8, "hero_damage_done_avg_per_10_min": 7, "barrier_damage_done_most_in_game": 2574, "defensive_assists_avg_per_10_min": 0, "high_energy_kills_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0, "graviton_surge_kills_most_in_game": 5, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 1, "graviton_surge_kills_avg_per_10_min": 0, "projected_barriers_applied_most_in_game": 48, "projected_barriers_applied_avg_per_10_min": 0}	12
+67	{"helix_rockets_kills": 177, "tactical_visor_kills": 92, "deaths_avg_per_10_min": 0, "biotic_fields_deployed": 341, "biotic_field_healing_done": 43370, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 1, "critical_hits_avg_per_10_min": 0, "hero_damage_done_most_in_game": 7418, "hero_damage_done_most_in_life": 2149, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 11, "barrier_damage_done_most_in_game": 5842, "helix_rockets_kills_most_in_game": 11, "melee_final_blows_avg_per_10_min": 0, "tactical_visor_kills_most_in_game": 7, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 4, "helix_rockets_kills_avg_per_10_min": 0, "tactical_visor_kills_avg_per_10_min": 0}	13
+68	{"deaths_avg_per_10_min": 0, "sound_barriers_provided": 202, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 2, "critical_hits_avg_per_10_min": 0, "hero_damage_done_most_in_game": 4320, "hero_damage_done_most_in_life": 1508, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 5, "barrier_damage_done_most_in_game": 2805, "defensive_assists_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 3, "sound_barriers_provided_most_in_game": 17, "sound_barriers_provided_avg_per_10_min": 0}	14
+69	{"mech_deaths": 183, "mechs_called": 88, "selfdestruct_kills": 35, "deaths_avg_per_10_min": 0, "mechs_called_most_in_game": 13, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "mechs_called_avg_per_10_min": 0, "critical_hits_avg_per_10_min": 0, "damage_blocked_avg_per_10_min": 11, "hero_damage_done_most_in_game": 14893, "hero_damage_done_most_in_life": 4090, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 9, "selfdestruct_kills_most_in_game": 7, "barrier_damage_done_most_in_game": 13545, "melee_final_blows_avg_per_10_min": 0, "selfdestruct_kills_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 6}	15
+70	{"enemies_empd": 921, "enemies_hacked": 1487, "deaths_avg_per_10_min": 0, "enemies_empd_most_in_game": 29, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "enemies_empd_avg_per_10_min": 0, "enemies_hacked_most_in_game": 43, "shield_generators_destroyed": 3, "enemies_hacked_avg_per_10_min": 0, "hero_damage_done_most_in_game": 10169, "hero_damage_done_most_in_life": 3371, "objective_time_avg_per_10_min": 0, "hero_damage_done_avg_per_10_min": 6, "barrier_damage_done_most_in_game": 2341, "melee_final_blows_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 1}	16
+71	{"enemies_slept": 22, "unscoped_accuracy": 1, "nano_boost_assists": 7, "nano_boosts_applied": 9, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "enemies_slept_most_in_game": 6, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "self_healing_avg_per_10_min": 0, "enemies_slept_avg_per_10_min": 0, "objective_time_avg_per_10_min": 0, "unscoped_accuracy_best_in_game": 1, "nano_boost_assists_most_in_game": 3, "defensive_assists_avg_per_10_min": 0, "nano_boosts_applied_most_in_game": 3, "offensive_assists_avg_per_10_min": 0, "nano_boost_assists_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "nano_boosts_applied_avg_per_10_min": 0}	18
+72	{"damage_amplified": 86596, "deaths_avg_per_10_min": 0, "solo_kills_avg_per_10_min": 0, "final_blows_avg_per_10_min": 0, "eliminations_avg_per_10_min": 0, "shield_generators_destroyed": 1, "damage_amplified_most_in_game": 3144, "damage_blocked_avg_per_10_min": 24, "hero_damage_done_most_in_game": 8590, "hero_damage_done_most_in_life": 3537, "objective_time_avg_per_10_min": 0, "damage_amplified_avg_per_10_min": 1, "hero_damage_done_avg_per_10_min": 9, "barrier_damage_done_most_in_game": 13577, "melee_final_blows_avg_per_10_min": 0, "offensive_assists_avg_per_10_min": 0, "time_spent_on_fire_avg_per_10_min": 0, "barrier_damage_done_avg_per_10_min": 5}	19
+\.
+
+
+--
+-- Name: hero_specific_statistics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('hero_specific_statistics_id_seq', 72, true);
+
+
+--
+-- Data for Name: heroes; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY heroes (id, name, code, inserted_at, updated_at) FROM stdin;
+1	Tracer	0x02E0000000000003	2017-09-07 07:24:04.779437	2017-09-07 07:24:04.779427
+2	Mercy	0x02E0000000000004	2017-09-07 07:24:04.779441	2017-09-07 07:24:04.779439
+3	Torbjörn	0x02E0000000000006	2017-09-07 07:24:04.779443	2017-09-07 07:24:04.779442
+4	Reinhardt	0x02E0000000000007	2017-09-07 07:24:04.779445	2017-09-07 07:24:04.779444
+5	Pharah	0x02E0000000000008	2017-09-07 07:24:04.779447	2017-09-07 07:24:04.779446
+6	Winston	0x02E0000000000009	2017-09-07 07:24:04.779449	2017-09-07 07:24:04.779448
+7	Widowmaker	0x02E000000000000A	2017-09-07 07:24:04.779451	2017-09-07 07:24:04.77945
+8	Symmetra	0x02E0000000000016	2017-09-07 07:24:04.779453	2017-09-07 07:24:04.779453
+9	Zenyatta	0x02E0000000000020	2017-09-07 07:24:04.779456	2017-09-07 07:24:04.779455
+10	Roadhog	0x02E0000000000040	2017-09-07 07:24:04.779458	2017-09-07 07:24:04.779457
+11	Junkrat	0x02E0000000000065	2017-09-07 07:24:04.77946	2017-09-07 07:24:04.779459
+12	Zarya	0x02E0000000000068	2017-09-07 07:24:04.779462	2017-09-07 07:24:04.779461
+13	Soldier: 76	0x02E000000000006E	2017-09-07 07:24:04.779464	2017-09-07 07:24:04.779463
+14	Lúcio	0x02E0000000000079	2017-09-07 07:24:04.779466	2017-09-07 07:24:04.779465
+15	D.Va	0x02E000000000007A	2017-09-07 07:24:04.779613	2017-09-07 07:24:04.779609
+16	Sombra	0x02E000000000012E	2017-09-07 07:24:04.779615	2017-09-07 07:24:04.779614
+17	Doomfist	0x02E000000000012F	2017-09-07 07:24:04.779617	2017-09-07 07:24:04.779616
+18	Ana	0x02E000000000013B	2017-09-07 07:24:04.77962	2017-09-07 07:24:04.779619
+19	Orisa	0x02E000000000013E	2017-09-07 07:24:04.779622	2017-09-07 07:24:04.779621
+20	Reaper	0x02E0000000000002	2017-09-07 07:24:08.994087	2017-09-07 07:24:08.994073
+21	Hanzo	0x02E0000000000005	2017-09-07 07:24:08.994091	2017-09-07 07:24:08.99409
+22	Bastion	0x02E0000000000015	2017-09-07 07:24:08.994096	2017-09-07 07:24:08.994095
+23	Genji	0x02E0000000000029	2017-09-07 07:24:08.994098	2017-09-07 07:24:08.994097
+24	McCree	0x02E0000000000042	2017-09-07 07:24:08.9941	2017-09-07 07:24:08.994099
+25	Mei	0x02E00000000000DD	2017-09-07 07:24:08.994102	2017-09-07 07:24:08.994101
+\.
+
+
+--
+-- Name: heroes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('heroes_id_seq', 25, true);
+
+
+--
+-- Data for Name: leaderboard_snapshot_statistics; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY leaderboard_snapshot_statistics (id, hero_total_competitive_rankings, hero_total_quickplay_rankings, hero_competitive_rankings, hero_quickplay_rankings, profile_stats_rankings, inserted_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: leaderboard_snapshot_statistics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('leaderboard_snapshot_statistics_id_seq', 1, false);
+
+
+--
+-- Data for Name: match_awards_statistics; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY match_awards_statistics (id, bronze_medals, silver_medals, gold_medals, total_medals, cards) FROM stdin;
+1	3	0	18	21	13
+2	2	2	2	6	1
+3	0	0	2	2	0
+4	30	28	31	89	6
+5	22	16	20	58	13
+6	0	3	0	3	1
+7	2	6	1	9	0
+8	1	1	2	4	0
+9	8	20	21	49	9
+10	12	11	3	27	1
+11	1	0	1	2	0
+12	3	6	7	17	2
+13	84	93	108	287	46
+14	5	6	12	23	7
+15	2	0	0	2	0
+16	0	0	0	1	0
+17	5	1	4	10	1
+18	0	0	0	0	0
+19	0	0	0	0	0
+20	13	7	9	30	5
+21	6	4	1	11	2
+22	1	0	1	1	0
+23	1	0	0	1	0
+24	36	25	22	83	4
+25	6	1	1	8	0
+26	1	1	0	2	0
+27	2	1	1	4	1
+28	10	0	0	11	3
+29	0	1	0	1	0
+30	6	1	3	9	2
+31	94	48	54	197	25
+32	1	1	2	4	0
+33	4	5	0	9	0
+34	34	54	145	234	78
+35	0	1	0	2	0
+36	79	99	125	302	76
+37	11	24	13	47	13
+38	269	239	190	698	54
+39	184	151	178	513	44
+40	1	1	1	2	0
+41	2	2	0	5	0
+42	122	98	87	307	104
+43	81	97	94	271	44
+44	2	3	1	6	0
+45	0	0	1	1	0
+46	13	11	7	31	0
+47	2	0	3	5	1
+48	7	6	6	20	0
+49	15	14	10	39	1
+50	2	2	2	6	0
+51	1	1	2	4	0
+52	3	2	1	6	0
+53	1	0	0	1	0
+54	1	4	2	7	1
+55	835	815	870	2520	416
+56	10	25	52	87	28
+57	1	0	0	1	0
+58	75	53	37	165	26
+59	34	37	32	103	9
+60	35	25	17	77	6
+61	0	0	1	1	0
+62	0	0	0	1	0
+63	69	61	35	165	22
+64	19	23	7	49	10
+65	3	5	3	12	2
+66	21	22	14	56	5
+67	13	18	12	43	4
+68	10	12	18	40	3
+69	70	37	18	125	12
+70	0	3	1	4	1
+71	97	72	50	219	53
+72	457	393	297	1148	181
+\.
+
+
+--
+-- Name: match_awards_statistics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('match_awards_statistics_id_seq', 72, true);
+
+
+--
+-- Data for Name: profile_snapshot_statistics; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY profile_snapshot_statistics (id, snapshot_statistic_id, profile_statistic_id, leaderboard_snapshot_statistic_id, statistics_averages_snapshot_id) FROM stdin;
+1	1	1	\N	\N
+2	2	2	\N	1
+\.
+
+
+--
+-- Name: profile_snapshot_statistics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('profile_snapshot_statistics_id_seq', 2, true);
+
+
+--
+-- Data for Name: profile_statistics; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY profile_statistics (id, total_games_won, competitive_level, competitive_rank_url, level, level_url, rank_url, gamer_tag_id) FROM stdin;
+1	105	1516	https://d1u1mce87gyfbn.cloudfront.net/game/rank-icons/season-2/rank-2.png	97	https://d1u1mce87gyfbn.cloudfront.net/game/playerlevelrewards/0x0250000000000921_Border.png	\N	1
+2	911	\N	\N	98	https://d1u1mce87gyfbn.cloudfront.net/game/playerlevelrewards/0x0250000000000953_Border.png	https://d1u1mce87gyfbn.cloudfront.net/game/playerlevelrewards/0x0250000000000953_Rank.png	2
+\.
+
+
+--
+-- Name: profile_statistics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('profile_statistics_id_seq', 2, true);
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY schema_migrations (version, inserted_at) FROM stdin;
+20170311205113	2017-09-07 07:22:47.418405
+20170312214913	2017-09-07 07:22:47.479365
+20170312215714	2017-09-07 07:22:47.548592
+20170312234054	2017-09-07 07:22:47.602049
+20170319044428	2017-09-07 07:22:47.656764
+20170319044712	2017-09-07 07:22:47.715654
+20170319045000	2017-09-07 07:22:47.752107
+20170319045329	2017-09-07 07:22:47.805018
+20170319055028	2017-09-07 07:22:47.866619
+20170319055036	2017-09-07 07:22:47.930576
+20170319055038	2017-09-07 07:22:47.977311
+20170319055100	2017-09-07 07:22:48.029804
+20170319055155	2017-09-07 07:22:48.147236
+20170319080819	2017-09-07 07:22:48.202746
+20170426153806	2017-09-07 07:22:48.260944
+20170604131142	2017-09-07 07:22:48.32138
+20170613045716	2017-09-07 07:22:48.360388
+20170713192951	2017-09-07 07:22:48.39654
+20170713193020	2017-09-07 07:22:48.442394
+20170723033501	2017-09-07 07:22:48.522085
+20170723033611	2017-09-07 07:22:48.576093
+20170805022736	2017-09-07 07:22:48.667404
+20170805225323	2017-09-07 07:22:48.72831
+20170805225325	2017-09-07 07:22:48.767262
+20170805225326	2017-09-07 07:22:48.820823
+20170901064029	2017-09-07 07:22:48.857556
+\.
+
+
+--
+-- Data for Name: snapshot_statistics; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY snapshot_statistics (id, gamer_tag_id, inserted_at, updated_at) FROM stdin;
+1	1	2017-09-07 07:24:05.069742	2017-09-07 07:24:05.069751
+2	2	2017-09-07 07:24:09.133452	2017-09-07 07:24:09.133459
+\.
+
+
+--
+-- Name: snapshot_statistics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('snapshot_statistics_id_seq', 2, true);
+
+
+--
+-- Data for Name: statistics_averages_snapshots; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY statistics_averages_snapshots (id, hero_total_competitive_averages, hero_total_quickplay_averages, hero_competitive_averages, hero_quickplay_averages, inserted_at, updated_at) FROM stdin;
+1	{"cards": "25.0000000000000000", "deaths": "641.0000000000000000", "games_won": "40.0000000000000000", "shots_hit": "0.00000000000000000000", "games_lost": "51.0000000000000000", "games_tied": "5.0000000000000000", "multikills": "19.0000000000000000", "solo_kills": "74.0000000000000000", "damage_done": "0.00000000000000000000", "final_blows": "474.0000000000000000", "gold_medals": "54.0000000000000000", "melee_kills": "2.0000000000000000", "shots_fired": "0.00000000000000000000", "time_played": "50924.000000000000", "eliminations": "1471.0000000000000000", "games_played": "91.0000000000000000", "healing_done": "169082.000000000000", "total_medals": "197.0000000000000000", "bronze_medals": "94.0000000000000000", "critical_hits": "647.0000000000000000", "recon_assists": "0.00000000000000000000", "silver_medals": "48.0000000000000000", "damage_blocked": "301793.000000000000", "deaths_average": "0.00000000000000000000", "multikill_best": "14.0000000000000000", "objective_time": "5820.0000000000000000", "win_percentage": "43.9560439560439560", "objective_kills": "692.0000000000000000", "kill_streak_best": "137.0000000000000000", "defensive_assists": "569.0000000000000000", "melee_final_blows": "8.0000000000000000", "offensive_assists": "379.0000000000000000", "turrets_destroyed": "120.0000000000000000", "solo_kills_average": "0.00000000000000000000", "time_spent_on_fire": "2931.0000000000000000", "damage_done_average": "0.00000000000000000000", "environmental_kills": "2.0000000000000000", "final_blows_average": "0.00000000000000000000", "melee_kills_average": "0.00000000000000000000", "eliminations_average": "0.00000000000000000000", "environmental_deaths": "0.00000000000000000000", "healing_done_average": "0.00000000000000000000", "self_healing_average": "0.00000000000000000000", "critical_hits_average": "0.00000000000000000000", "eliminations_per_life": "40.1900000000000000", "damage_blocked_average": "0.00000000000000000000", "objective_time_average": "0.00000000000000000000", "objective_kills_average": "0.00000000000000000000", "solo_kills_most_in_game": "21.0000000000000000", "damage_done_most_in_game": "0.00000000000000000000", "damage_done_most_in_life": "0.00000000000000000000", "final_blows_most_in_game": "90.0000000000000000", "melee_kills_most_in_game": "2.0000000000000000", "defensive_assists_average": "0.00000000000000000000", "eliminations_most_in_game": "233.0000000000000000", "eliminations_most_in_life": "137.0000000000000000", "healing_done_most_in_game": "22638.000000000000", "healing_done_most_in_life": "0.00000000000000000000", "melee_final_blows_average": "0.00000000000000000000", "offensive_assists_average": "0.00000000000000000000", "self_healing_most_in_game": "8438.0000000000000000", "teleporter_pads_destroyed": "1.00000000000000000000", "critical_hits_most_in_game": "255.0000000000000000", "critical_hits_most_in_life": "182.0000000000000000", "recon_assists_most_in_game": "0.00000000000000000000", "time_spent_on_fire_average": "0.00000000000000000000", "weapon_accuracy_percentage": "477.0000000000000000", "damage_blocked_most_in_game": "44694.000000000000", "objective_time_most_in_game": "1150.0000000000000000", "objective_kills_most_in_game": "120.0000000000000000", "defensive_assists_most_in_game": "89.0000000000000000", "melee_final_blows_most_in_game": "4.0000000000000000", "offensive_assists_most_in_game": "71.0000000000000000", "turrets_destroyed_most_in_game": "0.00000000000000000000", "time_spent_on_fire_most_in_game": "932.0000000000000000", "environmental_kills_most_in_game": "0.00000000000000000000", "critical_hits_accuracy_percentage": "33.0000000000000000", "weapon_accuracy_best_in_game_percentage": "697.0000000000000000"}	{"cards": "46.0000000000000000", "deaths": "755.0000000000000000", "games_won": "67.0000000000000000", "shots_hit": "0.00000000000000000000", "games_lost": "0.00000000000000000000", "games_tied": "0.00000000000000000000", "multikills": "17.0000000000000000", "solo_kills": "138.0000000000000000", "damage_done": "0.00000000000000000000", "final_blows": "585.0000000000000000", "gold_medals": "108.0000000000000000", "melee_kills": "40.0000000000000000", "shots_fired": "0.00000000000000000000", "time_played": "46500.000000000000", "eliminations": "1478.0000000000000000", "games_played": "0.00000000000000000000", "healing_done": "139389.000000000000", "total_medals": "287.0000000000000000", "bronze_medals": "84.0000000000000000", "critical_hits": "2725.0000000000000000", "recon_assists": "0.00000000000000000000", "silver_medals": "93.0000000000000000", "damage_blocked": "351522.000000000000", "deaths_average": "0.00000000000000000000", "multikill_best": "15.0000000000000000", "objective_time": "5263.0000000000000000", "win_percentage": "0.00000000000000000000", "objective_kills": "584.0000000000000000", "kill_streak_best": "106.0000000000000000", "defensive_assists": "293.0000000000000000", "melee_final_blows": "1.00000000000000000000", "offensive_assists": "184.0000000000000000", "turrets_destroyed": "113.0000000000000000", "solo_kills_average": "0.00000000000000000000", "time_spent_on_fire": "1950.0000000000000000", "damage_done_average": "0.00000000000000000000", "environmental_kills": "9.0000000000000000", "final_blows_average": "0.00000000000000000000", "melee_kills_average": "0.00000000000000000000", "eliminations_average": "0.00000000000000000000", "environmental_deaths": "0.00000000000000000000", "healing_done_average": "0.00000000000000000000", "self_healing_average": "0.00000000000000000000", "critical_hits_average": "0.00000000000000000000", "eliminations_per_life": "19.4700000000000020", "damage_blocked_average": "0.00000000000000000000", "objective_time_average": "0.00000000000000000000", "objective_kills_average": "0.00000000000000000000", "solo_kills_most_in_game": "31.0000000000000000", "damage_done_most_in_game": "0.00000000000000000000", "damage_done_most_in_life": "0.00000000000000000000", "final_blows_most_in_game": "105.0000000000000000", "melee_kills_most_in_game": "5.0000000000000000", "defensive_assists_average": "0.00000000000000000000", "eliminations_most_in_game": "220.0000000000000000", "eliminations_most_in_life": "106.0000000000000000", "healing_done_most_in_game": "20418.000000000000", "healing_done_most_in_life": "0.00000000000000000000", "melee_final_blows_average": "0.00000000000000000000", "offensive_assists_average": "0.00000000000000000000", "self_healing_most_in_game": "2915.0000000000000000", "teleporter_pads_destroyed": "1.00000000000000000000", "critical_hits_most_in_game": "293.0000000000000000", "critical_hits_most_in_life": "134.0000000000000000", "recon_assists_most_in_game": "0.00000000000000000000", "time_spent_on_fire_average": "0.00000000000000000000", "weapon_accuracy_percentage": "343.0000000000000000", "damage_blocked_most_in_game": "55582.000000000000", "objective_time_most_in_game": "888.0000000000000000", "objective_kills_most_in_game": "115.0000000000000000", "defensive_assists_most_in_game": "48.0000000000000000", "melee_final_blows_most_in_game": "1.00000000000000000000", "offensive_assists_most_in_game": "40.0000000000000000", "turrets_destroyed_most_in_game": "0.00000000000000000000", "time_spent_on_fire_most_in_game": "693.0000000000000000", "environmental_kills_most_in_game": "0.00000000000000000000", "critical_hits_accuracy_percentage": "27.0000000000000000", "weapon_accuracy_best_in_game_percentage": "447.0000000000000000"}	{"cards": "1.5625000000000000", "deaths": "39.8125000000000000", "games_won": "2.5000000000000000", "shots_hit": "0.00000000000000000000", "games_lost": "3.1250000000000000", "games_tied": "0.31250000000000000000", "multikills": "1.1875000000000000", "solo_kills": "4.6250000000000000", "damage_done": "0.00000000000000000000", "final_blows": "29.5000000000000000", "gold_medals": "3.3750000000000000", "melee_kills": "0.12500000000000000000", "shots_fired": "0.00000000000000000000", "time_played": "3165.0000000000000000", "eliminations": "91.7500000000000000", "games_played": "5.6250000000000000", "healing_done": "10567.6250000000000000", "total_medals": "12.3125000000000000", "bronze_medals": "5.8750000000000000", "critical_hits": "40.0625000000000000", "recon_assists": "0.00000000000000000000", "silver_medals": "3.0000000000000000", "damage_blocked": "18862.062500000000", "deaths_average": "0.00000000000000000000", "multikill_best": "0.87500000000000000000", "objective_time": "363.1250000000000000", "win_percentage": "45.0178179824561394", "objective_kills": "43.1875000000000000", "kill_streak_best": "8.4375000000000000", "defensive_assists": "35.5625000000000000", "melee_final_blows": "0.50000000000000000000", "offensive_assists": "23.6875000000000000", "turrets_destroyed": "7.4375000000000000", "solo_kills_average": "0.00000000000000000000", "time_spent_on_fire": "183.1875000000000000", "damage_done_average": "0.00000000000000000000", "environmental_kills": "0.12500000000000000000", "final_blows_average": "0.00000000000000000000", "melee_kills_average": "0.00000000000000000000", "eliminations_average": "0.00000000000000000000", "environmental_deaths": "0.00000000000000000000", "healing_done_average": "0.00000000000000000000", "self_healing_average": "0.00000000000000000000", "critical_hits_average": "0.00000000000000000000", "eliminations_per_life": "2.4650000000000000", "damage_blocked_average": "0.00000000000000000000", "objective_time_average": "0.00000000000000000000", "objective_kills_average": "0.00000000000000000000", "solo_kills_most_in_game": "1.3125000000000000", "damage_done_most_in_game": "0.00000000000000000000", "damage_done_most_in_life": "0.00000000000000000000", "final_blows_most_in_game": "5.5000000000000000", "melee_kills_most_in_game": "0.12500000000000000000", "defensive_assists_average": "0.00000000000000000000", "eliminations_most_in_game": "14.3750000000000000", "eliminations_most_in_life": "8.4375000000000000", "healing_done_most_in_game": "1414.8750000000000000", "healing_done_most_in_life": "0.00000000000000000000", "melee_final_blows_average": "0.00000000000000000000", "offensive_assists_average": "0.00000000000000000000", "self_healing_most_in_game": "527.3750000000000000", "teleporter_pads_destroyed": "0.06250000000000000000", "critical_hits_most_in_game": "15.5625000000000000", "critical_hits_most_in_life": "11.1875000000000000", "recon_assists_most_in_game": "0.00000000000000000000", "time_spent_on_fire_average": "0.00000000000000000000", "weapon_accuracy_percentage": "27.0000000000000000", "damage_blocked_most_in_game": "2793.3750000000000000", "objective_time_most_in_game": "71.2500000000000000", "objective_kills_most_in_game": "7.4375000000000000", "defensive_assists_most_in_game": "5.5625000000000000", "melee_final_blows_most_in_game": "0.25000000000000000000", "offensive_assists_most_in_game": "4.4375000000000000", "turrets_destroyed_most_in_game": "0.00000000000000000000", "time_spent_on_fire_most_in_game": "58.2500000000000000", "environmental_kills_most_in_game": "0.00000000000000000000", "critical_hits_accuracy_percentage": "2.0000000000000000", "weapon_accuracy_best_in_game_percentage": "40.7500000000000000"}	{"cards": "3.8333333333333333", "deaths": "62.5000000000000000", "games_won": "5.5833333333333333", "shots_hit": "0.00000000000000000000", "games_lost": "0.00000000000000000000", "games_tied": "0.00000000000000000000", "multikills": "1.4166666666666667", "solo_kills": "11.5000000000000000", "damage_done": "0.00000000000000000000", "final_blows": "48.6666666666666667", "gold_medals": "9.0000000000000000", "melee_kills": "3.3333333333333333", "shots_fired": "0.00000000000000000000", "time_played": "3860.0000000000000000", "eliminations": "122.9166666666666667", "games_played": "0.00000000000000000000", "healing_done": "11615.750000000000", "total_medals": "23.9166666666666667", "bronze_medals": "7.0000000000000000", "critical_hits": "227.0833333333333333", "recon_assists": "0.00000000000000000000", "silver_medals": "7.7500000000000000", "damage_blocked": "29215.250000000000", "deaths_average": "0.00000000000000000000", "multikill_best": "1.2500000000000000", "objective_time": "436.7500000000000000", "win_percentage": "0.00000000000000000000", "objective_kills": "48.5833333333333333", "kill_streak_best": "8.7500000000000000", "defensive_assists": "24.4166666666666667", "melee_final_blows": "0.08333333333333333333", "offensive_assists": "15.2500000000000000", "turrets_destroyed": "9.4166666666666667", "solo_kills_average": "0.00000000000000000000", "time_spent_on_fire": "162.5000000000000000", "damage_done_average": "0.00000000000000000000", "environmental_kills": "0.75000000000000000000", "final_blows_average": "0.00000000000000000000", "melee_kills_average": "0.00000000000000000000", "eliminations_average": "0.00000000000000000000", "environmental_deaths": "0.00000000000000000000", "healing_done_average": "0.00000000000000000000", "self_healing_average": "0.00000000000000000000", "critical_hits_average": "0.00000000000000000000", "eliminations_per_life": "1.5725000000000000", "damage_blocked_average": "0.00000000000000000000", "objective_time_average": "0.00000000000000000000", "objective_kills_average": "0.00000000000000000000", "solo_kills_most_in_game": "2.5833333333333333", "damage_done_most_in_game": "0.00000000000000000000", "damage_done_most_in_life": "0.00000000000000000000", "final_blows_most_in_game": "8.6666666666666667", "melee_kills_most_in_game": "0.41666666666666666667", "defensive_assists_average": "0.00000000000000000000", "eliminations_most_in_game": "18.0833333333333333", "eliminations_most_in_life": "8.7500000000000000", "healing_done_most_in_game": "1701.5000000000000000", "healing_done_most_in_life": "0.00000000000000000000", "melee_final_blows_average": "0.00000000000000000000", "offensive_assists_average": "0.00000000000000000000", "self_healing_most_in_game": "242.9166666666666667", "teleporter_pads_destroyed": "0.08333333333333333333", "critical_hits_most_in_game": "24.4166666666666667", "critical_hits_most_in_life": "11.1666666666666667", "recon_assists_most_in_game": "0.00000000000000000000", "time_spent_on_fire_average": "0.00000000000000000000", "weapon_accuracy_percentage": "22.3333333333333333", "damage_blocked_most_in_game": "4553.5833333333333333", "objective_time_most_in_game": "72.1666666666666667", "objective_kills_most_in_game": "9.5000000000000000", "defensive_assists_most_in_game": "4.0000000000000000", "melee_final_blows_most_in_game": "0.08333333333333333333", "offensive_assists_most_in_game": "3.3333333333333333", "turrets_destroyed_most_in_game": "0.00000000000000000000", "time_spent_on_fire_most_in_game": "57.7500000000000000", "environmental_kills_most_in_game": "0.00000000000000000000", "critical_hits_accuracy_percentage": "2.2500000000000000", "weapon_accuracy_best_in_game_percentage": "31.0000000000000000"}	2017-09-07 07:24:09.08249	2017-09-07 07:24:09.082498
+\.
+
+
+--
+-- Name: statistics_averages_snapshots_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('statistics_averages_snapshots_id_seq', 1, true);
+
+
+--
+-- Data for Name: user_friend_group_friendships; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY user_friend_group_friendships (id, friendship_id, user_friend_group_id) FROM stdin;
+1	1	1
+2	3	1
+3	5	1
+4	7	1
+5	9	1
+6	2	2
+7	11	2
+8	13	2
+9	15	2
+10	17	2
+11	4	3
+12	12	3
+13	19	3
+14	21	3
+15	23	3
+16	6	4
+17	14	4
+18	20	4
+19	25	4
+20	27	4
+21	8	5
+22	16	5
+23	22	5
+24	26	5
+25	29	5
+26	10	6
+27	18	6
+28	24	6
+29	28	6
+30	30	6
+\.
+
+
+--
+-- Name: user_friend_group_friendships_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('user_friend_group_friendships_id_seq', 30, true);
+
+
+--
+-- Data for Name: user_friend_groups; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY user_friend_groups (id, name, user_id, inserted_at, updated_at) FROM stdin;
+1	General	1	2017-09-07 07:22:57.673991	2017-09-07 07:22:57.673998
+2	General	2	2017-09-07 07:22:57.701504	2017-09-07 07:22:57.701509
+3	General	3	2017-09-07 07:22:57.708797	2017-09-07 07:22:57.708802
+4	General	4	2017-09-07 07:22:57.725012	2017-09-07 07:22:57.725017
+5	General	5	2017-09-07 07:22:57.734547	2017-09-07 07:22:57.734553
+6	General	6	2017-09-07 07:22:57.747039	2017-09-07 07:22:57.747045
+7	General	7	2017-09-07 07:23:49.745247	2017-09-07 07:23:49.745253
+\.
+
+
+--
+-- Name: user_friend_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('user_friend_groups_id_seq', 7, true);
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: bob
+--
+
+COPY users (id, display_name, email, password_hash, battle_net_id, battle_net_tag, is_admin, inserted_at, updated_at, primary_gamer_tag_id) FROM stdin;
+1	Tim	tim@gmail.com	$pbkdf2-sha512$160000$e6i.QgLH0BYFAVEwE9oFDQ$SRjH2XjsMD8r6xd9Qol6xYkuU6Diu2bAFWYsRxpnrUyrVN.iostnXyuyyfPUm6W7jDWtYg31.iitwpclaHWtDQ	\N	\N	f	2017-09-07 07:22:55.876774	2017-09-07 07:22:55.876784	\N
+2	Bob	bob@gmail.com	$pbkdf2-sha512$160000$Zcl6we3krsP1cMCPHwFKzA$KRWg4M0.vWtNdFF5fjpCqjnFzLPNQJazJ8UwqJCu34QhzYokBa2mzbkczB8ovNf3X7qmFW1fAlR.eu1YFA2H2Q	\N	\N	f	2017-09-07 07:22:56.247402	2017-09-07 07:22:56.247408	\N
+3	Chad	chad@gmail.com	$pbkdf2-sha512$160000$55Vs7WarG/23atltPWtGcg$15TutbJ3Fnbvfnome.LCbGtKkfMSJzLLQgHDe.l1J/Vis99NDmYMtMSmX3jG20C2t1RA0Pb11zrgNo4O6GOXDA	\N	\N	f	2017-09-07 07:22:56.584072	2017-09-07 07:22:56.584078	\N
+4	Nick	nick@gmail.com	$pbkdf2-sha512$160000$cGZ80BMiXDjfsqg3bvnqlw$acgAP9IXaYnumm0icHHCaD6WZmH712OYn3.5LEtZWJaFAYzqWTmUoQJmCg7xVTBV9.ddSJUIQQ6W8AVQ.8xw1g	\N	\N	f	2017-09-07 07:22:56.909007	2017-09-07 07:22:56.909013	\N
+5	Kurt	kurt@gmail.com	$pbkdf2-sha512$160000$Vr857/3uyGHp3XXZi5q78Q$9PrLgYJGo0wVaGtBUJZ9WUts7RgJV4mbtkr2M8LMN69l6KBkV3TvQ0IMwTpM5xUZCiEmqLUh8hTz6I6pi.3DkQ	\N	\N	f	2017-09-07 07:22:57.231299	2017-09-07 07:22:57.231305	\N
+6	Mika	mika@gmail.com	$pbkdf2-sha512$160000$9Wxylp9wbejfsojzURedcQ$sW1i0yR.t2s0nIdXRbfqGeQNAJEUrNVsGQojE8E0He0tNauSlzLFNKOC3fhX62QxVUDMiE3WwWm74AJsq7RCug	\N	\N	f	2017-09-07 07:22:57.572858	2017-09-07 07:22:57.572863	\N
+7	supasteve	email@emial.com	$pbkdf2-sha512$160000$n7OIwZJw/rWNYx05zujZDA$D/gir/M3o/SkIsPgmaV4xJfyZdR1VotiPxq4VwU0nb7SglcjRmKZIdd10.Vr2miLQq3P/.ZGU8jF5ZMWo5KS7A	61015472	DabbyDabDab#1225	f	2017-09-07 07:23:48.727939	2017-09-07 07:23:49.9001	1
+\.
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bob
+--
+
+SELECT pg_catalog.setval('users_id_seq', 7, true);
+
+
+--
+-- Name: blog_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY blog_categories
+    ADD CONSTRAINT blog_categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: blog_post_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY blog_post_categories
+    ADD CONSTRAINT blog_post_categories_pkey PRIMARY KEY (blog_post_id, blog_category_id);
+
+
+--
+-- Name: blog_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY blog_posts
+    ADD CONSTRAINT blog_posts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: combat_average_statistics_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY combat_average_statistics
+    ADD CONSTRAINT combat_average_statistics_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: combat_best_statistics_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY combat_best_statistics
+    ADD CONSTRAINT combat_best_statistics_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: combat_lifetime_statistics_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY combat_lifetime_statistics
+    ADD CONSTRAINT combat_lifetime_statistics_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: connected_gamer_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY connected_gamer_tags
+    ADD CONSTRAINT connected_gamer_tags_pkey PRIMARY KEY (gamer_tag1_id, gamer_tag2_id);
+
+
+--
+-- Name: followers_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY followers
+    ADD CONSTRAINT followers_pkey PRIMARY KEY (user_id, follower_id);
+
+
+--
+-- Name: friendships_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY friendships
+    ADD CONSTRAINT friendships_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: game_history_statistics_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY game_history_statistics
+    ADD CONSTRAINT game_history_statistics_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: gamer_tag_user_followers_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY gamer_tag_user_followers
+    ADD CONSTRAINT gamer_tag_user_followers_pkey PRIMARY KEY (gamer_tag_id, user_id);
+
+
+--
+-- Name: gamer_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY gamer_tags
+    ADD CONSTRAINT gamer_tags_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hero_snapshot_statistics_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY hero_snapshot_statistics
+    ADD CONSTRAINT hero_snapshot_statistics_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hero_specific_statistics_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY hero_specific_statistics
+    ADD CONSTRAINT hero_specific_statistics_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: heroes_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY heroes
+    ADD CONSTRAINT heroes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: leaderboard_snapshot_statistics_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY leaderboard_snapshot_statistics
+    ADD CONSTRAINT leaderboard_snapshot_statistics_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: match_awards_statistics_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY match_awards_statistics
+    ADD CONSTRAINT match_awards_statistics_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: profile_snapshot_statistics_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY profile_snapshot_statistics
+    ADD CONSTRAINT profile_snapshot_statistics_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: profile_statistics_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY profile_statistics
+    ADD CONSTRAINT profile_statistics_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: snapshot_statistics_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY snapshot_statistics
+    ADD CONSTRAINT snapshot_statistics_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: statistics_averages_snapshots_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY statistics_averages_snapshots
+    ADD CONSTRAINT statistics_averages_snapshots_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_friend_group_friendships_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY user_friend_group_friendships
+    ADD CONSTRAINT user_friend_group_friendships_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_friend_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY user_friend_groups
+    ADD CONSTRAINT user_friend_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: blog_categories_name_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE UNIQUE INDEX blog_categories_name_index ON blog_categories USING btree (name);
+
+
+--
+-- Name: blog_post_categories_blog_category_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX blog_post_categories_blog_category_id_index ON blog_post_categories USING btree (blog_category_id);
+
+
+--
+-- Name: blog_post_categories_blog_post_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX blog_post_categories_blog_post_id_index ON blog_post_categories USING btree (blog_post_id);
+
+
+--
+-- Name: blog_post_title_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE UNIQUE INDEX blog_post_title_index ON blog_posts USING btree (title);
+
+
+--
+-- Name: connected_gamer_tags_gamer_tag1_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX connected_gamer_tags_gamer_tag1_id_index ON connected_gamer_tags USING btree (gamer_tag1_id);
+
+
+--
+-- Name: connected_gamer_tags_gamer_tag2_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX connected_gamer_tags_gamer_tag2_id_index ON connected_gamer_tags USING btree (gamer_tag2_id);
+
+
+--
+-- Name: followers_follower_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX followers_follower_id_index ON followers USING btree (follower_id);
+
+
+--
+-- Name: followers_user_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX followers_user_id_index ON followers USING btree (user_id);
+
+
+--
+-- Name: friendships_friend_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX friendships_friend_id_index ON friendships USING btree (friend_id);
+
+
+--
+-- Name: friendships_primary_gamer_tag_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX friendships_primary_gamer_tag_id_index ON friendships USING btree (primary_gamer_tag_id);
+
+
+--
+-- Name: friendships_user_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX friendships_user_id_index ON friendships USING btree (user_id);
+
+
+--
+-- Name: gamer_tag_user_followers_gamer_tag_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX gamer_tag_user_followers_gamer_tag_id_index ON gamer_tag_user_followers USING btree (gamer_tag_id);
+
+
+--
+-- Name: gamer_tag_user_followers_user_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX gamer_tag_user_followers_user_id_index ON gamer_tag_user_followers USING btree (user_id);
+
+
+--
+-- Name: gamer_tags_user_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX gamer_tags_user_id_index ON gamer_tags USING btree (user_id);
+
+
+--
+-- Name: hero_snapshot_statistics_combat_average_statistic_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX hero_snapshot_statistics_combat_average_statistic_id_index ON hero_snapshot_statistics USING btree (combat_average_statistic_id);
+
+
+--
+-- Name: hero_snapshot_statistics_combat_best_statistic_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX hero_snapshot_statistics_combat_best_statistic_id_index ON hero_snapshot_statistics USING btree (combat_best_statistic_id);
+
+
+--
+-- Name: hero_snapshot_statistics_combat_lifetime_statistic_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX hero_snapshot_statistics_combat_lifetime_statistic_id_index ON hero_snapshot_statistics USING btree (combat_lifetime_statistic_id);
+
+
+--
+-- Name: hero_snapshot_statistics_game_history_statistic_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX hero_snapshot_statistics_game_history_statistic_id_index ON hero_snapshot_statistics USING btree (game_history_statistic_id);
+
+
+--
+-- Name: hero_snapshot_statistics_hero_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX hero_snapshot_statistics_hero_id_index ON hero_snapshot_statistics USING btree (hero_id);
+
+
+--
+-- Name: hero_snapshot_statistics_hero_specific_statistic_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX hero_snapshot_statistics_hero_specific_statistic_id_index ON hero_snapshot_statistics USING btree (hero_specific_statistic_id);
+
+
+--
+-- Name: hero_snapshot_statistics_match_awards_statistic_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX hero_snapshot_statistics_match_awards_statistic_id_index ON hero_snapshot_statistics USING btree (match_awards_statistic_id);
+
+
+--
+-- Name: hero_snapshot_statistics_snapshot_statistic_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX hero_snapshot_statistics_snapshot_statistic_id_index ON hero_snapshot_statistics USING btree (snapshot_statistic_id);
+
+
+--
+-- Name: hero_snapshot_statistics_statistic_type_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX hero_snapshot_statistics_statistic_type_index ON hero_snapshot_statistics USING btree (statistic_type);
+
+
+--
+-- Name: hero_specific_statistics_hero_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX hero_specific_statistics_hero_id_index ON hero_specific_statistics USING btree (hero_id);
+
+
+--
+-- Name: heroes_code_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE UNIQUE INDEX heroes_code_index ON heroes USING btree (code);
+
+
+--
+-- Name: heroes_name_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE UNIQUE INDEX heroes_name_index ON heroes USING btree (name);
+
+
+--
+-- Name: profile_snapshot_statistics_leaderboard_snapshot_statistic_id_i; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX profile_snapshot_statistics_leaderboard_snapshot_statistic_id_i ON profile_snapshot_statistics USING btree (leaderboard_snapshot_statistic_id);
+
+
+--
+-- Name: profile_snapshot_statistics_profile_statistic_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX profile_snapshot_statistics_profile_statistic_id_index ON profile_snapshot_statistics USING btree (profile_statistic_id);
+
+
+--
+-- Name: profile_snapshot_statistics_snapshot_statistic_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX profile_snapshot_statistics_snapshot_statistic_id_index ON profile_snapshot_statistics USING btree (snapshot_statistic_id);
+
+
+--
+-- Name: profile_snapshot_statistics_statistics_averages_snapshot_id_ind; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX profile_snapshot_statistics_statistics_averages_snapshot_id_ind ON profile_snapshot_statistics USING btree (statistics_averages_snapshot_id);
+
+
+--
+-- Name: profile_statistics_gamer_tag_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX profile_statistics_gamer_tag_id_index ON profile_statistics USING btree (gamer_tag_id);
+
+
+--
+-- Name: snapshot_statistics_gamer_tag_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX snapshot_statistics_gamer_tag_id_index ON snapshot_statistics USING btree (gamer_tag_id);
+
+
+--
+-- Name: tag_platform_region_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE UNIQUE INDEX tag_platform_region_index ON gamer_tags USING btree (tag, platform, region);
+
+
+--
+-- Name: user_friend_group_friendships_friendship_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX user_friend_group_friendships_friendship_id_index ON user_friend_group_friendships USING btree (friendship_id);
+
+
+--
+-- Name: user_friend_group_friendships_user_friend_group_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX user_friend_group_friendships_user_friend_group_id_index ON user_friend_group_friendships USING btree (user_friend_group_id);
+
+
+--
+-- Name: user_friend_groups_name_user_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE UNIQUE INDEX user_friend_groups_name_user_id_index ON user_friend_groups USING btree (name, user_id);
+
+
+--
+-- Name: user_friend_groups_user_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX user_friend_groups_user_id_index ON user_friend_groups USING btree (user_id);
+
+
+--
+-- Name: users_battle_net_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE UNIQUE INDEX users_battle_net_id_index ON users USING btree (battle_net_id);
+
+
+--
+-- Name: users_battle_net_tag_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE UNIQUE INDEX users_battle_net_tag_index ON users USING btree (battle_net_tag);
+
+
+--
+-- Name: users_display_name_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE UNIQUE INDEX users_display_name_index ON users USING btree (display_name);
+
+
+--
+-- Name: users_email_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE UNIQUE INDEX users_email_index ON users USING btree (email);
+
+
+--
+-- Name: users_primary_gamer_tag_id_index; Type: INDEX; Schema: public; Owner: bob
+--
+
+CREATE INDEX users_primary_gamer_tag_id_index ON users USING btree (primary_gamer_tag_id);
+
+
+--
+-- Name: blog_post_categories_blog_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY blog_post_categories
+    ADD CONSTRAINT blog_post_categories_blog_category_id_fkey FOREIGN KEY (blog_category_id) REFERENCES blog_categories(id);
+
+
+--
+-- Name: blog_post_categories_blog_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY blog_post_categories
+    ADD CONSTRAINT blog_post_categories_blog_post_id_fkey FOREIGN KEY (blog_post_id) REFERENCES blog_posts(id);
+
+
+--
+-- Name: blog_posts_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY blog_posts
+    ADD CONSTRAINT blog_posts_author_id_fkey FOREIGN KEY (author_id) REFERENCES users(id);
+
+
+--
+-- Name: connected_gamer_tags_gamer_tag1_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY connected_gamer_tags
+    ADD CONSTRAINT connected_gamer_tags_gamer_tag1_id_fkey FOREIGN KEY (gamer_tag1_id) REFERENCES gamer_tags(id);
+
+
+--
+-- Name: connected_gamer_tags_gamer_tag2_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY connected_gamer_tags
+    ADD CONSTRAINT connected_gamer_tags_gamer_tag2_id_fkey FOREIGN KEY (gamer_tag2_id) REFERENCES gamer_tags(id);
+
+
+--
+-- Name: followers_follower_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY followers
+    ADD CONSTRAINT followers_follower_id_fkey FOREIGN KEY (follower_id) REFERENCES users(id);
+
+
+--
+-- Name: followers_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY followers
+    ADD CONSTRAINT followers_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: friendships_friend_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY friendships
+    ADD CONSTRAINT friendships_friend_id_fkey FOREIGN KEY (friend_id) REFERENCES users(id);
+
+
+--
+-- Name: friendships_primary_gamer_tag_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY friendships
+    ADD CONSTRAINT friendships_primary_gamer_tag_id_fkey FOREIGN KEY (primary_gamer_tag_id) REFERENCES gamer_tags(id);
+
+
+--
+-- Name: friendships_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY friendships
+    ADD CONSTRAINT friendships_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: gamer_tag_user_followers_gamer_tag_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY gamer_tag_user_followers
+    ADD CONSTRAINT gamer_tag_user_followers_gamer_tag_id_fkey FOREIGN KEY (gamer_tag_id) REFERENCES gamer_tags(id);
+
+
+--
+-- Name: gamer_tag_user_followers_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY gamer_tag_user_followers
+    ADD CONSTRAINT gamer_tag_user_followers_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: gamer_tags_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY gamer_tags
+    ADD CONSTRAINT gamer_tags_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: hero_snapshot_statistics_combat_average_statistic_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY hero_snapshot_statistics
+    ADD CONSTRAINT hero_snapshot_statistics_combat_average_statistic_id_fkey FOREIGN KEY (combat_average_statistic_id) REFERENCES combat_average_statistics(id);
+
+
+--
+-- Name: hero_snapshot_statistics_combat_best_statistic_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY hero_snapshot_statistics
+    ADD CONSTRAINT hero_snapshot_statistics_combat_best_statistic_id_fkey FOREIGN KEY (combat_best_statistic_id) REFERENCES combat_best_statistics(id);
+
+
+--
+-- Name: hero_snapshot_statistics_combat_lifetime_statistic_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY hero_snapshot_statistics
+    ADD CONSTRAINT hero_snapshot_statistics_combat_lifetime_statistic_id_fkey FOREIGN KEY (combat_lifetime_statistic_id) REFERENCES combat_lifetime_statistics(id);
+
+
+--
+-- Name: hero_snapshot_statistics_game_history_statistic_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY hero_snapshot_statistics
+    ADD CONSTRAINT hero_snapshot_statistics_game_history_statistic_id_fkey FOREIGN KEY (game_history_statistic_id) REFERENCES game_history_statistics(id);
+
+
+--
+-- Name: hero_snapshot_statistics_hero_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY hero_snapshot_statistics
+    ADD CONSTRAINT hero_snapshot_statistics_hero_id_fkey FOREIGN KEY (hero_id) REFERENCES heroes(id);
+
+
+--
+-- Name: hero_snapshot_statistics_hero_specific_statistic_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY hero_snapshot_statistics
+    ADD CONSTRAINT hero_snapshot_statistics_hero_specific_statistic_id_fkey FOREIGN KEY (hero_specific_statistic_id) REFERENCES hero_specific_statistics(id);
+
+
+--
+-- Name: hero_snapshot_statistics_match_awards_statistic_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY hero_snapshot_statistics
+    ADD CONSTRAINT hero_snapshot_statistics_match_awards_statistic_id_fkey FOREIGN KEY (match_awards_statistic_id) REFERENCES match_awards_statistics(id);
+
+
+--
+-- Name: hero_snapshot_statistics_snapshot_statistic_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY hero_snapshot_statistics
+    ADD CONSTRAINT hero_snapshot_statistics_snapshot_statistic_id_fkey FOREIGN KEY (snapshot_statistic_id) REFERENCES snapshot_statistics(id);
+
+
+--
+-- Name: hero_specific_statistics_hero_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY hero_specific_statistics
+    ADD CONSTRAINT hero_specific_statistics_hero_id_fkey FOREIGN KEY (hero_id) REFERENCES heroes(id);
+
+
+--
+-- Name: profile_snapshot_statistics_leaderboard_snapshot_statistic_id_f; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY profile_snapshot_statistics
+    ADD CONSTRAINT profile_snapshot_statistics_leaderboard_snapshot_statistic_id_f FOREIGN KEY (leaderboard_snapshot_statistic_id) REFERENCES leaderboard_snapshot_statistics(id);
+
+
+--
+-- Name: profile_snapshot_statistics_profile_statistic_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY profile_snapshot_statistics
+    ADD CONSTRAINT profile_snapshot_statistics_profile_statistic_id_fkey FOREIGN KEY (profile_statistic_id) REFERENCES profile_statistics(id);
+
+
+--
+-- Name: profile_snapshot_statistics_snapshot_statistic_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY profile_snapshot_statistics
+    ADD CONSTRAINT profile_snapshot_statistics_snapshot_statistic_id_fkey FOREIGN KEY (snapshot_statistic_id) REFERENCES snapshot_statistics(id);
+
+
+--
+-- Name: profile_snapshot_statistics_statistics_averages_snapshot_id_fke; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY profile_snapshot_statistics
+    ADD CONSTRAINT profile_snapshot_statistics_statistics_averages_snapshot_id_fke FOREIGN KEY (statistics_averages_snapshot_id) REFERENCES statistics_averages_snapshots(id);
+
+
+--
+-- Name: profile_statistics_gamer_tag_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY profile_statistics
+    ADD CONSTRAINT profile_statistics_gamer_tag_id_fkey FOREIGN KEY (gamer_tag_id) REFERENCES gamer_tags(id);
+
+
+--
+-- Name: snapshot_statistics_gamer_tag_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY snapshot_statistics
+    ADD CONSTRAINT snapshot_statistics_gamer_tag_id_fkey FOREIGN KEY (gamer_tag_id) REFERENCES gamer_tags(id);
+
+
+--
+-- Name: user_friend_group_friendships_friendship_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY user_friend_group_friendships
+    ADD CONSTRAINT user_friend_group_friendships_friendship_id_fkey FOREIGN KEY (friendship_id) REFERENCES friendships(id) ON DELETE CASCADE;
+
+
+--
+-- Name: user_friend_group_friendships_user_friend_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY user_friend_group_friendships
+    ADD CONSTRAINT user_friend_group_friendships_user_friend_group_id_fkey FOREIGN KEY (user_friend_group_id) REFERENCES user_friend_groups(id) ON DELETE CASCADE;
+
+
+--
+-- Name: user_friend_groups_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY user_friend_groups
+    ADD CONSTRAINT user_friend_groups_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: users_primary_gamer_tag_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bob
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_primary_gamer_tag_id_fkey FOREIGN KEY (primary_gamer_tag_id) REFERENCES gamer_tags(id);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
