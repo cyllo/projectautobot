@@ -4,7 +4,7 @@ import { Credentials, AppState, GraphqlResponse, User, GamerTag } from '../model
 import { Login, Logout, CurrentUser } from './queries';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { dissoc, prop } from 'ramda';
+import { dissoc, prop, propEq } from 'ramda';
 import { listFollowedUsers, listFollowedGamerTags, login } from '../reducers';
 import * as Cookies from 'js-cookie';
 import { ErrorHandlerService } from './error-handler.service';
@@ -71,7 +71,7 @@ export class AuthorizationService {
         followedGamerTags: getFollowedGamerTags(currentUser)
       });
     }, (error) => {
-      if (error.message === 'user token is not active') {
+      if (propEq('message', 'user token is not active', error)) {
         Cookies.remove('ow-auth-token');
         this.router.navigate(['./login']);
       }

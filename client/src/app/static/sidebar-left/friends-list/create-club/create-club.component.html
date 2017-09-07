@@ -1,7 +1,7 @@
-<form  [formGroup]="clubForm" (ngSubmit)="createClub(clubForm.value); clubForm.reset()">
+<form  [formGroup]="clubForm" (ngSubmit)="createClub$.next(clubForm.value); clubForm.reset()">
   <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
     <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
-      <button class="min-width-0" md-button type="button" (click)="cancel()" mdTooltip="Cancel">
+      <button class="min-width-0" md-button type="button" (click)="cancel$.next()" mdTooltip="Cancel">
         <md-icon>cancel</md-icon>
       </button>
     </div>
