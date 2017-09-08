@@ -78,7 +78,9 @@ import {
   HeroCardsComponent,
   SnapshotsHistoryComponent,
   MatchSnapshotComponent,
-  MatchDetailsComponent
+  MatchDetailsComponent,
+  ProfileHeroesComponent,
+  ProfileHeroesTableComponent
 } from './index';
 
 @NgModule({
@@ -163,7 +165,9 @@ import {
     HeroCardsComponent,
     SnapshotsHistoryComponent,
     MatchSnapshotComponent,
-    MatchDetailsComponent
+    MatchDetailsComponent,
+    ProfileHeroesComponent,
+    ProfileHeroesTableComponent
   ],
   exports: [
     HomeComponent,
@@ -199,7 +203,9 @@ import {
     HeroCardsComponent,
     SnapshotsHistoryComponent,
     MatchSnapshotComponent,
-    MatchDetailsComponent
+    MatchDetailsComponent,
+    ProfileHeroesComponent,
+    ProfileHeroesTableComponent
   ]
 })
 
