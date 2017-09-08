@@ -1,62 +1,49 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { reverse, equals, merge } from 'ramda';
+import { merge, last, prop, compose } from 'ramda';
 
 import { BlogPostsService } from '../../services';
-import { BlogPost, NewsPageState, PaginationParams } from '../../models';
+import { BlogPost, PaginationParams } from '../../models';
+import { NewsFilters } from './metadata';
+import { NewsService } from './news.service';
+
+const RESULTS_PER_PAGE = 8;
+const PAGINATION_DEFAULT = { next: RESULTS_PER_PAGE };
+
+const lastPostId = compose<BlogPost[], BlogPost, number>(prop('id'), last);
 
 @Component({
   selector: 'ow-news',
   templateUrl: 'news.component.html',
   styleUrls: ['news.component.scss'],
-  providers: [BlogPostsService]
+  providers: [BlogPostsService, NewsService]
 })
 export class NewsComponent implements OnInit {
   blogPosts$: Observable<BlogPost[]>;
 
-  newsPageState$: BehaviorSubject<NewsPageState> = new BehaviorSubject<NewsPageState>({
-    category: 0,
-    isDisplayingLatest: true,
-    postsPerPage: 8,
-    currentPostId: 0
+  newsFilters$ = new BehaviorSubject<NewsFilters>({
+    isDisplayingLatest: true
   });
 
-  constructor(private blogPostsService: BlogPostsService) { }
+  newsPagination$ = new BehaviorSubject<PaginationParams>(PAGINATION_DEFAULT);
+
+  constructor(private newsService: NewsService) { }
 
   ngOnInit() {
-    this.blogPosts$ = this.newsPageState$
-      .scan(merge)
-      .distinctUntilChanged(equals)
-      .switchMap((state) => this.fetchBlogPosts(state));
+    this.blogPosts$ = Observable.combineLatest(this.newsFilters$, this.newsPagination$)
+      .debounceTime(250)
+      .switchMap(([newsFilters, paginationParams]) => this.newsService.fetchBlogPosts(newsFilters, paginationParams));
   }
 
-  onPageStateChange(state: NewsPageState) {
-    this.newsPageState$.next(state);
+  onPageFilterChange(filters: NewsFilters) {
+    this.newsFilters$.next(filters);
+    this.newsPagination$.next(PAGINATION_DEFAULT);
   }
 
-  onScrollUp(state) {
-    console.log('scrolled up event', state);
-  }
-
-  onScrollDown(state) {
-    console.log('scrolled down event', state);
-  }
-
-  private fetchBlogPosts(state: NewsPageState): Observable<BlogPost[]> {
-    if (state.isDisplayingLatest) {
-      return this.blogPostsService.getLatestPosts(this.getPaginationParams(state), this.getPostParams(state))
-        .map(reverse);
-    } else {
-      return this.blogPostsService.getOldestPosts(this.getPaginationParams(state), this.getPostParams(state));
-    }
-  }
-
-  private getPostParams({ category }: NewsPageState) {
-    return category ? [{ id: category }] : {};
-  }
-
-  private getPaginationParams({ currentPostId, postsPerPage }: NewsPageState): PaginationParams {
-    return currentPostId ? { next: postsPerPage, current: currentPostId } : { next: postsPerPage };
+  onScrollDown(paginationParams: PaginationParams, blogPosts: BlogPost[]) {
+    this.newsPagination$.next(merge(paginationParams, {
+      current: lastPostId(blogPosts)
+    }));
   }
 }

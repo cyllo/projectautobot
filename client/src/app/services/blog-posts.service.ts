@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Store, Dispatcher } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { complement, reverse, values, isNil } from 'ramda';
+import { complement, values, isNil } from 'ramda';
 import { blogPost, blogPosts } from './queries';
 import { addBlogPost, getBlogPosts } from '../reducers';
 import { BlogPost, BlogPostFilterParams, AppState, GraphqlResponse, PaginationParams } from '../models';
@@ -17,7 +17,7 @@ export class BlogPostsService {
     this.posts$ = this.store
       .select('blogPosts')
       .filter(complement(isNil))
-      .map(posts => reverse(values(posts)));
+      .map(posts => values(posts));
   }
 
   public getBlogPostByTitle(title: string) {

@@ -12,7 +12,6 @@ export * from './graphql-response.model';
 export * from './friendship.model';
 export * from './nav-link.model';
 export * from './club.model';
-export * from './news-page.model';
 export * from './side-bar-search-results.model';
 export * from './store-payload.model';
 export * from './pagination-params.model';

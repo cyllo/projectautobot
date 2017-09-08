@@ -1,13 +1,5 @@
-{{ newsPageState$ | async | json }}
-<div *ngIf="(newsPageState$ | async) as state; else spinner;">
-  <div class="news"
-       infiniteScroll
-       [infiniteScrollDistance]="0"
-       [infiniteScrollUpDistance]="1"
-       [infiniteScrollThrottle]="250"
-       (scrolledUp)="onScrollUp(state)"
-       (scrolled)="onScrollDown(state)">
-
+<div>
+  <div class="news" *ngIf="newsPagination$ | async as paginationParams">
     <div class="news-page-header fixed-top"
          ngStyle.gt-xs="padding-left: 64px; margin-top: 64px;"
          fxLayout="row"
@@ -20,16 +12,24 @@
            fxLayoutGap="30px"
            fxFlex="grow">
 
-        <div fxLayout="column" fxFlex="grow">
-          <ow-page-state [state]="state"
-                         (change)="onPageStateChange($event)"></ow-page-state>
+         <div fxLayout="column" fxFlex="grow" *ngIf="newsFilters$ | async as filters">
+          <ow-page-filters [filters]="filters" (change)="onPageFilterChange($event)"></ow-page-filters>
         </div>
-
       </div>
-
     </div>
 
-    <div *ngIf="blogPosts$ | async as blogPost; else spinner" class="px-3 py-3" fxLayout="row" fxFlex="grow" fxLayoutWrap>
+    <div
+      class="news-page-item-container px-3 py-3"
+      *ngIf="blogPosts$ | async as blogPosts; else spinner"
+      fxLayout="row"
+      fxFlex="grow"
+      fxLayoutWrap
+      infiniteScroll
+      [infiniteScrollDistance]="0"
+      [infiniteScrollUpDistance]="1"
+      [infiniteScrollThrottle]="250"
+      (scrolled)="onScrollDown(paginationParams, blogPosts)">
+
       <div class="px-3 py-3"
          fxLayout="column"
          fxLayoutAlign="center center"
@@ -37,13 +37,25 @@
          fxFlex.sm="50%"
          fxFlex.md="33.333%"
          fxFlex.lg="25%"
-         *ngFor="let post of blogPost">
+         *ngFor="let post of blogPosts">
 
         <ow-news-post-card [post]="post"></ow-news-post-card>
+      </div>
+
+      <ng-template #loadmore>
+        <button type="button" (click)="onScrollDown(paginationParams, blogPosts)">Load More</button>
+      </ng-template>
+
+      <div *ngIf="blogPosts.length; then loadmore; else noitems">
       </div>
     </div>
   </div>
 </div>
+
+
+<ng-template #noitems>
+  <h1>NO ITEMS</h1>
+</ng-template>
 
 <ng-template #spinner>
   <ow-page-spinner></ow-page-spinner>
