@@ -1,11 +1,5 @@
-<div *ngIf="!(blogPosts | async); then search; else news;"></div>
-
-<ng-template #search>
-  <ow-page-spinner></ow-page-spinner>
-</ng-template>
-
-<ng-template #news>
-
+{{ newsPageState$ | async | json }}
+<div *ngIf="(newsPageState$ | async) as state; else spinner;">
   <div class="news"
        infiniteScroll
        [infiniteScrollDistance]="0"
@@ -35,23 +29,22 @@
 
     </div>
 
-    <div class="px-3 py-3" fxLayout="row" fxFlex="grow" fxLayoutWrap>
-
+    <div *ngIf="blogPosts$ | async as blogPost; else spinner" class="px-3 py-3" fxLayout="row" fxFlex="grow" fxLayoutWrap>
       <div class="px-3 py-3"
-           fxLayout="column"
-           fxLayoutAlign="center center"
-           fxFlex.xs="100%"
-           fxFlex.sm="50%"
-           fxFlex.md="33.333%"
-           fxFlex.lg="25%"
-           *ngFor="let post of blogPosts | async">
+         fxLayout="column"
+         fxLayoutAlign="center center"
+         fxFlex.xs="100%"
+         fxFlex.sm="50%"
+         fxFlex.md="33.333%"
+         fxFlex.lg="25%"
+         *ngFor="let post of blogPost">
 
         <ow-news-post-card [post]="post"></ow-news-post-card>
-
       </div>
-
     </div>
-
   </div>
+</div>
 
+<ng-template #spinner>
+  <ow-page-spinner></ow-page-spinner>
 </ng-template>

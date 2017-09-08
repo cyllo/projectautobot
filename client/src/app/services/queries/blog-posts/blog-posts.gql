@@ -2,8 +2,8 @@
 #import "./author-fields.gql"
 #import "./blog-post-fields.gql"
 
-query BlogPostsBefore($last: Int!, $before: Int!) {
-  blogPosts(last: $last, before: $before) {
+query BlogPosts($last: Int!, $before: Int!, $first: Int!, $after: Int!) {
+  blogPosts(last: $last, before: $before, first: $first, after: $after) {
     ...BlogPostFields
     author {
       ...AuthorFields

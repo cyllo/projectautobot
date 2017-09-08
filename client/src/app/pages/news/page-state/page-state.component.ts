@@ -19,7 +19,7 @@ export class NewsPageStateComponent implements OnInit {
     this.updateControlsState(this._state = state);
   }
 
-  reverseOrder: boolean;
+  isDisplayingLatest: boolean;
 
   private _state: NewsPageState;
 
@@ -28,11 +28,11 @@ export class NewsPageStateComponent implements OnInit {
   ngOnInit() {}
 
   updateControlsState(state: NewsPageState) {
-    this.reverseOrder = state.reverseOrder;
+    this.isDisplayingLatest = state.isDisplayingLatest;
   }
 
   sortOrderChanged(change, state) {
-    this.change.emit(assoc('reverseOrder', change.checked, state));
+    this.change.emit(assoc('isDisplayingLatest', change.checked, state));
   }
 
 }

@@ -15,3 +15,5 @@ export * from './club.model';
 export * from './news-page.model';
 export * from './side-bar-search-results.model';
 export * from './store-payload.model';
+export * from './pagination-params.model';
+export * from './global-query-filters.model';

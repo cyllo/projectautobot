@@ -1,5 +1,6 @@
 export interface NewsPageState {
-    category: number;
-    reverseOrder: boolean;
-    postsPerPage: number;
+  category: number;
+  isDisplayingLatest: boolean;
+  postsPerPage: number;
+  currentPostId: number;
 }
