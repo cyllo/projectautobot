@@ -1,0 +1,113 @@
+<div class="match-details flex-layout" fxLayout="row">
+  <div class="flex-layout" fxLayout="column" fxLayoutGap="30px" fxFlex>
+
+    <div class="flex-layout" fxLayout="row">
+      <div class="flex-layout" fxLayout="column" fxLayoutGap="14px" fxFlex>
+        <div class="flex-layout" fxLayout="row">
+          <div class="flex-layout" fxLayout="column">
+            <span class="text-uppercase"><strong>Heroes</strong></span>
+          </div>
+        </div>
+        <div class="flex-layout" fxLayout="row" fxLayoutGap="14px" fxLayoutWrap>
+          <div class="flex-layout pt-3" fxLayout="column" fxLayoutGap="14px" fxFlex="20%">
+
+            <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="14px">
+              <div class="flex-layout" fxLayout="column" fxFlex="initial">
+                <ow-hero-portrait [class]="'md-image-36'" [owCode]="'0x02E0000000000029'"></ow-hero-portrait>
+              </div>
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
+                  <span><strong>Genji</strong></span>
+                </div>
+                <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
+                  <div class="flex-layout" fxLayout="column" fxFlex="initial">
+                    <md-icon class="md-14" svgIcon="role_offense"></md-icon>
+                  </div>
+                  <div class="flex-layout" fxLayout="column" fxFlex>
+                    <span class="mat-caption text-uppercase">Offense</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+
+                <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+                  <div class="flex-layout" fxLayout="column" fxFlex>
+                    <span class="mat-caption text-uppercase">Kills</span>
+                  </div>
+                  <div class="flex-layout" fxLayout="column" fxFlex="initial">
+                    <span class="mat-caption text-uppercase">22</span>
+                  </div>
+                </div>
+
+                <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+                  <div class="flex-layout" fxLayout="column" fxFlex>
+                    <span class="mat-caption text-uppercase">Assists</span>
+                  </div>
+                  <div class="flex-layout" fxLayout="column" fxFlex="initial">
+                    <span class="mat-caption text-uppercase">10</span>
+                  </div>
+                </div>
+
+                <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+                  <div class="flex-layout" fxLayout="column" fxFlex>
+                    <span class="mat-caption text-uppercase">Deaths</span>
+                  </div>
+                  <div class="flex-layout" fxLayout="column" fxFlex="initial">
+                    <span class="mat-caption text-uppercase">4</span>
+                  </div>
+                </div>
+
+                <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+                  <div class="flex-layout" fxLayout="column" fxFlex>
+                    <span class="mat-caption text-uppercase">K/D Ratio</span>
+                  </div>
+                  <div class="flex-layout" fxLayout="column" fxFlex="initial">
+                    <span class="mat-caption text-uppercase">2.37:1</span>
+                  </div>
+                </div>
+
+                <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+                  <div class="flex-layout" fxLayout="column" fxFlex>
+                    <span class="mat-caption text-uppercase">Time Played</span>
+                  </div>
+                  <div class="flex-layout" fxLayout="column" fxFlex="initial">
+                    <span class="mat-caption text-uppercase">5 min (20%)</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-layout" fxLayout="row">
+      <div class="flex-layout" fxLayout="column" fxLayoutGap="14px" fxFlex>
+        <div class="flex-layout" fxLayout="row">
+          <div class="flex-layout" fxLayout="column">
+            <span class="text-uppercase"><strong>Overall Statistics</strong></span>
+          </div>
+        </div>
+        <div class="flex-layout" fxLayout="row" fxLayoutWrap>
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%" *ngFor="let stat of stats">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{stat.value}}</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">{{stat.name}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

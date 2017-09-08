@@ -59,7 +59,7 @@
   <div class="flex-layout" fxLayout="row" fxFlex="noshrink">
 
     <div class="flex-layout" fxLayout="column" fxFlex>
-      <md-tab-group>
+      <md-tab-group [(selectedIndex)]="selectedTabIndex">
         <md-tab label="Overview">
           <ow-profile-overview></ow-profile-overview>
         </md-tab>
@@ -80,10 +80,7 @@
         <md-tab label="Snapshots">
           <div class="flex-layout py-3" fxLayout="row" fxLayoutGap="14px">
             <div class="flex-layout py-3" fxLayout="column" fxFlex>
-              Snapshots
-            </div>
-            <div class="flex-layout py-3" fxLayout="column" fxFlex>
-              Snapshots
+              <ow-snapshots-history *ngIf="selectedTabIndex == 3"></ow-snapshots-history>
             </div>
           </div>
         </md-tab>

@@ -27,7 +27,9 @@ import { MdInputModule,
          MdRadioModule,
          MdButtonToggleModule,
          MdCheckboxModule,
-         MdProgressBarModule } from '@angular/material';
+         MdProgressBarModule,
+         MdExpansionModule,
+         MdGridListModule } from '@angular/material';
 
 import {
   HomeComponent,
@@ -73,9 +75,10 @@ import {
   OverallPerformanceComponent,
   RolePerformanceComponent,
   RecentSessionComponent,
-  HeroCardsComponent
-  RolePerformanceComponent,
-  RecentSessionComponent
+  HeroCardsComponent,
+  SnapshotsHistoryComponent,
+  MatchSnapshotComponent,
+  MatchDetailsComponent
 } from './index';
 
 @NgModule({
@@ -109,7 +112,9 @@ import {
     MdRadioModule,
     MdButtonToggleModule,
     MdCheckboxModule,
-    MdProgressBarModule
+    MdProgressBarModule,
+    MdExpansionModule,
+    MdGridListModule
   ],
   declarations: [
     HomeComponent,
@@ -155,7 +160,10 @@ import {
     OverallPerformanceComponent,
     RolePerformanceComponent,
     RecentSessionComponent,
-    HeroCardsComponent
+    HeroCardsComponent,
+    SnapshotsHistoryComponent,
+    MatchSnapshotComponent,
+    MatchDetailsComponent
   ],
   exports: [
     HomeComponent,
@@ -188,7 +196,10 @@ import {
     OverallPerformanceComponent,
     RolePerformanceComponent,
     RecentSessionComponent,
-    HeroCardsComponent
+    HeroCardsComponent,
+    SnapshotsHistoryComponent,
+    MatchSnapshotComponent,
+    MatchDetailsComponent
   ]
 })
 
