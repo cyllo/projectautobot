@@ -1,0 +1,29 @@
+@mixin ow-card-theme($theme) {
+
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  &.ow-primary {
+    background-color: mat-color($primary);
+    color: mat-color($primary, default-contrast);
+  }
+
+}
+
+
+@mixin mat-card-theme($theme) {
+
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .mat-card {
+    @include ow-card-theme($theme);
+  }
+
+}

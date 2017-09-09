@@ -1,10 +1,31 @@
+@mixin ow-button-theme-color($theme) {
+
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  $background-color: mat-color($mat-blue, 500);
+
+  &.battle-net {
+    background-color: $background-color;
+    color: contrast-color($background-color);
+  }
+
+}
+
 @mixin mat-button-theme($theme) {
 
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
 
   .mat-button {
+
+    @include ow-button-theme-color($theme);
 
     &.mat-primary {
       background-color: mat-color($primary);

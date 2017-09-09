@@ -4,8 +4,12 @@
 @import './perfect-scrollbar-theme';
 @import './news-post-card-theme';
 @import './mat-button-theme';
+@import './mat-card-theme';
+@import './mat-input-theme';
 
 @mixin components-themes($theme) {
+  @include mat-input-theme($theme);
+  @include mat-card-theme($theme);
   @include mat-button-theme($theme);
   @include mat-tabs-theme($theme);
   @include news-post-card-theme($theme);
