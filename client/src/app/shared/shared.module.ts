@@ -17,6 +17,8 @@ import { MdIconModule,
          MdRadioModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+import { PipeModule } from '../pipes';
+
 import {
   ApiService,
   VideoCardComponent,
@@ -49,6 +51,7 @@ import { ChartsModule } from 'ng2-charts';
 @NgModule({
   imports: [
     NgbModule.forRoot(),
+    PipeModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,

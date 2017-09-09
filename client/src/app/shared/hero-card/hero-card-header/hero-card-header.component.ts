@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'ow-hero-card-header',
@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 
 export class HeroCardHeaderComponent {
-
+  @Input() hero: any;
   constructor() {}
 
 }

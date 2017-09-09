@@ -6,11 +6,11 @@
       </div>
     </div>
     <div class="flex-layout" fxLayout="row">
-      <div class="flex-layout pt-3" fxLayout="column" fxLayoutAlign="center center" fxFlex>
-        <ow-chart [chartType]="chart.chartType"
-          [labels] = "chart.xAxisLabels"
-          [datasets]="chart.datasets"
-          [legend]="chart.legend">
+      <div class="flex-layout pt-3" fxLayout="column" fxLayoutAlign="center center" fxFlex *ngIf="chart | async as chartData">
+        <ow-chart [chartType]="chartData.chartType"
+          [labels] = "chartData.xAxisLabels"
+          [datasets]="chartData.datasets"
+          [legend]="chartData.legend">
         </ow-chart>
       </div>
     </div>

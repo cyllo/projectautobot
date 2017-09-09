@@ -45,7 +45,7 @@ import { routing } from './app.routing';
 import '@ngrx/core/add/operator/select';
 
 
-import { OrderByPipe, ValuesPipe, HasSnapshot } from './pipes';
+import { PipeModule } from './pipes';
 import {
   PlayersService,
   OverwatchHeroDataService,
@@ -63,7 +63,7 @@ import { reducerStack, initialStates } from './reducers';
 import { SharedModule } from './shared';
 import { PagesModule } from './pages';
 
-const declarations: any[] = [AppComponent, OrderByPipe, ValuesPipe, HasSnapshot, ...values(staticComponents)];
+const declarations: any[] = [AppComponent, ...values(staticComponents)];
 
 export function instrumentOptions() {
   return {
@@ -81,6 +81,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgbModule.forRoot(),
     SharedModule.forRoot(),
     PagesModule.forRoot(),
+    PipeModule.forRoot(),
     ApolloModule.forRoot(() => new ApolloClient({ networkInterface: httpInterceptor })),
     StoreDevtoolsModule.instrumentStore(instrumentOptions),
     StoreModule.provideStore(reducerStack, initialStates),

@@ -11,7 +11,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MomentModule } from 'angular2-moment';
 import { RouterModule } from '@angular/router';
 
-import { SecondsToHours, AverageMatchLength, SecondsToMinutes, ParsePercent, KillDeathAverage } from '../pipes';
+import { PipeModule } from '../pipes';
 
 import { MdInputModule,
          MdButtonModule,
@@ -90,6 +90,7 @@ import {
     RouterModule,
     NgbModule.forRoot(),
     SharedModule.forRoot(),
+    PipeModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
@@ -122,11 +123,6 @@ import {
   ],
   declarations: [
     HomeComponent,
-    SecondsToHours,
-    AverageMatchLength,
-    ParsePercent,
-    KillDeathAverage,
-    SecondsToMinutes,
     FollowingComponent,
     FollowedUserComponent,
     GamerTagCardComponent,

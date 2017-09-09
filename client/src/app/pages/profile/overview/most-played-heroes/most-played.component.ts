@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'ow-most-played',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class MostPlayedComponent implements OnInit {
-
+  @Input() mostPlayedHeroes: any[];
   derp = [1, 2, 3, 4];
 
   constructor() {}
