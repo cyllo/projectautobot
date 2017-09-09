@@ -1,2 +1,2 @@
-export * from './page-state';
+export * from './page-filters';
 export * from './news.component';

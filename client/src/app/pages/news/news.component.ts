@@ -1,59 +1,49 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { BlogPost, NewsPageState } from '../../models';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { merge, last, prop, compose } from 'ramda';
+
 import { BlogPostsService } from '../../services';
-import { reverse, isEmpty } from 'ramda';
+import { BlogPost, PaginationParams } from '../../models';
+import { NewsFilters } from './metadata';
+import { NewsService } from './news.service';
+
+const RESULTS_PER_PAGE = 8;
+const PAGINATION_DEFAULT = { next: RESULTS_PER_PAGE };
+
+const lastPostId = compose<BlogPost[], BlogPost, number>(prop('id'), last);
 
 @Component({
   selector: 'ow-news',
   templateUrl: 'news.component.html',
   styleUrls: ['news.component.scss'],
-  providers: [BlogPostsService]
+  providers: [BlogPostsService, NewsService]
 })
 export class NewsComponent implements OnInit {
+  blogPosts$: Observable<BlogPost[]>;
 
-  blogPosts: Observable<BlogPost[]>;
-  state: NewsPageState;
+  newsFilters$ = new BehaviorSubject<NewsFilters>({
+    isDisplayingLatest: true
+  });
 
-  private newsPosts$: Subject<NewsPageState> = new Subject<NewsPageState>();
+  newsPagination$ = new BehaviorSubject<PaginationParams>(PAGINATION_DEFAULT);
 
-  constructor(private blogPostsService: BlogPostsService) {}
+  constructor(private newsService: NewsService) { }
 
   ngOnInit() {
-
-    this.newsPosts$
-      .distinctUntilChanged((a: NewsPageState, b: NewsPageState) =>
-        a.category     !== b.category ||
-        b.reverseOrder !== b.reverseOrder)
-      .subscribe((state: NewsPageState) => this.updatePageState(state));
-
-    this.newsPosts$.next(this.state = {
-      category: 0,
-      reverseOrder: true,
-      postsPerPage: 8
-    });
-    this.blogPostsService.getBlogPostsAfter(this.state.postsPerPage);
+    this.blogPosts$ = Observable.combineLatest(this.newsFilters$, this.newsPagination$)
+      .debounceTime(250)
+      .switchMap(([newsFilters, paginationParams]) => this.newsService.fetchBlogPosts(newsFilters, paginationParams));
   }
 
-  onPageStateChange(state: NewsPageState) {
-    this.newsPosts$.next(state);
+  onPageFilterChange(filters: NewsFilters) {
+    this.newsFilters$.next(filters);
+    this.newsPagination$.next(PAGINATION_DEFAULT);
   }
 
-  updatePageState(state: NewsPageState) {
-    const {reverseOrder} = state;
-    this.blogPosts = this.blogPostsService.posts$
-      .filter(arr => !isEmpty(arr))
-      .map(blogPosts => reverseOrder ? blogPosts : reverse(blogPosts));
+  onScrollDown(paginationParams: PaginationParams, blogPosts: BlogPost[]) {
+    this.newsPagination$.next(merge(paginationParams, {
+      current: lastPostId(blogPosts)
+    }));
   }
-
-  onScrollUp(state) {
-    console.log('scrolled up event', state);
-  }
-
-  onScrollDown(state) {
-    console.log('scrolled down event', state);
-  }
-
-
 }

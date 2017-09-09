@@ -1,4 +1,5 @@
 import { User } from './user.model';
+import { GlobalQueryFilters } from './global-query-filters.model';
 
 interface BlogCategories {
   id: number;
@@ -19,4 +20,8 @@ export interface BlogPost {
 
 export interface BlogPostState {
   [key: number]: BlogPost;
+}
+
+export interface BlogPostFilterParams extends GlobalQueryFilters {
+  blogCategories?: [BlogCategories];
 }

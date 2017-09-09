@@ -1,6 +1,9 @@
 .news {
-  
   padding-top: 80px;
+
+  // .news-page-item-container {
+  //   min-height: 85vh;
+  // }
 
   .news-page-header {
 
@@ -11,12 +14,11 @@
     .content {
       padding: 0 16px;
     }
-
   }
+
   @media (max-width: 601px) {
     .news-page-header {
       margin-top: 56px !important;
     }
   }
-
 }
