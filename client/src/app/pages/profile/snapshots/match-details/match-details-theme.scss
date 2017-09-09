@@ -1,13 +1,11 @@
-@mixin match-snapshot-theme($theme) {
-
+@mixin ow-match-details-component-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
+}
 
-  .match-snapshot {
-
-  }
-
+@mixin ow-match-details-theme($theme) {
+  @include ow-match-details-component-theme($theme);
 }

@@ -42,8 +42,9 @@
   @include main-nav-theme($theme);
   @include news-theme($theme);
   @include news-post-card-theme($theme);
-  @include profile-theme($theme);
   @include hero-portrait-theme($theme);
+
+  @include ow-profile-theme($theme);
 }
 
 body.app-theme-default {

@@ -1,13 +1,14 @@
-@mixin heroes-theme($theme) {
+@import './table/table-theme.scss';
 
+@mixin ow-heroes-component-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
+}
 
-  .snapshots {
-
-  }
-
+@mixin ow-heroes-theme($theme) {
+  @include ow-profile-played-heroes-table($theme);
+  @include ow-heroes-component-theme($theme);
 }

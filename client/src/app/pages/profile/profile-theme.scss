@@ -1,13 +1,20 @@
-@mixin profile-theme($theme) {
+@import './header/header-theme';
+@import './snapshots/snapshots-theme';
+@import './overview/overview-theme';
+@import './heroes/heroes-theme';
 
+@mixin ow-profile-component-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
+}
 
-  .profile {
-
-  }
-
+@mixin ow-profile-theme($theme) {
+  @include ow-profile-header-theme($theme);
+  @include ow-snapshots-theme($theme);
+  @include ow-overview-theme($theme);
+  @include ow-heroes-theme($theme);
+  @include ow-profile-component-theme($theme);
 }

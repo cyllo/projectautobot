@@ -1,0 +1,11 @@
+@mixin ow-profile-played-heroes-table-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+}
+
+@mixin ow-profile-played-heroes-table($theme) {
+  @include ow-profile-played-heroes-table-component-theme($theme);
+}
