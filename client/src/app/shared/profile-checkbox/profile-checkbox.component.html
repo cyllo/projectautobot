@@ -5,12 +5,12 @@
       <div class="header rounded px-2 py-2">
         <div class="row align-items-center">
           <div class="col-auto pl-3">
-            <img src="img/imgplaceholder_square.png" alt="" class="md-image rounded">
+            <img [src]="player.portraitUrl" alt="" class="md-image rounded">
           </div><!-- .col-auto -->
           <div class="col">
-            <p class="player-tag text-uppercase font-weight-bold mb-0">{{ owTag }}</p>
+            <p class="player-tag text-uppercase font-weight-bold mb-0">{{ player.tag }}</p>
             <p class="skill-rating text-uppercase mb-0">
-              Skill Rating: 1256
+              Skill Rating: {{ player.competitiveLevel }}
             </p>
           </div><!-- .col -->
         </div><!-- .row -->

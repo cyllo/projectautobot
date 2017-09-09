@@ -7,24 +7,15 @@ import { Player } from '../../models';
   styleUrls: ['profile-checkbox.component.scss']
 })
 export class ProfileCheckboxComponent {
-  @Input() owTag: string;
-
-  player: Player = <Player>{
-    tag: 'cyllo#2112',
-    platform: 'pc',
-    region: 'us'
-  };
+  @Input() player: Player;
 
   players: object = {
     'cyllo-2112': {
       pc : {
-        us : {},
-        eu : {},
-        kr : {}
+        us : {}
       }
     }
   };
 
   constructor () {}
-
 }

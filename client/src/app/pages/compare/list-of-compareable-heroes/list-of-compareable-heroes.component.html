@@ -6,14 +6,14 @@
     <div class="flex-layout pt-3"
          fxLayout="column"
          fxFlex="0 0 auto"
-         *ngFor="let hero of availableHeroes">
-      <md-button-toggle fxFlexAlign="start">
+         *ngFor="let hero of heroes">
+      <md-button-toggle fxFlexAlign="start" [checked]="selectedHeroes[hero.id]" [value]="hero.id" (change)="selectedChange($event)">
         <div class="flex-layout py-3" fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center">
           <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
-            <img class="md-image md-image-36" src="https://d1u1mce87gyfbn.cloudfront.net/game/heroes/small/0x02E0000000000068.png">
+            <img class="md-image md-image-36" [src]="hero.portraitUrl">
           </div>
           <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
-            <span class="mat-caption">Zarya</span>
+            <span class="mat-caption">{{ hero.name }}</span>
           </div>
         </div>
       </md-button-toggle>

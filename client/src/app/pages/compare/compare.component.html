@@ -1,7 +1,7 @@
 <div class="compare flex-layout px-3 pt-3" fxLayout="column" fxFlex>
   <div class="flex-layout" fxLayout="row" fxFlex="noshrink">
     <div class="flex-layout" fxLayout="column" fxFlex="240px">
-      <ow-compared-profiles></ow-compared-profiles>
+      <ow-compared-profiles [profiles]="profiles | async" [selectedKeys]="selectedProfileKeys | async" (change)="selectedProfileKeys.next($event)"></ow-compared-profiles>
     </div>
     <div class="flex-layout px-3" fxLayout="column" fxLayoutGap="30px" fxFlex>
 
@@ -10,8 +10,9 @@
           <div class="flex-layout pt-3" fxLayout="row">
             <div class="flex-layout" fxLayout="column" fxFlex>
               <ow-chart
+                *ngIf="datasets | async as chartDataset"
                 [labels]="chartData.xAxisLabels"
-                [datasets]="chartData.datasets"
+                [datasets]="chartDataset"
                 [chartType]="chartData.chartType"
                 [legend]="chartData.legend">
               </ow-chart>
@@ -22,13 +23,13 @@
 
       <div class="flex-layout" fxLayout="row">
         <div class="flex-layout" fxLayout="column" fxFlex>
-          <ow-list-of-compareable-heroes></ow-list-of-compareable-heroes>
+          <ow-list-of-compareable-heroes [heroes]="heroes | async" [selectedHeroes]="selectedHeroes | async" (change)="selectedHeroes.next($event)"></ow-list-of-compareable-heroes>
         </div>
       </div>
 
       <div class="flex-layout" fxLayout="row">
         <div class="flex-layout" fxLayout="column" fxFlex>
-          <ow-stat-category-block></ow-stat-category-block>
+          <ow-stat-category-block (change)="selectedStatCategories.next($event)"></ow-stat-category-block>
         </div>
       </div>
 

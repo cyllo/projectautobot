@@ -19,6 +19,7 @@ export interface ProfileSnapshotStatistic {
 
 export interface SnapshotStatistic {
   id: number;
+  insertedAt: string;
   gamerTagId: number;
   profileSnapshotStatistic: ProfileSnapshotStatistic;
 }

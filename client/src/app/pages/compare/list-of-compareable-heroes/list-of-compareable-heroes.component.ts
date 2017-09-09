@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Heroes } from '../../../models';
+
+interface SelectedHeroes {
+  [heroId: string]: boolean;
+}
 
 @Component({
   selector: 'ow-list-of-compareable-heroes',
@@ -6,15 +11,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['list-of-compareable-heroes.component.scss']
 })
 export class ListOfCompareableHeroesComponent implements OnInit {
-
-  availableHeroes = [];
+  @Input() heroes: Heroes[];
+  @Input() selectedHeroes: SelectedHeroes;
+  @Output() change = new EventEmitter<SelectedHeroes>();
 
   constructor() {}
 
   ngOnInit() {
-    for (let i = 0; i < 24; ++i) {
-      this.availableHeroes.push({ code: '0x02E0000000000029' });
-    }
+    this.change.emit(this.selectedHeroes);
   }
 
+  selectedChange(event) {
+    this.selectedHeroes[event.value] = event.source.checked;
+    this.change.emit(this.selectedHeroes);
+  }
 }

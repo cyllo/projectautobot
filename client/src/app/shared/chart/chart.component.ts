@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'ow-chart',
@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['chart.component.scss']
 })
 
-export class ChartComponent implements OnInit {
+export class ChartComponent implements OnInit, OnChanges {
   @Input() datasets:  any[];
   @Input() labels: string[];
   @Input() chartType: string;
@@ -15,7 +15,9 @@ export class ChartComponent implements OnInit {
   // Common Chart Configuration
   options: any;
 
-  constructor() {}
+  rerender = false;
+
+  constructor(private cdRef: ChangeDetectorRef) {}
 
   public ngOnInit() {
     this.options = {
@@ -25,6 +27,12 @@ export class ChartComponent implements OnInit {
       scaleBeginAtZero: false,
       legend: {position: 'right'}
     };
+  }
+
+  ngOnChanges() {
+    this.rerender = true;
+    this.cdRef.detectChanges();
+    this.rerender = false;
   }
 
 }
