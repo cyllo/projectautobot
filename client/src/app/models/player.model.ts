@@ -182,7 +182,6 @@ export interface HeroSnapshotStats {
   combatBestStatisticId: number;
   combatBestStatistic: CombatBestStats;
   combatAverageStatisticId: number;
-  combatAverageStatistic: CombatAverageStats;
 }
 
 export interface MatchAwardsStats {
@@ -273,26 +272,6 @@ export interface CombatBestStats {
   criticalHitsMostInGame: number;
 }
 
-export interface CombatAverageStats {
-  timeSpentOnFireAverage: number;
-  soloKillsAverage: number;
-  selfHealingAverage: number;
-  offensiveAssistsAverage: number;
-  objectiveTimeAverage: number;
-  objectiveKillsAverage: number;
-  meleeKillsAverage: number;
-  meleeFinalBlowsAverage: number;
-  id?: number;
-  healingDoneAverage: number;
-  finalBlowsAverage: number;
-  eliminationsAverage: number;
-  defensiveAssistsAverage: number;
-  deathsAverage: number;
-  damageDoneAverage: number;
-  damageBlockedAverage: number;
-  criticalHitsAveragePercentage: number;
-}
-
 export interface CurrentHero {
   heroSnapshotStatistics?: HeroSnapshotStats;
   matchAwardsStatistic?: MatchAwardsStats;
@@ -300,5 +279,4 @@ export interface CurrentHero {
   gameHistoryStatistic?: GameHistoryStats;
   combatLifetimeStatistic?: CombatLifetimeStats;
   combatBestStatistic?: CombatBestStats;
-  combatAverageStatistic?: CombatAverageStats;
 }

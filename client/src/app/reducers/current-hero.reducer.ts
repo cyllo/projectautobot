@@ -6,7 +6,6 @@ const initialState: CurrentHero = {
   gameHistoryStatistic: null,
   combatLifetimeStatistic: null,
   combatBestStatistic: null,
-  combatAverageStatistic: null
 };
 
 export function currentHeroData(state: CurrentHero = initialState, { type, payload }: { type: string, payload?: any }) {

@@ -1,7 +1,6 @@
 #import "../statistics/match-award-statistic-field.gql"
 #import "../statistics/game-history-statistic.gql"
 #import "../statistics/combat-best-statistic.gql"
-#import "../statistics/combat-average-statistic.gql"
 #import "../statistics/combat-life-statistic.gql"
 
 fragment HeroesTotalSnapShot on HeroesTotalSnapshotStatistic {
@@ -23,9 +22,5 @@ fragment HeroesTotalSnapShot on HeroesTotalSnapshotStatistic {
   combatBestStatistic {
     id
     ...CombatBestStatistic
-  }
-  combatAverageStatistic {
-    id
-    ...CombatAverageStatistic
   }
 }

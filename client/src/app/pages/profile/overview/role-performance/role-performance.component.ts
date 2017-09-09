@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'ow-role-performance',
@@ -7,21 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class RolePerformanceComponent implements OnInit {
-
-  rolesData = [
-    {
-      name: 'offense'
-    },
-    {
-      name: 'defense'
-    },
-    {
-      name: 'support'
-    },
-    {
-      name: 'tank'
-    }
-  ];
+  @Input() heroStatsByRole: any;
 
   constructor() {}
 

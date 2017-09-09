@@ -10,6 +10,9 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MomentModule } from 'angular2-moment';
 import { RouterModule } from '@angular/router';
+
+import { SecondsToHours, AverageMatchLength, SecondsToMinutes, ParsePercent, KillDeathAverage } from '../pipes';
+
 import { MdInputModule,
          MdButtonModule,
          MdCardModule,
@@ -75,7 +78,6 @@ import {
   OverallPerformanceComponent,
   RolePerformanceComponent,
   RecentSessionComponent,
-  HeroCardsComponent,
   SnapshotsHistoryComponent,
   MatchSnapshotComponent,
   MatchDetailsComponent,
@@ -120,6 +122,11 @@ import {
   ],
   declarations: [
     HomeComponent,
+    SecondsToHours,
+    AverageMatchLength,
+    ParsePercent,
+    KillDeathAverage,
+    SecondsToMinutes,
     FollowingComponent,
     FollowedUserComponent,
     GamerTagCardComponent,
@@ -162,7 +169,6 @@ import {
     OverallPerformanceComponent,
     RolePerformanceComponent,
     RecentSessionComponent,
-    HeroCardsComponent,
     SnapshotsHistoryComponent,
     MatchSnapshotComponent,
     MatchDetailsComponent,
@@ -200,7 +206,6 @@ import {
     OverallPerformanceComponent,
     RolePerformanceComponent,
     RecentSessionComponent,
-    HeroCardsComponent,
     SnapshotsHistoryComponent,
     MatchSnapshotComponent,
     MatchDetailsComponent,

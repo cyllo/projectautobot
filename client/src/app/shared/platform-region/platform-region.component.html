@@ -1,4 +1,4 @@
-<div class="platform-region" fxLayout="row" fxLayoutGap.gt-sm="30px" *ngIf="player" fxLayoutWrap>
+<div class="platform-region" fxLayout="row" fxLayoutGap.gt-sm="30px" *ngIf="currentProfile" fxLayoutWrap>
 
   <div fxLayout="column"
        fxFlex.lt-sm="100%"
@@ -8,13 +8,13 @@
       <span class="mat-caption text-uppercase">Platform</span>
     </div>
     <div fxLayout="row">
-      <div fxLayout="column" *ngFor="let platform of platforms">
+      <div fxLayout="column" *ngFor="let platform of activePlatforms | async">
         <button md-button class="min-width-0"
-                [class.mat-primary]="player.platform === platform.code"
-                [class.mat-accent]="platformAvailable(platform.code) && player.platform !== platform.code"
-                [disabled]="!platformAvailable(platform.code)"
-                (click)="changePlatform(platform.code)">
-          {{ platform.name }}
+                [class.mat-primary]="currentProfile.platform === platform.code"
+                [class.mat-accent]="platform.enabled && currentProfile.platform !== platform.code"
+                [disabled]="!platform.enabled"
+                (click)="changePlatform$.next(platform.name)">
+          {{ platform.name | uppercase }}
         </button>
       </div>
     </div>
@@ -28,13 +28,13 @@
       <span class="mat-caption text-uppercase">Region</span>
     </div>
     <div fxLayout="row">
-      <div fxLayout="column" *ngFor="let region of regions">
+      <div fxLayout="column" *ngFor="let region of activeRegions | async">
         <button md-button class="min-width-0"
-                [class.mat-primary]="player.region === region.code"
-                [class.mat-accent]="regionAvailable(region.code) && player.region !== region.code"
-                [disabled]="!regionAvailable(region.code)"
-                (click)="changeRegion(region.code)">
-          {{ region.name }}
+                [class.mat-primary]="currentProfile.region === region.code"
+                [class.mat-accent]="region.enabled && currentProfile.region !== region.code"
+                [disabled]="!region.enabled"
+                (click)="changeRegion$.next(region.name)">
+          {{ region.name | uppercase }}
         </button>
       </div>
     </div>

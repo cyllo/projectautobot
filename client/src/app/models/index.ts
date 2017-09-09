@@ -13,6 +13,5 @@ export * from './friendship.model';
 export * from './nav-link.model';
 export * from './club.model';
 export * from './news-page.model';
-export * from './platform-region.model';
 export * from './side-bar-search-results.model';
 export * from './store-payload.model';

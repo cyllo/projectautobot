@@ -3,7 +3,6 @@
 #import "../statistics/game-history-statistic.gql"
 #import "../statistics/combat-life-statistic.gql"
 #import "../statistics/combat-best-statistic.gql"
-#import "../statistics/combat-average-statistic.gql"
 
 
 fragment HeroSnapshotStatistics on HeroSnapshotStatistic {
@@ -33,9 +32,5 @@ fragment HeroSnapshotStatistics on HeroSnapshotStatistic {
   combatBestStatistic {
     id
     ...CombatBestStatistic
-  }
-  combatAverageStatistic {
-    id
-    ...CombatAverageStatistic
   }
 }
