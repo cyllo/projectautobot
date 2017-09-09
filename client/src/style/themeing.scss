@@ -17,64 +17,33 @@
 
 // Import the App's core theme (html/body)
 @import 'app-theme';
+@import './themes/components/components-theme';
+@import '../app/pages/pages-theme';
+@import '../app/shared/shared-theme';
+@import '../app/static/static-theme';
 
-// Import App Component Themes
-@import '../app/static/sidebar-left/sidebar-left-theme';
-@import '../app/static/main-nav/main-nav-theme';
-@import '../app/pages/news/news-theme';
-@import '../app/pages/profile/profile-theme';
-@import '../app/shared/hero-portrait/hero-portait-theme';
-
-// Import Components custom themes.
-@import 'themes/components/theme-picker-swatch-theme';
-@import 'themes/components/mat-sidenav-theme';
-@import 'themes/components/mat-tabs-theme';
-@import 'themes/components/perfect-scrollbar-theme';
-@import 'themes/components/search-component-theme';
-@import 'themes/components/news-post-card-theme';
-
-@mixin component-themes($theme) {
-  @include mat-tabs-theme($theme);
-  @include mat-sidenav-theme($theme);
-  @include perfect-scrollbar-theme($theme);
-  @include sidebar-left-theme($theme);
-  @include search-component-theme($theme);
-  @include main-nav-theme($theme);
-  @include news-theme($theme);
-  @include news-post-card-theme($theme);
-  @include hero-portrait-theme($theme);
-
-  @include ow-profile-theme($theme);
+@mixin core-themes($theme) {
+  @include components-themes($theme);
+  @include ow-pages-theme($theme);
+  @include ow-shared-theme($theme);
+  @include ow-static-theme($theme);
+  @include ow-app-theme($theme);
 }
 
 body.app-theme-default {
-
   $theme: $app-theme-default;
-
   @include angular-material-theme($theme);
-  @include component-themes($theme);
-  @include ow-app-theme($theme);
-
+  @include core-themes($theme);
 }
 
 body.app-theme-light {
-
   $theme: $app-theme-light;
-
   @include angular-material-theme($theme);
-  @include component-themes($theme);
-  @include ow-app-theme($theme);
-
+  @include core-themes($theme);
 }
 
 body.app-theme-dark {
-
   $theme: $app-theme-dark;
-
   @include angular-material-theme($theme);
-  @include component-themes($theme);
-  @include ow-app-theme($theme);
-
+  @include core-themes($theme);
 }
-
-@include theme-picker-swatch-theme();
