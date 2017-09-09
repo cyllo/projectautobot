@@ -6,7 +6,7 @@ defmodule Scraper.SessionServer do
 
   @check_for_loaded_interval 500
   @navigation_timeout 1000
-  @retries_before_refresh 5
+  @retries_before_refresh 10
   @session_restarts_before_timeout 3
 
   # API
