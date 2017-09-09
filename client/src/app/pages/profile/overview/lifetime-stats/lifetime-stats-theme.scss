@@ -1,4 +1,4 @@
-@mixin ow-match-snapshot-component-theme($theme) {
+@mixin ow-lifetime-stats-component-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
@@ -6,6 +6,6 @@
   $background: map-get($theme, background);
 }
 
-@mixin ow-match-snapshot-theme($theme) {
-  @include ow-match-snapshot-component-theme($theme);
+@mixin ow-lifetime-stats-theme($theme) {
+  @include ow-lifetime-stats-component-theme($theme);
 }

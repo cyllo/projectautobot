@@ -1,13 +1,16 @@
-@mixin snapshots-theme($theme) {
+@import './match-details/match-details-theme';
+@import './match-snapshot/match-snapshot-theme';
 
+@mixin ow-snapshots-component-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
+}
 
-  .snapshots {
-
-  }
-
+@mixin ow-snapshots-theme($theme) {
+  @include ow-match-details-theme($theme);
+  @include ow-match-snapshot-theme($theme);
+  @include ow-snapshots-component-theme($theme);
 }

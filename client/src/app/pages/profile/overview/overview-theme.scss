@@ -1,0 +1,26 @@
+@import './role-performance/role-performance-theme';
+@import './skill-rating-trend/skill-rating-trend-theme';
+@import './recently-played/recently-played-theme';
+@import './recent-sessions/recent-sessions-theme';
+@import './most-played-heroes/most-played-heroes-theme';
+@import './lifetime-stats/lifetime-stats-theme';
+@import './hero-cards/hero-cards-theme';
+
+@mixin ow-overview-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+}
+
+@mixin ow-overview-theme($theme) {
+  @include ow-role-performance-theme($theme);
+  @include ow-skill-rating-trend-theme($theme);
+  @include ow-recently-played-theme($theme);
+  @include ow-recent-sessions-theme($theme);
+  @include ow-most-played-heroes-theme($theme);
+  @include ow-lifetime-stats-theme($theme);
+  @include ow-hero-cards-theme($theme);
+  @include ow-overview-component-theme($theme);
+}
