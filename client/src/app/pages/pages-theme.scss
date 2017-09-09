@@ -1,0 +1,5 @@
+@import './profile/profile-theme';
+
+@mixin ow-pages-theme($theme) {
+  @include ow-profile-theme($theme);
+}

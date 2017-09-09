@@ -1,0 +1,14 @@
+// Import Components custom themes.
+@import './theme-picker-swatch-theme';
+@import './mat-tabs-theme';
+@import './perfect-scrollbar-theme';
+@import './news-post-card-theme';
+@import './mat-button-theme';
+
+@mixin components-themes($theme) {
+  @include mat-button-theme($theme);
+  @include mat-tabs-theme($theme);
+  @include news-post-card-theme($theme);
+  @include perfect-scrollbar-theme($theme);
+  @include theme-picker-swatch-theme();
+}

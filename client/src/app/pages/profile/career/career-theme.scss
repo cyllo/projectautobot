@@ -1,10 +1,11 @@
-@mixin mat-chips-theme($theme) {
-
+@mixin ow-profile-career-component-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
+}
 
-
+@mixin ow-profile-career-theme($theme) {
+  @include ow-profile-career-component-theme($theme);
 }

@@ -1,4 +1,4 @@
-@mixin sidebar-left-theme($theme) {
+@mixin ow-sidebar-left-theme($theme) {
 
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
