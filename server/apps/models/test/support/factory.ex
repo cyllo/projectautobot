@@ -2,7 +2,7 @@ defmodule Models.Factory do
   alias Models.Repo
   alias Models.Game.GamerTag
   alias Models.Statistics.Snapshots.SnapshotStatistic
-  alias Models.Statistics.{CombatAverage, CombatBest, CombatLifetime, GameHistory}
+  alias Models.Statistics.{GameAverage, CombatBest, CombatLifetime, GameHistory}
 
   # Factories
 
@@ -26,25 +26,21 @@ defmodule Models.Factory do
     %ProfileSnapshotStatistic{}
   end
 
-  def build(:combat_average_statistic) do
-    %CombatAverage{
-      deaths_average: random_decimal(),
-      solo_kills_average: random_decimal(),
-      damage_done_average: random_decimal(),
-      melee_kills_average: random_decimal(),
-      final_blows_average: random_decimal(),
-      eliminations_average: random_decimal(),
-      healing_done_average: random_decimal(),
-      self_healing_average: random_decimal(),
-      critical_hits_average: random_decimal(),
-      objective_time_average: random_integer(),
-      damage_blocked_average: random_integer(),
-      objective_kills_average: random_decimal(),
-      defensive_assists_average: random_decimal(),
-      melee_final_blows_average: random_decimal(),
-      offensive_assists_average: random_integer(),
-      time_spent_on_fire_average: random_integer(),
-      all_damage_done_avg_per_10_min: random_integer()
+  def build(:game_average_statistic) do
+    %GameAverage{
+      solo_kills_avg_per_10_min: random_integer(),
+      defensive_assists_avg_per_10_min: random_integer(),
+      time_spent_on_fire_avg_per_10_min: random_integer(),
+      objective_time_avg_per_10_min: random_integer(),
+      deaths_avg_per_10_min: random_integer(),
+      self_healing_avg_per_10_min: random_integer(),
+      offensive_assists_avg_per_10_min: random_integer(),
+      final_blows_avg_per_10_min: random_integer(),
+      critical_hits_avg_per_10_min: random_integer(),
+      eliminations_avg_per_10_min: random_integer(),
+      damage_blocked_avg_per_10_min: random_integer(),
+      hero_damage_done_avg_per_10_min: random_integer(),
+      barrier_damage_done_avg_per_10_min:  random_integer()
     }
   end
 

@@ -4,6 +4,7 @@ defmodule Scraper.HtmlHelpers do
   @overwatch_player_platforms "#profile-platforms a"
   @page_not_found "h1.u-align-center"
   @platform_active ".is-active"
+  @per10_regex ~r/per 10/
   @plural_possibilities_blacklist ["kill streak", "multikill best"]
   @plural_possibilities [
     "elimination", "blow", "kill",
@@ -66,7 +67,11 @@ defmodule Scraper.HtmlHelpers do
   def normalize_and_snake("shot hit"), do: "shots_hit"
   def normalize_and_snake("shots hit"), do: "shots_hit"
   def normalize_and_snake(str) when is_list(str), do: Enum.map(str, &normalize_and_snake/1)
-  def normalize_and_snake(str), do: if should_pluralize?(str), do: pluralize_possibility(str), else: str |> String.split |> Enum.join("_")
+  def normalize_and_snake(str) do
+    str = if Regex.match?(@per10_regex, str), do: Regex.replace(@per10_regex, str, "per10"), else: str
+
+    if should_pluralize?(str), do: pluralize_possibility(str), else: str |> String.split |> Enum.join("_")
+  end
 
   defp string_contains_plurals?(str), do: String.contains?(str, @plural_possibilities)
   defp should_pluralize?(str), do: !String.contains?(str, @plural_possibilities_blacklist) && string_contains_plurals?(str)

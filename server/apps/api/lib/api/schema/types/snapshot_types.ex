@@ -101,7 +101,7 @@ defmodule Api.Schema.SnapshotTypes do
     field :id, :integer
     field :snapshot_statistic_id, :integer
     field :combat_best_statistic_id, :integer
-    field :combat_average_statistic_id, :integer
+    field :game_average_statistic_id, :integer
     field :combat_lifetime_statistic_id, :integer
     field :match_awards_statistic_id, :integer
     field :game_history_statistic_id, :integer
@@ -111,8 +111,8 @@ defmodule Api.Schema.SnapshotTypes do
       resolve &batch_get_combat_bests/3
     end
 
-    field :combat_average_statistic, :combat_average_statistic do
-      resolve &batch_get_combat_averages/3
+    field :game_average_statistic, :game_average_statistic do
+      resolve &batch_get_game_averages/3
     end
 
     field :combat_lifetime_statistic, :combat_lifetime_statistic do
@@ -133,7 +133,7 @@ defmodule Api.Schema.SnapshotTypes do
     field :hero_id, :integer
     field :snapshot_statistic_id, :integer
     field :combat_best_statistic_id, :integer
-    field :combat_average_statistic_id, :integer
+    field :game_average_statistic_id, :integer
     field :combat_lifetime_statistic_id, :integer
     field :hero_specific_statistic_id, :integer
     field :match_awards_statistic_id, :integer
@@ -144,8 +144,8 @@ defmodule Api.Schema.SnapshotTypes do
       resolve &batch_get_combat_bests/3
     end
 
-    field :combat_average_statistic, :combat_average_statistic do
-      resolve &batch_get_combat_averages/3
+    field :game_average_statistic, :game_average_statistic do
+      resolve &batch_get_game_averages/3
     end
 
     field :combat_lifetime_statistic, :combat_lifetime_statistic do
@@ -179,8 +179,8 @@ defmodule Api.Schema.SnapshotTypes do
     batch_get(:get_combat_best_statistics, :combat_best_statistic_id, snapshot_statistic)
   end
 
-  defp batch_get_combat_averages(snapshot_statistic, _, _) do
-    batch_get(:get_combat_average_statistics, :combat_average_statistic_id, snapshot_statistic)
+  defp batch_get_game_averages(snapshot_statistic, _, _) do
+    batch_get(:get_game_average_statistics, :game_average_statistic_id, snapshot_statistic)
   end
 
   defp batch_get_combat_lifetimes(snapshot_statistic, _, _) do

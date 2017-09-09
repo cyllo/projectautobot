@@ -15,21 +15,20 @@ defmodule Scraper.Sorter.Stats do
     :teleporter_pads_destroyed, :damage_blocked, :melee_kills,
     :ultimates_used, :ultimates_earned,
     :time_holding_ultimate, :hero_damage_done,
-    :barrier_damage_done, :all_damage_done, :damage_blocked
+    :barrier_damage_done, :all_damage_done, :damage_blocked,
+    :scoped_accuracy_percentage, :scoped_accuracy_best_in_game_percentage
   ]
 
   @average_statistics [
-    :solo_kills_average, :eliminations_average,
-    :time_spent_on_fire_average, :deaths_average,
-    :damage_done_average, :self_healing_average,
-    :healing_done_average, :final_blows_average,
-    :objective_kills_average, :objective_time_average,
-    :melee_final_blows_average, :offensive_assists_average,
-    :critical_hits_average, :defensive_assists_average,
-    :damage_blocked_average, :melee_kills_average,
-    :melee_percentage_of_final_blows, :weapon_accuracy,
-    :all_damage_done_avg_per_10_min, :healing_done_avg_per_10_min,
-    :objective_kills_avg_per_10_min
+    :melee_final_blows_avg_per10_min,
+    :barrier_damage_done_avg_per10_min, :objective_kills_avg_per10_min,
+    :solo_kills_avg_per10_min, :defensive_assists_avg_per10_min,
+    :time_spent_on_fire_avg_per10_min, :objective_time_avg_per10_min,
+    :deaths_avg_per10_min, :self_healing_avg_per10_min,
+    :offensive_assists_avg_per10_min, :final_blows_avg_per10_min,
+    :critical_hits_avg_per10_min, :eliminations_avg_per10_min,
+    :damage_blocked_avg_per10_min, :hero_damage_done_avg_per10_min,
+    :healing_done_avg_per10_min, :all_damage_done_avg_per10_min
   ]
 
   @best_statistics [
@@ -45,7 +44,8 @@ defmodule Scraper.Sorter.Stats do
     :eliminations_most_in_game, :weapon_accuracy_best_in_game_percentage,
     :damage_blocked_most_in_game, :melee_kills_most_in_game,
     :recon_assists_most_in_game, :all_damage_done_most_in_game,
-    :all_damage_done_most_in_life
+    :all_damage_done_most_in_life, :hero_damage_done_most_in_game,
+    :hero_damage_done_most_in_life, :barrier_damage_done_most_in_game
   ]
 
   def sort(stats), do: Helpers.categorize_stats(stats, &get_stats_category/1)

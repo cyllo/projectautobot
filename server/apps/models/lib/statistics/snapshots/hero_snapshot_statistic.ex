@@ -1,21 +1,22 @@
 defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
   use Models.Model
+  alias Models.Statistics
   alias Models.Statistics.Snapshots.{HeroSnapshotStatistic, SnapshotStatistic}
   alias Models.Statistics.{
-    CombatAverage, CombatBest,
+    GameAverage, CombatBest,
     CombatLifetime, GameHistory, MatchAward
   }
 
   schema "hero_snapshot_statistics" do
     field :statistic_type, HeroStatisticTypeEnum
     belongs_to :hero, Models.Game.Hero
-    belongs_to :snapshot_statistic, Models.Statistics.Snapshots.SnapshotStatistic
-    belongs_to :combat_average_statistic, Models.Statistics.CombatAverage
-    belongs_to :combat_best_statistic, Models.Statistics.CombatBest
-    belongs_to :combat_lifetime_statistic, Models.Statistics.CombatLifetime
-    belongs_to :game_history_statistic, Models.Statistics.GameHistory
-    belongs_to :hero_specific_statistic, Models.Statistics.HeroSpecific
-    belongs_to :match_awards_statistic, Models.Statistics.MatchAward
+    belongs_to :snapshot_statistic, SnapshotStatistic
+    belongs_to :game_average_statistic, Statistics.GameAverage
+    belongs_to :combat_best_statistic, Statistics.CombatBest
+    belongs_to :combat_lifetime_statistic, Statistics.CombatLifetime
+    belongs_to :game_history_statistic, Statistics.GameHistory
+    belongs_to :hero_specific_statistic, Statistics.HeroSpecific
+    belongs_to :match_awards_statistic, Statistics.MatchAward
   end
 
   @required_fields [
@@ -25,7 +26,7 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
   ]
 
   @available_fields Enum.concat(@required_fields, [
-    :combat_average_statistic_id,
+    :game_average_statistic_id,
     :combat_best_statistic_id,
     :combat_lifetime_statistic_id,
     :hero_specific_statistic_id,
@@ -59,7 +60,7 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
   def take_snapshot_params(params) when is_list(params), do: Enum.map(params, &take_snapshot_params/1)
   def take_snapshot_params(params) do
     Map.take(params, [:hero, :statistic_type, :hero_id,
-                      :snapshot_statistic_id, :combat_average_statistic_id,
+                      :snapshot_statistic_id, :game_average_statistic_id,
                       :combat_best_statistic_id, :combat_lifetime_statistic_id,
                       :game_history_statistic_id, :hero_specific_statistic_id,
                       :match_awards_statistic_id])
@@ -83,8 +84,8 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
       on: hmas.id == hs.match_awards_statistic_id,
       inner_join: hghs in GameHistory,
       on: hghs.id == hs.game_history_statistic_id,
-      inner_join: hcas in CombatAverage,
-      on: hcas.id == hs.combat_average_statistic_id,
+      inner_join: hgas in GameAverage,
+      on: hgas.id == hs.game_average_statistic_id,
       inner_join: hcls in CombatLifetime,
       on: hcls.id == hs.combat_lifetime_statistic_id,
       inner_join: hcbs in CombatBest,
@@ -112,23 +113,24 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
             win_percentage: avg(hghs.win_percentage)
           },
 
-          combat_average_statistic: %{
-            critical_hits_average: avg(hcas.critical_hits_average),
-            damage_done_average: avg(hcas.damage_done_average),
-            deaths_average: avg(hcas.deaths_average),
-            defensive_assists_average: avg(hcas.defensive_assists_average),
-            eliminations_average: avg(hcas.eliminations_average),
-            final_blows_average: avg(hcas.final_blows_average),
-            healing_done_average: avg(hcas.healing_done_average),
-            melee_final_blows_average: avg(hcas.melee_final_blows_average),
-            objective_kills_average: avg(hcas.objective_kills_average),
-            objective_time_average: avg(hcas.objective_time_average),
-            offensive_assists_average: avg(hcas.offensive_assists_average),
-            self_healing_average: avg(hcas.self_healing_average),
-            solo_kills_average: avg(hcas.solo_kills_average),
-            time_spent_on_fire_average: avg(hcas.time_spent_on_fire_average),
-            damage_blocked_average: avg(hcas.damage_blocked_average),
-            melee_kills_average: avg(hcas.melee_kills_average)
+          game_average_statistic: %{
+            all_damage_done_avg_per_10_min: avg(hgas.all_damage_done_avg_per_10_min),
+            barrier_damage_done_avg_per_10_min: avg(hgas.barrier_damage_done_avg_per_10_min),
+            critical_hits_avg_per_10_min: avg(hgas.critical_hits_avg_per_10_min),
+            damage_blocked_avg_per_10_min: avg(hgas.damage_blocked_avg_per_10_min),
+            deaths_avg_per_10_min: avg(hgas.deaths_avg_per_10_min),
+            defensive_assists_avg_per_10_min: avg(hgas.defensive_assists_avg_per_10_min),
+            eliminations_avg_per_10_min: avg(hgas.eliminations_avg_per_10_min),
+            final_blows_avg_per_10_min: avg(hgas.final_blows_avg_per_10_min),
+            healing_done_avg_per_10_min: avg(hgas.healing_done_avg_per_10_min),
+            hero_damage_done_avg_per_10_min: avg(hgas.hero_damage_done_avg_per_10_min),
+            objective_kills_avg_per_10_min: avg(hgas.objective_kills_avg_per_10_min),
+            objective_time_avg_per_10_min: avg(hgas.objective_time_avg_per_10_min),
+            offensive_assists_avg_per_10_min: avg(hgas.offensive_assists_avg_per_10_min),
+            self_healing_avg_per_10_min: avg(hgas.self_healing_avg_per_10_min),
+            solo_kills_avg_per_10_min: avg(hgas.solo_kills_avg_per_10_min),
+            time_spent_on_fire_avg_per_10_min: avg(hgas.time_spent_on_fire_avg_per_10_min),
+            melee_final_blows_avg_per_10_min: avg(hgas.melee_final_blows_avg_per_10_min)
           },
 
           combat_lifetime_statistic: %{

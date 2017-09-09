@@ -17,7 +17,7 @@ defmodule SnapshotStatsDiffer do
   @doc """
     Diffs a set of snapshot statistics and returns a map containing the difference
 
-    Returns `%{combat_average: %{stat_name: 10, other_stat: -10}}`
+    Returns `%{game_average: %{stat_name: 10, other_stat: -10}}`
   """
   def diff(%SnapshotStatistic{} = snapshot_a, %SnapshotStatistic{} = snapshot_b) do
     [%{

@@ -48,10 +48,10 @@ defmodule Models.Statistics.Snapshots.SnapshotStatistic do
     preload(query,
       profile_snapshot_statistic: [:profile_statistic],
       hero_snapshot_statistics: [
-        :hero, :combat_average_statistic,
-        :combat_average_statistic, :combat_best_statistic,
-        :combat_lifetime_statistic, :game_history_statistic,
-        :hero_specific_statistic, :match_awards_statistic
+        :hero_specific_statistic,
+        :hero, :game_average_statistic,
+        :combat_best_statistic, :match_awards_statistic,
+        :combat_lifetime_statistic, :game_history_statistic
       ]
     )
   end

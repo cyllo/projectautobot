@@ -2,10 +2,9 @@ defmodule StatsLeaderboard.HeroStatsCalculator do
   alias StatsLeaderboard.RankingsCalculator
 
   @rankable_hero_snapshot_stats_keys [
-    :combat_average_statistic,
+    :game_average_statistic, :match_awards_statistic,
     :combat_best_statistic, :combat_lifetime_statistic,
-    :game_history_statistic, :hero_specific_statistic,
-    :match_awards_statistic
+    :game_history_statistic, :hero_specific_statistic
   ]
 
   @hero_snapshot_metadata_keys [:statistic_type, :hero_id]

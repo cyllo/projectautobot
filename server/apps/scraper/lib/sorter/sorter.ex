@@ -1,9 +1,10 @@
 defmodule Scraper.Sorter do
+  import Logger, only: [info: 1, warn: 1]
+
   alias Scraper.Sorter.Stats
-  require Logger
 
   def sort_stats(params) do
-    Logger.info "Sorting #{params.gamer_tag} stats"
+    info "Sorting #{params.gamer_tag} stats"
 
     %{params |
       competitive: sort_hero_and_total_stats(params.competitive),
@@ -35,7 +36,7 @@ defmodule Scraper.Sorter do
       |> Keyword.keys
 
     if Enum.any?(stats) do
-      Logger.warn "Duplicated stats in hero hero specific: #{inspect stats}"
+      warn "Duplicated stats in hero hero specific: #{inspect stats}"
     end
   end
 

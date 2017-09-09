@@ -3,7 +3,7 @@ defmodule Scraper.ModelCreator.HeroStats do
   alias Scraper.ModelCreator.HeroSnapshot
   alias Models.Statistics.{
     Snapshots.SnapshotStatistic,
-    Snapshots, CombatLifetime, CombatAverage,
+    Snapshots, CombatLifetime, GameAverage,
     CombatBest, GameHistory, MatchAward, HeroSpecific
   }
 
@@ -83,7 +83,7 @@ defmodule Scraper.ModelCreator.HeroStats do
 
   defp insert_stat(multi, play_type, type, stats), do: Multi.insert(multi, play_type <> "_" <> Atom.to_string(type), stats)
 
-  defp create_stat({:average, stats}), do: CombatAverage.create_changeset(stats)
+  defp create_stat({:average, stats}), do: GameAverage.create_changeset(stats)
   defp create_stat({:best, stats}), do: CombatBest.create_changeset(stats)
   defp create_stat({:game, stats}), do: GameHistory.create_changeset(stats)
   defp create_stat({:lifetime, stats}), do: CombatLifetime.create_changeset(stats)

@@ -44,6 +44,7 @@ defmodule Models.Statistics.CombatBest do
     field :damage_blocked_most_in_game, :integer
     field :melee_kills_most_in_game, :integer
     field :all_damage_done_most_in_game, :integer
+    field :scoped_accuracy_best_in_game_percentage, :integer
   end
 
   @allowed_fields [
@@ -72,7 +73,8 @@ defmodule Models.Statistics.CombatBest do
     :recon_assists_most_in_game,
     :damage_blocked_most_in_game,
     :melee_kills_most_in_game,
-    :all_damage_done_most_in_game
+    :all_damage_done_most_in_game,
+    :scoped_accuracy_best_in_game_percentage
   ]
 
   @doc """

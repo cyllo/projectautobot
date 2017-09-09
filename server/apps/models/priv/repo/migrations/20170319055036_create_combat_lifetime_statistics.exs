@@ -34,6 +34,7 @@ defmodule Models.Repo.Migrations.CreateCombatLifetimeStatistics do
       add :barrier_damage_done, :integer, null: false, default: 0
       add :all_damage_done, :integer, null: false, default: 0
       add :hero_damage_done, :integer, null: false, default: 0
+      add :scoped_accuracy_percentage, :integer, null: false, default: 0
       add :time_holding_ultimate, :integer, null: false, default: 0
       add :ultimates_earned, :integer, null: false, default: 0
       add :ultimates_used, :integer, null: false, default: 0

@@ -58,7 +58,7 @@ defmodule Scraper.ModelCreator.HeroSnapshot do
 
   defp get_stats_key_type(key), do: Regex.run(~r/[^_]+$/, key) |> List.first |> Utility.safe_atom
 
-  defp statistic_id_type({:average, %{id: id}}), do: {:combat_average_statistic_id, id}
+  defp statistic_id_type({:average, %{id: id}}), do: {:game_average_statistic_id, id}
   defp statistic_id_type({:best, %{id: id}}), do: {:combat_best_statistic_id, id}
   defp statistic_id_type({:lifetime, %{id: id}}), do: {:combat_lifetime_statistic_id, id}
   defp statistic_id_type({:game, %{id: id}}), do: {:game_history_statistic_id, id}

@@ -13,7 +13,7 @@ defmodule SnapshotStatsDiffer.Helpers do
   def preload_snapshots_stats(model), do: Repo.preload(model, [
     profile_snapshot_statistic: [:profile_statistic],
     hero_snapshot_statistics: [
-      :combat_average_statistic, :combat_best_statistic,
+      :game_average_statistic, :combat_best_statistic,
       :combat_lifetime_statistic, :game_history_statistic, :match_awards_statistic
     ]
   ])

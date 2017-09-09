@@ -30,6 +30,7 @@ defmodule Models.Statistics.CombatLifetime do
     field :turrets_destroyed, :integer
     field :defensive_assists, :integer
     field :offensive_assists, :integer
+    field :scoped_accuracy_percentage, :integer
   end
 
   @allowed_fields [
@@ -59,7 +60,8 @@ defmodule Models.Statistics.CombatLifetime do
     :multikill_best,
     :turrets_destroyed,
     :defensive_assists,
-    :offensive_assists
+    :offensive_assists,
+    :scoped_accuracy_percentage
   ]
 
   @doc """

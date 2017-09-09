@@ -5,7 +5,7 @@ defmodule Models.Game do
   alias Models.{Repo, Model}
 
   @statistic_relations [
-    :combat_average_statistic, :game_history_statistic,
+    :game_average_statistic, :game_history_statistic,
     :combat_best_statistic, :combat_lifetime_statistic,
     :match_awards_statistic
   ]
