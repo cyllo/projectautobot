@@ -19,14 +19,9 @@
 
   input[type="text"] {
 
-    color: $input-text-color;
-    background-color: $input-background-color;
     border: 1px solid mat-color($foreground, divider);
     transition: all 0.25s ease-in-out;
 
-    &:focus {
-      background-color: $input-background-color;
-    }
 
     &:hover {
       cursor: pointer;
