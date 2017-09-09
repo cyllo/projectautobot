@@ -1,0 +1,29 @@
+<div class="lifetime-stats flex-layout py-3 px-3" fxLayout="row">
+  <div class="flex-layout" fxLayout="column" fxFlex>
+    <div class="flex-layout" fxLayout="row">
+      <div class="flex-layout" fxLayout="column" fxFlex>
+        <span class="text-uppercase"><strong>Lifetime Statistics</strong></span>
+      </div>
+    </div>
+    <div class="flex-layout" fxLayout="row" *ngFor="let statGroup of statsGroups">
+      <div class="flex-layout" fxLayout="column" fxFlex>
+
+        <div class="flex-layout py-3" fxLayout="row">
+          <div class="flex-layout" fxLayout="column" fxFlex>
+            <span class="mat-caption text-uppercase">{{ statGroup.groupName }}</span>
+          </div>
+        </div>
+
+        <div class="flex-layout" fxLayout="row" *ngFor="let stat of statGroup.stats">
+          <div class="flex-layout" fxLayout="column" fxFlex>
+            <span class="mat-caption text-uppercase">{{ stat.name }}</span>
+          </div>
+          <div class="flex-layout text-right" fxLayout="column" fxFlex="initial">
+            <span class="mat-caption text-uppercase">{{ stat.value }}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

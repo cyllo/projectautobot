@@ -1,0 +1,18 @@
+<div class="trends flex-layout px-3 py-3" fxLayout ="row" fxFlex="noshrink">
+  <div class="flex-layout" fxLayout="column" fxFlex>
+    <div class="flex-layout" fxLayout="row">
+      <div class="flex-layout" fxLayout="column" fxFlex>
+        <span class="text-uppercase"><strong>Skill Rating Trend</strong></span>
+      </div>
+    </div>
+    <div class="flex-layout" fxLayout="row">
+      <div class="flex-layout pt-3" fxLayout="column" fxLayoutAlign="center center" fxFlex>
+        <ow-chart [chartType]="chart.chartType"
+          [labels] = "chart.xAxisLabels"
+          [datasets]="chart.datasets"
+          [legend]="chart.legend">
+        </ow-chart>
+      </div>
+    </div>
+  </div>
+</div>

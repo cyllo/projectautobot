@@ -1,0 +1,49 @@
+<div class="overall flex-layout" fxLayout="row" fxLayouAlign="start center" fxFlex="noshrink">
+  <div class="flex-layout" fxLayout="column" fxFlex>
+    <div class="flex-layout" fxLayout="row">
+      <div class="flex-layout" fxLayout="column" fxFlex>
+        <div>
+          <span class="text-uppercase mr-1"><strong>Overall Performance</strong></span>
+          <span class="mat-caption">Statistics are lifetime per min averages.</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex-layout" fxLayout="row" fxLayoutWrap>
+      <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="30%" fxFlex.lt-lg="50%">
+        <ow-chart [chartType]="generalChart.chartType"
+          [labels] = "generalChart.xAxisLabels"
+          [datasets]="generalChart.datasets"
+          [legend]="generalChart.legend">
+        </ow-chart>
+      </div>
+      <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="30%" fxFlex.lt-lg="50%">
+        <ow-chart [chartType]="combatChart.chartType"
+          [labels] = "combatChart.xAxisLabels"
+          [datasets]="combatChart.datasets"
+          [legend]="combatChart.legend">
+        </ow-chart>
+      </div>
+      <div class="flex-layout" fxLayout="column" fxFlex="40%" fxFlex.lt-lg="100%">
+        <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap>
+          <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="33.333%" fxFlex.lt-lg="25%" *ngFor="let stat of stats">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex="initial">
+                <span><strong>{{ stat.value }}</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption">{{ stat.name}}</span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <md-progress-bar mode="determinate" value="70"></md-progress-bar>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

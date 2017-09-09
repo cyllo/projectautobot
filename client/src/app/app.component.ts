@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { AppState, CurrentSession } from './models';
@@ -34,6 +35,7 @@ export class AppComponent implements OnInit {
     private authService: AuthorizationService,
     private themeingService: ThemeingService,
     private mdIconRegistry: MdIconRegistry,
+    private domSanitizer: DomSanitizer,
     private userService: UserService
   ) {}
 
@@ -53,6 +55,7 @@ export class AppComponent implements OnInit {
 
     this.themeingService.loadTheme(this.themeingService.themes().default);
     this.setDefaultFontSetClass();
+    this.createCustomSVGIconNamespace();
 
     this.currentSession
     .filter(val => !isNil(val))
@@ -64,6 +67,15 @@ export class AppComponent implements OnInit {
 
   setDefaultFontSetClass() {
     this.mdIconRegistry.setDefaultFontSetClass('material-icons');
+  }
+
+  createCustomSVGIconNamespace() {
+    const icon_dir = '/img/icons/roles';
+    const sanitize = this.domSanitizer.bypassSecurityTrustResourceUrl;
+    this.mdIconRegistry.addSvgIcon('role_offense', sanitize(`${icon_dir}/offense.svg`));
+    this.mdIconRegistry.addSvgIcon('role_defense', sanitize(`${icon_dir}/defense.svg`));
+    this.mdIconRegistry.addSvgIcon('role_support', sanitize(`${icon_dir}/support.svg`));
+    this.mdIconRegistry.addSvgIcon('role_tank', sanitize(`${icon_dir}/tank.svg`));
   }
 
   getHeroes() {

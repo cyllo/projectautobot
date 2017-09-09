@@ -1,0 +1,115 @@
+<div class="recent-sessions" fxLayout="row">
+  <div class="flex-layout" fxLayout="column" fxFlex>
+    <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center">
+      <div class="flex-layout" fxLayout="column" fxFlex>
+        <span class="text-uppercase"><strong>Recent Snapshots</strong></span>
+      </div>
+      <div class="flex-layout" fxLayout="column" fxFlex="initial">
+        <button md-button>
+          <span class="mat-caption">View All</span>
+        </button>
+      </div>
+    </div>
+    <div class="flex-layout" fxLayout="row" fxLayoutWrap>
+      <div class="flex-layout pt-3" fxLayout="column" fxFlex="100%" *ngFor="let session of sessions">
+
+        <md-card>
+          <md-card-content>
+            <div class="flex-layout" fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="start center">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <div class="flex-layout" fxLayout="row">
+                  <div class="flex-layout" fxLayout="column" fxFlex>
+                    <span class="mat-caption text-uppercase"><strong>Competitive Play</strong></span>
+                  </div>
+                </div>
+                <div class="flex-layout" fxLayout="row">
+                  <div class="flex-layout" fxLayout="column" fxFlex>
+                    <span class="mat-caption text-uppercase">19 Hrs Ago</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex-layout" fxLayout="column" fxFlex="initial">
+                <div class="flex-layout" fxLayout="row">
+                  <div class="flex-layout text-right" fxLayout="column" fxFlex>
+                    <span class="mat-caption text-uppercase">4 - 1 (80%)</span>
+                  </div>
+                </div>
+                <div class="flex-layout" fxLayout="row">
+                  <div class="flex-layout text-right" fxLayout="column" fxFlex>
+                    <span class="mat-caption text-uppercase">Wins - Loss</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="start center" fxLayoutWrap>
+              <div class="flex-layout pt-3" fxLayout="column" fxFlex="36px" *ngFor="let hero of heroesPlayed">
+                <ow-hero-portrait [class]="'md-image-36'" [owCode]="'0x02E0000000000042'"></ow-hero-portrait>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout pt-3" fxLayout="column" fxFlex>
+                <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+                  <div class="flex-layout" fxLayout="column" fxFlex>
+                    <span class="mat-caption text-uppercase">Hero Damage Done</span>
+                  </div>
+                  <div class="flex-layout" fxLayout="column" fxFlex="initial">
+                    <span class="mat-caption text-uppercase">120/min</span>
+                  </div>
+                </div>
+                <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+                  <div class="flex-layout" fxLayout="column" fxFlex>
+                    <span class="mat-caption text-uppercase">Damage Blocked</span>
+                  </div>
+                  <div class="flex-layout" fxLayout="column" fxFlex="initial">
+                    <span class="mat-caption text-uppercase">120/min</span>
+                  </div>
+                </div>
+                <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+                  <div class="flex-layout" fxLayout="column" fxFlex>
+                    <span class="mat-caption text-uppercase">Healing Done</span>
+                  </div>
+                  <div class="flex-layout" fxLayout="column" fxFlex="initial">
+                    <span class="mat-caption text-uppercase">120/min</span>
+                  </div>
+                </div>
+                <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+                  <div class="flex-layout" fxLayout="column" fxFlex>
+                    <span class="mat-caption text-uppercase">K/D Ratio</span>
+                  </div>
+                  <div class="flex-layout" fxLayout="column" fxFlex="initial">
+                    <span class="mat-caption text-uppercase">2.37:1</span>
+                  </div>
+                </div>
+                <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+                  <div class="flex-layout" fxLayout="column" fxFlex>
+                    <span class="mat-caption text-uppercase">Kills/Deaths</span>
+                  </div>
+                  <div class="flex-layout" fxLayout="column" fxFlex="initial">
+                    <span class="mat-caption text-uppercase">2356 / 236</span>
+                  </div>
+                </div>
+                <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+                  <div class="flex-layout" fxLayout="column" fxFlex>
+                    <span class="mat-caption text-uppercase">Average Game Length</span>
+                  </div>
+                  <div class="flex-layout" fxLayout="column" fxFlex="initial">
+                    <span class="mat-caption text-uppercase">~10mins</span>
+                  </div>
+                </div>
+                <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+                  <div class="flex-layout" fxLayout="column" fxFlex>
+                    <span class="mat-caption text-uppercase">Medals</span>
+                  </div>
+                  <div class="flex-layout" fxLayout="column" fxFlex="initial">
+                    <span class="mat-caption text-uppercase">44</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </md-card-content>
+        </md-card>
+
+      </div>
+    </div>
+  </div>
+</div>

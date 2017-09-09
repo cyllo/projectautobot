@@ -26,7 +26,10 @@ import { MdInputModule,
          MdTableModule,
          MdRadioModule,
          MdButtonToggleModule,
-         MdCheckboxModule } from '@angular/material';
+         MdCheckboxModule,
+         MdProgressBarModule,
+         MdExpansionModule,
+         MdGridListModule } from '@angular/material';
 
 import {
   HomeComponent,
@@ -43,15 +46,13 @@ import {
   PostComponent,
   FriendsComponent,
   ProfileComponent,
-  HeroCardsComponent,
   LifetimeStatsComponent,
-  CareerComponent,
+  ProfileHeaderComponent,
   MostPlayedComponent,
   HeroSkillsComponent,
   HeroPageTabsComponent,
   HeroCareerComponent,
   ProfileOverviewComponent,
-  ProfilePageTabsComponent,
   HeroWallCatalogComponent,
   CompareComponent,
   ComparedProfilesComponent,
@@ -69,7 +70,17 @@ import {
   LeaderboardHeaderComponent,
   LeaderboardTableComponent,
   LeaderboardChartComponent,
-  HeroesChartComponent
+  HeroesChartComponent,
+  RecentlyPlayedComponent,
+  OverallPerformanceComponent,
+  RolePerformanceComponent,
+  RecentSessionComponent,
+  HeroCardsComponent,
+  SnapshotsHistoryComponent,
+  MatchSnapshotComponent,
+  MatchDetailsComponent,
+  ProfileHeroesComponent,
+  ProfileHeroesTableComponent
 } from './index';
 
 @NgModule({
@@ -102,7 +113,10 @@ import {
     MdTableModule,
     MdRadioModule,
     MdButtonToggleModule,
-    MdCheckboxModule
+    MdCheckboxModule,
+    MdProgressBarModule,
+    MdExpansionModule,
+    MdGridListModule
   ],
   declarations: [
     HomeComponent,
@@ -119,15 +133,13 @@ import {
     PostComponent,
     FriendsComponent,
     ProfileComponent,
-    HeroCardsComponent,
     LifetimeStatsComponent,
-    CareerComponent,
+    ProfileHeaderComponent,
     MostPlayedComponent,
     HeroSkillsComponent,
     HeroPageTabsComponent,
     HeroCareerComponent,
     ProfileOverviewComponent,
-    ProfilePageTabsComponent,
     HeroWallCatalogComponent,
     CompareComponent,
     ComparedProfilesComponent,
@@ -145,7 +157,17 @@ import {
     LeaderboardHeaderComponent,
     LeaderboardTableComponent,
     LeaderboardChartComponent,
-    HeroesChartComponent
+    HeroesChartComponent,
+    RecentlyPlayedComponent,
+    OverallPerformanceComponent,
+    RolePerformanceComponent,
+    RecentSessionComponent,
+    HeroCardsComponent,
+    SnapshotsHistoryComponent,
+    MatchSnapshotComponent,
+    MatchDetailsComponent,
+    ProfileHeroesComponent,
+    ProfileHeroesTableComponent
   ],
   exports: [
     HomeComponent,
@@ -162,21 +184,28 @@ import {
     PostComponent,
     FriendsComponent,
     ProfileComponent,
-    HeroCardsComponent,
     LifetimeStatsComponent,
-    CareerComponent,
+    ProfileHeaderComponent,
     MostPlayedComponent,
     HeroSkillsComponent,
     HeroPageTabsComponent,
     HeroCareerComponent,
-    ProfilePageTabsComponent,
     LoginComponent,
     UserRegistrationComponent,
     AccountSettingsComponent,
     LeaderboardHeaderComponent,
     LeaderboardTableComponent,
     LeaderboardChartComponent,
-    HeroesChartComponent
+    HeroesChartComponent,
+    OverallPerformanceComponent,
+    RolePerformanceComponent,
+    RecentSessionComponent,
+    HeroCardsComponent,
+    SnapshotsHistoryComponent,
+    MatchSnapshotComponent,
+    MatchDetailsComponent,
+    ProfileHeroesComponent,
+    ProfileHeroesTableComponent
   ]
 })
 

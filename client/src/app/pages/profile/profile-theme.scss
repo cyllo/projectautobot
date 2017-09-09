@@ -1,41 +1,12 @@
 @mixin profile-theme($theme) {
 
-  $profile-primary: mat-palette($mat-indigo, 500, 300, 900);
-  $profile-accent: mat-palette($mat-amber, 500);
-  $profile-theme: mat-light-theme(
-    $profile-primary,
-    $profile-accent
-  );
-
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
 
-  $primary-card-bg-color: mat-color(map-get($profile-theme, primary));
-  $primary-card-text-color: contrast-color($primary-card-bg-color);
-
   .profile {
-
-    .primary-card {
-      background-color: $primary-card-bg-color;
-      color: $primary-card-text-color;
-    }
-
-    .btn-connect-battle-net {
-      background-color: #03A9F4;
-    }
-
-    .player-avatar-level {
-      .level {
-        background-color: rgba(mat-color($profile-primary, 900), 0.5);
-      }
-    }
-
-    .hero-thumbnail {
-      background-color: mat-color($profile-primary);
-    }
 
   }
 

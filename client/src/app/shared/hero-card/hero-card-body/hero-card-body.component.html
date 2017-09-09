@@ -1,25 +1,20 @@
-<div class="flex-layout pt-3" fxLayout="row" fxLayoutWrap>
-  <div class="pt-3" fxLayout="column" fxFlex="20%" *ngFor="let block of statBlocks">
-    <div fxLayout="row">
-      <div fxLayout="column">
-        <div fxLayout="row">
-          <div fxLayout="column">
-            <span><strong>{{ block.value ? ( block.value | number : '1.0-2' ) : '-' }}</strong></span>
-          </div>
-          <div fxLayout="column">
-            <span *ngIf="block.value">{{ block.format }}</span>
-          </div>
+<div class="hero-card-body flex-layout" fxLayout="column" fxFlex>
+  <div class=" flex-layout" fxLayout="row" fxLayoutWrap>
+    <div class="flex-layout pt-3 px-2" fxLayout="column" fxFlex="16.666%" *ngFor="let stat of stats">
+      <div class="flex-layout" fxLayout="row">
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <span class="mat-caption"><strong>{{ stat.value }}</strong></span>
         </div>
       </div>
-    </div>
-    <div fxLayout="row">
-      <div fxLayout="column">
-        <md-progress-bar mode="determinate" [value]="block.percent || 0"></md-progress-bar>
+      <div class="flex-layout" fxLayout="row">
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+        </div>
       </div>
-    </div>
-    <div fxLayout="row">
-      <div fxLayout="column">
-        <span class="mat-caption text-uppercase">{{ block.name }}</span>
+      <div class="flex-layout pt-1" fxLayout="row">
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <span class="stat-name text-uppercase">{{ stat.name }}</span>
+        </div>
       </div>
     </div>
   </div>

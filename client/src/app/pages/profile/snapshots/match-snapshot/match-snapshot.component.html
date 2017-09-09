@@ -1,0 +1,112 @@
+<md-expansion-panel class="match-snapshot" fxFlex="430px" #expansionPanel>
+
+  <md-expansion-panel-header>
+
+    <div class="header flex-layout" fxLayout="column" fxFlex>
+
+      <div class="flex-layout" fxLayout="row" fxFlex="noshrink">
+
+        <div class="flex-layout" fxLayout="column" fxFlex="initial">
+          <div class="flex-layout" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <span class="mat-caption text-uppercase">3 Mins Ago</span>
+            </div>
+          </div>
+          <div class="flex-layout" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <span class="mat-caption text-uppercase"><strong>Competitive</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <div class="flex-layout" fxLayout="row" fxLayoutAlign="end start" fxLayoutGap="14px">
+            <div class="flex-layout" fxLayout="column" fxFlex="initial">
+              <div class="flex-layout" fxLayout="row">
+                <div class="flex-layout text-center" fxLayout="column" fxFlex>
+                  <span class="mat-caption text-uppercase"><strong>Win</strong></span>
+                </div>
+              </div>
+              <div class="flex-layout" fxLayout="row">
+                <div class="flex-layout" fxLayout="column" fxFlex>
+                  <span class="mat-caption text-uppercase">Outcome</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="column" fxFlex="initial">
+              <div class="flex-layout" fxLayout="row">
+                <div class="flex-layout text-center" fxLayout="column" fxFlex>
+                  <span class="mat-caption text-uppercase"><strong>+40</strong></span>
+                </div>
+              </div>
+              <div class="flex-layout" fxLayout="row">
+                <div class="flex-layout" fxLayout="column" fxFlex>
+                  <span class="mat-caption text-uppercase">Skill Rating</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="column" fxFlex="initial">
+              <div class="flex-layout" fxLayout="row">
+                <div class="flex-layout text-center" fxLayout="column" fxFlex>
+                  <span class="mat-caption text-uppercase"><strong>10 min</strong></span>
+                </div>
+              </div>
+              <div class="flex-layout" fxLayout="row">
+                <div class="flex-layout" fxLayout="column" fxFlex>
+                  <span class="mat-caption text-uppercase">Game Length</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </md-expansion-panel-header>
+
+  <div class="flex-layout pt-3" fxLayout="column" fxFlex>
+    <md-grid-list cols="3" rowHeight="2:1">
+      <md-grid-tile [colspan]="3">
+        <div class="flex-layout" fxLayout="row" fxLayoutGap="8px" fxLayoutWrap>
+          <div class="flex-layout" fxLayout="column" fxFlex="36px" *ngFor="let hero of heroesPlayed">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <ow-hero-portrait [class]="'md-image-36'" [owCode]="'0x02E0000000000029'"></ow-hero-portrait>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout text-center" fxLayout="column" fxFlex>
+                <span class="mat-caption">30/5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </md-grid-tile>
+      <md-grid-tile *ngFor="let stat of stats">
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <div class="flex-layout" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <span class="mat-caption"><strong>{{stat.value}}</strong></span>
+            </div>
+          </div>
+          <div class="flex-layout" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <span class="mat-caption text-uppercase">{{stat.name}}</span>
+            </div>
+          </div>
+        </div>
+      </md-grid-tile>
+    </md-grid-list>
+  </div>
+
+  <md-action-row>
+    <div class="px-3" fxLayout="row">
+      <button md-button>
+        <span class="mat-caption">View Details</span>
+      </button>
+    </div>
+  </md-action-row>
+
+</md-expansion-panel>

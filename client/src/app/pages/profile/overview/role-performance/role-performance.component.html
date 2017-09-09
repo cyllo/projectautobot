@@ -1,0 +1,51 @@
+<div class="role-performance flex-layout px-3" fxLayout="row" fxFlex="noshrink">
+  <div class="flex-layout" fxLayout="column" fxLayoutGap="14px" fxFlex>
+
+    <div class="flex-layout" fxLayout="row" *ngFor="let role of rolesData">
+      <div class="flex-layout" fxLayout="column" fxFlex>
+        <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+          <div class="flex-layout" fxLayout="column" fxFlex="initial">
+            <md-icon class="md-36" svgIcon="role_{{role.name}}"></md-icon>
+          </div>
+          <div class="flex-layout" fxLayout="column" fxFlex>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="text-uppercase"><strong>{{ role.name }}</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">14 Hrs played</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex-layout pt-3" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+          <div class="flex-layout" fxLayout="column" fxFlex>
+            <span class="mat-caption text-uppercase">K/D Ratio</span>
+          </div>
+          <div class="flex-layout" fxLayout="column" fxFlex="initial">
+            <span class="mat-caption text-uppercase">2.37:1</span>
+          </div>
+        </div>
+        <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+          <div class="flex-layout" fxLayout="column" fxFlex>
+            <span class="mat-caption text-uppercase">Kills/Deaths</span>
+          </div>
+          <div class="flex-layout" fxLayout="column" fxFlex="initial">
+            <span class="mat-caption text-uppercase">2356 / 236</span>
+          </div>
+        </div>
+        <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+          <div class="flex-layout" fxLayout="column" fxFlex>
+            <span class="mat-caption text-uppercase">Wins</span>
+          </div>
+          <div class="flex-layout" fxLayout="column" fxFlex="initial">
+            <span class="mat-caption text-uppercase">137</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

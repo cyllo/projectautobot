@@ -1,0 +1,67 @@
+<div class="most-played flex-layout" fxLayout="row" fxFlex="noshrink">
+  <div class="flex-layout" fxLayout="column" fxFlex>
+    <div class="flex-layout" fxLayout="row">
+      <div class="flex-layout" fxLayout="column" fxFlex>
+        <span class="text-uppercase"><strong>Most Played Heroes</strong></span>
+      </div>
+    </div>
+    <div class="flex-layout" fxLayout="row" fxLayoutWrap>
+
+      <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="50%" fxLayoutGap="8px" *ngFor="let hero of derp">
+        <div class="flex-layout" fxLayout="row" fxFlex="noshrink" fxLayoutAlign="start center" fxLayoutGap="8px">
+          <div class="flex-layout" fxLayout="column" fxFlex="initial">
+            <ow-hero-portrait [class]="'md-image-64'" [owCode]="'0x02E0000000000008'"></ow-hero-portrait>
+          </div>
+          <div class="flex-layout" fxLayout="column" fxFlex>
+            <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span><strong>Pharah</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
+              <div class="flex-layout" fxLayout="column" fxFlex="initial">
+                <md-icon class="md-14" svgIcon="role_offense"></md-icon>
+              </div>
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">Offense</span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">Win Rate</span>
+              </div>
+              <div class="flex-layout" fxLayout="column" fxFlex="initial">
+                <span class="mat-caption text-uppercase">40.56%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+          <div class="flex-layout" fxLayout="column" fxFlex>
+            <span class="mat-caption text-uppercase">K/D Ratio</span>
+          </div>
+          <div class="flex-layout" fxLayout="column" fxFlex="initial">
+            <span class="mat-caption text-uppercase">2.37:1</span>
+          </div>
+        </div>
+        <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+          <div class="flex-layout" fxLayout="column" fxFlex>
+            <span class="mat-caption text-uppercase">Kills/Deaths</span>
+          </div>
+          <div class="flex-layout" fxLayout="column" fxFlex="initial">
+            <span class="mat-caption text-uppercase">2356 / 236</span>
+          </div>
+        </div>
+        <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+          <div class="flex-layout" fxLayout="column" fxFlex>
+            <span class="mat-caption text-uppercase">Wins</span>
+          </div>
+          <div class="flex-layout" fxLayout="column" fxFlex="initial">
+            <span class="mat-caption text-uppercase">137</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

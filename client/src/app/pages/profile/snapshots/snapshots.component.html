@@ -1,0 +1,30 @@
+<div class="snapshots flex-layout px-3" fxLayout="row">
+  <div class="flex-layout" fxLayout="column" fxLayoutGap="14px" fxFlex>
+    <div class="flex-layout" fxLayout="row">
+      <div class="flex-layout" fxLayout="column" fxFlex>
+        <div>
+          <span class="mat-title text-uppercase mb-0 mr-1"><strong>Match Snapshots</strong></span>
+          <span class="mat-caption">View your match statistics as you play.</span>
+        </div>
+      </div>
+      <div class="flex-layout" fxLayout="column" fxFlex="initial">
+        <button color="primary" md-button>
+          <md-icon>linear_scale</md-icon>
+          <span>Start Snapshots</span>
+        </button>
+      </div>
+    </div>
+    <div class="flex-layout" fxLayout="row">
+      <div class="flex-layout px-3" fxLayout="column" fxLayoutGap="14px" fxFlex="initial">
+        <div class="flex-layout" fxLayout="row" *ngFor="let match of matchesPlayed">
+          <div class="flex-layout" fxLayout="column" fxFlex>
+            <ow-match-snapshot></ow-match-snapshot>
+          </div>
+        </div>
+      </div>
+      <div class="flex-layout px-3" fxLayout="column" fxFlex>
+        <ow-match-details></ow-match-details>
+      </div>
+    </div>
+  </div>
+</div>

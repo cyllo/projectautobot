@@ -1,91 +1,103 @@
-<div class="flex-layout" fxLayout="row">
-  <md-progress-bar mode="determinate" [value]="stat('timePlayedAsPercentage').value"></md-progress-bar>
-</div>
-<div class="flex-layout pt-3" fxLayout="row" fxLayoutAlign="start center">
-
-  <div class="flex-layout px-2" fxLayout="column" fxFlex="noshrink">
-    <ow-hero-portrait [owCode]="heroSnap.hero.code"></ow-hero-portrait>
-  </div>
-
-  <div class="flex-layout px-2" fxLayout="column" fxLayoutGap="4px" fxFlex="grow">
-    <div class="flex-layout" fxLayout="row">
-      <span class="text-uppercase"><strong>{{ heroSnap.hero.name }}</strong></span>
-    </div>
-    <div class="flex-layout" fxLayout="row">
-      <div class="flex-layout" fxLayout="column">
-        <img width="18" src="{{ iconUrl(heroSnap.hero.role) }}">
-      </div>
-      <div class="flex-layout" fxLayout="column">
-        <span class="mat-caption text-uppercase ml-1">{{ heroSnap.hero.role }}</span>
-      </div>
+<div class="flex-layout" fxLayout="column" fxLayoutGap="14px" fxFlex>
+  <div class="flex-layout" fxLayout="row">
+    <div class="flex-layout" fxLayout="column" fxFlex>
+      <md-progress-bar mode="determinate" value="80"></md-progress-bar>
     </div>
   </div>
-
-  <div class="flex-layout px-2" fxLayout="column" fxFlex="noshrink">
-    <div class="flex-layout" fxLayout="row">
-      <span class="mat-caption text-uppercase">{{ stat('gamesplayed').value || '1' }}</span>
+  <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+    <div class="flex-layout" fxLayout="column" fxFlex="initial">
+      <ow-hero-portrait [class]="'md-image-64'" [owCode]="'0x02E0000000000008'"></ow-hero-portrait>
     </div>
-    <div class="flex-layout" fxLayout="row">
-      <div class="flex-layout" fxLayout="column">
-        <span class="mat-caption text-uppercase">Games Played</span>
+    <div class="flex-layout" fxLayout="column" fxFlex="30%">
+      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <span><strong>Pharah</strong></span>
+        </div>
       </div>
-    </div>
-  </div>
-
-  <div class="flex-layout px-2" fxLayout="column" fxFlex="noshrink">
-    <div class="flex-layout" fxLayout="row">
-      <span class="value small">{{ stat('onfire').value || '-' }} mins</span>
-    </div>
-    <div class="flex-layout" fxLayout="row">
-      <div class="flex-layout" fxLayout="column">
-        <span class="mat-caption text-uppercase">On Fire</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="flex-layout px-2" fxLayout="column" fxFlex="noshrink">
-    <div fxLayout="row">
-      <div class="flex-layout" fxLayout="column">
-        <div class="medals">
-          <span class="medal gold mat-caption">{{ stat('medals-gold').value   || 0 }}</span>
-          <span class="medal silver mat-caption">{{ stat('medals-silver').value || 0 }}</span>
-          <span class="medal bronze mat-caption">{{ stat('medals-bronze').value || 0 }}</span>
+      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
+        <div class="flex-layout" fxLayout="column" fxFlex="initial">
+          <md-icon class="md-14" svgIcon="role_offense"></md-icon>
+        </div>
+        <div class="flex-layout" fxLayout="column" fxFlex="initial">
+          <span class="mat-caption text-uppercase">Offense</span>
         </div>
       </div>
     </div>
-    <div fxLayout="row">
-      <div class="flex-layout" fxLayout="column">
-        <span class="mat-caption text-uppercase">Medals</span>
-      </div>
-    </div>
-  </div>
+    <div class="flex-layout" fxLayout="column" fxFlex>
+      <div class="flex-layout" fxLayout="row" fxLayoutAlign="end center">
 
-  <div class="flex-layout px-2" fxLayout="column" fxFlex="noshrink">
-    <div class="flex-layout" fxLayout="row">
-      <span class="value">
-        {{ stat('wins').value || 0 }}
-        {{ stat('loss').value ? ' - ' + stat('loss').value : '' }}
-      </span>
-    </div>
-    <div class="flex-layout" fxLayout="row">
-      <div class="flex-layout" fxLayout="column">
-        <span class="mat-caption text-uppercase">Wins / Loss</span>
-      </div>
-    </div>
-  </div>
+        <div class="flex-layout px-3" fxLayout="column" fxFlex="33.333%">
+          <div class="flex-layout" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <span class="mat-caption text-uppercase">99th</span>
+            </div>
+            <div class="flex-layout text-right" fxLayout="column" fxFlex>
+              <span class="mat-caption text-uppercase danger">-0.25%</span>
+            </div>
+          </div>
+          <div class="flex-layout" fxLayout="row" fxLayoutGap="4px" fxLayoutAlign="center center" fxFlex="30px">
+            <div class="flex-layout" fxLayout="column" fxFlex="initial">
+              <div class="flex-layout" fxLayout="row">
+                <div class="flex-layout" fxLayout="column" fxFlex>
+                  <span class="mat-caption text-uppercase"><strong>4712 Hrs</strong></span>
+                </div>
+              </div>
+              <div class="flex-layout" fxLayout="row">
+                <div class="flex-layout" fxLayout="column" fxFlex>
+                  <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center">
+            <div class="flex-layout" fxLayout="column" fxFlex="initial">
+              <span class="mat-caption text-uppercase">On Fire</span>
+            </div>
+          </div>
+        </div>
 
-  <div class="flex-layout px-2" fxLayout="column" fxFlex="noshrink">
-    <div class="flex-layout" fxLayout="row">
-      <span class="value">
-        {{ ( stat('winrate').value | number : '1.2-2' ) || '-' }}
-        {{ stat('winrate').value ? '%' : ''}}
-      </span>
-    </div>
-    <div class="flex-layout" fxLayout="row">
-      <div class="flex-layout" fxLayout="column">
-        <span class="mat-caption text-uppercase">Win Rate</span>
-      </div>
-    </div>
-  </div>
+        <div class="flex-layout px-3" fxLayout="column" fxFlex="33.333%">
+          <div class="flex-layout" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <span class="mat-caption text-uppercase">99th</span>
+            </div>
+            <div class="flex-layout text-right" fxLayout="column" fxFlex>
+              <span class="mat-caption text-uppercase danger">-0.25%</span>
+            </div>
+          </div>
+          <div class="flex-layout" fxLayout="row" fxLayoutGap="4px" fxLayoutAlign="center center" fxFlex="30px">
+            <div class="flex-layout" fxLayout="column" fxFlex="initial">
+              <div>
+                <span class="gold">12</span>
+                <span class="silver">8</span>
+                <span class="bronze">128</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center">
+            <div class="flex-layout" fxLayout="column" fxFlex="initial">
+              <span class="mat-caption text-uppercase">Medals</span>
+            </div>
+          </div>
+        </div>
 
-</div>
+        <div class="flex-layout px-3" fxLayout="column" fxFlex="33.333%">
+          <div class="flex-layout" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <span class="mat-caption text-uppercase">99th</span>
+            </div>
+            <div class="flex-layout text-right" fxLayout="column" fxFlex>
+              <span class="mat-caption text-uppercase danger">-0.25%</span>
+            </div>
+          </div>
+          <div class="flex-layout" fxLayout="row" fxLayoutGap="4px" fxLayoutAlign="center center" fxFlex="30px">
+            <div class="flex-layout" fxLayout="column" fxFlex="initial">
+              <span><strong>4712</strong></span>
+            </div>
+          </div>
+          <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center">
+            <div class="flex-layout" fxLayout="column" fxFlex="initial">
+              <span class="mat-caption text-uppercase">Wins</span>
+            </div>
+          </div>
+        </div>
