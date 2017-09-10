@@ -6,7 +6,7 @@
   </div>
   <div fxLayout="column">
     <md-slide-toggle
-    color="accent"
+    color="primary"
     [checked]="modeIndicator.mode === 'competitive'"
     (change)="gameModeToggle$.next($event.checked)"
     [disabled]="modeIndicator.disabled">
@@ -17,7 +17,7 @@
     <span class="mat-caption text-uppercase"
       [ngClass]="{
         'font-weight-bold': (modeIndicator.mode === 'competitive'),
-        'mat-accent': (modeIndicator.mode === 'competitive')
+        'mat-primary': (modeIndicator.mode === 'competitive')
       }">
       Competitive Play
     </span>

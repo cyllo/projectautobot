@@ -1,5 +1,5 @@
 <div class="overall flex-layout" fxLayout="row" fxLayouAlign="start center" fxFlex="noshrink">
-  <div class="flex-layout" fxLayout="column" fxFlex>
+  <div class="flex-layout" fxLayout="column" fxLayoutGap="14px" fxFlex>
     <div class="flex-layout" fxLayout="row">
       <div class="flex-layout" fxLayout="column" fxFlex>
         <div>
@@ -9,14 +9,16 @@
       </div>
     </div>
     <div class="flex-layout" fxLayout="row" fxLayoutWrap>
-      <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="30%" fxFlex.lt-lg="50%">
+
+      <div class="flex-layout" fxLayout="column" fxFlex="50%">
         <ow-chart [chartType]="generalChart.chartType"
           [labels] = "generalChart.xAxisLabels"
           [datasets]="generalChart.datasets"
           [legend]="generalChart.legend">
         </ow-chart>
       </div>
-      <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="30%" fxFlex.lt-lg="50%">
+
+      <div class="flex-layout" fxLayout="column" fxFlex="50%">
         <ow-chart [chartType]="combatChart.chartType"
           [labels] = "combatChart.xAxisLabels"
           [datasets]="combatChart.datasets"
@@ -24,9 +26,10 @@
         </ow-chart>
       </div>
 
-      <div class="flex-layout" fxLayout="column" fxFlex="40%" fxFlex.lt-lg="100%">
-        <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap>
-          <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="33.333%" fxFlex.lt-lg="25%">
+      <div class="flex-layout" fxLayout="column" fxFlex="100%">
+        <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center"fxLayoutWrap>
+
+          <div class="flex-layout pt-3 px-3" fxLayout="column" fxLayoutGap="4px" fxFlex="33.333%" fxFlex.lt-lg="25%">
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex="initial">
                 <span><strong>{{ totalGameAverage.eliminationsAvgPer10Min }}</strong></span>
@@ -34,17 +37,17 @@
             </div>
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex>
-                <span class="mat-caption">Eliminations</span>
+                <md-progress-bar mode="determinate" value="70"></md-progress-bar>
               </div>
             </div>
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex>
-                <md-progress-bar mode="determinate" value="70"></md-progress-bar>
+                <span class="mat-caption text-uppercase">Eliminations</span>
               </div>
             </div>
           </div>
 
-          <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="33.333%" fxFlex.lt-lg="25%">
+          <div class="flex-layout pt-3 px-3" fxLayout="column" fxLayoutGap="4px" fxFlex="33.333%" fxFlex.lt-lg="25%">
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex="initial">
                 <span><strong>{{ totalGameAverage.eliminationsAvgPer10Min | owKillDeathAverage:totalGameAverage.deathsAvgPer10Min }}</strong></span>
@@ -52,17 +55,17 @@
             </div>
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex>
-                <span class="mat-caption">K/D Ratio</span>
+                <md-progress-bar mode="determinate" value="70"></md-progress-bar>
               </div>
             </div>
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex>
-                <md-progress-bar mode="determinate" value="70"></md-progress-bar>
+                <span class="mat-caption text-uppercase">K/D Ratio</span>
               </div>
             </div>
           </div>
 
-          <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="33.333%" fxFlex.lt-lg="25%">
+          <div class="flex-layout pt-3 px-3" fxLayout="column" fxLayoutGap="4px" fxFlex="33.333%" fxFlex.lt-lg="25%">
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex="initial">
                 <span><strong>{{ totalGameAverage.allDamageDoneAvgPer10Min }}</strong></span>
@@ -70,17 +73,17 @@
             </div>
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex>
-                <span class="mat-caption">Damage Done</span>
+                <md-progress-bar mode="determinate" value="70"></md-progress-bar>
               </div>
             </div>
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex>
-                <md-progress-bar mode="determinate" value="70"></md-progress-bar>
+                <span class="mat-caption text-uppercase">All Damage</span>
               </div>
             </div>
           </div>
 
-          <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="33.333%" fxFlex.lt-lg="25%">
+          <div class="flex-layout pt-3 px-3" fxLayout="column" fxLayoutGap="4px" fxFlex="33.333%" fxFlex.lt-lg="25%">
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex="initial">
                 <span><strong>{{ totalGameAverage.damageBlockedAvgPer10Min }}</strong></span>
@@ -88,17 +91,17 @@
             </div>
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex>
-                <span class="mat-caption">Damage Blocked</span>
+                <md-progress-bar mode="determinate" value="70"></md-progress-bar>
               </div>
             </div>
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex>
-                <md-progress-bar mode="determinate" value="70"></md-progress-bar>
+                <span class="mat-caption text-uppercase">Blocked</span>
               </div>
             </div>
           </div>
 
-          <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="33.333%" fxFlex.lt-lg="25%">
+          <div class="flex-layout pt-3 px-3" fxLayout="column" fxLayoutGap="4px" fxFlex="33.333%" fxFlex.lt-lg="25%">
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex="initial">
                 <span><strong>{{ totalGameAverage.healingDoneAvgPer10Min }}</strong></span>
@@ -106,17 +109,17 @@
             </div>
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex>
-                <span class="mat-caption">Healing Done</span>
+                <md-progress-bar mode="determinate" value="70"></md-progress-bar>
               </div>
             </div>
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex>
-                <md-progress-bar mode="determinate" value="70"></md-progress-bar>
+                <span class="mat-caption text-uppercase">Healing</span>
               </div>
             </div>
           </div>
 
-          <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="33.333%" fxFlex.lt-lg="25%">
+          <div class="flex-layout pt-3 px-3" fxLayout="column" fxLayoutGap="4px" fxFlex="33.333%" fxFlex.lt-lg="25%">
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex="initial">
                 <span><strong>{{ matchAwards.totalMedals }}</strong></span>
@@ -124,16 +127,15 @@
             </div>
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex>
-                <span class="mat-caption">Medals</span>
+                <md-progress-bar mode="determinate" value="70"></md-progress-bar>
               </div>
             </div>
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex>
-                <md-progress-bar mode="determinate" value="70"></md-progress-bar>
+                <span class="mat-caption text-uppercase">Medals</span>
               </div>
             </div>
           </div>
-
 
         </div>
       </div>

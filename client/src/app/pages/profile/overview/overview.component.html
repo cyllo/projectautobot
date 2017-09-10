@@ -8,10 +8,10 @@
         <!-- <ow-recently-played></ow-recently-played> -->
       </div>
       <div class="flex-layout pt-3" fxLayout="column" fxFlex="100%" fxFlex.lt-lg="50%" fxFlex.lt-md="100%">
-        <ow-lifetime-stats [lifetimeStats]="lifeTimeStats | async" [gameHistory]="gameHistory | async"></ow-lifetime-stats>
+        <ow-lifetime-stats [lifetimeStats]="lifeTimeStats" [gameHistory]="gameHistory"></ow-lifetime-stats>
       </div>
       <div class="flex-layout pt-3" fxLayout="column" fxFlex="100%" fxFlex.lt-lg="50%" fxFlex.lt-md="100%">
-        <ow-role-performance [heroStatsByRole]="heroStatsByRole | async"></ow-role-performance>
+        <ow-role-performance [heroStatsByRole]="heroStatsByRole"></ow-role-performance>
       </div>
     </div>
   </div>
@@ -22,17 +22,17 @@
       class="flex-layout pt-3"
       fxLayout="column"
       fxFlex
-      [totalGameAverage]="totalGameAverage | async"
-      [matchAwards]="matchAwards | async"></ow-overall>
+      [totalGameAverage]="totalGameAverage"
+      [matchAwards]="matchAwards"></ow-overall>
     </div>
 
     <div class="flex-layout" fxLayout="row" fxLayoutWrap>
       <div class="flex-layout" fxLayout="column"  fxFlex="40%" fxFlex.lt-lg="100%">
         <div class="flex-layout pt-3" fxLayout="row" fxFlex="noshrink">
-          <ow-most-played class="flex-layout" fxLayout="column" fxFlex [mostPlayedHeroes]="mostPlayedHeroes | async"></ow-most-played>
+          <ow-most-played class="flex-layout" fxLayout="column" fxFlex [mostPlayedHeroes]="mostPlayedHeroes"></ow-most-played>
         </div>
         <div class="flex-layout pt-3" fxLayout="row" fxFlex="noshrink">
-          <ow-recent-sessions class="flex-layout" fxLayout="column" fxFlex [recentSnapshots]="recentSnapshots | async"></ow-recent-sessions>
+          <ow-recent-sessions class="flex-layout" fxLayout="column" fxFlex [recentSnapshots]="recentSnapshots"></ow-recent-sessions>
         </div>
       </div>
 
@@ -44,7 +44,7 @@
                 <span class="text-uppercase"><strong>Heroes</strong></span>
               </div>
             </div>
-            <div class="flex-layout" fxLayout="row" *ngFor="let hero of heroStatistics | async ">
+            <div class="flex-layout" fxLayout="row" *ngFor="let hero of heroStatistics">
               <div class="flex-layout" fxLayout="column" fxFlex>
                 <ow-hero-card [hero]="hero"></ow-hero-card>
               </div>

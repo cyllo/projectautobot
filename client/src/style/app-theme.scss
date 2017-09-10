@@ -1,9 +1,61 @@
+@mixin ow-status-colors($theme) {
+
+  .ow-success {
+    color: mat-color($mat-green, 500);
+  }
+
+  .ow-warning {
+    color: mat-color($mat-orange, 500);
+  }
+
+  .ow-danger {
+    color: mat-color($mat-red, 500);
+  }
+
+}
+
+@mixin ow-medals-theme($theme) {
+
+  $gold: mat-color($mat-amber, 400);
+  $silver: mat-color($mat-grey, 300);
+  $bronze: mat-color($mat-brown, 400);
+
+  .medal {
+
+    font-size: 10px;
+    padding: 3px 6px;
+    border-radius: 2px;
+    margin-left: 1px;
+    margin-right: 1px;
+
+    &.medal-gold {
+      background-color: $gold;
+      color: contrast-color($gold);
+    }
+
+    &.medal-silver {
+      background-color: $silver;
+      color: contrast-color($silver);
+    }
+
+    &.medal-bronze {
+      background-color: $bronze;
+      color: contrast-color($bronze);
+    }
+
+  }
+
+}
+
 @mixin ow-app-theme($theme) {
 
   $primary: map-get($theme, primary);
   $warn: map-get($theme, warn);
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
+
+  @include ow-status-colors($theme);
+  @include ow-medals-theme($theme);
 
   $input-hover-background-color: invert(mat-color($foreground, text, 0.2)) !default;
   $input-background-color: mat-color($background, dialog) !default;
@@ -21,7 +73,6 @@
 
     border: 1px solid mat-color($foreground, divider);
     transition: all 0.25s ease-in-out;
-
 
     &:hover {
       cursor: pointer;
@@ -68,20 +119,5 @@
     }
 
   }
-
-  .platform-region {
-    line-height: 1 !important;
-    &.mini-pr {
-      font-size: 10px;
-      padding: 2px 4px;
-      border-radius: 2px;
-      border: 1px solid $input-border-color;
-      background-color: $input-background-color;
-    }
-  }
-
-  .success { color: #4CAF50; }
-  .warning { color: #FFC107; }
-  .danger { color: #F44336; }
 
 }
