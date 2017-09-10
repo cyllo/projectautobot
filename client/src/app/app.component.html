@@ -1,11 +1,8 @@
 <header class="fixed-top">
-
   <ow-main-nav></ow-main-nav>
-
 </header>
 
-<main [ngStyle]="{ 'padding-top': '64px' }"
-      ngStyle.gt-xs="padding-left: 64px;">
+<main [ngStyle]="{ 'padding-top': '64px' }" ngStyle.gt-xs="padding-left: 64px;">
   <ow-sidebar-left></ow-sidebar-left>
   <router-outlet></router-outlet>
 </main>

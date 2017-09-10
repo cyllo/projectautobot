@@ -5,7 +5,7 @@
       <div class="flex-layout" fxLayout="column" fxFlex>
         <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
           <div class="flex-layout" fxLayout="column" fxFlex="initial">
-            <md-icon class="md-36" svgIcon="role_{{role.name}}"></md-icon>
+            <md-icon class="md-36" svgIcon="role_{{ role.name | lowercase }}"></md-icon>
           </div>
           <div class="flex-layout" fxLayout="column" fxFlex>
             <div class="flex-layout" fxLayout="row">

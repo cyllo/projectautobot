@@ -51,7 +51,8 @@
            fxLayout="column"
            fxFlex="190px"
            fxFlex.lt-lg
-           fxFlex.lt-md="50%">
+           fxFlex.lt-md="50%"
+           *ngIf="modeIndicator.mode === 'competitive'">
         <div class="flex-layout" fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="start center">
           <div class="flex-layout text-center" fxLayout="column" fxFlex>
             <span class="mat-caption text-uppercase">-</span>
