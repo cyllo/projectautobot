@@ -2,17 +2,22 @@
 
   <div class="flex-layout pt-3" fxLayout="column" fxFlex fxFlex.lt-md="grow">
 
-    <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" fxFlex="noshrink">
-      <div class="flex-layout" fxLayout="column" fxFlex="64px">
-        <div class="flex-layout" fxLayout="row">
+    <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="14px" fxFlex="noshrink">
+
+      <div class="flex-layout" fxLayout="column" fxFlex="initial">
+        <div class="avatar px-3 py-3 flex-layout" fxLayout="row">
           <div class="flex-layout" fxLayout="column" fxFlex>
-            <img class="md-image md-image-64"
-                 draggable="false"
-                 [src]="profile.portraitUrl">
+            <img class="md-image md-image-64" draggable="false" [src]="profile.portraitUrl">
+          </div>
+        </div>
+        <div class="level flex-layout" fxLayout="row">
+          <div class="flex-layout text-center" fxLayout="column" fxFlex>
+            <span class="mat-caption py-1">{{profile.level}}</span>
           </div>
         </div>
       </div>
-      <div class="header flex-layout" fxLayout="column" fxLayoutGap="4px" fxFlex>
+
+      <div class="flex-layout" fxLayout="column"fxFlex>
         <div class="flex-layout" fxLayout="row">
           <div class="flex-layout" fxLayout="column" fxFlex>
             <span class="mat-caption">{{ profile.tag }}</span>
@@ -29,33 +34,33 @@
           </div>
         </div>
       </div>
-    </div><!-- end row -->
 
-    <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" fxFlex="noshrink">
-      <div class="player-level flex-layout" fxLayout="column" fxLayoutAlign="center center" fxFlex="64px">
-        <span class="mat-caption py-1">{{profile.level}}</span>
-      </div>
-      <div class="flex-layout" fxLayout="column" fxFlex>
-        <!-- spacer -->
-      </div>
     </div><!-- end row -->
 
   </div><!-- end column -->
 
   <div class="flex-layout pt-3" fxLayout="column" fxFlex fxFlex.lt-md="grow">
 
-    <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
+    <div class="flex-layout"
+         fxLayout="row"
+         fxLayoutAlign="end center"
+         fxLayoutAlign.lt-lg="start center"
+         fxLayoutWrap>
 
-      <div class="flex-layout px-3" fxLayout="column" fxLayoutAlign="center center" fxFlex *ngIf="modeIndicator.mode === 'competitive'; else noSRBlock">
-        <div class="flex-layout" fxLayout="row">
-          <div class="flex-layout" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase">99th</span>
+      <div class="stat-block flex-layout pt-3"
+           fxLayout="column"
+           fxFlex="190px"
+           fxFlex.lt-lg
+           fxFlex.lt-md="50%">
+        <div class="flex-layout" fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="start center">
+          <div class="flex-layout text-center" fxLayout="column" fxFlex>
+            <span class="mat-caption text-uppercase">-</span>
           </div>
-          <div class="flex-layout text-right" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase danger">-0.25%</span>
+          <div class="flex-layout text-center" fxLayout="column" fxFlex>
+            <span class="mat-caption text-uppercase">-</span>
           </div>
         </div>
-        <div class="flex-layout" fxLayout="row" fxLayoutGap="4px" fxLayoutAlign="center center" fxFlex="30px">
+        <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center" fxFlex="48px">
           <div class="flex-layout" fxLayout="column" fxFlex="initial">
             <img class="md-image" [src]="profile.competitiveRankUrl">
           </div>
@@ -63,91 +68,77 @@
             <span class="mat-title mb-0"><strong>{{ profile.competitiveLevel}}</strong></span>
           </div>
         </div>
-        <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center">
-          <div class="flex-layout" fxLayout="column" fxFlex="initial">
+        <div class="stat-name flex-layout" fxLayout="row" fxLayoutAlign="start center">
+          <div class="flex-layout text-center py-2" fxLayout="column" fxFlex>
             <span class="mat-caption text-uppercase">Skill Rating</span>
           </div>
         </div>
       </div>
 
-      <ng-template #noSRBlock>
-        <div class="flex-layout px-3" fxLayout="column" fxFlex fxLayoutAlign="center center"> -- </div>
-      </ng-template>
-
-      <div class="flex-layout px-3" fxLayout="column" fxLayoutAlign="center center" fxFlex *ngIf="modeIndicator.mode === 'competitive'; else noRankBlock">
-        <div class="flex-layout" fxLayout="row">
-          <div class="flex-layout" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase">99th</span>
+      <div class="stat-block flex-layout pt-3"
+           fxLayout="column"
+           fxFlex="190px"
+           fxFlex.lt-lg
+           fxFlex.lt-md="50%">
+        <div class="flex-layout" fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="start center">
+          <div class="flex-layout text-center" fxLayout="column" fxFlex>
+            <span class="mat-caption text-uppercase">-</span>
           </div>
-          <div class="flex-layout text-right" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase success">+0.11%</span>
+          <div class="flex-layout text-center" fxLayout="column" fxFlex>
+            <span class="mat-caption text-uppercase">-</span>
           </div>
         </div>
-        <div class="flex-layout" fxLayout="row" fxLayoutGap="4px" fxLayoutAlign="center center" fxFlex="30px">
+        <div class="flex-layout" fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="center center" fxFlex="48px">
           <div class="flex-layout" fxLayout="column" fxFlex="initial">
-            <span class="mat-title mb-0"><strong>23</strong></span>
+            <span class="mat-title mb-0">
+              <strong>
+                {{ profile[modeIndicator.mode].heroesTotalSnapshotStatistic.gameHistoryStatistic.gamesWon }}
+              </strong>
+            </span>
           </div>
         </div>
-        <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center">
-          <div class="flex-layout" fxLayout="column" fxFlex="initial">
-            <span class="mat-caption text-uppercase">US Ranking</span>
-          </div>
-        </div>
-      </div>
-
-      <ng-template #noRankBlock>
-        <div class="flex-layout px-3" fxLayout="column" fxFlex fxLayoutAlign="center center"> -- </div>
-      </ng-template>
-
-      <div class="flex-layout px-3" fxLayout="column" fxFlex fxLayoutAlign="center center">
-        <div class="flex-layout" fxLayout="row">
-          <div class="flex-layout" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase">99th</span>
-          </div>
-          <div class="flex-layout text-right" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase warning">-0.01%</span>
-          </div>
-        </div>
-        <div class="flex-layout" fxLayout="row" fxLayoutGap="4px" fxLayoutAlign="center center" fxFlex="30px">
-          <div class="flex-layout" fxLayout="column" fxFlex="initial">
-            <span class="mat-title mb-0"><strong>{{ profile[modeIndicator.mode].heroesTotalSnapshotStatistic.gameHistoryStatistic.gamesWon }}</strong></span>
-          </div>
-        </div>
-        <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center">
-          <div class="flex-layout" fxLayout="column" fxFlex="initial">
+        <div class="stat-name flex-layout" fxLayout="row" fxLayoutAlign="start center">
+          <div class="flex-layout text-center py-2" fxLayout="column" fxFlex>
             <span class="mat-caption text-uppercase">Wins</span>
           </div>
         </div>
       </div>
 
-      <div class="flex-layout px-3" fxLayout="column" fxFlex fxLayoutAlign="center center">
-        <div class="flex-layout" fxLayout="row">
-          <div class="flex-layout" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase">99th</span>
+      <div class="stat-block flex-layout pt-3"
+           fxLayout="column"
+           fxFlex="190px"
+           fxFlex.lt-lg
+           fxFlex.lt-md="50%">
+        <div class="flex-layout" fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="start center">
+          <div class="flex-layout text-center" fxLayout="column" fxFlex>
+            <span class="mat-caption text-uppercase">-</span>
           </div>
-          <div class="flex-layout text-right" fxLayout="column" fxFlex>
+          <div class="flex-layout text-center" fxLayout="column" fxFlex>
             <span class="mat-caption text-uppercase">-</span>
           </div>
         </div>
-        <div class="flex-layout" fxLayout="row" fxLayoutGap="4px" fxLayoutAlign="center center" fxFlex="30px">
+        <div class="flex-layout" fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="center center" fxFlex="48px">
           <div class="flex-layout" fxLayout="column" fxFlex="initial">
-            <span class="mat-title mb-0"><strong>{{ profile[modeIndicator.mode].heroesTotalSnapshotStatistic.gameHistoryStatistic.timePlayed | owSecondsToHours }}</strong></span>
-          </div>
-          <div class="flex-layout" fxLayout="column" fxFlex="initial">
-            <span class="mat-caption text-uppercase">hrs</span>
+            <div>
+              <span class="mat-title mb-0">
+                <strong>
+                  {{ profile[modeIndicator.mode].heroesTotalSnapshotStatistic.gameHistoryStatistic.timePlayed | owSecondsToHours }}
+                </strong>
+              </span>
+              <span class="mat-caption">hrs</span>
+            </div>
           </div>
         </div>
-        <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center">
-          <div class="flex-layout" fxLayout="column" fxFlex="initial">
+        <div class="stat-name flex-layout" fxLayout="row" fxLayoutAlign="start center">
+          <div class="flex-layout text-center py-2" fxLayout="column" fxFlex>
             <span class="mat-caption text-uppercase">Play Time</span>
           </div>
         </div>
       </div>
 
+    </div>
 
-    </div><!-- end row -->
-
-  </div><!-- end column -->
+  </div>
 
 
 </div>

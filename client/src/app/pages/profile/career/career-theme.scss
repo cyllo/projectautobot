@@ -1,11 +1,45 @@
-@mixin ow-profile-career-component-theme($theme) {
+@mixin ow-profile-stat-block-theme($theme) {
+
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
+
+}
+
+@mixin ow-profile-avatar-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .avatar {
+    background-color: mat-color($mat-grey, 100);
+    color: mat-color($primary, default-contrast);
+  }
+
+}
+
+@mixin ow-profile-level-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .level {
+    background-color: mat-color($primary);
+    color: mat-color($primary, default-contrast);
+  }
+
 }
 
 @mixin ow-profile-career-theme($theme) {
-  @include ow-profile-career-component-theme($theme);
+  .career {
+    @include ow-profile-avatar-theme($theme);
+    @include ow-profile-level-theme($theme);
+    @include ow-profile-stat-block-theme($theme);
+  }
 }

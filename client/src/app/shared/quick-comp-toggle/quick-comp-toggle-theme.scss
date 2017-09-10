@@ -1,0 +1,20 @@
+@mixin ow-quick-comp-toggle-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .quick-comp-toggle {
+
+    .mat-primary {
+      color: mat-color($primary);
+    }
+
+    .mat-accent {
+      color: mat-color($accent);
+    }
+
+  }
+
+}

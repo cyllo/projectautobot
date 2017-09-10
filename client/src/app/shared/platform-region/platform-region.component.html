@@ -1,13 +1,10 @@
-<div class="platform-region" fxLayout="row" fxLayoutGap.gt-sm="30px" *ngIf="currentProfile" fxLayoutWrap>
+<div class="platform-region" fxLayout="row" fxLayoutGap="14px" *ngIf="currentProfile" fxLayoutWrap>
 
-  <div fxLayout="column"
-       fxFlex.lt-sm="100%"
-       fxFlex.lt-md="50%"
-       fxFlex.gt-sm="initial">
+  <div class="pt-3" fxLayout="column" fxLayoutGap="8px" fxFlex.lt-sm="100%" fxFlex.lt-md="50%" fxFlex.gt-sm="initial">
     <div fxLayout="row">
       <span class="mat-caption text-uppercase">Platform</span>
     </div>
-    <div fxLayout="row">
+    <div fxLayout="row" fxLayoutGap="8px">
       <div fxLayout="column" *ngFor="let platform of activePlatforms | async">
         <button md-button class="min-width-0"
                 [class.mat-primary]="currentProfile.platform === platform.code"
@@ -20,14 +17,11 @@
     </div>
   </div>
 
-  <div fxLayout="column"
-       fxFlex.lt-sm="100%"
-       fxFlex.lt-md="50%"
-       fxFlex.gt-sm="initial">
+  <div class="pt-3" fxLayout="column" fxLayoutGap="8px" fxFlex.lt-sm="100%" fxFlex.lt-md="50%" fxFlex.gt-sm="initial">
     <div fxLayout="row">
       <span class="mat-caption text-uppercase">Region</span>
     </div>
-    <div fxLayout="row">
+    <div fxLayout="row" fxLayoutGap="8px">
       <div fxLayout="column" *ngFor="let region of activeRegions | async">
         <button md-button class="min-width-0"
                 [class.mat-primary]="currentProfile.region === region.code"

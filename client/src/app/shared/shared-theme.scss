@@ -1,5 +1,9 @@
 @import './hero-portrait/hero-portrait-theme';
+@import './platform-region/platform-region-theme';
+@import './quick-comp-toggle/quick-comp-toggle-theme';
 
 @mixin ow-shared-theme($theme) {
+  @include ow-platform-region-theme($theme);
   @include ow-hero-portrait-theme($theme);
+  @include ow-quick-comp-toggle-theme($theme);
 }
