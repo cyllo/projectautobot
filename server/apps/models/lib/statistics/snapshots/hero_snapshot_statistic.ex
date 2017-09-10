@@ -109,7 +109,6 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
             games_lost: avg(hghs.games_lost),
             games_tied: avg(hghs.games_tied),
             time_played: avg(hghs.time_played),
-            time_spent_on_fire: avg(hghs.time_spent_on_fire),
             win_percentage: avg(hghs.win_percentage)
           },
 
