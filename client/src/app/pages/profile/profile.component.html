@@ -71,7 +71,12 @@
     <div class="profile-content flex-layout" fxLayout="column" fxFlex>
       <md-tab-group [(selectedIndex)]="selectedTabIndex">
         <md-tab label="Overview">
-          <ow-profile-overview [profile]="currentProfile" [modeIndicator]="modeIndicator | async"></ow-profile-overview>
+          <div class="px-3 py-3">
+            <ow-profile-overview
+              [profile]="currentProfile"
+              [modeIndicator]="modeIndicator | async">
+            </ow-profile-overview>
+          </div>
         </md-tab>
         <md-tab label="Heroes">
           <div class="flex-layout py-3" fxLayout="row" fxLayoutGap="14px">

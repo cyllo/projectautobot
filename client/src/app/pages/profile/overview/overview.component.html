@@ -1,11 +1,24 @@
-<div class="overview flex-layout py-3" fxLayout="row" fxLayoutWrap>
+<div class="overview flex-layout" fxLayout="row" fxLayoutWrap>
+
+  <div class="flex-layout" fxLayout="column">
+    <div class="flex-layout pt-3" fxLayout="row" *ngFor="let hero of heroStatistics">
+      <div class="flex-layout" fxLayout="column" fxFlex>
+        <ow-hero-card [hero]="hero"></ow-hero-card>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- <div class="overview flex-layout py-3" fxLayout="row" fxLayoutWrap>
   <div class="flex-layout px-3" fxLayout="column" fxFlex="300px" fxFlex.lt-lg="100%">
     <div class="flex-layout" fxLayout="row" fxLayoutWrap>
       <div class="flex-layout pt-3" fxLayout="column" fxFlex="100%" fxFlex.lt-lg="50%" fxFlex.lt-md="100%">
         <ow-skill-rating-trend [skillRatingTrend]="skillRatingTrend"></ow-skill-rating-trend>
       </div>
       <div class="flex-layout pt-3" fxLayout="column" fxFlex="100%" fxFlex.lt-lg="50%" fxFlex.lt-md="100%">
-        <!-- <ow-recently-played></ow-recently-played> -->
+        <ow-recently-played></ow-recently-played>
       </div>
       <div class="flex-layout pt-3" fxLayout="column" fxFlex="100%" fxFlex.lt-lg="50%" fxFlex.lt-md="100%">
         <ow-lifetime-stats [lifetimeStats]="lifeTimeStats" [gameHistory]="gameHistory"></ow-lifetime-stats>
@@ -55,4 +68,4 @@
 
     </div>
   </div>
-</div>
+</div> -->

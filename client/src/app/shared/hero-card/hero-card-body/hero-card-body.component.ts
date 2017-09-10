@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ow-hero-card-body',
@@ -6,8 +6,13 @@ import { Component, Input } from '@angular/core';
   styleUrls: [ 'hero-card-body.component.scss' ]
 })
 
-export class HeroCardBodyComponent {
+export class HeroCardBodyComponent implements OnInit {
   @Input() hero: any;
 
   constructor() {}
+
+  ngOnInit() {
+    console.log('derp', this.hero);
+  }
+
 }

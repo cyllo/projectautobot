@@ -1,0 +1,25 @@
+@import './hero-card-header/hero-card-header-theme';
+@import './hero-card-body/hero-card-body-theme';
+
+@mixin ow-hero-card-theme($theme) {
+
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  $border-color: mat-color($mat-grey, 200);
+
+  .hero-card {
+
+    @include ow-hero-card-header-theme($theme);
+    @include ow-hero-card-body-theme($theme);
+
+    border-left: 1px solid $border-color;
+    border-right: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+
+  }
+
+}

@@ -1,0 +1,36 @@
+@mixin ow-hero-card-body-mat-slider-theme($theme) {
+
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .mat-slider {
+
+    height: 20px;
+    padding: 0;
+
+    .mat-slider-wrapper {
+      top: 9px;
+      left: 0px;
+      right: 16px;
+    }
+
+    &.mat-slider-disabled {
+      .mat-slider-thumb {
+        background-color: mat-color($primary);
+      }
+    }
+
+  }
+
+}
+
+@mixin ow-hero-card-body-theme($theme) {
+
+  .hero-card-body {
+    @include ow-hero-card-body-mat-slider-theme($theme);
+  }
+
+}

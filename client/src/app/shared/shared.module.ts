@@ -14,7 +14,8 @@ import { MdIconModule,
          MdSlideToggleModule,
          MdProgressBarModule,
          MdTooltipModule,
-         MdRadioModule } from '@angular/material';
+         MdRadioModule,
+         MdSliderModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { PipeModule } from '../pipes';
@@ -69,7 +70,8 @@ import { ChartsModule } from 'ng2-charts';
     MdSlideToggleModule,
     MdProgressBarModule,
     MdTooltipModule,
-    MdRadioModule
+    MdRadioModule,
+    MdSliderModule
   ],
   declarations: [
     VideoCardComponent,

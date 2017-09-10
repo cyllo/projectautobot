@@ -8,6 +8,9 @@ import { Component, Input } from '@angular/core';
 
 export class HeroCardHeaderComponent {
   @Input() hero: any;
-  constructor() {}
+
+  constructor() {
+    console.log(this.hero);
+  }
 
 }
