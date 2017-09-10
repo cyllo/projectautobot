@@ -4,6 +4,7 @@ import { divide } from 'ramda';
 @Pipe({ name: 'owAverageMatchLength' })
 export class AverageMatchLength implements PipeTransform {
   transform(seconds: number, matches: number) {
-    return Math.ceil(divide(seconds, matches));
+    const matchLength = Math.ceil(divide(seconds, matches));
+    return Number.isFinite(matchLength) ? matchLength : 0;
   }
 }
