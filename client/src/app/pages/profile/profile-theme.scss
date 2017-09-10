@@ -9,22 +9,14 @@
   $warn: map-get($theme, warn);
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
-
-  .profile {
-
-    .header {
-      background-color: mat-color($primary);
-      color: mat-color($primary, default-contrast);
-    }
-
-  }
-
 }
 
 @mixin ow-profile-theme($theme) {
-  @include ow-profile-career-theme($theme);
-  @include ow-snapshots-theme($theme);
-  @include ow-overview-theme($theme);
-  @include ow-heroes-theme($theme);
-  @include ow-profile-component-theme($theme);
+  .profile {
+    @include ow-profile-career-theme($theme);
+    @include ow-snapshots-theme($theme);
+    @include ow-overview-theme($theme);
+    @include ow-heroes-theme($theme);
+    @include ow-profile-component-theme($theme);
+  }
 }

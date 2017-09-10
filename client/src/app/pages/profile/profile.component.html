@@ -1,28 +1,33 @@
-<div
-  class="profile flex-layout px-3"
-  fxLayout="column"
-  fxLayoutGap="14px"
-  fxFlex
-  *ngIf="displayProfile | async as currentProfile; else loadingBlock">
+<div class="profile flex-layout" fxLayout="column" fxLayoutGap="30px" fxFlex *ngIf="displayProfile | async as currentProfile; else loadingBlock">
 
-  <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
+  <div class="header flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
 
     <div class="flex-layout" fxLayout="column" fxFlex>
 
-      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap>
-        <div class="flex-layout pt-3 px-3"
+      <div class="flex-layout" fxLayout="row" fxLayoutGap="14px" fxLayoutWrap>
+        <div class="flex-layout pt-3" fxLayout="column" fxFlex="initial" fxFlex.lt-md="100%">
+          <ow-platform-region
+            [players]="players"
+            [currentProfile]="currentProfile"
+            (change)="changeProfile$.next($event)">
+          </ow-platform-region>
+        </div>
+        <div class="flex-layout"
+             ngClass.gt-sm="game-mode-toggle-offset"
+             ngClass.lt-md="pt-3"
              fxLayout="column"
              fxFlex="initial"
-             fxFlex.lt-md="grow">
-          <ow-platform-region [players]="players" [currentProfile]="currentProfile" (change)="changeProfile$.next($event)"></ow-platform-region>
-        </div><!-- end col -->
-        <div class="flex-layout pt-3 px-3"
+             fxFlex.lt-md="100%">
+          <ow-game-mode-toggle
+            (gameMode)="selectedGameMode$.next($event)"
+            [modeIndicator]="modeIndicator">
+          </ow-game-mode-toggle>
+        </div>
+        <div class="flex-layout"
+             ngClass.gt-sm="user-actions-offset"
+             ngClass.lt-md="pt-3"
              fxLayout="column"
-             fxFlex="initial"
-             fxFlex.lt-md="grow">
-          <ow-game-mode-toggle (gameMode)="selectedGameMode$.next($event)" [modeIndicator]="modeIndicator"></ow-game-mode-toggle>
-        </div><!-- end col -->
-        <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex fxFlex.lt-lg="grow">
+             fxFlex fxFlex.lt-lg="100%">
           <div class="flex-layout"
                fxLayout="row"
                fxLayoutAlign="end center"
@@ -30,25 +35,25 @@
                fxLayoutGap="14px"
                fxFlex="noshrink">
             <div class="flex-layout" fxLayout="column" fxFlex="initial">
-              <button md-button fxLayoutAlign="center center" (click)="reScrapeProfile$.next()">
+              <button color="primary" md-button fxLayoutAlign="center center" (click)="reScrapeProfile$.next()">
                 <md-icon class="md-18 mr-1">refresh</md-icon>
                 <span class="mat-caption text-uppercase">Renew</span>
               </button>
-            </div><!-- end column -->
+            </div>
             <div class="flex-layout" fxLayout="column" fxFlex="initial">
-              <button md-button fxLayoutAlign="center center">
+              <button color="primary" md-button fxLayoutAlign="center center">
                 <md-icon class="md-18 mr-1">share</md-icon>
                 <span class="mat-caption text-uppercase">Share</span>
               </button>
-            </div><!-- end column -->
+            </div>
             <div class="flex-layout" fxLayout="column" fxFlex="initial">
-              <button md-button fxLayoutAlign="center center">
+              <button class="battle-net" md-button fxLayoutAlign="center center">
                 <md-icon class="md-18 mr-1">link</md-icon>
                 <span class="mat-caption text-uppercase">Claim with Battle.net</span>
               </button>
-            </div><!-- end column -->
-          </div><!-- end row -->
-        </div><!-- end col -->
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="flex-layout" fxLayout="row">
@@ -59,11 +64,11 @@
 
     </div>
 
-  </div><!-- end row -->
+  </div>
 
   <div class="flex-layout" fxLayout="row" fxFlex="noshrink">
 
-    <div class="flex-layout" fxLayout="column" fxFlex>
+    <div class="profile-content flex-layout" fxLayout="column" fxFlex>
       <md-tab-group [(selectedIndex)]="selectedTabIndex">
         <md-tab label="Overview">
           <ow-profile-overview [profile]="currentProfile" [modeIndicator]="modeIndicator | async"></ow-profile-overview>
@@ -92,7 +97,7 @@
       </md-tab-group>
     </div>
 
-  </div><!-- end row -->
+  </div>
 
 </div><!-- end .profile -->
 
