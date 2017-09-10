@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'ow-recent-sessions',
@@ -7,10 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class RecentSessionComponent implements OnInit {
-
-  sessions = [1, 2, 3];
-  heroesPlayed = [1, 2, 3, 4, 5];
-
+  @Input() recentSnapshots: any[];
   constructor() {}
 
   ngOnInit() {}

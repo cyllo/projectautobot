@@ -7,15 +7,15 @@
     </div>
     <div class="flex-layout" fxLayout="row" fxLayoutWrap>
 
-      <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="50%" fxLayoutGap="8px" *ngFor="let hero of derp">
+      <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="50%" fxLayoutGap="8px" *ngFor="let hero of mostPlayedHeroes">
         <div class="flex-layout" fxLayout="row" fxFlex="noshrink" fxLayoutAlign="start center" fxLayoutGap="8px">
           <div class="flex-layout" fxLayout="column" fxFlex="initial">
-            <ow-hero-portrait [class]="'md-image-64'" [owCode]="'0x02E0000000000008'"></ow-hero-portrait>
+            <ow-hero-portrait [class]="'md-image-64'" [owCode]="hero.hero.code"></ow-hero-portrait>
           </div>
           <div class="flex-layout" fxLayout="column" fxFlex>
             <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
               <div class="flex-layout" fxLayout="column" fxFlex>
-                <span><strong>Pharah</strong></span>
+                <span><strong>{{hero.hero.name}}</strong></span>
               </div>
             </div>
             <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
@@ -23,7 +23,7 @@
                 <md-icon class="md-14" svgIcon="role_offense"></md-icon>
               </div>
               <div class="flex-layout" fxLayout="column" fxFlex>
-                <span class="mat-caption text-uppercase">Offense</span>
+                <span class="mat-caption text-uppercase">{{hero.hero.role}}</span>
               </div>
             </div>
             <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
@@ -31,7 +31,7 @@
                 <span class="mat-caption text-uppercase">Win Rate</span>
               </div>
               <div class="flex-layout" fxLayout="column" fxFlex="initial">
-                <span class="mat-caption text-uppercase">40.56%</span>
+                <span class="mat-caption text-uppercase">{{ hero.gameHistoryStatistic?.winPercentage | owParsePercent }}%</span>
               </div>
             </div>
           </div>
@@ -41,7 +41,7 @@
             <span class="mat-caption text-uppercase">K/D Ratio</span>
           </div>
           <div class="flex-layout" fxLayout="column" fxFlex="initial">
-            <span class="mat-caption text-uppercase">2.37:1</span>
+            <span class="mat-caption text-uppercase">{{ hero.combatLifetimeStatistic.eliminations | owKillDeathAverage:hero.combatLifetimeStatistic.deaths }}:1</span>
           </div>
         </div>
         <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
@@ -49,7 +49,7 @@
             <span class="mat-caption text-uppercase">Kills/Deaths</span>
           </div>
           <div class="flex-layout" fxLayout="column" fxFlex="initial">
-            <span class="mat-caption text-uppercase">2356 / 236</span>
+            <span class="mat-caption text-uppercase">{{ hero.combatLifetimeStatistic.eliminations }} / {{ hero.combatLifetimeStatistic.deaths }}</span>
           </div>
         </div>
         <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
@@ -57,7 +57,7 @@
             <span class="mat-caption text-uppercase">Wins</span>
           </div>
           <div class="flex-layout" fxLayout="column" fxFlex="initial">
-            <span class="mat-caption text-uppercase">137</span>
+            <span class="mat-caption text-uppercase">{{ hero.gameHistoryStatistic?.gamesWon }}</span>
           </div>
         </div>
       </div>

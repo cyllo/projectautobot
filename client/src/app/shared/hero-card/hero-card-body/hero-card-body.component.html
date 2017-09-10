@@ -1,21 +1,71 @@
 <div class="hero-card-body flex-layout" fxLayout="column" fxFlex>
   <div class=" flex-layout" fxLayout="row" fxLayoutWrap>
-    <div class="flex-layout pt-3 px-2" fxLayout="column" fxFlex="16.666%" *ngFor="let stat of stats">
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <span class="mat-caption"><strong>{{ stat.value }}</strong></span>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <md-progress-bar mode="determinate" value="50"></md-progress-bar>
-        </div>
-      </div>
-      <div class="flex-layout pt-1" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <span class="stat-name text-uppercase">{{ stat.name }}</span>
-        </div>
-      </div>
+    
+    <div class="flex-layout pt-3 px-2" fxLayout="column" fxFlex="16.666%" fxLayoutAlign="space-around start">
+      <span class="mat-caption"><strong>{{ hero.gameAverageStatistic?.eliminationsAvgPer10Min }}/min</strong></span>
+      <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+      <span class="stat-name text-uppercase">Kills</span>
     </div>
+
+    <div class="flex-layout pt-3 px-2" fxLayout="column" fxFlex="16.666%" fxLayoutAlign="space-around start">
+      <span class="mat-caption"><strong>{{ hero.gameAverageStatistic?.defensiveAssistsAvgPer10Min }}/min</strong></span>
+      <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+      <span class="stat-name text-uppercase">Defensive Assists</span>
+    </div>
+
+    <div class="flex-layout pt-3 px-2" fxLayout="column" fxFlex="16.666%" fxLayoutAlign="space-around start">
+      <span class="mat-caption"><strong>{{ hero.gameAverageStatistic?.offensiveAssistsAvgPer10Min }}/min</strong></span>
+      <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+      <span class="stat-name text-uppercase">Offensive Assists</span>
+    </div>
+
+    <div class="flex-layout pt-3 px-2" fxLayout="column" fxFlex="16.666%" fxLayoutAlign="space-around start">
+      <span class="mat-caption"><strong>{{ hero.gameAverageStatistic?.deathsAvgPer10Min }}/min</strong></span>
+      <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+      <span class="stat-name text-uppercase">Deaths</span>
+    </div>
+
+    <div class="flex-layout pt-3 px-2" fxLayout="column" fxFlex="16.666%" fxLayoutAlign="space-around start">
+      <span class="mat-caption"><strong>800</strong></span>
+      <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+      <span class="stat-name text-uppercase">K/D Ratio</span>
+    </div>
+
+    <div class="flex-layout pt-3 px-2" fxLayout="column" fxFlex="16.666%" fxLayoutAlign="space-around start">
+      <span class="mat-caption"><strong>{{ hero.combatLifetimeStatistic?.weaponAccuracyPercentage }}%</strong></span>
+      <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+      <span class="stat-name text-uppercase">Accuracy</span>
+    </div>
+
+    <div class="flex-layout pt-3 px-2" fxLayout="column" fxFlex="16.666%" fxLayoutAlign="space-around start">
+      <span class="mat-caption"><strong>{{ hero.gameAverageStatistic?.heroDamageDoneAvgPer10Min }}/min</strong></span>
+      <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+      <span class="stat-name text-uppercase">Hero Damage</span>
+    </div>
+
+    <div class="flex-layout pt-3 px-2" fxLayout="column" fxFlex="16.666%" fxLayoutAlign="space-around start">
+      <span class="mat-caption"><strong>{{ hero.gameAverageStatistic?.damageBlockedAvgPer10Min }}/min</strong></span>
+      <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+      <span class="stat-name text-uppercase">Blocked</span>
+    </div>
+
+    <div class="flex-layout pt-3 px-2" fxLayout="column" fxFlex="16.666%" fxLayoutAlign="space-around start">
+      <span class="mat-caption"><strong>{{ hero.gameAverageStatistic?.healingDoneAvgPer10Min }}/min</strong></span>
+      <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+      <span class="stat-name text-uppercase">Healing</span>
+    </div>
+
+    <div class="flex-layout pt-3 px-2" fxLayout="column" fxFlex="16.666%" fxLayoutAlign="space-around start">
+      <span class="mat-caption"><strong>{{ hero.gameAverageStatistic?.criticalHitsAvgPer10Min }}/min</strong></span>
+      <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+      <span class="stat-name text-uppercase">Crits</span>
+    </div>
+
+    <div class="flex-layout pt-3 px-2" fxLayout="column" fxFlex="16.666%" fxLayoutAlign="space-around start">
+      <span class="mat-caption"><strong>{{ hero.gameAverageStatistic?.objectiveKillsAvgPer10Min }}/min</strong></span>
+      <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+      <span class="stat-name text-uppercase">Obj. Kills</span>
+    </div>
+
   </div>
 </div>

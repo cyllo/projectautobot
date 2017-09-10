@@ -12,14 +12,11 @@ fragment CombatBestStatistic on CombatBestStatistic {
   meleeKillsMostInGame
   meleeFinalBlowsMostInGame
   killStreakBest
-  healingDoneMostInLife
   healingDoneMostInGame
   finalBlowsMostInGame
   eliminationsMostInLife
   eliminationsMostInGame
   defensiveAssistsMostInGame
-  damageDoneMostInLife
-  damageDoneMostInGame
   damageBlockedMostInGame
   criticalHitsMostInLife
   criticalHitsMostInGame

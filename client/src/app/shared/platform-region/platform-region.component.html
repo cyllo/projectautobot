@@ -7,11 +7,11 @@
     <div fxLayout="row" fxLayoutGap="8px">
       <div fxLayout="column" *ngFor="let platform of activePlatforms | async">
         <button md-button class="min-width-0"
-                [class.mat-primary]="currentProfile.platform === platform.code"
-                [class.mat-accent]="platform.enabled && currentProfile.platform !== platform.code"
+                [class.mat-primary]="currentProfile.platform === platform.name"
+                [class.mat-accent]="platform.enabled && currentProfile.platform !== platform.name"
                 [disabled]="!platform.enabled"
                 (click)="changePlatform$.next(platform.name)">
-          {{ platform.name | uppercase }}
+          {{ platform.name }}
         </button>
       </div>
     </div>
@@ -23,12 +23,12 @@
     </div>
     <div fxLayout="row" fxLayoutGap="8px">
       <div fxLayout="column" *ngFor="let region of activeRegions | async">
-        <button md-button class="min-width-0"
-                [class.mat-primary]="currentProfile.region === region.code"
-                [class.mat-accent]="region.enabled && currentProfile.region !== region.code"
+        <button md-button class="min-width-0 "
+                [class.mat-primary]="currentProfile.region === region.name"
+                [class.mat-accent]="region.enabled && currentProfile.region !== region.name"
                 [disabled]="!region.enabled"
                 (click)="changeRegion$.next(region.name)">
-          {{ region.name | uppercase }}
+          {{ region.name }}
         </button>
       </div>
     </div>

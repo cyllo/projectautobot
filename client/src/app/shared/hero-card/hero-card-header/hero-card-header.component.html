@@ -6,12 +6,13 @@
   </div>
   <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
     <div class="flex-layout" fxLayout="column" fxFlex="initial">
-      <ow-hero-portrait [class]="'md-image-64'" [owCode]="'0x02E0000000000008'"></ow-hero-portrait>
+      <ow-hero-portrait [class]="'md-image-64'" [owCode]="hero.hero.code"></ow-hero-portrait>
     </div>
+    
     <div class="flex-layout" fxLayout="column" fxFlex="30%">
       <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
         <div class="flex-layout" fxLayout="column" fxFlex>
-          <span><strong>Pharah</strong></span>
+          <span><strong>{{ hero.hero.name }}</strong></span>
         </div>
       </div>
       <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
@@ -19,10 +20,11 @@
           <md-icon class="md-14" svgIcon="role_offense"></md-icon>
         </div>
         <div class="flex-layout" fxLayout="column" fxFlex="initial">
-          <span class="mat-caption text-uppercase">Offense</span>
+          <span class="mat-caption text-uppercase">{{ hero.hero.role }}</span>
         </div>
       </div>
     </div>
+
     <div class="flex-layout" fxLayout="column" fxFlex>
       <div class="flex-layout" fxLayout="row" fxLayoutAlign="end center">
 
@@ -35,11 +37,12 @@
               <span class="mat-caption text-uppercase danger">-0.25%</span>
             </div>
           </div>
+          
           <div class="flex-layout" fxLayout="row" fxLayoutGap="4px" fxLayoutAlign="center center" fxFlex="30px">
             <div class="flex-layout" fxLayout="column" fxFlex="initial">
               <div class="flex-layout" fxLayout="row">
                 <div class="flex-layout" fxLayout="column" fxFlex>
-                  <span class="mat-caption text-uppercase"><strong>4712 Hrs</strong></span>
+                  <span class="mat-caption text-uppercase"><strong>{{ hero.combatLifetimeStatistic?.timeSpentOnFire | owSecondsToHours }} Hrs</strong></span>
                 </div>
               </div>
               <div class="flex-layout" fxLayout="row">
@@ -49,6 +52,7 @@
               </div>
             </div>
           </div>
+
           <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center">
             <div class="flex-layout" fxLayout="column" fxFlex="initial">
               <span class="mat-caption text-uppercase">On Fire</span>
@@ -68,9 +72,9 @@
           <div class="flex-layout" fxLayout="row" fxLayoutGap="4px" fxLayoutAlign="center center" fxFlex="30px">
             <div class="flex-layout" fxLayout="column" fxFlex="initial">
               <div>
-                <span class="gold">12</span>
-                <span class="silver">8</span>
-                <span class="bronze">128</span>
+                <span class="gold">{{ hero.matchAwardsStatistic?.goldMedals }}</span>
+                <span class="silver">{{ hero.matchAwardsStatistic?.silverMedals }}</span>
+                <span class="bronze">{{ hero.matchAwardsStatistic?.bronzeMedals }}</span>
               </div>
             </div>
           </div>
@@ -92,7 +96,7 @@
           </div>
           <div class="flex-layout" fxLayout="row" fxLayoutGap="4px" fxLayoutAlign="center center" fxFlex="30px">
             <div class="flex-layout" fxLayout="column" fxFlex="initial">
-              <span><strong>4712</strong></span>
+              <span><strong>{{ hero.gameHistoryStatistic?.gamesWon }}</strong></span>
             </div>
           </div>
           <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center">

@@ -1,0 +1,20 @@
+fragment GameAverageStatistic on GameAverageStatistic {
+  allDamageDoneAvgPer10Min
+  barrierDamageDoneAvgPer10Min
+  criticalHitsAvgPer10Min
+  damageBlockedAvgPer10Min
+  deathsAvgPer10Min
+  defensiveAssistsAvgPer10Min
+  eliminationsAvgPer10Min
+  finalBlowsAvgPer10Min
+  healingDoneAvgPer10Min
+  heroDamageDoneAvgPer10Min
+  id
+  meleeFinalBlowsAvgPer10Min
+  objectiveKillsAvgPer10Min
+  objectiveTimeAvgPer10Min
+  offensiveAssistsAvgPer10Min
+  selfHealingAvgPer10Min
+  soloKillsAvgPer10Min
+  timeSpentOnFireAvgPer10Min
+}

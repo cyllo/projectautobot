@@ -1,3 +1,4 @@
+
 export interface ProfileStatistic {
   competitiveLevel: number;
   competitiveRankUrl: string;

@@ -4,7 +4,7 @@
       <div class="flex-layout" fxLayout="column" fxFlex>
         <div>
           <span class="text-uppercase mr-1"><strong>Overall Performance</strong></span>
-          <span class="mat-caption">Statistics are lifetime per min averages.</span>
+          <span class="mat-caption">Statistics are lifetime per 10 min averages.</span>
         </div>
       </div>
     </div>
@@ -29,7 +29,7 @@
           <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="33.333%" fxFlex.lt-lg="25%">
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex="initial">
-                <span><strong>800</strong></span>
+                <span><strong>{{ totalGameAverage.eliminationsAvgPer10Min }}</strong></span>
               </div>
             </div>
             <div class="flex-layout" fxLayout="row">
@@ -47,7 +47,7 @@
           <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="33.333%" fxFlex.lt-lg="25%">
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex="initial">
-                <span><strong>N/A</strong></span>
+                <span><strong>{{ totalGameAverage.eliminationsAvgPer10Min | owKillDeathAverage:totalGameAverage.deathsAvgPer10Min }}</strong></span>
               </div>
             </div>
             <div class="flex-layout" fxLayout="row">
@@ -65,7 +65,7 @@
           <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="33.333%" fxFlex.lt-lg="25%">
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex="initial">
-                <span><strong>800</strong></span>
+                <span><strong>{{ totalGameAverage.allDamageDoneAvgPer10Min }}</strong></span>
               </div>
             </div>
             <div class="flex-layout" fxLayout="row">
@@ -83,7 +83,7 @@
           <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="33.333%" fxFlex.lt-lg="25%">
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex="initial">
-                <span><strong>800</strong></span>
+                <span><strong>{{ totalGameAverage.damageBlockedAvgPer10Min }}</strong></span>
               </div>
             </div>
             <div class="flex-layout" fxLayout="row">
@@ -101,7 +101,7 @@
           <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="33.333%" fxFlex.lt-lg="25%">
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex="initial">
-                <span><strong>800</strong></span>
+                <span><strong>{{ totalGameAverage.healingDoneAvgPer10Min }}</strong></span>
               </div>
             </div>
             <div class="flex-layout" fxLayout="row">
@@ -119,7 +119,7 @@
           <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="33.333%" fxFlex.lt-lg="25%">
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex="initial">
-                <span><strong>0.86</strong></span>
+                <span><strong>{{ matchAwards.totalMedals }}</strong></span>
               </div>
             </div>
             <div class="flex-layout" fxLayout="row">

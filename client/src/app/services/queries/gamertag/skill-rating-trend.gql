@@ -1,0 +1,14 @@
+query SkillRatingTrend($id: Int) {
+  gamerTag(id: $id) {
+    id
+    snapshotStatistics(last: 7) {
+      id
+      profileSnapshotStatistic {
+        id
+        profileStatistic {
+          competitiveLevel
+        }
+      }
+    }
+  }
+}

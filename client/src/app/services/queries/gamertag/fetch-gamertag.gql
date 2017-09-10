@@ -9,6 +9,7 @@ query FetchGamerTag($id: Int, $tag: String, $region: String, $platform: String, 
       snapshotStatistics(last: $snapshotLast) {
         id
         gamerTagId
+        insertedAt
         ...ProfileStatistic
         quickplayHeroSnapshotStatistics: heroSnapshotStatistics(type: QUICKPLAY) {
           ...HeroSnapshotStatistics
@@ -28,6 +29,7 @@ query FetchGamerTag($id: Int, $tag: String, $region: String, $platform: String, 
         snapshotStatistics(last: $snapshotLast) {
           id
           gamerTagId
+          insertedAt
           ...ProfileStatistic
           quickplayHeroSnapshotStatistics: heroSnapshotStatistics(type: QUICKPLAY) {
             ...HeroSnapshotStatistics

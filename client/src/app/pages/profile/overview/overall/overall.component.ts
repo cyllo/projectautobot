@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ChartData, ChartType } from '../../../../models';
+import { add } from 'ramda';
 
 @Component({
   selector: 'ow-overall',
@@ -8,56 +9,46 @@ import { ChartData, ChartType } from '../../../../models';
 })
 
 export class OverallPerformanceComponent implements OnInit {
-  @Input() heroTotalAverageStatistics: any;
-  generalChart: ChartData = {
-    xAxisLabels: ['Kills', 'Assists', 'Deaths'],
-    datasets: [{
-        label: 'General',
-        data: [200, 200, 200]
-    }],
-    chartType: ChartType.polarArea,
-    legend: true
-  };
+  @Input() totalGameAverage: any;
+  @Input() matchAwards: any;
 
-  combatChart: ChartData = {
-    xAxisLabels: ['Hero Damage', 'Shield Damage', 'Healing', 'Blocked'],
-    datasets: [{
-        label: 'General',
-        data: [200, 200, 200, 200]
-    }],
-    chartType: ChartType.polarArea,
-    legend: true
-  };
+  generalChart: ChartData;
 
-  stats = [
-    {
-      name: 'Eliminations',
-      value: '0.86'
-    },
-    {
-      name: 'K/D Ratio',
-      value: '1.86:1'
-    },
-    {
-      name: 'Damage Done',
-      value: '2.42'
-    },
-    {
-      name: 'Damage Blocked',
-      value: '0.86'
-    },
-    {
-      name: 'Healing Done',
-      value: '0.86'
-    },
-    {
-      name: 'Medals',
-      value: '0.86'
-    }
-  ];
+  combatChart: ChartData;
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.generalChart = {
+      xAxisLabels: ['Kills', 'Offensive Assists', 'Defensive Assists', 'Total Assists', 'Deaths'],
+      datasets: [{
+        label: 'General',
+        data: [
+          this.totalGameAverage.finalBlowsAvgPer10Min,
+          this.totalGameAverage.offensiveAssistsAvgPer10Min,
+          this.totalGameAverage.defensiveAssistsAvgPer10Min,
+          add(this.totalGameAverage.offensiveAssistsAvgPer10Min, this.totalGameAverage.defensiveAssistsAvgPer10Min),
+          this.totalGameAverage.deathsAvgPer10Min
+        ]
+      }],
+      chartType: ChartType.polarArea,
+      legend: true
+    };
+
+    this.combatChart = {
+      xAxisLabels: ['Hero Damage', 'Shield Damage', 'Healing', 'Blocked'],
+      datasets: [{
+        label: 'General',
+        data: [
+          this.totalGameAverage.heroDamageDoneAvgPer10Min,
+          this.totalGameAverage.barrierDamageDoneAvgPer10Min,
+          this.totalGameAverage.healingDoneAvgPer10Min,
+          this.totalGameAverage.damageBlockedAvgPer10Min
+      ]
+      }],
+      chartType: ChartType.polarArea,
+      legend: true
+    };
+  }
 
 }
