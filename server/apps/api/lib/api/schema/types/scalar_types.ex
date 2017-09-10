@@ -15,5 +15,6 @@ defmodule Api.Schema.ScalarTypes do
 
   scalar :decimal, description: "Decimal precision 2 type" do
     serialize &Decimal.round(&1, 2)
+    parse &Decimal.new/1
   end
 end

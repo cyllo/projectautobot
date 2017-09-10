@@ -4,15 +4,9 @@ defmodule Api.Schema.StatisticAverageTypes do
   import Api.Schema.ScalarTypes, only: [timestamp_types: 0]
 
   object :combat_best_statistic_average do
-    field :eliminations_most_in_life, :decimal
     field :eliminations_most_in_game, :decimal
     field :critical_hits_most_in_game, :decimal
-    field :critical_hits_most_in_life, :decimal
-    field :damage_done_most_in_game, :decimal
-    field :damage_done_most_in_life, :decimal
     field :melee_final_blows_most_in_game, :decimal
-    field :weapon_accuracy_best_in_game_percentage, :decimal
-    field :kill_streak_best, :decimal
     field :defensive_assists_most_in_game, :decimal
     field :offensive_assists_most_in_game, :decimal
     field :final_blows_most_in_game, :decimal
@@ -21,14 +15,27 @@ defmodule Api.Schema.StatisticAverageTypes do
     field :objective_time_most_in_game, :decimal
     field :time_spent_on_fire_most_in_game, :decimal
     field :healing_done_most_in_game, :decimal
-    field :healing_done_most_in_life, :decimal
     field :turrets_destroyed_most_in_game, :decimal
     field :self_healing_most_in_game, :decimal
-    field :multikill_best, :decimal
     field :recon_assists_most_in_game, :decimal
     field :damage_blocked_most_in_game, :decimal
     field :melee_kills_most_in_game, :decimal
-    field :scoped_accuracy_best_in_game_percentage, :integer
+    field :environmental_kills_most_in_game, :decimal
+    field :teleporter_pads_destroyed_most_in_game, :decimal
+    field :shield_generators_destroyed_most_in_game, :decimal
+    field :hero_damage_done_most_in_game, :decimal
+    field :barrier_damage_done_most_in_game, :decimal
+
+    field :all_damage_done_most_in_game, :decimal
+    field :all_damage_done_most_in_life, :decimal
+    field :hero_damage_done_most_in_life, :decimal
+    field :critical_hits_most_in_life, :decimal
+    field :eliminations_most_in_life, :decimal
+
+    field :kill_streak_best, :decimal
+    field :multikill_best, :decimal
+    field :scoped_accuracy_best_in_game_percentage, :decimal
+    field :weapon_accuracy_best_in_game_percentage, :decimal
   end
 
   object :game_average_statistic_average do
@@ -52,7 +59,6 @@ defmodule Api.Schema.StatisticAverageTypes do
   end
 
   object :combat_lifetime_statistic_average do
-    field :scoped_accuracy_percentage, :decimal
     field :solo_kills, :decimal
     field :eliminations, :decimal
     field :eliminations_per_life, :decimal
@@ -61,10 +67,7 @@ defmodule Api.Schema.StatisticAverageTypes do
     field :objective_kills, :decimal
     field :objective_time, :decimal
     field :environmental_kills, :decimal
-    field :environmental_deaths, :decimal
-    field :damage_done, :decimal
-    field :shots_fired, :decimal
-    field :shots_hit, :decimal
+    field :all_damage_done, :decimal
     field :critical_hits, :decimal
     field :healing_done, :decimal
     field :final_blows, :decimal
@@ -72,14 +75,18 @@ defmodule Api.Schema.StatisticAverageTypes do
     field :multikills, :decimal
     field :recon_assists, :decimal
     field :teleporter_pads_destroyed, :decimal
+    field :shield_generators_destroyed, :decimal
     field :damage_blocked, :decimal
     field :melee_kills, :decimal
     field :weapon_accuracy_percentage, :decimal
     field :critical_hits_accuracy_percentage, :decimal
-    field :multikill_best, :decimal
     field :turrets_destroyed, :decimal
     field :defensive_assists, :decimal
     field :offensive_assists, :decimal
+    field :barrier_damage_done, :decimal
+    field :hero_damage_done, :decimal
+    field :scoped_accuracy_percentage, :decimal
+    field :self_healing, :decimal
   end
 
   object :match_awards_statistic_average do

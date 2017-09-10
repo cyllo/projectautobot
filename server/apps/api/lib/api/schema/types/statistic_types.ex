@@ -4,15 +4,9 @@ defmodule Api.Schema.StatisticTypes do
   object :combat_best_statistic do
     field :id, :integer
 
-    field :eliminations_most_in_life, :integer
     field :eliminations_most_in_game, :integer
     field :critical_hits_most_in_game, :integer
-    field :critical_hits_most_in_life, :integer
-    field :damage_done_most_in_game, :integer
-    field :damage_done_most_in_life, :integer
     field :melee_final_blows_most_in_game, :integer
-    field :weapon_accuracy_best_in_game_percentage, :integer
-    field :kill_streak_best, :integer
     field :defensive_assists_most_in_game, :integer
     field :offensive_assists_most_in_game, :integer
     field :final_blows_most_in_game, :integer
@@ -21,23 +15,27 @@ defmodule Api.Schema.StatisticTypes do
     field :objective_time_most_in_game, :integer
     field :time_spent_on_fire_most_in_game, :integer
     field :healing_done_most_in_game, :integer
-    field :healing_done_most_in_life, :integer
     field :turrets_destroyed_most_in_game, :integer
     field :self_healing_most_in_game, :integer
-    field :multikill_best, :integer
     field :recon_assists_most_in_game, :integer
     field :damage_blocked_most_in_game, :integer
     field :melee_kills_most_in_game, :integer
+    field :environmental_kills_most_in_game, :integer
+    field :teleporter_pads_destroyed_most_in_game, :integer
+    field :shield_generators_destroyed_most_in_game, :integer
+    field :hero_damage_done_most_in_game, :integer
+    field :barrier_damage_done_most_in_game, :integer
 
+    field :all_damage_done_most_in_game, :integer
+    field :all_damage_done_most_in_life, :integer
+    field :hero_damage_done_most_in_life, :integer
+    field :critical_hits_most_in_life, :integer
+    field :eliminations_most_in_life, :integer
+
+    field :kill_streak_best, :integer
+    field :multikill_best, :integer
     field :scoped_accuracy_best_in_game_percentage, :integer
-
-    field :ultimates_used, :integer
-    field :ultimates_earned, :integer
-    field :time_holding_ultimate, :integer
-    field :hero_damage_done, :integer
-    field :barrier_damage_done, :integer
-    field :all_damage_done, :integer
-    field :damage_blocked, :integer
+    field :weapon_accuracy_best_in_game_percentage, :integer
   end
 
   object :game_average_statistic do
@@ -65,7 +63,6 @@ defmodule Api.Schema.StatisticTypes do
   object :combat_lifetime_statistic do
     field :id, :integer
 
-    field :scoped_accuracy_percentage, :integer
     field :solo_kills, :integer
     field :eliminations, :integer
     field :eliminations_per_life, :decimal
@@ -74,10 +71,7 @@ defmodule Api.Schema.StatisticTypes do
     field :objective_kills, :integer
     field :objective_time, :integer
     field :environmental_kills, :integer
-    field :environmental_deaths, :integer
-    field :damage_done, :integer
-    field :shots_fired, :integer
-    field :shots_hit, :integer
+    field :all_damage_done, :integer
     field :critical_hits, :integer
     field :healing_done, :integer
     field :final_blows, :integer
@@ -85,14 +79,18 @@ defmodule Api.Schema.StatisticTypes do
     field :multikills, :integer
     field :recon_assists, :integer
     field :teleporter_pads_destroyed, :integer
+    field :shield_generators_destroyed, :integer
     field :damage_blocked, :integer
     field :melee_kills, :integer
     field :weapon_accuracy_percentage, :integer
     field :critical_hits_accuracy_percentage, :integer
-    field :multikill_best, :integer
     field :turrets_destroyed, :integer
     field :defensive_assists, :integer
     field :offensive_assists, :integer
+    field :barrier_damage_done, :integer
+    field :hero_damage_done, :integer
+    field :scoped_accuracy_percentage, :integer
+    field :self_healing, :integer
   end
 
   object :match_awards_statistic do
@@ -112,8 +110,7 @@ defmodule Api.Schema.StatisticTypes do
     field :games_won, :integer
     field :games_lost, :integer
     field :time_played, :integer
-    field :time_spent_on_fire, :integer
-    field :win_percentage, :integer
+    field :win_percentage, :decimal
   end
 
   object :hero_specific_statistic do

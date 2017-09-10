@@ -8,7 +8,6 @@ defmodule Models.Statistics.GameHistory do
     field :games_won, :integer, null: false, default: 0
     field :games_lost, :integer, null: false, default: 0
     field :time_played, :integer, null: false, default: 0
-    field :time_spent_on_fire, :integer
     field :win_percentage, :decimal
   end
 
@@ -18,7 +17,6 @@ defmodule Models.Statistics.GameHistory do
     :games_lost,
     :games_tied,
     :time_played,
-    :time_spent_on_fire,
     :win_percentage
   ]
 

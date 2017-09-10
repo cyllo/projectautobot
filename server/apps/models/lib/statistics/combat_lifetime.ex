@@ -11,10 +11,7 @@ defmodule Models.Statistics.CombatLifetime do
     field :objective_kills, :integer
     field :objective_time, :integer
     field :environmental_kills, :integer
-    field :environmental_deaths, :integer
-    field :damage_done, :integer
-    field :shots_fired, :integer
-    field :shots_hit, :integer
+    field :all_damage_done, :integer
     field :critical_hits, :integer
     field :healing_done, :integer
     field :final_blows, :integer
@@ -22,15 +19,18 @@ defmodule Models.Statistics.CombatLifetime do
     field :multikills, :integer
     field :recon_assists, :integer
     field :teleporter_pads_destroyed, :integer
+    field :shield_generators_destroyed, :integer
     field :damage_blocked, :integer
     field :melee_kills, :integer
     field :weapon_accuracy_percentage, :integer
     field :critical_hits_accuracy_percentage, :integer
-    field :multikill_best, :integer
     field :turrets_destroyed, :integer
     field :defensive_assists, :integer
     field :offensive_assists, :integer
+    field :barrier_damage_done, :integer
+    field :hero_damage_done, :integer
     field :scoped_accuracy_percentage, :integer
+    field :self_healing, :integer
   end
 
   @allowed_fields [
@@ -42,10 +42,7 @@ defmodule Models.Statistics.CombatLifetime do
     :objective_kills,
     :objective_time,
     :environmental_kills,
-    :environmental_deaths,
-    :damage_done,
-    :shots_fired,
-    :shots_hit,
+    :all_damage_done,
     :critical_hits,
     :healing_done,
     :final_blows,
@@ -53,15 +50,18 @@ defmodule Models.Statistics.CombatLifetime do
     :multikills,
     :recon_assists,
     :teleporter_pads_destroyed,
+    :shield_generators_destroyed,
     :damage_blocked,
     :melee_kills,
     :weapon_accuracy_percentage,
     :critical_hits_accuracy_percentage,
-    :multikill_best,
     :turrets_destroyed,
     :defensive_assists,
     :offensive_assists,
-    :scoped_accuracy_percentage
+    :barrier_damage_done,
+    :hero_damage_done,
+    :scoped_accuracy_percentage,
+    :self_healing
   ]
 
   @doc """

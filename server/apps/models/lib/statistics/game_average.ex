@@ -23,22 +23,22 @@ defmodule Models.Statistics.GameAverage do
   end
 
   @allowed_fields [
-    :all_damage_done_avg_per10_min,
-    :barrier_damage_done_avg_per10_min,
-    :critical_hits_avg_per10_min,
-    :damage_blocked_avg_per10_min,
-    :deaths_avg_per10_min,
-    :defensive_assists_avg_per10_min,
-    :eliminations_avg_per10_min,
-    :final_blows_avg_per10_min,
-    :healing_done_avg_per10_min,
-    :hero_damage_done_avg_per10_min,
-    :objective_kills_avg_per10_min,
-    :objective_time_avg_per10_min,
-    :offensive_assists_avg_per10_min,
-    :self_healing_avg_per10_min,
     :solo_kills_avg_per10_min,
+    :defensive_assists_avg_per10_min,
     :time_spent_on_fire_avg_per10_min,
+    :objective_time_avg_per10_min,
+    :deaths_avg_per10_min,
+    :self_healing_avg_per10_min,
+    :offensive_assists_avg_per10_min,
+    :final_blows_avg_per10_min,
+    :critical_hits_avg_per10_min,
+    :eliminations_avg_per10_min,
+    :damage_blocked_avg_per10_min,
+    :hero_damage_done_avg_per10_min,
+    :barrier_damage_done_avg_per10_min,
+    :healing_done_avg_per10_min,
+    :all_damage_done_avg_per10_min,
+    :objective_kills_avg_per10_min,
     :melee_final_blows_avg_per10_min
   ]
 
