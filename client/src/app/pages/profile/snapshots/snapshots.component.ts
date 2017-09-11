@@ -16,6 +16,8 @@ export class SnapshotsHistoryComponent implements OnInit, OnDestroy {
   selectedsnapshots: Observable<any>;
   viewDetails$ = new Subject<number>();
   destroyer$ = new Subject<void>();
+  flushMatchDetails: Observable<null>;
+  matchDetails: Observable<null>;
   view: Observable<any>;
 
   constructor(private snapshotService: SnapshotService) {}
@@ -25,8 +27,12 @@ export class SnapshotsHistoryComponent implements OnInit, OnDestroy {
       .combineLatest(this.modeIndicator, (snapshots, { mode }) => this.snapshotService.selectHeroesSnapshot(mode)(snapshots))
       .takeUntil(this.destroyer$);
 
+    this.flushMatchDetails = this.modeIndicator.mapTo(null).takeUntil(this.destroyer$);
+
     this.view = this.viewDetails$.withLatestFrom(this.selectedsnapshots, (id, snapshots) => find(propEq('id', id), snapshots))
-    .takeUntil(this.destroyer$).takeUntil(this.modeIndicator);
+    .takeUntil(this.destroyer$);
+
+    this.matchDetails = Observable.merge(this.view, this.flushMatchDetails);
   }
 
   ngOnDestroy() {
