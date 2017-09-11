@@ -4,21 +4,12 @@
 
     <div fxLayout="row"
          fxLayoutAlign="start center"
-         fxLayoutGap="14px"
+         fxLayoutGap.gt-sm="64px"
+         fxLayoutGap.lt-md="14px"
          fxFlex="grow">
 
       <div fxLayout="column">
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
-          <div fxLayout="column">
-            <img src="img/stplogo_old.svg" width="36">
-          </div>
-          <div class="text" fxLayout="column">
-            <span class="mat-title mb-0">Stop the Payload</span>
-          </div>
-          <div class="text" fxLayout="column">
-            <span class="beta mat-caption text-uppercase">Beta</span>
-          </div>
-        </div>
+        <img src="img/stplogo_old.svg" width="36">
       </div>
 
       <div fxLayout="column">
