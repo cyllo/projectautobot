@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AppState, GamerTag } from '../../../models';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { filter, propEq, values, isNil } from 'ramda';
+import { filter, propEq, values, isNil, isEmpty } from 'ramda';
 import { FriendShipService, notNil, ProfileService } from '../../../services';
 import { Subject } from 'rxjs/Subject';
 
@@ -29,6 +29,7 @@ export class FriendRequestsComponent implements OnInit, OnDestroy {
     this.friendRequests = this.store.select('friendships')
     .map(friendships => filter(propEq('isAccepted', false), values(friendships)))
     .skipWhile(isNil)
+    .skipWhile(isEmpty)
     .takeUntil(this.destroyer$);
 
     this.gotoProfile$
