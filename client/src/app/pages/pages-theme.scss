@@ -1,7 +1,9 @@
 @import './profile/profile-theme';
 @import './registration/registration-theme';
+@import './news/news-theme';
 
 @mixin ow-pages-theme($theme) {
   @include ow-registration-theme($theme);
   @include ow-profile-theme($theme);
+  @include ow-news-theme($theme);
 }

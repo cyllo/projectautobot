@@ -6,16 +6,10 @@
          fxLayoutAlign="start center"
          fxFlex="grow">
 
-      <div class="content"
-           fxLayout="row"
-           fxLayoutAlign="start center"
-           fxLayoutGap="30px"
-           fxFlex="grow">
-
-         <div fxLayout="column" fxFlex="grow" *ngIf="newsFilters$ | async as filters">
+         <div class="py-3 px-3" fxLayout="column" fxFlex *ngIf="newsFilters$ | async as filters">
           <ow-page-filters [filters]="filters" (change)="onPageFilterChange($event)"></ow-page-filters>
         </div>
-      </div>
+
     </div>
 
     <div
@@ -43,7 +37,11 @@
       </div>
 
       <ng-template #loadmore>
-        <button type="button" (click)="onScrollDown(paginationParams, blogPosts)">Load More</button>
+        <div class="pt-3 px-3" fxLayout="column" fxFlex="100%">
+          <button md-button (click)="onScrollDown(paginationParams, blogPosts)">
+            <span>Load More</span>
+          </button>
+        </div>
       </ng-template>
 
       <div *ngIf="blogPosts.length; then loadmore; else noitems">
