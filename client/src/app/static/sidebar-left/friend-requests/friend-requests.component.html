@@ -1,6 +1,6 @@
 <div class="friend-requests py-3" fxLayout="column" fxFlexFill>
 
-  <div *ngIf="friendRequests | async as requests; else showFriendRequests;">
+  <div *ngIf="friendRequests | async as requests; else noFriendRequests;">
     <div class="ow-tab-content flex-layout" fxLayout="column" fxFlex="grow" [perfect-scrollbar]>
       <md-list class="flex-layout" fxLayout="column" fxFlex="noshrink">
         <md-list-item class="flex-layout" fxLayout="row" fxFlex="nogrow" *ngFor="let friendship of requests">
