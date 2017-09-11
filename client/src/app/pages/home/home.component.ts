@@ -1,8 +1,9 @@
 import { Component, OnInit, AfterContentInit } from '@angular/core';
-import { AppState, BlogPost } from '../../models';
-import { Store } from '@ngrx/store';
+import { take } from 'ramda';
 import { Observable } from 'rxjs/Observable';
-import { values, reverse, isEmpty } from 'ramda';
+
+import { BlogPost } from '../../models';
+import { BlogPostsService } from '../../services';
 
 @Component({
   selector: 'ow-home',
@@ -13,14 +14,12 @@ import { values, reverse, isEmpty } from 'ramda';
 export class HomeComponent implements OnInit, AfterContentInit {
   public latestNews: Observable<BlogPost[]>;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(public blogPostService: BlogPostsService) { }
 
   ngOnInit() {
-
-    this.latestNews = this.store.select('blogPosts')
-    .filter(val => !isEmpty(val))
-    .take(3)
-    .map(news => reverse(values(news)));
+    this.latestNews = this.blogPostService.getLatestPosts({ next: 3 })
+      .mergeMapTo(this.blogPostService.posts$)
+      .map(take(3));
   }
 
   ngAfterContentInit() {
