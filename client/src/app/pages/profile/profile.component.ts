@@ -79,7 +79,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
     .map((profile: GamerTag) => merge(profile, this.profileService.latestStatsSet(profile)))
     .map((profile: GamerTag) => merge(profile, this.profileService.profileStats(profile)))
     .filter(notNil)
-    .do(val => console.log('the displayed profile', val))
     .takeUntil(this.destroyer$);
 
     this.changeProfile$.withLatestFrom(this.players, this.profileKey, ({ platform, region }, profiles, { tag }) => {
