@@ -1,5 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './services';
+import { AuthGuard, AdminAuthGuard } from './services';
 import { BlogPostResolver } from './pages/resolvers';
 import {
   HomeComponent,
@@ -17,7 +17,8 @@ import {
   PageNotFoundComponent,
   LoginComponent,
   UserRegistrationComponent,
-  AccountSettingsComponent
+  AccountSettingsComponent,
+  CreatePostComponent
 } from './pages';
 
 const routes: Routes = [
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'register/:code', component: UserRegistrationComponent},
   { path: 'register', component: UserRegistrationComponent },
   { path: 'news', component: NewsComponent },
+  { path: 'create-post', component: CreatePostComponent, canActivate: [AdminAuthGuard]},
   { path: 'post/:title', component: PostComponent, resolve: { blogPost: BlogPostResolver } },
   { path: 'friends', component: FriendsComponent },
   { path: 'profile/:platform/:region/:tag', component: ProfileComponent }, // pc

@@ -102,7 +102,7 @@ module.exports = function makeWebpackConfig() {
       {
         test: /\.ts$/,
         loaders: ['awesome-typescript-loader?' + atlOptions, 'angular2-template-loader', '@angularclass/hmr-loader'],
-        exclude: [isTest ? /\.(e2e)\.ts$/ : /\.(spec|e2e)\.ts$/, /node_modules\/(?!(ng2-.+))/]
+        exclude: [isTest ? /\.(e2e)\.ts$/ : /\.(spec|e2e)\.ts$/, /node_modules\/(?!(ng(2|x)-.+))/]
       },
 
       // copy those assets to output
@@ -163,7 +163,8 @@ module.exports = function makeWebpackConfig() {
     config.module.rules.push({
       test: /\.ts$/,
       enforce: 'pre',
-      loader: 'tslint-loader'
+      loader: 'tslint-loader',
+      exclude: [/node_modules/]
     });
   }
 

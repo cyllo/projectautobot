@@ -6,6 +6,7 @@ export * from './gamer-tag.service';
 export * from './hereos.service';
 export * from './hereo-statistics.service';
 export * from './user.service';
+export * from './admin-auth-guard.service';
 export * from './auth-gaurd.service';
 export * from './blog-posts.service';
 export * from './socket.service';

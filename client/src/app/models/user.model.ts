@@ -68,6 +68,7 @@ export interface FollowingGamerTagState {
 export interface User {
   id: number;
   email: string;
+  isAdmin?: boolean;
   displayName: string;
   battleNetId?: number;
   battleNetTag?: string;

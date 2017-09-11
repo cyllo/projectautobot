@@ -57,25 +57,27 @@ export class AuthorizationService {
     });
   }
 
+  currentUser(): Observable<User> {
+    return this.apollo.query({query: CurrentUser})
+      .map(({ data: { me: currentUser } }: GraphqlResponse) => currentUser);
+  }
+
   refreshAppState({ sessionInfo }) {
-    return this.apollo.query({
-      query: CurrentUser
-    })
-    .map(({ data: { me: currentUser } }: GraphqlResponse) => currentUser)
-    .catch((error: ApolloError) => Observable.throw(this.error.filterGraphqlMessage(error)))
-    .subscribe(currentUser => {
-      this.setAppState({
-        sessionInfo,
-        user: getUserProps(currentUser),
-        followedUsers: getFollowedUsers(currentUser),
-        followedGamerTags: getFollowedGamerTags(currentUser)
+    return this.currentUser()
+      .catch((error: ApolloError) => Observable.throw(this.error.filterGraphqlMessage(error)))
+      .subscribe(currentUser => {
+        this.setAppState({
+          sessionInfo,
+          user: getUserProps(currentUser),
+          followedUsers: getFollowedUsers(currentUser),
+          followedGamerTags: getFollowedGamerTags(currentUser)
+        });
+      }, (error) => {
+        if (propEq('message', 'user token is not active', error)) {
+          Cookies.remove('ow-auth-token');
+          this.router.navigate(['./login']);
+        }
       });
-    }, (error) => {
-      if (propEq('message', 'user token is not active', error)) {
-        Cookies.remove('ow-auth-token');
-        this.router.navigate(['./login']);
-      }
-    });
   }
 
   setAppState({ sessionInfo, user, followedUsers, followedGamerTags }) {
