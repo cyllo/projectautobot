@@ -9,13 +9,13 @@
         <div class="flex-layout" fxLayout="column" fxFlex="initial">
           <div class="flex-layout" fxLayout="row">
             <div class="flex-layout" fxLayout="column" fxFlex>
-              <span class="mat-caption text-uppercase">3 Mins Ago</span>
+              <span class="mat-caption text-uppercase">{{ snapshot.insertedAt | amTimeAgo }}</span>
             </div>
           </div>
           <div class="flex-layout" fxLayout="row">
-            <div class="flex-layout" fxLayout="column" fxFlex>
+            <!-- <div class="flex-layout" fxLayout="column" fxFlex>
               <span class="mat-caption text-uppercase"><strong>Competitive</strong></span>
-            </div>
+            </div> -->
           </div>
         </div>
 
@@ -24,31 +24,34 @@
             <div class="flex-layout" fxLayout="column" fxFlex="initial">
               <div class="flex-layout" fxLayout="row">
                 <div class="flex-layout text-center" fxLayout="column" fxFlex>
-                  <span class="mat-caption text-uppercase"><strong>Win</strong></span>
+                  <span class="mat-caption text-uppercase"><strong>{{snapshot.heroesTotalSnapshotStatistic.gameHistoryStatistic.gamesWon }} Wins</strong></span>
                 </div>
               </div>
-              <div class="flex-layout" fxLayout="row">
+              <!-- <div class="flex-layout" fxLayout="row">
                 <div class="flex-layout" fxLayout="column" fxFlex>
                   <span class="mat-caption text-uppercase">Outcome</span>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div class="flex-layout" fxLayout="column" fxFlex="initial">
-              <div class="flex-layout" fxLayout="row">
+              <!-- <div class="flex-layout" fxLayout="row">
                 <div class="flex-layout text-center" fxLayout="column" fxFlex>
                   <span class="mat-caption text-uppercase"><strong>+40</strong></span>
                 </div>
-              </div>
+              </div> -->
               <div class="flex-layout" fxLayout="row">
                 <div class="flex-layout" fxLayout="column" fxFlex>
-                  <span class="mat-caption text-uppercase">Skill Rating</span>
+                  <span class="mat-caption text-uppercase"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameHistoryStatistic.gamesLost }} Losses</strong></span>
                 </div>
               </div>
             </div>
             <div class="flex-layout" fxLayout="column" fxFlex="initial">
               <div class="flex-layout" fxLayout="row">
                 <div class="flex-layout text-center" fxLayout="column" fxFlex>
-                  <span class="mat-caption text-uppercase"><strong>10 min</strong></span>
+                  <span class="mat-caption text-uppercase"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameHistoryStatistic.timePlayed 
+                    | owAverageMatchLength:snapshot.heroesTotalSnapshotStatistic.gameHistoryStatistic.gamesPlayed
+                    | owSecondsToMinutes }} mins</strong>
+                  </span>
                 </div>
               </div>
               <div class="flex-layout" fxLayout="row">
@@ -68,7 +71,7 @@
 
   <div class="flex-layout pt-3" fxLayout="column" fxFlex>
     <md-grid-list cols="3" rowHeight="2:1">
-      <md-grid-tile [colspan]="3">
+      <!-- <md-grid-tile [colspan]="3">
         <div class="flex-layout" fxLayout="row" fxLayoutGap="8px" fxLayoutWrap>
           <div class="flex-layout" fxLayout="column" fxFlex="36px" *ngFor="let hero of heroesPlayed">
             <div class="flex-layout" fxLayout="row">
@@ -83,17 +86,94 @@
             </div>
           </div>
         </div>
-      </md-grid-tile>
-      <md-grid-tile *ngFor="let stat of stats">
+      </md-grid-tile> -->
+      <md-grid-tile>
         <div class="flex-layout" fxLayout="column" fxFlex>
           <div class="flex-layout" fxLayout="row">
             <div class="flex-layout" fxLayout="column" fxFlex>
-              <span class="mat-caption"><strong>{{stat.value}}</strong></span>
+              <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameAverageStatistic.eliminationsAvgPer10Min }}/min</strong></span>
             </div>
           </div>
           <div class="flex-layout" fxLayout="row">
             <div class="flex-layout" fxLayout="column" fxFlex>
-              <span class="mat-caption text-uppercase">{{stat.name}}</span>
+              <span class="mat-caption text-uppercase">Eliminations</span>
+            </div>
+          </div>
+        </div>
+      </md-grid-tile>
+
+      <md-grid-tile>
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <div class="flex-layout" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <span class="mat-caption"><strong>{{ 
+                snapshot.heroesTotalSnapshotStatistic.combatLifetimeStatistic.finalBlows 
+                | owKillDeathAverage:snapshot.heroesTotalSnapshotStatistic.combatLifetimeStatistic.deaths}}:1</strong></span>
+            </div>
+          </div>
+          <div class="flex-layout" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <span class="mat-caption text-uppercase">K/D Ratio</span>
+            </div>
+          </div>
+        </div>
+      </md-grid-tile>
+
+      <md-grid-tile>
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <div class="flex-layout" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameAverageStatistic.heroDamageDoneAvgPer10Min }}/min</strong></span>
+            </div>
+          </div>
+          <div class="flex-layout" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <span class="mat-caption text-uppercase">Hero Damage</span>
+            </div>
+          </div>
+        </div>
+      </md-grid-tile>
+
+      <md-grid-tile>
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <div class="flex-layout" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameAverageStatistic.damageBlockedAvgPer10Min }}/min</strong></span>
+            </div>
+          </div>
+          <div class="flex-layout" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <span class="mat-caption text-uppercase">Blocked</span>
+            </div>
+          </div>
+        </div>
+      </md-grid-tile>
+
+      <md-grid-tile>
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <div class="flex-layout" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameAverageStatistic.healingDoneAvgPer10Min }}/min</strong></span>
+            </div>
+          </div>
+          <div class="flex-layout" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <span class="mat-caption text-uppercase">Healing</span>
+            </div>
+          </div>
+        </div>
+      </md-grid-tile>
+
+      <md-grid-tile>
+        <div class="flex-layout" fxLayout="column" fxFlex>
+          <div class="flex-layout" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.matchAwardsStatistic.totalMedals }}</strong></span>
+            </div>
+          </div>
+          <div class="flex-layout" fxLayout="row">
+            <div class="flex-layout" fxLayout="column" fxFlex>
+              <span class="mat-caption text-uppercase">Total Medals</span>
             </div>
           </div>
         </div>
@@ -103,7 +183,7 @@
 
   <md-action-row>
     <div class="px-3" fxLayout="row">
-      <button md-button>
+      <button md-button (click)="viewDetails.emit(snapshot.id)">
         <span class="mat-caption">View Details</span>
       </button>
     </div>

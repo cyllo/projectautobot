@@ -1,11 +1,11 @@
 import { merge, path, replace, isEmpty, isNil, compose, not, any } from 'ramda';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
 import { AppState, GamerTag, ProfileKey, GamerTagState } from '../../models';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { SnapshotStats } from '../../models/player.model';
 import { Observable } from 'rxjs/Observable';
-import { ProfileService } from '../../services';
+import { ProfileService, SnapshotService } from '../../services';
 import { Subject } from 'rxjs/Subject';
 import { updateProfile } from '../../reducers';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -17,7 +17,7 @@ const notNil = compose(not, isNil);
   templateUrl: 'profile.component.html',
   styleUrls: ['profile.component.scss'],
 })
-export class ProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   players: Observable<GamerTagState>;
   selectedProfile: Observable<GamerTag>;
   displayProfile: Observable<[GamerTag]>;
@@ -27,6 +27,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   destroyer$ = new Subject<void>();
   reScrapeProfile$ = new Subject();
   modeIndicator: Observable<{ disabled: boolean, mode: string}>;
+  snapshots: Observable<any[]>;
 
   selectedGameMode$ = new BehaviorSubject<string>('competitive');
   selectedSnapshotData: Observable<SnapshotStats>;
@@ -34,7 +35,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private activatedRoute: ActivatedRoute,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private snapshotService: SnapshotService
   ) { }
 
   ngOnInit() {
@@ -77,6 +79,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     .map((profile: GamerTag) => merge(profile, this.profileService.latestStatsSet(profile)))
     .map((profile: GamerTag) => merge(profile, this.profileService.profileStats(profile)))
     .filter(notNil)
+    .do(val => console.log('the displayed profile', val))
     .takeUntil(this.destroyer$);
 
     this.changeProfile$.withLatestFrom(this.players, this.profileKey, ({ platform, region }, profiles, { tag }) => {
@@ -91,6 +94,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
     .switchMapTo(this.profileKey)
     .switchMap(({ tag, platform, region }) => this.profileService.scrape(tag, platform, region))
     .subscribe(gamerTag => this.store.dispatch(updateProfile(gamerTag)), error => console.log('error', error));
+  }
+
+  ngAfterContentInit() {
+    this.snapshots = this.selectedProfile.switchMap(profile => this.snapshotService.findByGamerTag(profile.id, 20));
   }
 
   ngOnDestroy() {

@@ -17,12 +17,8 @@ import {
   sort,
   take,
   prop,
-  toLower,
-  converge,
-  applySpec,
-  pick,
-  merge } from 'ramda';
-import { GamerTagService } from '../../../services';
+} from 'ramda';
+import { GamerTagService, SnapshotService } from '../../../services';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -45,7 +41,10 @@ export class ProfileOverviewComponent implements OnInit {
   recentSnapshots: Observable<any[]>;
   heroStatistics: Observable<any[]>;
 
-  constructor(private gamerTagService: GamerTagService) {}
+  constructor(
+    private gamerTagService: GamerTagService,
+    private snapshotService: SnapshotService
+  ) {}
 
   ngOnInit() {
     this.lifeTimeStats = this.modeIndicator
@@ -92,15 +91,7 @@ export class ProfileOverviewComponent implements OnInit {
 
     this.recentSnapshots = this.modeIndicator
     .map(({ mode }) => {
-      const selectHeroesSnapshot = converge(merge, [
-        pick(['insertedAt', 'profileSnapshotStatistic']),
-        applySpec({
-          heroesTotalSnapshotStatistic: prop(`${toLower(mode)}HeroesTotalSnapshotStatistic`),
-          heroSnapshotStatistic: prop(`${toLower(mode)}HeroSnapshotStatistics`)
-        })
-      ]);
-
-      const recentStats = compose(map(selectHeroesSnapshot), prop('snapshotStatistics'));
+      const recentStats = compose(this.snapshotService.selectHeroesSnapshot(mode), prop('snapshotStatistics'));
       return recentStats(this.profile);
     });
   }
