@@ -1,4 +1,4 @@
-@mixin news-post-card-theme($theme) {
+@mixin ow-news-post-card-theme($theme) {
 
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
@@ -6,8 +6,8 @@
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
 
-  $card-background-color: mat-color($accent);
-  $text-color: contrast-color($card-background-color);
+  $card-background-color: mat-color($primary);
+  $text-color:  mat-color($primary, default-contrast);
 
   .news-post-card {
 

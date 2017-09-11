@@ -1,19 +1,8 @@
 .news {
   padding-top: 80px;
 
-  // .news-page-item-container {
-  //   min-height: 85vh;
-  // }
-
   .news-page-header {
-
-    min-height: 80px;
-    padding-top: 16px;
     z-index: 1029;
-
-    .content {
-      padding: 0 16px;
-    }
   }
 
   @media (max-width: 601px) {

@@ -1,4 +1,4 @@
-@mixin news-theme($theme) {
+@mixin ow-news-theme($theme) {
 
   $primary: map-get($theme, primary);
   $warn: map-get($theme, warn);
@@ -7,7 +7,7 @@
 
   .news {
     .news-page-header {
-      background-color: mat-color($background, app-bar);
+      background-color: mat-color($background, card);
     }
   }
 

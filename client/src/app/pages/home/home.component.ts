@@ -12,12 +12,12 @@ import { BlogPostsService } from '../../services';
 })
 
 export class HomeComponent implements OnInit, AfterContentInit {
-  public latestNews: Observable<BlogPost[]>;
+  public blogPosts: Observable<BlogPost[]>;
 
   constructor(public blogPostService: BlogPostsService) { }
 
   ngOnInit() {
-    this.latestNews = this.blogPostService.getLatestPosts({ next: 3 })
+    this.blogPosts = this.blogPostService.getLatestPosts({ next: 3 })
       .mergeMapTo(this.blogPostService.posts$)
       .map(take(3));
   }

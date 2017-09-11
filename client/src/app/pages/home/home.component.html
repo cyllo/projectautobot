@@ -1,9 +1,9 @@
-<div class="home pt-3">
-  <ow-top-news *ngIf="latestNews | async" [latestNews]="latestNews | async"></ow-top-news>
-  <div class="container">
-    <!-- <ow-hero-wall-catalog></ow-hero-wall-catalog> -->
+<div class="home" fxLayout="column" fxFlex>
+
+  <div class="pt-3 px-3" fxLayout="row" fxLayoutGap="14px" *ngIf="blogPosts">
+    <div fxLayout="column" *ngFor="let post of blogPosts | async">
+      <ow-news-post-card [post]="post"></ow-news-post-card>
+    </div>
   </div>
-  <!-- end .container -->
 
 </div>
-<!-- end .home -->
