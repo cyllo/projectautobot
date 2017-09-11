@@ -1,0 +1,11 @@
+@mixin ow-typography-theme($theme) {
+
+  .mat-title {
+    font-family: 'bebas_neue';
+  }
+
+}
+
+@mixin mat-typography-theme($theme) {
+  @include ow-typography-theme($theme);
+}

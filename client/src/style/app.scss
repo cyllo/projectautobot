@@ -2,6 +2,14 @@
 @import 'utilities';
 @import '~dragula/dist/dragula.min.css';
 
+@font-face {
+    font-family: 'bebas_neue';
+    src: url('/fonts/bebasneue-webfont.woff2') format('woff2'),
+         url('/fonts/bebasneue-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html,
 body {
   font-family: 'Roboto', 'Helvetica Neue', sans-serif;
