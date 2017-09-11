@@ -7,8 +7,10 @@
 @import './mat-card-theme';
 @import './mat-input-theme';
 @import './mat-progress-bar-theme';
+@import './mat-typography-theme';
 
 @mixin components-themes($theme) {
+  @include mat-typography-theme($theme);
   @include mat-progress-bar-theme($theme);
   @include mat-input-theme($theme);
   @include mat-card-theme($theme);
