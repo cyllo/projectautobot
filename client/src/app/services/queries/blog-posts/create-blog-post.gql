@@ -1,0 +1,29 @@
+#import "./blog-post-fields.gql"
+#import "./blog-category-fields.gql"
+
+mutation CreateBlogPost(
+  $blogCategories: [BlogCategoryInput!]!,
+  $title: String!,
+  $thumbnailUrl: String!,
+  $heroImageUrl: String!,
+  $summary: String!,
+  $content: String!
+) {
+  createBlogPost(
+    title: $title,
+    summary: $summary,
+    content: $content,
+    thumbnailUrl: $thumbnailUrl,
+    heroImageUrl: $heroImageUrl,
+    blogCategories: $blogCategories
+  ) {
+    ...BlogPostFields,
+    blogCategories {
+      ...BlogCategoryFields
+    }
+    author {
+      id
+      displayName
+    }
+  }
+}

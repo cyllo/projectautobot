@@ -1,0 +1,6 @@
+<h2>Create Post</h2>
+
+<ow-create-post-form
+  [blogCategories]="blogCategories$ | async"
+  (postSubmit)="onPostSubmit($event)">
+</ow-create-post-form>

@@ -5,8 +5,9 @@ import { Observable } from 'rxjs/Observable';
 import { complement, values, isNil } from 'ramda';
 import { blogPost, blogPosts } from './queries';
 import { addBlogPost, getBlogPosts } from '../reducers';
-import { BlogPost, BlogPostFilterParams, AppState, GraphqlResponse, PaginationParams } from '../models';
+import { BlogPost, BlogPostFilterParams, AppState, GraphqlResponse, BlogCategories, PaginationParams } from '../models';
 import { convertToGlobalQueryFilters, convertToGlobalQueryLatestFilters } from '../helpers/models';
+import { createBlogPost, blogCategories } from '../services/queries';
 
 @Injectable()
 export class BlogPostsService {
@@ -44,5 +45,19 @@ export class BlogPostsService {
 
   public getOldestPosts(pagination: PaginationParams, params?: BlogPostFilterParams) {
     return this.getBlogPosts(convertToGlobalQueryFilters(pagination, params));
+  }
+
+  public getCategories(): Observable<BlogCategories[]> {
+    return this.apollo.query({ query: blogCategories })
+      .map(({ data: { blogCategories: categories } }: GraphqlResponse) => categories);
+  }
+
+  public createPost(variables: BlogPost): Observable<BlogPost> {
+    return this.apollo.mutate({
+      variables,
+      mutation: createBlogPost
+    })
+      .map(({ data: { createBlogPost: post } }: GraphqlResponse) => post)
+      .do(post => this.dispatcher.dispatch(addBlogPost(post)));
   }
 }

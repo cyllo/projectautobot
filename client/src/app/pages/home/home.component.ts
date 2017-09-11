@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { BlogPost } from '../../models';
 import { BlogPostsService } from '../../services';
+import { isNotEmpty } from '../../helpers/utils';
 
 @Component({
   selector: 'ow-home',
@@ -12,14 +13,15 @@ import { BlogPostsService } from '../../services';
 })
 
 export class HomeComponent implements OnInit, AfterContentInit {
-  public blogPosts: Observable<BlogPost[]>;
+  public latestNews$: Observable<BlogPost[]>;
 
   constructor(public blogPostService: BlogPostsService) { }
 
   ngOnInit() {
-    this.blogPosts = this.blogPostService.getLatestPosts({ next: 3 })
+    this.latestNews$ = this.blogPostService.getLatestPosts({ next: 3 })
       .mergeMapTo(this.blogPostService.posts$)
-      .map(take(3));
+      .map(take(3))
+      .filter(isNotEmpty);
   }
 
   ngAfterContentInit() {

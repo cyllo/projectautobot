@@ -13,26 +13,33 @@ import { RouterModule } from '@angular/router';
 
 import { PipeModule } from '../pipes';
 
-import { MdInputModule,
-         MdButtonModule,
-         MdCardModule,
-         MdSnackBarModule,
-         MdTabsModule,
-         MdIconModule,
-         MdListModule,
-         MdSelectModule,
-         MdProgressSpinnerModule,
-         MdChipsModule,
-         MdSlideToggleModule,
-         MdTooltipModule,
-         MdToolbarModule,
-         MdTableModule,
-         MdRadioModule,
-         MdButtonToggleModule,
-         MdCheckboxModule,
-         MdProgressBarModule,
-         MdExpansionModule,
-         MdGridListModule } from '@angular/material';
+import { QuillModule } from 'ngx-quill';
+
+import { TagInputModule } from 'ng2-tag-input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // for ng2-tag-input
+
+import {
+  MdInputModule,
+  MdButtonModule,
+  MdCardModule,
+  MdSnackBarModule,
+  MdTabsModule,
+  MdIconModule,
+  MdListModule,
+  MdSelectModule,
+  MdProgressSpinnerModule,
+  MdChipsModule,
+  MdSlideToggleModule,
+  MdTooltipModule,
+  MdToolbarModule,
+  MdTableModule,
+  MdRadioModule,
+  MdButtonToggleModule,
+  MdCheckboxModule,
+  MdProgressBarModule,
+  MdExpansionModule,
+  MdGridListModule
+} from '@angular/material';
 
 import {
   HomeComponent,
@@ -82,11 +89,14 @@ import {
   MatchSnapshotComponent,
   MatchDetailsComponent,
   ProfileHeroesComponent,
-  ProfileHeroesTableComponent
+  ProfileHeroesTableComponent,
+  CreatePostComponent,
+  CreatePostFormComponent
 } from './index';
 
 @NgModule({
   imports: [
+    QuillModule,
     RouterModule,
     NgbModule.forRoot(),
     SharedModule.forRoot(),
@@ -99,6 +109,8 @@ import {
     NgxDatatableModule,
     InfiniteScrollModule,
     FlexLayoutModule,
+    TagInputModule,
+    BrowserAnimationsModule,
     MdInputModule,
     MdButtonModule,
     MdCardModule,
@@ -130,6 +142,8 @@ import {
     HeroesComponent,
     HeroComponent,
     HeroHeaderComponent,
+    CreatePostComponent,
+    CreatePostFormComponent,
     ESportsComponent,
     LiveComponent,
     NewsComponent,

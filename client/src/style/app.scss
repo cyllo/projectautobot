@@ -1,6 +1,8 @@
 @import 'themeing';
 @import 'utilities';
 @import '~dragula/dist/dragula.min.css';
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.snow.css';
 
 $public_dir: '../public/';
 $fonts_dir: $public_dir + 'fonts/';
@@ -125,5 +127,18 @@ input[type="text"] {
 .main-nav-menu {
   .mat-list-item-content {
     font-size: 13px;
+  }
+}
+
+quill-editor {
+  display: flex;
+  flex-direction: column;
+
+  .ql-toolbar {
+    flex: 0 0 auto;
+  }
+
+  .ql-container {
+    flex: 1 1 auto;
   }
 }

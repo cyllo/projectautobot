@@ -11,6 +11,7 @@ defmodule Api.Schema.AccountTypes do
     field :battle_net_id, :integer
     field :battle_net_tag, :string
     field :primary_gamer_tag_id, :integer
+    field :is_admin, :boolean
 
     field :friendships, list_of(:friendship) do
       arg :is_accepted, :boolean

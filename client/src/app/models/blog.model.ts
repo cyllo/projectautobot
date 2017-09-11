@@ -1,7 +1,7 @@
 import { User } from './user.model';
 import { GlobalQueryFilters } from './global-query-filters.model';
 
-interface BlogCategories {
+export interface BlogCategories {
   id: number;
   name: string;
 }
