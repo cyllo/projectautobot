@@ -11,8 +11,6 @@ export class HeroCardBodyComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-    console.log('derp', this.hero);
-  }
+  ngOnInit() {}
 
 }

@@ -1,7 +1,7 @@
 <div class="match-details flex-layout" fxLayout="row">
   <div class="flex-layout" fxLayout="column" fxLayoutGap="30px" fxFlex>
 
-    <div class="flex-layout" fxLayout="row">
+    <!-- <div class="flex-layout" fxLayout="row">
       <div class="flex-layout" fxLayout="column" fxLayoutGap="14px" fxFlex>
         <div class="flex-layout" fxLayout="row">
           <div class="flex-layout" fxLayout="column">
@@ -83,7 +83,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="flex-layout" fxLayout="row">
       <div class="flex-layout" fxLayout="column" fxLayoutGap="14px" fxFlex>
@@ -93,15 +93,266 @@
           </div>
         </div>
         <div class="flex-layout" fxLayout="row" fxLayoutWrap>
-          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%" *ngFor="let stat of stats">
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex>
-                <span class="mat-caption"><strong>{{stat.value}}</strong></span>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameAverageStatistic.eliminationsAvgPer10Min }}/min</strong></span>
               </div>
             </div>
             <div class="flex-layout" fxLayout="row">
               <div class="flex-layout" fxLayout="column" fxFlex>
-                <span class="mat-caption text-uppercase">{{stat.name}}</span>
+                <span class="mat-caption text-uppercase">Eliminations</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameAverageStatistic.finalBlowsAvgPer10Min }}/min</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">Kills</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameAverageStatistic.soloKillsAvgPer10Min }}/min</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">Solo Kills</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameAverageStatistic.objectiveKillsAvgPer10Min }}/min</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">Objective Kills</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameAverageStatistic.offensiveAssistsAvgPer10Min }}/min</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">Offensive Assists</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameAverageStatistic.defensiveAssistsAvgPer10Min }}/min</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">Defensive Assists</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameAverageStatistic.deathsAvgPer10Min }}/min</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">Deaths</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.combatBestStatistic.weaponAccuracyPercentage | owParsePercent }}</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">Accuracy</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameAverageStatistic.criticalHitsAvgPer10Min }}/min</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">Crits</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.combatBestStatistic.killStreakBest }}</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">Kill Streak</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.combatLifetimeStatistic.finalBlows 
+                  | owKillDeathAverage:snapshot.heroesTotalSnapshotStatistic.combatLifetimeStatistic.deaths}}:1</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">K/D Ratio</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameAverageStatistic.allDamageDoneAvgPer10Min }}/min</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">All Damage</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameAverageStatistic.heroDamageDoneAvgPer10Min }}/min</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">Hero Damage</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameAverageStatistic.barrierDamageDoneAvgPer10Min }}/min</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">Barrier Damage</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameAverageStatistic.damageBlockedAvgPer10Min }}/min</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">Blocked</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameAverageStatistic.healingDoneAvgPer10Min }}/min</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">Healing</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameAverageStatistic.timeSpentOnFireAvgPer10Min }}/min</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">Time ON Fire</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.matchAwardsStatistic.totalMedals }}</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">Medals</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameAverageStatistic.objectiveTimeAvgPer10Min }}/min</strong></span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">Objective Time</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-layout pt-3" fxLayout="column" fxFlex="20%">
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameHistoryStatistic.timePlayed 
+                  | owAverageMatchLength:snapshot.heroesTotalSnapshotStatistic.gameHistoryStatistic.gamesPlayed
+                  | owSecondsToMinutes }} mins</strong>
+                </span>
+              </div>
+            </div>
+            <div class="flex-layout" fxLayout="row">
+              <div class="flex-layout" fxLayout="column" fxFlex>
+                <span class="mat-caption text-uppercase">Avg Game Length</span>
               </div>
             </div>
           </div>

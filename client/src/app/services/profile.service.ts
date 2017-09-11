@@ -4,22 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Apollo } from 'apollo-angular';
 import { ApolloError } from 'apollo-client';
 import { Store } from '@ngrx/store';
-import {
-  assoc,
-  merge,
-  pathOr,
-  test,
-  isNil,
-  not,
-  compose,
-  find,
-  equals,
-  replace,
-  last,
-  propOr,
-  propEq,
-  filter
-} from 'ramda';
+import { assoc, merge, pathOr, test, isNil, not, compose, find, equals, replace, last, propOr, propEq, filter } from 'ramda';
 
 import { Player, GamerTag, AppState, StatChangeResponse } from '../models';
 

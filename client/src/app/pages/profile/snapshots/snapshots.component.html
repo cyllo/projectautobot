@@ -7,23 +7,23 @@
           <span class="mat-caption">View your match statistics as you play.</span>
         </div>
       </div>
-      <div class="flex-layout" fxLayout="column" fxFlex="initial">
+      <!-- <div class="flex-layout" fxLayout="column" fxFlex="initial">
         <button color="primary" md-button>
           <md-icon>linear_scale</md-icon>
           <span>Start Snapshots</span>
         </button>
-      </div>
+      </div> -->
     </div>
     <div class="flex-layout" fxLayout="row">
       <div class="flex-layout px-3" fxLayout="column" fxLayoutGap="14px" fxFlex="initial">
-        <div class="flex-layout" fxLayout="row" *ngFor="let match of matchesPlayed">
+        <div class="flex-layout" fxLayout="row" *ngFor="let snapshot of selectedsnapshots | async">
           <div class="flex-layout" fxLayout="column" fxFlex>
-            <ow-match-snapshot></ow-match-snapshot>
+            <ow-match-snapshot [snapshot]="snapshot" (viewDetails)="viewDetails$.next($event)"></ow-match-snapshot>
           </div>
         </div>
       </div>
-      <div class="flex-layout px-3" fxLayout="column" fxFlex>
-        <ow-match-details></ow-match-details>
+      <div class="flex-layout px-3" fxLayout="column" fxFlex *ngIf="view | async as targetSnapshot">
+        <ow-match-details [snapshot]="targetSnapshot"></ow-match-details>
       </div>
     </div>
   </div>

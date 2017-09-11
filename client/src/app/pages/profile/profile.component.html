@@ -97,7 +97,11 @@
         <md-tab label="Snapshots">
           <div class="flex-layout py-3" fxLayout="row" fxLayoutGap="14px">
             <div class="flex-layout py-3" fxLayout="column" fxFlex>
-              <ow-snapshots-history *ngIf="selectedTabIndex == 3"></ow-snapshots-history>
+              <ow-snapshots-history 
+              *ngIf="selectedTabIndex == 3" 
+              [snapshots]="snapshots"
+              [modeIndicator]="modeIndicator">
+              </ow-snapshots-history>
             </div>
           </div>
         </md-tab>
