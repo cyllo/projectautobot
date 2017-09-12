@@ -4,7 +4,6 @@
 @import './recent-sessions/recent-sessions-theme';
 @import './most-played-heroes/most-played-heroes-theme';
 @import './lifetime-stats/lifetime-stats-theme';
-@import './hero-cards/hero-cards-theme';
 
 @mixin ow-overview-component-theme($theme) {
   $primary: map-get($theme, primary);
@@ -21,6 +20,5 @@
   @include ow-recent-sessions-theme($theme);
   @include ow-most-played-heroes-theme($theme);
   @include ow-lifetime-stats-theme($theme);
-  @include ow-hero-cards-theme($theme);
   @include ow-overview-component-theme($theme);
 }

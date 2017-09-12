@@ -16,8 +16,12 @@
   </div>
 
   <div fxLayout="row" fxLayoutGap="30px" fxLayoutWrap>
-    <div class="mt-3" fxLayout="column" *ngFor="let snapshot of selectedsnapshots | async">
-      <ow-match-snapshot [snapshot]="snapshot" (viewDetails)="viewDetails$.next($event)"></ow-match-snapshot>
+    <div fxLayout="column" fxLayoutGap="14px">
+      <ow-match-snapshot
+        *ngFor="let snapshot of selectedsnapshots | async"
+        [snapshot]="snapshot"
+        (viewDetails)="viewDetails$.next($event)">
+      </ow-match-snapshot>
     </div>
     <div class="mt-3" fxLayout="column" fxFlex *ngIf="matchDetails | async as targetSnapshot">
       <ow-match-details [snapshot]="targetSnapshot"></ow-match-details>
