@@ -40,11 +40,20 @@ defmodule Scraper do
         |> Sorter.sort_stats
         |> ModelCreator.save_profile
 
+      {:ok, gamer_tag} = Game.get_gamer_tag_with_snapshots(gamer_tag_id)
+
       Task.start(fn ->
         Api.Web.GamerTagChannel.broadcast_change(gamer_tag_id)
+
+        Task.start(fn ->
+          gamer_tag
+            |> Game.get_connected_gamer_tags
+            |> scrape_gamer_tags
+        end)
       end)
 
-      Game.get_gamer_tag_with_snapshots(gamer_tag_id)
+      {:ok, gamer_tag}
+
     else
       true ->
         {:error, %{
