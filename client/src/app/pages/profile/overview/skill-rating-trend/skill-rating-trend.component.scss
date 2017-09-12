@@ -1,7 +1,8 @@
-:host /deep/ .trends {
+:host /deep/ .skill-rating-trend {
   .chart {
     canvas {
-      max-width: 244px !important;
+      max-width: 800px !important;
+      max-height: 120px !important;
     }
   }
 }

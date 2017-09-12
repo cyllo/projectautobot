@@ -1,235 +1,69 @@
-<div class="hero-card-body flex-layout" fxLayout="column" fxFlex>
-  <div class=" flex-layout pb-3 px-2" fxLayout="row" fxLayoutWrap>
+<div class="hero-card-body px-3" fxLayout="row" fxLayoutWrap>
 
-    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
-      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="20px">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <div>
-            <span><strong>{{ hero.gameAverageStatistic?.eliminationsAvgPer10Min }}</strong></span>
-            <span class="mat-caption">/min</span>
-          </div>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <md-slider class="flex-layout" value="80" disabled></md-slider>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <span class="mat-caption text-uppercase">Kills</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
-      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="20px">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <div>
-            <span><strong>{{ hero.gameAverageStatistic?.defensiveAssistsAvgPer10Min }}</strong></span>
-            <span class="mat-caption">/min</span>
-          </div>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <md-slider class="flex-layout" value="80" disabled></md-slider>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <span class="mat-caption text-uppercase">Def. Assists</span>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
-      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="20px">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <div>
-            <span><strong>{{ hero.gameAverageStatistic?.offensiveAssistsAvgPer10Min }}</strong></span>
-            <span class="mat-caption">/min</span>
-          </div>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <md-slider class="flex-layout" value="80" disabled></md-slider>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <span class="mat-caption text-uppercase">Off. Assists</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
-      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="20px">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <div>
-            <span><strong>{{ hero.gameAverageStatistic?.deathsAvgPer10Min }}</strong></span>
-            <span class="mat-caption">/min</span>
-          </div>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <md-slider class="flex-layout" value="80" disabled></md-slider>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <span class="mat-caption text-uppercase">Deaths</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
-      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="20px">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <div>
-            <span><strong>{{ hero.combatLifetimeStatistic?.finalBlows / hero.combatLifetimeStatistic?.deaths | number : '1.2-2' }}:1</strong></span>
-          </div>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <md-slider class="flex-layout" value="80" disabled></md-slider>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <span class="mat-caption text-uppercase">K/D Ratio</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
-      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="20px">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <div>
-            <span><strong>{{ hero.combatLifetimeStatistic?.weaponAccuracyPercentage }}%</strong></span>
-          </div>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <md-slider class="flex-layout" value="80" disabled></md-slider>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <span class="mat-caption text-uppercase">Accuracy</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
-      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="20px">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <div>
-            <span><strong>{{ hero.gameAverageStatistic?.heroDamageDoneAvgPer10Min }}</strong></span>
-            <span class="mat-caption">/min</span>
-          </div>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <md-slider class="flex-layout" value="80" disabled></md-slider>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <span class="mat-caption text-uppercase">Hero Damage</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
-      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="20px">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <div>
-            <span><strong>{{ hero.gameAverageStatistic?.damageBlockedAvgPer10Min }}</strong></span>
-            <span class="mat-caption">/min</span>
-          </div>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <md-slider class="flex-layout" value="80" disabled></md-slider>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <span class="mat-caption text-uppercase">Blocked</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
-      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="20px">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <div>
-            <span><strong>{{ hero.gameAverageStatistic?.healingDoneAvgPer10Min }}</strong></span>
-            <span class="mat-caption">/min</span>
-          </div>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <md-slider class="flex-layout" value="80" disabled></md-slider>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <span class="mat-caption text-uppercase">Healing</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
-      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="20px">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <div>
-            <span><strong>{{ hero.gameAverageStatistic?.criticalHitsAvgPer10Min }}</strong></span>
-            <span class="mat-caption">/min</span>
-          </div>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <md-slider class="flex-layout" value="80" disabled></md-slider>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <span class="mat-caption text-uppercase">Crits</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
-      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="20px">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <div>
-            <span><strong>{{ hero.gameAverageStatistic?.objectiveKillsAvgPer10Min }}</strong></span>
-            <span class="mat-caption">/min</span>
-          </div>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <md-slider class="flex-layout" value="80" disabled></md-slider>
-        </div>
-      </div>
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <span class="mat-caption text-uppercase">Obj. Kills</span>
-        </div>
-      </div>
-    </div>
-
+  <div class="mt-3 px-1" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
+    <span><strong>{{ hero.gameAverageStatistic?.eliminationsAvgPer10Min }}</strong>/min</span>
+    <md-slider class="flex-layout" value="80" disabled></md-slider>
+    <span class="mat-caption text-uppercase">Kills</span>
   </div>
+
+  <div class="mt-3 px-1" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
+    <span><strong>{{ hero.gameAverageStatistic?.defensiveAssistsAvgPer10Min }}</strong>/min</span>
+    <md-slider class="flex-layout" value="80" disabled></md-slider>
+    <span class="mat-caption text-uppercase">Def. Assists</span>
+  </div>
+
+  <div class="mt-3 px-1" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
+    <span><strong>{{ hero.gameAverageStatistic?.offensiveAssistsAvgPer10Min }}</strong>/min</span>
+    <md-slider class="flex-layout" value="80" disabled></md-slider>
+    <span class="mat-caption text-uppercase">Off. Assists</span>
+  </div>
+
+  <div class="mt-3 px-1" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
+    <span><strong>{{ hero.gameAverageStatistic?.deathsAvgPer10Min }}</strong>/min</span>
+    <md-slider class="flex-layout" value="80" disabled></md-slider>
+    <span class="mat-caption text-uppercase">Deaths</span>
+  </div>
+
+  <div class="mt-3 px-1" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
+    <span><strong>{{ hero.combatLifetimeStatistic?.finalBlows / hero.combatLifetimeStatistic?.deaths | number : '1.2-2' }}:1</strong></span>
+    <md-slider class="flex-layout" value="80" disabled></md-slider>
+    <span class="mat-caption text-uppercase">K/D Ratio</span>
+  </div>
+
+  <div class="mt-3 px-1" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
+    <span><strong>{{ hero.combatLifetimeStatistic?.weaponAccuracyPercentage }}%</strong></span>
+    <md-slider class="flex-layout" value="80" disabled></md-slider>
+    <span class="mat-caption text-uppercase">Accuracy</span>
+  </div>
+
+  <div class="mt-3 px-1" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
+    <span><strong>{{ hero.gameAverageStatistic?.heroDamageDoneAvgPer10Min }}</strong>/min</span>
+    <md-slider class="flex-layout" value="80" disabled></md-slider>
+    <span class="mat-caption text-uppercase">Hero Damage</span>
+  </div>
+
+  <div class="mt-3 px-1" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
+    <span><strong>{{ hero.gameAverageStatistic?.damageBlockedAvgPer10Min }}</strong>/min</span>
+    <md-slider class="flex-layout" value="80" disabled></md-slider>
+    <span class="mat-caption text-uppercase">Blocked</span>
+  </div>
+
+  <div class="mt-3 px-1" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
+    <span><strong>{{ hero.gameAverageStatistic?.healingDoneAvgPer10Min }}</strong>/min</span>
+    <md-slider class="flex-layout" value="80" disabled></md-slider>
+    <span class="mat-caption text-uppercase">Healing</span>
+  </div>
+
+  <div class="mt-3 px-1" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
+    <span><strong>{{ hero.gameAverageStatistic?.criticalHitsAvgPer10Min }}</strong>/min</span>
+    <md-slider class="flex-layout" value="80" disabled></md-slider>
+    <span class="mat-caption text-uppercase">Crits</span>
+  </div>
+
+  <div class="mt-3 px-1" fxLayout="column" fxFlex="20%" fxFlex.lt-md="25%" fxFlex.lt-sm="33.333%">
+    <span><strong>{{ hero.gameAverageStatistic?.objectiveKillsAvgPer10Min }}</strong>/min</span>
+    <md-slider class="flex-layout" value="80" disabled></md-slider>
+    <span class="mat-caption text-uppercase">Obj. Kills</span>
+  </div>
+
 </div>

@@ -1,187 +1,67 @@
-<div class="hero-card-header flex-layout" fxLayout="column" fxFlex>
-  <div class="flex-layout px-3 pb-3" fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap>
+<div class="hero-card-header px-3" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="14px">
 
-    <div class="flex-layout pt-3" fxLayout="column" fxFlex="initial">
-      <ow-hero-portrait [class]="'md-image-64'" [owCode]="hero.hero.code"></ow-hero-portrait>
+  <div class="mt-3" fxLayout="column">
+    <ow-hero-portrait [class]="'md-image-48'" [owCode]="hero.hero.code"></ow-hero-portrait>
+  </div>
+
+  <div class="mt-3" fxLayout="column">
+    <span><strong>{{ hero.hero.name }}</strong></span>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
+      <md-icon class="md-14" svgIcon="role_{{ hero.hero.role | lowercase }}"></md-icon>
+      <span class="mat-caption text-uppercase">{{ hero.hero.role }}</span>
     </div>
+  </div>
 
-    <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="150px" fxFlex.lt-md="initial">
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <span><strong>{{ hero.hero.name }}</strong></span>
+  <div class="mt-3" fxLayout="column" fxFlex>
+
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="14px">
+
+      <div class="text-center" fxLayout="column" fxFlex="20%">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <span><strong>{{ hero.gameHistoryStatistic.gamesPlayed }}</strong></span>
         </div>
-      </div>
-      <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
-        <div class="flex-layout" fxLayout="column" fxFlex="initial">
-          <md-icon class="md-14" svgIcon="role_{{ hero.hero.role | lowercase }}"></md-icon>
+        <div fxLayout="row" fxLayoutAlign="center center" fxFlex="20px">
+          <md-progress-bar mode="determinate" value="50"></md-progress-bar>
         </div>
-        <div class="flex-layout" fxLayout="column" fxFlex="initial">
-          <span class="mat-caption text-uppercase">{{ hero.hero.role }}</span>
+        <span class="mat-caption text-uppercase">Games</span>
+      </div>
+
+      <div class="text-center" fxLayout="column" fxFlex="20%">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <span class="mat-caption">{{ hero.gameHistoryStatistic?.gamesWon }}</span>
         </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxFlex="20px">
+          <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+        </div>
+        <span class="mat-caption text-uppercase">Wins</span>
       </div>
-    </div>
 
-    <div class="flex-layout" fxLayout="column" fxFlex fxFlex.lt-md="100%">
-      <div class="flex-layout" fxLayout="row" fxLayoutAlign="end center">
-
-        <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex>
-
-          <div class="flex-layout" fxLayout="row">
-            <div class="flex-layout" fxLayout="column" fxFlex>
-              <span class="mat-caption text-uppercase">-</span>
-            </div>
-            <div class="flex-layout text-right" fxLayout="column" fxFlex>
-              <span class="mat-caption text-uppercase danger">-</span>
-            </div>
-          </div>
-
-          <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="4px" fxFlex="noshrink">
-            <div class="flex-layout" fxLayout="column" fxFlex="initial">
-              <div class="flex-layout" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="4px">
-                <div class="flex-layout text-right" fxLayout="column" fxFlex>
-                  <span class="mat-caption text-uppercase">
-                    <strong>{{ hero.gameHistoryStatistic.gamesPlayed }}</strong>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px" fxFlex="20px">
-            <div class="flex-layout" fxLayout="column" fxFlex>
-              <md-progress-bar mode="determinate" value="50"></md-progress-bar>
-            </div>
-          </div>
-
-          <div class="flex-layout" fxLayout="row">
-            <div class="flex-layout text-center" fxLayout="column" fxFlex>
-              <span class="mat-caption text-uppercase">Games</span>
-            </div>
-          </div>
-
-        </div><!-- end stat -->
-
-        <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex>
-
-          <div class="flex-layout" fxLayout="row">
-            <div class="flex-layout" fxLayout="column" fxFlex>
-              <span class="mat-caption text-uppercase">-</span>
-            </div>
-            <div class="flex-layout text-right" fxLayout="column" fxFlex>
-              <span class="mat-caption text-uppercase danger">-</span>
-            </div>
-          </div>
-
-          <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="4px" fxFlex="noshrink">
-            <div class="flex-layout" fxLayout="column" fxFlex="initial">
-              <div class="flex-layout" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="4px">
-                <div class="flex-layout text-right" fxLayout="column" fxFlex>
-                  <span class="mat-caption text-uppercase">
-                    <strong>{{ hero.combatLifetimeStatistic?.timeSpentOnFire | owSecondsToHours }} Hrs</strong>
-                  </span>
-                </div>
-                <div class="flex-layout" fxLayout="column" fxFlex="initial">
-                  <md-icon class="md-18">access_time</md-icon>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px" fxFlex="20px">
-            <div class="flex-layout" fxLayout="column" fxFlex>
-              <md-progress-bar mode="determinate" value="50"></md-progress-bar>
-            </div>
-            <div class="flex-layout" fxLayout="column" fxFlex="initial">
-              <md-icon class="md-18">whatshot</md-icon>
-            </div>
-          </div>
-
-          <div class="flex-layout" fxLayout="row">
-            <div class="flex-layout text-center" fxLayout="column" fxFlex>
-              <span class="mat-caption text-uppercase">On Fire</span>
-            </div>
-          </div>
-
-        </div><!-- end stat -->
-
-        <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex>
-
-          <div class="flex-layout" fxLayout="row">
-            <div class="flex-layout" fxLayout="column" fxFlex>
-              <span class="mat-caption text-uppercase">-</span>
-            </div>
-            <div class="flex-layout text-right" fxLayout="column" fxFlex>
-              <span class="mat-caption text-uppercase danger">-</span>
-            </div>
-          </div>
-
-          <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="4px" fxFlex="noshrink">
-            <div class="flex-layout" fxLayout="column" fxFlex="initial">
-              <div class="flex-layout" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="4px">
-                <div class="flex-layout text-right" fxLayout="column" fxFlex>
-                  <div>
-                    <span class="medal medal-gold mat-caption">{{ hero.matchAwardsStatistic?.goldMedals || 0 }}</span>
-                    <span class="medal medal-silver mat-caption">{{ hero.matchAwardsStatistic?.silverMedals || 0 }}</span>
-                    <span class="medal medal-bronze mat-caption">{{ hero.matchAwardsStatistic?.bronzeMedals || 0 }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px" fxFlex="20px">
-            <div class="flex-layout" fxLayout="column" fxFlex>
-              <md-progress-bar mode="determinate" value="50"></md-progress-bar>
-            </div>
-          </div>
-
-          <div class="flex-layout" fxLayout="row">
-            <div class="flex-layout text-center" fxLayout="column" fxFlex>
-              <span class="mat-caption text-uppercase">Medals</span>
-            </div>
-          </div>
-
-        </div><!-- end stat -->
-
-        <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex>
-
-          <div class="flex-layout" fxLayout="row">
-            <div class="flex-layout" fxLayout="column" fxFlex>
-              <span class="mat-caption text-uppercase">-</span>
-            </div>
-            <div class="flex-layout text-right" fxLayout="column" fxFlex>
-              <span class="mat-caption text-uppercase danger">-</span>
-            </div>
-          </div>
-
-          <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="4px" fxFlex="noshrink">
-            <div class="flex-layout" fxLayout="column" fxFlex="initial">
-              <div class="flex-layout" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="4px">
-                <div class="flex-layout text-right" fxLayout="column" fxFlex>
-                  <span class="mat-caption text-uppercase">
-                    <strong>{{ hero.gameHistoryStatistic?.gamesWon }}</strong>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px" fxFlex="20px">
-            <div class="flex-layout" fxLayout="column" fxFlex>
-              <md-progress-bar mode="determinate" value="50"></md-progress-bar>
-            </div>
-          </div>
-
-          <div class="flex-layout" fxLayout="row">
-            <div class="flex-layout text-center" fxLayout="column" fxFlex>
-              <span class="mat-caption text-uppercase">Wins</span>
-            </div>
-          </div>
-
-        </div><!-- end stat -->
-
+      <div class="text-center" fxLayout="column" fxFlex="20%">
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="4px">
+          <span><strong>{{ hero.combatLifetimeStatistic?.timeSpentOnFire | owSecondsToHours }}</strong>hrs</span>
+          <md-icon class="md-18">access_time</md-icon>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="4px" fxFlex="20px">
+          <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+          <md-icon class="md-18">whatshot</md-icon>
+        </div>
+        <span class="mat-caption text-uppercase">Played</span>
       </div>
+
+      <div class="text-center" fxLayout="column" fxFlex="20%">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <span class="medal medal-gold mat-caption">{{ hero.matchAwardsStatistic?.goldMedals || 0 }}</span>
+          <span class="medal medal-silver mat-caption">{{ hero.matchAwardsStatistic?.silverMedals || 0 }}</span>
+          <span class="medal medal-bronze mat-caption">{{ hero.matchAwardsStatistic?.bronzeMedals || 0 }}</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxFlex="20px">
+          <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+        </div>
+        <span class="mat-caption text-uppercase">Medals</span>
+      </div>
+
     </div>
 
   </div>
+
 </div>
