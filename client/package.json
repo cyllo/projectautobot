@@ -11,7 +11,7 @@
     "server": "webpack-dev-server --inline --progress --port 8080 --https",
     "webdriver-update": "webdriver-manager update",
     "webdriver-start": "webdriver-manager start",
-    "lint": "tslint --type-check --project tsconfig.json",
+    "lint": "tslint --type-check --project tsconfig.json --exclude 'node_modules/**'",
     "e2e": "protractor",
     "e2e-live": "protractor --elementExplorer",
     "pretest": "npm run lint",
