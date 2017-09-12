@@ -1,142 +1,56 @@
-<div class="career flex-layout py-3 px-3" fxLayout="row" fxFlex="noshrink" fxLayoutWrap>
+<div class="career" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="14px" fxLayoutWrap>
 
-  <div class="flex-layout pt-3" fxLayout="column" fxFlex fxFlex.lt-md="grow">
+  <div class="mt-3 text-center" fxLayout="column" fxFlex="64px">
+    <img class="avatar md-image md-image-64" draggable="false" [src]="profile.portraitUrl">
+    <span class="level mat-caption">{{profile.level}}</span>
+  </div>
 
-    <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="14px" fxFlex="noshrink">
+  <div class="mt-3" fxLayout="column" fxFlex>
+    <span class="mat-caption">{{ profile.tag }}</span>
+    <span class="mat-headline text-uppercase mb-0"><strong>{{ profile.overwatchName }}</strong></span>
+    <span class="mat-caption">{{ profile.platform | uppercase }} {{ profile.region | uppercase }}</span>
+  </div>
 
-      <div class="flex-layout" fxLayout="column" fxFlex="initial">
-        <div class="avatar px-3 py-3 flex-layout" fxLayout="row">
-          <div class="flex-layout" fxLayout="column" fxFlex>
-            <img class="md-image md-image-64" draggable="false" [src]="profile.portraitUrl">
-          </div>
+  <div fxLayout="column" fxFlex fxFlex.lt-md="grow">
+
+    <div fxLayout="row" fxLayoutAlign.gt-md="end center" fxLayoutGap="14px" fxFill>
+
+      <div class="mt-3" fxLayout="column" fxFlex="120px" fxFlex.lt-md *ngIf="modeIndicator.mode === 'competitive'">
+        <!-- <div fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="mat-caption text-uppercase">99th</span>
+          <span class="mat-caption text-uppercase">+0.11%</span>
+        </div> -->
+        <div fxLayout="row" fxLayoutAlign="center center" fxFlex="30px">
+          <img class="md-image" [src]="profile.competitiveRankUrl">
+          <span><strong>{{ profile.competitiveLevel}}</strong></span>
         </div>
-        <div class="level flex-layout" fxLayout="row">
-          <div class="flex-layout text-center" fxLayout="column" fxFlex>
-            <span class="mat-caption py-1">{{profile.level}}</span>
-          </div>
-        </div>
+        <span class="mat-caption text-center text-uppercase">Skill Rating</span>
       </div>
 
-      <div class="flex-layout" fxLayout="column"fxFlex>
-        <div class="flex-layout" fxLayout="row">
-          <div class="flex-layout" fxLayout="column" fxFlex>
-            <span class="mat-caption">{{ profile.tag }}</span>
-          </div>
+      <div class="mt-3" fxLayout="column" fxFlex="120px" fxFlex.lt-md>
+        <!-- <div fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="mat-caption text-uppercase">99th</span>
+          <span class="mat-caption text-uppercase">+0.11%</span>
+        </div> -->
+        <div fxLayout="row" fxLayoutAlign="center center" fxFlex="30px">
+          <span><strong>{{ profile[modeIndicator.mode].heroesTotalSnapshotStatistic.gameHistoryStatistic.gamesWon }}</strong></span>
         </div>
-        <div class="flex-layout" fxLayout="row">
-          <div class="flex-layout" fxLayout="column" fxFlex>
-            <span class="mat-headline text-uppercase mb-0"><strong>{{ profile.overwatchName }}</strong></span>
-          </div>
-        </div>
-        <div class="flex-layout" fxLayout="row">
-          <div class="flex-layout" fxLayout="column" fxFlex>
-            <span class="mat-caption">on {{ profile.platform | uppercase }} {{ profile.region | uppercase }}</span>
-          </div>
-        </div>
+        <span class="mat-caption text-center text-uppercase">Wins</span>
       </div>
 
-    </div><!-- end row -->
-
-  </div><!-- end column -->
-
-  <div class="flex-layout pt-3" fxLayout="column" fxFlex fxFlex.lt-md="grow">
-
-    <div class="flex-layout"
-         fxLayout="row"
-         fxLayoutAlign="end center"
-         fxLayoutAlign.lt-lg="start center"
-         fxLayoutWrap>
-
-      <div class="stat-block flex-layout pt-3"
-           fxLayout="column"
-           fxFlex="190px"
-           fxFlex.lt-lg
-           fxFlex.lt-md="50%"
-           *ngIf="modeIndicator.mode === 'competitive'">
-        <div class="flex-layout" fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="start center">
-          <div class="flex-layout text-center" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase">-</span>
-          </div>
-          <div class="flex-layout text-center" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase">-</span>
+      <div class="mt-3" fxLayout="column" fxFlex="120px" fxFlex.lt-md>
+        <!-- <div fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="mat-caption text-uppercase">99th</span>
+          <span class="mat-caption text-uppercase">+0.11%</span>
+        </div> -->
+        <div fxLayout="row" fxLayoutAlign="center center" fxFlex="30px">
+          <div>
+            <span><strong>{{ profile[modeIndicator.mode].heroesTotalSnapshotStatistic.gameHistoryStatistic.timePlayed | owSecondsToHours }}</strong></span>
+            <span> hrs</span>
           </div>
         </div>
-        <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center" fxFlex="48px">
-          <div class="flex-layout" fxLayout="column" fxFlex="initial">
-            <img class="md-image" [src]="profile.competitiveRankUrl">
-          </div>
-          <div class="flex-layout" fxLayout="column" fxFlex="initial">
-            <span class="mat-title mb-0"><strong>{{ profile.competitiveLevel}}</strong></span>
-          </div>
-        </div>
-        <div class="stat-name flex-layout" fxLayout="row" fxLayoutAlign="start center">
-          <div class="flex-layout text-center py-2" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase">Skill Rating</span>
-          </div>
-        </div>
+        <span class="mat-caption text-center text-uppercase">Play Time</span>
       </div>
-
-      <div class="stat-block flex-layout pt-3"
-           fxLayout="column"
-           fxFlex="190px"
-           fxFlex.lt-lg
-           fxFlex.lt-md="50%">
-        <div class="flex-layout" fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="start center">
-          <div class="flex-layout text-center" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase">-</span>
-          </div>
-          <div class="flex-layout text-center" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase">-</span>
-          </div>
-        </div>
-        <div class="flex-layout" fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="center center" fxFlex="48px">
-          <div class="flex-layout" fxLayout="column" fxFlex="initial">
-            <span class="mat-title mb-0">
-              <strong>
-                {{ profile[modeIndicator.mode].heroesTotalSnapshotStatistic.gameHistoryStatistic.gamesWon }}
-              </strong>
-            </span>
-          </div>
-        </div>
-        <div class="stat-name flex-layout" fxLayout="row" fxLayoutAlign="start center">
-          <div class="flex-layout text-center py-2" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase">Wins</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="stat-block flex-layout pt-3"
-           fxLayout="column"
-           fxFlex="190px"
-           fxFlex.lt-lg
-           fxFlex.lt-md="50%">
-        <div class="flex-layout" fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="start center">
-          <div class="flex-layout text-center" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase">-</span>
-          </div>
-          <div class="flex-layout text-center" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase">-</span>
-          </div>
-        </div>
-        <div class="flex-layout" fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="center center" fxFlex="48px">
-          <div class="flex-layout" fxLayout="column" fxFlex="initial">
-            <div>
-              <span class="mat-title mb-0">
-                <strong>
-                  {{ profile[modeIndicator.mode].heroesTotalSnapshotStatistic.gameHistoryStatistic.timePlayed | owSecondsToHours }}
-                </strong>
-              </span>
-              <span class="mat-caption">hrs</span>
-            </div>
-          </div>
-        </div>
-        <div class="stat-name flex-layout" fxLayout="row" fxLayoutAlign="start center">
-          <div class="flex-layout text-center py-2" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase">Play Time</span>
-          </div>
-        </div>
-      </div>
-
     </div>
 
   </div>

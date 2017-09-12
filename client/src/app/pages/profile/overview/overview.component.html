@@ -1,48 +1,48 @@
-<div class="overview flex-layout" fxLayout="row" fxLayoutWrap>
+<div class="overview" fxLayout="column" fxFlex>
 
-  <div class="flex-layout py-3" fxLayout="column" fxLayoutGap="14px" fxFlex fxFlex.lt-lg="100%">
+  <div fxLayout="row" fxLayoutWrap>
 
-    <div class="flex-layout pt-3" fxLayout="row">
-      <div class="flex-layout" fxLayout="column" fxFlex="initial">
-        <ow-skill-rating-trend [skillRatingTrend]="skillRatingTrend"></ow-skill-rating-trend>
+    <div class="mt-3" fxLayout="column" fxLayoutGap="30px" fxFlex fxFlex.lt-lg="grow">
+
+      <div fxLayout="row">
+        <ow-skill-rating-trend [skillRatingTrend]="skillRatingTrend" fxFill></ow-skill-rating-trend>
+      </div>
+
+      <div fxLayout="row">
+        <ow-overall
+          [totalGameAverage]="totalGameAverage | async"
+          [matchAwards]="matchAwards | async"
+          fxFill>
+        </ow-overall>
+      </div>
+
+      <div fxLayout="row" fxLayoutGap="14px">
+        <div fxLayout="column" fxFlex="35%">
+          <ow-lifetime-stats [lifetimeStats]="lifeTimeStats | async" [gameHistory]="gameHistory | async"></ow-lifetime-stats>
+        </div>
+        <div fxLayout="column" fxFlex>
+          <ow-most-played [mostPlayedHeroes]="mostPlayedHeroes | async"></ow-most-played>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutGap="14px">
+        <div fxLayout="column" fxFlex="35%">
+          <ow-recent-sessions [recentSnapshots]="recentSnapshots | async"></ow-recent-sessions>
+        </div>
+        <div fxLayout="column" fxFlex>
+          <ow-role-performance [heroStatsByRole]="heroStatsByRole | async"></ow-role-performance>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mt-3" fxLayout="column" fxLayoutGap="14px" fxFlex="initial" fxFlex.lt-lg="grow">
+      <span class="text-uppercase"><strong>Heroes</strong></span>
+      <div fxLayout="row" *ngFor="let hero of heroStatistics | async">
+        <ow-hero-card [hero]="hero" fxFill></ow-hero-card>
       </div>
     </div>
 
-    <div class="flex-layout pt-3" fxLayout="row">
-      <ow-overall
-        class="flex-layout"
-        fxLayout="column"
-        fxFlex
-        [totalGameAverage]="totalGameAverage | async"
-        [matchAwards]="matchAwards | async">
-      </ow-overall>
-    </div>
-
-    <div class="flex-layout" fxLayout="row">
-      <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="50%">
-        <ow-lifetime-stats [lifetimeStats]="lifeTimeStats | async" [gameHistory]="gameHistory | async"></ow-lifetime-stats>
-      </div>
-      <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="50%">
-        <ow-most-played class="flex-layout" fxLayout="column" fxFlex [mostPlayedHeroes]="mostPlayedHeroes | async"></ow-most-played>
-      </div>
-    </div>
-
-    <div class="flex-layout" fxLayout="row">
-      <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="50%">
-        <ow-role-performance [heroStatsByRole]="heroStatsByRole | async"></ow-role-performance>
-      </div>
-      <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="50%">
-        <ow-recent-sessions class="flex-layout" fxLayout="column" fxFlex [recentSnapshots]="recentSnapshots | async"></ow-recent-sessions>
-      </div>
-    </div>
-
-
-  </div>
-
-  <div class="flex-layout" fxLayout="column" fxFlex="initial" fxFlex.lt-lg="100%">
-    <div class="flex-layout pt-3" fxLayout="row" *ngFor="let hero of heroStatistics | async">
-      <ow-hero-card class="flex-layout" fxLayout="column" fxFlex [hero]="hero"></ow-hero-card>
-    </div>
   </div>
 
 </div>

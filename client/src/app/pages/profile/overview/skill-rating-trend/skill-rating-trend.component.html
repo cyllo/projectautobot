@@ -1,18 +1,12 @@
-<div class="trends flex-layout px-3 py-3" fxLayout ="row" fxFlex="noshrink">
-  <div class="flex-layout" fxLayout="column" fxFlex>
-    <div class="flex-layout" fxLayout="row">
-      <div class="flex-layout" fxLayout="column" fxFlex>
-        <span class="text-uppercase"><strong>Skill Rating Trend</strong></span>
-      </div>
-    </div>
-    <div class="flex-layout" fxLayout="row">
-      <div class="flex-layout pt-3" fxLayout="column" fxLayoutAlign="center center" fxFlex *ngIf="chart | async as chartData">
-        <ow-chart [chartType]="chartData.chartType"
-          [labels] = "chartData.xAxisLabels"
-          [datasets]="chartData.datasets"
-          [legend]="chartData.legend">
-        </ow-chart>
-      </div>
-    </div>
+<div class="skill-rating-trend" fxLayout="column" fxLayoutGap="14px" fxFlex  *ngIf="chart | async as chartData">
+  <span class="text-uppercase"><strong>Skill Rating Trend</strong></span>
+  <div class="px-3" fxLayout="row">
+    <ow-chart
+      [chartType]="chartData.chartType"
+      [labels] = "chartData.xAxisLabels"
+      [datasets]="chartData.datasets"
+      [legend]="chartData.legend"
+      fxFill>
+    </ow-chart>
   </div>
 </div>

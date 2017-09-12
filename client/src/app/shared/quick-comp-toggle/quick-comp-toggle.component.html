@@ -1,26 +1,8 @@
-<div class="quick-comp-toggle" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" *ngIf="modeIndicator | async as modeIndicator">
-  <div class="pr-2" fxLayout="column">
-    <span class="mat-caption text-uppercase" [ngClass]="{'font-weight-bold': (modeIndicator.mode === 'quickPlay')}">
-      Quick Play
-    </span>
-  </div>
-  <div fxLayout="column">
-    <md-slide-toggle
-    color="primary"
+<div class="game-mode-toggle" fxLayout="row" fxLayoutAlign="space-around center" *ngIf="modeIndicator | async as modeIndicator">
+  <md-slide-toggle
     [checked]="modeIndicator.mode === 'competitive'"
     (change)="gameModeToggle$.next($event.checked)"
     [disabled]="modeIndicator.disabled">
+    <span class="mat-caption text-uppercase">{{ modeIndicator.mode === 'competitive' ? 'Competitive Play' : 'Quick Play' }}</span>
   </md-slide-toggle>
-
-  </div>
-  <div fxLayout="column">
-    <span class="mat-caption text-uppercase"
-      [ngClass]="{
-        'font-weight-bold': (modeIndicator.mode === 'competitive'),
-        'mat-primary': (modeIndicator.mode === 'competitive')
-      }">
-      Competitive Play
-    </span>
-  </div>
-
 </div>

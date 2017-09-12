@@ -1,11 +1,5 @@
-<div fxLayout="row" fxFlex="noshrink">
-  <div class="hero-card {{ hero.hero.name }}" fxLayout="column" fxFlex="720px" fxFlex.lt-lg="100%">
-    <div class="flex-layout" fxLayout="row">
-      <div class="flex-layout" fxLayout="column" fxFlex>
-        <md-progress-bar mode="determinate" value="80"></md-progress-bar>
-      </div>
-    </div>
-    <ow-hero-card-header class="flex-layout" fxLayout="row" [hero]="hero"></ow-hero-card-header>
-    <ow-hero-card-body class="flex-layout" fxLayout="row" [hero]="hero"></ow-hero-card-body>
-  </div>
+<div class="hero-card {{ hero.hero.name }}" fxLayout="column" fxFlex="690px" fxFlex.lt-lg *ngIf="hero">
+  <md-progress-bar class="ow-hero-card-header-progress-bar" mode="determinate" value="80"></md-progress-bar>
+  <ow-hero-card-header [hero]="hero"></ow-hero-card-header>
+  <ow-hero-card-body [hero]="hero"></ow-hero-card-body>
 </div>

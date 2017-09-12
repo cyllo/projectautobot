@@ -27,11 +27,6 @@
 
     @include ow-button-theme-color($theme);
 
-    &.mat-primary {
-      background-color: mat-color($primary);
-      color: mat-color($primary, default-contrast);
-    }
-
   }
 
 }

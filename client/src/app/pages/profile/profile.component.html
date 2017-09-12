@@ -1,116 +1,80 @@
-<div class="profile flex-layout" fxLayout="column" fxLayoutGap="30px" fxFlex *ngIf="displayProfile | async as currentProfile; else loadingBlock">
+<div class="profile px-3" fxLayout="column" fxLayoutGap="14px" fxFlex *ngIf="displayProfile | async as currentProfile; else loadingBlock">
 
-  <div class="header flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
+  <div [ngStyle.gt-sm]="{ 'padding-top': '20px' }" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="14px" fxLayoutWrap>
 
-    <div class="flex-layout" fxLayout="column" fxFlex>
+    <div class="mt-3" fxLayout="column" fxFlex="initial" fxFlex.lt-md="grow" fxFlexOrder.lt-md="2">
+      <ow-platform-region
+        [ngStyle.lt-md]="{ 'padding-top': '20px' }"
+        [players]="players"
+        [currentProfile]="currentProfile"
+        (change)="changeProfile$.next($event)">
+      </ow-platform-region>
+    </div>
 
-      <div class="flex-layout" fxLayout="row" fxLayoutGap="14px" fxLayoutWrap>
-        <div class="flex-layout pt-3" fxLayout="column" fxFlex="initial" fxFlex.lt-md="100%">
-          <ow-platform-region
-            [players]="players"
-            [currentProfile]="currentProfile"
-            (change)="changeProfile$.next($event)">
-          </ow-platform-region>
-        </div>
-        <div class="flex-layout"
-             ngClass.gt-sm="game-mode-toggle-offset"
-             ngClass.lt-md="pt-3"
-             fxLayout="column"
-             fxFlex="initial"
-             fxFlex.lt-md="100%">
-          <ow-game-mode-toggle
-            (gameMode)="selectedGameMode$.next($event)"
+    <div class="mt-3" fxLayout="column" fxLayoutAlign.lt-md="start start" fxFlex="initial" fxFlex.lt-md="grow" fxFlexOrder.lt-md="1">
+      <ow-game-mode-toggle
+        (gameMode)="selectedGameMode$.next($event)"
+        [modeIndicator]="modeIndicator">
+      </ow-game-mode-toggle>
+    </div>
+
+    <div class="mt-3" fxLayout="column" fxFlex fxFlex.lt-md="grow" fxFlexOrder.lt-md="3">
+      <div fxLayout="row" fxLayoutAlign.gt-md="end center" fxLayoutGap="14px">
+        <button md-button (click)="reScrapeProfile$.next()">
+          <md-icon>refresh</md-icon>
+          <span class="text-uppercase">Renew</span>
+        </button>
+        <button md-button>
+          <md-icon>share</md-icon>
+          <span class="text-uppercase">Share</span>
+        </button>
+        <button class="battle-net" md-button>
+          <md-icon>link</md-icon>
+          <span class="text-uppercase">Claim with Battle.net</span>
+        </button>
+      </div>
+    </div>
+
+    <div fxLayout="column" fxFlex="grow" fxFlexOrder.lt-md="4">
+      <div fxLayout="row">
+        <ow-profile-career [profile]="currentProfile" [modeIndicator]="modeIndicator | async" fxFill></ow-profile-career>
+      </div>
+    </div>
+
+  </div>
+
+  <div fxLayout="row">
+    <md-tab-group [(selectedIndex)]="selectedTabIndex" fxFlex>
+      <md-tab label="Overview">
+        <div class="py-3 px-3" fxLayout="column" fxFlex>
+          <ow-profile-overview
+            [profile]="currentProfile"
             [modeIndicator]="modeIndicator">
-          </ow-game-mode-toggle>
+          </ow-profile-overview>
         </div>
-        <div class="flex-layout"
-             ngClass.gt-sm="user-actions-offset"
-             ngClass.lt-md="pt-3"
-             fxLayout="column"
-             fxFlex fxFlex.lt-lg="100%">
-          <div class="flex-layout"
-               fxLayout="row"
-               fxLayoutAlign="end center"
-               fxLayoutAlign.lt-lg="start center"
-               fxLayoutGap="14px"
-               fxFlex="noshrink">
-            <div class="flex-layout" fxLayout="column" fxFlex="initial">
-              <button color="primary" md-button fxLayoutAlign="center center" (click)="reScrapeProfile$.next()">
-                <md-icon class="md-18 mr-1">refresh</md-icon>
-                <span class="mat-caption text-uppercase">Renew</span>
-              </button>
-            </div>
-            <div class="flex-layout" fxLayout="column" fxFlex="initial">
-              <button color="primary" md-button fxLayoutAlign="center center">
-                <md-icon class="md-18 mr-1">share</md-icon>
-                <span class="mat-caption text-uppercase">Share</span>
-              </button>
-            </div>
-            <div class="flex-layout" fxLayout="column" fxFlex="initial">
-              <button class="battle-net" md-button fxLayoutAlign="center center">
-                <md-icon class="md-18 mr-1">link</md-icon>
-                <span class="mat-caption text-uppercase">Claim with Battle.net</span>
-              </button>
-            </div>
-          </div>
+      </md-tab>
+      <md-tab label="Heroes">
+        <div class="py-3 px-3" fxLayout="column" fxFlex>
+          <ow-profile-heroes></ow-profile-heroes>
         </div>
-      </div>
-
-      <div class="flex-layout" fxLayout="row">
-        <div class="flex-layout" fxLayout="column" fxFlex>
-          <ow-profile-career [profile]="currentProfile" [modeIndicator]="modeIndicator | async"></ow-profile-career>
+      </md-tab>
+      <md-tab label="Trends">
+        <div class="py-3 px-3" fxLayout="column" fxFlex>
+          trends
         </div>
-      </div>
-
-    </div>
-
+      </md-tab>
+      <md-tab label="Snapshots">
+        <div class="py-3 px-3" fxLayout="column" fxFlex *ngIf="selectedTabIndex == 3">
+          <ow-snapshots-history
+            [snapshots]="snapshots"
+            [modeIndicator]="modeIndicator">
+          </ow-snapshots-history>
+        </div>
+      </md-tab>
+    </md-tab-group>
   </div>
 
-  <div class="flex-layout" fxLayout="row" fxFlex="noshrink">
-
-    <div class="profile-content flex-layout" fxLayout="column" fxFlex>
-      <md-tab-group [(selectedIndex)]="selectedTabIndex">
-        <md-tab label="Overview">
-          <div class="flex-layout px-3 py-3" fxLayout="row" fxFlex="noshrink">
-            <div class="flex-layout" fxLayout="column" fxFlex>
-              <ow-profile-overview
-                [profile]="currentProfile"
-                [modeIndicator]="modeIndicator">
-              </ow-profile-overview>
-            </div>
-          </div>
-        </md-tab>
-        <md-tab label="Heroes">
-          <div class="flex-layout py-3" fxLayout="row" fxLayoutGap="14px">
-            <div class="flex-layout py-3" fxLayout="column" fxFlex>
-              <ow-heroes-table></ow-heroes-table>
-            </div>
-          </div>
-        </md-tab>
-        <md-tab label="Trends">
-          <div class="flex-layout py-3" fxLayout="row" fxLayoutGap="14px">
-            <div class="flex-layout py-3" fxLayout="column" fxFlex>
-              Trends
-            </div>
-          </div>
-        </md-tab>
-        <md-tab label="Snapshots">
-          <div class="flex-layout py-3" fxLayout="row" fxLayoutGap="14px">
-            <div class="flex-layout py-3" fxLayout="column" fxFlex>
-              <ow-snapshots-history 
-              *ngIf="selectedTabIndex == 3" 
-              [snapshots]="snapshots"
-              [modeIndicator]="modeIndicator">
-              </ow-snapshots-history>
-            </div>
-          </div>
-        </md-tab>
-      </md-tab-group>
-    </div>
-
-  </div>
-
-</div><!-- end .profile -->
+</div>
 
 <ng-template #loadingBlock>
   <ow-page-spinner></ow-page-spinner>

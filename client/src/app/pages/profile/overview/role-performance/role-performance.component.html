@@ -1,51 +1,44 @@
-<div class="role-performance flex-layout px-3" fxLayout="row" fxFlex="noshrink">
-  <div class="flex-layout" fxLayout="column" fxLayoutGap="14px" fxFlex>
+<div fxLayout="column" fxFlex>
 
-    <div class="flex-layout" fxLayout="row" *ngFor="let role of heroStatsByRole">
-      <div class="flex-layout" fxLayout="column" fxFlex>
-        <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
-          <div class="flex-layout" fxLayout="column" fxFlex="initial">
-            <md-icon class="md-36" svgIcon="role_{{ role.name | lowercase }}"></md-icon>
-          </div>
-          <div class="flex-layout" fxLayout="column" fxFlex>
-            <div class="flex-layout" fxLayout="row">
-              <div class="flex-layout" fxLayout="column" fxFlex>
-                <span class="text-uppercase"><strong>{{ role.name }}</strong></span>
-              </div>
-            </div>
-            <div class="flex-layout" fxLayout="row">
-              <div class="flex-layout" fxLayout="column" fxFlex>
-                <span class="mat-caption text-uppercase">Time Played {{ role.timePlayed | owSecondsToHours }} Hours</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="flex-layout pt-3" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
-          <div class="flex-layout" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase">K/D Ratio</span>
-          </div>
-          <div class="flex-layout" fxLayout="column" fxFlex="initial">
-            <span class="mat-caption text-uppercase">{{role.KDratio}}:1</span>
-          </div>
-        </div>
-        <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
-          <div class="flex-layout" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase">Kills/Deaths</span>
-          </div>
-          <div class="flex-layout" fxLayout="column" fxFlex="initial">
-            <span class="mat-caption text-uppercase">{{role.kills}} / {{role.deaths}}</span>
-          </div>
-        </div>
-        <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
-          <div class="flex-layout" fxLayout="column" fxFlex>
-            <span class="mat-caption text-uppercase">Wins</span>
-          </div>
-          <div class="flex-layout" fxLayout="column" fxFlex="initial">
-            <span class="mat-caption text-uppercase">{{role.wins}}</span>
-          </div>
+  <span class="text-uppercase"><strong>Role Performance</strong></span>
+
+  <div fxLayout="row" fxLayoutWrap>
+
+    <div class="mt-3 px-3" fxLayout="column" fxLayoutGap="14px" fxFlex="50%" *ngFor="let role of heroStatsByRole">
+
+      <div fxLayout="row" fxLayoutGap="8px">
+        <md-icon class="md-36" svgIcon="role_{{ role.name | lowercase }}"></md-icon>
+        <div fxLayout="column">
+          <span class="text-uppercase"><strong>{{ role.name }}</strong></span>
+          <span class="mat-caption text-uppercase">{{ role.timePlayed | owSecondsToHours }} Hours</span>
         </div>
       </div>
+
+      <div fxLayout="row">
+
+        <div fxLayout="column" fxFlex>
+
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="mat-caption text-uppercase">K/D Ratio</span>
+            <span class="mat-caption text-uppercase">{{role.KDratio}}:1</span>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="mat-caption text-uppercase">Kills/Deaths</span>
+            <span class="mat-caption text-uppercase">{{role.kills}} / {{role.deaths}}</span>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="mat-caption text-uppercase">Wins</span>
+            <span class="mat-caption text-uppercase">{{role.wins}}</span>
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
 
   </div>
+
 </div>
