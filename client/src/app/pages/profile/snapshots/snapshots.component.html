@@ -8,9 +8,16 @@
       </div>
     </div>
     <div fxLayout="column">
-      <button color="primary" md-button>
-        <md-icon>fiber_manual_record</md-icon>
-        <span>Start Recording Snapshots</span>
+      <button color="primary" md-button (click)="watchSnapshots$.next()">
+        <div *ngIf="watching | async; then stopBlock; else startBlock"></div>
+        <ng-template #startBlock>
+          <md-icon>fiber_manual_record</md-icon>
+          <span>Start Recording Snapshots</span>
+        </ng-template>
+        <ng-template #stopBlock>
+          <md-icon>stop</md-icon>
+          <span>Stop Recording Snapshots</span>
+        </ng-template>
       </button>
     </div>
   </div>

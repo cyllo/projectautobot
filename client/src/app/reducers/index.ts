@@ -3,7 +3,6 @@ import { propEq } from 'ramda';
 
 export * from './profiles.reducer';
 export * from './search.reducer';
-export * from './snapshot.reducer';
 export * from './heroes.reducer';
 export * from './current-hero.reducer';
 export * from './blog-post.reducer';
@@ -13,10 +12,11 @@ export * from './clubs.reducer';
 export * from './following-user.reducer';
 export * from './following-gamertag.reducer';
 export * from './side-bar-search-results';
+export * from './snapshots';
+export * from './watch-snapshot.reducer';
 
 import { profiles } from './profiles.reducer';
 import { searchPlayerTag } from './search.reducer';
-import { snapshotData } from './snapshot.reducer';
 import { heroesData } from './heroes.reducer';
 import { currentHeroData } from './current-hero.reducer';
 import { blogPosts } from './blog-post.reducer';
@@ -27,6 +27,8 @@ import { followedUsers } from './following-user.reducer';
 import { followedGamerTags } from './following-gamertag.reducer';
 import { sideBarSearchResults } from './side-bar-search-results';
 import { initialState as sideBarState } from './side-bar-search-results';
+import { snapshots } from './snapshots';
+import { watchSnapshot } from './watch-snapshot.reducer';
 
 const clearable = (reducer, defaultValue) => (state, action) => {
   if (propEq('type', 'LOG_OUT', action)) {
@@ -47,8 +49,9 @@ export const reducerStack = {
   followedUsers: clearable(followedUsers, {}),
   followedGamerTags: clearable(followedGamerTags, {}),
   router: routerReducer,
-  snapshotStats: snapshotData,
-  sideBarSearchResults: clearable(sideBarSearchResults, sideBarState)
+  sideBarSearchResults: clearable(sideBarSearchResults, sideBarState),
+  snapshots,
+  watchSnapshot
 };
 
 export const initialStates = {

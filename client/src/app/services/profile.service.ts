@@ -4,9 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import { Apollo } from 'apollo-angular';
 import { ApolloError } from 'apollo-client';
 import { Store } from '@ngrx/store';
-import { assoc, merge, pathOr, test, isNil, not, compose, find, equals, replace, last, propOr, propEq, filter } from 'ramda';
+import { assoc, merge, prop, pathOr, test, isNil, not, compose, find, equals, replace, last, propOr, propEq, filter } from 'ramda';
 
-import { Player, GamerTag, AppState, StatChangeResponse } from '../models';
+import { Player, GamerTag, AppState, StatChangeResponse, SnapshotStatistic } from '../models';
 
 import { GamerTagService } from './gamer-tag.service';
 import { SocketService } from './socket.service';
@@ -64,6 +64,12 @@ export class ProfileService {
     return pathOr([], ['profileSnapshotStatistic', 'profileStatistic'], last(<Array<any>>propOr([], 'snapshotStatistics', player)));
   }
 
+  watch(isWatching, id ) {
+    return isWatching
+    ? this.gamerTagService.startWatching(id)
+    : this.gamerTagService.stopWatching(id);
+  }
+
   latestStatsSet(player: GamerTag) {
     return {
       competitive: this.getLatestSnapshot(player, true),
@@ -72,13 +78,12 @@ export class ProfileService {
   }
 
   observeChanges(playerId: number) {
-    this.socketService.join(GAMER_TAG_CHANNEL)
-      .let(this.socketService.filterEvent('change'))
-      .pluck('gamerTags')
-      .map((val: number[]) => find(equals(playerId), val))
-      .filter(notNil)
-      .mergeMap((id: number) => this.gamerTagService.getById(id))
-      .subscribe((data: GamerTag) => this.store.dispatch(addProfile(data)));
+    return this.socketService.join(GAMER_TAG_CHANNEL)
+    .let(this.socketService.filterEvent('change'))
+    .pluck('gamerTags')
+    .map((val: number[]) => find(equals(playerId), val))
+    .filter(notNil)
+    .mergeMap((id: number) => this.gamerTagService.getById(id));
   }
 
   leaveChangesChannel() {
@@ -145,7 +150,7 @@ export class ProfileService {
       return null;
     }
 
-    const [snapshotStatistic] = player.snapshotStatistics.reverse();
+    const snapshotStatistic = last(<SnapshotStatistic[]>prop('snapshotStatistics', player));
     if (!snapshotStatistic) {
       return null;
     }

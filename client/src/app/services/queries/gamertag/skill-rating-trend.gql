@@ -3,6 +3,7 @@ query SkillRatingTrend($id: Int) {
     id
     snapshotStatistics(last: 7) {
       id
+      insertedAt
       profileSnapshotStatistic {
         id
         profileStatistic {

@@ -9,6 +9,7 @@ mutation ScrapeGamertag($id: Int, $tag: String, $platform: String, $region: Stri
       snapshotStatistics(last: $snapshotLast) {
         id
         gamerTagId
+        insertedAt
         ...ProfileStatistic
         quickplayHeroSnapshotStatistics: heroSnapshotStatistics(type: QUICKPLAY) {
           ...HeroSnapshotStatistics
@@ -28,6 +29,7 @@ mutation ScrapeGamertag($id: Int, $tag: String, $platform: String, $region: Stri
         snapshotStatistics(last: $snapshotLast) {
           id
           gamerTagId
+          insertedAt
           ...ProfileStatistic
           quickplayHeroSnapshotStatistics: heroSnapshotStatistics(type: QUICKPLAY) {
             ...HeroSnapshotStatistics
