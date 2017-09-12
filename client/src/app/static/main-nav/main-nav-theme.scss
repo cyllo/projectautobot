@@ -1,4 +1,4 @@
-@mixin main-nav-theme($theme) {
+@mixin ow-main-nav-theme($theme) {
 
   $primary: map-get($theme, primary);
   $warn: map-get($theme, warn);
@@ -11,6 +11,14 @@
   $border-color: rgba($input-text-color, 0.3);
 
   .main-nav {
+
+    .beta {
+      background-color: mat-color($primary);
+      color: mat-color($primary, default-contrast);
+      padding: 0 5px;
+      font-size: 10px;
+      border-radius: 2px;
+    }
 
     .form-group {
 
@@ -38,7 +46,7 @@
     }
 
   }
-  
+
   .account-overview-menu {
     span,
     .mat-checkbox-label {
