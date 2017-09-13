@@ -1,0 +1,30 @@
+version: "2"
+
+services:
+  binary:
+    container_name: "stop_the_payload_build"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000
+    # volumes:
+    #   - binary:/home
+
+  # server:
+  #   image: elixir:1.4.5
+  #   container_name: "stop_the_payload_server"
+  #   environment:
+  #     - PORT=4000
+  #     - MIX_ENV=prod
+  #   ports:
+  #     - "4000:4000"
+  #   volumes:
+  #     - binary:/home
+  #   volumes_from:
+  #      - binary
+  #   command: bash -c "tar -xzf /home/server/releases/0.1.0/server.tar.gz && /bin/server foreground"
+
+
+volumes:
+  binary:

@@ -38,7 +38,8 @@ config :logger, :console,
 #
 config :battle_net, ecto_repos: []
 
-if Mix.env !== :test do
-  import_config "#{Mix.env()}.secret.exs"
+cond do
+  Mix.env === :dev -> import_config("dev.secret.exs")
+  Mix.env === :prod -> import_config("prod.exs")
 end
 

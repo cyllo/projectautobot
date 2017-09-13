@@ -32,9 +32,7 @@ export class UserRegistrationComponent implements OnInit {
     private router: Router,
     private club: ClubService,
     private error: ErrorHandlerService) {
-      this.clientId = process.env.NODE_ENV === 'production'
-      ? '6qeqp658bnjufty4c2rfjzvw4buz78x3'
-      : 'rzmspedr73m2mgbny5xf3ufqdyvyznxd';
+      this.clientId = process.env.BATTLE_NET_CLIENT_ID;
       this.redirectUri = `${window.location.origin}/register`;
     }
 

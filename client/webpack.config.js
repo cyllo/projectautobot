@@ -1,3 +1,5 @@
+require('dotenv').load()
+
 // Helper: root() is defined at the bottom
 var path = require('path');
 var webpack = require('webpack');
@@ -8,6 +10,9 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var { CheckerPlugin } = require('awesome-typescript-loader');
+var S3Plugin = require('webpack-s3-plugin');
+var CompressionPlugin = require("compression-webpack-plugin");
+var { test, ifElse, always } = require('ramda');
 
 
 /**
@@ -181,7 +186,9 @@ module.exports = function makeWebpackConfig() {
       // Environment helpers
       'process.env': {
         ENV: JSON.stringify(ENV),
-        NODE_ENV: JSON.stringify(NODE_ENV)
+        NODE_ENV: JSON.stringify(NODE_ENV),
+        BATTLE_NET_CLIENT_ID: JSON.stringify(process.env[`${NODE_ENV === 'production' ? 'PROD' : 'DEV'}_BATTLE_NET_CLIENT_ID`]),
+        GRAPHQL_URL: JSON.stringify(process.env.NODE_ENV === 'production' ? process.env.PROD_SERVER_URL : '/graphql')
       }
     }),
 
@@ -228,6 +235,7 @@ module.exports = function makeWebpackConfig() {
       // Reference: https://github.com/ampedandwired/html-webpack-plugin
       new HtmlWebpackPlugin({
         template: './src/public/index.html',
+        environment: process.env.NODE_ENV,
         chunksSortMode: 'dependency'
       }),
 
@@ -240,6 +248,14 @@ module.exports = function makeWebpackConfig() {
 
   // Add build specific plugins
   if (isProd) {
+    config.module.rules.push({
+      test: /\.(png|jpe?g|gif|svg)/,
+      loaders: 'image-webpack-loader',
+      options: {
+        verbose: true
+      }
+    })
+
     config.plugins.push(
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
       // Only emit files when there are no errors
@@ -257,7 +273,30 @@ module.exports = function makeWebpackConfig() {
       // Reference: https://github.com/kevlened/copy-webpack-plugin
       new CopyWebpackPlugin([{
         from: root('src/public')
-      }])
+      }]),
+
+      new CompressionPlugin({
+        asset: '[path][query]',
+        algorithm: 'gzip',
+        test: /\.js$/,
+        minRatio: 0.8
+      }),
+
+      new S3Plugin({
+        s3Options: {
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+          region: 'us-west-2'
+        },
+        s3UploadOptions: {
+          Bucket: 'stopthepayload.gg',
+          CacheControl: 'max-age=315360000, no-transform, public',
+          ContentEncoding: ifElse(test(/\.js$/), always('gzip'), always(null))
+        },
+        cdnizerOptions: {
+          defaultCDNBase: 'drn6lp26l2cc2.cloudfront.net'
+        }
+      })
     );
   }
 

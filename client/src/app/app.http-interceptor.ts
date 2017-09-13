@@ -1,7 +1,7 @@
 import { createNetworkInterface } from 'apollo-client';
 import * as Cookies from 'js-cookie';
 export const httpInterceptor = createNetworkInterface({
-  uri: '/graphql'
+  uri: process.env.GRAPHQL_URL
 });
 
 httpInterceptor.use([{

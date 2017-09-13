@@ -26,3 +26,6 @@ config :scraper,
     grandmaster: 5000
   ]
 
+if Mix.env() === :prod do
+  import_config "prod.exs"
+end

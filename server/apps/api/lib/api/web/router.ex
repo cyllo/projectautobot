@@ -29,12 +29,4 @@ defmodule Api.Web.Router do
         # analyze_complexity: true
     end
   end
-
-  # if Mix.env() === :prod do
-    scope "/" do
-      pipe_through :browser
-
-      get "/*path", StaticPageController, :index
-    end
-  # end
 end

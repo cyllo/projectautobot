@@ -5,13 +5,16 @@
     <title>Stop The Payload - Overwatch Statistics</title>
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <base href="/">
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: "ca-pub-3271739109002056",
-        enable_page_level_ads: true
-      });
-    </script>
+
+    <% if (htmlWebpackPlugin.options.environment === 'production') { %>
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-3271739109002056",
+          enable_page_level_ads: true
+        });
+      </script>
+    <% } %>
   </head>
   <body>
     <ow-app>Loading...</ow-app>

@@ -20,6 +20,10 @@ config :api, Api.Web.Endpoint,
   http: [compress: true],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
+config :api,
+  joken_secret: "${JOKEN_SECRET}",
+  secret_key_base: "${API_SECRET_KEY_BASE}"
+
 config :api, :environment, :prod
 
 # Do not print debug messages in production
@@ -62,7 +66,3 @@ config :logger, level: :info
 #
 #     config :api, Api.Web.Endpoint, server: true
 #
-
-# Finally import the config/prod.secret.exs
-# which should be versioned separately.
-import_config "prod.secret.exs"

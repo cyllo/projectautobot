@@ -28,7 +28,7 @@ environment :dev do
 end
 
 environment :prod do
-  set include_erts: false
+  set include_erts: true
   set include_src: false
   set cookie: :"}{w4f.;FUYS<whroiO&TUN*(,..m]TEM[}ZeP@w2<`fdaIl;VJGGa*LGxkhUE=xm"
 end
@@ -52,7 +52,8 @@ release :server do
     models: :permanent,
     scraper: :permanent,
     stats_leaderboard: :permanent,
-    stats_averages: :permanent
+    stats_averages: :permanent,
+    heroes_scraper: :permanent
   ]
 end
 

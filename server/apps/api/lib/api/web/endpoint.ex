@@ -25,6 +25,11 @@ defmodule Api.Web.Endpoint do
     pass: ["*/*"],
     json_decoder: Poison
 
+  plug Corsica,
+    allow_headers: ["authorization", "content-type"],
+    origins: ["http://stopthepayload.gg.s3-website-us-west-2.amazonaws.com", "https://stopthepayload.gg"]
+
+
   plug Plug.MethodOverride
   plug Plug.Head
 

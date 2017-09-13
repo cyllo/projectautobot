@@ -1,3 +1,6 @@
 use Mix.Config
 
-import_config "prod.secret.exs"
+config :models, Models.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  url: "${DB_URL}",
+  pool_size: 20
