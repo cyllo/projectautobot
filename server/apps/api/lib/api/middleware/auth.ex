@@ -1,7 +1,7 @@
 defmodule Api.Middleware.Auth do
   alias Api.UserSessionTracker
   @behaviour Absinthe.Middleware
-  @env Application.get(:api, :environment)
+  @env Application.get_env(:api, :environment)
 
   def call(%{context: %{current_user: user, token: token}} = res, [admin_only: true]) do
     session_active? = UserSessionTracker.session_active?(user.id, token)
