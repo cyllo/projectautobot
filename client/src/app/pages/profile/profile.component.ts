@@ -1,13 +1,12 @@
-import { merge, path, replace, isEmpty, isNil, compose, not, any } from 'ramda';
+import { merge, path, replace, isEmpty, isNil, compose, not, any, prop } from 'ramda';
 import { Component, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
-import { AppState, GamerTag, ProfileKey, GamerTagState } from '../../models';
+import { AppState, GamerTag, ProfileKey, GamerTagState, SnapshotStats } from '../../models';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
-import { SnapshotStats } from '../../models/player.model';
 import { Observable } from 'rxjs/Observable';
 import { ProfileService, SnapshotService } from '../../services';
 import { Subject } from 'rxjs/Subject';
-import { updateProfile } from '../../reducers';
+import { updateProfile, addSnapshots, addProfile, flushSnapshots } from '../../reducers';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 const notNil = compose(not, isNil);
@@ -20,14 +19,13 @@ const notNil = compose(not, isNil);
 export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   players: Observable<GamerTagState>;
   selectedProfile: Observable<GamerTag>;
-  displayProfile: Observable<[GamerTag]>;
+  displayProfile: Observable<GamerTag>;
   profileKey: Observable<ProfileKey>;
-  searching: boolean;
   changeProfile$ = new Subject<{ platform: string, region: string }>();
   destroyer$ = new Subject<void>();
   reScrapeProfile$ = new Subject();
   modeIndicator: Observable<{ disabled: boolean, mode: string}>;
-  snapshots: Observable<any[]>;
+  toggleWatching: Observable<any>;
 
   selectedGameMode$ = new BehaviorSubject<string>('competitive');
   selectedSnapshotData: Observable<SnapshotStats>;
@@ -70,8 +68,12 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
 
     // currently selected profile as per the route params
     this.selectedProfile
-    .takeUntil(this.destroyer$)
-    .subscribe(({ id }) => this.profileService.observeChanges(id));
+    .first()
+    .switchMap(({ id }) => this.profileService.observeChanges(id))
+    .subscribe((profile: GamerTag) => {
+      this.store.dispatch(addSnapshots(<SnapshotStats[]>prop('snapshotStatistics', profile)));
+      this.store.dispatch(addProfile(profile));
+    });
 
     // seeded with all the good shit.
     this.displayProfile = this.selectedProfile
@@ -87,7 +89,10 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
       : <GamerTag>path([tag, platform], profiles);
     })
     .first()
-    .subscribe((player: GamerTag) => this.profileService.goto(player));
+    .subscribe((player: GamerTag) => {
+      this.store.dispatch(flushSnapshots());
+      this.profileService.goto(player);
+    });
 
     this.reScrapeProfile$
     .switchMapTo(this.profileKey)
@@ -96,7 +101,15 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   ngAfterContentInit() {
-    this.snapshots = this.selectedProfile.switchMap(profile => this.snapshotService.findByGamerTag(profile.id, 20));
+    this.selectedProfile
+    .switchMap(profile => this.snapshotService.findByGamerTag(profile.id, 20))
+    .subscribe(snapshots => this.store.dispatch(addSnapshots(snapshots)));
+
+    this.toggleWatching = this.store.select('watchSnapshot').pluck('isActive');
+
+    this.toggleWatching.withLatestFrom(this.displayProfile)
+    .switchMap(([isWatching, { id }]) => this.profileService.watch(isWatching, id))
+    .subscribe(() => console.log('creating pull'));
   }
 
   ngOnDestroy() {

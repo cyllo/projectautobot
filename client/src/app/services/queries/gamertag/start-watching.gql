@@ -1,0 +1,7 @@
+
+
+mutation StartGamerTagWatch($id: Int!) {
+  startGamerTagWatch(id: $id) {
+    isWatched
+  }
+}

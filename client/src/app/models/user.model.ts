@@ -10,10 +10,10 @@ export interface ProfileStatistic {
 
 export interface ProfileSnapshotStatistic {
   id: number;
-  leaderboardSnapshotStatisticId: number;
-  profileStatisticId: number;
-  snapshotStatisticId: number;
-  statisticsAveragesSnapshotId: number;
+  leaderboardSnapshotStatisticId?: number;
+  profileStatisticId?: number;
+  snapshotStatisticId?: number;
+  statisticsAveragesSnapshotId?: number;
   profileStatistic: ProfileStatistic;
 }
 

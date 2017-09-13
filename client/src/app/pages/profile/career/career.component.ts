@@ -12,8 +12,6 @@ export class ProfileCareerComponent implements OnInit {
   @Input() modeIndicator;
   constructor() {}
 
-  ngOnInit() {
-    console.log(this.profile);
-  }
+  ngOnInit() {}
 
 }
