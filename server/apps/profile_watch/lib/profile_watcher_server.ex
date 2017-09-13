@@ -6,7 +6,7 @@ defmodule ProfileWatch.ProfileWatcherServer do
   alias Scraper.ScrapeStatusCache
 
   @scrape_time_between :timer.minutes(10)
-  @max_scrapes_without_change 3
+  @max_scrapes_without_change 4
 
   # API
   def start_link(gamer_tag), do: GenServer.start_link(__MODULE__, gamer_tag, [])

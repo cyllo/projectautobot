@@ -39,6 +39,10 @@ defmodule Models.Statistics.Snapshots.SnapshotStatistic do
     from(q in subquery(query), order_by: [asc: :inserted_at])
   end
 
+  def latest_10_min_intervals(query \\ SnapshotStatistic) do
+    # from(query, )
+  end
+
   def latest_daily_query(query \\ SnapshotStatistic) do
     from(query, distinct: fragment("inserted_at::date"),
                 order_by: fragment("inserted_at::date DESC, inserted_at DESC"))

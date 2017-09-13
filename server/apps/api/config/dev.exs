@@ -13,6 +13,8 @@ config :api, Api.Web.Endpoint,
   check_origin: false,
   watchers: []
 
+config :api, :environment, :dev
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed

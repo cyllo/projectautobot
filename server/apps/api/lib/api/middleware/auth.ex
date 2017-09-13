@@ -1,7 +1,7 @@
 defmodule Api.Middleware.Auth do
   alias Api.UserSessionTracker
-
   @behaviour Absinthe.Middleware
+  @env Application.get(:api, :environment)
 
   def call(%{context: %{current_user: user, token: token}} = res, [admin_only: true]) do
     session_active? = UserSessionTracker.session_active?(user.id, token)
@@ -25,5 +25,5 @@ defmodule Api.Middleware.Auth do
 
   defp put_error(res, error_message), do: Absinthe.Resolution.put_result(res, {:error, error_message})
   defp put_inactive_token_error(res), do: put_error(res, "user token is not active")
-  defp is_dev?, do: Mix.env === :dev
+  defp is_dev?, do: @env === :dev
 end
