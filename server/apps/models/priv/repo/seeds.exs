@@ -3,6 +3,7 @@ import Logger, only: [info: 1]
 alias Ecto.Multi
 alias Models.{Repo, Accounts}
 alias Models.Accounts.{Friendship, User}
+alias Models.Game
 
 create_friendship_query = fn query, user_id, friend_id ->
   user = %Friendship{user_id: user_id, friend_id: friend_id, is_sender: true}
@@ -39,7 +40,24 @@ users = [%{
   password: "P@ssword1"
 }]
 
-# Create Users
+gamer_tags = [%{
+  tag: "TeaMaster-11555",
+  region: "us",
+  platform: "pc",
+  user_id: 6
+}, %{
+  tag: "DabbyDabDabDab",
+  platform: "xbl",
+  region: "",
+  user_id: 3
+}, %{
+  tag: "cyllo-2112",
+  platform: "pc",
+  region: "us",
+  user_id: 5
+}]
+
+
 info "Creating Users..."
 
 users = for user <- users do
@@ -48,7 +66,15 @@ users = for user <- users do
   user
 end
 
-# Create Friends
+info "Creating GamerTags..."
+
+for gamer_tag <- gamer_tags do
+  {:ok, gamer_tag} = Game.create_gamer_tag(gamer_tag)
+
+  Accounts.update_user(gamer_tag.user_id, %{primary_gamer_tag_id: gamer_tag.id})
+  gamer_tag
+end
+
 info "Creating Friends..."
 
 users
@@ -61,7 +87,6 @@ users
   |> Multi.update_all(:accept_friendships, Friendship, set: [is_accepted: true])
   |> Repo.transaction
 
-# Create FriendGroups
 info "Creating Friend Groups..."
 
 users
