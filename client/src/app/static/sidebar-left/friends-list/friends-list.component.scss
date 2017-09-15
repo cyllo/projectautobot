@@ -1,7 +1,9 @@
-:host /deep/ .friends-list {
-
-  .mat-list-item-content {
-    padding: 0 8px !important;
+.friends-list {
+  > * {
+    width: 100% !important;
   }
 
+  .scroll-content {
+    overflow-y: auto;
+  }
 }

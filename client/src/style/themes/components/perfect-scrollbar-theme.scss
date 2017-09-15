@@ -10,7 +10,7 @@
   $container-hover-rail-hover-background-color: $container-active-rail-background-color;
   $container-hover-in-scrolling-rail-background-color: $container-active-rail-background-color;
 
-  $container-in-scrolling-scrollbar-background-color: rgba(mat-color($foreground, text), 0.2);
+  $container-in-scrolling-scrollbar-background-color: rgba(mat-color($foreground, text), 0.1);
   $container-rail-scrollbar-background-color: $container-in-scrolling-scrollbar-background-color;
   $container-hover-in-scrolling-scrollbar-background-color: $container-in-scrolling-scrollbar-background-color;
   $container-hover-rail-hover-scrollbar-background-color: $container-in-scrolling-scrollbar-background-color;
@@ -21,9 +21,9 @@
   $container-in-scrolling-rail-opacity: $container-hover-rail-opacity;
   $container-hover-in-scrolling-rail-opacity: $container-hover-rail-opacity;
 
-  $scrollbar-girth: 2px;
-  $scrollbar-in-scrolling-girth: 4px;
-  $scrollbar-rail-girth: 15px;
+  $scrollbar-girth: 10px;
+  $scrollbar-in-scrolling-girth: 10px;
+  $scrollbar-rail-girth: 16px;
 
   /* perfect-scrollbar v0.6.15 */
 

@@ -10,6 +10,7 @@ interface CreateClubForm {
 @Component({
   selector: 'ow-create-club',
   templateUrl: 'create-club.component.html',
+  styleUrls: ['create-club.component.scss'],
   providers: [ClubService]
 })
 export class CreateClubComponent implements OnInit, OnDestroy {

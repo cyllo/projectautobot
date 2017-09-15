@@ -1,68 +1,60 @@
-<div class="friend-requests py-3" fxLayout="column" fxFlexFill>
+<div class="friend-requests" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="14px" fxFlex>
 
-  <div *ngIf="friendRequests | async as requests; else noFriendRequests;">
-    <div class="ow-tab-content flex-layout" fxLayout="column" fxFlex="grow" [perfect-scrollbar]>
-      <md-list class="flex-layout" fxLayout="column" fxFlex="noshrink">
-        <md-list-item class="flex-layout" fxLayout="row" fxFlex="nogrow" *ngFor="let friendship of requests">
-          <div
-            class="friend-request-card player-card flex-layout py-2"
-            fxLayout="row"
-            fxLayoutAlign="start center"
-            fxLayoutGap="8px"
-            fxFlex="grow">
+  <div class="scroll-content px-3" fxLayout="column" fxFill *ngIf="friendRequests | async as requests; else noFriendRequests;">
 
-            <div class="flex-layout" fxLayout="column" fxFlex="noshrink" *ngIf="friendship.primaryGamerTag">
-              <a href="#" draggable="false" (click)="gotoProfile$.next(friendship.primaryGamerTag)">
-                <img class="md-image md-image-circle md-image-36" draggable="false" [src]="friendship.primaryGamerTag?.portraitUrl">
+    <div fxLayout="column" fxLayoutGap="14px" fxFlex="noshrink" fxLayoutAlign="start space-around" [perfect-scrollbar]>
+
+      <div fxLayout="row" *ngFor="let friendship of requests">
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" fxFlex="grow">
+
+          <div fxLayout="column" *ngIf="friendship.primaryGamerTag; else noStatsBlock">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+              <a draggable="false" (click)="gotoProfile$.next(friendship.primaryGamerTag)">
+                <img class="md-image md-image-36" draggable="false" [src]="friendship.primaryGamerTag?.portraitUrl">
               </a>
-            </div>
-
-            <div class="flex-layout" fxLayout="column" fxFlex="grow">
-              <div class="flex-layout" fxLayout="row" fxFlex="grow">
-                <span class="player-tag">{{ friendship.friend.displayName }} </span>
-              </div>
-              <div class="skill-rating flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="grow">
-                <div *ngIf="friendship.primaryGamerTag?.snapshotStatistics; then hasStatsBlock; else noStatsBlock"></div>
-
-                <ng-template #hasStatsBlock>
+              <div fxLayout="column">
+                <span class="mat-caption"><strong>{{ friendship.friend.displayName }}</strong></span>
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px" *ngIf="friendship.primaryGamerTag?.snapshotStatistics;">
                   <img width="18" [src]="friendship.primaryGamerTag.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveRankUrl">
-                  <span class="ml-1">{{ friendship.primaryGamerTag.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveLevel }}</span>
-                </ng-template>
-
-                <ng-template #noStatsBlock>
-                  <span class="ml-1">--</span>
-                </ng-template>
-              </div>
-            </div>
-
-            <div class="flex-layout" fxLayout="column" fxLayoutGap="8px" fxFlex="noshrink">
-              <div class="flex-layout" fxLayout="row">
-                <div fxLayout="column">
-                  <button class="min-width-0" md-button mdTooltip="Ignore" (click)="ignore(friendship.friend.id, friendship.id)">
-                    <md-icon>close</md-icon>
-                  </button>
-                </div>
-                <div fxLayout="column">
-                  <button class="min-width-0" md-button mdTooltip="Accept" (click)="accept(friendship.friend.id, friendship.id)">
-                    <md-icon>check</md-icon>
-                  </button>
+                  <span>{{ friendship.primaryGamerTag.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveLevel }}</span>
                 </div>
               </div>
             </div>
           </div>
-        </md-list-item>
-      </md-list>
+
+          <ng-template #noStatsBlock>
+            <div fxLayout="column">
+              <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+                <img class="md-image md-image-36" draggable="false" src="./img/unknown_hero.jpg">
+                <span class="mat-caption text-uppercase"><strong>{{ friendship.friend.displayName }}</strong></span>
+              </div>
+            </div>
+          </ng-template>
+
+          <div fxLayout="column" fxLayoutAlign="center end" fxFlex>
+            <div fxLayout="row" fxLayoutGap="8px">
+              <button md-icon-button mdTooltip="Ignore" (click)="ignore(friendship.friend.id, friendship.id)">
+                <md-icon>close</md-icon>
+              </button>
+              <button md-icon-button mdTooltip="Accept" (click)="accept(friendship.friend.id, friendship.id)">
+                <md-icon>check</md-icon>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
+
   </div>
 
   <ng-template #noFriendRequests>
-    <div class="px-3 flex-layout" fxLayout="column" fxFlex="grow">
-      <div fxLayout="column" fxLayoutAlign="end center" fxFlex="1 1 55%">
-        <p class="text-heading mat-display-2 mb-2">Did you try turning it on and off?</p>
-      </div>
-      <div fxLayout="column" fxFlex="1 1 45%">
-        <p>There's nothing to see here.</p>
-      </div>
+    <div fxLayout="column" fxLayoutAlign="center start" fxFlex>
+      <p class="text-heading mat-display-2 mb-2">Did you try turning it on and off?</p>
+      <p>There's nothing to see here.</p>
     </div>
   </ng-template>
 

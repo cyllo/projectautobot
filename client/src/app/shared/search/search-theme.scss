@@ -1,0 +1,18 @@
+@mixin ow-search-theme($theme) {
+
+  $primary: map-get($theme, primary);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .main-search-form {
+
+    .form-icon {
+
+      border-right: 1px solid mat-color($foreground, divider);
+
+    }
+
+  }
+
+}

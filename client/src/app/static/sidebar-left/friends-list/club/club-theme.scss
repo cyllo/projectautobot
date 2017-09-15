@@ -1,0 +1,59 @@
+@mixin ow-expansion-panel($theme) {
+
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  $bg-color: mat-color($primary, 600);
+  $content-bg-color: mat-color($primary, 300);
+  $text-color: mat-color($primary, default-contrast);
+
+  .mat-expansion-panel {
+
+    box-shadow: none;
+
+    .mat-expansion-panel-header {
+
+      background-color: $bg-color;
+      color: $text-color;
+
+      .mat-expansion-panel-header-description {
+        color: $text-color;
+      }
+
+      .mat-expansion-indicator::after {
+        color: $text-color;
+      }
+
+    }
+
+    .mat-expansion-panel-content {
+      background-color: $bg-color;
+      color: $text-color;
+    }
+
+  }
+
+}
+
+@mixin ow-club-theme($theme) {
+
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .club {
+
+    @include ow-expansion-panel($theme);
+
+    .mat-button.club-name:disabled {
+      color: inherit;
+    }
+
+  }
+
+}

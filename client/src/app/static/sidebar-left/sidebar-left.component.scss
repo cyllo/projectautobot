@@ -1,81 +1,35 @@
-.sidebar-left {
-
-  .btn-sidebar-toggle {
-
-    md-icon {
-      transform: rotate(0);
-      transition: transform 0.25s cubic-bezier(0.55, 0, 0.1, 1);
-    }
-
-    &.collapsed md-icon {
-      transform: rotate(45deg);
-    }
-
-  }
-
-}
-
 :host /deep/ .sidebar-left {
 
-  .mat-drawer {
-    width: 300px;
+  height: 100%;
+  z-index: 1031;
+
+  .mat-tab-group {
+
+    .mat-tab-header-pagination {
+      display: none;
+    }
+
+    .mat-tab-label {
+      min-width: 0;
+      width: 50%;
+      white-space: nowrap;
+    }
+
+    .mat-tab-body-wrapper {
+      flex: 1 1 auto;
+    }
+
   }
 
-  .mat-card {
-    padding: 10px;
-  }
+  .mat-drawer-container {
 
-  .mat-tab-body-content > div {
     height: 100%;
+
+    .mat-drawer {
+      width: 300px;
+    }
+
   }
 
-  input[type="text"] {
-    font-size: 12px;
-  }
-
-}
-
-.secondary-content {
-  overflow: hidden;
-}
-
-:host /deep/ .secondary-content {
-
-  .mat-tab-body-wrapper, .mat-tab-body, .mat-tab-body-content {
-    flex: 1 1 auto;
-  }
-
-  .mat-tab-header-pagination {
-    display: none;
-  }
-
-  .mat-tab-label {
-    text-transform: uppercase;
-    letter-spacing: 0.03rem;
-    font-size: 10px;
-    min-width: 0;
-    width: 50%;
-    white-space: nowrap;
-  }
-
-  .mat-list-item-content {
-    min-width: 0;
-    min-height: 0;
-    flex: 1 1 auto;
-    height: auto !important;
-  }
-
-  a, img {
-    -moz-user-select: none; /* These user-select properties are inheritable, used to prevent text selection */
-    -webkit-user-select: none;
-    -ms-user-select: none; /* From IE10 only */
-    user-select: none; /* Not valid CSS yet, as of July 2012 */
-    -webkit-user-drag: none; /* Prevents dragging of images/divs etc */
-    user-drag: none;
-  }
-
-  .ow-tab-content {
-    overflow-y: auto;
-  }
 
 }

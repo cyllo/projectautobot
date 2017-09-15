@@ -1,28 +1,16 @@
 <div class="user-actions" fxLayout="row">
 
-  <div fxLayout="row" fxLayoutGap="8px" fxHide.lt-md>
-    <div fxLayout="column" *ngFor="let link of navLinks">
-      <button routerLink="{{ link.routerLink }}" md-button>{{ link.name }}</button>
-    </div>
+  <div fxLayout="row" fxHide.lt-md>
+    <button *ngFor="let link of navLinks" routerLink="{{ link.routerLink }}" md-button>{{ link.name }}</button>
   </div>
 
-  <md-menu #appMenu="mdMenu"
-           xPosition="before"
-           yPosition="below"
-           [overlapTrigger]="false">
-    <button routerLink="{{ link.routerLink }}"
-            *ngFor="let link of navLinks"
-            fxFlex="240px"
-            md-menu-item>
-            <md-icon *ngIf="link.materialIcon">{{ link.materialIcon }}</md-icon>
-            <span>{{ link.name }}</span>
+  <md-menu #appMenu="mdMenu" xPosition="before">
+    <button md-menu-item *ngFor="let link of navLinks" routerLink="{{ link.routerLink }}">
+      <span>{{ link.name }}</span>
     </button>
   </md-menu>
 
-  <button class="min-width-0"
-          [mdMenuTriggerFor]="appMenu"
-          md-button
-          fxHide.gt-sm>
+  <button md-icon-button [mdMenuTriggerFor]="appMenu" fxHide.gt-sm>
     <md-icon>account_box</md-icon>
   </button>
 

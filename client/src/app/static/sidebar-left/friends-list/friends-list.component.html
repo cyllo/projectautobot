@@ -1,79 +1,57 @@
-<div class="friends-list py-3" fxLayout="column" fxLayoutGap="14px" fxFlexFill>
+<div class="friends-list" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="14px" fxFlex>
 
-  <div *ngIf="(sideBarSearchResults | async)?.display; then showSearchResults; else showTabContent;"></div>
+  <div class="px-3" fxLayout="column" fxFlex *ngIf="(sideBarSearchResults | async)?.display; else showFriendsList;">
+    <ow-search-results fxFill></ow-search-results>
+  </div>
 
-  <ng-template #showSearchResults>
-    <ow-search-results 
-    class="flex-layout px-2 py-2"
-    fxLayout="column"
-    fxFlex="grow"
-    fxLayoutGap="14px"
-    ></ow-search-results>
-  </ng-template>
+  <ng-template #showFriendsList>
 
-  <ng-template #showTabContent>
+    <md-toolbar>
 
-    <div *ngIf="hasFriends | async; then friendsList; else noFriends;"></div>
-
-    <ng-template #noFriends>
-      <div class="px-3 flex-layout" fxLayout="column" fxFlex="grow">
-        <div fxLayout="column" fxLayoutAlign="end center" fxFlex="1 1 55%">
-          <p class="text-heading mat-display-2 mb-2">Did you try turning it on and off?</p>
+      <div fxLayout="row"
+           fxLayoutAlign="space-between center"
+           fxLayoutGap="14px"
+           *ngIf="!(toggleClubCreation$ | async); else pendingClubCreation;"
+           fxFill>
+        <div fxLayout="row" fxLayout="start center" fxLayoutGap="8px">
+          <span class="mat-caption text-uppercase">({{ (clubs | async)?.length }}) Clubs</span>
         </div>
-        <div fxLayout="column" fxFlex="1 1 45%">
-          <p>There's nothing to see here.</p>
-        </div>
+        <button md-icon-button mdTooltip="Create a New Club" (click)="toggleClubCreation$.next(true)">
+          <md-icon>playlist_add</md-icon>
+        </button>
       </div>
-    </ng-template>
-
-    <ng-template #friendsList>
-
-      <div *ngIf="toggleClubCreation$ | async; then pendingClubCreation; else clubHeader;"></div>
-
-      <ng-template #clubHeader>
-        <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="14px" fxFlex="noshrink">
-          <div class="flex-layout" fxLayout="column" fxFlex="grow">
-            <span fxLayout="row" fxLayoutAlign="start center">
-              <md-icon class="mr-2">group</md-icon> ({{ (clubs | async)?.length }}) Clubs
-            </span>
-          </div>
-          <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
-            <button class="min-width-0" md-button mdTooltip="Create a New Club" (click)="toggleClubCreation$.next(true)">
-              <md-icon>playlist_add</md-icon>
-            </button>
-          </div>
-        </div>
-      </ng-template>
 
       <ng-template #pendingClubCreation>
-        <ow-create-club (blur)="toggleClubCreation$.next(false)" (inProgress)="toggleClubCreation$.next(false)"></ow-create-club>
+        <div fxLayout="row" fxLayoutAlign="start center" fxFill>
+          <div fxLayout="column" fxFlex>
+            <ow-create-club (blur)="toggleClubCreation$.next(false)" (inProgress)="toggleClubCreation$.next(false)"></ow-create-club>
+          </div>
+        </div>
       </ng-template>
 
-      <div 
-        class="ow-tab-content flex-layout px-2 py-2"  
-        fxLayout="column"
-        fxLayoutGap="8px"
-        fxFlex="grow"
-        [perfect-scrollbar]>
-          <ow-club 
-            class="flex-layout"       
-            fxLayout="row"
-            fxFlex="0 0 auto"
-            *ngFor="let club of clubs | async"
-            [club]="club">
-          </ow-club>
+    </md-toolbar>
+
+    <div class="scroll-content px-3" fxLayout="column" fxFlex *ngIf="hasFriends | async; else noFriends;">
+
+      <div fxLayout="column" fxLayoutGap="14px" fxFlex="noshrink" fxLayoutAlign="start space-around" [perfect-scrollbar]>
+        <ow-club *ngFor="let club of clubs | async" [club]="club"></ow-club>
       </div>
 
+    </div>
+
+    <ng-template #noFriends>
+      <div fxLayout="column" fxLayoutAlign="center start" fxFlex>
+        <p class="text-heading mat-display-2 mb-2">Did you try turning it on and off?</p>
+        <p>There's nothing to see here.</p>
+      </div>
     </ng-template>
 
   </ng-template>
 
-  <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
-    <ow-search
-      [searchInProgress]="(sideBarSearchResults | async)?.searching"
-      [placeholder]="'Add a friend'"
-      (onSearch)="onSearch$.next($event)">
-    </ow-search>
-  </div>
+  <ow-search
+    [searchInProgress]="(sideBarSearchResults | async)?.searching"
+    [placeholder]="'Add a friend'"
+    (onSearch)="onSearch$.next($event)">
+  </ow-search>
 
 </div>

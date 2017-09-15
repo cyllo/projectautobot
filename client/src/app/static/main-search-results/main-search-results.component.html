@@ -1,5 +1,16 @@
-<div class="main-search-results flex-layout"
-     ngStyle.gt-xs="padding-left: 64px;" *ngIf="openDisplay && searchResults">
+<div class="main-search-results pt-3 px-3" fxLayout="column" fxLayoutGap="14px" fxFlex *ngIf="openDisplay && searchResults">
+
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+    <span>No search results found.</span>
+    <button md-button (click)="onClose()">
+      <md-icon>close</md-icon>
+      <span>Close</span>
+    </button>
+  </div>
+
+</div>
+
+<!-- <div class="main-search-results flex-layout" *ngIf="openDisplay && searchResults">
 
   <md-toolbar>
     <div class="flex-layout pt-2" fxLayout="column" fxFlex="grow" *ngIf="!searchResults">
@@ -38,4 +49,4 @@
       </div>
     </div>
   </md-toolbar>
-</div>
+</div> -->
