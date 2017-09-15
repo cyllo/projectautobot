@@ -13,8 +13,6 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class SideBarLeftComponent implements OnInit {
-
-  sideNavOpen: boolean;
   appThemesCatalog: AppTheme[];
   friendsCount: any;
   friendRequestCount: number;
@@ -22,7 +20,6 @@ export class SideBarLeftComponent implements OnInit {
 
   constructor(private store: Store<AppState>,
     private themeingService: ThemeingService) {
-    this.sideNavOpen = false;
   }
 
   ngOnInit() {

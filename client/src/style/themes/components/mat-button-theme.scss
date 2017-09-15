@@ -13,6 +13,11 @@
     color: contrast-color($background-color);
   }
 
+  &.ow-primary {
+    background-color: mat-color($primary);
+    color: mat-color($primary, default-contrast);
+  }
+
 }
 
 @mixin mat-button-theme($theme) {

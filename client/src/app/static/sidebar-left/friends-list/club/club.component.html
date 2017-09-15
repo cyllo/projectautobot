@@ -1,127 +1,123 @@
-<div class="club flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="grow" *ngIf="club">
+<div class="club" fxLayout="column" fxFlex>
 
-  <md-expansion-panel class="flex-layout" fxFlex #expansionPanel [hideToggle]="clubNameEditInProgress">
-
+  <md-expansion-panel #expansionPanel
+                      [ngClass]="{ 'edit-in-progress': clubNameEditInProgress }"
+                      [hideToggle]="clubNameEditInProgress"
+                      *ngIf="club">
 
     <md-expansion-panel-header>
 
-      <div *ngIf="clubNameEditInProgress; then clubEditHeader; else clubHeader;"></div>
-      <ng-template #clubEditHeader>
-        <div class="club-name-editor flex-layout" fxLayout="row" fxLayoutGap="8px" fxFlex="noshrink" #clubNameEditor>
-          <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
-            <button md-button
-                    class="min-width-0"
-                    (click)="deleteClub(club.id); stopPropagation($event);"
-                    [hidden]="!clubNameEditInProgress"
-                    fxFlexAlign="start">
-              <md-icon>delete_forever</md-icon>
-            </button>
-          </div>
-          <div class="flex-layout" fxLayout="column" fxFlex="grow">
-            <input type="text" value="{{ club.name }}" (click)="stopPropagation($event);" (focusout)="toggleClubNameEdit();">
-          </div>
-          <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
-            <button md-button
-                    class="min-width-0"
-                    (click)="updateClub(club.id, clubNameEdit.value); stopPropagation($event);"
-                    fxFlexAlign="start">
-              <md-icon>check</md-icon>
-            </button>
-          </div>
-        </div>
-      </ng-template>
+      <div *ngIf="clubNameEditInProgress; else clubHeader;">
 
-      <ng-template #clubHeader>
-        <mat-panel-title *ngIf="club.name !== 'General'">
-          <button md-button
+        <div class="club-name-editor flex-layout"
+             fxLayout="row"
+             fxLayoutAlign="space-between center"
+             fxLayoutGap="8px"
+             fxFlex="noshrink"
+             fxFill
+             #clubNameEditor>
+          <button md-icon-button
+                  (click)="deleteClub(club.id); stopPropagation($event);"
+                  [hidden]="!clubNameEditInProgress"
+                  fxFlexAlign="start">
+            <md-icon>delete_forever</md-icon>
+          </button>
+          <input type="text" value="{{ club.name }}" (click)="stopPropagation($event);" (focusout)="toggleClubNameEdit();">
+          <button md-icon-button
                   class="min-width-0"
-                  (click)="compareProfiles(club.friendships); stopPropagation($event);"
-                  [disabled]="club.friendships.length < 2">
-            <md-icon>compare_arrows</md-icon>
-          </button>
-        </mat-panel-title>
-        <mat-panel-description>
-          <button class="club-name" md-button
-                  fxLayoutAlign="start center"
-                  fxFlex
-                  (click)="toggleClubNameEdit($event); stopPropagation($event);"
-                  [disabled]="club.name === 'General'">
-            <span>({{ club.friendships.length }}) {{ club.name }}</span>
-          </button>
-        </mat-panel-description>
-      </ng-template>
-
-    </md-expansion-panel-header>
-
-    <div class="flex-layout pt-3" fxLayout="column" fxFlex [dragula]='"bag-one"' [attr.data-id]="club.id">
-      <div class="flex-layout py-2"
-           fxLayout="row"
-           fxLayoutAlign="start center"
-           fxLayoutGap="8px"
-           fxFlex="noshrink"
-           [attr.data-id]="friendship.id"
-           *ngFor="let friendship of club.friendships">
-
-        <div *ngIf="friendship.primaryGamerTag; then hasStatsBlock; else noStatsBlock"></div>
-
-        <ng-template #hasStatsBlock>
-            <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
-              <a href="#" draggable="false" [ngStyle]="{ 'font-size': '0px', 'line-height': '0px' }" (click)="gotoProfile$.next(friendship.primaryGamerTag)">
-                <img class="md-image md-image-36" draggable="false" [src]="friendship.primaryGamerTag.portraitUrl">
-              </a>
-            </div>
-  
-            <div class="flex-layout" fxLayout="column" fxFlex="grow">
-              <div class="flex-layout" fxLayout="row" fxFlex="noshrink">
-                <span class="player-tag mat-caption"><strong>{{ friendship.friend.displayName }}</strong></span>
-              </div>
-              <div
-                class="skill-rating flex-layout"
-                fxLayout="row"
-                fxLayoutAlign="start center"
-                fxFlex="noshrink"
-                *ngIf="friendship.primaryGamerTag.snapshotStatistics; else noRank">
-                  <img width="18" [src]="friendship.primaryGamerTag.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveRankUrl">
-                  <span class="ml-1">{{friendship.primaryGamerTag.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveLevel}}</span>
-              </div>
-
-              <ng-template #noRank>
-                <span>--</span>
-              </ng-template>
-            </div>
-        </ng-template>
-        
-
-        <ng-template #noStatsBlock>
-          <div class="flex-layout" fxLayout="column" fxFlex="grow">
-            <div class="flex-layout" fxLayout="row" fxFlex="noshrink">
-              <span class="player-tag mat-caption"><strong>{{ friendship.friend.displayName }}</strong></span>
-            </div>
-            <div class="skill-rating flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
-              <span class="ml-1">--</span>
-            </div>
-          </div>
-        </ng-template>
-        
-
-        <div class="flex-layout" fxLayout="column" fxLayoutGap="8px" fxFlex="noshrink">
-          <md-menu #clubFriendMenu="mdMenu">
-            <button md-menu-item color="warn" (click)="deleteFriend(friendship.id)">
-              <md-icon>delete_forever</md-icon>
-              <span>Unfriend</span>
-            </button>
-            <button md-menu-item *ngIf="club.name !== 'General'" (click)="removeFriend(friendship.id, club.id)">
-              <md-icon>favorite_border</md-icon>
-              <span>Remove from group</span>
-            </button>
-          </md-menu>
-
-          <button md-icon-button [mdMenuTriggerFor]="clubFriendMenu">
-            <md-icon>more_horiz</md-icon>
+                  (click)="updateClub(club.id, clubNameEdit.value); stopPropagation($event);"
+                  fxFlexAlign="start">
+            <md-icon>check</md-icon>
           </button>
         </div>
 
       </div>
+
+      <ng-template #clubHeader>
+        <div class="pr-3" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px" fxFill>
+          <!-- Compare button commented out till page is ready -->
+          <!-- <button md-icon-button
+                  (click)="compareProfiles(club.friendships); stopPropagation($event);"
+                  [disabled]="club.friendships.length < 2"
+                  *ngIf="club.name !== 'General'">
+            <md-icon>compare_arrows</md-icon>
+          </button> -->
+          <button class="club-name text-left"
+                  fxFlex="1 0 auto"
+                  md-button
+                  (click)="toggleClubNameEdit($event); stopPropagation($event);"
+                  [disabled]="club.name === 'General'">
+            <span class="mat-caption">({{ club.friendships.length }}) {{ club.name }}</span>
+          </button>
+        </div>
+      </ng-template>
+
+    </md-expansion-panel-header>
+
+    <div class="pt-3" fxLayout="column" fxLayoutGap="8px" fxFlex [dragula]='"bag-one"' [attr.data-id]="club.id">
+
+      <div fxLayout="row" *ngIf="!club.friendships.length; else showFriendshipsBlock">
+        <span class="mat-caption">Drag in friends.</span>
+      </div>
+
+      <ng-template #showFriendshipsBlock>
+
+        <div fxLayout="row"
+             fxLayoutAlign="start center"
+             fxLayoutGap="8px"
+             fxFlex="noshrink"
+             *ngFor="let friendship of club.friendships"
+             [attr.data-id]="friendship.id">
+
+          <div fxLayout="column" *ngIf="friendship.primaryGamerTag; else noStatsBlock">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+              <a draggable="false" (click)="gotoProfile$.next(friendship.primaryGamerTag)">
+                <img class="md-image md-image-36" draggable="false" [src]="friendship.primaryGamerTag?.portraitUrl">
+              </a>
+              <div fxLayout="column">
+                <span class="mat-caption"><strong>{{ friendship.friend.displayName }}</strong></span>
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px" *ngIf="friendship.primaryGamerTag?.snapshotStatistics;">
+                  <img width="18" [src]="friendship.primaryGamerTag.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveRankUrl">
+                  <span>{{ friendship.primaryGamerTag.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveLevel }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ng-template #noStatsBlock>
+            <div fxLayout="column">
+              <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+                <img class="md-image md-image-36" draggable="false" src="./img/unknown_hero.jpg">
+                <span class="mat-caption text-uppercase"><strong>{{ friendship.friend.displayName }}</strong></span>
+              </div>
+            </div>
+          </ng-template>
+
+          <div fxLayout="column" fxLayoutAlign="center end" fxFlex>
+
+            <md-menu #clubFriendMenu="mdMenu">
+              <button md-menu-item color="warn" (click)="deleteFriend(friendship.id)">
+                <md-icon>delete_forever</md-icon>
+                <span>Unfriend</span>
+              </button>
+              <button md-menu-item *ngIf="club.name !== 'General'" (click)="removeFriend(friendship.id, club.id)">
+                <md-icon>favorite_border</md-icon>
+                <span>Remove from group</span>
+              </button>
+            </md-menu>
+
+            <button md-icon-button [mdMenuTriggerFor]="clubFriendMenu">
+              <md-icon>more_horiz</md-icon>
+            </button>
+
+          </div>
+
+        </div>
+
+      </ng-template>
+
     </div>
+
   </md-expansion-panel>
+
 </div>

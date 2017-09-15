@@ -1,64 +1,24 @@
-<div class="main-nav flex-layout" ngStyle.gt-xs="padding-left: 64px;">
-
+<div class="main-nav">
   <md-toolbar>
-
-    <div fxLayout="row"
-         fxLayoutAlign="start center"
-         fxLayoutGap="14px"
-         fxFlex="grow">
-
-      <div fxLayout="column">
-        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
-          <img src="img/stplogo_old.svg" width="36">
-          <span class="mat-title ow-mat-title mb-0">Stop The Payload</span>
-          <span class="beta mat-caption text-uppercase">Beta</span>
-        </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="14px" fxFill>
+      <a class="img-link" routerLink="">
+        <img width="30" src="./img/stplogo_small.svg" fxHide.gt-sm>
+        <img width="150" src="./img/stplogo.svg" fxHide.lt-md>
+      </a>
+      <ow-nav-list></ow-nav-list>
+      <div fxLayout="column" fxFlex="40%" fxFlex.lt-md>
+        <ow-search
+          [searchInProgress]="searchInProgress"
+          [placeholder]="searchPlaceholder"
+          (onSearch)='onSearch$.next($event)'>
+        </ow-search>
       </div>
-
-      <div fxLayout="column">
-
-        <ow-nav-list></ow-nav-list>
-
-      </div>
-
-      <div fxLayout="column" fxFlex="grow">
-
-        <div fxLayout="row" fxFlex="grow">
-
-          <div fxLayout="column"
-               fxFlex.lt-sm="grow"
-               fxFlex.gt-sm="70%">
-
-            <ow-search [searchInProgress]="searchInProgress"
-                       [placeholder]="searchPlaceholder"
-                       (onSearch)='onSearch$.next($event)'>
-            </ow-search>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <div fxLayout="column">
-
-        <div *ngIf="userLoggedIn; then accountOverview; else userActions;"></div>
-
-        <ng-template #accountOverview>
-          <ow-account-overview></ow-account-overview>
-        </ng-template>
-
-        <ng-template #userActions>
+      <div fxLayout="column" fxFlex fxFlex.lt-md="initial">
+        <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
           <ow-user-actions></ow-user-actions>
-        </ng-template>
-
+        </div>
       </div>
-
     </div>
-
   </md-toolbar>
-
+  <ow-main-search-results></ow-main-search-results>
 </div>
-
-<ow-main-search-results>
-</ow-main-search-results>

@@ -1,41 +1,23 @@
-<div class="main-search-results flex-layout"
-     ngStyle.gt-xs="padding-left: 64px;" *ngIf="openDisplay && searchResults">
-
-  <md-toolbar>
-    <div class="flex-layout pt-2" fxLayout="column" fxFlex="grow" *ngIf="!searchResults">
-      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="14px">
-        <div fxLayout="column">
-          <span>No search results found.</span>
-        </div>
-        <div fxLayout="column">
-          <button (click)='onClose()' md-button>
-          <span>Close</span>
-          <md-icon>close</md-icon>
-        </button>
-        </div>
+<div class="main-search-results pt-3 px-3" fxLayout="column" fxLayoutGap="14px" fxFlex *ngIf="openDisplay && searchResults">
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" *ngIf="!searchResults; else showSearchResults;">
+    <span class="mat-body">No search results found.</span>
+    <button md-button (click)="onClose()">
+      <md-icon>close</md-icon>
+      <span>Close</span>
+    </button>
+  </div>
+  <ng-template #showSearchResults>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+      <span class="mat-body">{{ searchResults.length }} result{{ searchResults.length > 1  ? 's' : '' }} found.</span>
+      <button md-button (click)="onClose()">
+        <md-icon>close</md-icon>
+        <span>Close</span>
+      </button>
+    </div>
+    <div fxLayout="row" fxLayoutGap="14px" fxFlex="noshrink" fxLayoutWrap>
+      <div fxLayout="column" fxFlex.xs="grow" fxFlex.sm="50%" fxFlex.md="25%" fxFlex.lg="20%" *ngFor="let profile of searchResults">
+        <ow-player-profile-button [player]="profile" [resultsMode]="false"></ow-player-profile-button>
       </div>
     </div>
-
-    <div class="flex-layout pt-2" fxLayout="column" fxFlex="grow" *ngIf="searchResults">
-      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="14px">
-        <div fxLayout="column">
-          <span>{{ searchResults.length }} result{{ searchResults.length > 1  ? 's' : '' }} found.</span>
-        </div>
-        <div fxLayout="column">
-          <button (click)='onClose()' md-button>
-          <span>Close</span>
-          <md-icon>close</md-icon>
-        </button>
-        </div>
-      </div>
-
-      <div class="pt-3" fxLayout="row" fxLayoutWrap>
-        <div class="px-2 pb-3" fxLayout="column" fxFlex.xs="0 1 100%" fxFlex.sm="0 1 50%" fxFlex.md="0 1 25%" fxFlex.lg="0 1 20%"
-          *ngFor='let profile of searchResults'>
-          <ow-player-profile-button [player]="profile" [resultsMode]="false">
-          </ow-player-profile-button>
-        </div>
-      </div>
-    </div>
-  </md-toolbar>
+  </ng-template>
 </div>

@@ -45,4 +45,5 @@ export class MainNavComponent implements OnInit {
       this.store.dispatch(searchResults(results));
     });
   }
+
 }

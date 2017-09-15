@@ -1,0 +1,29 @@
+@mixin ow-search-theme($theme) {
+
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .main-search-form {
+
+    .mat-icon {
+      color: mat-color($primary);
+    }
+
+    .form-icon {
+      border-right: 1px solid mat-color($primary);
+    }
+
+  }
+
+}
+
+@mixin ow-friend-requets-theme($theme) {
+
+  .friend-requests {
+    @include ow-search-theme($theme);
+  }
+
+}

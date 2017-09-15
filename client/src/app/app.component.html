@@ -1,9 +1,16 @@
-<header class="fixed-top">
+<header class="fixed-top" ngStyle.gt-sm="padding-left: 56px;" fxLayout="column" fxFlex >
+  <div class="stp-sponsor" fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="center center" *ngIf="!closeSponsor">
+    <img src="./img/logitech.png">
+    <button md-button (click)="closeSponsor = true">
+      <md-icon>close</md-icon>
+      <span>Close</span>
+    </button>
+  </div>
   <ow-main-nav></ow-main-nav>
 </header>
 
-<main [ngStyle]="{ 'padding-top': '64px' }" ngStyle.gt-xs="padding-left: 64px;">
-  <ow-sidebar-left></ow-sidebar-left>
+<main ngStyle.gt-sm="padding-left: 56px;" [style.paddingTop]="!closeSponsor ? '100px' : null" fxFill>
+  <ow-sidebar-left fxHide.lt-md></ow-sidebar-left>
   <router-outlet></router-outlet>
 </main>
 

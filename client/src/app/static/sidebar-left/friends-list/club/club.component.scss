@@ -1,59 +1,32 @@
 :host /deep/ .club {
 
-  outline: none;
-
-  .club-name-editor {
-    input[type="text"] {
-      max-width: 108px;
-    }
+  a {
+    line-height: 0;
+    font-size: 0;
   }
 
-  input[type="text"] {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  input {
+    max-width: 120px;
   }
 
-  .mat-expansion-indicator {
-    padding: 0 14px;
-  }
+  .mat-expansion-panel {
 
-  .mat-expansion-panel-header {
+    .mat-expansion-panel-header {
 
-    padding: 0 14px;
-    min-width: 0;
-    min-height: 0;
+      padding-left: 8px;
 
-    button {
-      font-size: 12px;
-      letter-spacing: 0.075px;
+      .mat-content > div {
+        width: 100%;
+      }
+
     }
 
-    .mat-content {
-      min-width: 0;
-      min-height: 0;
-      align-content: flex-start;
-      justify-content: center;
+    &.edit-in-progress {
+      .mat-expansion-panel-header {
+        padding: 0 8px;
+      }
     }
 
-    .mat-expansion-panel-header-title {
-      margin: 0;
-    }
-
-    .mat-expansion-panel-header-description {
-      align-items: center;
-      flex: 0 1 100%;
-    }
-
-  }
-
-  .player-tag,
-  .skill-rating {
-    line-height: 1;
-  }
-
-  md-menu {
-    margin: 0 !important;
   }
 
 }

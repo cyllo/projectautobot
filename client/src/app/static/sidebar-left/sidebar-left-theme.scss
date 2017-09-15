@@ -1,3 +1,44 @@
+@import './friends-list/friends-list-theme';
+@import './friend-requests/friend-requests-theme';
+
+@mixin ow-sidebar-ink-bar-theme($theme) {
+
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .mat-ink-bar {
+    background-color: mat-color($foreground, text, 0.13);
+  }
+
+}
+
+@mixin ow-sidebar-tab-theme($theme) {
+
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  $text-color: mat-color($primary, default-contrast);
+
+  .mat-tab-group {
+
+    @include ow-sidebar-ink-bar-theme($theme);
+
+    .mat-tab-label {
+      color: $text-color;
+    }
+
+  }
+
+}
+
+
+
 @mixin ow-sidebar-left-theme($theme) {
 
   $primary: map-get($theme, primary);
@@ -6,169 +47,19 @@
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
 
-  $background-color: mat-color($primary) !default;
-  $background-contrast-color: contrast-color($background-color) !default;
-
-  $text-color: rgba($background-contrast-color, 0.87);
-  $text-hover-color: rgba($text-color, 1);
-  $text-active-color: $text-hover-color;
-  $border-color: rgba(invert($background-contrast-color), 0.13);
-
-  $tab-content-background-color: rgba(mat-color($foreground, text), 0.13);
-  $input-background-color: $tab-content-background-color;
+  $drawer-backdrop-color: mat-color($primary) !default;
+  $drawer-text-color: mat-color($primary, default-contrast) !default;
 
   .sidebar-left {
 
-    color: $text-color;
+    @include ow-friends-list-theme($theme);
+    @include ow-friend-requets-theme($theme);
+    @include ow-sidebar-tab-theme($theme);
 
-    a {
-      color: mat-color($accent);
-      &:hover {
-        cursor: pointer;
-      }
-    }
-
-    .mat-icon {
-      color: inherit;
-    }
-
-    .mat-drawer-container {
-      background-color: $background-color;
-      color: $text-color;
-    }
-
+    .mat-drawer-container,
     .mat-drawer {
-      background-color: $background-color;
-      color: $text-color;
-    }
-
-    .mat-tab-nav-bar,
-    .mat-tab-header {
-      border-bottom: 1px solid mat-color($foreground, divider);
-    }
-
-    .mat-tab-label, .mat-tab-link {
-      color: $text-active-color;
-      opacity: auto;
-    }
-
-    .mat-tab-label-active {
-      opacity: 1;
-    }
-
-    .mat-ink-bar {
-      background-color: $text-active-color;
-    }
-
-    .mat-card {
-      box-shadow: none;
-      background-color: transparent;
-      color: inherit;
-    }
-
-    .mat-list, .mat-nav-list {
-
-      .mat-list-item {
-        color: inherit;
-      }
-
-      .mat-subheader {
-        color: inherit;
-      }
-
-    }
-
-    .club {
-
-      .player-card:not(:last-child) {
-        border-bottom: 1px solid $border-color;
-      }
-
-      input[type="text"] {
-        &:focus {
-          background-color: mat-color($background, card);
-          color: mat-color($foreground, text);
-        }
-      }
-
-    }
-
-    .mat-expansion-panel {
-      background-color: $background-color;
-      color: $background-contrast-color;
-      box-shadow: none;
-
-      button,
-      button:disabled,
-      .mat-expansion-indicator::after {
-        color: $background-contrast-color;
-      }
-
-      button:disabled:not(.club-name) {
-        color: mat-color($foreground, disabled);
-      }
-
-    }
-
-    .ow-tab-content {
-      background-color: $tab-content-background-color;
-    }
-
-    .form-group {
-      .mat-icon {
-        color: inherit;
-      }
-    }
-
-    .btn-primary {
-      color: mat-color($foreground, text);
-      background-color: mat-color($background, card);
-    }
-
-    input[type="text"] {
-
-      background-color: $tab-content-background-color;
-      border: 0;
-      color: $text-color;
-
-      &:hover {
-        background-color: $tab-content-background-color;
-        color: $text-hover-color;
-      }
-
-      &:focus {
-        background-color: $tab-content-background-color;
-        color: $text-hover-color;
-      }
-
-      &:disabled {
-        background-color: transparent;
-      }
-
-    }
-
-  }
-
-  &.app-theme-light,
-  &.app-theme-dark {
-
-    .sidebar-left {
-
-      .ow-tab-content {
-        background-color: transparent;
-      }
-
-      .td-expansion-panel-header {
-
-        background-color: rgba($tab-content-background-color, 0.05);
-
-        &:hover:not(.mat-disabled),
-        &:focus:not(.mat-disabled) {
-          background-color: rgba($tab-content-background-color, 0.05) !important;
-        }
-
-      }
-
+      background-color: $drawer-backdrop-color;
+      color: $drawer-text-color;
     }
 
   }
