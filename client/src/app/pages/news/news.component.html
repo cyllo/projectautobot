@@ -1,56 +1,48 @@
-<div>
-  <div class="news" *ngIf="newsPagination$ | async as paginationParams">
-    <div class="news-page-header fixed-top"
-         ngStyle.gt-xs="padding-left: 64px; margin-top: 64px;"
-         fxLayout="row"
-         fxLayoutAlign="start center"
-         fxFlex="grow">
+<div class="news" fxLayout="column" fxFlex *ngIf="newsPagination$ | async as paginationParams">
+  <div class="news-page-header" fxLayout="row" fxLayoutAlign="start center" fxFlex="grow">
 
-         <div class="py-3 px-3" fxLayout="column" fxFlex *ngIf="newsFilters$ | async as filters">
-          <ow-page-filters [filters]="filters" (change)="onPageFilterChange($event)"></ow-page-filters>
-        </div>
+       <div class="py-3 px-3" fxLayout="column" fxFlex *ngIf="newsFilters$ | async as filters">
+        <ow-page-filters [filters]="filters" (change)="onPageFilterChange($event)"></ow-page-filters>
+      </div>
 
+  </div>
+
+  <div
+    class="news-page-item-container px-3 py-3"
+    *ngIf="blogPosts$ | async as blogPosts; else spinner"
+    fxLayout="row"
+    fxFlex="grow"
+    fxLayoutWrap
+    infiniteScroll
+    [infiniteScrollDistance]="0"
+    [infiniteScrollUpDistance]="1"
+    [infiniteScrollThrottle]="250"
+    (scrolled)="onScrollDown(paginationParams, blogPosts)">
+
+    <div class="px-3 py-3"
+       fxLayout="column"
+       fxLayoutAlign="center center"
+       fxFlex.xs="100%"
+       fxFlex.sm="50%"
+       fxFlex.md="33.333%"
+       fxFlex.lg="25%"
+       *ngFor="let post of blogPosts">
+
+      <ow-news-post-card [post]="post"></ow-news-post-card>
     </div>
 
-    <div
-      class="news-page-item-container px-3 py-3"
-      *ngIf="blogPosts$ | async as blogPosts; else spinner"
-      fxLayout="row"
-      fxFlex="grow"
-      fxLayoutWrap
-      infiniteScroll
-      [infiniteScrollDistance]="0"
-      [infiniteScrollUpDistance]="1"
-      [infiniteScrollThrottle]="250"
-      (scrolled)="onScrollDown(paginationParams, blogPosts)">
-
-      <div class="px-3 py-3"
-         fxLayout="column"
-         fxLayoutAlign="center center"
-         fxFlex.xs="100%"
-         fxFlex.sm="50%"
-         fxFlex.md="33.333%"
-         fxFlex.lg="25%"
-         *ngFor="let post of blogPosts">
-
-        <ow-news-post-card [post]="post"></ow-news-post-card>
+    <ng-template #loadmore>
+      <div class="pt-3 px-3" fxLayout="column" fxFlex="100%">
+        <button md-button (click)="onScrollDown(paginationParams, blogPosts)">
+          <span>Load More</span>
+        </button>
       </div>
+    </ng-template>
 
-      <ng-template #loadmore>
-        <div class="pt-3 px-3" fxLayout="column" fxFlex="100%">
-          <button md-button (click)="onScrollDown(paginationParams, blogPosts)">
-            <span>Load More</span>
-          </button>
-        </div>
-      </ng-template>
-
-      <div *ngIf="blogPosts.length; then loadmore; else noitems">
-      </div>
+    <div *ngIf="blogPosts.length; then loadmore; else noitems">
     </div>
   </div>
 </div>
-
-
 <ng-template #noitems>
   <h1>NO ITEMS</h1>
 </ng-template>

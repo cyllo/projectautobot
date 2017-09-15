@@ -35,12 +35,13 @@
 
       <ng-template #clubHeader>
         <div class="pr-3" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px" fxFill>
-          <button md-icon-button
+          <!-- Compare button commented out till page is ready -->
+          <!-- <button md-icon-button
                   (click)="compareProfiles(club.friendships); stopPropagation($event);"
                   [disabled]="club.friendships.length < 2"
                   *ngIf="club.name !== 'General'">
             <md-icon>compare_arrows</md-icon>
-          </button>
+          </button> -->
           <button class="club-name text-left"
                   fxFlex="1 0 auto"
                   md-button

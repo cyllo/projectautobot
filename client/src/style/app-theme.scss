@@ -57,9 +57,6 @@
   @include ow-status-colors($theme);
   @include ow-medals-theme($theme);
 
-  background-color: rgba(mat-color($primary), 0.05);
-  color: mat-color($primary, 700);
-
   a {
     color: mat-color($primary);
   }

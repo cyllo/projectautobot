@@ -1,7 +1,9 @@
 @import './sidebar-left/sidebar-left-theme';
 @import './main-nav/main-nav-theme';
+@import './main-search-results/main-search-results-theme';
 
 @mixin ow-static-theme($theme) {
   @include ow-sidebar-left-theme($theme);
   @include ow-main-nav-theme($theme);
+  @include ow-main-search-results-theme($theme);
 }
