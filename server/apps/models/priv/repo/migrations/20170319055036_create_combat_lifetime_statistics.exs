@@ -32,6 +32,8 @@ defmodule Models.Repo.Migrations.CreateCombatLifetimeStatistics do
       add :scoped_accuracy_percentage, :integer, null: false, default: 0
       add :self_healing, :integer, null: false, default: 0
       add :damage_amplified, :integer, null: false, default: 0
+      add :critical_hits_kills, :integer, null: false, default: 0
+      add :scoped_hits, :integer, null: false, default: 0
     end
   end
 end

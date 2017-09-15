@@ -32,6 +32,8 @@ defmodule Models.Statistics.CombatLifetime do
     field :scoped_accuracy_percentage, :integer
     field :self_healing, :integer
     field :damage_amplified, :integer
+    field :critical_hits_kills, :integer
+    field :scoped_hits, :integer
   end
 
   @allowed_fields [
@@ -63,7 +65,9 @@ defmodule Models.Statistics.CombatLifetime do
     :hero_damage_done,
     :scoped_accuracy_percentage,
     :self_healing,
-    :damage_amplified
+    :damage_amplified,
+    :critical_hits_kills,
+    :scoped_hits
   ]
 
   @doc """

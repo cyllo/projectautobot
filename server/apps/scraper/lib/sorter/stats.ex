@@ -15,7 +15,8 @@ defmodule Scraper.Sorter.Stats do
     :damage_blocked, :hero_damage_done, :melee_kills,
     :barrier_damage_done,  :turrets_destroyed,
     :scoped_accuracy_percentage, :recon_assists,
-    :shield_generators_destroyed, :damage_amplified
+    :shield_generators_destroyed, :damage_amplified,
+    :critical_hits_kills, :scoped_hits
   ]
 
   @average_statistics [
@@ -28,7 +29,15 @@ defmodule Scraper.Sorter.Stats do
     :critical_hits_avg_per10_min, :eliminations_avg_per10_min,
     :damage_blocked_avg_per10_min, :hero_damage_done_avg_per10_min,
     :healing_done_avg_per10_min, :all_damage_done_avg_per10_min,
-    :damage_amplified_avg_per10_min
+    :damage_amplified_avg_per10_min, :damage_amplified_average,
+    :damage_blocked_average, :healing_done_most_in_life,
+    :self_healing_average, :eliminations_average,
+    :solo_kills_average, :environmental_deaths,
+    :offensive_assists_average, :final_blows_average,
+    :time_spent_on_fire_average, :deaths_average,
+    :objective_kills_average, :objective_time_average,
+    :critical_hits_average, :defensive_assists_average,
+    :healing_done_average, :melee_final_blows_average
   ]
 
   @best_statistics [

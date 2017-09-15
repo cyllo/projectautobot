@@ -129,7 +129,25 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
             healing_done_avg_per10_min: avg(hgas.healing_done_avg_per10_min),
             all_damage_done_avg_per10_min: avg(hgas.all_damage_done_avg_per10_min),
             objective_kills_avg_per10_min: avg(hgas.objective_kills_avg_per10_min),
-            melee_final_blows_avg_per10_min:  avg(hgas.melee_final_blows_avg_per10_min)
+            melee_final_blows_avg_per10_min:  avg(hgas.melee_final_blows_avg_per10_min),
+            damage_amplified_avg_per10_min: avg(hgas.damage_amplified_avg_per10_min),
+            damage_amplified_average: avg(hgas.damage_amplified_average),
+            damage_blocked_average: avg(hgas.damage_blocked_average),
+            healing_done_most_in_life: avg(hgas.healing_done_most_in_life),
+            self_healing_average: avg(hgas.self_healing_average),
+            eliminations_average: avg(hgas.eliminations_average),
+            solo_kills_average: avg(hgas.solo_kills_average),
+            environmental_deaths: avg(hgas.environmental_deaths),
+            offensive_assists_average: avg(hgas.offensive_assists_average),
+            final_blows_average: avg(hgas.final_blows_average),
+            time_spent_on_fire_average: avg(hgas.time_spent_on_fire_average),
+            deaths_average: avg(hgas.deaths_average),
+            objective_kills_average: avg(hgas.objective_kills_average),
+            objective_time_average: avg(hgas.objective_time_average),
+            critical_hits_average: avg(hgas.critical_hits_average),
+            defensive_assists_average: avg(hgas.defensive_assists_average),
+            healing_done_average: avg(hgas.healing_done_average),
+            melee_final_blows_average: avg(hgas.melee_final_blows_average)
           },
 
           combat_lifetime_statistic: %{
@@ -160,7 +178,10 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
             barrier_damage_done: avg(hcls.barrier_damage_done),
             hero_damage_done: avg(hcls.hero_damage_done),
             scoped_accuracy_percentage: avg(hcls.scoped_accuracy_percentage),
-            self_healing: avg(hcls.self_healing)
+            self_healing: avg(hcls.self_healing),
+            damage_amplified: avg(hcls.damage_amplified),
+            critical_hits_kills: avg(hcls.critical_hits_kills),
+            scoped_hits: avg(hcls.scoped_hits)
           },
 
           combat_best_statistic: %{
@@ -193,7 +214,8 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
             kill_streak_best: avg(hcbs.kill_streak_best),
             multikill_best: avg(hcbs.multikill_best),
             scoped_accuracy_best_in_game_percentage: avg(hcbs.scoped_accuracy_best_in_game_percentage),
-            weapon_accuracy_best_in_game_percentage: avg(hcbs.weapon_accuracy_best_in_game_percentage)
+            weapon_accuracy_best_in_game_percentage: avg(hcbs.weapon_accuracy_best_in_game_percentage),
+            damage_amplified_most_in_game: avg(hcbs.damage_amplified_most_in_game)
           }
         }]
       }

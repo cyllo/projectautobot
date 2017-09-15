@@ -32,6 +32,8 @@ defmodule Api.Schema.StatisticAverageTypes do
     field :critical_hits_most_in_life, :decimal
     field :eliminations_most_in_life, :decimal
 
+    field :damage_amplified_most_in_game, :integer
+
     field :kill_streak_best, :decimal
     field :multikill_best, :decimal
     field :scoped_accuracy_best_in_game_percentage, :decimal
@@ -56,6 +58,24 @@ defmodule Api.Schema.StatisticAverageTypes do
     field :all_damage_done_avg_per10_min, :decimal
     field :objective_kills_avg_per10_min, :decimal
     field :melee_final_blows_avg_per10_min, :decimal
+    field :damage_amplified_avg_per10_min, :decimal
+    field :damage_amplified_average, :decimal
+    field :damage_blocked_average, :decimal
+    field :healing_done_most_in_life, :decimal
+    field :self_healing_average, :decimal
+    field :eliminations_average, :decimal
+    field :solo_kills_average, :decimal
+    field :environmental_deaths, :decimal
+    field :offensive_assists_average, :decimal
+    field :final_blows_average, :decimal
+    field :time_spent_on_fire_average, :decimal
+    field :deaths_average, :decimal
+    field :objective_kills_average, :decimal
+    field :objective_time_average, :decimal
+    field :critical_hits_average, :decimal
+    field :defensive_assists_average, :decimal
+    field :healing_done_average, :decimal
+    field :melee_final_blows_average, :decimal
   end
 
   object :combat_lifetime_statistic_average do
@@ -87,6 +107,9 @@ defmodule Api.Schema.StatisticAverageTypes do
     field :hero_damage_done, :decimal
     field :scoped_accuracy_percentage, :decimal
     field :self_healing, :decimal
+    field :damage_amplified, :decimal
+    field :critical_hits_kills, :decimal
+    field :scoped_hits, :decimal
   end
 
   object :match_awards_statistic_average do
