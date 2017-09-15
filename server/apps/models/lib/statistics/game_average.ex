@@ -20,6 +20,7 @@ defmodule Models.Statistics.GameAverage do
     field :all_damage_done_avg_per10_min, :decimal
     field :objective_kills_avg_per10_min, :decimal
     field :melee_final_blows_avg_per10_min, :decimal
+    field :damage_amplified_avg_per10_min, :decimal
   end
 
   @allowed_fields [
@@ -39,7 +40,8 @@ defmodule Models.Statistics.GameAverage do
     :healing_done_avg_per10_min,
     :all_damage_done_avg_per10_min,
     :objective_kills_avg_per10_min,
-    :melee_final_blows_avg_per10_min
+    :melee_final_blows_avg_per10_min,
+    :damage_amplified_avg_per10_min
   ]
 
   @doc """

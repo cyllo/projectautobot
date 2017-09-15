@@ -14,7 +14,8 @@ defmodule Scraper.Sorter.Stats do
     :teleporter_pads_destroyed, :all_damage_done,
     :damage_blocked, :hero_damage_done, :melee_kills,
     :barrier_damage_done,  :turrets_destroyed,
-    :scoped_accuracy_percentage, :recon_assists, :shield_generators_destroyed
+    :scoped_accuracy_percentage, :recon_assists,
+    :shield_generators_destroyed, :damage_amplified
   ]
 
   @average_statistics [
@@ -26,7 +27,8 @@ defmodule Scraper.Sorter.Stats do
     :offensive_assists_avg_per10_min, :final_blows_avg_per10_min,
     :critical_hits_avg_per10_min, :eliminations_avg_per10_min,
     :damage_blocked_avg_per10_min, :hero_damage_done_avg_per10_min,
-    :healing_done_avg_per10_min, :all_damage_done_avg_per10_min
+    :healing_done_avg_per10_min, :all_damage_done_avg_per10_min,
+    :damage_amplified_avg_per10_min
   ]
 
   @best_statistics [
@@ -44,7 +46,7 @@ defmodule Scraper.Sorter.Stats do
     :melee_final_blows_most_in_game, :recon_assists_most_in_game,
     :all_damage_done_most_in_game, :shield_generators_destroyed_most_in_game,
     :self_healing_most_in_game, :solo_kills_most_in_game,
-    :time_spent_on_fire_most_in_game
+    :time_spent_on_fire_most_in_game, :damage_amplified_most_in_game
   ]
 
   def sort(stats), do: Helpers.categorize_stats(stats, &get_stats_category/1)

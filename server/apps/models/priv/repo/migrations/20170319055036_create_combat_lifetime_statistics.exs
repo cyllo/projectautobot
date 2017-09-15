@@ -31,6 +31,7 @@ defmodule Models.Repo.Migrations.CreateCombatLifetimeStatistics do
       add :hero_damage_done, :integer, null: false, default: 0
       add :scoped_accuracy_percentage, :integer, null: false, default: 0
       add :self_healing, :integer, null: false, default: 0
+      add :damage_amplified, :integer, null: false, default: 0
     end
   end
 end

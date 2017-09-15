@@ -49,6 +49,7 @@ defmodule Models.Repo.Migrations.CreateCombatBestStatistics do
 
       add :hero_damage_done_most_in_game, :integer, null: false, default: 0
       add :barrier_damage_done_most_in_game, :integer, null: false, default: 0
+      add :damage_amplified_most_in_game, :integer, null: false, default: 0
       add :hero_damage_done_most_in_life, :integer, null: false, default: 0
     end
   end

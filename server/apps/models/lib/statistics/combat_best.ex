@@ -24,6 +24,7 @@ defmodule Models.Statistics.CombatBest do
     field :shield_generators_destroyed_most_in_game, :integer
     field :hero_damage_done_most_in_game, :integer
     field :barrier_damage_done_most_in_game, :integer
+    field :damage_amplified_most_in_game, :integer
 
     field :all_damage_done_most_in_game, :integer
     field :all_damage_done_most_in_life, :integer
@@ -59,6 +60,7 @@ defmodule Models.Statistics.CombatBest do
     :shield_generators_destroyed_most_in_game,
     :hero_damage_done_most_in_game,
     :barrier_damage_done_most_in_game,
+    :damage_amplified_most_in_game,
     :all_damage_done_most_in_game,
     :all_damage_done_most_in_life,
     :hero_damage_done_most_in_life,

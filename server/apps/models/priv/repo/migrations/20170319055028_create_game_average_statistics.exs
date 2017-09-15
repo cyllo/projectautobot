@@ -20,6 +20,7 @@ defmodule Models.Repo.Migrations.CreateGameAverageStatistics do
       add :all_damage_done_avg_per10_min, :decimal, null: false, default: 0.0
       add :objective_kills_avg_per10_min, :decimal, null: false, default: 0.0
       add :melee_final_blows_avg_per10_min, :decimal, null: false, default: 0.0
+      add :damage_amplified_avg_per10_min, :decimal, null: false, default: 0.0
     end
   end
 end
