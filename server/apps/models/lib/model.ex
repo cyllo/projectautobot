@@ -70,8 +70,6 @@ defmodule Models.Model do
   def create_model_filter({filter_field, val}, model), do: create_model_filter({filter_field, val}, model, model)
 
   def create_model_filter({filter_field, val}, %{from: %{query: %{from: {_, model}}}}, query) do
-    import IEx
-    IEx.pry
     create_model_filter({filter_field, val}, model, query)
   end
 

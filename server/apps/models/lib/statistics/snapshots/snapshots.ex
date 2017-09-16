@@ -49,27 +49,28 @@ defmodule Models.Statistics.Snapshots do
   end
 
   def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, opts \\ [])
-  def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, opts) when is_map(opts) do
-    get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, Map.to_list(opts))
+  def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, opts) when is_list(opts) do
+    get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, Map.new(opts))
   end
 
   # TODO: Simplify query to single transaction
-  def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, opts) do
-    query = if Keyword.get(opts, :only_last_daily, false) do
-      SnapshotStatistic.latest_daily_query
-        |> Ecto.Query.subquery
-    else
-      SnapshotStatistic
-    end
-
+  def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, query, opts) do
     from(gt in GamerTag, where: gt.id in ^gamer_tag_ids)
       |> Repo.all
       |> Enum.flat_map(fn %{id: tag_id} ->
         query
           |> Ecto.Query.where(gamer_tag_id: ^tag_id)
-          |> Model.create_model_filters(Keyword.delete(opts, :only_last_daily))
+          |> Model.create_model_filters(opts)
           |> Repo.all
       end)
+  end
+
+  def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, %{only_last_daily: true} = opts) do
+    get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, SnapshotStatistic.latest_daily_query, Map.delete(opts, :only_last_daily))
+  end
+
+  def get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, opts) do
+    get_snapshot_statistics_by_gamer_tag_ids(gamer_tag_ids, opts)
   end
 
   def get_gamer_tag_snapshot_statistics(gamer_tag_id) do
