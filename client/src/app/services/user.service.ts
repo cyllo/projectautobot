@@ -48,7 +48,7 @@ export class UserService {
   listFriendRequests() {
     return this.apollo.query({
       query: Friendships,
-      variables: { isSender: false}
+      variables: { isSender: false }
     })
     .map(({ data: { me: { friendships: friendRequests } } }: GraphqlResponse) => friendRequests)
     .subscribe(friendRequests => this.dispatcher.dispatch(getFriendRequests(friendRequests)));

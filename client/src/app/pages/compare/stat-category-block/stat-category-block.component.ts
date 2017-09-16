@@ -1,4 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { chain, filter } from 'ramda';
+
+interface StatBlock {
+  name: string;
+  stats: StatCategory[];
+}
+
+interface StatCategory {
+  name: string;
+  value: string;
+  selected: boolean;
+}
 
 @Component({
   selector: 'ow-stat-category-block',
@@ -6,47 +18,58 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['stat-category-block.component.scss']
 })
 export class StatCategoryBlockComponent implements OnInit {
+  @Output() change = new EventEmitter<StatCategory[]>();
 
-  statBlocks = [
+  selected: StatCategory[];
+
+  statBlocks: StatBlock[] = [
     {
       name: 'Combat',
       stats: [
         {
           name: 'Eliminations',
-          value: 'eliminations'
+          value: 'eliminations',
+          selected: true
+        },
+        {
+          name: 'K/D Ratio',
+          value: 'eliminationsPerLife',
+          selected: false
         },
         {
           name: 'Accuracy',
-          value: 'accuracy'
-        },
-        {
-          name: 'Damage Done',
-          value: 'damageDone'
-        },
-        {
-          name: 'Healing Done',
-          value: 'healingDone'
+          value: 'weaponAccuracyPercentage',
+          selected: false
         },
         {
           name: 'Damage Blocked',
-          value: 'damageBlocked'
+          value: 'damageBlocked',
+          selected: false
+        },
+        {
+          name: 'Healing Done',
+          value: 'healingDone',
+          selected: false
         },
         {
           name: 'Critical Hits',
-          value: 'criticalHits'
+          value: 'criticalHits',
+          selected: false
+        },
+        {
+          name: 'Damage Done',
+          value: 'allDamageDone',
+          selected: false
         },
         {
           name: 'Objective Kills',
-          value: 'objectiveKills'
-        }
-      ]
-    },
-    {
-      name: 'Game',
-      stats: [
+          value: 'objectiveKills',
+          selected: false
+        },
         {
-          name: 'Gold Medals',
-          value: 'goldMedals'
+          name: 'Objective Time',
+          value: 'objectiveTime',
+          selected: false
         }
       ]
     }
@@ -54,6 +77,17 @@ export class StatCategoryBlockComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.selected = this.collectSelected();
+    this.change.emit(this.selected);
+  }
 
+  onChangeSelected() {
+    this.selected = this.collectSelected();
+    this.change.emit(this.selected);
+  }
+
+  collectSelected() {
+    return chain(statBlock => filter(stat => stat.selected, statBlock.stats), this.statBlocks);
+  }
 }

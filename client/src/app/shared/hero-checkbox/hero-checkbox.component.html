@@ -2,12 +2,12 @@
   <div class="row align-items-center">
     <div class="col">
       <div class="d-inline-flex align-items-center">
-        <input type="checkbox" name="" checked>
-        <span class="hero-name text-uppercase ml-2">Widowmaker</span>
+        <input type="checkbox" name="" [(ngModel)]="selected">
+        <span class="hero-name text-uppercase ml-2">{{ hero.name }}</span>
       </div>
     </div><!-- .col -->
     <div class="col-auto px-3">
-      <ow-hero-portrait [owCode]="owCode"></ow-hero-portrait>
+      <ow-hero-portrait [owCode]="hero.code"></ow-hero-portrait>
     </div><!-- .col-auto -->
   </div><!-- .row -->
 </div><!-- .hero-checkbox -->

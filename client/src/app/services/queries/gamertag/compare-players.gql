@@ -1,0 +1,37 @@
+query comparePlayersQuery($ids: [Int], $type: SnapshotStatisticType!, $startDate: DateTime, $endDate: DateTime) {
+  gamerTags(ids: $ids) {
+    ...gamertagFields
+    connectedGamerTags {
+      ...gamertagFields
+    }
+  }
+}
+
+fragment gamertagFields on GamerTag {
+  id
+  tag
+  region
+  platform
+  portraitUrl
+  snapshotStatistics(startDate: $startDate, endDate: $endDate, onlyLastDaily: true) {
+    id
+    insertedAt
+    updatedAt
+    heroSnapshotStatistics(type: $type) {
+      id
+      heroId
+      combatLifetimeStatistic {
+        id
+        eliminations
+        eliminationsPerLife
+        weaponAccuracyPercentage
+        damageBlocked
+        healingDone
+        criticalHits
+        allDamageDone
+        objectiveKills
+        objectiveTime
+      }
+    }
+  }
+}

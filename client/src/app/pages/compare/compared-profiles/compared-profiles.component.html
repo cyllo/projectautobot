@@ -1,4 +1,4 @@
-<div class="compared-profiles flex-layout" fxLayout="column" fxFlex>
+<div class="compared-profiles flex-layout" fxLayout="column" fxFlex *ngIf="players">
   <div class="flex-layout px-3 py-3" fxLayout="row">
     <span class="mat-caption text-uppercase"><strong>Comparing {{players.length}} profiles.</strong></span>
   </div>
@@ -6,7 +6,7 @@
     <div class="flex-layout px-3 py-3" fxLayout="column" fxFlex="grow" fxLayoutGap="8px" *ngFor="let player of players">
       <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center">
         <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
-          <img class="md-image md-image-36" src="https://d1u1mce87gyfbn.cloudfront.net/game/unlocks/0x0250000000001270.png">
+          <img class="md-image md-image-36" [src]="player.portraitUrl">
         </div>
         <div class="flex-layout px-2" fxLayout="column" fxFlex="grow">
           <div class="flex-layout" fxLayout="row">
@@ -21,10 +21,10 @@
           </div>
           <div class="flex-layout pt-1" fxLayout="row">
             <div class="flex-layout" fxLayout="column" fxFlex>
-              <md-radio-group fxLayoutGap="8px">
-                <md-radio-button value="1" checked="true">PC</md-radio-button>
-                <md-radio-button value="2">PSN</md-radio-button>
-                <md-radio-button value="2">XBL</md-radio-button>
+              <md-radio-group fxLayoutGap="8px" [ngModel]="player.platform" (change)="changePlatform(player, $event)">
+                <md-radio-button [disabled]="hasPlatform(player, 'pc')" value="pc">PC</md-radio-button>
+                <md-radio-button [disabled]="hasPlatform(player, 'psn')" value="psn">PSN</md-radio-button>
+                <md-radio-button [disabled]="hasPlatform(player, 'xbl')" value="xbl">XBL</md-radio-button>
               </md-radio-group>
             </div>
           </div>
@@ -37,10 +37,12 @@
           </div>
           <div class="flex-layout pt-1" fxLayout="row">
             <div class="flex-layout" fxLayout="column" fxFlex>
-              <md-radio-group fxLayoutGap="8px">
-                <md-radio-button value="1" checked="true">US</md-radio-button>
-                <md-radio-button value="2">KR</md-radio-button>
-                <md-radio-button value="2">CH</md-radio-button>
+              <md-radio-group fxLayoutGap="8px" [ngModel]="player.region" (change)="changeRegion(player, $event)">
+                <md-radio-button [disabled]="hasRegion(player, 'us')" value="us">US</md-radio-button>
+                <md-radio-button [disabled]="hasRegion(player, 'eu')" value="eu">EU</md-radio-button>
+                <md-radio-button [disabled]="hasRegion(player, 'kr')" value="kr">KR</md-radio-button>
+                <md-radio-button [disabled]="hasRegion(player, 'ch')" value="ch">CH</md-radio-button>
+                <md-radio-button [disabled]="hasRegion(player, '')" value="">GBL</md-radio-button>
               </md-radio-group>
             </div>
           </div>

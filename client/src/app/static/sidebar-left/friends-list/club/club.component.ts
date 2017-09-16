@@ -5,10 +5,10 @@ import { Component,
          ViewChild,
          ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { Club, Friendship, GamerTag } from '../../../../models';
+import { Club, GamerTag } from '../../../../models';
 import { ClubService, FriendShipService, notNil, ProfileService } from '../../../../services';
-import { map, pluck, compose, flatten, path } from 'ramda';
 import { Subject } from 'rxjs/Subject';
+import { map, prop,  } from 'ramda';
 
 @Component({
   selector: 'ow-club',
@@ -42,14 +42,8 @@ export class ClubComponent implements OnInit {
     .subscribe((profile: GamerTag) => this.profile.goto(profile));
   }
 
-  compareProfiles(friendships: Friendship[]) {
-    const friendshipGamerTags = compose(flatten, map(path(['friend', 'gamerTags'])));
-
-    this.router.navigate(['/compare'], {
-      queryParams: {
-        ids: pluck('tag', friendshipGamerTags(friendships))
-      }
-    });
+  compareProfiles(friendships) {
+    this.router.navigate(['/compare'], { queryParams: { ids: map(prop('id'), friendships)} });
   }
 
   deleteClub(id) {

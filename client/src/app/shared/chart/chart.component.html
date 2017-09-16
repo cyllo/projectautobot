@@ -1,8 +1,9 @@
 <div class="chart">
     <canvas baseChart
+        *ngIf="!rerender"
         [datasets]="datasets"
         [labels]="labels"
         [chartType]="chartType"
         [options]="options"
-        [legend] = "legend"></canvas>    
+        [legend] = "legend"></canvas>
 </div>
