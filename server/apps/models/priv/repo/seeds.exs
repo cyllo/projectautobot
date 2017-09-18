@@ -41,20 +41,35 @@ users = [%{
 }]
 
 gamer_tags = [%{
-  tag: "TeaMaster-11555",
-  region: "us",
+  tag: "Caymus#11831",
   platform: "pc",
-  user_id: 6
+  region: "us",
+  user_id: 1
+}, %{
+  tag: "Seagull-1894",
+  platform: "pc",
+  region: "us",
+  user_id: 2
 }, %{
   tag: "DabbyDabDabDab",
   platform: "xbl",
   region: "",
   user_id: 3
 }, %{
+  tag: "nvvy#1132",
+  platform: "pc",
+  region: "us",
+  user_id: 4
+}, %{
   tag: "cyllo-2112",
   platform: "pc",
   region: "us",
   user_id: 5
+}, %{
+  tag: "TeaMaster-11555",
+  region: "us",
+  platform: "pc",
+  user_id: 6
 }]
 
 
@@ -68,12 +83,14 @@ end
 
 info "Creating GamerTags..."
 
-for gamer_tag <- gamer_tags do
+gamer_tags = for gamer_tag <- gamer_tags do
   {:ok, gamer_tag} = Game.create_gamer_tag(gamer_tag)
 
   Accounts.update_user(gamer_tag.user_id, %{primary_gamer_tag_id: gamer_tag.id})
   gamer_tag
 end
+
+gamer_tags = Task.async(fn -> Scraper.scrape_gamer_tags(gamer_tags) end)
 
 info "Creating Friends..."
 
@@ -102,3 +119,5 @@ users
       friendships: friendships
     })
   end)
+
+Task.await(gamer_tags, 60_000)
