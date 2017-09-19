@@ -1,15 +1,12 @@
 <div class="user-registration" fxLayout="row" fxLayoutAlign="center center">
 
-  <md-card class="ow-primary" [ngStyle]="{ 'margin-top': '15vh' }">
+  <md-card class="ow-primary" [ngStyle]="{ 'margin-top': '15vh' }" *ngIf="bnetCode | async; else noBnetCodeBlock">
 
     <div class="py-3" fxLayout="column">
 
       <form [formGroup]="registrationForm" (ngSubmit)="registration$.next(registrationForm.value)">
-
         <div fxLayout="column" fxLayoutGap="36px" fxFlex="300px">
-
           <div fxLayout="row" fxFlex="noshrink">
-
             <div fxLayout="column" fxLayoutGap="8px" fxFlex="grow">
 
               <div fxLayout="row" fxFlex="noshrink">
@@ -54,29 +51,33 @@
                   </md-input-container>
                 </div>
               </div>
-
             </div>
-
           </div>
 
           <div fxLayout="row" fxLayoutGap="14px" fxFlex="noshrink">
             <div fxLayout="column" fxFlex>
-              <button class="battle-net" type="button" (click)="bnetAuth($event)" md-button>
-                <md-icon>link</md-icon>
-                <span>Battle.net</span>
-              </button>
-            </div>
-            <div fxLayout="column" fxFlex>
               <button type="submit" md-button [disabled]="!registrationForm.valid">Sign Up</button>
             </div>
           </div>
-
         </div>
-
       </form>
-
     </div>
-
   </md-card>
+
+  <ng-template #noBnetCodeBlock>
+    <div fxLayout="column"> 
+      <span>
+        To Get Started with Stop The Payload, you'll need to associated your new account with your overwatch account 
+      </span>
+      <span>
+        Click the button below to get started
+      </span>
+      
+      <button class="battle-net" type="button" (click)="bnetAuth($event)" md-button>
+        <md-icon>link</md-icon>
+        <span>Battle.net</span>
+      </button>
+    </div>
+  </ng-template>
 
 </div>
