@@ -19,7 +19,7 @@ defmodule Api.UserResolver do
     end
   end
 
-  def create(params, _info), do: Accounts.create_user(params)
+  # def create(params, _info), do: Accounts.create_user(params)
 
   def update(params, %{context: %{current_user: user}}) do
     if Map.has_key?(params, :new_password) do

@@ -1,7 +1,7 @@
 defmodule BattleNet.Api do
   @client_id Application.get_env(:battle_net, :client_id)
   @client_secret Application.get_env(:battle_net, :client_secret)
-  @redirect_uri "https://localhost:8080/register"
+  @redirect_uri Application.get_env(:battle_net, :callback_uri)
   @token_url "https://us.battle.net/oauth/token"
   @account_url "https://us.api.battle.net/account/user"
 
@@ -11,7 +11,7 @@ defmodule BattleNet.Api do
          {:ok, %{"access_token" => access_token, "expires_in" => expires_in}} <- Poison.decode(body) do
       {:ok, %{access_token: access_token, expires_in: expires_in}}
     else
-      {:ok, %{"error" => "invalid_request", "error_description" => "Internal server error"}} -> {:error, "Battle.Net Auth token is invalid"}
+      {:ok, %{"error" => "invalid_request", "error_description" => e}} -> {:error, "Battle.Net Error: #{inspect e}"}
       {:ok, %{"error" => "invalid_request"}} -> {:error, "Battle.Net Auth token is invalid"}
       {:ok, e} -> {:error, e}
       e -> e

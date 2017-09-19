@@ -8,8 +8,8 @@ defmodule Models.Repo.Migrations.CreateUser do
       add :display_name, :citext, null: false
       add :email, :citext, null: false
       add :password_hash, :text, null: false
-      add :battle_net_id, :integer
-      add :battle_net_tag, :text
+      add :battle_net_id, :integer, null: false
+      add :battle_net_tag, :text, null: false
       add :is_admin, :boolean, default: false
 
       timestamps(type: :utc_datetime)

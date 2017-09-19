@@ -186,14 +186,14 @@ defmodule Api.Schema do
       arg :region, :string
       arg :platform, :string
 
-      resolve &async(fn -> GamerTagResolver.scrape(&1, &2) end, timeout: 100_000)
+      resolve &async(fn -> GamerTagResolver.scrape(&1, &2) end, timeout: :timer.minutes(1.5))
     end
 
     @desc "Search gamer tag by tag name"
     field :search_gamer_tag, list_of(:gamer_tag) do
       arg :tag, non_null(:string)
 
-      resolve &async(fn -> GamerTagResolver.search(&1, &2) end, timeout: 30_000)
+      resolve &async(fn -> GamerTagResolver.search(&1, &2) end, timeout: :timer.seconds(30))
     end
 
     @desc "Creates a User account"
@@ -201,9 +201,9 @@ defmodule Api.Schema do
       arg :display_name, non_null(:string)
       arg :email, non_null(:string)
       arg :password, non_null(:string)
-      arg :client_auth_token, :string
+      arg :client_auth_token, non_null(:string)
 
-      resolve &UserResolver.create/2
+      resolve &async(fn -> UserResolver.create(&1, &2) end, timeout: :timer.seconds(10))
     end
 
     @desc """
@@ -292,17 +292,17 @@ defmodule Api.Schema do
       resolve &UserResolver.unfollow_gamer_tag/2
     end
 
-    @desc """
-      Connects Battle.net to user account
+    # @desc """
+    #   Connects Battle.net to user account
 
-      Restrictions: User Auth
-    """
-    field :connect_user_to_battle_net, :user do
-      arg :client_auth_token, non_null(:string)
+    #   Restrictions: User Auth
+    # """
+    # field :connect_user_to_battle_net, :user do
+    #   arg :client_auth_token, non_null(:string)
 
-      middleware Middleware.Auth
-      resolve &async(fn -> UserResolver.connected_to_battle_net(&1, &2) end, timeout: 20_000)
-    end
+    #   middleware Middleware.Auth
+    #   resolve &async(fn -> UserResolver.connected_to_battle_net(&1, &2) end, timeout: 20_000)
+    # end
 
     @desc """
       Sends a friend request

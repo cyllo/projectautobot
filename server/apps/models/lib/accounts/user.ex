@@ -32,8 +32,8 @@ defmodule Models.Accounts.User do
     timestamps(type: :utc_datetime)
   end
 
-  @required_fields [:display_name, :email]
-  @allowed_fields Enum.concat(@required_fields, [:primary_gamer_tag_id, :password, :battle_net_id, :battle_net_tag])
+  @required_fields [:display_name, :email, :battle_net_id, :battle_net_tag]
+  @allowed_fields Enum.concat(@required_fields, [:primary_gamer_tag_id, :password])
 
   @doc """
   Builds a changeset based on the `struct` and `params`.

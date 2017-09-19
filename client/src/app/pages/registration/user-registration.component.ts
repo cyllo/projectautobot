@@ -35,7 +35,7 @@ export class UserRegistrationComponent implements OnInit {
     private error: ErrorHandlerService) {
     this.clientId = process.env.NODE_ENV === 'production'
     ? '6qeqp658bnjufty4c2rfjzvw4buz78x3'
-    : 'embfrmqwjgs99c69epdbw3tnh6mkw6tt';
+    : 'rzmspedr73m2mgbny5xf3ufqdyvyznxd';
       this.redirectUri = `${window.location.origin}/register`;
     }
 

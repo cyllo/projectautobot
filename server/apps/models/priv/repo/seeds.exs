@@ -17,26 +17,38 @@ end
 users = [%{
   display_name: "Tim",
   email: "tim@gmail.com",
+  battle_net_tag: "Caymus#11831",
+  battle_net_id: 12312312,
   password: "P@ssword1"
 }, %{
   display_name: "Bob",
+  battle_net_tag: "Seagull-1894",
+  battle_net_id: 212312,
   email: "bob@gmail.com",
   password: "P@ssword1"
 }, %{
   display_name: "Chad",
+  battle_net_tag: "DabbyDabDab#1225",
+  battle_net_id: 32423,
   email: "chad@gmail.com",
   password: "P@ssword1"
 }, %{
   display_name: "Nick",
+  battle_net_tag: "nvvy#1132",
+  battle_net_id: 2123188,
   email: "nick@gmail.com",
   password: "P@ssword1"
 }, %{
   display_name: "Kurt",
   email: "kurt@gmail.com",
+  battle_net_tag: "cyllo#2112",
+  battle_net_id: 21231218,
   password: "P@ssword1"
 }, %{
   display_name: "Mika",
   email: "mika@gmail.com",
+  battle_net_tag: "TeaMaster#11555",
+  battle_net_id: 2123187,
   password: "P@ssword1"
 }]
 
