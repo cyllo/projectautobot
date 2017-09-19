@@ -25,7 +25,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   destroyer$ = new Subject<void>();
   reScrapeProfile$ = new Subject();
   modeIndicator: Observable<{ disabled: boolean, mode: string}>;
-  toggleWatching: Observable<any>;
 
   selectedGameMode$ = new BehaviorSubject<string>('competitive');
   selectedSnapshotData: Observable<SnapshotStats>;
@@ -104,12 +103,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
     this.selectedProfile
     .switchMap(profile => this.snapshotService.findByGamerTag(profile.id, 20))
     .subscribe(snapshots => this.store.dispatch(addSnapshots(snapshots)));
-
-    this.toggleWatching = this.store.select('watchSnapshot').pluck('isActive');
-
-    this.toggleWatching.withLatestFrom(this.displayProfile)
-    .switchMap(([isWatching, { id }]) => this.profileService.watch(isWatching, id))
-    .subscribe(() => console.log('creating pull'));
   }
 
   ngOnDestroy() {
