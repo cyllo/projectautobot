@@ -23,13 +23,13 @@ export class SideBarLeftComponent implements OnInit {
     },
     {
       name: 'Leaderboard',
-      routerLink: '',
+      routerLink: '/Leaderboard',
       routerLinkActive: true,
       iconName: 'home'
     },
     {
       name: 'Heroes',
-      routerLink: '',
+      routerLink: '/heroes',
       routerLinkActive: true,
       iconName: 'home'
     }
