@@ -1,35 +1,42 @@
-:host /deep/ .sidebar-left {
-
+.sidebar-left {
   height: 100%;
-  z-index: 1031;
-
-  .mat-tab-group {
-
-    .mat-tab-header-pagination {
-      display: none;
-    }
-
-    .mat-tab-label {
-      min-width: 0;
-      width: 50%;
-      white-space: nowrap;
-    }
-
-    .mat-tab-body-wrapper {
-      flex: 1 1 auto;
-    }
-
-  }
-
   .mat-drawer-container {
-
     height: 100%;
-
     .mat-drawer {
-      width: 300px;
+      width: 270px;
     }
-
   }
+  //
+  // height: 100%;
+  // z-index: 1031;
+  //
+  // .mat-tab-group {
+  //
+  //   .mat-tab-header-pagination {
+  //     display: none;
+  //   }
+  //
+  //   .mat-tab-label {
+  //     min-width: 0;
+  //     width: 50%;
+  //     white-space: nowrap;
+  //   }
+  //
+  //   .mat-tab-body-wrapper {
+  //     flex: 1 1 auto;
+  //   }
+  //
+  // }
+  //
+  // .mat-drawer-container {
+  //
+  //   height: 100%;
+  //
+  //   .mat-drawer {
+  //     width: 300px;
+  //   }
+  //
+  // }
 
 
 }

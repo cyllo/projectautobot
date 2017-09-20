@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeingService, AppTheme } from '../../services';
-import { AppState } from '../../models';
+import { AppState, NavLink } from '../../models';
 import { isNil, length, filter, propEq, values, find, prop, isEmpty } from 'ramda';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -13,6 +13,29 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class SideBarLeftComponent implements OnInit {
+
+  navLinks: NavLink[] = [
+    {
+      name: 'Home',
+      routerLink: '',
+      routerLinkActive: true,
+      iconName: 'home'
+    },
+    {
+      name: 'Leaderboard',
+      routerLink: '',
+      routerLinkActive: true,
+      iconName: 'home'
+    },
+    {
+      name: 'Heroes',
+      routerLink: '',
+      routerLinkActive: true,
+      iconName: 'home'
+    }
+  ];
+
+
   appThemesCatalog: AppTheme[];
   friendsCount: any;
   friendRequestCount: number;
