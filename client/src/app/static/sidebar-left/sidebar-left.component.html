@@ -4,16 +4,49 @@
 
     <md-drawer mode="side" opened="false" position="end" #sidebarDrawer>
 
-      <div class="pt-2" fxLayout="column" fxFlex>
+      <div class="px-2" fxLayout="column" fxFlex>
 
-        <md-nav-list>
-          <a md-list-item *ngFor="let link of navLinks" routerLink="{{link.routerLink}}" routerLinkActive="{ 'active-link': link.routerLinkActive }">
-            <div fxLayout="row" fxLayoutGap="30px">
-              <md-icon>{{link.iconName}}</md-icon>
-              <span>{{link.name}}</span>
-            </div>
-          </a>
-        </md-nav-list>
+        <md-tab-group class="primary-tab-group" #sidebarTabGroup>
+
+          <md-tab label="navigation">
+
+            <md-nav-list>
+              <a md-list-item *ngFor="let link of navLinks" routerLink="{{link.routerLink}}" routerLinkActive="{ 'active-link': link.routerLinkActive }">
+                <div fxLayout="row" fxLayoutGap="30px">
+                  <md-icon>{{link.iconName}}</md-icon>
+                  <span>{{link.name}}</span>
+                </div>
+              </a>
+            </md-nav-list>
+
+          </md-tab>
+
+          <md-tab label="social" *ngIf="userLoggedIn | async">
+            <md-tab-group class="social-tab-group" fxFlex="284px">
+              <md-tab>
+                <ng-template md-tab-label>
+                  <div fxLayout="row" fxLayoutAlign="center center" fxFlex="grow">
+                    <span class="mat-caption text-uppercase">Friends ({{ friendsCount | async }})</span>
+                  </div>
+                </ng-template>
+                <div fxLayout="column" fxFlex>
+                  <ow-friends-list></ow-friends-list>
+                </div>
+              </md-tab>
+              <md-tab>
+                <ng-template md-tab-label>
+                  <div fxLayout="row" fxLayoutAlign="center center">
+                    <span class="mat-caption text-uppercase">Requests ({{ friendRequestCount > 99 ? '99+' : friendRequestCount }})</span>
+                  </div>
+                </ng-template>
+                <!-- <div fxFlexFill>
+                  <ow-friend-requests></ow-friend-requests>
+                </div> -->
+              </md-tab>
+            </md-tab-group>
+          </md-tab>
+
+        </md-tab-group>
 
       </div>
 
@@ -24,6 +57,14 @@
 
       <button md-icon-button (click)="sidebarDrawer.toggle()">
         <md-icon>menu</md-icon>
+      </button>
+
+      <button md-icon-button (click)="sidebarTabGroup.selectedIndex = 0">
+        <md-icon>dashboard</md-icon>
+      </button>
+
+      <button md-icon-button (click)="sidebarTabGroup.selectedIndex = 1" *ngIf="userLoggedIn | async">
+        <md-icon>people_outline</md-icon>
       </button>
 
     </div>
