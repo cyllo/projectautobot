@@ -4,51 +4,30 @@
 
     <md-drawer mode="side" opened="false" position="end" #sidebarDrawer>
 
-      <div class="pt-3 px-3" fxLayout="row" fxFlex="grow" *ngIf="(userLoggedIn | async); else userNotLoggedIn;">
+      <div class="pt-2" fxLayout="column" fxFlex>
 
-        <md-tab-group fxFlex="272px">
-
-          <md-tab>
-            <ng-template md-tab-label>
-              <span class="mat-caption text-uppercase"><strong>Friends ({{ friendsCount | async }})</strong></span>
-            </ng-template>
-            <div class="py-3" fxLayout="column" fxFlexFill>
-              <ow-friends-list fxLayout="row" fxFlex="grow"></ow-friends-list>
+        <md-nav-list>
+          <a md-list-item *ngFor="let link of navLinks" routerLink="{{link.routerLink}}" routerLinkActive="{ 'active-link': link.routerLinkActive }">
+            <div fxLayout="row" fxLayoutGap="30px">
+              <md-icon>{{link.iconName}}</md-icon>
+              <span>{{link.name}}</span>
             </div>
-          </md-tab>
-
-          <md-tab>
-            <ng-template md-tab-label>
-              <span class="mat-caption text-uppercase"><strong>Requests ({{ friendRequestCount > 99 ? '99+' : friendRequestCount }})</strong></span>
-            </ng-template>
-            <div class="py-3" fxLayout="column" fxFlexFill>
-              <ow-friend-requests fxLayout="row" fxFlex="grow"></ow-friend-requests>
-            </div>
-          </md-tab>
-
-        </md-tab-group>
+          </a>
+        </md-nav-list>
 
       </div>
 
-      <ng-template #userNotLoggedIn>
-        <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
-          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="14px">
-            <button md-button routerLink="./login">Login</button>
-            <span class="text-uppercase"><strong>or</strong></span>
-            <button md-button routerLink="./register">Register</button>
-          </div>
-        </div>
-      </ng-template>
-
     </md-drawer>
 
-    <div class="pt-3" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="14px" fxFlex="56px">
+
+    <div class="pt-2" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="8px" fxFlex="56px">
 
       <button md-icon-button (click)="sidebarDrawer.toggle()">
         <md-icon>menu</md-icon>
       </button>
 
     </div>
+
 
   </md-drawer-container>
 
