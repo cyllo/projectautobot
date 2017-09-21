@@ -40,6 +40,57 @@
 
 }
 
+@mixin ow-sidebar-toolbar-theme($theme) {
+
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .mat-toolbar {
+    background-color: transparent;
+    color: mat-color($primary, default-contrast);
+  }
+
+}
+
+@mixin ow-sidebar-expansion-panel-theme($theme) {
+
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  $bg-color: mat-color($primary);
+  $text-color: mat-color($primary, default-contrast);
+
+  .mat-expansion-panel {
+
+    background-color: $bg-color;
+    box-shadow: none;
+
+    .mat-expansion-panel-header {
+      color: $text-color;
+    }
+
+    .mat-expansion-panel-content {
+      color: $text-color;
+    }
+
+    .mat-expansion-indicator::after {
+      color: $text-color;
+    }
+
+    .mat-button:disabled {
+      color: $text-color;
+    }
+
+  }
+
+}
+
 @mixin ow-sidebar-left-theme($theme) {
 
   $primary: map-get($theme, primary);
@@ -55,11 +106,17 @@
 
     @include ow-sidebar-nav-list-them($theme);
     @include ow-sidebar-tab-group-theme($theme);
+    @include ow-sidebar-toolbar-theme($theme);
+    @include ow-sidebar-expansion-panel-theme($theme);
 
     .mat-drawer-container,
     .mat-drawer {
       background-color: $drawer-backdrop-color;
       color: $drawer-text-color;
+    }
+
+    .scroll-content {
+      background-color: invert(mat-color($background, card, 0.1));
     }
 
   }

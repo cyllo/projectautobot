@@ -1,11 +1,13 @@
-<form class="create-club" [formGroup]="clubForm" (ngSubmit)="createClub$.next(clubForm.value); clubForm.reset()">
-  <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
-    <button md-icon-button (click)="cancel$.next()" mdTooltip="Cancel">
-      <md-icon>cancel</md-icon>
-    </button>
-    <input type="text" placeholder="Enter a Club Name" formControlName="name" required>
-    <button md-icon-button type="submit" [disabled]="!clubForm.valid" mdTooltip="Submit">
-      <md-icon>add</md-icon>
-    </button>
-  </div>
+<form class="create-club"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+      [formGroup]="clubForm"
+      (ngSubmit)="createClub$.next(clubForm.value); clubForm.reset()">
+  <button md-icon-button (click)="cancel$.next()" mdTooltip="Cancel">
+    <md-icon>cancel</md-icon>
+  </button>
+  <input type="text" placeholder="Enter a Club Name" formControlName="name" required>
+  <button md-icon-button type="submit" [disabled]="!clubForm.valid" mdTooltip="Submit">
+    <md-icon>add</md-icon>
+  </button>
 </form>

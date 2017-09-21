@@ -1,9 +1,7 @@
-.friends-list {
-  > * {
-    width: 100% !important;
+:host /deep/ .friends-list {
+
+  .friends-list-toolbar {
+    padding: 0;
   }
 
-  .scroll-content {
-    overflow-y: auto;
-  }
 }

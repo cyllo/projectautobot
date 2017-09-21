@@ -108,7 +108,6 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MdInputModule,
     DragulaModule,
     MdSnackBarModule,
-    PerfectScrollbarModule,
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
     MdToolbarModule,
     MdIconModule,

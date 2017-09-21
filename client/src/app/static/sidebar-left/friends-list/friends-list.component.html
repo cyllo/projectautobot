@@ -1,4 +1,41 @@
-<div class="friends-list" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="14px" fxFlex>
+<div class="friends-list py-2" fxLayout="column" fxLayoutGap="8px" fxFlex>
+
+  <md-toolbar class="friends-list-toolbar">
+    <div fxLayout="column" fxFlex>
+      <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="!(toggleClubCreation$ | async); else showAddNewClub;">
+        <span class="mat-caption text-uppercase">({{ (clubs | async)?.length }}) Clubs</span>
+        <button md-icon-button mdTooltip="Create a New Club" (click)="toggleClubCreation$.next(true)">
+          <md-icon>playlist_add</md-icon>
+        </button>
+      </div>
+      <ng-template #showAddNewClub>
+        <ow-create-club (blur)="toggleClubCreation$.next(false)" (inProgress)="toggleClubCreation$.next(false)"></ow-create-club>
+      </ng-template>
+    </div>
+  </md-toolbar>
+
+  <div class="scroll-content px-2 py-2" fxLayout="column" fxFlex *ngIf="hasFriends | async; else noFriends;" [perfect-scrollbar]>
+    <div fxLayout="column" fxLayoutGap="8px" fxFlex="noshrink" fxLayoutAlign="start space-around">
+      <ow-club *ngFor="let club of clubs | async" [club]="club"></ow-club>
+    </div>
+  </div>
+
+  <ng-template #noFriends>
+    <div fxLayout="column" fxLayoutAlign="center start" fxFlex>
+      <p class="text-heading mat-display-2 mb-2">Did you try turning it on and off?</p>
+      <p>There's nothing to see here.</p>
+    </div>
+  </ng-template>
+
+  <ow-search
+    [searchInProgress]="(sideBarSearchResults | async)?.searching"
+    [placeholder]="'Add a friend'"
+    (onSearch)="onSearch$.next($event)">
+  </ow-search>
+
+</div>
+
+<!-- <div class="friends-list" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="14px" fxFlex>
 
   <div class="px-3" fxLayout="column" fxFlex *ngIf="(sideBarSearchResults | async)?.display; else showFriendsList;">
     <ow-search-results fxFill></ow-search-results>
@@ -54,4 +91,4 @@
     (onSearch)="onSearch$.next($event)">
   </ow-search>
 
-</div>
+</div> -->

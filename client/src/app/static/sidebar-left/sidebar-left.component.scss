@@ -2,6 +2,10 @@
 
   height: 100%;
 
+  .scroll-content {
+    overflow-y: auto;
+  }
+
   .mat-drawer-container {
 
     height: 100%;

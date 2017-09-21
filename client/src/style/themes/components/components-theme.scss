@@ -1,5 +1,4 @@
 // Import Components custom themes.
-@import './perfect-scrollbar-theme';
 @import './theme-picker-swatch-theme';
 @import './mat-tabs-theme';
 @import './mat-button-theme';
@@ -15,6 +14,5 @@
   @include mat-button-theme($theme);
   @include mat-tabs-theme($theme);
   @include mat-typography-theme($theme);
-  @include perfect-scrollbar-theme($theme);
   @include theme-picker-swatch-theme();
 }
