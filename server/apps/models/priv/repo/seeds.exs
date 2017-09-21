@@ -1,13 +1,32 @@
 import Logger, only: [info: 1]
+require Ecto.Query
 
-alias Ecto.Multi
+alias Ecto.{Multi, Query}
 alias Models.{Repo, Accounts}
+alias Models.{Game, Accounts}
 alias Models.Accounts.{Friendship, User}
-alias Models.Game
+alias Models.Game.GamerTag
+
+get_first_gamer_tag = fn user_id ->
+  Query.from(GamerTag, where: [id: ^user_id])
+    |> Query.first
+    |> Repo.one
+    |> Map.get(:id)
+end
 
 create_friendship_query = fn query, user_id, friend_id ->
-  user = %Friendship{user_id: user_id, friend_id: friend_id, is_sender: true}
-  friend = %Friendship{user_id: friend_id, friend_id: user_id}
+  user = %Friendship{
+    user_id: user_id,
+    friend_id: friend_id,
+    primary_gamer_tag_id: get_first_gamer_tag.(friend_id),
+    is_sender: true
+  }
+
+  friend = %Friendship{
+    user_id: friend_id,
+    friend_id: user_id,
+    primary_gamer_tag_id: get_first_gamer_tag.(user_id)
+  }
 
   query
     |> Multi.insert(:"user_friendship_#{user_id}_#{friend_id}", user)
