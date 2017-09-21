@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
     },
     {
       name: 'Leaderboard',
-      routerLink: '/Leaderboard',
+      routerLink: '/leaderboard',
       routerLinkActive: true,
       iconName: 'view_list'
     },
