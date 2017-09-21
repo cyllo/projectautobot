@@ -1,4 +1,4 @@
-<div class="profile-list px-3" fxLayout="column" fxLayoutGap="8px" fxFlex *ngIf="players$ | async as players">
+<div class="profile-list px-3" fxLayout="column" fxLayoutGap="8px" fxFlex *ngIf="players$ | async as players; else loadingBlock;">
   <span class="mat-caption text-uppercase"><strong>Your Profiles</strong></span>
   <ow-player-profile-button
     *ngFor="let player of players"
@@ -6,3 +6,9 @@
     [resultsMode]="true">
   </ow-player-profile-button>
 </div>
+
+<ng-template #loadingBlock>
+  <div fxLayout="column" fxLayoutAlign="center center" fxFlex>
+    <md-spinner [ngStyle]="{ 'width': '36px', 'height': '36px' }"></md-spinner>
+  </div>
+</ng-template>

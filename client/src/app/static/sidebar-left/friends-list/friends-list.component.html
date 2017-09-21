@@ -28,14 +28,16 @@
   </div>
 
   <ng-template #searchResults>
-    <ow-search-results fxFill></ow-search-results>
+    <div fxLayout="column" fxFlex>
+      <ow-search-results fxFill></ow-search-results>
+    </div>
   </ng-template>
 
   <ow-search
     class="mx-2"
     [searchInProgress]="(sideBarSearchResults | async)?.searching"
     [placeholder]="'Add a friend'"
-    (onSearch)="onSearch$.next($event); console.log('hi');">
+    (onSearch)="onSearch$.next($event);">
   </ow-search>
 
 </div>

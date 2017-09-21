@@ -7,7 +7,7 @@
         <span class="player-overwatch-name mat-body-1 text-overflow text-uppercase"><strong>{{player.overwatchName}}</strong></span>
         <span class="player-platform-region mat-caption text-uppercase"><small>{{player.platform}} {{player.region}}</small></span>
       </div>
-      <div fxLayout="row" fxLayoutGap="4px" *ngIf="resultsMode && player.snapshotStatistics">
+      <div fxLayout="row" fxLayoutGap="4px" *ngIf="resultsMode && player.snapshotStatistics.length">
         <img class="md-image md-image-18" [src]="player.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveRankUrl">
         <span class="mat-caption">{{player.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveLevel}}</span>
       </div>

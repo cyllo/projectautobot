@@ -1,5 +1,6 @@
 @import './club/club-theme';
 @import './create-club/create-club-theme';
+@import './search-results/search-results-theme';
 
 @mixin ow-sidebar-friends-list-theme($theme) {
   $primary: map-get($theme, primary);
@@ -11,6 +12,7 @@
   .friends-list {
     @include ow-club-theme($theme);
     @include ow-create-club-theme($theme);
+    @include ow-search-results-theme($theme);
   }
 
 }

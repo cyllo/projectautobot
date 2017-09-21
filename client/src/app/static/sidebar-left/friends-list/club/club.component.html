@@ -25,7 +25,7 @@
             <button md-icon-button (click)="deleteClub(club.id); stopPropagation($event);">
               <md-icon>delete_forever</md-icon>
             </button>
-            <input type="text" value="{{ club.name }}" (click)="stopPropagation($event);" (focusout)="toggleClubNameEdit();">
+            <input type="text" value="{{ club.name }}" (click)="stopPropagation($event);" #clubNameEdit>
             <button md-icon-button (click)="updateClub(club.id, clubNameEdit.value); stopPropagation($event);">
               <md-icon>check</md-icon>
             </button>

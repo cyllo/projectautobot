@@ -1,5 +1,10 @@
-.search-results {
-  .scroll-content {
-    overflow-y: auto;
+:host /deep/ .search-results {
+  .mat-list {
+    .mat-list-item {
+      .mat-list-item-content {
+        height: auto;
+        padding: 16px;
+      }
+    }
   }
 }

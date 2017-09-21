@@ -21,8 +21,6 @@ export class AccountOverviewComponent implements OnInit {
     this.currentUser$ = this.store.select('currentSession')
     .filter(session => !isNil(session))
     .map(({ user }) => user);
-
-    this.currentUser$.subscribe(e => console.log('user:', e));
   }
 
   signOut() {
