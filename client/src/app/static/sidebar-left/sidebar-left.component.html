@@ -4,9 +4,9 @@
 
     <md-drawer mode="side" opened="false" position="end" #sidebarDrawer>
 
-      <div class="px-2" fxLayout="column" fxFlex>
+      <div class="px-2" fxLayout="column" fxFill>
 
-        <md-tab-group class="primary-tab-group" #sidebarTabGroup>
+        <md-tab-group class="primary-tab-group" [(selectedIndex)]="selectedTabIndex" #sidebarTabGroup>
 
           <md-tab label="navigation">
 
@@ -21,16 +21,18 @@
 
           </md-tab>
 
-          <md-tab label="social" *ngIf="userLoggedIn | async">
-            <md-tab-group class="social-tab-group" fxFlex="284px">
+          <md-tab label="social" *ngIf="(userLoggedIn | async)">
+
+            <!-- The *ngIf here solves the following issue: https://github.com/angular/material2/issues/5269 -->
+            <md-tab-group class="social-tab-group" fxFlex="284px" *ngIf="selectedTabIndex === 1">
               <md-tab>
                 <ng-template md-tab-label>
                   <div fxLayout="row" fxLayoutAlign="center center" fxFlex="grow">
                     <span class="mat-caption text-uppercase">Friends ({{ friendsCount | async }})</span>
                   </div>
                 </ng-template>
-                <div fxLayout="column" fxFlex>
-                  <ow-friends-list></ow-friends-list>
+                <div fxLayout="column" fxFill>
+                  <ow-friends-list fxFill></ow-friends-list>
                 </div>
               </md-tab>
               <md-tab>
@@ -39,11 +41,12 @@
                     <span class="mat-caption text-uppercase">Requests ({{ friendRequestCount > 99 ? '99+' : friendRequestCount }})</span>
                   </div>
                 </ng-template>
-                <!-- <div fxFlexFill>
-                  <ow-friend-requests></ow-friend-requests>
-                </div> -->
+                <div fxLayout="column" fxFill>
+                  <ow-friends-list fxFill></ow-friends-list>
+                </div>
               </md-tab>
             </md-tab-group>
+
           </md-tab>
 
         </md-tab-group>
@@ -68,7 +71,6 @@
       </button>
 
     </div>
-
 
   </md-drawer-container>
 

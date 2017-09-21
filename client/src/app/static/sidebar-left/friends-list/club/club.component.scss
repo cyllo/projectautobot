@@ -1,32 +1,19 @@
 :host /deep/ .club {
 
-  a {
-    line-height: 0;
-    font-size: 0;
+  .club-name-editor {
+    input[type="text"] {
+      max-width: 150px;
+    }
   }
 
-  input {
-    max-width: 120px;
+  .mat-expansion-panel-header {
+    padding-left: 8px;
   }
 
-  .mat-expansion-panel {
-
+  &.club-edit-in-progress {
     .mat-expansion-panel-header {
-
-      padding-left: 8px;
-
-      .mat-content > div {
-        width: 100%;
-      }
-
+      padding: 0 8px;
     }
-
-    &.edit-in-progress {
-      .mat-expansion-panel-header {
-        padding: 0 8px;
-      }
-    }
-
   }
 
 }
