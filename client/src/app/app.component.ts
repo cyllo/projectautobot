@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { AppState, CurrentSession } from './models';
+import { AppState, CurrentSession, NavLink } from './models';
 import { MdIconRegistry } from '@angular/material';
 import { isNil } from 'ramda';
 import * as Cookies from 'js-cookie';
@@ -25,6 +25,27 @@ import '../style/app.scss';
   providers: [HereosService, AuthorizationService, ThemeingService, UserService, FriendShipService]
 })
 export class AppComponent implements OnInit {
+  navLinks: NavLink[] = [
+    {
+      name: 'Home',
+      routerLink: '',
+      routerLinkActive: true,
+      iconName: 'home'
+    },
+    {
+      name: 'Leaderboard',
+      routerLink: '/Leaderboard',
+      routerLinkActive: true,
+      iconName: 'view_list'
+    },
+    {
+      name: 'Heroes',
+      routerLink: '/heroes',
+      routerLinkActive: true,
+      iconName: 'games'
+    }
+  ];
+
   $state: Observable<AppState>;
   currentSession: Observable<CurrentSession>;
 
@@ -70,12 +91,15 @@ export class AppComponent implements OnInit {
   }
 
   createCustomSVGIconNamespace() {
-    const icon_dir = '/img/icons/roles';
+    const img_dir = '/img';
+    const icon_dir = `${img_dir}/icons/roles`;
     const sanitize = this.domSanitizer.bypassSecurityTrustResourceUrl;
     this.mdIconRegistry.addSvgIcon('role_offense', sanitize(`${icon_dir}/offense.svg`));
     this.mdIconRegistry.addSvgIcon('role_defense', sanitize(`${icon_dir}/defense.svg`));
     this.mdIconRegistry.addSvgIcon('role_support', sanitize(`${icon_dir}/support.svg`));
     this.mdIconRegistry.addSvgIcon('role_tank', sanitize(`${icon_dir}/tank.svg`));
+    this.mdIconRegistry.addSvgIcon('logo_text', sanitize(`${img_dir}/logo_text.svg`));
+    this.mdIconRegistry.addSvgIcon('logo', sanitize(`${img_dir}/logo.svg`));
   }
 
   getHeroes() {

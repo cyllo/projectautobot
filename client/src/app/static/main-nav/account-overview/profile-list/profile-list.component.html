@@ -1,39 +1,8 @@
-<div class="profile-list" md-list-item *ngIf="players$ | async">
-
-  <div class="flex-layout" fxLayout="row">
-
-    <div class="flex-layout" fxLayout="column" fxLayoutGap="8px" fxFlex="grow">
-
-      <div fxLayout="row">
-        <div fxLayout="column">
-          <span class="mat-caption">Your Profiles</span>
-        </div>
-      </div>
-
-      <div class="list-content-wrapper" fxLayout="row">
-
-        <div class="list-content"
-             fxLayout="column"
-             fxLayoutGap="8px"
-             fxFlex="grow"
-             [perfect-scrollbar]>
-
-          <div fxLayout="row" fxFlex="noshrink" *ngFor="let player of players$ | async">
-
-            <div fxLayout="column" fxFlex="grow">
-
-              <ow-player-profile-button [player]="player" [resultsMode]="false"></ow-player-profile-button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
+<div class="profile-list px-3" fxLayout="column" fxLayoutGap="8px" fxFlex *ngIf="players$ | async as players">
+  <span class="mat-caption text-uppercase"><strong>Your Profiles</strong></span>
+  <ow-player-profile-button
+    *ngFor="let player of players"
+    [player]="player"
+    [resultsMode]="true">
+  </ow-player-profile-button>
 </div>

@@ -1,10 +1,14 @@
-<!-- <header>
-  <ow-main-nav></ow-main-nav>
-</header> -->
+<header class="fixed-top pb-3" [ngClass.gt-sm]="{ 'sidebar-offset': !sideBarOpen, 'sidebar-open': sideBarOpen }">
+  <div class="pt-3 px-3" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+    <ow-main-nav [navLinks]="navLinks" fxFlex></ow-main-nav>
+  </div>
+</header>
 
-<main>
-  <ow-sidebar-left></ow-sidebar-left>
-  <router-outlet></router-outlet>
+<main [ngClass.gt-sm]="{ 'sidebar-offset': !sideBarOpen, 'sidebar-open': sideBarOpen }">
+  <ow-sidebar-left [navLinks]="navLinks" (change)="sideBarOpen = $event" fxHide.lt-md></ow-sidebar-left>
+  <div class="px-3 pb-3">
+    <router-outlet></router-outlet>
+  </div>
 </main>
 
 <ngrx-store-log-monitor toggleCommand="ctrl-h" positionCommand="ctrl-m"></ngrx-store-log-monitor>

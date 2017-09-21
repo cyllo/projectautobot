@@ -35,7 +35,7 @@
 
     </md-expansion-panel-header>
 
-    <div class="pt-3" fxLayout="column" fxLayoutGap="8px" fxFlex [dragula]='"bag-one"' [attr.data-id]="club.id">
+    <div class="pt-3" fxLayout="column" fxLayoutGap="4px" fxFlex [dragula]='"bag-one"' [attr.data-id]="club.id">
 
       <div fxLayout="row" *ngIf="!club.friendships.length; else showFriendshipsBlock">
         <span class="mat-caption">Drag in friends.</span>
@@ -43,7 +43,8 @@
 
       <ng-template #showFriendshipsBlock>
 
-        <div fxLayout="row"
+        <div class="friend px-2 py-2"
+             fxLayout="row"
              fxLayoutAlign="start center"
              fxLayoutGap="8px"
              fxFlex="noshrink"
@@ -51,13 +52,13 @@
              [attr.data-id]="friendship.id">
 
           <div fxLayout="column" *ngIf="friendship.primaryGamerTag; else noStatsBlock">
-            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
-              <a draggable="false" (click)="gotoProfile$.next(friendship.primaryGamerTag)">
+            <div fxLayout="row" fxLayoutGap="8px">
+              <a class="img-link" draggable="false" (click)="gotoProfile$.next(friendship.primaryGamerTag)">
                 <img class="md-image md-image-36" draggable="false" [src]="friendship.primaryGamerTag?.portraitUrl">
               </a>
               <div fxLayout="column">
                 <span class="mat-caption"><strong>{{ friendship.friend.displayName }}</strong></span>
-                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px" *ngIf="friendship.primaryGamerTag?.snapshotStatistics;">
+                <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="4px" *ngIf="friendship.primaryGamerTag?.snapshotStatistics; else blankRow;">
                   <img width="18" [src]="friendship.primaryGamerTag.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveRankUrl">
                   <span>{{ friendship.primaryGamerTag.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveLevel }}</span>
                 </div>
@@ -67,7 +68,7 @@
 
           <ng-template #noStatsBlock>
             <div fxLayout="column">
-              <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+              <div fxLayout="row" fxLayoutGap="8px">
                 <img class="md-image md-image-36" draggable="false" src="./img/unknown_hero.jpg">
                 <span class="mat-caption text-uppercase"><strong>{{ friendship.friend.displayName }}</strong></span>
               </div>

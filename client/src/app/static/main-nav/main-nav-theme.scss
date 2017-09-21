@@ -1,3 +1,5 @@
+@import './account-overview/account-overview-theme';
+
 @mixin ow-main-nav-toolbar-theme($theme) {
 
   $primary: map-get($theme, primary);
@@ -25,9 +27,15 @@
   .main-search-form {
 
     input[type="text"] {
+
       background-color: $bg-color;
-      border: 1px solid rgba($border-color, 0.13);
+      border: 1px solid rgba($border-color, 0.5);
       color: $text-color;
+
+      &:focus {
+        border-color: rgba($border-color, 1);
+      }
+
     }
 
     .form-icon {
@@ -53,6 +61,7 @@
 
     @include ow-main-nav-search-theme($theme);
     @include ow-main-nav-toolbar-theme($theme);
+    @include ow-main-nav-account-overview-theme($theme);
 
   }
 

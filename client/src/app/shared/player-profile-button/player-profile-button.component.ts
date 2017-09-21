@@ -25,9 +25,7 @@ export class PlayerProfileButtonComponent implements OnInit {
   ngOnInit() {
     this.playerData$ = Observable.of(this.player)
       .map(player => {
-        return isNil(player.snapshotStatistics)
-        ? assoc('snapshotStatistics', [], player)
-        : player;
+        return isNil(player.snapshotStatistics) ? assoc('snapshotStatistics', [], player) : player;
       });
   }
 

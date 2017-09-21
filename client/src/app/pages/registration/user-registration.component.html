@@ -1,82 +1,62 @@
-<div class="user-registration" fxLayout="row" fxLayoutAlign="center center">
+<div class="user-registration" fxLayout="column" fxFlex>
 
-  <md-card class="ow-primary" [ngStyle]="{ 'margin-top': '15vh' }" *ngIf="bnetCode | async; else noBnetCodeBlock">
-
-    <div class="py-3" fxLayout="column">
-
-      <form [formGroup]="registrationForm" (ngSubmit)="registration$.next(registrationForm.value)">
-        <div fxLayout="column" fxLayoutGap="36px" fxFlex="300px">
-          <div fxLayout="row" fxFlex="noshrink">
-            <div fxLayout="column" fxLayoutGap="8px" fxFlex="grow">
-
-              <div fxLayout="row" fxFlex="noshrink">
-                <div fxLayout="column" fxFlex="grow">
-                  <md-input-container fxFlexFill>
-                    <input mdInput type="text" placeholder="Display Name" formControlName="displayName">
-                    <md-error *ngIf="registrationForm.controls.displayName.hasError('pattern')">
-                      Please enter only alphabetic characters and numbers.
-                    </md-error>
-                    <md-error *ngIf="registrationForm.controls.displayName.hasError('required')">
-                      Display name is <strong>required</strong>
-                    </md-error>
-                  </md-input-container>
-                </div>
-              </div>
-
-              <div fxLayout="row" fxFlex="noshrink">
-                <div fxLayout="column" fxFlex="grow">
-                  <md-input-container fxFlexFill>
-                    <input mdInput type="email" placeholder="E-mail" formControlName="email">
-                    <md-error *ngIf="registrationForm.controls.email.hasError('pattern')">
-                      Please enter a valid email address.
-                    </md-error>
-                    <md-error *ngIf="registrationForm.controls.email.hasError('required')">
-                      Email is <strong>required</strong>
-                    </md-error>
-                  </md-input-container>
-                </div>
-              </div>
-
-              <div class="password-field" fxLayout="row" fxFlex="noshrink">
-                <div fxLayout="column" fxFlex="grow">
-                  <md-input-container fxFlexFill>
-                    <input mdInput type="password" placeholder="Password" formControlName="password">
-                    <md-error *ngIf="registrationForm.controls.password.hasError('pattern')">
-                      Your password must be at least 8 characters long and contain atleast 1 uppercase alphabetic character, 1 numeric character,
-                      and 1 special character.
-                    </md-error>
-                    <md-error *ngIf="registrationForm.controls.password.hasError('required')">
-                      Password is <strong>required</strong>
-                    </md-error>
-                  </md-input-container>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div fxLayout="row" fxLayoutGap="14px" fxFlex="noshrink">
-            <div fxLayout="column" fxFlex>
-              <button type="submit" md-button [disabled]="!registrationForm.valid">Sign Up</button>
-            </div>
-          </div>
-        </div>
+  <div class="container" fxLayout="row" fxLayoutAlign="center center" *ngIf="bnetCode | async; else noBnetCodeBlock">
+    <div fxLayout="column" fxFlex.gt-sm="initial" fxFlex.sm="25%" fxHide.xs>
+      <img class="hero-portrait" ngClass.lt-md="offset" src="/img/hero_renders/soldier_76.png" draggable="false">
+    </div>
+    <div fxLayout="column" fxFlex.gt-sm="1 1 510px" fxFlex.sm="75%" fxFlex.xs>
+      <p class="mat-display-1">Almost done, A few more things...</p>
+      <form class="registration-form" fxLayout="column" fxLayoutGap="30px" [formGroup]="registrationForm" (ngSubmit)="registration$.next(registrationForm.value)">
+        <md-form-field>
+          <input mdInput type="text" placeholder="Display Name" formControlName="displayName">
+          <md-error *ngIf="registrationForm.controls.displayName.hasError('pattern')">
+            Please enter only alphabetic characters and numbers.
+          </md-error>
+          <md-error *ngIf="registrationForm.controls.displayName.hasError('required')">
+            Display name is <strong>required</strong>
+          </md-error>
+        </md-form-field>
+        <md-form-field>
+          <input mdInput type="email" placeholder="E-mail" formControlName="email">
+          <md-error *ngIf="registrationForm.controls.email.hasError('pattern')">
+            Please enter a valid email address.
+          </md-error>
+          <md-error *ngIf="registrationForm.controls.email.hasError('required')">
+            Email is <strong>required</strong>
+          </md-error>
+        </md-form-field>
+        <md-form-field>
+          <input mdInput type="password" placeholder="Password" formControlName="password">
+          <md-error *ngIf="registrationForm.controls.password.hasError('pattern')">
+            Your password must be at least 8 characters long and contain atleast 1 uppercase alphabetic character, 1 numeric character,
+            and 1 special character.
+          </md-error>
+          <md-error *ngIf="registrationForm.controls.password.hasError('required')">
+            Password is <strong>required</strong>
+          </md-error>
+        </md-form-field>
+        <p class="mat-caption">By registering you accept the <a href="#">Terms and Conditions</a> of the website.</p>
+        <button class="ow-primary" type="submit" md-button [disabled]="!registrationForm.valid">Complete Registration</button>
       </form>
     </div>
-  </md-card>
+  </div>
 
   <ng-template #noBnetCodeBlock>
-    <div fxLayout="column"> 
-      <span>
-        To Get Started with Stop The Payload, you'll need to associated your new account with your overwatch account 
-      </span>
-      <span>
-        Click the button below to get started
-      </span>
-      
-      <button class="battle-net" type="button" (click)="bnetAuth($event)" md-button>
-        <md-icon>link</md-icon>
-        <span>Battle.net</span>
-      </button>
+    <div class="container" fxLayout="row" fxLayoutAlign="center center">
+      <div fxLayout="column" fxFlex.gt-sm="1 1 420px" fxFlex.sm="70%" fxFlex.xs>
+        <p class="mat-display-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p class="mat-body-1">Etiam sit amet erat elementum, viverra turpis vel, congue tellus. In tincidunt mauris at eros consequat, et volutpat mi ullamcorper.</p>
+        <div class="section-register">
+          <button class="battle-net" type="button" (click)="bnetAuth($event)" md-button>
+            <md-icon>link</md-icon>
+            <span>Sign Up via Battle.net</span>
+          </button>
+          <p class="mat-caption">Register Now! it’s really simple and you can start enjoing all the benefits! Already have an account? <a routerLink="/login">Click here to login.</a></p>
+        </div>
+      </div>
+      <div fxLayout="column" fxFlex.gt-sm="initial" fxFlex.sm="30%" fxHide.xs>
+        <img class="heroes" src="/img/heroes_pose.png" ngClass.lt-md="offset" draggable="false">
+      </div>
     </div>
   </ng-template>
 

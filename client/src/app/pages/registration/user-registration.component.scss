@@ -1,5 +1,49 @@
 .user-registration {
-  input[type="text"] {
-    border-color: transparent;
+
+  .container {
+    padding-top: 15vh;
+    & > div {
+      padding: 0 30px;
+      position: relative;
+    }
   }
+
+  img {
+    &.hero-portrait {
+      width: 100%;
+      min-width: 150px;
+      max-width: 330px;
+      &.offset {
+        width: 420px;
+        min-width: 420px;
+        max-width: 420px;
+        position: absolute;
+        right: 100%;
+        top: 50%;
+        transform: translate(75%, -50%);
+      }
+    }
+    &.heroes {
+      width: 100%;
+      min-width: 420px;
+      max-width: 600px;
+      &.offset {
+        width: 720px;
+        min-width: 720px;
+        max-width: 720px;
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        transform: translate(-35%, -50%);
+      }
+    }
+  }
+
+  .registration-form {
+    width: 100%;
+    md-form-field {
+      width: 100%;
+    }
+  }
+
 }

@@ -10,11 +10,18 @@ body {
   font-size: 14px;
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
-a.img-link {
-  font-size: 0;
-  line-height: 0;
+a {
+
+  text-decoration: none;
+
+  &.img-link {
+    font-size: 0;
+    line-height: 0;
+  }
+
 }
 
 button {

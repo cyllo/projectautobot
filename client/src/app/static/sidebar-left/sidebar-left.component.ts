@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ThemeingService, AppTheme } from '../../services';
 import { AppState, NavLink } from '../../models';
 import { isNil, length, filter, propEq, values, find, prop, isEmpty } from 'ramda';
@@ -13,28 +13,8 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class SideBarLeftComponent implements OnInit {
-
-  navLinks: NavLink[] = [
-    {
-      name: 'Home',
-      routerLink: '',
-      routerLinkActive: true,
-      iconName: 'home'
-    },
-    {
-      name: 'Leaderboard',
-      routerLink: '/Leaderboard',
-      routerLinkActive: true,
-      iconName: 'home'
-    },
-    {
-      name: 'Heroes',
-      routerLink: '/heroes',
-      routerLinkActive: true,
-      iconName: 'home'
-    }
-  ];
-
+  @Output() change: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input('navLinks') navLinks: NavLink[];
 
   appThemesCatalog: AppTheme[];
   friendsCount: any;
