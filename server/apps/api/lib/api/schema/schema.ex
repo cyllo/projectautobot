@@ -186,7 +186,7 @@ defmodule Api.Schema do
       arg :region, :string
       arg :platform, :string
 
-      resolve &async(fn -> GamerTagResolver.scrape(&1, &2) end, timeout: :timer.minutes(1.5))
+      resolve &async(fn -> GamerTagResolver.scrape(&1, &2) end, timeout: :timer.seconds(90))
     end
 
     @desc "Search gamer tag by tag name"
