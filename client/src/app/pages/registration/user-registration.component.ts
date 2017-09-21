@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService, AuthorizationService, ClubService, ErrorHandlerService } from '../../services';
-import { merge, compose, isNil, prop } from 'ramda';
+import { merge } from 'ramda';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
 const DISPLAY_NAME_REGEX = /^[A-Za-z\s.\(\)0-9]{3,}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const PASSWORD_REGEX = /^(?=.*[a-z]+.*)(?=.*[A-Z]+.*)(?=.*[0-9]+.*)(.{8,})$/;
-const noBnetCode = compose(isNil, prop('code'));
 
 @Component({
   selector: 'ow-user-registration',
@@ -33,9 +32,9 @@ export class UserRegistrationComponent implements OnInit {
     private router: Router,
     private club: ClubService,
     private error: ErrorHandlerService) {
-    this.clientId = process.env.NODE_ENV === 'production'
-    ? '6qeqp658bnjufty4c2rfjzvw4buz78x3'
-    : 'rzmspedr73m2mgbny5xf3ufqdyvyznxd';
+      this.clientId = process.env.NODE_ENV === 'production'
+      ? '6qeqp658bnjufty4c2rfjzvw4buz78x3'
+      : 'rzmspedr73m2mgbny5xf3ufqdyvyznxd';
       this.redirectUri = `${window.location.origin}/register`;
     }
 
@@ -48,16 +47,14 @@ export class UserRegistrationComponent implements OnInit {
     });
 
     this.bnetCode = this.activatedRoute.queryParams
-    .skipWhile(noBnetCode)
-    .take(1)
     .pluck('code')
     .startWith(null);
 
     this.registration$.withLatestFrom(this.bnetCode, (newUser, bnetCode) => merge(newUser, { clientAuthToken: bnetCode }))
     .switchMap(newUser => this.userService.create(newUser))
     .switchMap(({ email, password }) => this.authorizationService.login({ email, password }))
-    .do(() => this.club.create('General'))
     .subscribe(() => {
+      this.club.create('General');
       this.createUserError = false;
       this.router.navigate(['./news']);
     }, (error) => {
