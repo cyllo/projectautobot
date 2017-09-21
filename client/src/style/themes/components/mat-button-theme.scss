@@ -16,6 +16,9 @@
   &.ow-primary {
     background-color: mat-color($primary);
     color: mat-color($primary, default-contrast);
+    &:disabled {
+      background-color: mat-color($primary, 0.5);
+    }
   }
 
 }

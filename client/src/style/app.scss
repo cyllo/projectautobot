@@ -2,19 +2,7 @@
 @import 'utilities';
 @import '~dragula/dist/dragula.min.css';
 @import '~quill/dist/quill.core.css';
-@import '~quill/dist/quill.snow.css';
-@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css');
-
-$public_dir: '../public/';
-$fonts_dir: $public_dir + 'fonts/';
-
-@font-face {
-    font-family: 'bebas_neue';
-    src: url($fonts_dir + 'bebasneue-webfont.woff2') format('woff2'),
-         url($fonts_dir + 'bebasneue-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
+@import '~perfect-scrollbar/dist/css/perfect-scrollbar.min.css';
 
 html,
 body {
@@ -22,11 +10,18 @@ body {
   font-size: 14px;
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
-a.img-link {
-  font-size: 0;
-  line-height: 0;
+a {
+
+  text-decoration: none;
+
+  &.img-link {
+    font-size: 0;
+    line-height: 0;
+  }
+
 }
 
 button {
@@ -48,11 +43,6 @@ input[type="text"] {
 /* Rules for sizing the icon. */
 .material-icons,
 .mat-icon {
-
-  &.md-14 { /* meant for svg icons */
-    width: 14px;
-    height: 14px;
-  }
 
   &.md-18 {
     font-size: 18px;

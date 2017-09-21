@@ -1,18 +1,13 @@
+main,
 header {
-  .stp-sponsor {
-    background: black;
-    height: 100px;
-    max-height: 100px;
-    img {
-      width: 100%;
-      max-width: 1280px;
-    }
-    .mat-button {
-      color: white;
-    }
+  &.sidebar-offset {
+    padding-left: 56px;
+  }
+  &.sidebar-open {
+    padding-left: 356px;
   }
 }
 
 main {
-  width: 100%;
+  padding-top: 76px;
 }

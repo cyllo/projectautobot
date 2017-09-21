@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState, CurrentSession } from '../../models';
+import { AppState, CurrentSession, NavLink } from '../../models';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { isNil } from 'ramda';
@@ -15,6 +15,8 @@ import { startTagSearch, searchResults } from '../../reducers';
 })
 
 export class MainNavComponent implements OnInit {
+  @Input('navLinks') navLinks: NavLink[];
+
   searchInProgress = false;
   private currentSession: Observable<CurrentSession>;
   userLoggedIn: boolean;

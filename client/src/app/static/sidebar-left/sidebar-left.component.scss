@@ -1,9 +1,41 @@
 :host /deep/ .sidebar-left {
 
   height: 100%;
-  z-index: 1031;
+
+  .scroll-content {
+    overflow-y: auto;
+  }
+
+  .mat-drawer-container {
+
+    height: 100%;
+
+    .mat-drawer {
+      width: 300px;
+    }
+
+  }
 
   .mat-tab-group {
+
+    .mat-tab-body-wrapper {
+      flex: 1 1 auto !important;
+    }
+  }
+
+  .primary-tab-group {
+
+    height: 100%;
+
+    & > .mat-tab-header {
+      display: none !important;
+    }
+
+  }
+
+  .social-tab-group {
+
+    height: 100%;
 
     .mat-tab-header-pagination {
       display: none;
@@ -20,16 +52,5 @@
     }
 
   }
-
-  .mat-drawer-container {
-
-    height: 100%;
-
-    .mat-drawer {
-      width: 300px;
-    }
-
-  }
-
 
 }

@@ -1,56 +1,41 @@
-<div class="search-results" fxLayout="column" fxLayoutGap="14px" fxFlex>
-
+<div class="search-results" fxLayout="column" fxLayoutGap="14px" fxFlex *ngIf="searchResults | async as results">
   <div fxLayout="row" fxLayoutAlign="space-between center">
-    <span class="mat-caption matching" *ngIf="searchResults | async; let searchResults">{{ searchResults?.length }} results found.</span>
+    <span class="mat-caption">{{results?.length}} results found.</span>
     <button md-icon-button (click)="toggleDisplay$.next()">
       <md-icon>close</md-icon>
     </button>
   </div>
-
-  <div class="scroll-content px-3" fxLayout="column" fxFlex>
-
-    <div fxLayout="column" fxLayoutGap="14px" fxFlex="noshrink" [perfect-scrollbar]>
-
-      <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let user of searchResults | async">
-
-        <div fxLayout="column" fxFlex>
-          <span><strong>{{ user.displayName }}</strong></span>
-          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" *ngIf="user.primaryGamerTag">
-            <a draggable="false" (click)="gotoProfile$.next(user.primaryGamerTag)">
-              <img class="md-image md-image-36" draggable="false" [src]="user.primaryGamerTag.portraitUrl">
+  <div class="scroll-content px-2 pb-2" fxLayout="column" fxFlex [perfect-scrollbar]>
+    <md-list *ngIf="searchResults | async as users">
+      <md-list-item *ngFor="let user of users">
+        <div fxLayout="column" fxLayoutGap="8px" fxFlex>
+          <span class="mat-caption text-uppercase"><strong>{{user.displayName}}</strong></span>
+          <div fxLayout="row" fxLayoutGap="8px">
+            <a (click)="gotoProfile$.next(user.primaryGamerTag)" draggable="false">
+              <img class="md-image md-image-36" [src]="user.primaryGamerTag.portraitUrl" draggable="false">
             </a>
             <div fxLayout="column" fxFlex>
               <span class="mat-caption"><strong>{{user.primaryGamerTag.overwatchName}}</strong></span>
-              <div fxLayout="row" fxLayoutGap="4px" *ngIf="user.primaryGamerTag.snapshotStatistics;">
+              <div fxLayout="row" fxLayoutGap="4px" *ngIf="user.primaryGamerTag.snapshotStatistics.length">
                 <img width="18" [src]="user.primaryGamerTag.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveRankUrl">
                 <span>{{ user.primaryGamerTag.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveLevel }}</span>
               </div>
             </div>
+            <div fxLayout="column" *ngIf="user.pending; else addBlock;">
+              <button md-icon-button disabled>
+                <md-icon>call_made</md-icon>
+              </button>
+            </div>
+            <ng-template #addBlock>
+              <div fxLayout="column">
+                <button md-icon-button (click)="addFriend$.next(user.id)">
+                  <md-icon>add</md-icon>
+                </button>
+              </div>
+            </ng-template>
           </div>
         </div>
-
-        <div fxLayout="column">
-
-          <div *ngIf="user.pending; then pendingBlock; else addBlock"></div>
-
-          <ng-template #pendingBlock>
-            <button md-icon-button disabled>
-              <md-icon>call_made</md-icon>
-            </button>
-          </ng-template>
-
-          <ng-template #addBlock>
-            <button md-icon-button (click)="addFriend$.next(user.id)">
-              <md-icon>add</md-icon>
-            </button>
-          </ng-template>
-
-        </div>
-
-      </div>
-
-    </div>
-
+      </md-list-item>
+    </md-list>
   </div>
-
 </div>

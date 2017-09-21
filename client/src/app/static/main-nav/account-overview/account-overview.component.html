@@ -1,65 +1,38 @@
-<div class="account-overview" fxLayout="row" *ngIf="currentUser$ | async as currentUser">
+<div class="account-overview" fxLayout="column" *ngIf="currentUser$ | async as currentUser">
 
-  <md-menu class="account-overview-menu" #appMenu="mdMenu"
-           xPosition="before"
-           yPosition="below"
-           [overlapTrigger]="false">
-
-      <md-nav-list fxFlex="280px">
-
-          <ow-profile-list [battleNetTag]="currentUser.battleNetTag"></ow-profile-list>
-
-          <div md-list-item [ngStyle]="{ 'padding': '16px' }">
-            <md-checkbox (click)="preventClose($event)">
-              Share your progress, trends, and activity with your friends!
-            </md-checkbox>
+  <md-menu yPosition="below" [overlapTrigger]="false" #appMenu="mdMenu">
+    <div class="pt-2" fxLayout="column" fxLayoutGap="14px" fxFlex="1 1 280px">
+      <ow-profile-list [battleNetTag]="currentUser.battleNetTag"></ow-profile-list>
+      <md-nav-list>
+        <a md-list-item routerLink="/account">
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex="1 1 100%">
+            <span>Account Settings</span>
+            <md-icon>settings</md-icon>
           </div>
-
-          <a md-list-item [routerLink]="['account']">
-            <div class="text-left" fxLayout="column" fxFlex="grow">
-              <span>Account Settings</span>
-            </div>
-            <div fxLayout="column">
-              <md-icon>settings</md-icon>
-            </div>
-          </a>
-
-          <a md-list-item (click)="signOut()">
-            <div class="text-left" fxLayout="column" fxFlex="grow">
-              <span>Log Out</span>
-            </div>
-            <div fxLayout="column">
-              <md-icon>exit_to_app</md-icon>
-            </div>
-          </a>
-
+        </a>
+        <a md-list-item (click)="signOut()">
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex="1 1 100%">
+            <span>Log Out</span>
+            <md-icon>exit_to_app</md-icon>
+          </div>
+        </a>
       </md-nav-list>
-
+    </div>
   </md-menu>
 
-  <button class="btn-account min-width-0" md-button [mdMenuTriggerFor]="appMenu">
-
-    <div fxLayout="row"
-         fxLayoutAlign="start center"
-         fxLayoutGap="8px"
-         fxFlex.gt-sm="192px">
-
-      <div fxLayout="column">
-          <img class="md-image md-image-36" src="img/unknown_hero.jpg">
+  <button class="btn-user" md-button [mdMenuTriggerFor]="appMenu">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap.gt-sm="14px" fxFlex.gt-sm="1 1 224px" fxFlex.lt-md>
+      <div fxLayout="column" *ngIf="currentUser.primaryGamerTag; else noPrimaryGamerTagBlock;">
+        <img class="md-image md-image-36" [src]="currentUser.primaryGamerTag?.portraitUrl">
       </div>
-
-      <div class="flex-layout" fxLayout="column" fxFlex="grow" fxHide.lt-md>
-        <span class="mat-caption text-overflow">
-          <strong>{{ currentUser.displayName }}</strong>
-        </span>
+      <ng-template #noPrimaryGamerTagBlock>
+        <img class="md-image md-image-36" src="img/unknown_hero.jpg">
+      </ng-template>
+      <div fxLayout="column" fxFlex>
+        <span class="mat-caption text-overflow" fxHide.lt-md><strong>{{currentUser.displayName}}</strong></span>
       </div>
-
-      <div fxLayout="column">
-          <md-icon>more_vert</md-icon>
-      </div>
-
+      <md-icon>more_vert</md-icon>
     </div>
-
   </button>
 
 </div>

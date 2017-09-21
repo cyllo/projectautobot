@@ -1,12 +1,10 @@
 // Import Components custom themes.
-@import './perfect-scrollbar-theme';
 @import './theme-picker-swatch-theme';
 @import './mat-tabs-theme';
 @import './mat-button-theme';
 @import './mat-card-theme';
 @import './mat-input-theme';
 @import './mat-progress-bar-theme';
-@import './mat-typography-theme';
 
 @mixin components-themes($theme) {
   @include mat-progress-bar-theme($theme);
@@ -14,7 +12,5 @@
   @include mat-card-theme($theme);
   @include mat-button-theme($theme);
   @include mat-tabs-theme($theme);
-  @include mat-typography-theme($theme);
-  @include perfect-scrollbar-theme($theme);
   @include theme-picker-swatch-theme();
 }

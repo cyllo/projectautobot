@@ -1,7 +1,7 @@
 @import './friends-list/friends-list-theme';
 @import './friend-requests/friend-requests-theme';
 
-@mixin ow-sidebar-ink-bar-theme($theme) {
+@mixin ow-sidebar-nav-list-them($theme) {
 
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
@@ -9,13 +9,17 @@
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
 
-  .mat-ink-bar {
-    background-color: mat-color($foreground, text, 0.13);
+  $text-color: mat-color($primary, default-contrast) !default;
+
+  .mat-nav-list {
+    .mat-list-item {
+      color: $text-color;
+    }
   }
 
 }
 
-@mixin ow-sidebar-tab-theme($theme) {
+@mixin ow-sidebar-tab-group-theme($theme) {
 
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
@@ -23,21 +27,77 @@
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
 
-  $text-color: mat-color($primary, default-contrast);
+  $text-color: mat-color($primary, default-contrast) !default;
 
   .mat-tab-group {
 
-    @include ow-sidebar-ink-bar-theme($theme);
-
     .mat-tab-label {
       color: $text-color;
+    }
+
+    .mat-ink-bar {
+      background-color: $text-color;
     }
 
   }
 
 }
 
+@mixin ow-sidebar-toolbar-theme($theme) {
 
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .mat-toolbar {
+    background-color: transparent;
+    color: mat-color($primary, default-contrast);
+  }
+
+}
+
+@mixin ow-sidebar-expansion-panel-theme($theme) {
+
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  $bg-color: mat-color($primary);
+  $text-color: mat-color($primary, default-contrast);
+
+  .mat-expansion-panel {
+
+    background-color: $bg-color;
+    box-shadow: none;
+
+    .mat-expansion-panel-header {
+      color: $text-color;
+    }
+
+    .mat-expansion-panel-content {
+      color: $text-color;
+
+      .mat-expansion-panel-body {
+        padding: 0 14px 14px 14px;
+      }
+
+    }
+
+    .mat-expansion-indicator::after {
+      color: $text-color;
+    }
+
+    .mat-button:disabled {
+      color: $text-color;
+    }
+
+  }
+
+}
 
 @mixin ow-sidebar-left-theme($theme) {
 
@@ -52,14 +112,25 @@
 
   .sidebar-left {
 
-    @include ow-friends-list-theme($theme);
-    @include ow-friend-requets-theme($theme);
-    @include ow-sidebar-tab-theme($theme);
+    @include ow-sidebar-nav-list-them($theme);
+    @include ow-sidebar-tab-group-theme($theme);
+    @include ow-sidebar-toolbar-theme($theme);
+    @include ow-sidebar-expansion-panel-theme($theme);
+    @include ow-sidebar-friends-list-theme($theme);
+    @include ow-sidebar-friend-requests-theme($theme);
 
     .mat-drawer-container,
     .mat-drawer {
       background-color: $drawer-backdrop-color;
       color: $drawer-text-color;
+    }
+
+    .scroll-content {
+      background-color: invert(mat-color($background, card, 0.05));
+    }
+
+    .copyright {
+      color: mat-color($primary, default-contrast, 0.5);
     }
 
   }

@@ -1,5 +1,7 @@
 export interface NavLink {
   name: string;
   routerLink: string;
-  materialIcon?: string;
+  routerLinkActive: boolean;
+  iconClass?: string;
+  iconName?: string;
 }

@@ -1,5 +1,35 @@
 .login {
-  input[type="text"] {
-    border-color: transparent;
+
+  .container {
+    padding-top: 15vh;
+    & > div {
+      padding: 0 30px;
+      position: relative;
+    }
   }
+
+  .login-form {
+    width: 100%;
+    md-form-field {
+      width: 100%;
+    }
+  }
+
+  img {
+    &.hero-portrait {
+      width: 100%;
+      min-width: 150px;
+      max-width: 290px;
+      &.offset {
+        width: 360px;
+        min-width: 360px;
+        max-width: 360px;
+        position: absolute;
+        right: 100%;
+        top: 50%;
+        transform: translate(75%, -50%);
+      }
+    }
+  }
+
 }

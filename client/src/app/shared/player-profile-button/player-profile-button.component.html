@@ -1,74 +1,17 @@
-<button md-button class="player-profile-button px-2 py-2"
-        (click)="navigateToProfile(playerData$)"
-        *ngIf="playerData$ | async">
-
-  <div fxLayout="row"
-       fxLayoutAlign="start center"
-       fxLayoutGap="8px">
-
-    <div fxLayout="column">
-        <img class="md-image md-image-48" [src]="(playerData$ | async).portraitUrl">
+<button md-button class="player-profile-button px-2 py-2" *ngIf="playerData$ | async as player" (click)="navigateToProfile(playerData$)" fxFlex="grow">
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+    <img class="md-image md-image-48" [src]="player.portraitUrl">
+    <div class="text-left" fxLayout="column" fxFlex>
+      <span class="player-tag mat-caption text-overflow"><small>{{player.tag}}</small></span>
+      <div fxLayout="row" fxLayoutGap="4px" fxLayoutAlign="start end">
+        <span class="player-overwatch-name mat-body-1 text-overflow text-uppercase"><strong>{{player.overwatchName}}</strong></span>
+        <span class="player-platform-region mat-caption text-uppercase"><small>{{player.platform}} {{player.region}}</small></span>
+      </div>
+      <div fxLayout="row" fxLayoutGap="4px" *ngIf="resultsMode && player.snapshotStatistics.length">
+        <img class="md-image md-image-18" [src]="player.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveRankUrl">
+        <span class="mat-caption">{{player.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveLevel}}</span>
+      </div>
     </div>
-
-    <div class="flex-layout"
-         fxLayout="column"
-         fxLayoutGap="2px"
-         fxFlex="grow">
-
-        <div class="flex-layout" fxLayout="row">
-          <span class="mat-caption text-overflow">
-            <small>{{ (playerData$ | async).tag }}</small>
-          </span>
-        </div>
-
-        <div class="flex-layout" fxLayout="row">
-          <span class="mat-caption text-overflow">
-            <strong>{{ (playerData$ | async).overwatchName }}</strong>
-          </span>
-        </div>
-
-        <div class="flex-layout"
-             fxLayout="row"
-             fxLayoutGap="4px"
-             fxLayoutAlign="start center"
-             *ngIf="resultsMode">
-
-          <div fxLayout="column" *ngIf="(playerData$ | async).snapshotStatistics">
-            <div fxLayout="row">
-              <div fxLayout="column">
-                <img class="md-image md-image-18"
-                [src]="(playerData$ | async).snapshotStatistics.profileSnapshotStatistic.profileStatistic.competitiveRankUrl">
-              </div>
-              <div fxLayout="column">
-                <span class="mat-caption ml-1">
-                  {{ (playerData$ | async).snapshotStatistics.profileSnapshotStatistic.profileStatistic.competitiveLevel }}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div fxLayout="column">
-            <span class="platform-region mini-pr text-uppercase"
-                  *ngIf="player.platform">
-              {{ (playerData$ | async).platform }}
-            </span>
-          </div>
-
-          <div fxLayout="column">
-            <span class="platform-region mini-pr text-uppercase"
-                  *ngIf="player.region">
-              {{ (playerData$ | async).region }}
-            </span>
-          </div>
-
-        </div>
-
-    </div>
-
-    <div fxLayout="column">
-      <md-icon>chevron_right</md-icon>
-    </div>
-
+    <md-icon>chevron_right</md-icon>
   </div>
-
 </button>

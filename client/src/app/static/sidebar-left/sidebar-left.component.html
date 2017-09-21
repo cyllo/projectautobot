@@ -1,183 +1,77 @@
 <div class="sidebar-left fixed-left">
-
   <md-drawer-container>
-
-    <md-drawer mode="side" opened="false" position="end" #sidebarDrawer>
-
-      <div class="pt-3 px-3" fxLayout="row" fxFlex="grow" *ngIf="(userLoggedIn | async); else userNotLoggedIn;">
-
-        <md-tab-group fxFlex="272px">
-
-          <md-tab>
-            <ng-template md-tab-label>
-              <span class="mat-caption text-uppercase"><strong>Friends ({{ friendsCount | async }})</strong></span>
-            </ng-template>
-            <div class="py-3" fxLayout="column" fxFlexFill>
-              <ow-friends-list fxLayout="row" fxFlex="grow"></ow-friends-list>
+    <md-drawer mode="side" opened="false" position="end" (open)="change.emit(true)" (close)="change.emit(false)" #sidebarDrawer>
+      <div class="pt-2 px-2" fxLayout="column" fxFill>
+        <md-tab-group class="primary-tab-group" [(selectedIndex)]="selectedTabIndex" #sidebarTabGroup>
+          <md-tab label="navigation">
+            <div fxLayout="column" fxLayoutAlign="space-between start" fxFill>
+              <div class="width-100" fxLayout="column" fxLayoutGap="8px" fxFlex>
+                <div [ngStyle]="{ 'padding': '14px 30px' }" fxLayout="row" fxLayoutAlign="center center">
+                  <md-icon [ngStyle]="{ 'width': '100%' }" svgIcon="logo_text"></md-icon>
+                </div>
+                <md-nav-list>
+                  <a md-list-item *ngFor="let link of navLinks" routerLink="{{link.routerLink}}" routerLinkActive="{ 'active-link': link.routerLinkActive }">
+                    <div fxLayout="row" fxLayoutGap="30px">
+                      <md-icon>{{link.iconName}}</md-icon>
+                      <span>{{link.name}}</span>
+                    </div>
+                  </a>
+                </md-nav-list>
+              </div>
+              <div class="width-100" fxLayout="row">
+                <div fxLayout="column" fxLayoutGap="14px" fxFlex>
+                  <md-divider></md-divider>
+                  <span class="mat-caption text-uppercase">Feedback</span>
+                  <button md-button disabled>
+                    <md-icon>feedback</md-icon>
+                    <span>Let us know your thoughts</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </md-tab>
-
-          <md-tab>
-            <ng-template md-tab-label>
-              <span class="mat-caption text-uppercase"><strong>Requests ({{ friendRequestCount > 99 ? '99+' : friendRequestCount }})</strong></span>
-            </ng-template>
-            <div class="py-3" fxLayout="column" fxFlexFill>
-              <ow-friend-requests fxLayout="row" fxFlex="grow"></ow-friend-requests>
-            </div>
+          <md-tab label="social" *ngIf="(userLoggedIn | async)">
+            <!-- The *ngIf solves the following issue: https://github.com/angular/material2/issues/5269 -->
+            <md-tab-group class="social-tab-group" fxFlex="284px" *ngIf="selectedTabIndex === 1">
+              <md-tab>
+                <ng-template md-tab-label>
+                  <div fxLayout="row" fxLayoutAlign="center center" fxFlex="grow">
+                    <span class="mat-caption text-uppercase">Friends ({{ friendsCount | async }})</span>
+                  </div>
+                </ng-template>
+                <div fxLayout="column" fxFill>
+                  <ow-friends-list fxFill></ow-friends-list>
+                </div>
+              </md-tab>
+              <md-tab>
+                <ng-template md-tab-label>
+                  <div fxLayout="row" fxLayoutAlign="center center">
+                    <span class="mat-caption text-uppercase">Requests ({{ friendRequestCount > 99 ? '99+' : friendRequestCount }})</span>
+                  </div>
+                </ng-template>
+                <div fxLayout="column" fxFill>
+                  <ow-friend-requests fxFill></ow-friend-requests>
+                </div>
+              </md-tab>
+            </md-tab-group>
           </md-tab>
-
         </md-tab-group>
-
+        <span class="copyright mat-caption px-2 py-3">&copy; Stop They Payload 2017, All Rights Reserved to their respective owners.</span>
       </div>
-
-      <ng-template #userNotLoggedIn>
-        <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
-          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="14px">
-            <button md-button routerLink="./login">Login</button>
-            <span class="text-uppercase"><strong>or</strong></span>
-            <button md-button routerLink="./register">Register</button>
-          </div>
-        </div>
-      </ng-template>
-
     </md-drawer>
-
-    <div class="pt-3" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="14px" fxFlex="56px">
-
+    <div class="pt-2" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="8px" fxFlex="56px">
+      <div class="py-3" fxLayout="row" fxLayoutAlign="center center">
+        <md-icon class="md-36" svgIcon="logo"></md-icon>
+      </div>
       <button md-icon-button (click)="sidebarDrawer.toggle()">
         <md-icon>menu</md-icon>
       </button>
-
+      <button md-icon-button (click)="sidebarTabGroup.selectedIndex = 0">
+        <md-icon>dashboard</md-icon>
+      </button>
+      <button md-icon-button (click)="sidebarTabGroup.selectedIndex = 1" *ngIf="userLoggedIn | async">
+        <md-icon>people_outline</md-icon>
+      </button>
     </div>
-
   </md-drawer-container>
-
 </div>
-
-<!--
-
-        <div class="flex-layout pt-3 px-3" fxLayout="column" fxFlex="grow">
-
-          <div *ngIf="(userLoggedIn | async); then secondaryContent; else userNotLoggedIn;"></div>
-
-          <ng-template #secondaryContent>
-            <div class="secondary-content flex-layout" fxLayout="column" fxFlex="grow">
-              <md-tab-group class="flex-layout" fxLayout="column" fxFlex="grow" [dynamicHeight]="false">
-                <md-tab>
-                  <ng-template md-tab-label>
-                    <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center" fxFlex="grow">
-                      <md-icon>people</md-icon>
-                      <span class="ml-1">Friends ({{ friendsCount | async }})</span>
-                    </div>
-                  </ng-template>
-                  <div class="flex-layout" fxFlexFill>
-                    <ow-friends-list></ow-friends-list>
-                  </div>
-                </md-tab>
-                <md-tab>
-                  <ng-template md-tab-label>
-                    <div class="flex-layout" fxLayout="row" fxLayoutAlign="center center" fxFlex="grow">
-                      <md-icon>person_add</md-icon>
-                      <span class="ml-1">
-                        Requests ({{ friendRequestCount > 99 ? '99+' : friendRequestCount }})
-                      </span>
-                    </div>
-                  </ng-template>
-                  <div class="flex-layout" fxFlexFill>
-                    <ow-friend-requests></ow-friend-requests>
-                  </div>
-                </md-tab>
-              </md-tab-group>
-            </div>
-          </ng-template>
-
-          <ng-template #userNotLoggedIn>
-            <div fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
-              <div fxLayout="column">
-                <div fxLayout="row">
-                  <div fxLayout="column">
-                    <p class="mat-headline text-center">To access this feature you need to:</p>
-                  </div>
-                </div>
-                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="14px">
-                  <div fxLayout="column">
-                    <button md-button class="btn-primary" [routerLink]="'./login'">Login</button>
-                  </div>
-                  <div fxLayout="column">
-                    <span class="text-uppercase"><strong>or</strong></span>
-                  </div>
-                  <div fxLayout="column">
-                    <button md-button class="btn-primary" [routerLink]="'./register'">Register</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </ng-template>
-
-        </div>
-
-      </md-drawer>
-
-      <div class="flex-layout py-3 px-2" fxLayout="column" fxFlex="grow" fxLayoutGap="24px">
-
-        <div class="flex-layout" fxLayout="column" fxFlex="grow" fxLayoutGap="8px">
-
-          <div class="flex-layout px-1 py-1" fxLayout="column">
-
-            <button md-icon-button class="btn-sidebar-toggle"
-                    [ngClass]="{ 'collapsed' : sideNavOpen }"
-                    [mdTooltipPosition]="'right'"
-                    mdTooltip="Toggle Menu"
-                    (click)="sidenav.toggle()">
-              <md-icon>add</md-icon>
-            </button>
-
-          </div>
-
-          <div class="flex-layout px-1 py-1" fxLayout="column">
-
-            <button md-icon-button mdTooltip="Friends" [mdTooltipPosition]="'right'">
-              <md-icon>gamepad</md-icon>
-            </button>
-
-          </div>
-
-          <div class="flex-layout px-1 py-1" fxLayout="column">
-
-            <button md-icon-button mdTooltip="Following" [mdTooltipPosition]="'right'">
-              <md-icon>favorite</md-icon>
-            </button>
-
-          </div>
-
-        </div>
-
-        <div class="flex-layout" fxLayout="column">
-
-          <div class="flex-layout px-1 py-1" fxLayout="column" fxFlex="grow">
-
-            <md-menu class="min-width-0" #appMenu="mdMenu" [overlapTrigger]="false" xPosition="after" yPosition="above">
-              <div class="flex-layout px-1 py-1" fxLayout="column" *ngFor="let theme of appThemesCatalog">
-                <button md-icon-button mdTooltip="{{ theme.name }}"
-                        [mdTooltipPosition]="'right'"
-                        (click)="loadTheme(theme)">
-                  <ow-theme-picker-swatch [theme]="theme"></ow-theme-picker-swatch>
-                </button>
-              </div>
-            </md-menu>
-
-            <button md-icon-button [mdMenuTriggerFor]="appMenu" mdTooltip="Change Theme" [mdTooltipPosition]="'right'">
-               <md-icon>format_color_fill</md-icon>
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </md-drawer-container>
-
-  </div>
-
-</div> -->

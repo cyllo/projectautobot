@@ -1,30 +1,53 @@
-<div class="main-nav">
-  <md-toolbar>
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="14px" fxFill>
-      <a class="img-link" routerLink="">
-        <img width="30" src="./img/stplogo_small.svg" fxHide.gt-sm>
-        <img width="150" src="./img/stplogo.svg" fxHide.lt-md>
-      </a>
-      <ow-nav-list></ow-nav-list>
-      <div fxLayout="column" fxFlex="40%" fxFlex.lt-md>
-        <ow-search
-          [searchInProgress]="searchInProgress"
-          [placeholder]="searchPlaceholder"
-          (onSearch)='onSearch$.next($event)'>
-        </ow-search>
-      </div>
-      <div fxLayout="column" fxFlex fxFlex.lt-md="initial">
-        <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
-          <div *ngIf="userLoggedIn; then accountOverview; else userActions;"></div>
-          <ng-template #accountOverview>
-            <ow-account-overview></ow-account-overview>
-          </ng-template>
-          <ng-template #userActions>
-            <ow-user-actions></ow-user-actions>
-          </ng-template>
-        </div>
-      </div>
+<div class="main-nav" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="14px" fxFill>
+  <div fxLayout="column" fxHide.gt-sm>
+    <md-menu #appMenu="mdMenu">
+      <button md-menu-item *ngFor="let link of navLinks">
+        <md-icon>{{link.iconName}}</md-icon>
+        <span>{{link.name}}</span>
+      </button>
+    </md-menu>
+    <button md-icon-button [mdMenuTriggerFor]="appMenu">
+      <md-icon>menu</md-icon>
+    </button>
+  </div>
+  <div fxLayout="column" fxFlex>
+    <div fxLayout="row">
+      <ow-search
+        fxFlex="40%"
+        fxFlex.lt-md
+        [searchInProgress]="searchInProgress"
+        [placeholder]="searchPlaceholder"
+        (onSearch)='onSearch$.next($event)'>
+      </ow-search>
     </div>
-  </md-toolbar>
-  <ow-main-search-results></ow-main-search-results>
+  </div>
+  <div fxLayout="column" *ngIf="!userLoggedIn; else accountOverview;">
+    <md-menu #userActionsMenu="mdMenu">
+      <button md-menu-item routerLink="/register">
+        <md-icon>link</md-icon>
+        <span>Sign Up via Battle.net</span>
+      </button>
+      <button md-menu-item routerLink="/login">
+        <md-icon>account_box</md-icon>
+        <span>Login</span>
+      </button>
+    </md-menu>
+    <button md-icon-button [mdMenuTriggerFor]="userActionsMenu" fxHide.gt-sm>
+      <md-icon>account_box</md-icon>
+    </button>
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px" fxHide.lt-md>
+      <button class="battle-net" md-button routerLink="/register">
+        <md-icon>link</md-icon>
+        <span>Sign Up via Battle.net</span>
+      </button>
+      <button md-button routerLink="/login">
+        <md-icon>account_box</md-icon>
+        <span>Login</span>
+      </button>
+    </div>
+  </div>
+  <ng-template #accountOverview>
+    <ow-account-overview></ow-account-overview>
+  </ng-template>
 </div>
+<ow-main-search-results></ow-main-search-results>

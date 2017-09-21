@@ -15,7 +15,7 @@
       </button>
     </div>
     <div fxLayout="row" fxLayoutGap="14px" fxFlex="noshrink" fxLayoutWrap>
-      <div fxLayout="column" fxFlex.xs="grow" fxFlex.sm="50%" fxFlex.md="25%" fxFlex.lg="20%" *ngFor="let profile of searchResults">
+      <div fxLayout="column" fxFlex.xs="grow" fxFlex.sm="50%" fxFlex.md="25%" fxFlex.gt-md="20%" *ngFor="let profile of searchResults">
         <ow-player-profile-button [player]="profile" [resultsMode]="false"></ow-player-profile-button>
       </div>
     </div>
