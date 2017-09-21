@@ -18,10 +18,7 @@ export class ProfileListComponent implements OnInit {
   constructor(private gamerTagService: GamerTagService) {}
 
   ngOnInit() {
-    // battleNetTag can be null if they did not register through
-    // battle.net and/or have not claimed their account.
-    const tag = this.battleNetTag;
-    if (tag) { this.players$ = this.gamerTagService.find(tag); }
+    this.players$ = this.gamerTagService.find(this.battleNetTag);
   }
 
 }

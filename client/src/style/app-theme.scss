@@ -47,18 +47,39 @@
 
 }
 
+@mixin ow-typography-theme($theme) {
+
+  .mat-display-6,
+  .mat-display-5,
+  .mat-display-4,
+  .mat-display-3,
+  .mat-display-2,
+  .mat-display-1,
+  .mat-headline,
+  .mat-title {
+    font-weight: 300;
+  }
+
+}
+
 @mixin ow-app-theme($theme) {
 
   $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
 
   @include ow-status-colors($theme);
   @include ow-medals-theme($theme);
+  @include ow-typography-theme($theme);
+
+  header {
+    background-color: mat-color($background, card);
+  }
 
   a {
-    color: mat-color($primary);
+    color: mat-color($accent);
   }
 
 }

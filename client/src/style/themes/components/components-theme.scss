@@ -5,7 +5,6 @@
 @import './mat-card-theme';
 @import './mat-input-theme';
 @import './mat-progress-bar-theme';
-@import './mat-typography-theme';
 
 @mixin components-themes($theme) {
   @include mat-progress-bar-theme($theme);
@@ -13,6 +12,5 @@
   @include mat-card-theme($theme);
   @include mat-button-theme($theme);
   @include mat-tabs-theme($theme);
-  @include mat-typography-theme($theme);
   @include theme-picker-swatch-theme();
 }

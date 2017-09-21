@@ -12,16 +12,6 @@ import { isNil } from 'ramda';
 })
 
 export class AccountOverviewComponent implements OnInit {
-
-  /*
-   * fixes ts-lint warning:
-   * The property "async" that you're trying to access does not
-   * exist in the class declaration.
-   *
-   * https://github.com/angular/angular-cli/issues/4351
-   */
-  public async: any;
-
   currentUser$: Observable<User>;
   userProfiles: any;
 
@@ -31,6 +21,8 @@ export class AccountOverviewComponent implements OnInit {
     this.currentUser$ = this.store.select('currentSession')
     .filter(session => !isNil(session))
     .map(({ user }) => user);
+
+    this.currentUser$.subscribe(e => console.log('user:', e));
   }
 
   signOut() {

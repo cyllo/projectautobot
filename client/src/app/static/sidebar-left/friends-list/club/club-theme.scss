@@ -4,4 +4,13 @@
   $warn: map-get($theme, warn);
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
+
+  .club {
+
+    .friend {
+      background-color: invert(mat-color($background, card, 0.05));
+    }
+
+  }
+
 }

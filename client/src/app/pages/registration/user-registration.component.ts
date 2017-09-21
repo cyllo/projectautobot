@@ -56,7 +56,7 @@ export class UserRegistrationComponent implements OnInit {
     .subscribe(() => {
       this.club.create('General');
       this.createUserError = false;
-      this.router.navigate(['./news']);
+      this.router.navigate(['./']);
     }, (error) => {
       this.createUserError = true;
       this.error.show(error);

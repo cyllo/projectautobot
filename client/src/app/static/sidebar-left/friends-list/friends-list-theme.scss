@@ -1,7 +1,7 @@
 @import './club/club-theme';
 @import './create-club/create-club-theme';
 
-@mixin ow-friends-list-theme($theme) {
+@mixin ow-sidebar-friends-list-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);

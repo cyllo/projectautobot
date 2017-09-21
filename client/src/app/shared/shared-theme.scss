@@ -4,6 +4,7 @@
 @import './hero-card/hero-card-theme';
 @import './news-post-card/news-post-card-theme';
 @import './search/search-theme';
+@import './player-profile-button/player-profile-button-theme';
 
 @mixin ow-shared-theme($theme) {
   @include ow-platform-region-theme($theme);
@@ -12,4 +13,5 @@
   @include ow-hero-card-theme($theme);
   @include ow-news-post-card-theme($theme);
   @include ow-search-theme($theme);
+  @include ow-player-profile-button-theme($theme);
 }
