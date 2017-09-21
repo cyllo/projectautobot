@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { SnapshotService } from '../../../services';
-import { toggleSnapshotWatcher } from '../../../reducers';
 import { Subject } from 'rxjs/Subject';
 import { find, propEq, sort, prop, descend } from 'ramda';
 import { Store } from '@ngrx/store';
@@ -19,7 +18,6 @@ export class SnapshotsHistoryComponent implements OnInit, OnDestroy {
   selectedsnapshots: Observable<any>;
   viewDetails$ = new Subject<number>();
   destroyer$ = new Subject<void>();
-  watchSnapshots$ = new Subject<boolean>();
   flushMatchDetails: Observable<null>;
   matchDetails: Observable<null>;
   view: Observable<any>;
@@ -48,10 +46,6 @@ export class SnapshotsHistoryComponent implements OnInit, OnDestroy {
     .takeUntil(this.destroyer$);
 
     this.matchDetails = Observable.merge(this.view, this.flushMatchDetails);
-
-    this.watchSnapshots$
-    .takeUntil(this.destroyer$)
-    .subscribe(() => this.store.dispatch(toggleSnapshotWatcher()));
   }
 
   ngOnDestroy() {
