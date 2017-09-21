@@ -12,6 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DragulaModule } from 'ng2-dragula';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import 'hammerjs';
 import { MdSidenavModule,
@@ -114,7 +115,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MdProgressSpinnerModule,
     MdCheckboxModule,
     MdExpansionModule,
-    MdRadioModule
+    MdRadioModule,
+    NgxChartsModule
   ],
   declarations,
   providers: [
