@@ -26,7 +26,7 @@ defmodule Scraper.ModelCreator do
   end
 
   defp add_leaderboard_snapshot(profile) do
-    with {:ok, leaderboard} <- Snapshots.create_or_get_leaderboard_snapshot do
+    with {:ok, leaderboard} <- Snapshots.create_or_get_leaderboard_snapshot() do
       Map.put(profile, :leaderboard_id, leaderboard.id)
     else
       _ -> profile

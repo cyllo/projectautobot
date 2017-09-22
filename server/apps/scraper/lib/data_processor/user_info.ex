@@ -3,9 +3,9 @@ defmodule Scraper.DataProcessor.UserInfo do
 
   @overwatch_user_info_box ".u-max-width-container.row.content-box.gutter-18"
   @overwatch_name "h1.header-masthead"
-  @overwatch_total_wins "p.masthead-detail.h4 span"
+  @overwatch_total_wins "p.masthead-detail span"
   @overwatch_portrait ".player-portrait"
-  @overwatch_competitive_level ".competitive-rank .h6"
+  @overwatch_competitive_level ".competitive-rank div"
   @overwatch_competitive_rank_url ".competitive-rank > img"
   @overwatch_player_level ".show-for-lg .player-level > div.u-vertical-center"
   @overwatch_player_rank_url ".player-rank"
