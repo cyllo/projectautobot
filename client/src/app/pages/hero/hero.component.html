@@ -1,24 +1,55 @@
-<div class="hero mt-3" *ngIf="$currentHero">
-  <!--<ow-platform-region></ow-platform-region>-->
-  <!-- end ow-platform-region -->
-  <ow-hero-header [currentHero]="$currentHero"></ow-hero-header>
-  <!-- end ow-hero-header -->
-  <div class="row mb-3">
-    <div class="col-12">
-      <div class="content rounded px-3 pt-3">
-        <ow-hero-skills [currentHero]="$currentHero"></ow-hero-skills>
-        <!-- end ow-hero-skills -->
-        <ow-hero-synergy-counter [currentHero]="$currentHero"></ow-hero-synergy-counter>
-        <!-- end ow-hero-synergy-counter -->
-        <ow-hero-page-tabs [currentHero]="$currentHero"></ow-hero-page-tabs>
-        <!-- end ow-hero-page-tabs -->
-        <ow-hero-catalog [currentHero]="$currentHero"></ow-hero-catalog>
-        <!-- end ow-hero-catalog-->
+<div class="hero" fxLayout="column" fxLayoutGap="30px" fxFlex>
+
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap>
+    <div class="pt-3 px-3" fxLayout="column" fxFlex.gt-sm="initial" fxFlex.lt-md>
+      <span class="mat-caption text-uppercase">Platform</span>
+      <div fxLayout="row" fxLayoutGap="8px">
+        <button md-button *ngFor="let platform of platforms">
+          <span class="text-uppercase">{{platform.name}}</span>
+        </button>
       </div>
-      <!-- end .content -->
     </div>
-    <!-- end .col -->
+    <div class="pt-3 px-3" fxLayout="column" fxFlex.gt-sm="initial" fxFlex.lt-md>
+      <span class="mat-caption text-uppercase">Region</span>
+      <div fxLayout="row" fxLayoutGap="8px">
+        <button md-button *ngFor="let region of regions">
+          <span class="text-uppercase">{{region.name}}</span>
+        </button>
+      </div>
+    </div>
+    <div class="pt-3 px-3" fxLayout="column" fxLayoutGap="8px" fxFlex.gt-sm="initial" fxFlex.lt-md>
+      <span class="mat-caption text-uppercase">Game Mode</span>
+      <md-slide-toggle color="primary"><span class="text-uppercase">Quick Play</span></md-slide-toggle>
+    </div>
   </div>
-  <!-- end .row -->
+
+  <ow-hero-header></ow-hero-header>
+
+  <div fxLayout="row" fxLayoutWrap>
+    <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="720px" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="grow">
+      <md-tab-group>
+        <md-tab label="Overview"><ow-hero-overview></ow-hero-overview></md-tab>
+        <md-tab label="Skills"><ow-hero-skills></ow-hero-skills></md-tab>
+        <md-tab label="Synergies"><ow-hero-synergies></ow-hero-synergies></md-tab>
+        <md-tab label="Counters"><ow-hero-counters></ow-hero-counters></md-tab>
+      </md-tab-group>
+    </div>
+    <div fxLayout="column" fxFlex.gt-md="initial" fxFlex.gt-xs="40%" fxHide.xs>
+      <div class="hero-render">
+        <div class="spacer d-inline-block"></div>
+        <img class="d-inline-block" width="300" src="./img/hero_renders/widowmaker.png">
+      </div>
+    </div>
+  </div>
+
+  <ow-hero-trends></ow-hero-trends>
+
+  <div fxLayout="row" fxLayoutGap="14px">
+    <div fxLayout="column" fxFlex>
+      <ow-leaderboard-table></ow-leaderboard-table>
+    </div>
+  </div>
+
+  <ow-hero-list></ow-hero-list>
+
 </div>
-<!-- end .profile -->

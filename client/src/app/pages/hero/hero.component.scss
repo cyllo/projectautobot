@@ -1,11 +1,8 @@
-@import "../../../style/colors";
-
-:host /deep/ .ngb-tabset {
-  .nav-tabs {
-    .nav-link.active {
-      border: 0;
-      border-bottom: 1px solid $brand-primary;
-      color: $brand-primary;
+.hero {
+  .hero-render {
+    .spacer {
+      width: calc(30px + 8vw);
+      max-width: 150px;
     }
   }
 }
