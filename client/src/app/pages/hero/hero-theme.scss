@@ -1,0 +1,9 @@
+@import './skills/skills-theme';
+@import './trends/trends-theme';
+
+@mixin ow-hero-theme($theme) {
+  .hero {
+    @include ow-skills-theme($theme);
+    @include ow-hero-trends-theme($theme);
+  }
+}

@@ -1,0 +1,48 @@
+<div class="hero-header px-3" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutWrap>
+
+  <div fxLayout="column" fxLayoutGap="14px">
+    <div fxLayout="row" fxLayoutAlign.gt-sm="start center" fxLayoutAlign.lt-md="center center" fxLayoutGap.gt-sm="14px" fxLayoutGap.lt-md="30px">
+      <ow-hero-portrait [class]="'md-image-96'" [owCode]="'0x02E000000000000A'"></ow-hero-portrait>
+      <div fxLayout="column" fxFlex>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+          <md-icon svgIcon="role_defense"></md-icon>
+          <span class="mat-title text-uppercase mb-0">Defense</span>
+        </div>
+        <span class="mat-display-3 text-uppercase text-word-break mb-0" fxFlex.lt-md="60%">WidowMaker</span>
+      </div>
+    </div>
+    <span class="mat-caption text-uppercase">7,287,000+ GAMES ANALYZED</span>
+  </div>
+
+  <div fxLayout="column" fxFlex.gt-sm="initial" fxFlex.lt-md="grow">
+    <div fxLayout="row" fxLayoutWrap>
+
+      <div class="pt-3 px-3" fxLayout="column" fxFlex.gt-sm="noshrink" fxFlex.lt-md="33.333%" fxFlex.xs="50%">
+        <div [ngStyle]="{ 'height': '40px' }" fxLayout="row" fxLayoutAlign="center end" fxLayoutGap="8px">
+          <span class="mat-display-1 mb-0">~13</span>
+          <span class="mat-caption text-uppercase">hrs</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="4px">
+          <span class="mat-caption text-uppercase">On Fire Per Player</span>
+          <md-icon class="md-18">whatshot</md-icon>
+        </div>
+      </div>
+
+      <div class="pt-3 px-3 text-center" fxLayout="column" fxFlex.gt-sm="noshrink" fxFlex.lt-md="33.333%" fxFlex.xs="50%">
+        <div [ngStyle]="{ 'height': '40px' }" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+          <span class="medal medal-bronze py-2 px-2">20.00</span>
+          <span class="medal medal-silver py-2 px-2">20.00</span>
+          <span class="medal medal-gold py-2 px-2">20.00</span>
+        </div>
+        <span class="mat-caption text-uppercase">Medals Per Min</span>
+      </div>
+
+      <div class="pt-3 px-3 text-center" fxLayout="column" fxFlex.gt-sm="noshrink" fxFlex.lt-md="33.333%" fxFlex.xs="50%">
+        <span class="mat-display-1 mb-0">89%</span>
+        <span class="mat-caption text-uppercase">Win Rate</span>
+      </div>
+
+    </div>
+  </div>
+
+</div>

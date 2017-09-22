@@ -1,0 +1,8 @@
+<div class="synergies py-3 px-3" fxLayout="column" fxFlex>
+  <span class="mat-title text-uppercase mb-0"><strong>Synergies</strong></span>
+  <div fxLayout="row" fxLayoutGap="14px" fxLayoutWrap>
+    <div class="pt-3" fxLayout="column" *ngFor="let hero of synergies">
+      <ow-hero-portrait [class]="'md-image-64'" [owCode]="hero" (click)="click.emit(hero)"></ow-hero-portrait>
+    </div>
+  </div>
+</div>

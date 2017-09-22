@@ -13,7 +13,7 @@ export * from './platform-region';
 export * from './hero-skill-description';
 export * from './hero-skill-video';
 export * from './hero-synergy-counter';
-export * from './hero-catalog';
+export * from './hero-list';
 export * from './hero-portrait';
 export * from './profile-checkbox';
 export * from './hero-checkbox';

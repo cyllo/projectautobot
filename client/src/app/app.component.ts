@@ -91,15 +91,15 @@ export class AppComponent implements OnInit {
   }
 
   createCustomSVGIconNamespace() {
-    const img_dir = '/img';
+    const img_dir = './img';
     const icon_dir = `${img_dir}/icons/roles`;
     const sanitize = this.domSanitizer.bypassSecurityTrustResourceUrl;
-    this.mdIconRegistry.addSvgIcon('role_offense', sanitize(`${icon_dir}/offense.svg`));
-    this.mdIconRegistry.addSvgIcon('role_defense', sanitize(`${icon_dir}/defense.svg`));
-    this.mdIconRegistry.addSvgIcon('role_support', sanitize(`${icon_dir}/support.svg`));
-    this.mdIconRegistry.addSvgIcon('role_tank', sanitize(`${icon_dir}/tank.svg`));
-    this.mdIconRegistry.addSvgIcon('logo_text', sanitize(`${img_dir}/logo_text.svg`));
-    this.mdIconRegistry.addSvgIcon('logo', sanitize(`${img_dir}/logo.svg`));
+    this.mdIconRegistry.addSvgIcon('role_offense', sanitize(`${icon_dir}/offense.svg`))
+                       .addSvgIcon('role_defense', sanitize(`${icon_dir}/defense.svg`))
+                       .addSvgIcon('role_support', sanitize(`${icon_dir}/support.svg`))
+                       .addSvgIcon('role_tank', sanitize(`${icon_dir}/tank.svg`))
+                       .addSvgIcon('logo_text', sanitize(`${img_dir}/logo_text.svg`))
+                       .addSvgIcon('logo', sanitize(`${img_dir}/logo.svg`));
   }
 
   getHeroes() {

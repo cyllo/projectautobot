@@ -16,7 +16,8 @@ import { PipeModule } from '../pipes';
 import { QuillModule } from 'ngx-quill';
 
 import { TagInputModule } from 'ng2-tag-input';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // for ng2-tag-input
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import {
   MdInputModule,
@@ -60,8 +61,10 @@ import {
   ProfileCareerComponent,
   MostPlayedComponent,
   HeroSkillsComponent,
-  HeroPageTabsComponent,
-  HeroCareerComponent,
+  HeroTrendsComponent,
+  HeroOverviewComponent,
+  HeroSynergiesComponent,
+  HeroCountersComponent,
   ProfileOverviewComponent,
   HeroWallCatalogComponent,
   CompareComponent,
@@ -131,7 +134,8 @@ import {
     MdCheckboxModule,
     MdProgressBarModule,
     MdExpansionModule,
-    MdGridListModule
+    MdGridListModule,
+    NgxChartsModule
   ],
   declarations: [
     HomeComponent,
@@ -154,8 +158,10 @@ import {
     ProfileCareerComponent,
     MostPlayedComponent,
     HeroSkillsComponent,
-    HeroPageTabsComponent,
-    HeroCareerComponent,
+    HeroTrendsComponent,
+    HeroOverviewComponent,
+    HeroSynergiesComponent,
+    HeroCountersComponent,
     ProfileOverviewComponent,
     HeroWallCatalogComponent,
     CompareComponent,
@@ -204,8 +210,10 @@ import {
     ProfileCareerComponent,
     MostPlayedComponent,
     HeroSkillsComponent,
-    HeroPageTabsComponent,
-    HeroCareerComponent,
+    HeroTrendsComponent,
+    HeroOverviewComponent,
+    HeroSynergiesComponent,
+    HeroCountersComponent,
     LoginComponent,
     UserRegistrationComponent,
     AccountSettingsComponent,
