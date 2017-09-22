@@ -2,7 +2,12 @@ defmodule Scraper.ModelCreator do
   require Logger
 
   alias Models.{Repo, Statistics.Snapshots}
-  alias Scraper.ModelCreator.{Heroes, UserProfile, HeroStats, ProfileStats}
+  alias Models.Statistics.Snapshots.SnapshotStatistic
+  alias Scraper.ModelCreator.{
+    Heroes, UserProfile,
+    HeroStats, ProfileStats,
+    GamerTagSnapshotDiff
+  }
 
   @spec save_profile(profile :: map) :: map
   @doc """
@@ -18,10 +23,7 @@ defmodule Scraper.ModelCreator do
         Task.start(fn -> UserProfile.save_other_platforms(gamer_tag, profile) end)
       end
 
-      profile
-        |> add_leaderboard_snapshot
-        |> add_averages_snapshot
-        |> create_snapshot(gamer_tag, heroes)
+      create_snapshot_if_diff(profile, gamer_tag, heroes)
     end
   end
 
@@ -38,6 +40,25 @@ defmodule Scraper.ModelCreator do
       Map.put(profile, :snapshot_averages_id, snapshot_averages.id)
     else
       _ -> profile
+    end
+  end
+
+  defp create_snapshot_if_diff(profile, gamer_tag, heroes) do
+    with :ok <- GamerTagSnapshotDiff.check_snapshots_different(gamer_tag, profile) do
+      profile
+        |> add_leaderboard_snapshot
+        |> add_averages_snapshot
+        |> create_snapshot(gamer_tag, heroes)
+    else
+      :error ->
+        Logger.info "#{gamer_tag.tag} snapshot unchanged, not taking snapshot"
+
+        %{
+          snapshot_statistics: SnapshotStatistic.latest_stats_query(1) |> Repo.one,
+          heroes: heroes,
+          gamer_tag: gamer_tag,
+          other_platforms: Map.get(profile, :other_platforms)
+        }
     end
   end
 
