@@ -9,20 +9,22 @@
 
   <div fxLayout="row">
     <div fxLayout="column" fxLayoutAlign="center center" fxFlex="50%">
-      <ow-chart
-        [chartType]="generalChart.chartType"
-        [labels] = "generalChart.xAxisLabels"
-        [datasets]="generalChart.datasets"
-        [legend]="generalChart.legend">
-      </ow-chart>
+      <ngx-charts-polar-chart
+      [results]="generalChart"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [autoScale]="autoScale"
+      [legend]="legend">
+      </ngx-charts-polar-chart>
     </div>
     <div fxLayout="column" fxLayoutAlign="center center" fxFlex="50%">
-      <ow-chart
-        [chartType]="combatChart.chartType"
-        [labels] = "combatChart.xAxisLabels"
-        [datasets]="combatChart.datasets"
-        [legend]="combatChart.legend">
-      </ow-chart>
+      <ngx-charts-polar-chart
+       [results]="combatChart"
+       [xAxis]="showXAxis"
+       [yAxis]="showYAxis"
+       [autoScale]="autoScale"
+       [legend]="legend">
+      </ngx-charts-polar-chart>
     </div>
   </div>
 
