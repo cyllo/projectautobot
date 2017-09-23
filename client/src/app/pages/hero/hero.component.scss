@@ -1,8 +1,13 @@
-.hero {
+:host /deep/ .hero {
   .hero-render {
     .spacer {
-      width: calc(30px + 8vw);
-      max-width: 150px;
+      width: 100%;
+      max-width: calc(30px + 8vw);
+    }
+  }
+  .general-tab-group {
+    .mat-tab-label {
+      min-width: 90px;
     }
   }
 }
