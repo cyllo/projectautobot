@@ -9,6 +9,7 @@ defmodule Models.Blog.Post do
     field :summary, :string
     field :thumbnail_url, :string
     field :hero_image_url, :string
+    field :is_featured, :boolean
     belongs_to :author, Models.Accounts.User
     many_to_many :blog_categories, Models.Blog.Category, join_through: "blog_post_categories",
                                                          join_keys: [blog_post_id: :id, blog_category_id: :id]
@@ -17,7 +18,7 @@ defmodule Models.Blog.Post do
   end
 
   @required_fields [:title, :content, :summary, :thumbnail_url, :author_id, :hero_image_url]
-  @allowed_fields Enum.concat(@required_fields, [])
+  @allowed_fields Enum.concat(@required_fields, [:is_featured])
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -27,7 +28,8 @@ defmodule Models.Blog.Post do
       |> Repo.preload(:blog_categories)
       |> cast(params, @allowed_fields)
       |> validate_required(@required_fields)
-      |> unique_constraint(:title, name: :blog_post_title_index)
+      |> unique_constraint(:title, name: :blog_post_title_index, message: "title must be unique")
+      |> unique_constraint(:is_featured, name: :blog_post_is_featured_index, message: "can only have one featured post")
       |> cast_assoc(:author)
       |> cast_assoc(:blog_categories, required: true, required_message: "You must set at least one category")
       |> assoc_constraint(:author, message: "You must provide an author")
