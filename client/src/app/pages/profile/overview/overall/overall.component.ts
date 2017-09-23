@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ChartData, ChartType } from '../../../../models';
 import { add } from 'ramda';
 
 @Component({
@@ -12,43 +11,38 @@ export class OverallPerformanceComponent implements OnInit {
   @Input() totalGameAverage: any;
   @Input() matchAwards: any;
 
-  generalChart: ChartData;
+  showXAxis = true;
+  showYAxis = true;
+  autoScale = true;
+  legend: true;
 
-  combatChart: ChartData;
+  generalChart: any[];
+
+  combatChart: any[];
 
   constructor() {}
 
   ngOnInit() {
-    this.generalChart = {
-      xAxisLabels: ['Kills', 'Offensive Assists', 'Defensive Assists', 'Total Assists', 'Deaths'],
-      datasets: [{
-        label: 'General',
-        data: [
-          this.totalGameAverage.finalBlowsAvgPer10Min,
-          this.totalGameAverage.offensiveAssistsAvgPer10Min,
-          this.totalGameAverage.defensiveAssistsAvgPer10Min,
-          add(this.totalGameAverage.offensiveAssistsAvgPer10Min, this.totalGameAverage.defensiveAssistsAvgPer10Min),
-          this.totalGameAverage.deathsAvgPer10Min
+    const totalAssists = add(this.totalGameAverage.offensiveAssistsAvgPer10Min, this.totalGameAverage.defensiveAssistsAvgPer10Min);
+    this.generalChart = [{
+        name: 'General',
+        series: [
+          { name: 'Kills', value: this.totalGameAverage.finalBlowsAvgPer10Min },
+          { name: 'Offensive Assists', value: this.totalGameAverage.offensiveAssistsAvgPer10Min },
+          { name: 'Defensive Assists', value: this.totalGameAverage.defensiveAssistsAvgPer10Min },
+          { name: 'Total Assists', value: totalAssists },
+          { name: 'Deaths', value: this.totalGameAverage.deathsAvgPer10Min }
         ]
-      }],
-      chartType: ChartType.polarArea,
-      legend: true
-    };
+      }];
 
-    this.combatChart = {
-      xAxisLabels: ['Hero Damage', 'Shield Damage', 'Healing', 'Blocked'],
-      datasets: [{
-        label: 'General',
-        data: [
-          this.totalGameAverage.heroDamageDoneAvgPer10Min,
-          this.totalGameAverage.barrierDamageDoneAvgPer10Min,
-          this.totalGameAverage.healingDoneAvgPer10Min,
-          this.totalGameAverage.damageBlockedAvgPer10Min
+    this.combatChart = [{
+      name: 'General',
+      series: [
+        { name: 'Hero Damage', value: this.totalGameAverage.heroDamageDoneAvgPer10Min },
+        { name: 'Shield Damage', value: this.totalGameAverage.barrierDamageDoneAvgPer10Min },
+        { name: 'Healing', value: this.totalGameAverage.healingDoneAvgPer10Min },
+        { name: 'Blocked', value: this.totalGameAverage.damageBlockedAvgPer10Min }
       ]
-      }],
-      chartType: ChartType.polarArea,
-      legend: true
-    };
+    }];
   }
-
 }
