@@ -1,20 +1,15 @@
 <div fxLayout="column" fxFlex>
   <span class="mat-title text-uppercase">Trends</span>
   <div fxLayout="row" fxLayoutWrap>
-    <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="20%" fxFlex.md="25%" fxFlex.sm="33.333%" fxFlex.xs="50%" *ngFor="let uh of derp">
-      <ngx-charts-line-chart
-        [ngStyle]="{ 'height': '120px' }"
-        [autoScale]="autoScale"
-        [results]="data"
-        [xAxis]="showXAxis"
-        [yAxis]="showYAxis"
-        [legend]="showLegend"
-        [showXAxisLabel]="showXAxisLabel"
-        [showYAxisLabel]="showYAxisLabel"
-        [xAxisLabel]="xAxisLabel"
-        [yAxisLabel]="yAxisLabel"
-        (select)="onSelect($event)">
-      </ngx-charts-line-chart>
+    <div class="pt-3 px-3"
+         fxLayout="column"
+         fxFlex.lg="20%"
+         fxFlex.md="25%"
+         fxFlex.sm="50%"
+         fxFlex.xs="100%"
+         *ngFor="let uh of derp">
+      <ow-line-chart [ngStyle]="{ 'height': '100px' }" [data]="data"></ow-line-chart>
+      <span class="mat-caption text-uppercase">Eliminations</span>
     </div>
   </div>
 </div>

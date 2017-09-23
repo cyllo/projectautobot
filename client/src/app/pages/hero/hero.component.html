@@ -26,8 +26,8 @@
   <ow-hero-header></ow-hero-header>
 
   <div fxLayout="row" fxLayoutWrap>
-    <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="720px" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="grow">
-      <md-tab-group>
+    <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="720px" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
+      <md-tab-group class="general-tab-group">
         <md-tab label="Overview"><ow-hero-overview></ow-hero-overview></md-tab>
         <md-tab label="Skills"><ow-hero-skills></ow-hero-skills></md-tab>
         <md-tab label="Synergies"><ow-hero-synergies></ow-hero-synergies></md-tab>
@@ -44,11 +44,7 @@
 
   <ow-hero-trends></ow-hero-trends>
 
-  <div fxLayout="row" fxLayoutGap="14px">
-    <div fxLayout="column" fxFlex>
-      <ow-leaderboard-table></ow-leaderboard-table>
-    </div>
-  </div>
+  <ow-leaderboard-table></ow-leaderboard-table>
 
   <ow-hero-list></ow-hero-list>
 
