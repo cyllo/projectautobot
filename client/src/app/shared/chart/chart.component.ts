@@ -34,5 +34,4 @@ export class ChartComponent implements OnInit, OnChanges {
     this.cdRef.detectChanges();
     this.rerender = false;
   }
-
 }

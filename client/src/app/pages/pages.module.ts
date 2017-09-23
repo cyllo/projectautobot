@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SharedModule } from '../shared/shared.module';
+import { ChartsModule } from '../charts';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MomentModule } from 'angular2-moment';
@@ -104,6 +105,7 @@ import {
     NgbModule.forRoot(),
     SharedModule.forRoot(),
     PipeModule.forRoot(),
+    ChartsModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,

@@ -12,7 +12,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DragulaModule } from 'ng2-dragula';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import 'hammerjs';
 import { MdSidenavModule,
@@ -65,6 +64,7 @@ import {
 import { reducerStack, initialStates } from './reducers';
 import { SharedModule } from './shared';
 import { PagesModule } from './pages';
+import { ChartsModule } from './charts';
 
 const declarations: any[] = [AppComponent, ...values(staticComponents)];
 
@@ -85,6 +85,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SharedModule.forRoot(),
     PagesModule.forRoot(),
     PipeModule.forRoot(),
+    ChartsModule.forRoot(),
     ApolloModule.forRoot(() => new ApolloClient({ networkInterface: httpInterceptor })),
     StoreDevtoolsModule.instrumentStore(instrumentOptions),
     StoreModule.provideStore(reducerStack, initialStates),
@@ -115,8 +116,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MdProgressSpinnerModule,
     MdCheckboxModule,
     MdExpansionModule,
-    MdRadioModule,
-    NgxChartsModule
+    MdRadioModule
   ],
   declarations,
   providers: [

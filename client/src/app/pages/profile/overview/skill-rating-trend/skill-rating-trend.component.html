@@ -1,12 +1,6 @@
 <div class="skill-rating-trend" fxLayout="column" fxLayoutGap="14px" fxFlex  *ngIf="chart | async as chartData">
   <span class="text-uppercase"><strong>Skill Rating Trend</strong></span>
   <div class="px-3" fxLayout="row">
-    <ow-chart
-      [chartType]="chartData.chartType"
-      [labels] = "chartData.xAxisLabels"
-      [datasets]="chartData.datasets"
-      [legend]="chartData.legend"
-      fxFill>
-    </ow-chart>
+    <ow-line-chart [data]="chartData"></ow-line-chart>
   </div>
 </div>
