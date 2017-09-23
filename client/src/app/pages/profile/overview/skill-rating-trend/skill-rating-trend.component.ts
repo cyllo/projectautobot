@@ -1,8 +1,7 @@
 import { Component, OnInit, Input  } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ChartData, ChartType } from '../../../../models';
 import { Observable } from 'rxjs/Observable';
-import { reduce } from 'ramda';
+import { map } from 'ramda';
 
 @Component({
   selector: 'ow-skill-rating-trend',
@@ -13,23 +12,17 @@ import { reduce } from 'ramda';
 
 export class SkillRatingTrendComponent implements OnInit {
   @Input() skillRatingTrend: Observable<any[]>;
-  chart: Observable<ChartData>;
+  chart: Observable<any>;
+  ngxChart: Observable<any>;
 
   constructor(private datePipe: DatePipe) {}
 
   ngOnInit() {
-    this.chart = this.skillRatingTrend.map(skillRatingTrend => {
-      const [xAxisLabels, data] = reduce((accum, { insertedAt, profileSnapshotStatistic: { profileStatistic: { competitiveLevel} } }) => {
-        const [labels, sr] = accum;
-        return [[this.datePipe.transform(insertedAt, 'MM-dd'), ...labels], [competitiveLevel, ...sr]];
-      }, [[], []], skillRatingTrend);
-
-      return {
-        xAxisLabels,
-        datasets: [{ label: 'Skill Rating', data }],
-        chartType: ChartType.line,
-        legend: false
-      };
-    });
+    this.chart = this.skillRatingTrend.map(SkillRatingTrend => {
+      return map(({ insertedAt, profileSnapshotStatistic: { profileStatistic: { competitiveLevel } } }) => {
+        return { name: this.datePipe.transform(insertedAt, 'MM-dd HH:mm'), value: competitiveLevel };
+      }, SkillRatingTrend);
+    })
+    .map(series => [{ name: 'Skill Rating', series }]);
   }
 }
