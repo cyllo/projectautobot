@@ -111,8 +111,14 @@ defmodule Utility do
   end
 
   @spec merge_map_total(map1 :: map, map2 :: map) :: map
-  def merge_map_total(map1, map2), do: Map.merge(map1, map2, fn _k, v1, v2 ->
-    v1 + v2
+  def merge_map_total(map1, map2), do: Map.merge(map1, map2, fn
+    _k, v1 = %Decimal{}, v2 = %Decimal{} -> Decimal.add(v1, v2)
+    _k, v1, v2 ->
+      cond do
+        Decimal.decimal?(v1) -> Decimal.add(Decimal.new(v2), v1)
+        Decimal.decimal?(v2) -> Decimal.add(Decimal.new(v1), v2)
+        true -> v1 + v2
+      end
   end)
 
   @spec join_atoms(atom, atom) :: atom

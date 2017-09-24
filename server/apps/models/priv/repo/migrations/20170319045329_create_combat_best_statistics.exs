@@ -11,11 +11,11 @@ defmodule Models.Repo.Migrations.CreateCombatBestStatistics do
 
       add :melee_final_blows_most_in_game, :integer, null: false, default: 0
 
-      add :weapon_accuracy_best_in_game_percentage, :integer, null: false, default: 0
+      add :weapon_accuracy_best_in_game_percentage, :decimal, null: false, default: 0
 
       add :multikill_best, :integer, null: false, default: 0
       add :kill_streak_best, :integer, null: false, default: 0
-      add :scoped_accuracy_best_in_game_percentage, :integer, null: false, default: 0
+      add :scoped_accuracy_best_in_game_percentage, :decimal, null: false, default: 0
 
       add :environmental_kills_most_in_game, :integer, null: false, default: 0
       add :teleporter_pads_destroyed_most_in_game, :integer, null: false, default: 0

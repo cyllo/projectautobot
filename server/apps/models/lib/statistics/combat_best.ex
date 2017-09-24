@@ -1,6 +1,6 @@
 defmodule Models.Statistics.CombatBest do
   use Models.Model
-  alias Models.Statistics.CombatBest
+  alias Models.{ChangesetHelpers, Statistics.CombatBest}
 
   schema "combat_best_statistics" do
     field :eliminations_most_in_game, :integer
@@ -34,8 +34,8 @@ defmodule Models.Statistics.CombatBest do
 
     field :kill_streak_best, :integer
     field :multikill_best, :integer
-    field :scoped_accuracy_best_in_game_percentage, :integer
-    field :weapon_accuracy_best_in_game_percentage, :integer
+    field :scoped_accuracy_best_in_game_percentage, :decimal
+    field :weapon_accuracy_best_in_game_percentage, :decimal
   end
 
   @allowed_fields [

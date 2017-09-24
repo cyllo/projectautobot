@@ -1,6 +1,6 @@
 defmodule Models.Statistics.CombatLifetime do
   use Models.Model
-  alias Models.Statistics.CombatLifetime
+  alias Models.{ChangesetHelpers, Statistics.CombatLifetime}
 
   schema "combat_lifetime_statistics" do
     field :solo_kills, :integer
@@ -22,14 +22,14 @@ defmodule Models.Statistics.CombatLifetime do
     field :shield_generators_destroyed, :integer
     field :damage_blocked, :integer
     field :melee_kills, :integer
-    field :weapon_accuracy_percentage, :integer
-    field :critical_hits_accuracy_percentage, :integer
+    field :weapon_accuracy_percentage, :decimal
+    field :critical_hits_accuracy_percentage, :decimal
     field :turrets_destroyed, :integer
     field :defensive_assists, :integer
     field :offensive_assists, :integer
     field :barrier_damage_done, :integer
     field :hero_damage_done, :integer
-    field :scoped_accuracy_percentage, :integer
+    field :scoped_accuracy_percentage, :decimal
     field :self_healing, :integer
     field :damage_amplified, :integer
     field :critical_hits_kills, :integer
@@ -58,17 +58,18 @@ defmodule Models.Statistics.CombatLifetime do
     :melee_kills,
     :weapon_accuracy_percentage,
     :critical_hits_accuracy_percentage,
+    :scoped_accuracy_percentage,
     :turrets_destroyed,
     :defensive_assists,
     :offensive_assists,
     :barrier_damage_done,
     :hero_damage_done,
-    :scoped_accuracy_percentage,
     :self_healing,
     :damage_amplified,
     :critical_hits_kills,
     :scoped_hits
   ]
+
 
   @doc """
   Builds a changeset based on the `struct` and `params`.

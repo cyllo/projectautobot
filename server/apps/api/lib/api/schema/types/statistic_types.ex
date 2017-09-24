@@ -34,8 +34,8 @@ defmodule Api.Schema.StatisticTypes do
 
     field :kill_streak_best, :integer
     field :multikill_best, :integer
-    field :scoped_accuracy_best_in_game_percentage, :integer
-    field :weapon_accuracy_best_in_game_percentage, :integer
+    field :scoped_accuracy_best_in_game_percentage, :decimal
+    field :weapon_accuracy_best_in_game_percentage, :decimal
     field :damage_amplified_most_in_game, :integer
   end
 
@@ -101,14 +101,14 @@ defmodule Api.Schema.StatisticTypes do
     field :shield_generators_destroyed, :integer
     field :damage_blocked, :integer
     field :melee_kills, :integer
-    field :weapon_accuracy_percentage, :integer
-    field :critical_hits_accuracy_percentage, :integer
+    field :weapon_accuracy_percentage, :decimal
+    field :critical_hits_accuracy_percentage, :decimal
     field :turrets_destroyed, :integer
     field :defensive_assists, :integer
     field :offensive_assists, :integer
     field :barrier_damage_done, :integer
     field :hero_damage_done, :integer
-    field :scoped_accuracy_percentage, :integer
+    field :scoped_accuracy_percentage, :decimal
     field :self_healing, :integer
     field :damage_amplified, :integer
     field :critical_hits_kills, :integer

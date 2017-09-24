@@ -32,13 +32,27 @@ defmodule Scraper.DataProcessor.StatsBox do
   defp deserialize_value(value) do
     cond do
       Regex.match?(numbers_regex(), value) -> parse_time_to_seconds(value)
-      contains_percentage?(value) -> String.replace(value, "%", "") |> String.to_integer
-      String.contains?(value, ".") -> value |> String.replace(",", "") |> String.to_float
+      contains_percentage?(value) -> parse_percentage_to_float(value)
+      is_str_float(value) -> parse_to_decimal(value)
       String.contains?(value, ",") -> string_to_intenger_with_replace(value, ",")
       String.contains?(value, ":") -> parse_clock_time_to_seconds(value)
       value === "--" -> 0
       true -> String.to_integer(value)
     end
+  end
+
+  defp is_str_float(str), do: String.contains?(str, ".")
+
+  defp parse_to_decimal(value) do
+    value
+      |> String.replace(",", "")
+      |> Decimal.new
+  end
+
+  defp parse_percentage_to_float(value) do
+    value
+      |> String.replace("%", "")
+      |> parse_to_decimal
   end
 
   defp parse_clock_time_to_seconds(time) when is_bitstring(time), do: time |> String.split(":") |> parse_clock_time_to_seconds
