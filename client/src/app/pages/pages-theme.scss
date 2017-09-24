@@ -2,10 +2,12 @@
 @import './registration/registration-theme';
 @import './news/news-theme';
 @import './hero/hero-theme';
+@import './account-settings/account-settings-theme';
 
 @mixin ow-pages-theme($theme) {
   @include ow-registration-theme($theme);
   @include ow-profile-theme($theme);
   @include ow-news-theme($theme);
   @include ow-hero-theme($theme);
+  @include ow-account-settings-theme($theme);
 }

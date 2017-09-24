@@ -4,10 +4,10 @@ import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ow-game-mode-toggle',
-  templateUrl: 'quick-comp-toggle.component.html',
-  styleUrls: ['quick-comp-toggle.component.scss']
+  templateUrl: 'game-mode-indicator.component.html',
+  styleUrls: ['game-mode-indicator.component.scss']
 })
-export class GameModeToggleComponent implements OnInit, OnDestroy {
+export class GameModeIndicatorComponent implements OnInit, OnDestroy {
   @Input() modeIndicator: Observable<{ disabled: boolean, mode: string }>;
   @Output() gameMode: EventEmitter<string> = new EventEmitter<string>();
 

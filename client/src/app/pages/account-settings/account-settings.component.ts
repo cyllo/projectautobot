@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-
 @Component({
   selector: 'ow-account-settings',
   templateUrl: 'account-settings.component.html',
@@ -10,4 +9,5 @@ import { Component } from '@angular/core';
 export class AccountSettingsComponent {
 
   constructor() {}
+
 }
