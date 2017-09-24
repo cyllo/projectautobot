@@ -37,12 +37,15 @@ export class SnapshotsHistoryComponent implements OnInit, OnDestroy {
     .pluck('snapshots')
     .combineLatest(this.modeIndicator, (snapshots, { mode }) => this.snapshotService.selectHeroesSnapshot(mode)(snapshots))
     .map(snapshots => sort(descend(prop('id')), snapshots))
-    .takeUntil(this.destroyer$)
-    .share();
+    .takeUntil(this.destroyer$);
 
-    this.flushMatchDetails = this.modeIndicator.mapTo(null).takeUntil(this.destroyer$);
 
-    this.view = this.viewDetails$.withLatestFrom(this.selectedsnapshots, (id, snapshots) => find(propEq('id', id), snapshots))
+    this.flushMatchDetails = this.modeIndicator
+    .mapTo(null)
+    .takeUntil(this.destroyer$);
+
+    this.view = this.viewDetails$
+    .withLatestFrom(this.selectedsnapshots, (id, snapshots) => find(propEq('id', id), snapshots))
     .takeUntil(this.destroyer$);
 
     this.matchDetails = Observable.merge(this.view, this.flushMatchDetails);
