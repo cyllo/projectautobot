@@ -4,10 +4,12 @@ import { AppState, GamerTag, ProfileKey, GamerTagState, SnapshotStats } from '..
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { ProfileService, SnapshotService } from '../../services';
+import { ProfileService, SnapshotService, GamerTagService } from '../../services';
 import { Subject } from 'rxjs/Subject';
-import { updateProfile, addSnapshots, addProfile, flushSnapshots } from '../../reducers';
+import { updateProfile, addSnapshots, addProfile, flushSnapshots, addTrends } from '../../reducers';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { DatePipe } from '@angular/common';
+
 
 const notNil = compose(not, isNil);
 
@@ -15,6 +17,7 @@ const notNil = compose(not, isNil);
   selector: 'ow-profile',
   templateUrl: 'profile.component.html',
   styleUrls: ['profile.component.scss'],
+  providers: [DatePipe]
 })
 export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   players: Observable<GamerTagState>;
@@ -33,7 +36,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
     private store: Store<AppState>,
     private activatedRoute: ActivatedRoute,
     private profileService: ProfileService,
-    private snapshotService: SnapshotService
+    private snapshotService: SnapshotService,
+    private gamerTagService: GamerTagService
   ) { }
 
   ngOnInit() {
@@ -97,6 +101,10 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
     .switchMapTo(this.profileKey)
     .switchMap(({ tag, platform, region }) => this.profileService.scrape(tag, platform, region))
     .subscribe(gamerTag => this.store.dispatch(updateProfile(gamerTag)), error => console.log('error', error));
+
+    this.selectedProfile.switchMap(({ id }) => this.gamerTagService.statTrends(id))
+    .takeUntil(this.destroyer$)
+    .subscribe(trends => this.store.dispatch(addTrends(trends)));
   }
 
   ngAfterContentInit() {

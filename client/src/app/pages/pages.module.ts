@@ -80,7 +80,6 @@ import {
   UserRegistrationComponent,
   AccountSettingsComponent,
   ListOfCompareableHeroesComponent,
-  SkillRatingTrendComponent,
   LeaderboardHeaderComponent,
   LeaderboardTableComponent,
   LeaderboardChartComponent,
@@ -95,7 +94,9 @@ import {
   ProfileHeroesComponent,
   ProfileHeroesTableComponent,
   CreatePostComponent,
-  CreatePostFormComponent
+  CreatePostFormComponent,
+  TrendsComponent,
+  SkillRatingTrendComponent
 } from './index';
 
 @NgModule({
@@ -178,7 +179,6 @@ import {
     UserRegistrationComponent,
     AccountSettingsComponent,
     ListOfCompareableHeroesComponent,
-    SkillRatingTrendComponent,
     LeaderboardHeaderComponent,
     LeaderboardTableComponent,
     LeaderboardChartComponent,
@@ -191,7 +191,9 @@ import {
     MatchSnapshotComponent,
     MatchDetailsComponent,
     ProfileHeroesComponent,
-    ProfileHeroesTableComponent
+    ProfileHeroesTableComponent,
+    TrendsComponent,
+    SkillRatingTrendComponent
   ],
   exports: [
     HomeComponent,
@@ -230,7 +232,8 @@ import {
     MatchSnapshotComponent,
     MatchDetailsComponent,
     ProfileHeroesComponent,
-    ProfileHeroesTableComponent
+    ProfileHeroesTableComponent,
+    SkillRatingTrendComponent
   ]
 })
 

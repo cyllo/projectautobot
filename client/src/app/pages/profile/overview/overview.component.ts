@@ -20,12 +20,13 @@ import {
 } from 'ramda';
 import { GamerTagService, SnapshotService } from '../../../services';
 import { Observable } from 'rxjs/Observable';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'ow-profile-overview',
   templateUrl: 'overview.component.html',
   styleUrls: ['overview.component.scss'],
-  providers: [GamerTagService]
+  providers: [GamerTagService, SnapshotService, DatePipe]
 })
 
 export class ProfileOverviewComponent implements OnInit {
@@ -36,13 +37,11 @@ export class ProfileOverviewComponent implements OnInit {
   heroStatsByRole: Observable<any>;
   totalGameAverage: Observable<any>;
   matchAwards: Observable<any>;
-  skillRatingTrend: Observable<any[]>;
   mostPlayedHeroes: Observable<any[]>;
   recentSnapshots: Observable<any[]>;
   heroStatistics: Observable<any[]>;
 
   constructor(
-    private gamerTagService: GamerTagService,
     private snapshotService: SnapshotService
   ) {}
 
@@ -75,8 +74,6 @@ export class ProfileOverviewComponent implements OnInit {
       const heroes = groupBy(path<string>(['hero', 'role']), path<any[]>([mode, 'heroSnapshotStatistics'], this.profile));
       return values(map(buildStatsByRole, heroes));
     });
-
-    this.skillRatingTrend = this.gamerTagService.skillRatingTrend(this.profile.id);
 
     this.mostPlayedHeroes = this.modeIndicator
     .map(({ mode }) => {

@@ -1,0 +1,23 @@
+#import "./heroes-total-snapshot-statistic.gql"
+
+query StatTrends($id: Int) {
+  gamerTag(id: $id) {
+    id
+    snapshotStatistics(last: 7, onlyLastDaily: true) {
+      id
+      insertedAt
+      profileSnapshotStatistic {
+        id
+        profileStatistic {
+          competitiveLevel
+        }
+      }
+      quickplayHeroesTotalSnapshotStatistic: heroesTotalSnapshotStatistic(type: QUICKPLAY) {
+        ...HeroesTotalSnapShot
+      }
+      competitiveHeroesTotalSnapshotStatistic: heroesTotalSnapshotStatistic(type: COMPETITIVE) {
+        ...HeroesTotalSnapShot
+      }
+    }
+  }
+}
