@@ -5,8 +5,12 @@ import { LineChartComponent } from './index';
 
 @NgModule({
   imports: [NgxChartsModule],
-  declarations: [LineChartComponent],
-  exports: [LineChartComponent]
+  declarations: [
+    LineChartComponent
+  ],
+  exports: [
+    LineChartComponent
+  ],
 })
 export class ChartsModule {
   static forRoot(): ModuleWithProviders {

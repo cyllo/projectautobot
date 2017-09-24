@@ -59,7 +59,8 @@ import {
   GamerTagService,
   BlogPostsService,
   ClubService,
-  SnapshotService } from './services';
+  SnapshotService,
+  TrendsService } from './services';
 
 import { reducerStack, initialStates } from './reducers';
 import { SharedModule } from './shared';
@@ -133,7 +134,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BlogPostsService,
     BlogPostResolver,
     ErrorHandlerService,
-    SnapshotService
+    SnapshotService,
+    TrendsService
   ],
   bootstrap: [AppComponent]
 })
