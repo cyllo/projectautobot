@@ -1,0 +1,40 @@
+@mixin ow-account-settings-expansion-panel($theme) {
+  .mat-expansion-panel {
+    box-shadow: none;
+  }
+}
+
+@mixin ow-account-settings-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  $hyperlink-color: mat-color($accent);
+
+  .account-settings {
+
+    @include ow-account-settings-expansion-panel($theme);
+
+    .mat-list {
+
+      .mat-list-item {
+
+        a {
+
+          color: rgba($hyperlink-color, 0.87);
+
+          &:hover {
+            color: $hyperlink-color;
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}

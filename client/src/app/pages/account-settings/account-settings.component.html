@@ -1,1 +1,42 @@
-Account Settings!
+<div class="account-settings" fxLayout="column" fxFlex>
+
+  <div fxLayout="row" fxLayoutGap="30px" fxLayoutWrap>
+
+    <div class="pt-3" fxLayout="column" fxFlex="300px">
+      <md-accordion>
+        <div fxLayout="column" fxLayoutGap="8px" fxFlex>
+          <span class="mat-caption text-uppercase">Your Profile</span>
+          <md-divider></md-divider>
+          <md-expansion-panel>
+            <md-expansion-panel-header>
+              <strong>Profile Settings</strong>
+            </md-expansion-panel-header>
+            <div class="pt-3" fxLayout="column" fxFlex>
+              <button class="text-left" md-button (click)="accountSettingsTabs.selectedIndex = 0">
+                <span class="mat-caption text-uppercase">Account Settings</span>
+              </button>
+            </div>
+          </md-expansion-panel>
+          <span class="mat-caption text-uppercase">Overwatch</span>
+          <md-divider></md-divider>
+          <md-expansion-panel>
+            <md-expansion-panel-header>
+              <strong>Overwatch Experience</strong>
+            </md-expansion-panel-header>
+            <div class="pt-3" fxLayout="column" fxFlex>
+              <button class="text-left" md-button (click)="accountSettingsTabs.selectedIndex = 1">
+                <span class="mat-caption text-uppercase">Gamer Tag</span>
+              </button>
+            </div>
+          </md-expansion-panel>
+        </div>
+      </md-accordion>
+    </div>
+
+    <div class="pt-3" fxLayout="column">
+      coming soon
+    </div>
+
+  </div>
+
+</div>
