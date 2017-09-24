@@ -1,6 +1,6 @@
 @import './hero-portrait/hero-portrait-theme';
 @import './platform-region/platform-region-theme';
-@import './quick-comp-toggle/quick-comp-toggle-theme';
+@import './game-mode-indicator/game-mode-indicator-theme';
 @import './hero-card/hero-card-theme';
 @import './news-post-card/news-post-card-theme';
 @import './search/search-theme';
@@ -9,7 +9,7 @@
 @mixin ow-shared-theme($theme) {
   @include ow-platform-region-theme($theme);
   @include ow-hero-portrait-theme($theme);
-  @include ow-quick-comp-toggle-theme($theme);
+  @include ow-game-mode-indicator-theme($theme);
   @include ow-hero-card-theme($theme);
   @include ow-news-post-card-theme($theme);
   @include ow-search-theme($theme);

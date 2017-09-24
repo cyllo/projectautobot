@@ -7,7 +7,8 @@ import { SnapshotService, TrendsService } from '../../../services';
 
 @Component({
   selector: 'ow-profile-trends',
-  templateUrl: 'trends.html',
+  templateUrl: 'trends.component.html',
+  styleUrls: ['trends.component.scss'],
   providers: [SnapshotService, TrendsService]
 })
 

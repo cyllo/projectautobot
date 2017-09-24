@@ -6,4 +6,9 @@
   .level {
     border-radius: 0 0 2px 2px;
   }
+  .stat-blocks {
+    & > div {
+      min-width: 120px;
+    }
+  }
 }

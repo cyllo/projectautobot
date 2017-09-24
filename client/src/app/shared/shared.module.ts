@@ -42,7 +42,7 @@ import {
   HeroListComponent,
   ProfileCheckboxComponent,
   HeroCheckboxComponent,
-  GameModeToggleComponent,
+  GameModeIndicatorComponent,
   PlayerProfileButtonComponent
 } from './index';
 import { ChartsModule } from 'ng2-charts';
@@ -92,7 +92,7 @@ import { ChartsModule } from 'ng2-charts';
     HeroListComponent,
     ProfileCheckboxComponent,
     HeroCheckboxComponent,
-    GameModeToggleComponent,
+    GameModeIndicatorComponent,
     PlayerProfileButtonComponent
   ],
   exports: [
@@ -114,7 +114,7 @@ import { ChartsModule } from 'ng2-charts';
     HeroListComponent,
     ProfileCheckboxComponent,
     HeroCheckboxComponent,
-    GameModeToggleComponent,
+    GameModeIndicatorComponent,
     PlayerProfileButtonComponent
   ],
   providers: [ApiService]
