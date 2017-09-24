@@ -445,6 +445,7 @@ defmodule Api.Schema do
       arg :hero_image_url, non_null(:string)
       arg :summary, non_null(:string)
       arg :thumbnail_url, non_null(:string)
+      arg :is_featured, :boolean
       arg :blog_categories, non_null(list_of(non_null(:blog_category_input)))
 
       middleware Middleware.Auth, admin_only: true

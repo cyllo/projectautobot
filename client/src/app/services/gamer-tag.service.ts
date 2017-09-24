@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Observable } from 'rxjs/Observable';
 import { GamerTag, GamerTagSearchResponse, GamerTagFetchResponse, GamerTagScrapeResponse, GraphqlResponse } from '../models';
-import { SearchGamerTag, ScrapeGamerTag, FetchGamerTag, SkillRatingTrend, StartGamerTagWatch, StopGamerTagWatch } from './queries';
+import { SearchGamerTag, ScrapeGamerTag, FetchGamerTag, StatTrends, StartGamerTagWatch, StopGamerTagWatch } from './queries';
 
 const scrapeGamerTagData = path<GamerTag>(['data', 'scrapeGamerTag']);
 const gamerTagData = path<GamerTag>(['data', 'gamerTag']);
@@ -45,9 +45,9 @@ export class GamerTagService {
     .map(scrapeGamerTagData);
   }
 
-  skillRatingTrend(id: number) {
+  statTrends(id: number) {
     return this.apollo.query({
-      query: SkillRatingTrend,
+      query: StatTrends,
       variables: { id }
     })
     .map(({ data: { gamerTag: { snapshotStatistics } } }: GraphqlResponse) => snapshotStatistics);

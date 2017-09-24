@@ -8,6 +8,7 @@ defmodule Api.Schema.BlogTypes do
     field :title, :string
     field :content, :string
     field :summary, :string
+    field :is_featured, :boolean
     field :thumbnail_url, :string
     field :hero_image_url, :string
 

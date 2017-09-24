@@ -1,6 +1,7 @@
 defmodule Models.Statistics.Snapshots.SnapshotStatistic do
   use Models.Model
-  alias Models.Statistics.Snapshots.SnapshotStatistic
+  alias Models.Statistics.Snapshots.{HeroSnapshotStatistic, SnapshotStatistic}
+  alias Models.Statistics.MatchAward
 
   schema "snapshot_statistics" do
     belongs_to :gamer_tag, Models.Game.GamerTag
@@ -11,6 +12,7 @@ defmodule Models.Statistics.Snapshots.SnapshotStatistic do
   end
 
   @required_fields [:gamer_tag_id]
+  @total_stats_types [:hero_total_competitive, :hero_total_quickplay]
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -46,6 +48,17 @@ defmodule Models.Statistics.Snapshots.SnapshotStatistic do
   def latest_daily_query(query \\ SnapshotStatistic) do
     from(query, distinct: fragment("inserted_at::date"),
                 order_by: fragment("inserted_at::date DESC, inserted_at DESC"))
+  end
+
+  def latest_total_medals(gamer_tag_id) do
+    from(ss in SnapshotStatistic,
+      where: ss.gamer_tag_id == ^gamer_tag_id,
+      inner_join: hss in HeroSnapshotStatistic,
+      on: ss.id == hss.snapshot_statistic_id,
+      where: hss.statistic_type in ^@total_stats_types,
+      inner_join: ma in MatchAward,
+      on: ma.id == hss.match_awards_statistic_id,
+      select: {hss.statistic_type, ma.total_medals})
   end
 
   def preload_statistics_query(query) do
