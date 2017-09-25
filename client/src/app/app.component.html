@@ -6,9 +6,9 @@
 
 <main [ngClass.gt-sm]="{ 'sidebar-offset': !sideBarOpen, 'sidebar-open': sideBarOpen }">
   <ow-sidebar-left [navLinks]="navLinks" (change)="sideBarOpen = $event" fxHide.lt-md></ow-sidebar-left>
-  <div class="sponsor-spaceship" fxLayout="row" fxLayoutAlign="center center">
+  <!-- <div class="sponsor-spaceship" fxLayout="row" fxLayoutAlign="center center">
     <img src="./img/logitech.png">
-  </div>
+  </div> -->
   <div [ngStyle]="{ 'padding': '0 30px 30px 30px' }">
     <router-outlet></router-outlet>
   </div>

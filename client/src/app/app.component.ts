@@ -33,6 +33,12 @@ export class AppComponent implements OnInit {
       iconName: 'home'
     },
     {
+      name: 'News',
+      routerLink: '/news',
+      routerLinkActive: true,
+      iconName: 'chrome_reader_mode'
+    },
+    {
       name: 'Leaderboard',
       routerLink: '/leaderboard',
       routerLinkActive: false,
