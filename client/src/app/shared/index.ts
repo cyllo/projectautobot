@@ -17,6 +17,6 @@ export * from './hero-list';
 export * from './hero-portrait';
 export * from './profile-checkbox';
 export * from './hero-checkbox';
-export * from './quick-comp-toggle';
+export * from './game-mode-indicator';
 export * from './player-profile-button';
 export * from './shared.module';

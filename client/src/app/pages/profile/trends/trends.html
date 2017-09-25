@@ -1,9 +1,0 @@
-<div fxLayout="row" fxLayoutGap="50px" fxFlex fxLayoutWrap *ngIf="statTrends | async">
-  <ow-line-chart [data]="eliminations | async"></ow-line-chart>
-  <ow-line-chart [data]="kdRatio | async"></ow-line-chart>
-  <ow-line-chart [data]="accuracy | async"></ow-line-chart>
-  <ow-line-chart [data]="damageDone | async"></ow-line-chart>
-  <ow-line-chart [data]="damageBlocked | async"></ow-line-chart>
-  <ow-line-chart [data]="healingDone | async"></ow-line-chart>
-  <ow-line-chart [data]="winRate | async"></ow-line-chart>
-</div>

@@ -1,0 +1,30 @@
+<div class="trends" fxLayout="row" fxLayoutWrap *ngIf="statTrends | async">
+  <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="20%" fxFlex.md="25%" fxFlex.sm="50%" fxFlex.xs="100%">
+    <ow-line-chart [ngStyle]="{ 'height': '100px' }" [data]="eliminations | async"></ow-line-chart>
+    <span class="mat-caption text-uppercase">Eliminations</span>
+  </div>
+  <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="20%" fxFlex.md="25%" fxFlex.sm="50%" fxFlex.xs="100%">
+    <ow-line-chart [ngStyle]="{ 'height': '100px' }" [data]="kdRatio | async"></ow-line-chart>
+    <span class="mat-caption text-uppercase">K/D Ratio</span>
+  </div>
+  <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="20%" fxFlex.md="25%" fxFlex.sm="50%" fxFlex.xs="100%">
+    <ow-line-chart [ngStyle]="{ 'height': '100px' }" [data]="accuracy | async"></ow-line-chart>
+    <span class="mat-caption text-uppercase">Accuracy</span>
+  </div>
+  <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="20%" fxFlex.md="25%" fxFlex.sm="50%" fxFlex.xs="100%">
+    <ow-line-chart [ngStyle]="{ 'height': '100px' }" [data]="damageDone | async"></ow-line-chart>
+    <span class="mat-caption text-uppercase">Hero Damage</span>
+  </div>
+  <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="20%" fxFlex.md="25%" fxFlex.sm="50%" fxFlex.xs="100%">
+    <ow-line-chart [ngStyle]="{ 'height': '100px' }" [data]="damageBlocked | async"></ow-line-chart>
+    <span class="mat-caption text-uppercase">Blocked</span>
+  </div>
+  <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="20%" fxFlex.md="25%" fxFlex.sm="50%" fxFlex.xs="100%">
+    <ow-line-chart [ngStyle]="{ 'height': '100px' }" [data]="healingDone | async"></ow-line-chart>
+    <span class="mat-caption text-uppercase">Healing</span>
+  </div>
+  <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="20%" fxFlex.md="25%" fxFlex.sm="50%" fxFlex.xs="100%">
+    <ow-line-chart [ngStyle]="{ 'height': '100px' }" [data]="winRate | async"></ow-line-chart>
+    <span class="mat-caption text-uppercase">Win Rate</span>
+  </div>
+</div>

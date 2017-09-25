@@ -49,10 +49,10 @@
       </div>
 
       <div class="text-center" fxLayout="column" fxFlex="20%">
-        <div fxLayout="row" fxLayoutAlign="center center">
-          <span class="medal medal-gold mat-caption">{{ hero.matchAwardsStatistic?.goldMedals || 0 }}</span>
-          <span class="medal medal-silver mat-caption">{{ hero.matchAwardsStatistic?.silverMedals || 0 }}</span>
-          <span class="medal medal-bronze mat-caption">{{ hero.matchAwardsStatistic?.bronzeMedals || 0 }}</span>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="4px">
+          <span class="medal medal-gold mat-caption px-1">{{ hero.matchAwardsStatistic?.goldMedals || 0 }}</span>
+          <span class="medal medal-silver mat-caption px-1">{{ hero.matchAwardsStatistic?.silverMedals || 0 }}</span>
+          <span class="medal medal-bronze mat-caption px-1">{{ hero.matchAwardsStatistic?.bronzeMedals || 0 }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="center center" fxFlex="20px">
           <md-progress-bar mode="determinate" value="50"></md-progress-bar>

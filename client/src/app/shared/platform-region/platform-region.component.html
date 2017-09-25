@@ -1,29 +1,28 @@
-<div class="platform-region" fxLayout="row" fxLayoutGap="14px" *ngIf="currentProfile">
-
-  <div fxLayout="column" fxFlex="initial" fxFlex.lt-sm>
-    <span class="mat-caption text-uppercase">Platform</span>
-    <div fxLayout="row" fxLayoutGap="8px">
-      <button md-button class="min-width-0"
-        *ngFor="let platform of activePlatforms | async"
-        [color]="(currentProfile.platform === platform.name) ? 'primary' : null"
-        [disabled]="!platform.enabled"
-        (click)="changePlatform$.next(platform.name)">
-        {{ platform.name }}
-      </button>
+<div class="platform-region" fxLayout="column" fxFlex *ngIf="currentProfile">
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap>
+    <div class="pt-3" fxLayout="column" fxFlex.gt-sm="initial" fxFlex.lt-md>
+      <span class="mat-caption text-uppercase">Platform</span>
+      <div fxLayout="row" fxLayoutGap="8px">
+        <button md-button
+          *ngFor="let platform of activePlatforms | async"
+          [color]="(currentProfile.platform === platform.name) ? 'primary' : null"
+          [disabled]="!platform.enabled"
+          (click)="changePlatform$.next(platform.name)">
+          <span class="text-uppercase">{{ platform.name }}</span>
+        </button>
+      </div>
+    </div>
+    <div class="pt-3" fxLayout="column" fxFlex.gt-sm="initial" fxFlex.lt-md>
+      <span class="mat-caption text-uppercase">Region</span>
+      <div fxLayout="row" fxLayoutGap="8px">
+        <button md-button
+          *ngFor="let region of activeRegions | async"
+          [color]="(currentProfile.region === region.name) ? 'primary' : null"
+          [disabled]="!region.enabled"
+          (click)="changeRegion$.next(region.name)">
+          <span class="text-uppercase">{{ region.name }}</span>
+        </button>
+      </div>
     </div>
   </div>
-
-  <div fxLayout="column" fxFlex="initial" fxFlex.lt-sm>
-    <span class="mat-caption text-uppercase">Region</span>
-    <div fxLayout="row" fxLayoutGap="8px">
-      <button md-button class="min-width-0 "
-        *ngFor="let region of activeRegions | async"
-        [color]="(currentProfile.region === region.name) ? 'primary' : null"
-        [disabled]="!region.enabled"
-        (click)="changeRegion$.next(region.name)">
-        {{ region.name }}
-      </button>
-    </div>
-  </div>
-
 </div>
