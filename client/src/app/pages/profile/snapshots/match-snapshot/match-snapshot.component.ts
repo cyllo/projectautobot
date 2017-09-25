@@ -13,6 +13,8 @@ export class MatchSnapshotComponent implements OnInit {
   @Output() viewDetails = new EventEmitter<number>();
   viewSnapshot$ = new Subject<number>();
 
+  heroesPlayed = [1, 2, 3];
+
   constructor() {}
 
   ngOnInit() {}
