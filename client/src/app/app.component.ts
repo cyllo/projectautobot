@@ -35,13 +35,13 @@ export class AppComponent implements OnInit {
     {
       name: 'Leaderboard',
       routerLink: '/leaderboard',
-      routerLinkActive: true,
+      routerLinkActive: false,
       iconName: 'view_list'
     },
     {
       name: 'Heroes',
       routerLink: '/heroes',
-      routerLinkActive: true,
+      routerLinkActive: false,
       iconName: 'games'
     }
   ];

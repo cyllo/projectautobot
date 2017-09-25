@@ -10,7 +10,7 @@
                   <md-icon [ngStyle]="{ 'width': '100%' }" svgIcon="logo_text"></md-icon>
                 </div>
                 <md-nav-list>
-                  <a md-list-item *ngFor="let link of navLinks" routerLink="{{link.routerLink}}" routerLinkActive="{ 'active-link': link.routerLinkActive }">
+                  <a md-list-item *ngFor="let link of navLinks" routerLink="{{link.routerLink}}">
                     <div fxLayout="row" fxLayoutGap="30px">
                       <md-icon>{{link.iconName}}</md-icon>
                       <span>{{link.name}}</span>
@@ -56,12 +56,14 @@
             </md-tab-group>
           </md-tab>
         </md-tab-group>
-        <span class="copyright mat-caption px-2 py-3">&copy; Stop They Payload 2017, a independently operated subsidiary of NRG eSports. All Rights Reserved to their respective owners.</span>
+        <span class="copyright mat-caption px-2 py-3">&copy; Stop The Payload 2017, an independently operated subsidiary of Hard Carry Gaming Inc. All Rights Reserved to their respective owners.</span>
       </div>
     </md-drawer>
     <div class="pt-2" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="8px" fxFlex="56px">
       <div class="py-3" fxLayout="row" fxLayoutAlign="center center">
-        <md-icon class="md-36" svgIcon="logo"></md-icon>
+        <a routerLink="./">
+          <md-icon class="md-36" svgIcon="logo"></md-icon>
+        </a>
       </div>
       <button md-icon-button (click)="sidebarDrawer.toggle()">
         <md-icon>menu</md-icon>
