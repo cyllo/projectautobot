@@ -1,4 +1,4 @@
-fragment MatchAwardStatistic on MatchAwardsStatistic {
+fragment MatchAwardStatistic on MatchAwardsStatisticAverage {
   totalMedals
   goldMedals
   silverMedals

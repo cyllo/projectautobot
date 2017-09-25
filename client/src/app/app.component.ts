@@ -69,9 +69,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.$state = this.store.select(s => s);
 
+    this.owHeroData.load();
     this.getHeroes();
 
-    this.owHeroData.load();
 
     const session = Cookies.get('ow-auth-token');
     if (session) {
@@ -110,6 +110,6 @@ export class AppComponent implements OnInit {
 
   getHeroes() {
     return this.hereosService.get()
-      .subscribe(s => this.store.dispatch({ type: 'GET_HEROES_DATA', payload: s.data.heroes }));
+    .subscribe(payload => this.store.dispatch({ type: 'GET_HEROES_DATA', payload }));
   }
 }

@@ -1,8 +1,9 @@
 #import "../hero/hero-fields.gql"
-#import "./match-award-statistic-field.gql"
-#import "./game-history-statistic.gql"
-#import "./combat-life-statistic.gql"
-#import "./combat-best-statistic.gql"
+#import "./match-award-statistic-average.gql"
+#import "./game-history-statistic-average.gql"
+#import "./combat-life-statistic-average.gql"
+#import "./combat-best-statistic-average.gql"
+#import "./game-average-statistic-average.gql"
 
 query HeroStatisticsAverageSearch($heroId: Int!) {
     competitiveHeroAverages: heroStatisticsAverage(heroId: $heroId, type: COMPETITIVE) {
@@ -21,6 +22,9 @@ query HeroStatisticsAverageSearch($heroId: Int!) {
       combatBestStatistic {
         ...CombatBestStatistic
       }
+      gameAverageStatistic {
+        ...GameAverageStatistic
+      }
     }
     quickplayHeroAverages :heroStatisticsAverage(heroId: $heroId, type:  QUICKPLAY) {
       matchAwardsStatistic {
@@ -37,6 +41,9 @@ query HeroStatisticsAverageSearch($heroId: Int!) {
       }
       combatBestStatistic {
         ...CombatBestStatistic
+      }
+      gameAverageStatistic {
+        ...GameAverageStatistic
       }
     }
   }

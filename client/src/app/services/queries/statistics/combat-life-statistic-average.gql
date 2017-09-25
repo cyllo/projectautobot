@@ -1,4 +1,4 @@
-fragment CombatLifeStatistic on CombatLifetimeStatistic {
+fragment CombatLifeStatistic on CombatLifetimeStatisticAverage {
   weaponAccuracyPercentage
   turretsDestroyed
   timeSpentOnFire

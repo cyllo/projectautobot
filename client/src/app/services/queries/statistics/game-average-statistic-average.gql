@@ -1,4 +1,4 @@
-fragment GameAverageStatistic on GameAverageStatistic {
+fragment GameAverageStatistic on GameAverageStatisticAverage {
   allDamageDoneAvgPer10Min
   barrierDamageDoneAvgPer10Min
   criticalHitsAvgPer10Min
@@ -9,7 +9,6 @@ fragment GameAverageStatistic on GameAverageStatistic {
   finalBlowsAvgPer10Min
   healingDoneAvgPer10Min
   heroDamageDoneAvgPer10Min
-  id
   meleeFinalBlowsAvgPer10Min
   objectiveKillsAvgPer10Min
   objectiveTimeAvgPer10Min

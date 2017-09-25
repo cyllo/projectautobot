@@ -1,4 +1,5 @@
 import { Heroes } from '../models';
+import { find, propEq } from 'ramda';
 
 export function heroesData(state: Array<Heroes> = [], { type, payload }: { type: string, payload?: any }) {
   switch (type) {
@@ -8,4 +9,9 @@ export function heroesData(state: Array<Heroes> = [], { type, payload }: { type:
     default:
       return state;
   }
+}
+
+
+export function getHeroByName(name: string) {
+  return state => state.map(find(propEq('name', name)));
 }
