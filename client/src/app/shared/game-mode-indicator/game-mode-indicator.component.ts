@@ -19,7 +19,7 @@ export class GameModeIndicatorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.gameModeToggle$
-    .map(isCompetitive => isCompetitive ? 'competitive' : 'quickPlay')
+    .map(isCompetitive => isCompetitive ? 'Competitive' : 'Quickplay')
     // .takeUntil(this.destroyer$)
     .subscribe(gameMode => this.gameMode.emit(gameMode));
   }

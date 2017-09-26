@@ -31,7 +31,7 @@
         </div>
         <div fxLayout="column" fxFlex>
           <ow-role-performance [heroStatsByRole]="heroStatsByRole | async"></ow-role-performance>
-          <ow-recently-played></ow-recently-played>
+          <ow-recently-played *ngIf="recentlyPlayed | async as recentlyPlayedHeroes" [recentlyPlayed]="recentlyPlayedHeroes"></ow-recently-played>
         </div>
       </div>
 
@@ -43,7 +43,5 @@
         <ow-hero-card [hero]="hero" fxFill></ow-hero-card>
       </div>
     </div>
-
   </div>
-
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'ow-recently-played',
@@ -6,10 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: [ 'recently-played.component.scss' ]
 })
 
-export class RecentlyPlayedComponent implements OnInit {
-
+export class RecentlyPlayedComponent {
+  @Input() recentlyPlayed: any;
   constructor() {}
-
-  ngOnInit() {}
 
 }

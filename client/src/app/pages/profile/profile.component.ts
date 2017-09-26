@@ -1,4 +1,4 @@
-import { merge, path, replace, isEmpty, isNil, compose, not, any, prop } from 'ramda';
+import { merge, path, replace, isEmpty, isNil, compose, not, any, prop, gte, length, flip } from 'ramda';
 import { Component, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
 import { AppState, GamerTag, ProfileKey, GamerTagState, SnapshotStats } from '../../models';
 import { Store } from '@ngrx/store';
@@ -31,6 +31,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
 
   selectedGameMode$ = new BehaviorSubject<string>('competitive');
   selectedSnapshotData: Observable<SnapshotStats>;
+  snapshotDiff: Observable<any>;
 
   constructor(
     private store: Store<AppState>,
@@ -71,7 +72,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
 
     // currently selected profile as per the route params
     this.selectedProfile
-    .first()
     .switchMap(({ id }) => this.profileService.observeChanges(id))
     .subscribe((profile: GamerTag) => {
       this.store.dispatch(addSnapshots(<SnapshotStats[]>prop('snapshotStatistics', profile)));
@@ -91,7 +91,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
       ? <GamerTag>path([tag, platform, region], profiles)
       : <GamerTag>path([tag, platform], profiles);
     })
-    .first()
     .subscribe((player: GamerTag) => {
       this.store.dispatch(flushSnapshots());
       this.profileService.goto(player);
@@ -105,12 +104,23 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
     this.selectedProfile.switchMap(({ id }) => this.gamerTagService.statTrends(id))
     .takeUntil(this.destroyer$)
     .subscribe(trends => this.store.dispatch(addTrends(trends)));
+
+    const flippedGte = flip(gte);
+    const hasMultipleSnapshots = compose(flippedGte(2), length, prop('snapshotStatistics'));
+
+    this.snapshotDiff = this.selectedProfile
+    .filter(hasMultipleSnapshots)
+    .pluck('snapshotStatistics')
+    .switchMap(([{ id: snapshotAId }, { id: snapshotBId }]) => this.snapshotService.diff(snapshotAId, snapshotBId))
+    .startWith(null);
   }
 
   ngAfterContentInit() {
+
     this.selectedProfile
     .switchMap(profile => this.snapshotService.findByGamerTag(profile.id, 20))
     .subscribe(snapshots => this.store.dispatch(addSnapshots(snapshots)));
+
   }
 
   ngOnDestroy() {

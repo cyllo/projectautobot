@@ -34,22 +34,25 @@
     <md-tab-group [(selectedIndex)]="selectedTabIndex" fxFlex>
       <md-tab label="Overview">
         <div class="py-3 px-3" fxLayout="column" fxFlex>
-          <ow-profile-overview
+          <ow-profile-overview 
             [profile]="currentProfile"
             [modeIndicator]="modeIndicator">
           </ow-profile-overview>
         </div>
       </md-tab>
+
       <md-tab label="Heroes">
         <div class="py-3 px-3" fxLayout="column" fxFlex>
           <ow-profile-heroes></ow-profile-heroes>
         </div>
       </md-tab>
+
       <md-tab label="Trends">
         <div class="py-3 px-3" fxLayout="column" fxFlex>
           <ow-profile-trends [modeIndicator]="modeIndicator"></ow-profile-trends>
         </div>
       </md-tab>
+      
       <md-tab label="Sessions">
         <div class="py-3 px-3" fxLayout="column" fxFlex *ngIf="selectedTabIndex == 3">
           <ow-snapshots-history
@@ -59,7 +62,6 @@
       </md-tab>
     </md-tab-group>
   </div>
-
 </div>
 
 <ng-template #loadingBlock>

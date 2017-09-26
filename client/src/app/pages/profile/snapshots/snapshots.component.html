@@ -17,8 +17,8 @@
         (viewDetails)="viewDetails$.next($event)">
       </ow-match-snapshot>
     </div>
-    <div class="mt-3" fxLayout="column" fxFlex *ngIf="matchDetails | async as targetSnapshot">
-      <ow-match-details [snapshot]="targetSnapshot"></ow-match-details>
+    <div class="mt-3" fxLayout="column" fxFlex *ngIf="matchDetails | async as snapshot">
+      <ow-match-details [snapshot]="snapshot"></ow-match-details>
     </div>
   </div>
 

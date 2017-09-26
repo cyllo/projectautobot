@@ -1,0 +1,18 @@
+
+query SnapshotDifference($snapshotStatisticAId: Int!, $snapshotStatisticBId: Int!) {
+  snapshotStatisticDifference(snapshotStatisticAId: $snapshotStatisticAId, snapshotStatisticBId: $snapshotStatisticBId) {
+    heroSnapshotStatistics {
+      heroCompetitive
+      heroQuickplay
+      heroTotalCompetitive
+      heroTotalQuickplay
+    }
+    profileSnapshotStatistic {
+      profileStatistic {
+        competitiveLevel
+        level
+        totalGamesWon
+      }
+    }
+  }
+}

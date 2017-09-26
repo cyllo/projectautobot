@@ -1,5 +1,7 @@
 import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import { SnapshotService } from '../../../../services';
 
 
 @Component({
@@ -13,10 +15,14 @@ export class MatchSnapshotComponent implements OnInit {
   @Output() viewDetails = new EventEmitter<number>();
   viewSnapshot$ = new Subject<number>();
 
-  heroesPlayed = [1, 2, 3];
+  heroesPlayed: Observable<any>;
 
-  constructor() {}
+  constructor(private snapshotService: SnapshotService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.heroesPlayed = Observable.of(this.snapshot)
+    .pluck('heroSnapshotStatistic')
+    .map(this.snapshotService.heroesByTimePlayed);
+  }
 
 }

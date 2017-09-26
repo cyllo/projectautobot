@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { GraphqlResponse } from '../models';
-import { FetchSnapshot } from './queries';
+import { FetchSnapshot, SnapshotDifference } from './queries';
 import {
   toLower,
   converge,
@@ -9,8 +9,22 @@ import {
   pick,
   merge,
   prop,
-  map
+  map,
+  compose,
+  sort,
+  filter,
+  equals,
+  comparator,
+  useWith,
+  gt,
+  path,
+  not,
+  assoc,
+  multiply,
+  divide
 } from 'ramda';
+
+const heroTimePlayed = path<number>(['gameHistoryStatistic', 'timePlayed']);
 
 @Injectable()
 export class SnapshotService {
@@ -34,5 +48,28 @@ export class SnapshotService {
     ]);
 
     return map(selectHeroesSnapshot);
+  }
+
+  diff(snapshotStatisticAId, snapshotStatisticBId) {
+    return this.apollo.query({
+      query: SnapshotDifference,
+      variables: { snapshotStatisticAId, snapshotStatisticBId }
+    })
+    .map(({ data: { snapshotStatisticDifference } }: GraphqlResponse) => snapshotStatisticDifference);
+  }
+
+  heroesByTimePlayed(heroes: any[]) {
+    const timePlayedComparator = comparator(useWith(gt, [heroTimePlayed, heroTimePlayed]));
+    const hasPlayed = compose(not, equals(0), heroTimePlayed);
+
+    return compose(sort(timePlayedComparator), filter(hasPlayed))(heroes);
+  }
+
+  percentagePlayed(totalTimePlayed: number) {
+    return map(hero => assoc(
+      'percentagePlayed',
+      multiply(divide(heroTimePlayed(hero), totalTimePlayed), 100).toFixed(2),
+      hero)
+    );
   }
 }
