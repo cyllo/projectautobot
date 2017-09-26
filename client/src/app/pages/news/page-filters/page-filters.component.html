@@ -2,7 +2,7 @@
   <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30px" fxFlex="grow">
 
     <div fxLayout="column" fxFlex="noshrink">
-      <md-slide-toggle [checked]="isDisplayingLatest" (change)="sortOrderChanged($event, state)">
+      <md-slide-toggle color="primary" [checked]="isDisplayingLatest" (change)="sortOrderChanged($event, state)">
         <span class="text-uppercase">{{ isDisplayingLatest ? 'Latest' : 'Oldest' }}</span>
       </md-slide-toggle>
     </div>

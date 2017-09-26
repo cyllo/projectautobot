@@ -33,8 +33,7 @@ export class NewsComponent implements OnInit {
   ngOnInit() {
     this.blogPosts$ = Observable.combineLatest(this.newsFilters$, this.newsPagination$)
       .debounceTime(250)
-      .switchMap(([newsFilters, paginationParams]) => this.newsService.fetchBlogPosts(newsFilters, paginationParams))
-      .do(x => console.log('blog posts:' + x));
+      .switchMap(([newsFilters, paginationParams]) => this.newsService.fetchBlogPosts(newsFilters, paginationParams));
   }
 
   onPageFilterChange(filters: NewsFilters) {
