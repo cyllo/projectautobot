@@ -6,7 +6,6 @@ import { Dispatcher } from '@ngrx/store';
 import { merge } from 'ramda';
 import {
   CreateUser,
-  // ConnectToBattlenet,
   FindUser,
   Friendships,
   Clubs } from './queries';
@@ -37,13 +36,6 @@ export class UserService {
       variables: { displayName }
     }).map(({ data: { users } }: SearchResponse) => users);
   }
-
-  // connectToBattleNet(clientAuthToken) {
-  //   return this.apollo.mutate({
-  //     mutation: ConnectToBattlenet,
-  //     variables: { clientAuthToken }
-  //   });
-  // }
 
   listFriendRequests() {
     return this.apollo.query({
