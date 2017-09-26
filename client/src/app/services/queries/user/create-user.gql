@@ -1,6 +1,6 @@
 #import "./user-fields.gql"
 
-mutation CreateUser($password: String!, $displayName: String!, $email: String!, $clientAuthToken: String) {
+mutation CreateUser($password: String!, $displayName: String!, $email: String!, $clientAuthToken: String!) {
   createUser(password: $password, displayName: $displayName, email: $email, clientAuthToken: $clientAuthToken) {
     ...UserFields
   }
