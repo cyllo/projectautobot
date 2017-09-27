@@ -1,5 +1,5 @@
 defmodule Scraper.Sorter.Stats do
-  alias Scarper.Sorter.Helpers
+  alias Scraper.Sorter.Helpers
 
   @lifetime_statistics [
     :solo_kills, :eliminations,

@@ -12,7 +12,7 @@ defmodule StatsAverages do
   end
 
   def snapshot do
-    GenServer.call __MODULE__, :snapshot_averages
+    GenServer.call(__MODULE__, :snapshot_averages)
   end
 
   # SERVER

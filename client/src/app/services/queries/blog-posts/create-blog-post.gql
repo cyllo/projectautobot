@@ -7,7 +7,8 @@ mutation CreateBlogPost(
   $thumbnailUrl: String!,
   $heroImageUrl: String!,
   $summary: String!,
-  $content: String!
+  $content: String!,
+  $isFeatured: Boolean
 ) {
   createBlogPost(
     title: $title,
@@ -15,7 +16,8 @@ mutation CreateBlogPost(
     content: $content,
     thumbnailUrl: $thumbnailUrl,
     heroImageUrl: $heroImageUrl,
-    blogCategories: $blogCategories
+    blogCategories: $blogCategories,
+    isFeatured: $isFeatured
   ) {
     ...BlogPostFields,
     blogCategories {

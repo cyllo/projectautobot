@@ -16,6 +16,7 @@ export interface BlogPost {
   updatedAt: string;
   author: User;
   blogCategories: BlogCategories[];
+  isFeatured: boolean;
 }
 
 export interface BlogPostState {

@@ -1,5 +1,4 @@
 export const UnfollowUser = require('./unfollow-user.gql');
-export const ConnectToBattlenet = require('./connect-to-battlenet');
 export const Logout = require('./logout');
 export const FindUser = require('./find');
 export const Login = require('./login');

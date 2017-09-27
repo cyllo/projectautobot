@@ -31,6 +31,11 @@ defmodule Scraper.ModelCreator do
     with {:ok, leaderboard} <- Snapshots.create_or_get_leaderboard_snapshot() do
       Map.put(profile, :leaderboard_id, leaderboard.id)
     else
+      {:error, e} ->
+        Logger.debug "Not adding leaderboard #{inspect e}"
+
+        profile
+
       _ -> profile
     end
   end
@@ -39,6 +44,11 @@ defmodule Scraper.ModelCreator do
     with {:ok, snapshot_averages} <- Snapshots.create_or_get_average_snapshot() do
       Map.put(profile, :snapshot_averages_id, snapshot_averages.id)
     else
+      {:error, e} ->
+        Logger.debug "Not adding averages #{inspect e}"
+
+        profile
+
       _ -> profile
     end
   end

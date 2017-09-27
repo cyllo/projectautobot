@@ -9,13 +9,10 @@
         <div class="flex-layout" fxLayout="column" fxFlex>
           <div class="flex-layout pt-3" fxLayout="row">
             <div class="flex-layout" fxLayout="column" fxFlex>
-              <ow-chart
+              <ow-grouped-bar-chart
                 *ngIf="datasets | async as chartDataset"
-                [labels]="chartData.xAxisLabels"
-                [datasets]="chartDataset"
-                [chartType]="chartData.chartType"
-                [legend]="chartData.legend">
-              </ow-chart>
+                [data]="chartDataset">
+              </ow-grouped-bar-chart>
             </div>
           </div>
         </div>
@@ -23,7 +20,7 @@
 
       <div class="flex-layout" fxLayout="row">
         <div class="flex-layout" fxLayout="column" fxFlex>
-          <!-- <ow-list-of-compareable-heroes [heroes]="heroes | async" [selectedHeroes]="selectedHeroes | async" (change)="selectedHeroes.next($event)"></ow-list-of-compareable-heroes> -->
+          <ow-list-of-compareable-heroes [heroes]="heroes | async" [selectedHeroes]="selectedHeroes | async" (change)="selectedHeroesInput.next($event)"></ow-list-of-compareable-heroes>
         </div>
       </div>
 
