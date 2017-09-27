@@ -2,11 +2,9 @@
 
   <span class="text-uppercase"><strong>Lifetime Statistics</strong></span>
 
-  <div class="px-3" fxLayout="row">
-    <div fxLayout="column" fxFlex>
-      <div fxLayout="row">
-        <span class="mat-caption text-uppercase"><strong>Overview</strong></span>
-      </div>
+  <div fxLayout="row">
+    <div fxLayout="column" fxLayoutGap="4px" fxFlex>
+      <span class="mat-caption text-uppercase"><strong>Overview</strong></span>
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <span class="mat-caption text-uppercase">Games Played</span>
         <span class="mat-caption">{{ gameHistory.gamesPlayed }}</span>
@@ -34,11 +32,9 @@
     </div>
   </div>
 
-  <div class="px-3" fxLayout="row">
-    <div fxLayout="column" fxFlex>
-      <div fxLayout="row">
-        <span class="mat-caption text-uppercase"><strong>Combat</strong></span>
-      </div>
+  <div fxLayout="row">
+    <div fxLayout="column" fxLayoutGap="4px" fxFlex>
+      <span class="mat-caption text-uppercase"><strong>Combat</strong></span>
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <span class="mat-caption text-uppercase">Eliminations</span>
         <span class="mat-caption">{{ lifetimeStats.eliminations }}</span>

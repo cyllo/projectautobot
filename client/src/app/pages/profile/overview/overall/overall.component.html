@@ -1,71 +1,46 @@
 <div class="overall" fxLayout="column" fxLayoutGap="14px" fxFlex>
-
   <div fxLayout="row">
-    <div>
-      <span class="text-uppercase mb-0 mr-2"><strong>Overall Performance</strong></span>
-      <span class="mat-caption">Statistics are lifetime per 10 min averages.</span>
-    </div>
+    <span class="text-uppercase mb-0 mr-2"><strong>Overall Performance</strong></span>
+    <span class="mat-caption">Statistics are lifetime per 10 min averages.</span>
   </div>
-
-  <div fxLayout="row">
-    <div fxLayout="column" fxLayoutAlign="center center" fxFlex="50%">
-      <ngx-charts-polar-chart
-      [results]="generalChart"
-      [xAxis]="showXAxis"
-      [yAxis]="showYAxis"
-      [autoScale]="autoScale"
-      [legend]="legend">
-      </ngx-charts-polar-chart>
-    </div>
-    <div fxLayout="column" fxLayoutAlign="center center" fxFlex="50%">
-      <ngx-charts-polar-chart
-       [results]="combatChart"
-       [xAxis]="showXAxis"
-       [yAxis]="showYAxis"
-       [autoScale]="autoScale"
-       [legend]="legend">
-      </ngx-charts-polar-chart>
-    </div>
-  </div>
-
   <div fxLayout="row" fxLayoutWrap>
-
-    <div class="mt-3 px-2" fxLayout="column" fxLayoutGap="8px" fxFlex="20%" fxFlex.lt-md="25%">
+    <div fxLayout="column" fxLayoutAlign="center center" fxFlex.lg="50%" fxFlex.md>
+      <ngx-charts-polar-chart [results]="generalChart" [xAxis]="showXAxis" [yAxis]="showYAxis" [autoScale]="autoScale" [legend]="legend"></ngx-charts-polar-chart>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center center" fxFlex.lg="50%" fxFlex.md>
+      <ngx-charts-polar-chart [results]="combatChart" [xAxis]="showXAxis" [yAxis]="showYAxis" [autoScale]="autoScale" [legend]="legend"></ngx-charts-polar-chart>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutWrap>
+    <div class="pt-3 px-3" fxLayout="column" fxLayoutGap="8px" fxFlex="25%" fxFlex.lt-md="50%">
       <span><strong>{{ totalGameAverage.eliminationsAvgPer10Min }}</strong></span>
       <md-progress-bar mode="determinate" value="70"></md-progress-bar>
       <span class="mat-caption text-uppercase">Eliminations</span>
     </div>
-
-    <div class="mt-3 px-2" fxLayout="column" fxLayoutGap="8px" fxFlex="20%" fxFlex.lt-md="25%">
+    <div class="pt-3 px-3" fxLayout="column" fxLayoutGap="8px" fxFlex="25%" fxFlex.lt-md="50%">
       <span><strong>{{ totalGameAverage.eliminationsAvgPer10Min | owKillDeathAverage:totalGameAverage.deathsAvgPer10Min }}</strong></span>
       <md-progress-bar mode="determinate" value="70"></md-progress-bar>
       <span class="mat-caption text-uppercase">K/D Ratio</span>
     </div>
-
-    <div class="mt-3 px-2" fxLayout="column" fxLayoutGap="8px" fxFlex="20%" fxFlex.lt-md="25%">
+    <div class="pt-3 px-3" fxLayout="column" fxLayoutGap="8px" fxFlex="25%" fxFlex.lt-md="50%">
       <span><strong>{{ totalGameAverage.allDamageDoneAvgPer10Min }}</strong></span>
       <md-progress-bar mode="determinate" value="70"></md-progress-bar>
       <span class="mat-caption text-uppercase">All Damage</span>
     </div>
-
-    <div class="mt-3 px-2" fxLayout="column" fxLayoutGap="8px" fxFlex="20%" fxFlex.lt-md="25%">
+    <div class="pt-3 px-3" fxLayout="column" fxLayoutGap="8px" fxFlex="25%" fxFlex.lt-md="50%">
       <span><strong>{{ totalGameAverage.damageBlockedAvgPer10Min }}</strong></span>
       <md-progress-bar mode="determinate" value="70"></md-progress-bar>
       <span class="mat-caption text-uppercase">Blocked</span>
     </div>
-
-    <div class="mt-3 px-2" fxLayout="column" fxLayoutGap="8px" fxFlex="20%" fxFlex.lt-md="25%">
+    <div class="pt-3 px-3" fxLayout="column" fxLayoutGap="8px" fxFlex="25%" fxFlex.lt-md="50%">
       <span><strong>{{ totalGameAverage.healingDoneAvgPer10Min }}</strong></span>
       <md-progress-bar mode="determinate" value="70"></md-progress-bar>
       <span class="mat-caption text-uppercase">Healing</span>
     </div>
-
-    <div class="mt-3 px-2" fxLayout="column" fxLayoutGap="8px" fxFlex="20%" fxFlex.lt-md="25%">
+    <div class="pt-3 px-3" fxLayout="column" fxLayoutGap="8px" fxFlex="25%" fxFlex.lt-md="50%">
       <span><strong>{{ matchAwards.totalMedals }}</strong></span>
       <md-progress-bar mode="determinate" value="70"></md-progress-bar>
       <span class="mat-caption text-uppercase">Medals</span>
     </div>
-
   </div>
-
 </div>
