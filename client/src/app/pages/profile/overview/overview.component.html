@@ -1,4 +1,22 @@
 <div class="overview" fxLayout="column" fxFlex>
+  <div fxLayout="row">
+    <div class="px-3" fxLayout="column" fxLayoutGap="30px" fxFlex="300px">
+      <ow-skill-rating-trend></ow-skill-rating-trend>
+      <ow-lifetime-stats [lifetimeStats]="lifeTimeStats | async" [gameHistory]="gameHistory | async"></ow-lifetime-stats>
+    </div>
+    <div class="px-3" fxLayout="column" fxFlex>
+      <div fxLayout="row" fxLayoutWrap>
+        <div class="pt-3" fxLayout="column" fxFlex.lg="60%" fxFlex.md="100%">
+          <ow-overall [totalGameAverage]="totalGameAverage | async" [matchAwards]="matchAwards | async"></ow-overall>
+        </div>
+        <div class="pt-3" fxLayout="column" fxFlex.lg="40%" fxFlex.md="100%">
+          <ow-most-played [mostPlayedHeroes]="mostPlayedHeroes | async"></ow-most-played>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="overview" fxLayout="column" fxFlex>
 
   <div fxLayout="row" fxLayoutWrap>
 
@@ -46,4 +64,4 @@
 
   </div>
 
-</div>
+</div> -->
