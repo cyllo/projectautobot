@@ -1,4 +1,4 @@
-defmodule Scarper.Sorter.Helpers do
+defmodule Scraper.Sorter.Helpers do
   def transform_key_lists_to_map(map), do: for {k, v} <- Map.drop(map, [nil]), into: %{}, do: {k, Map.new(v)}
 
   def categorize_stats(stats, group_by_fun) do

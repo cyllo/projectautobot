@@ -157,7 +157,7 @@ defmodule Api.Schema do
       arg :start_date, :datetime
       arg :end_date, :datetime
 
-      resolve &AverageStatisticsSnapshotResolver.all/2
+      resolve &AverageStatisticsSnapshotResolver.find/2
     end
 
     field :statistics_averages_snapshots, list_of(:statistics_averages_snapshot) do
@@ -168,7 +168,7 @@ defmodule Api.Schema do
       arg :start_date, :datetime
       arg :end_date, :datetime
 
-      resolve &AverageStatisticsSnapshotResolver.find/2
+      resolve &AverageStatisticsSnapshotResolver.all/2
     end
 
     @desc "Diffs a snapshot statistic pair, diff returns difference from a -> b"

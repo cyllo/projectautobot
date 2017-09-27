@@ -1,6 +1,8 @@
 defmodule Models.Statistics.Snapshots do
   use Models.Model
 
+  import Logger, only: [warn: 1, debug: 1]
+
   alias Ecto.Multi
   alias Models.{Model, Enums, Repo, Game.GamerTag}
   alias Models.Statistics.Snapshots.{
@@ -88,11 +90,11 @@ defmodule Models.Statistics.Snapshots do
   end
 
   def average(type) do
-    %{hero_snapshot_statistics: [hero_stats_average]} = HeroSnapshotStatistic.average_stats_query
+    hero_stats_average = HeroSnapshotStatistic.average_hero_stats_query
       |> HeroSnapshotStatistic.stats_type_query(Enums.create_stats_type(:hero, type))
-      |> Repo.one
+      |> Repo.all
 
-    %{hero_snapshot_statistics: [hero_total_stats_average]} = HeroSnapshotStatistic.average_stats_query
+    hero_total_stats_average = HeroSnapshotStatistic.average_stats_query
       |> HeroSnapshotStatistic.stats_type_query(Enums.create_stats_type(:hero_total, type))
       |> Repo.one
 
@@ -103,10 +105,10 @@ defmodule Models.Statistics.Snapshots do
   end
 
   def find_hero_and_average(%{hero_id: hero_id, type: type, platform: platform} = params) do
-    cond do 
+    cond do
       platform === "" ->
         {:error, "platform can't be blank"}
-      
+
 
       true ->
         SnapshotStatistic.latest_by_gamer_tag(params)
@@ -126,7 +128,7 @@ defmodule Models.Statistics.Snapshots do
     hero_average(hero_id, type)
   end
 
-  def hero_average(hero_id, type) do 
+  def hero_average(hero_id, type) do
     hero_average(HeroSnapshotStatistic.average_hero_stats_by_stats_type_query(type), hero_id, type)
   end
 
@@ -195,11 +197,17 @@ defmodule Models.Statistics.Snapshots do
     with {:ok, average_snapshot} <- StatsAverages.snapshot() do
       {:ok, average_snapshot}
     else
-      _ ->
+      {:error, str} when is_bitstring(str) ->
+        Logger.warn "Can't create average snapshot #{inspect str}"
+
         case Repo.one(StatisticsAveragesSnapshot.latest_snapshot_query) do
-          nil -> {:error, "No Leaderboard Snapshot found"}
+          nil -> {:error, "No snapshot averages found"}
           average_snapshot -> {:ok, average_snapshot}
         end
+
+      {:error, e} ->
+        Logger.warn inspect(e.errors)
+        {:error, e}
     end
   end
 
