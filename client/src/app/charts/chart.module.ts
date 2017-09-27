@@ -1,16 +1,18 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
-import { LineChartComponent } from './index';
+import { LineChartComponent, GroupedBarChartComponent } from './index';
 
 @NgModule({
   imports: [NgxChartsModule],
   declarations: [
-    LineChartComponent
+    LineChartComponent,
+    GroupedBarChartComponent
   ],
   exports: [
-    LineChartComponent
-  ],
+    LineChartComponent,
+    GroupedBarChartComponent
+  ]
 })
 export class ChartsModule {
   static forRoot(): ModuleWithProviders {

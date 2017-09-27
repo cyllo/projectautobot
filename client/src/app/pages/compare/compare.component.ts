@@ -7,10 +7,9 @@ import { addProfiles } from '../../reducers';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import {
-  assoc,
+  append,
   chain,
   compose,
-  concat,
   curry,
   filter,
   find,
@@ -40,12 +39,17 @@ const daysAgo = n => {
 };
 
 const dateToMMDD = date => {
-  return `${date.getMonth()}-${date.getDate()}`;
+  return `${date.getMonth() + 1}-${date.getDate()}`;
 };
 
-interface GraphDataset {
-  data: number[];
-  label: string;
+interface GraphDataRoot {
+  name: string;
+  series: GraphDatapoint[];
+}
+
+interface GraphDatapoint {
+  name: string;
+  value: number;
 }
 
 interface SelectedHeroes {
@@ -71,10 +75,11 @@ interface StatCategory {
 export class CompareComponent implements OnInit {
   profiles: Observable<any>;
   heroes: Observable<CustomHeroes[]>;
-  datasets: Observable<GraphDataset[]>;
+  datasets: Observable<GraphDataRoot[]>;
   selectedProfiles: Observable<Player[]>;
   selectedProfileKeys = new Subject<any[]>();
-  selectedHeroes = new Subject<SelectedHeroes>();
+  selectedHeroes: Observable<SelectedHeroes>;
+  selectedHeroesInput = new Subject<SelectedHeroes>();
   selectedStatCategories = new Subject<string[]>();
 
   chartData: ChartData = {
@@ -138,12 +143,12 @@ export class CompareComponent implements OnInit {
         }, heroes);
       });
 
-    this.heroes.first().subscribe(heroes => {
-      this.selectedHeroes.next(reduce((acc, hero) => {
+    this.selectedHeroes = this.heroes.first()
+      .map(heroes => reduce((acc, hero) => {
         acc[hero.id] = true;
         return acc;
-      }, {}, heroes));
-    });
+      }, {}, heroes))
+      .concat(this.selectedHeroesInput);
 
     this.datasets = Observable.combineLatest([
       this.selectedProfiles,
@@ -156,31 +161,34 @@ export class CompareComponent implements OnInit {
       selectedHeroes: SelectedHeroes[],
       selectedStatCategories: StatCategory[]
     ) => {
-      return reduce((datasets, statCategory) => {
-        return concat(chain((player: Player) => {
-          const selectedHeroIds = map(key => parseInt(key, 10), keys(filter(identity, selectedHeroes)));
-          return map(heroId => {
-            const hero = find(({id}) => id === heroId, heroes);
+      const selectedHeroIds = map(key => parseInt(key, 10), keys(filter(identity, selectedHeroes)));
+      return map(date => {
+        const series = chain(statCategory => {
+          return chain((player: Player) => {
+            return reduce((acc, heroId) => {
+              const hero = find(({id}) => id === heroId, heroes);
+              const snapshot = find(snapshotStatistic => {
+                return date === dateToMMDD(new Date(snapshotStatistic.insertedAt));
+              }, player.snapshotStatistics);
 
-            const snapshotsByDate = reduce((acc, snapshot) => {
-              return assoc(dateToMMDD(new Date(snapshot.insertedAt)), snapshot, acc);
-            }, {}, player.snapshotStatistics);
-
-            const data = map(date => {
-              const snapshot = snapshotsByDate[date];
               if (!snapshot) {
-                return;
+                return acc;
               }
-              return stat(statCategory.value, heroId, snapshot);
-            }, this.chartData.xAxisLabels);
 
-            return {
-              label: `${player.tag} - ${hero.name} - ${statCategory.name}`,
-              data
-            };
-          }, selectedHeroIds);
-        }, selectedProfiles), datasets);
-      }, [], selectedStatCategories);
+              const value = stat(statCategory.value, heroId, snapshot) || 0;
+
+              return append({
+                name: `${player.tag} - ${hero.name} - ${statCategory.name}`,
+                value
+              }, acc);
+            }, [], selectedHeroIds);
+          }, selectedProfiles);
+        }, selectedStatCategories);
+        return {
+          name: date,
+          series
+        };
+      }, this.chartData.xAxisLabels);
     });
   }
 }

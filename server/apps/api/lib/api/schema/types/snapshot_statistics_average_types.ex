@@ -14,7 +14,7 @@ defmodule Api.Schema.SnapshotStatisticsAverageTypes do
   end
 
   @desc "Average stats for snapshots"
-  object :snapshot_statistics_average do
+  object :snapshot_statistics_aggregate_average do
     field :heroes_total_snapshot_statistic, :heroes_total_snapshot_statistic_average
     field :hero_snapshot_statistics, list_of(:hero_snapshot_statistics_average)
   end

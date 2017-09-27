@@ -1,7 +1,7 @@
 defmodule Models.Statistics.Snapshots.SnapshotStatistic do
   use Models.Model
   alias Models.Statistics.Snapshots.{HeroSnapshotStatistic, SnapshotStatistic}
-  alias Models.Statistics.MatchAward
+  alias Models.{Game.GamerTag, Statistics.MatchAward}
 
   schema "snapshot_statistics" do
     belongs_to :gamer_tag, Models.Game.GamerTag
@@ -48,6 +48,22 @@ defmodule Models.Statistics.Snapshots.SnapshotStatistic do
   def latest_daily_query(query \\ SnapshotStatistic) do
     from(query, distinct: fragment("inserted_at::date"),
                 order_by: fragment("inserted_at::date DESC, inserted_at DESC"))
+  end
+
+  def latest_by_gamer_tag(%{region: "", platform: "pc"}) do
+    SnapshotStatistic.latest_stats_query
+      |> join(:inner, [s], gt in GamerTag, s.gamer_tag_id == gt.id and gt.platform == "pc")
+  end
+
+  def latest_by_gamer_tag(%{platform: platform} = params) do
+    region = Map.get(params, :region, "")
+
+    if (platform === "pc" and region === "") do
+      latest_by_gamer_tag(%{platform: platform, region: region})
+    else
+      SnapshotStatistic.latest_stats_query
+        |> join(:inner, [s], gt in GamerTag, s.gamer_tag_id == gt.id and gt.region == ^region and gt.platform == ^platform)
+    end
   end
 
   def latest_total_medals(gamer_tag_id) do

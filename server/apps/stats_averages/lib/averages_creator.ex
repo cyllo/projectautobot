@@ -4,9 +4,8 @@ defmodule StatsAverages.AveragesCreator do
   def create_snapshot do
     case Snapshots.get_first_snapshot_statistic do
       nil -> {:error, "No snapshots to use for averages"}
-      value ->
+      _ ->
         create_averages_params()
-          |> flatten_stats
           |> Snapshots.create_averages
     end
   end
@@ -28,13 +27,5 @@ defmodule StatsAverages.AveragesCreator do
       hero_competitive_averages: competitive_hero_averages,
       hero_quickplay_averages: quickplay_hero_averages
     }
-  end
-
-  defp flatten_stats(stats) do
-    Utility.map_values(stats, fn stat ->
-      stat
-        |> Utility.flatten_values
-        |> Utility.merge_all
-    end)
   end
 end
