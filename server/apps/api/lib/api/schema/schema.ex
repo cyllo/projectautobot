@@ -112,14 +112,16 @@ defmodule Api.Schema do
       resolve &BlogResolver.all/2
     end
 
-    field :hero_statistics_average, :hero_statistics_average do
+    field :hero_statistics_aggregate_average, :hero_statistics_aggregate_average do
       arg :hero_id, non_null(:integer)
       arg :type, non_null(:snapshot_statistic_type)
+      arg :region, :string
+      arg :platform, :string
 
       resolve &HeroStatisticsAverageResolver.find_hero_and_average/2
     end
 
-    field :snapshots_statistics_average, :snapshot_statistics_average do
+    field :snapshots_statistics_aggregate_average, :snapshot_statistics_aggregate_average do
       arg :type, non_null(:snapshot_statistic_type)
 
       resolve &SnapshotStatisticsAverageResolver.average/2
@@ -155,7 +157,7 @@ defmodule Api.Schema do
       arg :start_date, :datetime
       arg :end_date, :datetime
 
-      resolve &AverageStatisticsSnapshotResolver.all/2
+      resolve &AverageStatisticsSnapshotResolver.find/2
     end
 
     field :statistics_averages_snapshots, list_of(:statistics_averages_snapshot) do
@@ -166,7 +168,7 @@ defmodule Api.Schema do
       arg :start_date, :datetime
       arg :end_date, :datetime
 
-      resolve &AverageStatisticsSnapshotResolver.find/2
+      resolve &AverageStatisticsSnapshotResolver.all/2
     end
 
     @desc "Diffs a snapshot statistic pair, diff returns difference from a -> b"

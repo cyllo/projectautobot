@@ -30,7 +30,9 @@
 
   <ow-profile-career [profile]="currentProfile" [modeIndicator]="modeIndicator | async"></ow-profile-career>
 
-  <div fxLayout="row">
+  <ow-profile-overview [profile]="currentProfile" [modeIndicator]="modeIndicator"></ow-profile-overview>
+
+  <!-- <div fxLayout="row">
     <md-tab-group [(selectedIndex)]="selectedTabIndex" fxFlex>
       <md-tab label="Overview">
         <div class="py-3 px-3" fxLayout="column" fxFlex>
@@ -58,7 +60,7 @@
         </div>
       </md-tab>
     </md-tab-group>
-  </div>
+  </div> -->
 
 </div>
 

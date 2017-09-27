@@ -1,52 +1,37 @@
 <div fxLayout="column" fxFlex>
-
   <span class="text-uppercase"><strong>Most Played Heroes</strong></span>
-
   <div fxLayout="row" fxLayoutWrap>
-
-    <div class="mt-3 px-3" fxLayout="column" fxLayoutGap="8px" fxFlex="50%" *ngFor="let hero of mostPlayedHeroes">
-
+    <div class="pt-3 px-3" fxLayout="column" fxLayoutGap="8px" fxFlex.lg="50%" fxFlex.md *ngFor="let hero of mostPlayedHeroes">
       <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center">
         <ow-hero-portrait [class]="'md-image-48'" [owCode]="hero.hero.code"></ow-hero-portrait>
-        <div fxLayout="column">
-          <span><strong>{{hero.hero.name}}</strong></span>
-          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
-            <md-icon class="md-14" svgIcon="role_{{ hero.hero.role | lowercase }}"></md-icon>
-            <span class="mat-caption text-uppercase">{{hero.hero.role}}</span>
+        <div fxLayout="column" fxLayoutGap="4px" fxFlex>
+          <span class="text-uppercase"><strong>{{hero.hero.name}}</strong></span>
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+            <md-icon class="md-18" svgIcon="role_{{ hero.hero.role | lowercase }}"></md-icon>
+            <span class="text-uppercase">{{hero.hero.role}}</span>
           </div>
         </div>
       </div>
-
       <div fxLayout="row">
-
-        <div fxLayout="column" fxFlex>
-
+        <div fxLayout="column" fxLayoutGap="4px" fxFlex>
           <div fxLayout="row" fxLayoutAlign="space-between center">
             <span class="mat-caption text-uppercase">Win Rate</span>
             <span class="mat-caption text-uppercase">{{ hero.gameHistoryStatistic?.winPercentage | owParsePercent }}%</span>
           </div>
-
           <div fxLayout="row" fxLayoutAlign="space-between center">
             <span class="mat-caption text-uppercase">K/D Ratio</span>
             <span class="mat-caption text-uppercase">{{ hero.combatLifetimeStatistic.eliminations | owKillDeathAverage:hero.combatLifetimeStatistic.deaths }}:1</span>
           </div>
-
           <div fxLayout="row" fxLayoutAlign="space-between center">
             <span class="mat-caption text-uppercase">Kills/Deaths</span>
             <span class="mat-caption text-uppercase">{{ hero.combatLifetimeStatistic.eliminations }} / {{ hero.combatLifetimeStatistic.deaths }}</span>
           </div>
-
           <div fxLayout="row" fxLayoutAlign="space-between center">
             <span class="mat-caption text-uppercase">Wins</span>
             <span class="mat-caption text-uppercase">{{ hero.gameHistoryStatistic?.gamesWon }}</span>
           </div>
-
         </div>
-
       </div>
-
     </div>
-
   </div>
-
 </div>

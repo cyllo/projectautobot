@@ -43,7 +43,7 @@ export class ClubComponent implements OnInit {
   }
 
   compareProfiles(friendships) {
-    this.router.navigate(['/compare'], { queryParams: { ids: map(prop('id'), friendships)} });
+    this.router.navigate(['/compare'], { queryParams: { id: map(prop('primaryGamerTagId'), friendships)} });
   }
 
   deleteClub(id) {
