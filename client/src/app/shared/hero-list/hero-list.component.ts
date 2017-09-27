@@ -1,14 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { Store } from '@ngrx/store';
+import { AppState } from '../../models';
+import { Observable } from 'rxjs/Observable';
+import { notEmpty } from '../../services';
 
 @Component({
   selector: 'ow-hero-list',
   templateUrl: 'hero-list.component.html',
   styleUrls: ['hero-list.component.scss']
 })
-export class HeroListComponent {
+export class HeroListComponent implements OnInit {
+  heroes: Observable<any>;
 
-  public heroes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  constructor(
+    private store: Store<AppState>
+  ) {}
 
-  constructor() {}
-
+  ngOnInit() {
+    this.heroes = this.store.select('heroes').filter(notEmpty);
+  }
 }

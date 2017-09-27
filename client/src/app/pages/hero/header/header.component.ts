@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ow-hero-header',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['header.component.scss']
 })
 export class HeroHeaderComponent {
+  @Input() hero: Observable<any>;
+  @Input() heroStats: Observable<any>;
 
   constructor() {}
 

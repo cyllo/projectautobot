@@ -1,6 +1,6 @@
 <div class="hero" fxLayout="column" fxLayoutGap="30px" fxFlex>
 
-  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap>
+  <!-- <div fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap>
     <div class="pt-3 px-3" fxLayout="column" fxFlex.gt-sm="initial" fxFlex.lt-md>
       <span class="mat-caption text-uppercase">Platform</span>
       <div fxLayout="row" fxLayoutGap="8px">
@@ -21,30 +21,30 @@
       <span class="mat-caption text-uppercase">Game Mode</span>
       <md-slide-toggle color="primary"><span class="text-uppercase">Quick Play</span></md-slide-toggle>
     </div>
-  </div>
+  </div> -->
 
-  <ow-hero-header></ow-hero-header>
+  <ow-hero-header [hero]="hero" [heroStats]="heroStats"></ow-hero-header>
 
   <div fxLayout="row" fxLayoutWrap>
     <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="720px" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="100%">
       <md-tab-group class="general-tab-group">
         <md-tab label="Overview"><ow-hero-overview></ow-hero-overview></md-tab>
-        <md-tab label="Skills"><ow-hero-skills></ow-hero-skills></md-tab>
+        <!-- <md-tab label="Skills"><ow-hero-skills></ow-hero-skills></md-tab>
         <md-tab label="Synergies"><ow-hero-synergies></ow-hero-synergies></md-tab>
-        <md-tab label="Counters"><ow-hero-counters></ow-hero-counters></md-tab>
+        <md-tab label="Counters"><ow-hero-counters></ow-hero-counters></md-tab> -->
       </md-tab-group>
     </div>
     <div fxLayout="column" fxFlex.gt-md="initial" fxFlex.gt-xs="40%" fxHide.xs>
       <div class="hero-render">
         <div class="spacer d-inline-block"></div>
-        <img class="d-inline-block" width="300" src="./img/hero_renders/widowmaker.png">
+        <img class="d-inline-block" width="300" [src]="heroImage | async">
       </div>
     </div>
   </div>
 
-  <ow-hero-trends></ow-hero-trends>
+  <!-- <ow-hero-trends></ow-hero-trends> -->
 
-  <ow-leaderboard-table></ow-leaderboard-table>
+  <!-- <ow-leaderboard-table></ow-leaderboard-table> -->
 
   <ow-hero-list></ow-hero-list>
 

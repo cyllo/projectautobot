@@ -8,7 +8,9 @@ import {
   ParsePercent,
   KillDeathAverage,
   OrderByPipe,
-  ValuesPipe } from '../pipes';
+  ValuesPipe,
+  TotalTimeOnFire
+} from '../pipes';
 
 const PipeArray = [
   SecondsToHours,
@@ -17,7 +19,8 @@ const PipeArray = [
   ParsePercent,
   KillDeathAverage,
   OrderByPipe,
-  ValuesPipe
+  ValuesPipe,
+  TotalTimeOnFire
 ];
 
 @NgModule({

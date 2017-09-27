@@ -22,8 +22,7 @@ export class HeroStatistics {
       query: HeroAverages,
       variables: { heroId: id }
     })
-    .filter(s => !!s.data.heroStatisticsAverage)
-    .map(({data: { heroStatisticsAverage } }) => heroStatisticsAverage);
+    .map(({ data }) => data);
   }
 
   getSnapshot() {

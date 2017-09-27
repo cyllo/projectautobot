@@ -5,4 +5,5 @@ export * from './average-match-length.pipe';
 export * from './seconds-to-minutes.pipe';
 export * from './parse-percent.pipe';
 export * from './kill-death-average.pipe';
+export * from './total-time-on-fire.pipe';
 export * from './pipe.module';

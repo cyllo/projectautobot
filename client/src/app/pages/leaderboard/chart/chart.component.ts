@@ -9,28 +9,28 @@ export class LeaderboardChartComponent implements OnInit {
 
   data = [
     {
-      "name": "Germany",
-      "value": 8940000
+      'name': 'Germany',
+      'value': 8940000
     },
     {
-      "name": "USA",
-      "value": 5000000
+      'name': 'USA',
+      'value': 5000000
     },
     {
-      "name": "USA2",
-      "value": 5000000
+      'name': 'USA2',
+      'value': 5000000
     },
     {
-      "name": "USA3",
-      "value": 5000000
+      'name': 'USA3',
+      'value': 5000000
     },
     {
-      "name": "USA4",
-      "value": 5000000
+      'name': 'USA4',
+      'value': 5000000
     },
     {
-      "name": "USA5",
-      "value": 5000000
+      'name': 'USA5',
+      'value': 5000000
     }
   ];
 
