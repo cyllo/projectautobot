@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartType } from '../../../models';
 
 @Component({
   selector: 'ow-leaderboard-chart',
@@ -8,19 +7,41 @@ import { ChartType } from '../../../models';
 })
 export class LeaderboardChartComponent implements OnInit {
 
-  // Skill Rating Distribution Chart
-  srdChart = {
-    xAxisLabels: ['0', '500', '1000', '1500'],
-    datasets:
-    [
-      {
-        label: 'Skill Rating Distribution',
-        data: [1, 2, 3, 4]
-      }
-    ],
-    chartType: ChartType.bar,
-    legend: false
-  };
+  data = [
+    {
+      "name": "Germany",
+      "value": 8940000
+    },
+    {
+      "name": "USA",
+      "value": 5000000
+    },
+    {
+      "name": "USA2",
+      "value": 5000000
+    },
+    {
+      "name": "USA3",
+      "value": 5000000
+    },
+    {
+      "name": "USA4",
+      "value": 5000000
+    },
+    {
+      "name": "USA5",
+      "value": 5000000
+    }
+  ];
+
+  // options
+  showXAxis = true;
+  showYAxis = true;
+  showLegend = false;
+  showXAxisLabel = true;
+  xAxisLabel = 'Country';
+  showYAxisLabel = false;
+  yAxisLabel = 'Population';
 
   constructor() {}
 

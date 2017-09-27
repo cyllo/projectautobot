@@ -1,17 +1,21 @@
-<div class="flex-layout px-3" fxLayout="row" fxFlex="noshrink" fxLayoutWrap>
-  <div class="flex-layout" fxLayout="column" fxLayoutGap="14px" fxFlex>
-    <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
-      <span class="mat-caption text-uppercase"><strong>Most Played Per Competitive Rank</strong></span>
-    </div>
-    <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
-      <div class="flex-layout" fxLayout="column" fxFlex>
-        <ow-chart
-          [chartType]="srdChart.chartType"
-          [labels] = "srdChart.xAxisLabels"
-          [datasets]="srdChart.datasets"
-          [legend]="srdChart.legend">
-        </ow-chart>
-      </div>
+<div class="heroes-chart" fxLayout="column" fxLayoutGap="14px" fxFlex>
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <div fxLayout="column" fxFlex="20%">
+      <md-select placeholder="Competitive Ranking" [(ngModel)]="selectedRanking">
+         <md-option *ngFor="let ranking of rankings" [value]="ranking.value">{{ ranking.name }}</md-option>
+      </md-select>
     </div>
   </div>
+  <ngx-charts-bar-vertical
+      [ngStyle]="{ 'height': '150px' }"
+      [results]="data"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      (select)="onSelect($event)">
+  </ngx-charts-bar-vertical>
 </div>
