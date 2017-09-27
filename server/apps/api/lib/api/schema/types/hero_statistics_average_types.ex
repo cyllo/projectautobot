@@ -2,7 +2,7 @@ defmodule Api.Schema.HeroStatisticsAverageTypes do
   use Absinthe.Schema.Notation
 
   @desc "Average stats for playable heroes"
-  object :hero_statistics_average do
+  object :hero_statistics_aggregate_average do
     field :hero, :hero
 
     field :combat_best_statistic, :combat_best_statistic_average

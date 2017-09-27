@@ -1,6 +1,6 @@
 defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
   use Models.Model
-  alias Models.Statistics
+  alias Models.{Enums, Statistics}
   alias Models.Statistics.Snapshots.{HeroSnapshotStatistic, SnapshotStatistic}
   alias Models.Statistics.{
     GameAverage, CombatBest,
@@ -66,8 +66,12 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
                       :match_awards_statistic_id])
   end
 
-  def average_stats_by_stats_type_query(statistic_type) do
-    average_stats_query()
+  def average_hero_stats_by_stats_type_query(query \\ SnapshotStatistic.latest_stats_query, statistic_type) do
+    average_stats_by_stats_type_query(query, Enums.create_stats_type(:hero, statistic_type))
+  end
+
+  def average_stats_by_stats_type_query(query \\ SnapshotStatistic.latest_stats_query, statistic_type) do
+    average_stats_query(query)
       |> stats_type_query(statistic_type)
   end
 
@@ -76,8 +80,8 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
 
   def where_hero_query(query, hero_id), do: where(query, [_, hs], hs.hero_id == ^hero_id)
 
-  def average_stats_query do
-    from(ss in subquery(SnapshotStatistic.latest_stats_query),
+  def average_stats_query(query \\ SnapshotStatistic.latest_stats_query) do
+    from(ss in subquery(query),
       inner_join: hs in HeroSnapshotStatistic,
       on: ss.id == hs.snapshot_statistic_id,
       inner_join: hmas in MatchAward,

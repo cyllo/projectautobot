@@ -102,13 +102,43 @@ defmodule Models.Statistics.Snapshots do
     }
   end
 
-  def hero_average(hero_id, type) do
-    %{hero_snapshot_statistics: [hero_snapshot_statistic]} = Enums.create_stats_type(:hero, type)
-      |> HeroSnapshotStatistic.average_stats_by_stats_type_query
+  def find_hero_and_average(%{hero_id: hero_id, type: type, platform: platform} = params) do
+    cond do 
+      platform === "" ->
+        {:error, "platform can't be blank"}
+      
+
+      true ->
+        SnapshotStatistic.latest_by_gamer_tag(params)
+          |> Ecto.Query.select([ss], ss)
+          |> Ecto.Query.subquery
+          |> Ecto.Query.from
+          |> HeroSnapshotStatistic.average_hero_stats_by_stats_type_query(type)
+          |> hero_average(hero_id, type)
+    end
+  end
+
+  def find_hero_and_average(%{region: _}) do
+    {:error, "Must supply platform with region"}
+  end
+
+  def find_hero_and_average(%{hero_id: hero_id, type: type}) do
+    hero_average(hero_id, type)
+  end
+
+  def hero_average(hero_id, type) do 
+    hero_average(HeroSnapshotStatistic.average_hero_stats_by_stats_type_query(type), hero_id, type)
+  end
+
+  def hero_average(avg_query, hero_id, type) do
+    %{hero_snapshot_statistics: [hero_snapshot_statistic]} = avg_query
       |> HeroSnapshotStatistic.where_hero_query(hero_id)
       |> Repo.one
 
-    hero_snapshot_statistic
+    case hero_snapshot_statistic do
+      nil -> {:error, "No hero found with id #{hero_id}"}
+      hero -> {:ok, hero}
+    end
   end
 
   def create_all_hero_snapshots(hero_snapshots) do
