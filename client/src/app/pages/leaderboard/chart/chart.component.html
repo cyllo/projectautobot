@@ -1,17 +1,14 @@
-<div class="flex-layout px-3" fxLayout="row" fxFlex="noshrink" fxLayoutWrap>
-  <div class="flex-layout" fxLayout="column" fxLayoutGap="14px" fxFlex>
-    <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
-      <span class="mat-caption text-uppercase"><strong>Skill Rating Distribution</strong></span>
-    </div>
-    <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxFlex="noshrink">
-      <div class="flex-layout" fxLayout="column" fxFlex>
-        <ow-chart
-          [chartType]="srdChart.chartType"
-          [labels] = "srdChart.xAxisLabels"
-          [datasets]="srdChart.datasets"
-          [legend]="srdChart.legend">
-        </ow-chart>
-      </div>
-    </div>
-  </div>
+<div class="leaderboard-chart" fxLayout="column" fxFlex>
+  <ngx-charts-bar-vertical
+      [ngStyle]="{ 'height': '150px' }"
+      [results]="data"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      (select)="onSelect($event)">
+  </ngx-charts-bar-vertical>
 </div>

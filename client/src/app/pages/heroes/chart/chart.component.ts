@@ -8,19 +8,57 @@ import { ChartType } from '../../../models';
 })
 export class HeroesChartComponent implements OnInit {
 
-  // Skill Rating Distribution Chart
-  srdChart = {
-    xAxisLabels: ['Mercy', 'Soldier-76', 'Reinhardt', 'Lucio'],
-    datasets:
-    [
-      {
-        label: 'Play time per competitive rank',
-        data: [1, 2, 3, 4]
-      }
-    ],
-    chartType: ChartType.bar,
-    legend: false
-  };
+  selectedRanking = 'pc';
+  rankings = [
+    {
+      name: 'Bronze',
+      value: 'bronze'
+    },
+    {
+      name: 'Silver',
+      value: 'silver'
+    },
+    {
+      name: 'Gold',
+      value: 'gold'
+    }
+  ];
+
+  data = [
+    {
+      "name": "Germany",
+      "value": 8940000
+    },
+    {
+      "name": "USA",
+      "value": 5000000
+    },
+    {
+      "name": "USA2",
+      "value": 5000000
+    },
+    {
+      "name": "USA3",
+      "value": 5000000
+    },
+    {
+      "name": "USA4",
+      "value": 5000000
+    },
+    {
+      "name": "USA5",
+      "value": 5000000
+    }
+  ];
+
+  // options
+  showXAxis = true;
+  showYAxis = true;
+  showLegend = false;
+  showXAxisLabel = true;
+  xAxisLabel = 'Country';
+  showYAxisLabel = false;
+  yAxisLabel = 'Population';
 
   constructor() {}
 

@@ -8,6 +8,58 @@ import { Component, OnInit } from '@angular/core';
 
 export class LeaderboardComponent implements OnInit {
 
+  selectedPlatform = 'pc';
+  platforms = [
+    {
+      name: 'PC',
+      value: 'pc'
+    },
+    {
+      name: 'XBL',
+      value: 'xbl'
+    },
+    {
+      name: 'PSN',
+      value: 'psn'
+    }
+  ];
+
+  selectedRegion = 'us';
+  regions = [
+    {
+      name: 'US',
+      value: 'us'
+    },
+    {
+      name: 'EU',
+      value: 'eu'
+    },
+    {
+      name: 'KR',
+      value: 'kr'
+    },
+    {
+      name: 'CH',
+      value: 'ch'
+    },
+    {
+      name: 'GBL',
+      value: ''
+    }
+  ];
+
+  selectedGameMode = 'quickPlay';
+  gameModes = [
+    {
+      name: 'Quick Play',
+      value: 'quickPlay'
+    },
+    {
+      name: 'Competitive Play',
+      value: 'competitivePlay'
+    }
+  ];
+
   constructor() {}
 
   ngOnInit() {}
