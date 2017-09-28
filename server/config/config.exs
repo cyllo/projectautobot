@@ -13,15 +13,8 @@ config :distillery, no_warn_missing: [:elixir_make]
 
 # Sample configuration (overrides the imported configuration above):
 #
-config :logger, :console, level: :info,
-                          compile_time_purge_level: :info,
-                          format: "[$level] $time\n$metadata\n$message\n",
-                          metadata: [
-                            :callback_uri,
-                            :client_id,
-                            :client_auth_token,
-                            :client_access_token
-                          ]
-
-#       format: "$date $time [$level] $metadata$message\n",
+config :logger, :console,
+  level: :info,
+  compile_time_purge_level: :info,
+  format: "$date $time [$level] $metadata$message\n"
 #       metadata: [:user_id]

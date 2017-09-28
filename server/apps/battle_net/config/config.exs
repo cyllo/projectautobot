@@ -21,6 +21,15 @@ use Mix.Config
 # config :logger, level: :info,
 #
 
+config :logger, :console,
+  level: :info,
+  compile_time_purge_level: :info,
+  metadata: [
+    :callback_uri,
+    :client_id,
+    :client_auth_token,
+    :client_access_token
+  ]
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
 # by uncommenting the line below and defining dev.exs, test.exs and such.
