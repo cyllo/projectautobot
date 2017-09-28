@@ -2,7 +2,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT_DIR=$DIR/..
 pushd $ROOT_DIR &&
-# cd client && npm i && NODE_ENV='production' npm run build && cd .. && ./scripts/move-client.sh &&
+cd client && npm i && NODE_ENV='production' npm run build && cd .. && ./scripts/move-client.sh &&
 docker build -t stp . &&
 docker rm stp-container || true &&
 docker create --name stp-container stp &&
