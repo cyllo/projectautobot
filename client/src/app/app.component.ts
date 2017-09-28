@@ -37,19 +37,20 @@ export class AppComponent implements OnInit {
       routerLink: '/news',
       routerLinkActive: true,
       iconName: 'chrome_reader_mode'
-    },
-    {
-      name: 'Leaderboard',
-      routerLink: '/leaderboard',
-      routerLinkActive: false,
-      iconName: 'view_list'
-    },
-    {
-      name: 'Heroes',
-      routerLink: '/heroes',
-      routerLinkActive: false,
-      iconName: 'games'
     }
+    // ,
+    // {
+    //   name: 'Leaderboard',
+    //   routerLink: '/leaderboard',
+    //   routerLinkActive: false,
+    //   iconName: 'view_list'
+    // },
+    // {
+    //   name: 'Heroes',
+    //   routerLink: '/heroes',
+    //   routerLinkActive: false,
+    //   iconName: 'games'
+    // }
   ];
 
   $state: Observable<AppState>;
