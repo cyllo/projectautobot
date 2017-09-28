@@ -6,7 +6,7 @@
 #import "./game-average-statistic-average.gql"
 
 query HeroStatisticsAverageSearch($heroId: Int!) {
-    competitiveHeroAverages: heroStatisticsAverage(heroId: $heroId, type: COMPETITIVE) {
+    competitiveHeroAverages: heroStatisticsAggregateAverage(heroId: $heroId, type: COMPETITIVE) {
       matchAwardsStatistic {
         ...MatchAwardStatistic
       }
@@ -26,7 +26,7 @@ query HeroStatisticsAverageSearch($heroId: Int!) {
         ...GameAverageStatistic
       }
     }
-    quickplayHeroAverages :heroStatisticsAverage(heroId: $heroId, type:  QUICKPLAY) {
+    quickplayHeroAverages: heroStatisticsAggregateAverage(heroId: $heroId, type:  QUICKPLAY) {
       matchAwardsStatistic {
         ...MatchAwardStatistic
       }
