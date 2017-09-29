@@ -16,6 +16,6 @@ defmodule Models.Repo.Migrations.CreateBlogPosts do
 
 
     create unique_index(:blog_posts, [:title], name: :blog_post_title_index)
-    create unique_index(:blog_posts, [:is_featured], name: :blog_post_is_featured_index)
+    create unique_index(:blog_posts, [:is_featured], name: :blog_post_is_featured_index, where: "is_featured=true")
   end
 end
