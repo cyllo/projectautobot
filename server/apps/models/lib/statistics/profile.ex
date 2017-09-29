@@ -5,6 +5,7 @@ defmodule Models.Statistics.Profile do
   schema "profile_statistics" do
     field :competitive_level, :integer
     field :competitive_rank_url, :string
+    field :competitive_bracket_name, :string
     field :level, :integer
     field :level_url, :string
     field :rank_url, :string
@@ -16,7 +17,7 @@ defmodule Models.Statistics.Profile do
     :gamer_tag_id,
     :total_games_won, :level, :level_url
   ]
-  @available_fields @required_fields ++ [:competitive_level, :competitive_rank_url, :rank_url]
+  @available_fields @required_fields ++ [:competitive_bracket_name, :competitive_level, :competitive_rank_url, :rank_url]
 
   def changeset(%Profile{} = profile, attrs \\ %{}) do
     profile

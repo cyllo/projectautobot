@@ -4,6 +4,7 @@ defmodule Api.Repo.Migrations.CreateApi.Statistics.Profile do
   def change do
     create table(:profile_statistics) do
       add :total_games_won, :integer
+      add :competitive_bracket_name, :string
       add :competitive_level, :integer
       add :competitive_rank_url, :string
       add :level, :integer

@@ -144,6 +144,7 @@ defmodule Api.Schema.StatisticTypes do
   object :profile_statistic do
     field :competitive_level, :integer
     field :competitive_rank_url, :string
+    field :competitive_bracket_name, :string
     field :level, :integer
     field :level_url, :string
     field :rank_url, :string
