@@ -204,7 +204,9 @@ defmodule Models.Statistics.Snapshots do
       {:ok, average_snapshot}
     else
       {:error, str} when is_bitstring(str) ->
-        Logger.warn "Can't create average snapshot #{inspect str}"
+        if (!Regex.match?(~r/must wait/i, str)) do
+          Logger.warn "Can't create average snapshot #{inspect str}"
+        end
 
         case Repo.one(StatisticsAveragesSnapshot.latest_snapshot_query) do
           nil -> {:error, "No snapshot averages found"}

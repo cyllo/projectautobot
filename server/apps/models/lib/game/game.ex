@@ -153,6 +153,11 @@ defmodule Models.Game do
     ])
   end
 
+  # opts groups_of/statistics_max
+  # def get_gamer_tags_in_statistic_chunks(statistics_name, opts) do
+
+  # end
+
   def create_hero(name, code) do
     Hero.create_changeset(%{name: name, code: code})
       |> Repo.insert

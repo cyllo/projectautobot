@@ -200,6 +200,15 @@ defmodule Api.Schema do
       resolve &AverageStatisticsSnapshotResolver.all/2
     end
 
+    @desc "Chunk gamer tags ids by competitive rank"
+    field :chunked_gamer_tag_ids, :map do
+      arg :groups_of, non_null(:integer)
+      arg :statistic_name, non_null(:string)
+      arg :statistics_max, :integer
+
+      resolve &GamerTagResolver.get_chunked_gamer_tag_ids/2
+    end
+
     @desc "Diffs a snapshot statistic pair, diff returns difference from a -> b"
     field :snapshot_statistic_difference, :snapshot_statistic_difference do
       arg :snapshot_statistic_a_id, non_null(:integer)
