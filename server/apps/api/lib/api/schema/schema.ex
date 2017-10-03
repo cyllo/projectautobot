@@ -91,6 +91,7 @@ defmodule Api.Schema do
     field :blog_post, :blog_post do
       arg :id, :integer
       arg :title, :string
+      arg :is_featured, :boolean
 
       resolve &BlogResolver.find/2
     end
@@ -107,6 +108,7 @@ defmodule Api.Schema do
       arg :start_date, :datetime
       arg :end_date, :datetime
       arg :ids, list_of(:integer)
+      arg :is_featured, :boolean
       arg :blog_categories, list_of(non_null(:blog_category_input))
 
       resolve &BlogResolver.all/2
