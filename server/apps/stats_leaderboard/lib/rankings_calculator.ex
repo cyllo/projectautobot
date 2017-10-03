@@ -22,6 +22,8 @@ defmodule StatsLeaderboard.RankingsCalculator do
     {stat_name, sorted_stat_values}
   end
 
+  defp stat_greater_than(_, nil), do: true
+  defp stat_greater_than(nil, _), do: false
   defp stat_greater_than(%Decimal{} = a, %Decimal{} = b) do
     case Decimal.cmp(a, b) do
       :lt -> false

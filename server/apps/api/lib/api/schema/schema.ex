@@ -134,6 +134,7 @@ defmodule Api.Schema do
       arg :first, :integer
       arg :start_date, :datetime
       arg :end_date, :datetime
+      arg :rank_by, :rank_by_input
 
       resolve &LeaderboardSnapshotResolver.all/2
     end
@@ -145,6 +146,7 @@ defmodule Api.Schema do
       arg :first, :integer
       arg :start_date, :datetime
       arg :end_date, :datetime
+      arg :rank_by, :rank_by_input
 
       resolve &LeaderboardSnapshotResolver.find/2
     end

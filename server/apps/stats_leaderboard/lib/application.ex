@@ -12,7 +12,8 @@ defmodule StatsLeaderboard.Application do
     children = [
       # Starts a worker by calling: Scraper.Worker.start_link(arg1, arg2, arg3)
       # worker(Scraper.Worker, [arg1, arg2, arg3]),
-      supervisor(StatsLeaderboard, [])
+      supervisor(StatsLeaderboard.LeaderboardSnapshotter, []),
+      supervisor(StatsLeaderboard.PlatformRankingCalculatorServer, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
