@@ -1,8 +1,12 @@
 defmodule Api.SnapshotStatisticResolver do
+  import Api.Helpers, only: [preload_id_map: 2, convert_to_id_map: 3, convert_to_id_map: 2]
+
   alias Models.Statistics.Snapshots
   alias Models.{Game, Statistics}
 
-  import Api.Helpers, only: [preload_id_map: 2, convert_to_id_map: 3, convert_to_id_map: 2]
+  def all(params, _) when params === %{}, do: {:ok, Snapshots.get_all_snapshot_statistics(last: 1)}
+  def all(params, _), do: {:ok, Snapshots.get_all_snapshot_statistics(params)}
+  def find(params, _), do: Snapshots.find_snapshot_statistic(params)
 
   def diff(%{snapshot_statistic_a_id: a, snapshot_statistic_b_id: b}, _info), do: SnapshotStatsDiffer.diff_snapshot_id(a, b)
 

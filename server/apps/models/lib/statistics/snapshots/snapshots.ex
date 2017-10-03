@@ -10,6 +10,12 @@ defmodule Models.Statistics.Snapshots do
     LeaderboardSnapshotStatistic, StatisticsAveragesSnapshot
   }
 
+  def get_all_snapshot_statistics(%{competitive_bracket_name: name} = params) do
+    from(subquery(SnapshotStatistic.by_competitive_bracket(name)))
+      |> Models.Model.create_model_filters(params)
+      |> Models.Repo.all
+  end
+
   Model.create_model_methods(SnapshotStatistic)
   Model.create_model_methods(HeroSnapshotStatistic)
   Model.create_model_methods(LeaderboardSnapshotStatistic)

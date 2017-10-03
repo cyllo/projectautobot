@@ -157,7 +157,7 @@ defmodule Models.Model do
       def unquote(fn_name)(), do: Models.Repo.all(unquote(model), order_by: :id)
 
       @spec unquote(fn_name)(params :: map | list) :: [unquote(model)]
-      def unquote(fn_name)(params), do: unquote(model) |> Models.Model.create_model_filters(params) |> Models.Repo.all
+      def unquote(fn_name)(params), do: unquote(model) |> Models.Model.create_model_filters(params) |> Models.Repo.all(order_by: :id)
 
       @spec unquote(fn_name)(where :: Keyword.t, preload :: Keyword.t) :: [unquote(model)]
       def unquote(fn_name)(where, preload \\ []) do

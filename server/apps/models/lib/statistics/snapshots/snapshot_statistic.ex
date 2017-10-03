@@ -1,7 +1,12 @@
 defmodule Models.Statistics.Snapshots.SnapshotStatistic do
   use Models.Model
-  alias Models.Statistics.Snapshots.{HeroSnapshotStatistic, SnapshotStatistic}
   alias Models.{Game.GamerTag, Statistics.MatchAward}
+  alias Models.Statistics.Profile, as: ProfileStatistic
+  alias Models.Statistics.Snapshots.{
+    HeroSnapshotStatistic,
+    SnapshotStatistic,
+    ProfileSnapshotStatistic
+  }
 
   schema "snapshot_statistics" do
     belongs_to :gamer_tag, Models.Game.GamerTag
@@ -75,6 +80,15 @@ defmodule Models.Statistics.Snapshots.SnapshotStatistic do
       inner_join: ma in MatchAward,
       on: ma.id == hss.match_awards_statistic_id,
       select: {hss.statistic_type, ma.total_medals})
+  end
+
+  def by_competitive_bracket(query \\ SnapshotStatistic, bracket_name) do
+    from(ss in query,
+      inner_join: pss in ProfileSnapshotStatistic,
+      on: pss.snapshot_statistic_id == ss.id,
+      inner_join: ps in ProfileStatistic,
+      on: ps.id == pss.profile_statistic_id,
+      where: ps.competitive_bracket_name == ^bracket_name)
   end
 
   def preload_statistics_query(query) do

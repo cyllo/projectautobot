@@ -127,6 +127,31 @@ defmodule Api.Schema do
       resolve &SnapshotStatisticsAverageResolver.average/2
     end
 
+    field :snapshot_statistic, :snapshot_statistic do
+      arg :after, :integer
+      arg :before, :integer
+      arg :last, :integer
+      arg :first, :integer
+      arg :start_date, :datetime
+      arg :end_date, :datetime
+      arg :id, :integer
+
+      resolve &SnapshotStatisticResolver.find/2
+    end
+
+    field :snapshot_statistics, list_of(:snapshot_statistic) do
+      arg :after, :integer
+      arg :before, :integer
+      arg :last, :integer
+      arg :first, :integer
+      arg :start_date, :datetime
+      arg :end_date, :datetime
+      arg :ids, list_of(non_null(:integer))
+      arg :competitive_bracket_name, :string
+
+      resolve &SnapshotStatisticResolver.all/2
+    end
+
     field :leaderboard_snapshot_statistics, list_of(:leaderboard_snapshot_statistic) do
       arg :after, :integer
       arg :before, :integer
