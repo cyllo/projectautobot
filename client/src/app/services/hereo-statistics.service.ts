@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { CurrentHero } from '../models';
-import { HeroAverages, SnapshotAverage } from './queries';
+import { HeroAverages } from './queries';
 
 interface HeroStatsAverageSearchResponse {
   heroStatisticsAverage: CurrentHero;
   loading: boolean;
 }
 
-interface SnapshotStatsAverageSearchResponse {
-  snapshotsStatisticsAverage: CurrentHero;
-  loading: boolean;
-}
+// interface SnapshotStatsAverageSearchResponse {
+//   snapshotsStatisticsAverage: CurrentHero;
+//   loading: boolean;
+// }
 
 @Injectable()
 export class HeroStatistics {
@@ -25,12 +25,12 @@ export class HeroStatistics {
     .map(({ data }) => data);
   }
 
-  getSnapshot() {
-    return this.apollo.query<SnapshotStatsAverageSearchResponse>({
-      query: SnapshotAverage,
-      variables: { type: 'COMPETITIVE' }
-    })
-    .filter(s => !!s.data)
-    .map(({ data: { snapshotsStatisticsAverage: { heroSnapshotStatistics } } }) => heroSnapshotStatistics);
-  }
+  // getSnapshot() {
+  //   return this.apollo.query<SnapshotStatsAverageSearchResponse>({
+  //     query: SnapshotAverage,
+  //     variables: { type: 'COMPETITIVE' }
+  //   })
+  //   .filter(s => !!s.data)
+  //   .map(({ data: { snapshotsStatisticsAverage: { heroSnapshotStatistics } } }) => heroSnapshotStatistics);
+  // }
 }

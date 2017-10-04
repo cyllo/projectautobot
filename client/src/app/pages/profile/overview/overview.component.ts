@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GamerTag, GameHistoryStats, CombatLifetimeStats } from '../../../models';
+import { GamerTag, GameHistoryStats, CombatLifetimeStats, AppState } from '../../../models';
 import {
   path,
   groupBy,
@@ -10,17 +10,22 @@ import {
   divide,
   head,
   values,
-  useWith,
-  comparator,
-  gt,
   compose,
-  sort,
   take,
   prop,
+  assoc,
+  flip,
+  gte,
+  length,
+  merge,
+  find,
+  propEq,
+  takeLast
 } from 'ramda';
-import { GamerTagService, SnapshotService } from '../../../services';
+import { GamerTagService, SnapshotService, notEmpty } from '../../../services';
 import { Observable } from 'rxjs/Observable';
 import { DatePipe } from '@angular/common';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'ow-profile-overview',
@@ -32,6 +37,7 @@ import { DatePipe } from '@angular/common';
 export class ProfileOverviewComponent implements OnInit {
   @Input() profile: GamerTag;
   @Input() modeIndicator: Observable<{enabled: boolean, mode: string }>;
+  @Input() snapshotDiff: any;
   lifeTimeStats: Observable<CombatLifetimeStats>;
   gameHistory: Observable<GameHistoryStats>;
   heroStatsByRole: Observable<any>;
@@ -40,9 +46,12 @@ export class ProfileOverviewComponent implements OnInit {
   mostPlayedHeroes: Observable<any[]>;
   recentSnapshots: Observable<any[]>;
   heroStatistics: Observable<any[]>;
+  modifiedModeIndicator: Observable<string>;
+  recentlyPlayed: Observable<any>;
 
   constructor(
-    private snapshotService: SnapshotService
+    private snapshotService: SnapshotService,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit() {
@@ -78,18 +87,60 @@ export class ProfileOverviewComponent implements OnInit {
     this.mostPlayedHeroes = this.modeIndicator
     .map(({ mode }) => {
       const gameTypeHeroes = path([mode, 'heroSnapshotStatistics']);
-      const heroTimePlayed = path(['gameHistoryStatistic', 'timePlayed']);
-      const timePlayedComparator = comparator(useWith(gt, [heroTimePlayed, heroTimePlayed]));
 
-      const sortHeroesByMostPlayed = compose(take(4), sort(timePlayedComparator), gameTypeHeroes);
+      const sortHeroesByMostPlayed = compose(take(4), this.snapshotService.heroesByTimePlayed, gameTypeHeroes);
       return sortHeroesByMostPlayed(this.profile);
     });
 
+    this.modifiedModeIndicator = this.modeIndicator.map(({ mode }) => {
+      switch (mode) {
+        case 'quickPlay':
+          return 'Quickplay';
+        case 'competitive':
+          return 'Competitive';
+      }
+    });
 
     this.recentSnapshots = this.modeIndicator
     .map(({ mode }) => {
       const recentStats = compose(this.snapshotService.selectHeroesSnapshot(mode), prop('snapshotStatistics'));
       return recentStats(this.profile);
+    });
+
+    const flippedGte = flip(gte);
+    const hasMultipleSnapshots = compose(flippedGte(2), length, prop('snapshotStatistics'));
+
+    this.recentlyPlayed = this.modifiedModeIndicator
+    .mapTo(this.profile)
+    .filter(hasMultipleSnapshots)
+    .pluck('snapshotStatistics')
+    .switchMap((snapshotStatistics: any[]) => {
+      const [{ id: snapshotAId }, { id: snapshotBId }] = takeLast(2, snapshotStatistics);
+      return this.snapshotService.diff(snapshotAId, snapshotBId);
+    })
+    .withLatestFrom(this.modifiedModeIndicator, (snapshotDiff, mode) => {
+      const totalTimePlayed = path<number>([
+      'heroSnapshotStatistics',
+      `heroTotal${mode}`,
+      'gameHistoryStatistic',
+      'timePlayed'], snapshotDiff);
+
+      const createHeroArray = compose(
+        reduce((acc, [id, obj]) => acc.concat(assoc('id', parseInt(id), obj)), []),
+        Object.entries,
+        path(['heroSnapshotStatistics', `hero${mode}`])
+      );
+
+      const sortHeroPlayTime = compose(
+        this.snapshotService.percentagePlayed(totalTimePlayed),
+        this.snapshotService.heroesByTimePlayed, createHeroArray
+      );
+      return sortHeroPlayTime(snapshotDiff);
+    })
+    .filter(notEmpty)
+    .withLatestFrom(this.store.select('heroes'), (heroes, heroesStore: any[]) => {
+      const combineHeroData = hero => merge(hero, find(propEq('id', hero.id), heroesStore));
+      return map(combineHeroData, heroes);
     });
   }
 }

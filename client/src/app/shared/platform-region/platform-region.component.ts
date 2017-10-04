@@ -36,7 +36,7 @@ export class PlatformRegionComponent implements OnInit {
     });
 
     this.activeRegions = this.players
-      .withLatestFrom(Observable.of(this.currentProfile), (players, targetProfile) => {
+    .withLatestFrom(Observable.of(this.currentProfile), (players, targetProfile) => {
       const hasRegion = region => {
         return assoc(
           'enabled',

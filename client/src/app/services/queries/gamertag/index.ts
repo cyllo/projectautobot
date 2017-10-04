@@ -10,3 +10,4 @@ export const FetchSnapshot = require('./fetch-snapshot');
 export const StopGamerTagWatch = require('./stop-watching');
 export const StartGamerTagWatch = require('./start-watching');
 export const ComparePlayers = require('./compare-players');
+export const SnapshotDifference = require('./snapshot-difference');

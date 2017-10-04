@@ -48,7 +48,7 @@ export class SnapshotsHistoryComponent implements OnInit, OnDestroy {
     .withLatestFrom(this.selectedsnapshots, (id, snapshots) => find(propEq('id', id), snapshots))
     .takeUntil(this.destroyer$);
 
-    this.matchDetails = Observable.merge(this.view, this.flushMatchDetails);
+    this.matchDetails = Observable.merge(this.view, this.flushMatchDetails).do(val => console.log('this stupid shit', val));
   }
 
   ngOnDestroy() {

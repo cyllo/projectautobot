@@ -15,3 +15,7 @@ export function heroesData(state: Array<Heroes> = [], { type, payload }: { type:
 export function getHeroByName(name: string) {
   return state => state.map(find(propEq('name', name)));
 }
+
+export function getHeryById(id: number) {
+  return state => state.map(find(propEq('id', id)));
+}

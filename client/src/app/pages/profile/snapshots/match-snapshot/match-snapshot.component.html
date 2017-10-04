@@ -30,15 +30,15 @@
 
     <div class="pt-3" fxLayout="column" fxFlex>
       <div fxLayout="row" fxLayoutGap="8px" fxLayoutWrap>
-        <div class="flex-layout" fxLayout="column" fxFlex="36px" *ngFor="let hero of heroesPlayed">
+        <div class="flex-layout" fxLayout="column" fxFlex="36px" *ngFor="let hero of heroesPlayed | async">
           <div class="flex-layout" fxLayout="row">
             <div class="flex-layout" fxLayout="column" fxFlex>
-              <ow-hero-portrait [class]="'md-image-36'" [owCode]="'0x02E0000000000029'"></ow-hero-portrait>
+              <ow-hero-portrait [class]="'md-image-36'" [owCode]="hero.hero.code"></ow-hero-portrait>
             </div>
           </div>
           <div class="flex-layout" fxLayout="row">
             <div class="flex-layout text-center" fxLayout="column" fxFlex>
-              <span class="mat-caption">30/5</span>
+              <span class="mat-caption">{{ hero.combatLifetimeStatistic?.finalBlows | owKillDeathAverage:hero.combatLifetimeStatistic?.deaths}}:1</span>
             </div>
           </div>
         </div>
