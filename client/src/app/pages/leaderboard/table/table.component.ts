@@ -1,38 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, ViewChild } from '@angular/core';
 import { MdSort } from '@angular/material';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
-
-interface Hero {
-  code: string;
-  name: string;
-}
-
-interface CompetitiveSkillRating {
-  rankUrl: string;
-  rank: number;
-}
-
-interface Player {
-  tag: string;
-  avatarUrl: string;
-}
-
-interface PlayerLeaderboardDataEntry {
-  position: number;
-  platform: string;
-  region: string;
-  player: Player;
-  level: number;
-  competitiveRating: CompetitiveSkillRating;
-  timeOnFire: number;
-  kdRatio: number;
-  wins: number;
-  lost: number;
-  winRate: number;
-  timePlayed: number;
-  mostPlayedHeroes: Hero[];
-}
+import { LeaderboardService } from '../../../services';
+import { PlayerLeaderboardDataEntry } from '../../../models';
 
 /**
  * Data source to provide what data should be rendered in the table. Note that the data source
@@ -45,52 +16,14 @@ export class LeaderboardTableDataSource extends DataSource<any> {
 
   data: PlayerLeaderboardDataEntry[] = [];
 
-  constructor(private _sort: MdSort) {
+  constructor(private _data: Observable<PlayerLeaderboardDataEntry[]>, private _sort: MdSort) {
     super(); // must be called before accessing 'this'
-    for (let i = 0; i < 40; ++i) {
-      this.data.push(
-        <PlayerLeaderboardDataEntry>{
-          position: i + 1,
-          platform: 'pc',
-          region: 'us',
-          player: {
-            avatarUrl: 'https://d1u1mce87gyfbn.cloudfront.net/game/unlocks/0x0250000000000304.png',
-            tag: 'Seagull#1894'
-          },
-          level: 351,
-          competitiveRating: {
-            rankUrl: 'https://blzgdapipro-a.akamaihd.net/game/rank-icons/season-2/rank-7.png',
-            rank: 2350
-          },
-          timeOnFire: 25000,
-          kdRatio: 1.98,
-          wins: 250,
-          lost: 100,
-          winRate: 75,
-          timePlayed: 123456789,
-          mostPlayedHeroes: [
-            {
-              code: '0x02E0000000000029',
-              name: 'Genji'
-            },
-            {
-              code: '0x02E0000000000029',
-              name: 'Genji'
-            },
-            {
-              code: '0x02E0000000000029',
-              name: 'Genji'
-            }
-          ]
-        }
-      );
-    }
     console.log(this._sort);
   }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<any[]> {
-    return Observable.of(this.data);
+    return this._data;
   }
 
   disconnect() {}
@@ -100,9 +33,14 @@ export class LeaderboardTableDataSource extends DataSource<any> {
 @Component({
   selector: 'ow-leaderboard-table',
   templateUrl: 'table.component.html',
-  styleUrls: ['table.component.scss']
+  styleUrls: ['table.component.scss'],
+  providers: [LeaderboardService]
 })
-export class LeaderboardTableComponent implements OnInit {
+export class LeaderboardTableComponent implements OnInit, OnChanges {
+  @Input() platform: string;
+  @Input() region: string;
+  @Input() gamemode: string;
+  leaderboard: Observable<PlayerLeaderboardDataEntry[]>;
 
   @ViewChild(MdSort) sort: MdSort;
   dataSource: LeaderboardTableDataSource | null;
@@ -123,10 +61,19 @@ export class LeaderboardTableComponent implements OnInit {
     'mostPlayedHeroes'
   ];
 
-  constructor() {}
+  constructor(private leaderboardService: LeaderboardService) {}
 
   ngOnInit() {
-    this.dataSource = new LeaderboardTableDataSource(this.sort);
+    this.getLeaderboard();
+  }
+
+  ngOnChanges() {
+    this.getLeaderboard();
+  }
+
+  getLeaderboard() {
+    this.leaderboard = this.leaderboardService.getLeaderboard(this.platform, this.region, this.gamemode);
+    this.dataSource = new LeaderboardTableDataSource(this.leaderboard, this.sort);
   }
 
 }

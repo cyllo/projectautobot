@@ -1,0 +1,28 @@
+#import "./gamer-tag-fields.gql"
+#import "./profile-snapshot-statistic.gql"
+#import "./hero-snapshot-fields.gql"
+#import "./heroes-total-snapshot-statistic.gql"
+
+query fetchGamertags($ids: [Int], $tags: [String], $platform: String, $region: String, $userId: Int, $snapshotLast: Int) {
+  gamerTags(ids: $ids, tags: $tags, platform: $platform, region: $region, userId: $userId) {
+    ...GamerTagFields
+    snapshotStatistics(last: $snapshotLast) {
+      id
+      gamerTagId
+      insertedAt
+      ...ProfileStatistic
+      quickplayHeroSnapshotStatistics: heroSnapshotStatistics(type: QUICKPLAY) {
+        ...HeroSnapshotStatistics
+      }
+      competitiveHeroSnapshotStatistics: heroSnapshotStatistics(type: COMPETITIVE) {
+        ...HeroSnapshotStatistics
+      }
+      quickplayHeroesTotalSnapshotStatistic: heroesTotalSnapshotStatistic(type: QUICKPLAY) {
+        ...HeroesTotalSnapShot
+      }
+      competitiveHeroesTotalSnapshotStatistic: heroesTotalSnapshotStatistic(type: COMPETITIVE) {
+        ...HeroesTotalSnapShot
+      }
+    }
+  }
+}
