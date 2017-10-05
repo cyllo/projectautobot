@@ -12,12 +12,12 @@ defmodule Api.GamerTagResolver do
   def scrape(%{platform: _, tag: _} = params, _info), do: scrape_by_tag_platform_region(params, [:platform, :tag])
   def scrape(_, _info), do: {:error, "Must provide one of id, platform/region/tag or platform/tag if xbl/psn"}
 
-  def get_chunked_gamer_tag_ids(%{statistics_max: statistics_max, statsitic_name: statistic_name, groups_of: groups_of}, _info) do
-    Game.get_gamer_tags_in_statistic_chunks(statistic_name, groups_of: groups_of, statistics_max: statistics_max)
+  def get_chunked_gamer_tag_ids(%{statistics_max: statistics_max, statistic_path: statistic_path, groups_of: groups_of}, _info) do
+    {:ok, Game.get_gamer_tags_in_statistic_chunks(statistic_path, groups_of: groups_of, statistics_max: statistics_max)}
   end
 
-  def get_chunked_gamer_tag_ids(%{groups_of: groups_of, statsitic_name: statistic_name}, _info) do
-    Game.get_gamer_tags_in_statistic_chunks(statistic_name, groups_of: groups_of)
+  def get_chunked_gamer_tag_ids(%{groups_of: groups_of, statistic_path: statistic_path}, _info) do
+    {:ok, Game.get_gamer_tags_in_statistic_chunks(statistic_path, groups_of: groups_of)}
   end
 
   def start_watch(%{id: gamer_tag_id}, _info) do

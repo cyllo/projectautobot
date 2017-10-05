@@ -200,10 +200,16 @@ defmodule Api.Schema do
       resolve &AverageStatisticsSnapshotResolver.all/2
     end
 
-    @desc "Chunk gamer tags ids by competitive rank"
+    @desc """
+      Chunk gamer tags ids by statistic path
+
+      Statistics path can be something like `["profile_snapshot_statistic", "profile_statistic", "competitive_level"]`
+
+      Returns `{1000: [1, 2], 1050: [3, 34]}`
+    """
     field :chunked_gamer_tag_ids, :map do
       arg :groups_of, non_null(:integer)
-      arg :statistic_name, non_null(:string)
+      arg :statistic_path, non_null(list_of(non_null(:string)))
       arg :statistics_max, :integer
 
       resolve &GamerTagResolver.get_chunked_gamer_tag_ids/2

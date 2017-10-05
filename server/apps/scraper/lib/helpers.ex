@@ -2,7 +2,7 @@ defmodule Scraper.Helpers do
   alias Models.{Game, Game.GamerTag}
   alias Scraper.ScrapeStatusCache
 
-  def filter_and_get_non_timeout_gamer_tags(gamer_tags), do: Enum.filter_map(gamer_tags, &profile_not_on_timeout?/1, &gamer_tag_info/1)
+  def filter_and_get_non_timeout_gamer_tags(gamer_tags), do: Enum.filter(gamer_tags, &profile_not_on_timeout?/1) |> Enum.map(&gamer_tag_info/1)
 
   def check_gamer_tag_unscraped(gamer_tag) do
     unless ScrapeStatusCache.has_scraped_gamer_tag?(gamer_tag.id) do

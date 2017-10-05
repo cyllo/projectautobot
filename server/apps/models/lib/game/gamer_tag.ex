@@ -58,6 +58,19 @@ defmodule Models.Game.GamerTag do
     end
   end
 
+  # TODO: Use this to group by on backend for perf improvments
+  # defp series_range(range_min, range_max, chunks_of) do
+  #   fragment("""
+  #     FROM range;
+  #     WITH series AS
+  #       (SELECT generate_series(#{range_min}, #{range_max}, #{chunks_of}) AS r_from),
+  #       range AS (SELECT r_from, (r_from + #{chunks_of - 1}) AS r_to FROM series)
+  #       SELECT r_from, r_to,
+  #         (SELECT * from )
+  #     FROM range
+  #   """)
+  # end
+
   defp validate_region(changeset) do
     if get_field(changeset, :platform) === "pc" do
       changeset

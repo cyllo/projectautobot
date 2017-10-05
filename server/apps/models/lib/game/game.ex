@@ -154,9 +154,39 @@ defmodule Models.Game do
   end
 
   # opts groups_of/statistics_max
-  # def get_gamer_tags_in_statistic_chunks(statistics_name, opts) do
+  def get_gamer_tags_in_statistic_chunks(stats_path, opts) do
+    items = get_snapshot_statisitc_path(stats_path)
+    max = Keyword.get_lazy(opts, :statistics_max, fn -> get_statistics_max(items) end)
+    groups_of = Keyword.get_lazy(opts, :groups_of, fn -> raise "Must provide groups of" end)
 
-  # end
+    Enum.reduce(items, create_groups_table(max, groups_of), fn {stats, %{gamer_tag_id: gamer_tag_id}}, acc ->
+      group = (div(stats, groups_of) + 1) * groups_of
+
+      Map.update!(acc, group, &[gamer_tag_id | &1])
+    end)
+  end
+
+  defp create_groups_table(max, groups) do
+    Enum.reduce(0..div(max, groups), %{}, fn i, acc ->
+      Map.put(acc, (i + 1) * groups, [])
+    end)
+  end
+
+  defp get_snapshot_statisitc_path([snapshot_type, stats_type, stat_name] = stats_path) do
+    preload_params = Keyword.new([{Utility.safe_atom(snapshot_type), Utility.safe_atom(stats_type)}])
+
+    SnapshotStatistic.latest_stats_query
+      |> Ecto.Query.preload(^preload_params)
+      |> Repo.all
+      |> Enum.map(fn item ->
+        {Utility.get_in_schema_struct(item, Enum.map(stats_path, &Utility.safe_atom/1), 0), item}
+      end)
+  end
+
+  defp get_statistics_max(items) do
+    Enum.max_by(items, &elem(&1, 0))
+      |> elem(0)
+  end
 
   def create_hero(name, code) do
     Hero.create_changeset(%{name: name, code: code})
