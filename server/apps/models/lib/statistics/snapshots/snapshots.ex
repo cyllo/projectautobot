@@ -139,7 +139,7 @@ defmodule Models.Statistics.Snapshots do
   end
 
   def hero_average(avg_query, hero_id, type) do
-    %{hero_snapshot_statistics: [hero_snapshot_statistic]} = avg_query
+    hero_snapshot_statistic = avg_query
       |> HeroSnapshotStatistic.where_hero_query(hero_id)
       |> Repo.one
 

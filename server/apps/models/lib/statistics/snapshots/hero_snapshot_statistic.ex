@@ -131,7 +131,7 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
           healing_done_avg_per10_min: avg(hgas.healing_done_avg_per10_min),
           all_damage_done_avg_per10_min: avg(hgas.all_damage_done_avg_per10_min),
           objective_kills_avg_per10_min: avg(hgas.objective_kills_avg_per10_min),
-          melee_final_blows_avg_per10_min:  avg(hgas.melee_final_blows_avg_per10_min),
+          melee_final_blows_avg_per10_min: avg(hgas.melee_final_blows_avg_per10_min),
           damage_amplified_avg_per10_min: avg(hgas.damage_amplified_avg_per10_min),
           damage_amplified_average: avg(hgas.damage_amplified_average),
           damage_blocked_average: avg(hgas.damage_blocked_average),
@@ -208,6 +208,7 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
           shield_generators_destroyed_most_in_game: avg(hcbs.shield_generators_destroyed_most_in_game),
           hero_damage_done_most_in_game: avg(hcbs.hero_damage_done_most_in_game),
           barrier_damage_done_most_in_game: avg(hcbs.barrier_damage_done_most_in_game),
+          damage_amplified_most_in_game: avg(hcbs.damage_amplified_most_in_game),
           all_damage_done_most_in_game: avg(hcbs.all_damage_done_most_in_game),
           all_damage_done_most_in_life: avg(hcbs.all_damage_done_most_in_life),
           hero_damage_done_most_in_life: avg(hcbs.hero_damage_done_most_in_life),
@@ -216,8 +217,7 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
           kill_streak_best: avg(hcbs.kill_streak_best),
           multikill_best: avg(hcbs.multikill_best),
           scoped_accuracy_best_in_game_percentage: avg(hcbs.scoped_accuracy_best_in_game_percentage),
-          weapon_accuracy_best_in_game_percentage: avg(hcbs.weapon_accuracy_best_in_game_percentage),
-          damage_amplified_most_in_game: avg(hcbs.damage_amplified_most_in_game)
+          weapon_accuracy_best_in_game_percentage: avg(hcbs.weapon_accuracy_best_in_game_percentage)
         }
       }
     )
@@ -284,7 +284,7 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
           healing_done_avg_per10_min: avg(hgas.healing_done_avg_per10_min),
           all_damage_done_avg_per10_min: avg(hgas.all_damage_done_avg_per10_min),
           objective_kills_avg_per10_min: avg(hgas.objective_kills_avg_per10_min),
-          melee_final_blows_avg_per10_min:  avg(hgas.melee_final_blows_avg_per10_min),
+          melee_final_blows_avg_per10_min: avg(hgas.melee_final_blows_avg_per10_min),
           damage_amplified_avg_per10_min: avg(hgas.damage_amplified_avg_per10_min),
           damage_amplified_average: avg(hgas.damage_amplified_average),
           damage_blocked_average: avg(hgas.damage_blocked_average),
@@ -361,6 +361,7 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
           shield_generators_destroyed_most_in_game: avg(hcbs.shield_generators_destroyed_most_in_game),
           hero_damage_done_most_in_game: avg(hcbs.hero_damage_done_most_in_game),
           barrier_damage_done_most_in_game: avg(hcbs.barrier_damage_done_most_in_game),
+          damage_amplified_most_in_game: avg(hcbs.damage_amplified_most_in_game),
           all_damage_done_most_in_game: avg(hcbs.all_damage_done_most_in_game),
           all_damage_done_most_in_life: avg(hcbs.all_damage_done_most_in_life),
           hero_damage_done_most_in_life: avg(hcbs.hero_damage_done_most_in_life),
@@ -369,8 +370,7 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
           kill_streak_best: avg(hcbs.kill_streak_best),
           multikill_best: avg(hcbs.multikill_best),
           scoped_accuracy_best_in_game_percentage: avg(hcbs.scoped_accuracy_best_in_game_percentage),
-          weapon_accuracy_best_in_game_percentage: avg(hcbs.weapon_accuracy_best_in_game_percentage),
-          damage_amplified_most_in_game: avg(hcbs.damage_amplified_most_in_game)
+          weapon_accuracy_best_in_game_percentage: avg(hcbs.weapon_accuracy_best_in_game_percentage)
         }
       }
     )
