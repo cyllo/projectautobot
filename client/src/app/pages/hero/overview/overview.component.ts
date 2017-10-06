@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'ow-hero-overview',
@@ -6,7 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['overview.component.scss']
 })
 export class HeroOverviewComponent {
-
+  @Input() heroStats: any;
+  @Input() heroTotals: any;
   constructor() { }
 
 }

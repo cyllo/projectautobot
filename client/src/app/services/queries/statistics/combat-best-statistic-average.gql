@@ -1,4 +1,4 @@
-fragment CombatBestStatistic on CombatBestStatisticAverage {
+fragment CombatBestStatisticAverage on CombatBestStatisticAverage {
   weaponAccuracyBestInGamePercentage
   timeSpentOnFireMostInGame
   soloKillsMostInGame

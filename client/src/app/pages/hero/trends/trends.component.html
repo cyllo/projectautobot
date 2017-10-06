@@ -1,15 +1,33 @@
 <div fxLayout="column" fxFlex>
   <span class="mat-title text-uppercase">Trends</span>
   <div fxLayout="row" fxLayoutWrap>
-    <div class="pt-3 px-3"
-         fxLayout="column"
-         fxFlex.lg="20%"
-         fxFlex.md="25%"
-         fxFlex.sm="50%"
-         fxFlex.xs="100%"
-         *ngFor="let uh of derp">
-      <ow-line-chart [ngStyle]="{ 'height': '100px' }" [data]="data"></ow-line-chart>
+    <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="20%" fxFlex.md="25%" fxFlex.sm="50%" fxFlex.xs="100%">
+      <ow-line-chart  [data]="eliminations | async"></ow-line-chart>
       <span class="mat-caption text-uppercase">Eliminations</span>
+    </div>
+    <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="20%" fxFlex.md="25%" fxFlex.sm="50%" fxFlex.xs="100%">
+      <ow-line-chart  [data]="kdRatio | async"></ow-line-chart>
+      <span class="mat-caption text-uppercase">K/D Ratio</span>
+    </div>
+    <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="20%" fxFlex.md="25%" fxFlex.sm="50%" fxFlex.xs="100%">
+      <ow-line-chart  [data]="accuracy | async"></ow-line-chart>
+      <span class="mat-caption text-uppercase">Accuracy</span>
+    </div>
+    <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="20%" fxFlex.md="25%" fxFlex.sm="50%" fxFlex.xs="100%">
+      <ow-line-chart  [data]="damageDone | async"></ow-line-chart>
+      <span class="mat-caption text-uppercase">Hero Damage</span>
+    </div>
+    <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="20%" fxFlex.md="25%" fxFlex.sm="50%" fxFlex.xs="100%">
+      <ow-line-chart  [data]="damageBlocked | async"></ow-line-chart>
+      <span class="mat-caption text-uppercase">Blocked</span>
+    </div>
+    <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="20%" fxFlex.md="25%" fxFlex.sm="50%" fxFlex.xs="100%">
+      <ow-line-chart  [data]="healingDone | async"></ow-line-chart>
+      <span class="mat-caption text-uppercase">Healing</span>
+    </div>
+    <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="20%" fxFlex.md="25%" fxFlex.sm="50%" fxFlex.xs="100%">
+      <ow-line-chart [data]="winRate | async"></ow-line-chart>
+      <span class="mat-caption text-uppercase">Win Rate</span>
     </div>
   </div>
 </div>

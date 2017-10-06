@@ -1,65 +1,71 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { SnapshotService, TrendsService } from '../../../services';
+import { DatePipe } from '@angular/common';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+
+/**
+ * TODO: rewrite component to be reusable with trends component in profile page. PUll this into it's own module
+ */
 
 @Component({
   selector: 'ow-hero-trends',
   templateUrl: 'trends.component.html',
-  styleUrls: ['trends.component.scss']
+  styleUrls: ['trends.component.scss'],
+  providers: [SnapshotService, TrendsService, DatePipe]
 })
 
-export class HeroTrendsComponent {
+export class HeroTrendsComponent implements OnInit {
+  @Input() mode: BehaviorSubject<string>;
+  @Input() hero: Observable<any>;
+  statTrends: Observable<any>;
+  eliminations: Observable<any>;
+  kdRatio: Observable<any>;
+  accuracy: Observable<any>;
+  damageDone: Observable<any>;
+  damageBlocked: Observable<any>;
+  healingDone: Observable<any>;
+  winRate: Observable<any>;
 
-  derp = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  constructor(
+    private snapShotService: SnapshotService,
+    private trendsService: TrendsService
+  ) {}
 
-  // options
-  showXAxis = true;
-  showYAxis = false;
-  showLegend = false;
-  showXAxisLabel = true;
-  xAxisLabel = 'Eliminations';
-  showYAxisLabel = false;
-  yAxisLabel = 'value';
-  autoScale = true;
+  ngOnInit() {
+    this.statTrends = this.snapShotService.getStatisticsAverages(7)
+    .combineLatest(this.mode, this.hero, (trends, mode, { id: heroId }) => {
+      return this.snapShotService.selectAveragesSnapshot(mode, heroId)(trends);
+    })
+    .share();
 
-  data = [
-    {
-      'name': 'Eliminations',
-      'series': [
-        {
-          'name': '01-01',
-          'value': 10
-        },
-        {
-          'name': '01-02',
-          'value': 15
-        },
-        {
-          'name': '01-03',
-          'value': 13
-        },
-        {
-          'name': '01-04',
-          'value': 13
-        },
-        {
-          'name': '01-05',
-          'value': 13
-        },
-        {
-          'name': '01-06',
-          'value': 13
-        },
-        {
-          'name': '01-07',
-          'value': 13
-        }
-      ]
-    }
-  ];
 
-  constructor() {}
+    this.eliminations = this.statTrends
+    .map(trends => this.trendsService.eliminations(trends))
+    .map(series => [{ name: 'Eliminations', series }]);
 
-  onSelect(event) {
-    console.log(event);
+    this.kdRatio = this.statTrends
+    .map(trends => this.trendsService.kdRatio(trends))
+    .map(series => [{ name: 'KD Ratio', series }]);
+
+    this.accuracy = this.statTrends
+    .map(trends => this.trendsService.accuracy(trends))
+    .map(series => [{ name: 'Accuracy', series }]);
+
+    this.damageDone = this.statTrends
+    .map(trends => this.trendsService.damageDone(trends))
+    .map(series => [{ name: 'Damage Done', series }]);
+
+    this.damageBlocked = this.statTrends
+    .map(trends => this.trendsService.damageBlocked(trends))
+    .map(series => [{ name: 'Damage Blocked', series }]);
+
+    this.healingDone = this.statTrends
+    .map(trends => this.trendsService.healingDone(trends))
+    .map(series => [{ name: 'Healing Done', series }]);
+
+    this.winRate = this.statTrends
+    .map(trends => this.trendsService.eliminations(trends))
+    .map(series => [{ name: 'Win Rate', series }]);
   }
-
 }

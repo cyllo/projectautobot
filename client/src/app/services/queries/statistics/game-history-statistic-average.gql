@@ -1,4 +1,4 @@
-fragment GameHistoryStatistic on GameHistoryStatisticAverage {
+fragment GameHistoryStatisticAverage on GameHistoryStatisticAverage {
   winPercentage
   timePlayed
   gamesWon

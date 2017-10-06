@@ -71,7 +71,9 @@ export class AppComponent implements OnInit {
     this.$state = this.store.select(s => s);
 
     this.owHeroData.load();
-    this.getHeroes();
+
+    this.hereosService.get()
+    .subscribe(payload => this.store.dispatch({ type: 'GET_HEROES_DATA', payload }));
 
 
     const session = Cookies.get('ow-auth-token');
@@ -107,10 +109,5 @@ export class AppComponent implements OnInit {
                        .addSvgIcon('role_tank', sanitize(`${icon_dir}/tank.svg`))
                        .addSvgIcon('logo_text', sanitize(`${img_dir}/logo_text.svg`))
                        .addSvgIcon('logo', sanitize(`${img_dir}/logo.svg`));
-  }
-
-  getHeroes() {
-    return this.hereosService.get()
-    .subscribe(payload => this.store.dispatch({ type: 'GET_HEROES_DATA', payload }));
   }
 }
