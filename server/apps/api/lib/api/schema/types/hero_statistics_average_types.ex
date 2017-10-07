@@ -4,6 +4,7 @@ defmodule Api.Schema.HeroStatisticsAverageTypes do
   @desc "Average stats for playable heroes"
   object :hero_statistics_aggregate_average do
     field :hero, :hero
+    field :hero_id, :integer
 
     field :combat_best_statistic, :combat_best_statistic_average
     field :game_average_statistic, :game_average_statistic_average

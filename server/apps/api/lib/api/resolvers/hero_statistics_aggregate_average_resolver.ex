@@ -1,4 +1,4 @@
-defmodule Api.HeroStatisticsAverageResolver do
+defmodule Api.HeroStatisticsAggregateAverageResolver do
   # alias Models.Game
 
   # def find_hero_and_average(%{name: name}, _info) do
