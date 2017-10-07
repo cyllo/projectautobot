@@ -68,7 +68,8 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
   end
 
   def average_hero_stats_by_stats_type_query(query \\ SnapshotStatistic.latest_stats_query, statistic_type) do
-    average_stats_by_stats_type_query(query, Enums.create_stats_type(:hero, statistic_type))
+    average_hero_stats_query(query)
+      |> stats_type_query(Enums.create_stats_type(:hero, statistic_type))
   end
 
   def average_stats_by_stats_type_query(query \\ SnapshotStatistic.latest_stats_query, statistic_type) do
