@@ -1,0 +1,7 @@
+query listLeaderboard {
+  leaderboardSnapshotStatistic(last: 1) {
+    id
+    profileStatsRankings
+    heroTotalQuickplayRankings
+  }
+}

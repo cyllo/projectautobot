@@ -18,4 +18,5 @@ export * from './error-handler.service';
 export * from './compare.service';
 export * from './common-operations';
 export * from './snapshots.service';
+export * from './leaderboard.service';
 export * from './trends';

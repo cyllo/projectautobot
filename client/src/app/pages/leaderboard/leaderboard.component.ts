@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class LeaderboardComponent implements OnInit {
-
   selectedPlatform = 'pc';
   platforms = [
     {
@@ -48,15 +47,15 @@ export class LeaderboardComponent implements OnInit {
     }
   ];
 
-  selectedGameMode = 'quickPlay';
+  selectedGameMode = 'quickplay';
   gameModes = [
     {
       name: 'Quick Play',
-      value: 'quickPlay'
+      value: 'quickplay'
     },
     {
       name: 'Competitive Play',
-      value: 'competitivePlay'
+      value: 'competitive'
     }
   ];
 
