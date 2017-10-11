@@ -6,8 +6,8 @@ defmodule Models.Statistics.Snapshots.StatisticsAveragesSnapshot do
   schema "statistics_averages_snapshots" do
     field :hero_total_competitive_averages, :map
     field :hero_total_quickplay_averages, :map
-    field :hero_competitive_averages, {:array, :map}
-    field :hero_quickplay_averages, {:array, :map}
+    field :hero_competitive_averages, :map
+    field :hero_quickplay_averages, :map
 
     timestamps(type: :utc_datetime)
   end
