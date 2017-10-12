@@ -34,7 +34,14 @@ defmodule Api.GamerTagResolver do
     end
   end
 
-  def search(%{tag: tag}, _info), do: Scraper.search_tag(tag)
+  def search(%{tag: tag}, _info) do
+    with {:ok, gamer_tags} <- Scraper.search_tag(tag) do
+      Game.search_gamer_tag(tag)
+        |> Enum.concat(gamer_tags)
+        |> Enum.uniq_by(fn %{platform: platform, region: region, tag: tag} -> platform <> region <> tag end)
+        |> Utility.wrap_ok
+    end
+  end
 
   def get_gamer_tags_user(_, gamer_tags), do: preload_id_map(gamer_tags, :user)
   def get_gamer_tag_following_users(_, gamer_tag_ids), do: Game.get_following_users_by_gamer_tag_ids(gamer_tag_ids)

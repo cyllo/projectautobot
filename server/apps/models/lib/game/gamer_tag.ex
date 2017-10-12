@@ -47,6 +47,10 @@ defmodule Models.Game.GamerTag do
 
   def create_changeset(params), do: changeset(%GamerTag{}, params)
 
+  def search_tag_query(query \\ from(GamerTag), tag) do
+    where(query, [gt], ilike(gt.tag, ^"#{tag}%"))
+  end
+
   # this should cast but cant figure out updates since theres' no pkey it errors.
   def cast_connected_gamer_tags(changeset, params) do
     if Map.has_key?(params, :connected_gamer_tags) do

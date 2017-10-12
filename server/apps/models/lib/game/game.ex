@@ -39,6 +39,11 @@ defmodule Models.Game do
   Model.create_model_methods(GamerTag)
   Model.create_model_methods(ConnectedGamerTag)
 
+  def search_gamer_tag(tag) do
+    GamerTag.search_tag_query(tag)
+      |> Repo.all
+  end
+
   def preload_latest_snapshots(gamer_tag, limit \\ 1) do
     Repo.preload(gamer_tag, snapshot_statistics: SnapshotStatistic.latest_stats_query(limit))
       |> Map.update!(:snapshot_statistics, &Enum.take(&1, -2))

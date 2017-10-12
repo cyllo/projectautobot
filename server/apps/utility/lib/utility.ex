@@ -6,6 +6,8 @@ defmodule Utility do
   def unwrap_ok_or_raise({:ok, a}), do: a
   def unwrap_ok_or_raise({:error, error}), do: raise error
 
+  def wrap_ok(item), do: {:ok, item}
+
   def filter_not_nil(values), do: Enum.filter(values, &(!is_nil(&1)))
 
   def atom_matches?(atom, regex), do: Regex.match?(regex, Atom.to_string(atom))
