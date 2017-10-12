@@ -1,20 +1,7 @@
 defmodule StatsLeaderboard.PlatformRankingCalculator do
   alias Models.{Repo, Game.GamerTag}
 
-  def calculate_leaderboard_rankings(leaderboard_snapshot, platform, region) do
-    leaderboard_snapshot
-      |> Map.update!(:profile_stats_rankings, &rerank_by_platform(&1, platform, region))
-      |> Map.update!(:hero_quickplay_rankings, &rerank_heroes_by_platform(&1, platform, region))
-      |> Map.update!(:hero_competitive_rankings, &rerank_heroes_by_platform(&1, platform, region))
-      |> Map.update!(:hero_total_quickplay_rankings, &rerank_by_platform(&1, platform, region))
-      |> Map.update!(:hero_total_competitive_rankings, &rerank_by_platform(&1, platform, region))
-  end
-
-  defp rerank_heroes_by_platform(heroes_stats, platform, region) do
-    Utility.map_values(heroes_stats, &rerank_by_platform(&1, platform, region))
-  end
-
-  defp rerank_by_platform(stats, platform, region) do
+  def rerank_by_platform(stats, platform, region) do
     Utility.map_values(stats, &rerank_gamer_tag_object(&1, platform, region))
   end
 

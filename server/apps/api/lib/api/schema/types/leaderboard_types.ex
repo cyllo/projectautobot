@@ -25,4 +25,15 @@ defmodule Api.Schema.LeaderboardSnapshotStatisticTypes do
 
     timestamp_types
   end
+
+  input_object :leaderboard_rank_by_input do
+    field :platform, :string
+    field :region, :string
+  end
+
+  input_object :leaderboard_filters_input do
+    field :statistics_props, list_of(non_null(:string))
+    field :gamer_tag_id, :integer
+    field :rank_by, :leaderboard_rank_by_input
+  end
 end

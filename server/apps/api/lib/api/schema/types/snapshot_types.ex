@@ -16,11 +16,6 @@ defmodule Api.Schema.SnapshotTypes do
     value :hero_quickplay
   end
 
-  input_object :rank_by_input do
-    field :platform, :string
-    field :region, :string
-  end
-
   @desc "Snapshot that marks gathering of all the combat and other statistics"
   object :snapshot_statistic do
     field :id, :integer
