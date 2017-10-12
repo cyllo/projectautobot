@@ -1,4 +1,4 @@
-fragment GameAverageStatistic on GameAverageStatisticAverage {
+fragment GameAverageStatisticAverage on GameAverageStatisticAverage {
   allDamageDoneAvgPer10Min
   barrierDamageDoneAvgPer10Min
   criticalHitsAvgPer10Min

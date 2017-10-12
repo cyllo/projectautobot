@@ -14,7 +14,7 @@ export class GameModeIndicatorComponent implements OnInit, OnDestroy {
   gameModeToggle$ = new Subject<boolean>();
   destroyer$ = new Subject<void>();
   selectedMode: string;
-  derp: boolean;
+
   constructor() {}
 
   ngOnInit() {

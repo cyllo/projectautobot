@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { GraphqlResponse } from '../models';
-import { FetchSnapshot, SnapshotDifference } from './queries';
+import { FetchSnapshot, SnapshotDifference, FetchSnapshotById, StatisticsAveragesSnapshot } from './queries';
 import {
   toLower,
   converge,
@@ -21,7 +21,9 @@ import {
   not,
   assoc,
   multiply,
-  divide
+  toUpper,
+  divide,
+  isNil
 } from 'ramda';
 
 const heroTimePlayed = path<number>(['gameHistoryStatistic', 'timePlayed']);
@@ -32,7 +34,7 @@ export class SnapshotService {
 
   findByGamerTag(id: number, numSnapshots = 2) {
     return this.apollo.query({
-      query: FetchSnapshot,
+      query: FetchSnapshotById,
       variables: { id , snapshotLast: numSnapshots }
     })
     .map(({ data: { gamerTag: { snapshotStatistics } } }: GraphqlResponse ) => snapshotStatistics);
@@ -48,6 +50,18 @@ export class SnapshotService {
     ]);
 
     return map(selectHeroesSnapshot);
+  }
+
+  selectAveragesSnapshot(mode: string, heroId: number) {
+    const selectAveragesSnapshot = converge(merge, [
+      pick(['insertedAt', 'id']),
+      applySpec({
+        heroesTotalSnapshotStatistic: path([`hero${mode}Averages`, heroId]),
+      })
+    ]);
+    const undefinedStatistic = compose(not, isNil, prop('heroesTotalSnapshotStatistic'));
+
+    return compose(filter(undefinedStatistic), map(selectAveragesSnapshot));
   }
 
   diff(snapshotStatisticAId, snapshotStatisticBId) {
@@ -71,5 +85,21 @@ export class SnapshotService {
       multiply(divide(heroTimePlayed(hero), totalTimePlayed), 100).toFixed(2),
       hero)
     );
+  }
+
+  get(mode: string, snapshotLast = 1) {
+    return this.apollo.query({
+      query: FetchSnapshot,
+      variables: { type: toUpper(mode), snapshotLast }
+    })
+    .map(({ data: { snapshotStatistics } }: GraphqlResponse) => snapshotStatistics);
+  }
+
+  getStatisticsAverages(last = 1) {
+    return this.apollo.query({
+      query: StatisticsAveragesSnapshot,
+      variables: { last }
+    })
+    .map(({ data: { statisticsAveragesSnapshots } }: GraphqlResponse) => statisticsAveragesSnapshots);
   }
 }

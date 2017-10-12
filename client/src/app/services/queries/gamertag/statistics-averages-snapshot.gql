@@ -1,0 +1,10 @@
+
+
+query StatisticsAveragesSnapshot($last: Int) {
+  statisticsAveragesSnapshots(last: $last) {
+    heroCompetitiveAverages
+    heroQuickplayAverages
+    insertedAt
+    id
+  }
+}

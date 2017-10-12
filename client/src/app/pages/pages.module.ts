@@ -94,7 +94,8 @@ import {
   CreatePostComponent,
   CreatePostFormComponent,
   TrendsComponent,
-  SkillRatingTrendComponent
+  SkillRatingTrendComponent,
+  SelectorComponent
 } from './index';
 
 @NgModule({
@@ -140,6 +141,7 @@ import {
   ],
   declarations: [
     HomeComponent,
+    SelectorComponent,
     FollowingComponent,
     FollowedUserComponent,
     GamerTagCardComponent,

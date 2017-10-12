@@ -5,45 +5,25 @@
 #import "./combat-best-statistic-average.gql"
 #import "./game-average-statistic-average.gql"
 
-query HeroStatisticsAverageSearch($heroId: Int!) {
-    competitiveHeroAverages: heroStatisticsAggregateAverage(heroId: $heroId, type: COMPETITIVE) {
+query HeroStatisticsAverageSearch($heroId: Int!, $platform: String, $region: String, $type: SnapshotStatisticType!) {
+    heroStatisticsAggregateAverage(heroId: $heroId, region: $region, platform: $platform, type: $type) {
       matchAwardsStatistic {
-        ...MatchAwardStatistic
+        ...MatchAwardsStatisticAverage
       }
       hero {
         ...HeroFields
       }
       gameHistoryStatistic {
-        ...GameHistoryStatistic
+        ...GameHistoryStatisticAverage
       }
       combatLifetimeStatistic {
-        ...CombatLifeStatistic
+        ...CombatLifetimeStatisticAverage
       }
       combatBestStatistic {
-        ...CombatBestStatistic
+        ...CombatBestStatisticAverage
       }
       gameAverageStatistic {
-        ...GameAverageStatistic
-      }
-    }
-    quickplayHeroAverages: heroStatisticsAggregateAverage(heroId: $heroId, type:  QUICKPLAY) {
-      matchAwardsStatistic {
-        ...MatchAwardStatistic
-      }
-      hero {
-        ...HeroFields
-      }
-      gameHistoryStatistic {
-        ...GameHistoryStatistic
-      }
-      combatLifetimeStatistic {
-        ...CombatLifeStatistic
-      }
-      combatBestStatistic {
-        ...CombatBestStatistic
-      }
-      gameAverageStatistic {
-        ...GameAverageStatistic
+        ...GameAverageStatisticAverage
       }
     }
   }

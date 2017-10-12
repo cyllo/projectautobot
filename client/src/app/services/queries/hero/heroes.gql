@@ -1,6 +1,6 @@
 #import "./hero-fields.gql"
 
-query {
+query ListHeroes {
   heroes {
     ...HeroFields
   }
