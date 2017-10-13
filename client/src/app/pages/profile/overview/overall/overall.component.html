@@ -18,7 +18,7 @@
       <span class="mat-caption text-uppercase">Eliminations</span>
     </div>
     <div class="pt-3 px-3" fxLayout="column" fxLayoutGap="8px" fxFlex="25%" fxFlex.lt-md="50%">
-      <span><strong>{{ totalGameAverage.eliminationsAvgPer10Min | owKillDeathAverage:totalGameAverage.deathsAvgPer10Min }}</strong></span>
+      <span><strong>{{ totalGameAverage.eliminationsAvgPer10Min | owRatio:totalGameAverage.deathsAvgPer10Min }}</strong></span>
       <md-progress-bar mode="determinate" value="70"></md-progress-bar>
       <span class="mat-caption text-uppercase">K/D Ratio</span>
     </div>
