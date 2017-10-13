@@ -20,7 +20,7 @@
           </div>
           <div fxLayout="row" fxLayoutAlign="space-between center">
             <span class="mat-caption text-uppercase">K/D Ratio</span>
-            <span class="mat-caption text-uppercase">{{ hero.combatLifetimeStatistic.eliminations | owKillDeathAverage:hero.combatLifetimeStatistic.deaths }}:1</span>
+            <span class="mat-caption text-uppercase">{{ hero.combatLifetimeStatistic.eliminations | owRatio:hero.combatLifetimeStatistic.deaths }}:1</span>
           </div>
           <div fxLayout="row" fxLayoutAlign="space-between center">
             <span class="mat-caption text-uppercase">Kills/Deaths</span>

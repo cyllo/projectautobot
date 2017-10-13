@@ -21,7 +21,7 @@
         <div [ngStyle]="{ 'height': '40px' }" fxLayout="row" fxLayoutAlign="center end" fxLayoutGap="8px">
           <span class="mat-display-1 mb-0">~{{ 
             currentHeroStats.combatLifetimeStatistic?.timeSpentOnFire
-            | owTotalTimeOnFire:currentHeroStats.gameHistoryStatistic?.timePlayed
+            | owRatio:currentHeroStats.gameHistoryStatistic?.timePlayed
             | owSecondsToHours 
           }}</span>
           <span class="mat-caption text-uppercase">hrs</span>

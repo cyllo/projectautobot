@@ -3,24 +3,16 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import {
   SecondsToHours,
-  AverageMatchLength,
   SecondsToMinutes,
   ParsePercent,
-  KillDeathAverage,
-  OrderByPipe,
-  ValuesPipe,
-  TotalTimeOnFire
+  RatioPipe
 } from '../pipes';
 
 const PipeArray = [
   SecondsToHours,
-  AverageMatchLength,
   SecondsToMinutes,
   ParsePercent,
-  KillDeathAverage,
-  OrderByPipe,
-  ValuesPipe,
-  TotalTimeOnFire
+  RatioPipe
 ];
 
 @NgModule({

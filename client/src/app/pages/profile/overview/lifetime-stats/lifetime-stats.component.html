@@ -23,11 +23,11 @@
       </div>
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <span class="mat-caption text-uppercase">Avg. Game Length</span>
-        <span class="mat-caption">{{ gameHistory.timePlayed | owAverageMatchLength:gameHistory.gamesPlayed | owSecondsToMinutes }}</span>
+        <span class="mat-caption">{{ gameHistory.timePlayed | owRatio:gameHistory.gamesPlayed | owSecondsToMinutes }}</span>
       </div>
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <span class="mat-caption text-uppercase">Avg. Game Length</span>
-        <span class="mat-caption">{{ gameHistory.timePlayed | owAverageMatchLength:gameHistory.gamesPlayed | owSecondsToMinutes }}</span>
+        <span class="mat-caption">{{ gameHistory.timePlayed | owRatio:gameHistory.gamesPlayed | owSecondsToMinutes }}</span>
       </div>
     </div>
   </div>
@@ -45,7 +45,7 @@
       </div>
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <span class="mat-caption text-uppercase">K/D Ratio</span>
-        <span class="mat-caption">{{ lifetimeStats.eliminations| owKillDeathAverage:lifetimeStats.deaths }}:1</span>
+        <span class="mat-caption">{{ lifetimeStats.eliminations| owRatio:lifetimeStats.deaths }}:1</span>
       </div>
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <span class="mat-caption text-uppercase">Accuracy</span>

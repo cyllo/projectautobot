@@ -38,7 +38,7 @@
           </div>
           <div class="flex-layout" fxLayout="row">
             <div class="flex-layout text-center" fxLayout="column" fxFlex>
-              <span class="mat-caption">{{ hero.combatLifetimeStatistic?.finalBlows | owKillDeathAverage:hero.combatLifetimeStatistic?.deaths}}:1</span>
+              <span class="mat-caption">{{ hero.combatLifetimeStatistic?.finalBlows | owRatio:hero.combatLifetimeStatistic?.deaths}}:1</span>
             </div>
           </div>
         </div>
@@ -52,7 +52,7 @@
         </div>
 
         <div class="mt-3" fxLayout="column" fxFlex="33.333%">
-          <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.combatLifetimeStatistic.finalBlows | owKillDeathAverage:snapshot.heroesTotalSnapshotStatistic.combatLifetimeStatistic.deaths }}:1</strong></span>
+          <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.combatLifetimeStatistic.finalBlows | owRatio:snapshot.heroesTotalSnapshotStatistic.combatLifetimeStatistic.deaths }}:1</strong></span>
           <span class="mat-caption text-uppercase">K/D Ratio</span>
         </div>
 

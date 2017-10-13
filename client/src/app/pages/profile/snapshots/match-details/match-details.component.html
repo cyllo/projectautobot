@@ -67,7 +67,7 @@
                     <span class="mat-caption text-uppercase">K/D Ratio</span>
                   </div>
                   <div class="flex-layout" fxLayout="column" fxFlex="initial">
-                    <span class="mat-caption text-uppercase">{{ hero.combatLifetimeStatistic?.finalBlows | owKillDeathAverage:hero.combatLifetimeStatistic?.deaths}}:1</span>
+                    <span class="mat-caption text-uppercase">{{ hero.combatLifetimeStatistic?.finalBlows | owRatio:hero.combatLifetimeStatistic?.deaths}}:1</span>
                   </div>
                 </div>
 
@@ -141,7 +141,7 @@
     </div>
 
     <div class="mt-3" fxLayout="column" fxFlex="20%" fxFlex.lt-lg="33.333%">
-      <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.combatLifetimeStatistic.finalBlows | owKillDeathAverage:snapshot.heroesTotalSnapshotStatistic.combatLifetimeStatistic.deaths }}</strong>/min</span>
+      <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.combatLifetimeStatistic.finalBlows | owRatio:snapshot.heroesTotalSnapshotStatistic.combatLifetimeStatistic.deaths }}</strong>/min</span>
       <span class="mat-caption text-uppercase">K/D Ratio</span>
     </div>
 
@@ -187,7 +187,7 @@
 
     <div class="mt-3" fxLayout="column" fxFlex="20%" fxFlex.lt-lg="33.333%">
       <span class="mat-caption"><strong>{{ snapshot.heroesTotalSnapshotStatistic.gameHistoryStatistic.timePlayed
-        | owAverageMatchLength:snapshot.heroesTotalSnapshotStatistic.gameHistoryStatistic.gamesPlayed
+        | owRatio:snapshot.heroesTotalSnapshotStatistic.gameHistoryStatistic.gamesPlayed
         | owSecondsToMinutes }}</strong>/min</span>
       <span class="mat-caption text-uppercase">Avg. Game Length</span>
     </div>

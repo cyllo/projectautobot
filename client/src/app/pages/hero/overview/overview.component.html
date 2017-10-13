@@ -5,7 +5,7 @@
       <div fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="start center" fxFill>
         <md-icon>all_out</md-icon>
         <div fxLayout="column" fxLayoutGap="4px" fxFlex>
-          <md-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.eliminationsAvgPer10Min | owKillDeathAverage:heroTotals?.gameAverageStatistic?.eliminationsAvgPer10Min"></md-progress-bar>
+          <md-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.eliminationsAvgPer10Min | owRatio:heroTotals?.gameAverageStatistic?.eliminationsAvgPer10Min"></md-progress-bar>
           <span class="mat-caption text-uppercase"><strong>Eliminations</strong></span>
         </div>
       </div>
@@ -14,7 +14,7 @@
       <div fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="start center" fxFill>
         <md-icon>all_out</md-icon>
         <div fxLayout="column" fxLayoutGap="4px" fxFlex>
-          <md-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.eliminationsAvgPer10Min | owKillDeathAverage:heroTotals?.gameAverageStatistic?.deathsAvgPer10Min"></md-progress-bar>
+          <md-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.eliminationsAvgPer10Min | owRatio:heroTotals?.gameAverageStatistic?.deathsAvgPer10Min"></md-progress-bar>
           <span class="mat-caption text-uppercase"><strong>K/D Ratio</strong></span>
         </div>
       </div>
@@ -23,7 +23,7 @@
       <div fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="start center" fxFill>
         <md-icon>all_out</md-icon>
         <div fxLayout="column" fxLayoutGap="4px" fxFlex>
-          <md-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.heroDamageDoneAvgPer10Min | owKillDeathAverage:heroTotals?.gameAverageStatistic?.heroDamageDoneAvgPer10Min"></md-progress-bar>
+          <md-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.heroDamageDoneAvgPer10Min | owRatio:heroTotals?.gameAverageStatistic?.heroDamageDoneAvgPer10Min"></md-progress-bar>
           <span class="mat-caption text-uppercase"><strong>Hero Damage</strong></span>
         </div>
       </div>
@@ -32,7 +32,7 @@
       <div fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="start center" fxFill>
         <md-icon>all_out</md-icon>
         <div fxLayout="column" fxLayoutGap="4px" fxFlex>
-          <md-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.damageBlockedAvgPer10Min | owKillDeathAverage:heroTotals?.gameAverageStatistic?.damageBlockedAvgPer10Min"></md-progress-bar>
+          <md-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.damageBlockedAvgPer10Min | owRatio:heroTotals?.gameAverageStatistic?.damageBlockedAvgPer10Min"></md-progress-bar>
           <span class="mat-caption text-uppercase"><strong>Blocked</strong></span>
         </div>
       </div>
@@ -41,7 +41,7 @@
       <div fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="start center" fxFill>
         <md-icon>all_out</md-icon>
         <div fxLayout="column" fxLayoutGap="4px" fxFlex>
-          <md-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.healingDoneAvgPer10Min | owKillDeathAverage:heroTotals?.gameAverageStatistic?.healingDoneAvgPer10Min"></md-progress-bar>
+          <md-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.healingDoneAvgPer10Min | owRatio:heroTotals?.gameAverageStatistic?.healingDoneAvgPer10Min"></md-progress-bar>
           <span class="mat-caption text-uppercase"><strong>Healing</strong></span>
         </div>
       </div>
