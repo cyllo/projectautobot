@@ -1,7 +1,7 @@
 defmodule Api.Schema.GameTypes do
   use Absinthe.Schema.Notation
   import Api.Schema.ScalarTypes, only: [timestamp_types: 0]
-  alias Api.{SnapshotStatisticResolver, GamerTagResolver}
+  alias Api.{SnapshotStatisticResolver, GamerTagResolver, HeroResolver}
 
   @desc "A gamer tag profile that's region/platform specific"
   object :gamer_tag do
@@ -73,11 +73,46 @@ defmodule Api.Schema.GameTypes do
     field :is_watched, :boolean
   end
 
+  object :hero_role do
+    field :id, :integer
+    field :name, :string
+    field :svg_url, :string
+  end
+
+  object :hero_skill do
+    field :id, :integer
+    field :name, :string
+    field :description, :string
+    field :icon_url, :string
+  end
+
   @desc "Overwatch heroes"
   object :hero do
     field :id, :integer
     field :name, :string
-    field :code, :string
+    field :description, :string
+    field :icon_portrait_url, :string
+    field :select_portrait_url, :string
+
+    field :role, :hero_role do
+      resolve fn hero, _args, _ ->
+        batch(
+          {HeroResolver, :get_hero_roles},
+          hero,
+          &{:ok, Map.get(&1, hero.id, [])}
+        )
+      end
+    end
+
+    field :skills, list_of(:hero_skill) do
+      resolve fn hero, _args, _ ->
+        batch(
+          {HeroResolver, :get_hero_skills},
+          hero,
+          &{:ok, Map.get(&1, hero.id, [])}
+        )
+      end
+    end
 
     timestamp_types
   end

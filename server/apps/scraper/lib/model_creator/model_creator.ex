@@ -16,7 +16,7 @@ defmodule Scraper.ModelCreator do
   def save_profile(profile) do
     Logger.info "Storing #{profile.gamer_tag} into database"
 
-    with heroes <- Heroes.create_from_stats(profile),
+    with heroes <- Heroes.scrape_or_get,
          {:ok, gamer_tag} <- UserProfile.update_or_create_gamer_tag(profile) do
 
       if profile |> Map.get(:other_platforms) |> Enum.any? do

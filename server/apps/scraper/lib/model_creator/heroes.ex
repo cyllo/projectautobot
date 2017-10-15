@@ -1,22 +1,28 @@
 defmodule Scraper.ModelCreator.Heroes do
-  alias Models.{Game, HeroesCache}
+  use GenServer
 
-  def create_from_stats(%{competitive: competitive, quickplay: quickplay}) do
-    %{heroes_stats: competitive_heroes_stats} = competitive
-    %{heroes_stats: quickplay_heroes_stats} = quickplay
+  @scrape_timeout :timer.hours(12)
 
-    get_new_heroes_from_stats(competitive_heroes_stats, quickplay_heroes_stats)
-      |> HeroesCache.filter_not_in_cache
-      |> HeroesCache.store_heroes_into_db
+  # API
+  def start_link(_), do: start_link()
+  def start_link do
+    GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
 
-  defp get_new_heroes_from_stats(heroes_stats1, heroes_stats2) do
-    Utility.uniq_list(
-      create_hero_struct(heroes_stats1),
-      create_hero_struct(heroes_stats2)
-    )
+  def scrape_or_get do
+    GenServer.call(__MODULE__, :scrape_or_get, :timer.seconds(30))
   end
 
-  defp create_hero_struct(heroes_stats), do: Enum.map(heroes_stats, &create_hero_stat/1)
-  defp create_hero_stat(hero), do: %{name: hero.name, code: hero.code}
+  # SERVER
+  def init(_) do
+    {:ok, NaiveDateTime.utc_now() |> NaiveDateTime.add(-(@scrape_timeout + 1000), :millisecond)}
+  end
+
+  def handle_call(:scrape_or_get, _from, last_scraped) do
+    if NaiveDateTime.diff(NaiveDateTime.utc_now(), last_scraped, :millisecond) > @scrape_timeout do
+      {:reply, HeroesScraper.scrape_heroes_information(), NaiveDateTime.utc_now()}
+    else
+      {:reply, Models.HeroesCache.cache_list, last_scraped}
+    end
+  end
 end

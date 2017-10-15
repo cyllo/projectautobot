@@ -38,17 +38,18 @@ defmodule Scraper.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
+      {:flow, "~> 0.11"},
       {:hound, "~> 1.0"},
       {:floki, "~> 0.17.0"},
-      {:flow, "~> 0.11"},
-      {:html5ever, "~> 0.5.0"},
       {:quantum, ">= 1.9.1"},
+      {:html5ever, "~> 0.5.0"},
       {:httpoison, "~> 0.10.0"},
       {:con_cache, "~> 0.12.0"},
-      {:utility, in_umbrella: true},
       {:models, in_umbrella: true},
-      {:stats_leaderboard, in_umbrella: true},
-      {:stats_averages, in_umbrella: true}
+      {:utility, in_umbrella: true},
+      {:heroes_scraper, in_umbrella: true},
+      {:stats_averages, in_umbrella: true},
+      {:stats_leaderboard, in_umbrella: true}
     ]
   end
 end

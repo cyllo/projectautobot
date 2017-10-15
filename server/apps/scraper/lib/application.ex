@@ -15,6 +15,7 @@ defmodule Scraper.Application do
       # Starts a worker by calling: Scraper.Worker.start_link(arg1, arg2, arg3)
       # worker(Scraper.Worker, [arg1, arg2, arg3]),
       supervisor(Scraper.SessionServer, []),
+      supervisor(Scraper.ModelCreator.Heroes, []),
       supervisor(ConCache, [
         [ttl_check: :timer.seconds(5), ttl: Scraper.ScrapeStatusCache.search_cache_ttl()],
         [name: :scraper_tag_search_store]
@@ -28,7 +29,9 @@ defmodule Scraper.Application do
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Scraper.Supervisor]
-    Supervisor.start_link(children, opts)
-  end
 
+    supervisor = Supervisor.start_link(children, opts)
+
+    supervisor
+  end
 end

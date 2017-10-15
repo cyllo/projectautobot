@@ -1,6 +1,7 @@
 defmodule Models.Game do
   use Models.Model
-  alias Models.Game.{Hero, GamerTag, ConnectedGamerTag, GamerTagUserFollower}
+
+  alias Models.Game.{Hero, HeroRole, GamerTag, ConnectedGamerTag, GamerTagUserFollower}
   alias Models.Statistics.Snapshots.SnapshotStatistic
   alias Models.{Repo, Model}
 
@@ -35,7 +36,12 @@ defmodule Models.Game do
     ) |> Repo.one
   end
 
+  def get_full_heroes do
+    Repo.all(from(Hero, preload: [:skills, :role]))
+  end
+
   Model.create_model_methods(Hero)
+  Model.create_model_methods(HeroRole)
   Model.create_model_methods(GamerTag)
   Model.create_model_methods(ConnectedGamerTag)
 
@@ -199,13 +205,15 @@ defmodule Models.Game do
   end
 
   def create_heroes(heroes) do
-    heroes = heroes
-      |> Enum.map(&add_timestamps/1)
-
     try do
-      {_, res} = Repo.insert_all(Hero, heroes, returning: true)
+      roles = Enum.uniq_by(heroes, &get_in(&1, [:role, :name]))
+        |> Enum.map(&Map.get(&1, :role))
+        |> Enum.filter(&not(is_nil(&1)))
 
-      {:ok, res}
+      {_, %{heroes_and_relations: heroes}} = Hero.create_heroes_query(heroes, roles)
+        |> Repo.transaction
+
+      {:ok, heroes}
     rescue
       Postgrex.Error ->
         {:error, "heroes already saved"}
@@ -216,11 +224,6 @@ defmodule Models.Game do
     params
       |> GamerTag.create_changeset
       |> Repo.insert
-  end
-
-  defp add_timestamps(hero) do
-    Map.put(hero, :inserted_at, DateTime.utc_now)
-      |> Map.put(:updated_at, DateTime.utc_now)
   end
 
   defp slug_gamer_tag(gamer_tag), do: String.replace(~r/(.*)-(.*)/, gamer_tag, "\0#\1")

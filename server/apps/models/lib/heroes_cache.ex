@@ -6,7 +6,7 @@ defmodule Models.HeroesCache do
     if cache() do
       !Map.has_key?(cache(), name)
     else
-      true
+     true
     end
   end
 
@@ -23,7 +23,7 @@ defmodule Models.HeroesCache do
 
         {:ok, res}
       else
-        {:error, "heroes already saved"} -> Game.get_all_heroes |> HeroesCache.put
+        {:error, "heroes already saved"} -> Game.get_all_heroes([:skills, :role]) |> HeroesCache.put
       end
     else
       {:ok, HeroesCache.cache_list()}
@@ -31,7 +31,6 @@ defmodule Models.HeroesCache do
   end
 
   def add_heroes_to_cache(heroes) do
-
     cache_length = HeroesCache.cache_length()
     hero_names = get_hero_names(heroes)
 
@@ -61,6 +60,14 @@ defmodule Models.HeroesCache do
       nil -> nil
       hero -> Map.get(hero, :id)
     end
+  end
+
+  def cache_db_heroes do
+    heroes = Game.get_full_heroes
+
+    add_heroes_to_cache(heroes)
+
+    heroes
   end
 
   def get_by_name(hero_name), do: Map.get(cache(), hero_name)

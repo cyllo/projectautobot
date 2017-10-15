@@ -2,7 +2,7 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
   use Models.Model
   alias Models.{Enums, Statistics}
   alias Models.Statistics.Snapshots.{HeroSnapshotStatistic, SnapshotStatistic}
-  alias Models.Game.Hero
+  alias Models.Game.{Hero, HeroRole, HeroSkill}
   alias Models.Statistics.{
     GameAverage, CombatBest,
     CombatLifetime, GameHistory, MatchAward
@@ -248,7 +248,9 @@ defmodule Models.Statistics.Snapshots.HeroSnapshotStatistic do
         hero: %{
           id: hero.id,
           name: hero.name,
-          code: hero.code
+          description: hero.description,
+          icon_portrait_url: hero.icon_portrait_url,
+          select_portrait_url: hero.select_portrait_url,
         },
 
         match_awards_statistic: %{

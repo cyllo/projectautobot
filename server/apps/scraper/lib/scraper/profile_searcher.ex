@@ -7,7 +7,7 @@ defmodule Scraper.ProfileSearcher do
 
   @platform_possibilities ["xbl", "psn", "pc"]
   @pc_regions ["us", "eu", "kr"]
-  @search_timeout :timer.seconds(10)
+  @search_timeout :timer.seconds(20)
 
   def find_profile_tag(tag) do
     info "Searching for #{tag}"

@@ -12,7 +12,10 @@ defmodule StatsLeaderboard.PlatformRankingCalculatorServer do
 
   def handle_call({:calculate_ranks, leaderboard_snapshot, platform, region}, _from, state) do
     task = Task.async(fn ->
-      StatsLeaderboard.PlatformRankingCalculator.calculate_leaderboard_rankings(leaderboard_snapshot, platform, region)
+      StatsLeaderboard.LeaderboardFilters.filter_by(leaderboard_snapshot, rank_by: %{
+        platform: platform,
+        region: region
+      })
     end)
 
     {:reply, Task.await(task, 10_000), state}

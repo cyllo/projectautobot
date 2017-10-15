@@ -6,6 +6,14 @@ defmodule Utility do
   def unwrap_ok_or_raise({:ok, a}), do: a
   def unwrap_ok_or_raise({:error, error}), do: raise error
 
+  def create_id_map(items, id_key_prop, value_prop) do
+    Enum.reduce(items, %{}, &Map.put(&2, Map.get(&1, id_key_prop), Map.get(&1, value_prop)))
+  end
+
+  def create_id_map(items, id_key_prop) do
+    Enum.reduce(items, %{}, &Map.put(&2, Map.get(&1, id_key_prop), &1))
+  end
+
   def wrap_ok(item), do: {:ok, item}
 
   def filter_not_nil(values), do: Enum.filter(values, &(!is_nil(&1)))
@@ -154,5 +162,10 @@ defmodule Utility do
       key when is_bitstring(key) -> String.to_atom(key)
       key -> key
     end)
+  end
+
+  def add_timestamps(hero) do
+    Map.put(hero, :inserted_at, DateTime.utc_now)
+      |> Map.put(:updated_at, DateTime.utc_now)
   end
 end
