@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { ListLeaderboard, FetchGamertags } from './queries';
-import { GamerTag, LeaderboardSnapshotStatistic, Rankings, GraphqlResponse } from '../models';
+import { GamerTag, LeaderboardSnapshotStatistic, Rankings, GraphqlResponse, SnapshotStatistic, HeroSnapshotStats } from '../models';
 import {
   keys,
   map,
@@ -47,9 +47,9 @@ export class LeaderboardService {
     .map(({ data: { gamerTags } }: GraphqlResponse) => gamerTags)
     .withLatestFrom(rankingStream, (gamerTags: GamerTag[], rankings: LeaderboardSnapshotStatistic) => {
       return sortBy(prop('position'), map(gamerTag => {
-        const snapshot = gamerTag.snapshotStatistics[0];
-        const heroesTotalStats = snapshot[`${gamemode}HeroesTotalSnapshotStatistic`];
-        const heroStats = snapshot[`${gamemode}HeroSnapshotStatistics`];
+        const snapshot: SnapshotStatistic = gamerTag.snapshotStatistics[0];
+        const heroesTotalStats: HeroSnapshotStats = snapshot[`${gamemode}HeroesTotalSnapshotStatistic`];
+        const heroStats: HeroSnapshotStats[] = snapshot[`${gamemode}HeroSnapshotStatistics`];
         const heroStatsSortedByPlaytime = reverse(sortBy(heroStat => heroStat.gameHistoryStatistic.timePlayed, heroStats));
         const mostPlayedHeroes = map((heroStat: any) => heroStat.hero, take(3, heroStatsSortedByPlaytime));
         return {

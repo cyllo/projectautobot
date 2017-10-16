@@ -6,7 +6,6 @@ export * from './news-post-card';
 export * from './image';
 export * from './page-spinner';
 export * from './select';
-export * from './schedule';
 export * from './hero-card';
 export * from './chart';
 export * from './platform-region';

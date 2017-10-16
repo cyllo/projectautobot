@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MomentModule } from 'angular2-moment';
 import { MdIconModule,
          MdProgressSpinnerModule,
@@ -24,7 +23,6 @@ import {
   ApiService,
   VideoCardComponent,
   SearchComponent,
-  ScheduleComponent,
   RoleComponent,
   NewsPostCardComponent,
   ImageComponent,
@@ -49,7 +47,6 @@ import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   imports: [
-    NgbModule.forRoot(),
     PipeModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
@@ -74,7 +71,6 @@ import { ChartsModule } from 'ng2-charts';
   declarations: [
     VideoCardComponent,
     SearchComponent,
-    ScheduleComponent,
     RoleComponent,
     NewsPostCardComponent,
     ImageComponent,
@@ -98,7 +94,6 @@ import { ChartsModule } from 'ng2-charts';
   exports: [
     VideoCardComponent,
     SearchComponent,
-    ScheduleComponent,
     RoleComponent,
     NewsPostCardComponent,
     ImageComponent,
