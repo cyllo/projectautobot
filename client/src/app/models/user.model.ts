@@ -1,3 +1,4 @@
+import { HeroSnapshotStats } from './player.model';
 
 export interface ProfileStatistic {
   competitiveLevel: number;
@@ -22,6 +23,8 @@ export interface SnapshotStatistic {
   insertedAt: string;
   gamerTagId: number;
   profileSnapshotStatistic: ProfileSnapshotStatistic;
+  competitiveHeroesTotalSnapshotStatistic?: HeroSnapshotStats;
+  quickPlayHeroesTotalSnapshotStatistic?: HeroSnapshotStats;
 }
 
 export interface ProfileKey {

@@ -11,7 +11,8 @@ import {
   chain,
   compose,
   curry,
-  filter,
+  not,
+  reject,
   find,
   identity,
   isEmpty,
@@ -122,10 +123,8 @@ export class CompareComponent implements OnInit {
 
     this.profiles = this.store.select('profiles').skipWhile(isEmpty);
 
-    this.selectedProfiles = Observable.combineLatest([
-      this.profiles,
-      this.selectedProfileKeys
-    ], (profiles, selectedProfileKeys) => {
+    this.selectedProfiles = Observable.combineLatest(
+      [this.profiles, this.selectedProfileKeys], (profiles, selectedProfileKeys): Player[] => {
       return map(({tag, platform, region}) => {
         if (!region) {
           return path([tag, platform], profiles);
@@ -161,7 +160,11 @@ export class CompareComponent implements OnInit {
       selectedHeroes: SelectedHeroes[],
       selectedStatCategories: StatCategory[]
     ) => {
-      const selectedHeroIds = map(key => parseInt(key, 10), keys(filter(identity, selectedHeroes)));
+      const isFalsy = not;
+      const removeFalsy = reject(isFalsy);
+      const removeFalsyKeys = compose(keys, removeFalsy);
+      const selectedHeroIds = map(key => parseInt(key, 10), removeFalsyKeys(selectedHeroes));
+
       return map(date => {
         const series = chain(statCategory => {
           return chain((player: Player) => {

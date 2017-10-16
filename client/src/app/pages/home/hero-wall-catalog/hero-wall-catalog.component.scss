@@ -1,7 +1,2 @@
 @import "../../../../style/colors";
 
-:host /deep/ .hero-wall-catalog {
-    ngb-progressbar[type="stp"] .progress-bar{
-        height: 0.15rem;
-    }
-}
