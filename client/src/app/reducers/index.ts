@@ -1,5 +1,7 @@
 import { routerReducer } from '@ngrx/router-store';
+import { ActionReducerMap } from '@ngrx/store';
 import { propEq } from 'ramda';
+import { Heroes, CurrentHero, CurrentSession } from '../models';
 
 export * from './profiles.reducer';
 export * from './search.reducer';
@@ -15,20 +17,20 @@ export * from './side-bar-search-results';
 export * from './snapshots';
 export * from './statistical-trends';
 
-import { profiles } from './profiles.reducer';
-import { searchPlayerTag } from './search.reducer';
+import { profiles, GamerTagState } from './profiles.reducer';
+import { searchPlayerTag, SearchState } from './search.reducer';
 import { heroesData } from './heroes.reducer';
 import { currentHeroData } from './current-hero.reducer';
-import { blogPosts } from './blog-post.reducer';
+import { blogPosts, BlogPostState } from './blog-post.reducer';
 import { currentSession } from './current-session.reducer';
-import { friendships } from './friendship.reducer';
-import { clubs } from './clubs.reducer';
-import { followedUsers } from './following-user.reducer';
-import { followedGamerTags } from './following-gamertag.reducer';
-import { sideBarSearchResults } from './side-bar-search-results';
+import { friendships, FriendshipState } from './friendship.reducer';
+import { clubs, ClubState } from './clubs.reducer';
+import { followedUsers, FollowingUserState } from './following-user.reducer';
+import { followedGamerTags, FollowingGamerTagState } from './following-gamertag.reducer';
+import { sideBarSearchResults, SideBarSearchResults } from './side-bar-search-results';
 import { initialState as sideBarState } from './side-bar-search-results';
-import { snapshots } from './snapshots';
-import { statTrends } from './statistical-trends';
+import { snapshots, SnapshotState } from './snapshots';
+import { statTrends, TrendsState } from './statistical-trends';
 
 const clearable = (reducer, defaultValue) => (state, action) => {
   if (propEq('type', 'LOG_OUT', action)) {
@@ -37,7 +39,24 @@ const clearable = (reducer, defaultValue) => (state, action) => {
   return reducer(state, action);
 };
 
-export const reducerStack = {
+export interface ReducerStack {
+  profiles: GamerTagState;
+  search: SearchState;
+  heroes: Heroes[];
+  currentHero: CurrentHero;
+  blogPosts: BlogPostState;
+  currentSession: CurrentSession;
+  friendships: FriendshipState;
+  clubs: ClubState;
+  followedUsers: FollowingUserState;
+  followedGamerTags: FollowingGamerTagState;
+  router: any;
+  sideBarSearchResults: SideBarSearchResults;
+  snapshots: SnapshotState;
+  statTrends: TrendsState[];
+}
+
+export const reducerStack: ActionReducerMap<ReducerStack> = {
   profiles,
   search: searchPlayerTag,
   heroes: heroesData,
@@ -54,9 +73,4 @@ export const reducerStack = {
   statTrends
 };
 
-export const initialStates = {
-  blogPost: {},
-  players: [],
-  router: {},
-  snapshotStats: {}
-};
+

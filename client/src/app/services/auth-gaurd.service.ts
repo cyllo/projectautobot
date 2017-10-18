@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppState, CurrentSession } from '../models';
+import { CurrentSession } from '../models';
+import { ReducerStack } from '../reducers';
 import { isNil } from 'ramda';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private store: Store<AppState>) {}
+  constructor(private router: Router, private store: Store<ReducerStack>) {}
 
   canActivate() {
     return this.store

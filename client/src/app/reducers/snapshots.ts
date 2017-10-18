@@ -6,7 +6,7 @@ export const initialSnapShotState = {
   watching: false,
 };
 
-interface SnapshotState {
+export interface SnapshotState {
   watching: boolean;
   snapshots: SnapshotStats[];
 }

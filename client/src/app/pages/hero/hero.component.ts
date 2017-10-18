@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../models';
-import { getHeroByName } from '../../reducers';
+import { getHeroByName, ReducerStack } from '../../reducers';
 import { notEmpty, HeroStatistics, SnapshotService } from '../../services';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -26,7 +25,7 @@ export class HeroComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private store: Store<AppState>,
+    private store: Store<ReducerStack>,
     private heroStatsService: HeroStatistics,
     private snapShotService: SnapshotService
   ) {}

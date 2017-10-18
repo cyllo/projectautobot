@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppState, Player, Heroes, ChartData, ChartType } from '../../models';
+import { Player, Heroes, ChartData, ChartType } from '../../models';
 import { CompareService, OverwatchHeroDataService } from '../../services';
+import { ReducerStack } from '../../reducers';
 import { addProfiles } from '../../reducers';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -92,7 +93,7 @@ export class CompareComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private store: Store<AppState>,
+    private store: Store<ReducerStack>,
     private owHeroData: OverwatchHeroDataService,
     private compareService: CompareService
   ) {}
@@ -133,7 +134,7 @@ export class CompareComponent implements OnInit {
       }, selectedProfileKeys);
     });
 
-    this.heroes = this.store.select<Heroes[]>('heroes')
+    this.heroes = this.store.select('heroes')
       .skipWhile(isEmpty)
       .withLatestFrom(this.owHeroData.data$, (heroes, heroData) => {
         return map(hero => {

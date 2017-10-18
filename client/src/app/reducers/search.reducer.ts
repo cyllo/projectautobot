@@ -1,15 +1,19 @@
-import { Search } from '../models';
 import { GamerTag } from '../models';
 import { assoc, compose } from 'ramda';
 
-const initialState: Search = {
+export interface SearchState {
+  profile?: GamerTag[];
+  searching?: boolean;
+}
+
+const initialState: SearchState = {
   profile: null,
   searching: false
 };
 
 const updateSearch = compose(assoc('searching', true), assoc('profile'));
 
-export function searchPlayerTag(state: Search = initialState, { type, payload }): Search {
+export function searchPlayerTag(state: SearchState = initialState, { type, payload }): SearchState {
   switch (type) {
     case 'START_SEARCH':
       return assoc('searching', true, state);

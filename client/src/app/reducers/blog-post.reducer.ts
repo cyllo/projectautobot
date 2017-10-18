@@ -1,6 +1,10 @@
 import { assoc, reduce, merge } from 'ramda';
 
-import { BlogPostState, BlogPost } from '../models';
+import { BlogPost } from '../models';
+
+export interface BlogPostState {
+  [key: number]: BlogPost;
+}
 
 export function blogPosts(state: BlogPostState = {}, { type, payload }: { type: string, payload?: BlogPost | BlogPost[] }) {
   switch (type) {

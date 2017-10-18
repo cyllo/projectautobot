@@ -1,5 +1,9 @@
 import { dissoc, assoc } from 'ramda';
-import { FollowingUserState, User } from '../models';
+import { User } from '../models';
+
+export interface FollowingUserState {
+  [key: number]: User;
+}
 
 export function followedUsers(state: FollowingUserState = {}, { type, payload }: {type: string, payload?: any|any[] }) {
   switch (type) {

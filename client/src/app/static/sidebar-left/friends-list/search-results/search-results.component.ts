@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FriendShipService, ProfileService, notNil } from '../../../../services';
-import { AppState, User, GamerTag } from '../../../../models';
+import { User, GamerTag } from '../../../../models';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { toggleDisplaySideBarSearch, updateSideBarSearch } from '../../../../reducers';
+import { toggleDisplaySideBarSearch, updateSideBarSearch, ReducerStack } from '../../../../reducers';
+
+
 import { propEq, assoc, map } from 'ramda';
 
 @Component({
@@ -24,7 +26,7 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   constructor(
     private friendShip: FriendShipService,
     private profile: ProfileService,
-    private store: Store<AppState>
+    private store: Store<ReducerStack>
   ) {}
 
   ngOnInit() {

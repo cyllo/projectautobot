@@ -1,9 +1,13 @@
 import { assocPath, dissoc, reduce, replace, prop, propOr, has, reject, propEq, compose, not, isEmpty } from 'ramda';
-import { GamerTag, GamerTagState } from '../models';
+import { GamerTag } from '../models';
 
 const notEmpty = compose(not, isEmpty);
 
-export function profiles(state: any = {}, { type, payload }: { type: string, payload?: any }) {
+export interface GamerTagState {
+  [key: string]: GamerTag;
+}
+
+export function profiles(state: GamerTagState, { type, payload }: { type: string, payload?: any }) {
   switch (type) {
     case 'ADD_PROFILES':
       return reduce((acc, player: GamerTag) => {

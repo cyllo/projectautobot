@@ -2,8 +2,8 @@ import { Component, OnInit  } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { isEmpty } from 'ramda';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../../models';
 import { TrendsService } from '../../../../services';
+import { ReducerStack } from '../../../../reducers';
 
 
 @Component({
@@ -18,7 +18,7 @@ export class SkillRatingTrendComponent implements OnInit {
   ngxChart: Observable<any>;
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<ReducerStack>,
     private trends: TrendsService
   ) {}
 

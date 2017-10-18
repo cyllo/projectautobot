@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { SnapshotService, notNil } from '../../../../services';
 import { prop, compose, path, merge, find, propEq, map, assoc } from 'ramda';
+import { ReducerStack } from '../../../../reducers';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../../models';
 
 @Component({
   selector: 'ow-match-details',
@@ -17,7 +17,7 @@ export class MatchDetailsComponent implements OnInit {
 
   constructor(
     private snapshotService: SnapshotService,
-    private store: Store<AppState>
+    private store: Store<ReducerStack>
   ) {}
 
   ngOnInit() {

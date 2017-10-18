@@ -48,9 +48,7 @@ export interface GamerTagScrapeResponse {
   loading: boolean;
 }
 
-export interface GamerTagState {
-  [key: string]: GamerTag;
-}
+
 
 export interface GamerTag {
   id: number;
@@ -63,10 +61,6 @@ export interface GamerTag {
   tag: string;
   userId: number;
   snapshotStatistics?: [SnapshotStatistic];
-}
-
-export interface FollowingGamerTagState {
-  [key: number]: GamerTag;
 }
 
 export interface User {
@@ -83,9 +77,6 @@ export interface User {
   gamerTags?: [GamerTag];
 }
 
-export interface FollowingUserState {
-  [key: number]: User;
-}
 
 export interface Statistic {
   heroesTotalSnapshotStatistic: {

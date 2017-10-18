@@ -7,14 +7,14 @@ import {
     DeleteClub,
     CreateClub,
 } from './queries';
-import { Dispatcher } from '@ngrx/store';
-import { createClub, addFriendship, removeClub, updateClub, removeFriendship } from '../reducers';
+import { Store } from '@ngrx/store';
+import { createClub, addFriendship, removeClub, updateClub, removeFriendship, ReducerStack } from '../reducers';
 import { GraphqlResponse } from '../models';
 
 
 @Injectable()
 export class ClubService {
-  constructor(private apollo: Apollo, private dispatcher: Dispatcher) {}
+  constructor(private apollo: Apollo, private store: Store<ReducerStack>) {}
 
   update(id, name) {
     return this.apollo.mutate({
@@ -22,7 +22,7 @@ export class ClubService {
       variables: { id, name }
     })
     .map(({ data: { updateFriendGroup: club } }: GraphqlResponse) => club)
-    .subscribe(club => this.dispatcher.dispatch(updateClub(club)));
+    .subscribe(club => this.store.dispatch(updateClub(club)));
   }
 
   removeFriendship(friendshipId, clubId) {
@@ -30,7 +30,7 @@ export class ClubService {
       mutation: RemoveFriendFromClub,
       variables: { friendshipId, clubId}
     })
-    .subscribe(() => this.dispatcher.dispatch(removeFriendship(friendshipId, clubId)));
+    .subscribe(() => this.store.dispatch(removeFriendship(friendshipId, clubId)));
   }
 
   addFriendship(friendship, clubId) {
@@ -39,7 +39,7 @@ export class ClubService {
       variables: { friendshipId: friendship.id, clubId }
     })
     .map(({ data: { addFriendGroupFriendship: { id } } }: GraphqlResponse) => id)
-    .subscribe(id => this.dispatcher.dispatch(addFriendship(friendship, id)));
+    .subscribe(id => this.store.dispatch(addFriendship(friendship, id)));
   }
 
   delete(id) {
@@ -50,7 +50,7 @@ export class ClubService {
     .map(({data: {deleteFriendGroup: { deleted } } }: GraphqlResponse) => deleted)
     .subscribe(deleted => {
       if (deleted) {
-        this.dispatcher.dispatch(removeClub(id));
+        this.store.dispatch(removeClub(id));
       }
     });
   }
@@ -61,6 +61,6 @@ export class ClubService {
       variables: { name }
     })
     .map(({ data: { createFriendGroup: club } }: GraphqlResponse ) => club)
-    .subscribe(club => this.dispatcher.dispatch(createClub(club)));
+    .subscribe(club => this.store.dispatch(createClub(club)));
   }
 }

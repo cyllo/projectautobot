@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Search, GamerTag, AppState } from '../../models';
+import { GamerTag } from '../../models';
+import { ReducerStack, SearchState } from '../../reducers';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -12,12 +13,12 @@ export class MainSearchResultsComponent implements OnInit {
   searchResults: GamerTag[];
 
   constructor(
-    private store: Store<AppState>
+    private store: Store<ReducerStack>
   ) {}
 
   ngOnInit() {
     this.store.select('search')
-    .subscribe(({searching, profile}: Search) => {
+    .subscribe(({ searching, profile }: SearchState) => {
       this.searchResults = profile;
       this.openDisplay = searching;
     });

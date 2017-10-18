@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { propEq, filter, values, uniqBy, prop, map, reject, assoc, any, not, compose, isEmpty } from 'ramda';
-import { Dispatcher, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { ClubService, UserService } from '../services';
 import { RequestFriendship, AcceptFriendship, RejectFriendship, RemoveFriend, PendingFriendships } from './queries';
-import { rejectFriendRequest, updateFriendship, deleteFriendship, getGeneralClub } from '../reducers';
-import { AppState, GraphqlResponse, Friendship, User } from '../models';
+import { rejectFriendRequest, updateFriendship, deleteFriendship, getGeneralClub, ReducerStack } from '../reducers';
+import { GraphqlResponse, Friendship, User } from '../models';
 
 const notEmpty = compose(not, isEmpty);
 
 @Injectable()
 export class FriendShipService {
   constructor(private apollo: Apollo,
-    private dispatcher: Dispatcher,
-    private store: Store<AppState>,
+    private store: Store<ReducerStack>,
     private club: ClubService,
     private userService: UserService
   ) {}
@@ -40,7 +39,7 @@ export class FriendShipService {
       return { friendship, generalClub };
     })
     .do(({ friendship, generalClub: { id: clubId } } ) => this.club.addFriendship(friendship, clubId))
-    .subscribe(({ friendship }) => this.dispatcher.dispatch(updateFriendship(friendship)));
+    .subscribe(({ friendship }) => this.store.dispatch(updateFriendship(friendship)));
   }
 
   reject(friendUserId, friendshipId) {
@@ -51,7 +50,7 @@ export class FriendShipService {
     .map(({ data: { rejectFriendRequest: { rejected } } }: GraphqlResponse) => rejected)
     .subscribe(rejected => {
       if (rejected) {
-        this.dispatcher.dispatch(rejectFriendRequest(friendshipId));
+        this.store.dispatch(rejectFriendRequest(friendshipId));
       }
     });
   }
@@ -62,7 +61,7 @@ export class FriendShipService {
       variables: { friendshipId }
     })
     .filter(({ data: { removeFriend: { removed } } }: GraphqlResponse) => removed)
-    .subscribe(() => this.dispatcher.dispatch(deleteFriendship(friendshipId)));
+    .subscribe(() => this.store.dispatch(deleteFriendship(friendshipId)));
   }
 
   pending() {

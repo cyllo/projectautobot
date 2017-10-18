@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GamerTag, GameHistoryStats, CombatLifetimeStats, AppState } from '../../../models';
+import { GamerTag, GameHistoryStats, CombatLifetimeStats } from '../../../models';
 import {
   path,
   groupBy,
@@ -23,6 +23,7 @@ import {
   takeLast
 } from 'ramda';
 import { GamerTagService, SnapshotService, notEmpty } from '../../../services';
+import { ReducerStack } from '../../../reducers';
 import { Observable } from 'rxjs/Observable';
 import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
@@ -51,7 +52,7 @@ export class ProfileOverviewComponent implements OnInit {
 
   constructor(
     private snapshotService: SnapshotService,
-    private store: Store<AppState>
+    private store: Store<ReducerStack>
   ) {}
 
   ngOnInit() {

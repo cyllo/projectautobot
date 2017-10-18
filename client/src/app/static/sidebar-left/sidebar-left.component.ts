@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ThemeingService, AppTheme } from '../../services';
-import { AppState, NavLink } from '../../models';
+import { NavLink } from '../../models';
+import { ReducerStack } from '../../reducers';
 import { isNil, length, filter, propEq, values, find, prop, isEmpty } from 'ramda';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -21,7 +22,7 @@ export class SideBarLeftComponent implements OnInit {
   friendRequestCount: number;
   userLoggedIn: Observable<boolean>;
 
-  constructor(private store: Store<AppState>,
+  constructor(private store: Store<ReducerStack>,
     private themeingService: ThemeingService) {
   }
 

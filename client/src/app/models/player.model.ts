@@ -1,6 +1,5 @@
-import { AppState } from './appstate.model';
 
-export interface Player extends AppState {
+export interface Player {
   id?: number;
   updatedAt: string;
   totalGamesWon: number;

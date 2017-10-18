@@ -1,5 +1,9 @@
-import { FriendshipState, Friendship } from '../models';
+import { Friendship } from '../models';
 import { dissoc, assoc } from 'ramda';
+
+export interface FriendshipState {
+  [key: number]: Friendship;
+}
 
 export function friendships(state: FriendshipState = {}, { type, payload }: {type: string, payload?: any|any[] }) {
   switch (type) {

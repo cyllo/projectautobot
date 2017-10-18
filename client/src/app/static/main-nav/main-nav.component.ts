@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState, CurrentSession, NavLink } from '../../models';
+import { CurrentSession, NavLink } from '../../models';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { isNil } from 'ramda';
 import { GamerTagService } from '../../services';
-import { startTagSearch, searchResults } from '../../reducers';
+import { startTagSearch, searchResults, ReducerStack } from '../../reducers';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class MainNavComponent implements OnInit {
   onSearch$ = new Subject<string>();
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<ReducerStack>,
     private gamerTagService: GamerTagService) {}
 
   ngOnInit() {

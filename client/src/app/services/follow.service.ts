@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { FollowGamerTag, UnfollowUser, UnfollowGamerTag } from './queries';
-import { GraphqlResponse, AppState } from '../models';
-import { unfollowUser, unfollowGamerTag } from '../reducers';
+import { GraphqlResponse } from '../models';
+import { unfollowUser, ReducerStack, unfollowGamerTag } from '../reducers';
 import { Store } from '@ngrx/store';
 
 
 @Injectable()
 export class FollowService {
-  constructor(private apollo: Apollo, private store: Store<AppState>) {}
+  constructor(private apollo: Apollo, private store: Store<ReducerStack>) {}
 
   followGamerTag(gamerTagId) {
     return this.apollo.mutate({
