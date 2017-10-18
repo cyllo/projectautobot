@@ -8,6 +8,4 @@ export interface Club {
   friendships: [Friendship];
 }
 
-export interface ClubState {
-  [key: number]: Club;
-}
+

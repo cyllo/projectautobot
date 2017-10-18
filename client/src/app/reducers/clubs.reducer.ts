@@ -1,9 +1,13 @@
-import { ClubState, Club } from '../models';
+import { Club } from '../models';
 import { dissoc, assoc, propEq, reject, map, values, find } from 'ramda';
 
 const removeClubFriendship = (friendshipId, club) => {
   return assoc('friendships', reject(propEq('id', friendshipId), club.friendships), club);
 };
+
+export interface ClubState {
+  [key: number]: Club;
+}
 
 
 export function clubs(state: ClubState = {}, { type, payload }: { type: string, payload?: any | any[] }) {

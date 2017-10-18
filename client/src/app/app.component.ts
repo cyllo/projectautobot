@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { AppState, CurrentSession, NavLink } from './models';
+import { CurrentSession, NavLink } from './models';
+import { ReducerStack } from './reducers';
 import { MdIconRegistry } from '@angular/material';
 import { isNil } from 'ramda';
 import * as Cookies from 'js-cookie';
@@ -53,11 +54,11 @@ export class AppComponent implements OnInit {
     // }
   ];
 
-  $state: Observable<AppState>;
+  $state: Observable<ReducerStack>;
   currentSession: Observable<CurrentSession>;
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<ReducerStack>,
     private owHeroData: OverwatchHeroDataService,
     private hereosService: HereosService,
     private authService: AuthorizationService,

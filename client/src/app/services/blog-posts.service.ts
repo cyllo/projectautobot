@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { Store, Dispatcher } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { complement, values, isNil } from 'ramda';
 import { blogPost, blogPosts } from './queries';
-import { addBlogPost, getBlogPosts } from '../reducers';
-import { BlogPost, BlogPostFilterParams, AppState, GraphqlResponse, BlogCategories, PaginationParams } from '../models';
+import { addBlogPost, getBlogPosts, ReducerStack } from '../reducers';
+import { BlogPost, BlogPostFilterParams, GraphqlResponse, BlogCategories, PaginationParams } from '../models';
 import { convertToGlobalQueryFilters, convertToGlobalQueryLatestFilters } from '../helpers/models';
 import { createBlogPost, blogCategories } from '../services/queries';
 
@@ -14,7 +14,7 @@ export class BlogPostsService {
 
   public posts$: Observable<BlogPost[]>;
 
-  constructor(private apollo: Apollo, private store: Store<AppState>, private dispatcher: Dispatcher) {
+  constructor(private apollo: Apollo, private store: Store<ReducerStack>) {
     this.posts$ = this.store
       .select('blogPosts')
       .filter(complement(isNil))
@@ -27,7 +27,7 @@ export class BlogPostsService {
       variables: { title }
     })
       .map(({ data: { blogPost: post } }: GraphqlResponse) => post)
-      .do(post => this.dispatcher.dispatch(addBlogPost(post)));
+      .do(post => this.store.dispatch(addBlogPost(post)));
   }
 
   public getBlogPosts(variables: BlogPostFilterParams): Observable<BlogPost[]> {
@@ -36,7 +36,7 @@ export class BlogPostsService {
       variables
     })
       .map(({ data: { blogPosts: posts } }: GraphqlResponse) => posts)
-      .do(posts => this.dispatcher.dispatch(getBlogPosts(posts)));
+      .do(posts => this.store.dispatch(getBlogPosts(posts)));
   }
 
   public getLatestPosts(pagination: PaginationParams, params?: BlogPostFilterParams) {
@@ -58,6 +58,6 @@ export class BlogPostsService {
       mutation: createBlogPost
     })
       .map(({ data: { createBlogPost: post } }: GraphqlResponse) => post)
-      .do(post => this.dispatcher.dispatch(addBlogPost(post)));
+      .do(post => this.store.dispatch(addBlogPost(post)));
   }
 }

@@ -4,9 +4,8 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
-import { RouterStoreModule } from '@ngrx/router-store';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { DragulaModule } from 'ng2-dragula';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -41,12 +40,10 @@ import { BlogPostResolver } from './pages/resolvers';
 import { AppComponent } from './app.component';
 import * as staticComponents from './static';
 import { routing } from './app.routing';
-import '@ngrx/core/add/operator/select';
 
 
 import { PipeModule } from './pipes';
 import {
-  PlayersService,
   OverwatchHeroDataService,
   AuthorizationService,
   AuthGuard,
@@ -62,18 +59,13 @@ import {
   TrendsService,
   HeroStatistics } from './services';
 
-import { reducerStack, initialStates } from './reducers';
+import { reducerStack } from './reducers';
 import { SharedModule } from './shared';
 import { PagesModule } from './pages';
 import { ChartsModule } from './charts';
 
 const declarations: any[] = [AppComponent, ...values(staticComponents)];
 
-export function instrumentOptions() {
-  return {
-    monitor: useLogMonitor({ visible: false, position: 'right' })
-  };
-}
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   // suppressScrollX: true
@@ -87,13 +79,12 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PipeModule.forRoot(),
     ChartsModule.forRoot(),
     ApolloModule.forRoot(() => new ApolloClient({ networkInterface: httpInterceptor })),
-    StoreDevtoolsModule.instrumentStore(instrumentOptions),
-    StoreModule.provideStore(reducerStack, initialStates),
-    RouterStoreModule.connectRouter(),
+    StoreModule.forRoot(reducerStack),
+    StoreDevtoolsModule.instrument({maxAge: 25}),
+    StoreRouterConnectingModule,
     BrowserModule,
     MomentModule,
     CommonModule,
-    StoreLogMonitorModule,
     HttpModule,
     JsonpModule,
     FormsModule,
@@ -123,7 +114,6 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     GamerTagService,
     ProfileService,
     SocketService,
-    PlayersService,
     OverwatchHeroDataService,
     AuthGuard,
     AdminAuthGuard,

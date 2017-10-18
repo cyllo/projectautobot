@@ -4,14 +4,15 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { isNil } from 'ramda';
 
-import { AppState, CurrentSession, User } from '../models';
+import { CurrentSession, User } from '../models';
 import { AuthorizationService } from '../services';
+import { ReducerStack } from '../reducers';
 
 @Injectable()
 export class AdminAuthGuard implements CanActivate {
   constructor(
     private router: Router,
-    private store: Store<AppState>,
+    private store: Store<ReducerStack>,
     private authService: AuthorizationService
   ) { }
 

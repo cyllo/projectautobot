@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AppState, GamerTag } from '../../../models';
+import { GamerTag } from '../../../models';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { filter, propEq, values, isNil, isEmpty } from 'ramda';
 import { FriendShipService, notNil, ProfileService } from '../../../services';
+import { ReducerStack } from '../../../reducers';
 import { Subject } from 'rxjs/Subject';
 
 @Component({
@@ -20,7 +21,7 @@ export class FriendRequestsComponent implements OnInit, OnDestroy {
   destroyer$ = new Subject<void>();
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<ReducerStack>,
     private friendship: FriendShipService,
     private profile: ProfileService
   ) {}

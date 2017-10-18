@@ -7,7 +7,3 @@ export interface Friendship {
     updatedAt?: Date;
     friend?: User;
 }
-
-export interface FriendshipState {
-  [key: number]: Friendship;
-}

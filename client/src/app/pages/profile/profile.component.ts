@@ -1,12 +1,12 @@
 import { merge, path, replace, isEmpty, isNil, compose, not, any, prop, gte, length, flip } from 'ramda';
 import { Component, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
-import { AppState, GamerTag, ProfileKey, GamerTagState, SnapshotStats } from '../../models';
+import { GamerTag, ProfileKey, SnapshotStats } from '../../models';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { ProfileService, SnapshotService, GamerTagService } from '../../services';
 import { Subject } from 'rxjs/Subject';
-import { updateProfile, addSnapshots, addProfile, flushSnapshots, addTrends } from '../../reducers';
+import { updateProfile, addSnapshots, addProfile, flushSnapshots, addTrends, GamerTagState, ReducerStack } from '../../reducers';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { DatePipe } from '@angular/common';
 
@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterContentInit {
   snapshotDiff: Observable<any>;
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<ReducerStack>,
     private activatedRoute: ActivatedRoute,
     private profileService: ProfileService,
     private snapshotService: SnapshotService,

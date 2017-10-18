@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AppState, User, GamerTag } from '../../models';
+import { User, GamerTag } from '../../models';
 import { Store } from '@ngrx/store';
 import { values } from 'ramda';
 import { Observable } from 'rxjs';
+import { ReducerStack } from '../../reducers';
 
 @Component({
   selector: 'ow-following',
@@ -14,7 +15,7 @@ export class FollowingComponent implements OnInit {
   followedUsers: Observable<User[]>;
   followedGamerTags: Observable<GamerTag[]>;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<ReducerStack>) {}
 
   ngOnInit() {
     this.followedUsers = this.store.select('followedUsers').map(following => <User[]>values(following));

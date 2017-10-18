@@ -6,14 +6,14 @@ import { ApolloError } from 'apollo-client';
 import { Store } from '@ngrx/store';
 import { assoc, merge, prop, pathOr, test, isNil, not, compose, find, equals, replace, last, propOr, propEq, filter } from 'ramda';
 
-import { Player, GamerTag, AppState, StatChangeResponse, SnapshotStatistic } from '../models';
+import { Player, GamerTag, StatChangeResponse, SnapshotStatistic } from '../models';
 
 import { GamerTagService } from './gamer-tag.service';
 import { SocketService } from './socket.service';
 import { ErrorHandlerService } from './error-handler.service';
 import { OverwatchHeroDataService } from './owherodata.service';
 import { GamerTagStatsChange } from './queries';
-import { addProfile } from '../reducers';
+import { addProfile, ReducerStack } from '../reducers';
 
 const GAMER_TAG_CHANNEL = 'gamer_tag:lobby';
 
@@ -29,7 +29,7 @@ export class ProfileService {
     private socketService: SocketService,
     private owHeroData: OverwatchHeroDataService,
     private apollo: Apollo,
-    private store: Store<AppState>,
+    private store: Store<ReducerStack>,
     private errorService: ErrorHandlerService
   ) { }
 

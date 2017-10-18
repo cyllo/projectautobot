@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService, ClubService, FriendShipService, notEmpty } from '../../../services';
 import { Store } from '@ngrx/store';
-import { AppState, Club } from '../../../models';
+import { Club } from '../../../models';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { values, path, find, propEq, prop, isNil, filter, length, isEmpty, propOr } from 'ramda';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
-import { startSideBarSearch, completeSideBarSearch } from '../../../reducers';
+import { startSideBarSearch, completeSideBarSearch, ReducerStack } from '../../../reducers';
 
 @Component({
   selector: 'ow-friends-list',
@@ -26,7 +26,7 @@ export class SidebarFriendsListComponent implements OnInit {
   clubs: Observable<Club[]>;
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<ReducerStack>,
     private dragula: DragulaService,
     private clubService: ClubService,
     private friendshipService: FriendShipService

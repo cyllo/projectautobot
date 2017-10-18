@@ -19,10 +19,6 @@ export interface BlogPost {
   isFeatured: boolean;
 }
 
-export interface BlogPostState {
-  [key: number]: BlogPost;
-}
-
 export interface BlogPostFilterParams extends GlobalQueryFilters {
   blogCategories?: [BlogCategories];
 }

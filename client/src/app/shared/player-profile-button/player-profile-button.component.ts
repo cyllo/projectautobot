@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { GamerTag, AppState } from '../../models';
+import { GamerTag } from '../../models';
 import { Observable } from 'rxjs/Observable';
 import { assoc, isNil } from 'ramda';
 import { ProfileService } from '../../services';
-import { resetTagSearch } from '../../reducers';
+import { resetTagSearch, ReducerStack } from '../../reducers';
 
 @Component({
   selector: 'ow-player-profile-button',
@@ -20,7 +20,7 @@ export class PlayerProfileButtonComponent implements OnInit {
 
   playerData$: Observable<GamerTag>;
 
-  constructor(private store: Store<AppState>, private profileService: ProfileService) {}
+  constructor(private store: Store<ReducerStack>, private profileService: ProfileService) {}
 
   ngOnInit() {
     this.playerData$ = Observable.of(this.player)

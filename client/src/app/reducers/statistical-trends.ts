@@ -1,6 +1,6 @@
 import { GenericPayload } from '../models';
 
-interface TrendsState {
+export interface TrendsState {
   competitiveHeroesTotalSnapshotStatistic: any;
   id: number;
   insertedAt: Date;

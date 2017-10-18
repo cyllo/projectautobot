@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { Credentials, AppState, GraphqlResponse, User, GamerTag } from '../models';
+import { Credentials, GraphqlResponse, User, GamerTag } from '../models';
 import { Login, Logout, CurrentUser } from './queries';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { dissoc, prop, propEq } from 'ramda';
-import { listFollowedUsers, listFollowedGamerTags, login } from '../reducers';
+import { listFollowedUsers, listFollowedGamerTags, login, ReducerStack } from '../reducers';
 import * as Cookies from 'js-cookie';
 import { ErrorHandlerService } from './error-handler.service';
 import { Observable } from 'rxjs/Observable';
@@ -19,7 +19,7 @@ const getFollowedGamerTags = user => <GamerTag[]>prop('followedGamerTags', user)
 export class AuthorizationService {
 
   constructor(private apollo: Apollo,
-    private store: Store<AppState>,
+    private store: Store<ReducerStack>,
     private router: Router,
     private error: ErrorHandlerService
   ) {}

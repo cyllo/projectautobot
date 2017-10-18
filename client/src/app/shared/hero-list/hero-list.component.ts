@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import { AppState } from '../../models';
 import { Observable } from 'rxjs/Observable';
 import { notEmpty } from '../../services';
+import { ReducerStack } from '../../reducers';
 
 @Component({
   selector: 'ow-hero-list',
@@ -14,7 +14,7 @@ export class HeroListComponent implements OnInit {
   heroes: Observable<any>;
 
   constructor(
-    private store: Store<AppState>
+    private store: Store<ReducerStack>
   ) {}
 
   ngOnInit() {

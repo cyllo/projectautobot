@@ -1,6 +1,12 @@
 
-import { SideBarSearchResults, GenericPayload, User } from '../models';
+import { GenericPayload, User } from '../models';
 import { assoc, compose, not, prop, lens, set } from 'ramda';
+
+export interface SideBarSearchResults {
+  users: User[];
+  display: boolean;
+  searching: boolean;
+}
 
 export const initialState = {
   users: [],

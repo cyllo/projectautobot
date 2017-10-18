@@ -1,5 +1,9 @@
 import { dissoc, assoc } from 'ramda';
-import { FollowingGamerTagState, GamerTag } from '../models';
+import { GamerTag } from '../models';
+
+export interface FollowingGamerTagState {
+  [key: number]: GamerTag;
+}
 
 export function followedGamerTags(state: FollowingGamerTagState = {}, { type, payload }: {type: string, payload?: any|any[] }) {
   switch (type) {

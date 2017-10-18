@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { GamerTagState, GamerTag } from '../../../models';
+import { GamerTag } from '../../../models';
+import { GamerTagState } from '../../../reducers';
 import {
   find,
   map,

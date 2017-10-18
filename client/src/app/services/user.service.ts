@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { User, GraphqlResponse } from '../models';
-import { getFriendRequests, getClubs } from '../reducers';
-import { Dispatcher } from '@ngrx/store';
+import { getFriendRequests, getClubs, ReducerStack } from '../reducers';
+import { Store } from '@ngrx/store';
 import { merge } from 'ramda';
 import {
   CreateUser,
@@ -20,7 +20,7 @@ interface SearchResponse {
 
 @Injectable()
 export class UserService {
-  constructor(private apollo: Apollo, private dispatcher: Dispatcher) {}
+  constructor(private apollo: Apollo, private store: Store<ReducerStack>) {}
 
   create({ password, email, displayName, clientAuthToken }: UserParams) {
     return this.apollo.mutate({
@@ -43,7 +43,7 @@ export class UserService {
       variables: { isSender: false }
     })
     .map(({ data: { me: { friendships: friendRequests } } }: GraphqlResponse) => friendRequests)
-    .subscribe(friendRequests => this.dispatcher.dispatch(getFriendRequests(friendRequests)));
+    .subscribe(friendRequests => this.store.dispatch(getFriendRequests(friendRequests)));
 
   }
 
@@ -52,6 +52,6 @@ export class UserService {
       query: Clubs
     })
     .map(({ data: {me: { friendGroups: clubs } } }: GraphqlResponse ) => clubs)
-    .subscribe(clubs => this.dispatcher.dispatch(getClubs(clubs)));
+    .subscribe(clubs => this.store.dispatch(getClubs(clubs)));
   }
 }

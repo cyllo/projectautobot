@@ -1,9 +1,9 @@
 import { Component, OnInit, Input  } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../models';
 import { isEmpty } from 'ramda';
 import { Observable } from 'rxjs/Observable';
 import { SnapshotService, TrendsService } from '../../../services';
+import { ReducerStack } from '../../../reducers';
 
 @Component({
   selector: 'ow-profile-trends',
@@ -24,7 +24,7 @@ export class TrendsComponent implements OnInit {
   winRate: Observable<any>;
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<ReducerStack>,
     private snapshotService: SnapshotService,
     private trendsService: TrendsService
   ) {}

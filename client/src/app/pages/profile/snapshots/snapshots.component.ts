@@ -4,7 +4,7 @@ import { SnapshotService } from '../../../services';
 import { Subject } from 'rxjs/Subject';
 import { find, propEq, sort, prop, descend } from 'ramda';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../models';
+import{ ReducerStack } from '../../../reducers';
 
 
 @Component({
@@ -22,16 +22,14 @@ export class SnapshotsHistoryComponent implements OnInit, OnDestroy {
   matchDetails: Observable<null>;
   view: Observable<any>;
   snapshotStore: any;
-  watching: Observable<boolean>;
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<ReducerStack>,
     private snapshotService: SnapshotService
   ) {}
 
   ngOnInit() {
     this.snapshotStore = this.store.select('snapshots');
-    this.watching = this.store.select('watchSnapshot').pluck('isActive');
 
     this.selectedsnapshots = this.snapshotStore
     .pluck('snapshots')
