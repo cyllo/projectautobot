@@ -1,7 +1,20 @@
 fragment HeroFields on Hero {
   id
-  code
-  insertedAt
+  description
+  iconPortraitUrl
   name
+  role {
+    id
+    name
+    svgUrl
+  }
+  selectPortraitUrl
+  skills {
+    description
+    iconUrl
+    id
+    name
+  }
+  insertedAt
   updatedAt
 }
