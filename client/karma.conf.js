@@ -13,7 +13,16 @@ module.exports = function (config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['mocha', 'power-assert'],
+    plugins: [
+      require('karma-mocha'),
+      require('karma-webpack'),
+      require('karma-sourcemap-loader'),
+      require('karma-espower-preprocessor'),
+      require('karma-mocha-reporter'),
+      require('karma-chrome-launcher'),
+      require('karma-power-assert')
+    ],
 
     // list of files / patterns to load in the browser
     files: [
@@ -26,7 +35,7 @@ module.exports = function (config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      './karma-shim.js': ['webpack', 'sourcemap']
+      './karma-shim.js': ['webpack', 'sourcemap', 'espower']
     },
 
     webpack: webpackConfig,
@@ -65,22 +74,36 @@ module.exports = function (config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true
+    singleRun: true,
+    espowerPreprocessor: {
+      options: {
+        // emit espowerified code.
+        // default: false (in-memory)
+        emitActualCode: true,
+        // ignore upstream SourceMap info.
+        // default: false
+        ignoreUpstreamSourceMap: false
+      },
+      transformPath: function (path) {
+        // default
+        return path.replace(/\.js$/, '.espowered.js');
+      }
+    }
   };
 
-  if (!isTestWatch) {
-    _config.reporters.push("coverage");
+  // if (!isTestWatch) {
+  //   _config.reporters.push("coverage");
 
-    _config.coverageReporter = {
-      dir: 'coverage/',
-      reporters: [{
-        type: 'json',
-        dir: 'coverage',
-        subdir: 'json',
-        file: 'coverage-final.json'
-      }]
-    };
-  }
+  //   _config.coverageReporter = {
+  //     dir: 'coverage/',
+  //     reporters: [{
+  //       type: 'json',
+  //       dir: 'coverage',
+  //       subdir: 'json',
+  //       file: 'coverage-final.json'
+  //     }]
+  //   };
+  // }
 
   config.set(_config);
 
