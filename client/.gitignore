@@ -54,3 +54,5 @@ __build__/**
 .idea/
 *.swp
 server/deps/
+
+karma-shim.espowered.js
