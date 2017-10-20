@@ -1,7 +1,7 @@
 <div class="hero-list" fxLayout="column" fxFlex>
   <div fxLayout="row" fxLayoutWrap>
     <div class="pt-3 px-3" fxLayout="column" *ngFor="let hero of heroes | async">
-      <ow-hero-portrait [class]="'md-image-64'" [owCode]="hero.code"></ow-hero-portrait>
+      <ow-hero-portrait [class]="'md-image-64'" [hero]="hero"></ow-hero-portrait>
     </div>
   </div>
 </div>

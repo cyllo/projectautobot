@@ -1,7 +1,7 @@
 import { routerReducer } from '@ngrx/router-store';
 import { ActionReducerMap } from '@ngrx/store';
 import { propEq } from 'ramda';
-import { Heroes, CurrentHero, CurrentSession } from '../models';
+import { Hero, CurrentHero, CurrentSession } from '../models';
 
 export * from './profiles.reducer';
 export * from './search.reducer';
@@ -42,7 +42,7 @@ const clearable = (reducer, defaultValue) => (state, action) => {
 export interface ReducerStack {
   profiles: GamerTagState;
   search: SearchState;
-  heroes: Heroes[];
+  heroes: Hero[];
   currentHero: CurrentHero;
   blogPosts: BlogPostState;
   currentSession: CurrentSession;

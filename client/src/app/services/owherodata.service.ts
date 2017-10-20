@@ -351,61 +351,6 @@ export class OverwatchHeroDataService {
 
   // ------ HERO SPECIFIC STAT BLOCKS ------
 
-  heroSpecificStatBlocksForHero(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
-    switch (heroSnap.hero.code) {
-      case '0x02E0000000000029' : // Genji
-        return this.createAllGenjiHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E0000000000042' : // McCree
-        return this.createAllMcCreeHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E0000000000008' : // Pharah
-        return this.createAllPharahHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E0000000000002' : // Reaper
-        return this.createAllReaperHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E000000000006E' : // Soldier: 76
-        return this.createAllSoldier76HeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E000000000012E' : // Sombra
-        return this.createAllSombraHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E0000000000003' : // Tracer
-        return this.createAllTracerHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E0000000000015' : // Bastion
-        return this.createAllBastionHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E0000000000005' : // Hanzo
-        return this.createAllHanzoHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E0000000000065' : // Junkrat
-        return this.createAllJunkratHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E00000000000DD' : // Mei
-        return this.createAllMeiHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E0000000000006' : // Torbjorn
-        return this.createAllTorbjornHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E000000000000A' : // Widowmaker
-        return this.createAllWidowmakerHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E000000000007A' : // D.Va
-        return this.createAllDVaHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E000000000013E' : // Orisa
-        return this.createAllOrisaHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E0000000000007' : // Reinhardt
-        return this.createAllReinhardtHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E0000000000040' : // Roadhog
-        return this.createAllRoadhogHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E0000000000009' : // Winston
-        return this.createAllWinstonHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E0000000000068' : // Zarya
-        return this.createAllZaryaHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E000000000013B' : // Ana
-        return this.createAllAnaHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E0000000000079' : // Lucio
-        return this.createAllLucioHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E0000000000004' : // Mercy
-        return this.createAllMercyHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E0000000000016' : // Symmetra
-        return this.createAllSymmetraHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      case '0x02E0000000000020' : // Zenyatta
-        return this.createAllZenyattaHeroSpecificStatistics(heroSnap, allHeroSnapStats);
-      default:
-        return [];
-    }
-  }
-
   // Genji
   createAllGenjiHeroSpecificStatistics(heroSnap: HeroSnapshotStats, allHeroSnapStats: HeroSnapshotStats): HeroStatBlock[] {
     return [

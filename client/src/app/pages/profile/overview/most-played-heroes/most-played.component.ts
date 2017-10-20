@@ -8,7 +8,6 @@ import { Component, OnInit, Input } from '@angular/core';
 
 export class MostPlayedComponent implements OnInit {
   @Input() mostPlayedHeroes: any[];
-  derp = [1, 2, 3, 4];
 
   constructor() {}
 

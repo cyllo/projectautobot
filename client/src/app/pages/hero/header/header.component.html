@@ -2,7 +2,7 @@
 
   <div fxLayout="column" fxLayoutGap="14px" *ngIf="hero | async as currentHero">
     <div fxLayout="row" fxLayoutAlign.gt-sm="start center" fxLayoutAlign.lt-md="center center" fxLayoutGap.gt-sm="14px" fxLayoutGap.lt-md="30px">
-      <ow-hero-portrait [class]="'md-image-96'" [owCode]="currentHero.code"></ow-hero-portrait>
+      <ow-hero-portrait [class]="'md-image-96'" [hero]="currentHero"></ow-hero-portrait>
       <div fxLayout="column" fxFlex>
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
           <md-icon svgIcon="role_defense"></md-icon>

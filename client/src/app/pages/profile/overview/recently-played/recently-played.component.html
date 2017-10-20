@@ -12,7 +12,7 @@
     <div class="flex-layout pt-3" fxLayout="column" fxFlex *ngFor="let hero of recentlyPlayed">
       <div class="flex-layout" fxLayout="row">
         <div class="flex-layout" fxLayout="column" fxLayoutAlign="start center" fxFlex>
-          <ow-hero-portrait [class]="'md-image-48'" [owCode]="hero.code"></ow-hero-portrait>
+          <ow-hero-portrait [class]="'md-image-48'" [hero]="hero"></ow-hero-portrait>
         </div>
       </div>
       <div class="flex-layout" fxLayout="row">

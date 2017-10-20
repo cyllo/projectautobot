@@ -134,7 +134,8 @@ export class ProfileOverviewComponent implements OnInit {
 
       const sortHeroPlayTime = compose(
         this.snapshotService.percentagePlayed(totalTimePlayed),
-        this.snapshotService.heroesByTimePlayed, createHeroArray
+        this.snapshotService.heroesByTimePlayed,
+        createHeroArray
       );
       return sortHeroPlayTime(snapshotDiff);
     })
