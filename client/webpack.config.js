@@ -16,7 +16,7 @@ var { CheckerPlugin } = require('awesome-typescript-loader');
  */
 var ENV = process.env.npm_lifecycle_event;
 var {NODE_ENV} = process.env;
-var isTestWatch = ENV === 'test-watch';
+var isTestWatch = ENV === 'test:watch';
 var isTest = ENV === 'test' || isTestWatch;
 var isProd = ENV === 'build';
 
