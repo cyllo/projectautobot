@@ -21,7 +21,7 @@
       <ng-container mdColumnDef="hero">
         <md-header-cell *mdHeaderCellDef md-sort-header>Hero</md-header-cell>
         <md-cell *mdCellDef="let row" fxLayoutAlign="start center">
-          <ow-hero-portrait [owCode]="row.hero.code"></ow-hero-portrait>
+          <ow-hero-portrait [hero]="row.hero"></ow-hero-portrait>
           <span class="ml-1"><strong>{{row.hero.name}}</strong></span>
         </md-cell>
       </ng-container>

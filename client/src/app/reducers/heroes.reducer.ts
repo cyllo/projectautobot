@@ -1,7 +1,7 @@
-import { Heroes } from '../models';
+import { Hero } from '../models';
 import { find, propEq } from 'ramda';
 
-export function heroesData(state: Heroes[] = [], { type, payload }: { type: string, payload?: any }) {
+export function heroesData(state: Hero[] = [], { type, payload }: { type: string, payload?: any }) {
   switch (type) {
     case 'GET_HEROES_DATA':
       return payload;

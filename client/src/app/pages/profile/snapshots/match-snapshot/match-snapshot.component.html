@@ -33,7 +33,7 @@
         <div class="flex-layout" fxLayout="column" fxFlex="36px" *ngFor="let hero of heroesPlayed | async">
           <div class="flex-layout" fxLayout="row">
             <div class="flex-layout" fxLayout="column" fxFlex>
-              <ow-hero-portrait [class]="'md-image-36'" [owCode]="hero.hero.code"></ow-hero-portrait>
+              <ow-hero-portrait [class]="'md-image-36'" [hero]="hero.hero"></ow-hero-portrait>
             </div>
           </div>
           <div class="flex-layout" fxLayout="row">

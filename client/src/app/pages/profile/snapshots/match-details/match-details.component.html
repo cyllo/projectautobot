@@ -16,7 +16,7 @@
 
             <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="14px">
               <div class="flex-layout" fxLayout="column" fxFlex="initial">
-                <ow-hero-portrait [class]="'md-image-36'" [owCode]="hero.hero.code"></ow-hero-portrait>
+                <ow-hero-portrait [class]="'md-image-36'" [hero]="hero.hero"></ow-hero-portrait>
               </div>
               <div class="flex-layout" fxLayout="column" fxFlex>
                 <div class="flex-layout" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
@@ -27,7 +27,7 @@
                     <md-icon class="md-14" svgIcon="role_offense"></md-icon>
                   </div>
                   <div class="flex-layout" fxLayout="column" fxFlex>
-                    <span class="mat-caption text-uppercase">{{ hero.hero.role }}</span>
+                    <span class="mat-caption text-uppercase">{{ hero.hero.role.name }}</span>
                   </div>
                 </div>
               </div>

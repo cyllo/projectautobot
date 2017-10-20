@@ -192,12 +192,30 @@ export interface MatchAwardsStats {
   bronzeMedals: number;
 }
 
+export interface Role {
+  id: number;
+  name: string;
+  svgUrl: string;
+}
+
+export interface Skills {
+  description: string;
+  iconUrl: string;
+  id: number;
+  name: string;
+}
+
 export interface Hero {
   updatedAt: string;
   name: string;
   insertedAt: string;
   id?: number;
-  code: string;
+  description: string;
+  iconPortraitUrl: string;
+  role: Role;
+  selectPortraitUrl: string;
+  skills: Skills;
+
 }
 
 export interface GameHistoryStats {
