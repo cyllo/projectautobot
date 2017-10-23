@@ -18,3 +18,8 @@ export interface ChartData {
     chartType: string;
     legend: boolean;
 }
+
+export interface NgxChartResult {
+  name: string;
+  value: number;
+}

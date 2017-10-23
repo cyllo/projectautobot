@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { ListLeaderboard, FetchGamertags } from './queries';
+import { ListLeaderboard, FetchGamertags, GamerTagsChunkedByCompetitiveLevel } from './queries';
 import { GamerTag, LeaderboardSnapshotStatistic, Rankings, GraphqlResponse, SnapshotStatistic, HeroSnapshotStats } from '../models';
 import {
   keys,
@@ -75,5 +75,16 @@ export class LeaderboardService {
         };
       }, gamerTags));
     });
+  }
+
+  public getCompetitiveLevelDistribution() {
+    return this.apollo.query<{ chunkedGamerTagIds: { [level: string]: number[] } }>({
+      query: GamerTagsChunkedByCompetitiveLevel,
+      variables: {
+        groupsOf: 50
+      }
+    })
+    .map(({ data: { chunkedGamerTagIds }}: GraphqlResponse) => chunkedGamerTagIds)
+    .map(chunkedGamerTagIds => map(chunk => chunk.length, chunkedGamerTagIds));
   }
 }

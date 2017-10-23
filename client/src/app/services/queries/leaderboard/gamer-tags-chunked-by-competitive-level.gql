@@ -1,0 +1,3 @@
+query GamerTagsChunkedByCompetitiveLevel($groupsOf: Int!) {
+  chunkedGamerTagIds(statisticPath: ["profile_snapshot_statistic", "profile_statistic", "competitive_level"], groupsOf: $groupsOf)
+}
