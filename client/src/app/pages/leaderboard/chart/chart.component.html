@@ -1,14 +1,14 @@
 <div class="leaderboard-chart" fxLayout="column" fxFlex>
   <ngx-charts-bar-vertical
+      *ngIf="data | async as results"
       [ngStyle]="{ 'height': '150px' }"
-      [results]="data"
+      [results]="results"
       [xAxis]="showXAxis"
       [yAxis]="showYAxis"
       [legend]="showLegend"
       [showXAxisLabel]="showXAxisLabel"
       [showYAxisLabel]="showYAxisLabel"
       [xAxisLabel]="xAxisLabel"
-      [yAxisLabel]="yAxisLabel"
       (select)="onSelect($event)">
   </ngx-charts-bar-vertical>
 </div>
