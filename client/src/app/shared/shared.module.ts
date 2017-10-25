@@ -5,16 +5,16 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { MomentModule } from 'angular2-moment';
-import { MdIconModule,
-         MdProgressSpinnerModule,
-         MdButtonModule,
-         MdCardModule,
-         MdChipsModule,
-         MdSlideToggleModule,
-         MdProgressBarModule,
-         MdTooltipModule,
-         MdRadioModule,
-         MdSliderModule } from '@angular/material';
+import { MatIconModule,
+         MatProgressSpinnerModule,
+         MatButtonModule,
+         MatCardModule,
+         MatChipsModule,
+         MatSlideToggleModule,
+         MatProgressBarModule,
+         MatTooltipModule,
+         MatRadioModule,
+         MatSliderModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { PipeModule } from '../pipes';
@@ -56,17 +56,17 @@ import { ChartsModule } from 'ng2-charts';
     ChartsModule,
     RouterModule,
     MomentModule,
-    MdIconModule,
-    MdProgressSpinnerModule,
-    MdButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatButtonModule,
     FlexLayoutModule,
-    MdCardModule,
-    MdChipsModule,
-    MdSlideToggleModule,
-    MdProgressBarModule,
-    MdTooltipModule,
-    MdRadioModule,
-    MdSliderModule
+    MatCardModule,
+    MatChipsModule,
+    MatSlideToggleModule,
+    MatProgressBarModule,
+    MatTooltipModule,
+    MatRadioModule,
+    MatSliderModule
   ],
   declarations: [
     VideoCardComponent,

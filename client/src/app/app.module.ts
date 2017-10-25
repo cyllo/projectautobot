@@ -12,21 +12,22 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import 'hammerjs';
-import { MdSidenavModule,
-         MdButtonModule,
-         MdMenuModule,
-         MdListModule,
-         MdTooltipModule,
-         MdTabsModule,
-         MdInputModule,
-         MdCardModule,
-         MdSnackBarModule,
-         MdToolbarModule,
-         MdIconModule,
-         MdProgressSpinnerModule,
-         MdCheckboxModule,
-         MdExpansionModule,
-         MdRadioModule } from '@angular/material';
+import { MATERIAL_COMPATIBILITY_MODE,
+         MatSidenavModule,
+         MatButtonModule,
+         MatMenuModule,
+         MatListModule,
+         MatTooltipModule,
+         MatTabsModule,
+         MatInputModule,
+         MatCardModule,
+         MatSnackBarModule,
+         MatToolbarModule,
+         MatIconModule,
+         MatProgressSpinnerModule,
+         MatCheckboxModule,
+         MatExpansionModule,
+         MatRadioModule } from '@angular/material';
 
 import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
@@ -89,25 +90,25 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     JsonpModule,
     FormsModule,
     ReactiveFormsModule,
-    MdMenuModule,
-    MdSidenavModule,
-    MdButtonModule,
-    MdListModule,
-    MdTooltipModule,
-    MdTabsModule,
-    MdCardModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatListModule,
+    MatTooltipModule,
+    MatTabsModule,
+    MatCardModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    MdInputModule,
+    MatInputModule,
     DragulaModule,
-    MdSnackBarModule,
+    MatSnackBarModule,
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
-    MdToolbarModule,
-    MdIconModule,
-    MdProgressSpinnerModule,
-    MdCheckboxModule,
-    MdExpansionModule,
-    MdRadioModule
+    MatToolbarModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatCheckboxModule,
+    MatExpansionModule,
+    MatRadioModule
   ],
   declarations,
   providers: [
@@ -125,7 +126,8 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ErrorHandlerService,
     SnapshotService,
     TrendsService,
-    HeroStatistics
+    HeroStatistics,
+    { provide: MATERIAL_COMPATIBILITY_MODE, useValue: true }
   ],
   bootstrap: [AppComponent]
 })

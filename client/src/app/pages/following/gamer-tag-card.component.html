@@ -65,8 +65,8 @@
       <div fxLayout="row" fxLayoutGap="8px">
 
         <div fxLayout="column" *ngIf="profileMode">
-          <button class="min-width-0" color="warn" (click)="unfollow(gamerTag.id)" md-button mdTooltip="Unfollow">
-            <md-icon>favorite_border</md-icon>
+          <button class="min-width-0" color="warn" (click)="unfollow(gamerTag.id)" mat-button matTooltip="Unfollow">
+            <mat-icon>favorite_border</mat-icon>
           </button>
         </div>
 
@@ -74,16 +74,16 @@
 
         <ng-template #consoleProfileBlock>
           <div fxLayout="column">
-            <a class="min-width-0" mdTooltip="View Profile" [routerLink]="['/profile', gamerTag.platform, gamerTag.tag]">
-              <md-icon>chevron_right</md-icon>
+            <a class="min-width-0" matTooltip="View Profile" [routerLink]="['/profile', gamerTag.platform, gamerTag.tag]">
+              <mat-icon>chevron_right</mat-icon>
             </a>
           </div>
         </ng-template>
         
         <ng-template #pcProfileBlock>
           <div fxLayout="column">
-            <a class="min-width-0" mdTooltip="View Profile" [routerLink]="['/profile', gamerTag.platform, gamerTag.region, gamerTag.tag]">
-              <md-icon>chevron_right</md-icon>
+            <a class="min-width-0" matTooltip="View Profile" [routerLink]="['/profile', gamerTag.platform, gamerTag.region, gamerTag.tag]">
+              <mat-icon>chevron_right</mat-icon>
             </a>
           </div>
         </ng-template>

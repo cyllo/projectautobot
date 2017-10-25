@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { CurrentSession, NavLink } from './models';
 import { ReducerStack } from './reducers';
-import { MdIconRegistry } from '@angular/material';
+import { MatIconRegistry } from '@angular/material';
 import { isNil } from 'ramda';
 import * as Cookies from 'js-cookie';
 
@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
     private hereosService: HereosService,
     private authService: AuthorizationService,
     private themeingService: ThemeingService,
-    private mdIconRegistry: MdIconRegistry,
+    private mdIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
     private userService: UserService
   ) {}

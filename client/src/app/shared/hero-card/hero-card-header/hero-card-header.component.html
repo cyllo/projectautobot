@@ -7,7 +7,7 @@
   <div class="mt-3" fxLayout="column">
     <span><strong>{{ hero.hero.name }}</strong></span>
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
-      <md-icon class="md-14" svgIcon="role_{{ hero.hero.role | lowercase }}"></md-icon>
+      <mat-icon class="md-14" svgIcon="role_{{ hero.hero.role | lowercase }}"></mat-icon>
       <span class="mat-caption text-uppercase">{{ hero.hero.role }}</span>
     </div>
   </div>
@@ -21,7 +21,7 @@
           <span><strong>{{ hero.gameHistoryStatistic.gamesPlayed }}</strong></span>
         </div>
         <div fxLayout="row" fxLayoutAlign="center center" fxFlex="20px">
-          <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+          <mat-progress-bar mode="determinate" value="50"></mat-progress-bar>
         </div>
         <span class="mat-caption text-uppercase">Games</span>
       </div>
@@ -31,7 +31,7 @@
           <span class="mat-caption">{{ hero.gameHistoryStatistic?.gamesWon }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="center center" fxFlex="20px">
-          <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+          <mat-progress-bar mode="determinate" value="50"></mat-progress-bar>
         </div>
         <span class="mat-caption text-uppercase">Wins</span>
       </div>
@@ -39,11 +39,11 @@
       <div class="text-center" fxLayout="column" fxFlex="20%">
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="4px">
           <span><strong>{{ hero.combatLifetimeStatistic?.timeSpentOnFire | owSecondsToHours }}</strong>hrs</span>
-          <md-icon class="md-18">access_time</md-icon>
+          <mat-icon class="md-18">access_time</mat-icon>
         </div>
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="4px" fxFlex="20px">
-          <md-progress-bar mode="determinate" value="50"></md-progress-bar>
-          <md-icon class="md-18">whatshot</md-icon>
+          <mat-progress-bar mode="determinate" value="50"></mat-progress-bar>
+          <mat-icon class="md-18">whatshot</mat-icon>
         </div>
         <span class="mat-caption text-uppercase">Played</span>
       </div>
@@ -55,7 +55,7 @@
           <span class="medal medal-bronze mat-caption px-1">{{ hero.matchAwardsStatistic?.bronzeMedals || 0 }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="center center" fxFlex="20px">
-          <md-progress-bar mode="determinate" value="50"></md-progress-bar>
+          <mat-progress-bar mode="determinate" value="50"></mat-progress-bar>
         </div>
         <span class="mat-caption text-uppercase">Medals</span>
       </div>

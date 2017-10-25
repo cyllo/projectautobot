@@ -3,7 +3,7 @@
     <div class="pt-3" fxLayout="column" fxFlex.gt-sm="initial" fxFlex.lt-md>
       <span class="mat-caption text-uppercase">Platform</span>
       <div fxLayout="row" fxLayoutGap="8px">
-        <button md-button
+        <button mat-button
           *ngFor="let platform of activePlatforms | async"
           [color]="(currentProfile.platform === platform.name) ? 'primary' : null"
           [disabled]="!platform.enabled"
@@ -15,7 +15,7 @@
     <div class="pt-3" fxLayout="column" fxFlex.gt-sm="initial" fxFlex.lt-md>
       <span class="mat-caption text-uppercase">Region</span>
       <div fxLayout="row" fxLayoutGap="8px">
-        <button md-button
+        <button mat-button
           *ngFor="let region of activeRegions | async"
           [color]="(currentProfile.region === region.name) ? 'primary' : null"
           [disabled]="!region.enabled"

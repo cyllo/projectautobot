@@ -1,13 +1,13 @@
 <div class="search-results" fxLayout="column" fxLayoutGap="14px" fxFlex *ngIf="searchResults | async as results">
   <div fxLayout="row" fxLayoutAlign="space-between center">
     <span class="mat-caption">{{results?.length}} results found.</span>
-    <button md-icon-button (click)="toggleDisplay$.next()">
-      <md-icon>close</md-icon>
+    <button mat-icon-button (click)="toggleDisplay$.next()">
+      <mat-icon>close</mat-icon>
     </button>
   </div>
   <div class="scroll-content px-2 pb-2" fxLayout="column" fxFlex [perfect-scrollbar]>
-    <md-list *ngIf="searchResults | async as users">
-      <md-list-item *ngFor="let user of users">
+    <mat-list *ngIf="searchResults | async as users">
+      <mat-list-item *ngFor="let user of users">
         <div fxLayout="column" fxLayoutGap="8px" fxFlex>
           <span class="mat-caption text-uppercase"><strong>{{user.displayName}}</strong></span>
           <div fxLayout="row" fxLayoutGap="8px">
@@ -22,20 +22,20 @@
               </div>
             </div>
             <div fxLayout="column" *ngIf="user.pending; else addBlock;">
-              <button md-icon-button disabled>
-                <md-icon>call_made</md-icon>
+              <button mat-icon-button disabled>
+                <mat-icon>call_made</mat-icon>
               </button>
             </div>
             <ng-template #addBlock>
               <div fxLayout="column">
-                <button md-icon-button (click)="addFriend$.next(user.id)">
-                  <md-icon>add</md-icon>
+                <button mat-icon-button (click)="addFriend$.next(user.id)">
+                  <mat-icon>add</mat-icon>
                 </button>
               </div>
             </ng-template>
           </div>
         </div>
-      </md-list-item>
-    </md-list>
+      </mat-list-item>
+    </mat-list>
   </div>
 </div>

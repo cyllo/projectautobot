@@ -1,4 +1,4 @@
-<button md-button class="player-profile-button px-2 py-2" *ngIf="playerData$ | async as player" (click)="navigateToProfile(playerData$)" fxFlex="grow">
+<button mat-button class="player-profile-button px-2 py-2" *ngIf="playerData$ | async as player" (click)="navigateToProfile(playerData$)" fxFlex="grow">
   <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
     <img class="md-image md-image-48" [src]="player.portraitUrl">
     <div class="text-left" fxLayout="column" fxFlex>
@@ -12,6 +12,6 @@
         <span class="mat-caption">{{player.snapshotStatistics[0].profileSnapshotStatistic.profileStatistic.competitiveLevel}}</span>
       </div>
     </div>
-    <md-icon>chevron_right</md-icon>
+    <mat-icon>chevron_right</mat-icon>
   </div>
 </button>

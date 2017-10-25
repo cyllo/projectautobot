@@ -4,11 +4,11 @@
       fxLayoutGap="8px"
       [formGroup]="clubForm"
       (ngSubmit)="createClub$.next(clubForm.value); clubForm.reset()">
-  <button md-icon-button (click)="cancel$.next()" mdTooltip="Cancel">
-    <md-icon>cancel</md-icon>
+  <button mat-icon-button (click)="cancel$.next()" matTooltip="Cancel">
+    <mat-icon>cancel</mat-icon>
   </button>
   <input fxFlex type="text" placeholder="Enter a Club Name" formControlName="name" required>
-  <button md-icon-button type="submit" [disabled]="!clubForm.valid" mdTooltip="Submit">
-    <md-icon>add</md-icon>
+  <button mat-icon-button type="submit" [disabled]="!clubForm.valid" matTooltip="Submit">
+    <mat-icon>add</mat-icon>
   </button>
 </form>

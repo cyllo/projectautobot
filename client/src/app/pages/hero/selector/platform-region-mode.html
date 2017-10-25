@@ -3,7 +3,7 @@
     <div class="pt-3" fxLayout="column" fxFlex.gt-sm="initial" fxFlex.lt-md>
       <span class="mat-caption text-uppercase">Platform</span>
       <div fxLayout="row" fxLayoutGap="8px">
-        <button md-button *ngFor="let platform of platforms" (click)="changePlatform$.next(platform.name)" [color]="platform.active ? 'primary' : null">
+        <button mat-button *ngFor="let platform of platforms" (click)="changePlatform$.next(platform.name)" [color]="platform.active ? 'primary' : null">
           <span class="text-uppercase">{{ platform.name }}</span>
         </button>
       </div>
@@ -11,7 +11,7 @@
     <div class="pt-3" fxLayout="column" fxFlex.gt-sm="initial" fxFlex.lt-md>
       <span class="mat-caption text-uppercase">Region</span>
       <div fxLayout="row" fxLayoutGap="8px"> <!--  -->
-        <button md-button *ngFor="let region of regions" (click)="changeRegion$.next(region.name)" [color]="region.active ? 'primary' : null">
+        <button mat-button *ngFor="let region of regions" (click)="changeRegion$.next(region.name)" [color]="region.active ? 'primary' : null">
           <span class="text-uppercase">{{ region.name }}</span>
         </button>
       </div>
@@ -21,7 +21,7 @@
 
 <div class="game-mode-indicator pt-3" fxLayout="column" fxLayoutGap="8px" fxFlex>
   <span class="mat-caption text-uppercase">Game Mode</span>
-  <md-slide-toggle color="primary" [checked]="gameModeToggle$ | async" (change)="gameModeToggle$.next($event.checked)">
+  <mat-slide-toggle color="primary" [checked]="gameModeToggle$ | async" (change)="gameModeToggle$.next($event.checked)">
     <span class="mat-caption text-uppercase">{{ (gameModeToggle$ | async) ? 'Competitive Play' : 'Quick Play' }}</span>
-  </md-slide-toggle>
+  </mat-slide-toggle>
 </div>

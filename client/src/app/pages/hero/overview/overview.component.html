@@ -1,50 +1,50 @@
 <div class="py-3 px-3" fxLayout="column" fxLayoutGap="14px">
   <span class="mat-caption">All statistics are per min averages per player.</span>
-  <md-list>
-    <md-list-item>
+  <mat-list>
+    <mat-list-item>
       <div fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="start center" fxFill>
-        <md-icon>all_out</md-icon>
+        <mat-icon>all_out</mat-icon>
         <div fxLayout="column" fxLayoutGap="4px" fxFlex>
-          <md-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.eliminationsAvgPer10Min | owRatio:heroTotals?.gameAverageStatistic?.eliminationsAvgPer10Min"></md-progress-bar>
+          <mat-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.eliminationsAvgPer10Min | owRatio:heroTotals?.gameAverageStatistic?.eliminationsAvgPer10Min"></mat-progress-bar>
           <span class="mat-caption text-uppercase"><strong>Eliminations</strong></span>
         </div>
       </div>
-    </md-list-item>
-    <md-list-item>
+    </mat-list-item>
+    <mat-list-item>
       <div fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="start center" fxFill>
-        <md-icon>all_out</md-icon>
+        <mat-icon>all_out</mat-icon>
         <div fxLayout="column" fxLayoutGap="4px" fxFlex>
-          <md-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.eliminationsAvgPer10Min | owRatio:heroTotals?.gameAverageStatistic?.deathsAvgPer10Min"></md-progress-bar>
+          <mat-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.eliminationsAvgPer10Min | owRatio:heroTotals?.gameAverageStatistic?.deathsAvgPer10Min"></mat-progress-bar>
           <span class="mat-caption text-uppercase"><strong>K/D Ratio</strong></span>
         </div>
       </div>
-    </md-list-item>
-    <md-list-item>
+    </mat-list-item>
+    <mat-list-item>
       <div fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="start center" fxFill>
-        <md-icon>all_out</md-icon>
+        <mat-icon>all_out</mat-icon>
         <div fxLayout="column" fxLayoutGap="4px" fxFlex>
-          <md-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.heroDamageDoneAvgPer10Min | owRatio:heroTotals?.gameAverageStatistic?.heroDamageDoneAvgPer10Min"></md-progress-bar>
+          <mat-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.heroDamageDoneAvgPer10Min | owRatio:heroTotals?.gameAverageStatistic?.heroDamageDoneAvgPer10Min"></mat-progress-bar>
           <span class="mat-caption text-uppercase"><strong>Hero Damage</strong></span>
         </div>
       </div>
-    </md-list-item>
-    <md-list-item>
+    </mat-list-item>
+    <mat-list-item>
       <div fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="start center" fxFill>
-        <md-icon>all_out</md-icon>
+        <mat-icon>all_out</mat-icon>
         <div fxLayout="column" fxLayoutGap="4px" fxFlex>
-          <md-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.damageBlockedAvgPer10Min | owRatio:heroTotals?.gameAverageStatistic?.damageBlockedAvgPer10Min"></md-progress-bar>
+          <mat-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.damageBlockedAvgPer10Min | owRatio:heroTotals?.gameAverageStatistic?.damageBlockedAvgPer10Min"></mat-progress-bar>
           <span class="mat-caption text-uppercase"><strong>Blocked</strong></span>
         </div>
       </div>
-    </md-list-item>
-    <md-list-item>
+    </mat-list-item>
+    <mat-list-item>
       <div fxLayout="row" fxLayoutGap="14px" fxLayoutAlign="start center" fxFill>
-        <md-icon>all_out</md-icon>
+        <mat-icon>all_out</mat-icon>
         <div fxLayout="column" fxLayoutGap="4px" fxFlex>
-          <md-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.healingDoneAvgPer10Min | owRatio:heroTotals?.gameAverageStatistic?.healingDoneAvgPer10Min"></md-progress-bar>
+          <mat-progress-bar mode="determinate" [value]="heroStats?.gameAverageStatistic?.healingDoneAvgPer10Min | owRatio:heroTotals?.gameAverageStatistic?.healingDoneAvgPer10Min"></mat-progress-bar>
           <span class="mat-caption text-uppercase"><strong>Healing</strong></span>
         </div>
       </div>
-    </md-list-item>
-  </md-list>
+    </mat-list-item>
+  </mat-list>
 </div>
