@@ -1,9 +1,9 @@
 <div class="heroes-chart" fxLayout="column" fxLayoutGap="14px" fxFlex>
   <div fxLayout="row" fxLayoutAlign="end center">
     <div fxLayout="column" fxFlex="20%">
-      <md-select placeholder="Competitive Ranking" [(ngModel)]="selectedRanking">
-         <md-option *ngFor="let ranking of rankings" [value]="ranking.value">{{ ranking.name }}</md-option>
-      </md-select>
+      <mat-select placeholder="Competitive Ranking" [(ngModel)]="selectedRanking">
+         <mat-option *ngFor="let ranking of rankings" [value]="ranking.value">{{ ranking.name }}</mat-option>
+      </mat-select>
     </div>
   </div>
   <ngx-charts-bar-vertical

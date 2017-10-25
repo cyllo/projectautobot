@@ -7,36 +7,36 @@
     <div fxLayout="column" fxFlex.gt-sm="1 1 510px" fxFlex.sm="75%" fxFlex.xs>
       <p class="mat-display-1">Almost done, A few more things...</p>
       <form class="registration-form" fxLayout="column" fxLayoutGap="30px" [formGroup]="registrationForm" (ngSubmit)="registration$.next(registrationForm.value)">
-        <md-form-field>
-          <input mdInput type="text" placeholder="Display Name" formControlName="displayName">
-          <md-error *ngIf="registrationForm.controls.displayName.hasError('pattern')">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Display Name" formControlName="displayName">
+          <mat-error *ngIf="registrationForm.controls.displayName.hasError('pattern')">
             Please enter only alphabetic characters and numbers.
-          </md-error>
-          <md-error *ngIf="registrationForm.controls.displayName.hasError('required')">
+          </mat-error>
+          <mat-error *ngIf="registrationForm.controls.displayName.hasError('required')">
             Display name is <strong>required</strong>
-          </md-error>
-        </md-form-field>
-        <md-form-field>
-          <input mdInput type="email" placeholder="E-mail" formControlName="email">
-          <md-error *ngIf="registrationForm.controls.email.hasError('pattern')">
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="email" placeholder="E-mail" formControlName="email">
+          <mat-error *ngIf="registrationForm.controls.email.hasError('pattern')">
             Please enter a valid email address.
-          </md-error>
-          <md-error *ngIf="registrationForm.controls.email.hasError('required')">
+          </mat-error>
+          <mat-error *ngIf="registrationForm.controls.email.hasError('required')">
             Email is <strong>required</strong>
-          </md-error>
-        </md-form-field>
-        <md-form-field>
-          <input mdInput type="password" placeholder="Password" formControlName="password">
-          <md-error *ngIf="registrationForm.controls.password.hasError('pattern')">
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="password" placeholder="Password" formControlName="password">
+          <mat-error *ngIf="registrationForm.controls.password.hasError('pattern')">
             Your password must be at least 8 characters long and contain atleast 1 uppercase alphabetic character, 1 numeric character,
             and 1 special character.
-          </md-error>
-          <md-error *ngIf="registrationForm.controls.password.hasError('required')">
+          </mat-error>
+          <mat-error *ngIf="registrationForm.controls.password.hasError('required')">
             Password is <strong>required</strong>
-          </md-error>
-        </md-form-field>
+          </mat-error>
+        </mat-form-field>
         <p class="mat-caption">By registering you accept the <a href="#">Terms and Conditions</a> of the website.</p>
-        <button class="ow-primary" type="submit" md-button [disabled]="!registrationForm.valid">Complete Registration</button>
+        <button class="ow-primary" type="submit" mat-button [disabled]="!registrationForm.valid">Complete Registration</button>
       </form>
     </div>
   </div>
@@ -47,8 +47,8 @@
         <p class="mat-display-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         <p class="mat-body-1">Etiam sit amet erat elementum, viverra turpis vel, congue tellus. In tincidunt mauris at eros consequat, et volutpat mi ullamcorper.</p>
         <div class="section-register">
-          <button class="battle-net" type="button" (click)="bnetAuth($event)" md-button>
-            <md-icon>link</md-icon>
+          <button class="battle-net" type="button" (click)="bnetAuth($event)" mat-button>
+            <mat-icon>link</mat-icon>
             <span>Sign Up via Battle.net</span>
           </button>
           <p class="mat-caption">Register Now! it’s really simple and you can start enjoing all the benefits! Already have an account? <a routerLink="/login">Click here to login.</a></p>

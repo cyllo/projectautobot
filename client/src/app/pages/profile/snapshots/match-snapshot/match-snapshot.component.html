@@ -1,7 +1,7 @@
 <div class="match-snapshot" fxLayout="column" fxFlex="420px">
-  <md-expansion-panel>
+  <mat-expansion-panel>
 
-    <md-expansion-panel-header>
+    <mat-expansion-panel-header>
 
       <div class="pr-3" fxLayout="row"  fxLayoutAlign="start center" fxLayoutGap="14px" fxFill>
 
@@ -26,7 +26,7 @@
 
       </div>
 
-    </md-expansion-panel-header>
+    </mat-expansion-panel-header>
 
     <div class="pt-3" fxLayout="column" fxFlex>
       <div fxLayout="row" fxLayoutGap="8px" fxLayoutWrap>
@@ -80,11 +80,11 @@
       
     </div>
 
-    <md-action-row>
-      <button md-button color="primary" (click)="viewDetails.emit(snapshot.id)">
+    <mat-action-row>
+      <button mat-button color="primary" (click)="viewDetails.emit(snapshot.id)">
         <span class="mat-caption">View Details</span>
       </button>
-    </md-action-row>
+    </mat-action-row>
 
-  </md-expansion-panel>
+  </mat-expansion-panel>
 </div>

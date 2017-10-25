@@ -1,19 +1,19 @@
 <div class="club" [ngClass]="{ 'club-edit-in-progress': clubNameEditInProgress}"  fxLayout="column" fxFlex *ngIf="club">
 
-  <md-expansion-panel #expansionPanel [hideToggle]="clubNameEditInProgress">
+  <mat-expansion-panel #expansionPanel [hideToggle]="clubNameEditInProgress">
 
-    <md-expansion-panel-header>
+    <mat-expansion-panel-header>
 
       <div fxLayout="column" fxFlex="grow">
         <div class="pr-3" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" *ngIf="!clubNameEditInProgress; else clubNameEditor;">
-          <button md-icon-button
+          <button mat-icon-button
                   (click)="compareProfiles(club.friendships); stopPropagation($event);"
                   [disabled]="club.friendships.length < 2"
                   *ngIf="club.name !== 'General'">
-            <md-icon>compare_arrows</md-icon>
+            <mat-icon>compare_arrows</mat-icon>
           </button>
           <button class="club-name text-left"
-                  md-button
+                  mat-button
                   (click)="toggleClubNameEdit($event); stopPropagation($event);"
                   [disabled]="club.name === 'General'"
                   fxFlex>
@@ -22,18 +22,18 @@
         </div>
         <ng-template #clubNameEditor>
           <div class="club-name-editor" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
-            <button md-icon-button (click)="deleteClub(club.id); stopPropagation($event);">
-              <md-icon>delete_forever</md-icon>
+            <button mat-icon-button (click)="deleteClub(club.id); stopPropagation($event);">
+              <mat-icon>delete_forever</mat-icon>
             </button>
             <input type="text" value="{{ club.name }}" (click)="stopPropagation($event);" #clubNameEdit>
-            <button md-icon-button (click)="updateClub(club.id, clubNameEdit.value); stopPropagation($event);">
-              <md-icon>check</md-icon>
+            <button mat-icon-button (click)="updateClub(club.id, clubNameEdit.value); stopPropagation($event);">
+              <mat-icon>check</mat-icon>
             </button>
           </div>
         </ng-template>
       </div>
 
-    </md-expansion-panel-header>
+    </mat-expansion-panel-header>
 
     <div class="pt-3" fxLayout="column" fxLayoutGap="4px" fxFlex [dragula]='"bag-one"' [attr.data-id]="club.id">
 
@@ -77,19 +77,19 @@
 
           <div fxLayout="column" fxLayoutAlign="center end" fxFlex>
 
-            <md-menu #clubFriendMenu="mdMenu">
-              <button md-menu-item color="warn" (click)="deleteFriend(friendship.id)">
-                <md-icon>delete_forever</md-icon>
+            <mat-menu #clubFriendMenu="matMenu">
+              <button mat-menu-item color="warn" (click)="deleteFriend(friendship.id)">
+                <mat-icon>delete_forever</mat-icon>
                 <span class="mat-caption">Unfriend</span>
               </button>
-              <button md-menu-item *ngIf="club.name !== 'General'" (click)="removeFriend(friendship.id, club.id)">
-                <md-icon>favorite_border</md-icon>
+              <button mat-menu-item *ngIf="club.name !== 'General'" (click)="removeFriend(friendship.id, club.id)">
+                <mat-icon>favorite_border</mat-icon>
                 <span class="mat-caption">Remove from group</span>
               </button>
-            </md-menu>
+            </mat-menu>
 
-            <button md-icon-button [mdMenuTriggerFor]="clubFriendMenu">
-              <md-icon>more_horiz</md-icon>
+            <button mat-icon-button [matMenuTriggerFor]="clubFriendMenu">
+              <mat-icon>more_horiz</mat-icon>
             </button>
 
           </div>
@@ -100,6 +100,6 @@
 
     </div>
 
-  </md-expansion-panel>
+  </mat-expansion-panel>
 
 </div>

@@ -1,6 +1,6 @@
-<md-card class="news-post-card flex-layout" (click)="loadPost()" *ngIf="post">
+<mat-card class="news-post-card flex-layout" (click)="loadPost()" *ngIf="post">
 
-  <img md-card-image [src]="post.thumbnailUrl" fxFlexFill>
+  <img mat-card-image [src]="post.thumbnailUrl" fxFlexFill>
 
   <div class="content" fxLayout="column" fxLayoutGap="24px">
 
@@ -24,9 +24,9 @@
 
         <div fxLayout="row" fxFlex="noshrink">
           <div class="slice-container" fxLayout="column" fxLayoutAlign="center center" fxFlex="grow">
-            <md-chip-list class="slice">
-              <md-chip class="mx-2 mb-2" *ngFor="let category of post.blogCategories">{{ category.name }}</md-chip>
-            </md-chip-list>
+            <mat-chip-list class="slice">
+              <mat-chip class="mx-2 mb-2" *ngFor="let category of post.blogCategories">{{ category.name }}</mat-chip>
+            </mat-chip-list>
           </div>
         </div>
 
@@ -44,9 +44,9 @@
 
         <div class="slice-container" fxLayout="row" fxLayoutAlign="center start" fxFlex="grow">
 
-          <md-card-content class="slice text-center">
+          <mat-card-content class="slice text-center">
             <p>{{ post.summary }}</p>
-          </md-card-content>
+          </mat-card-content>
 
         </div>
 
@@ -56,4 +56,4 @@
 
   </div>
 
-</md-card>
+</mat-card>

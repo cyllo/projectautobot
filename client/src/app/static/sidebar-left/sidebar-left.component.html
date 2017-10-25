@@ -1,40 +1,40 @@
 <div class="sidebar-left fixed-left">
-  <md-drawer-container>
-    <md-drawer mode="side" opened="false" position="end" (open)="change.emit(true)" (close)="change.emit(false)" #sidebarDrawer>
+  <mat-drawer-container>
+    <mat-drawer mode="side" opened="false" position="end" (open)="change.emit(true)" (close)="change.emit(false)" #sidebarDrawer>
       <div class="pt-2 px-2" fxLayout="column" fxFill>
-        <md-tab-group class="primary-tab-group" [(selectedIndex)]="selectedTabIndex" #sidebarTabGroup>
-          <md-tab label="navigation">
+        <mat-tab-group class="primary-tab-group" [(selectedIndex)]="selectedTabIndex" #sidebarTabGroup>
+          <mat-tab label="navigation">
             <div fxLayout="column" fxLayoutAlign="space-between start" fxFill>
               <div class="width-100" fxLayout="column" fxLayoutGap="8px" fxFlex>
                 <div [ngStyle]="{ 'padding': '14px 30px' }" fxLayout="row" fxLayoutAlign="center center">
-                  <md-icon [ngStyle]="{ 'width': '100%' }" svgIcon="logo_text"></md-icon>
+                  <mat-icon [ngStyle]="{ 'width': '100%' }" svgIcon="logo_text"></mat-icon>
                 </div>
-                <md-nav-list>
-                  <a md-list-item *ngFor="let link of navLinks" routerLink="{{link.routerLink}}">
+                <mat-nav-list>
+                  <a mat-list-item *ngFor="let link of navLinks" routerLink="{{link.routerLink}}">
                     <div fxLayout="row" fxLayoutGap="30px">
-                      <md-icon>{{link.iconName}}</md-icon>
+                      <mat-icon>{{link.iconName}}</mat-icon>
                       <span>{{link.name}}</span>
                     </div>
                   </a>
-                </md-nav-list>
+                </mat-nav-list>
               </div>
               <div class="width-100" fxLayout="row">
                 <div fxLayout="column" fxLayoutGap="14px" fxFlex>
-                  <md-divider></md-divider>
+                  <mat-divider></mat-divider>
                   <span class="mat-caption text-uppercase">Feedback</span>
-                  <button md-button disabled>
-                    <md-icon>feedback</md-icon>
+                  <button mat-button disabled>
+                    <mat-icon>feedback</mat-icon>
                     <span>Let us know your thoughts</span>
                   </button>
                 </div>
               </div>
             </div>
-          </md-tab>
-          <md-tab label="social" *ngIf="(userLoggedIn | async)">
+          </mat-tab>
+          <mat-tab label="social" *ngIf="(userLoggedIn | async)">
             <!-- The *ngIf solves the following issue: https://github.com/angular/material2/issues/5269 -->
-            <md-tab-group class="social-tab-group" fxFlex="284px" *ngIf="selectedTabIndex === 1">
-              <md-tab>
-                <ng-template md-tab-label>
+            <mat-tab-group class="social-tab-group" fxFlex="284px" *ngIf="selectedTabIndex === 1">
+              <mat-tab>
+                <ng-template mat-tab-label>
                   <div fxLayout="row" fxLayoutAlign="center center" fxFlex="grow">
                     <span class="mat-caption text-uppercase">Friends ({{ friendsCount | async }})</span>
                   </div>
@@ -42,9 +42,9 @@
                 <div fxLayout="column" fxFill>
                   <ow-friends-list fxFill></ow-friends-list>
                 </div>
-              </md-tab>
-              <md-tab>
-                <ng-template md-tab-label>
+              </mat-tab>
+              <mat-tab>
+                <ng-template mat-tab-label>
                   <div fxLayout="row" fxLayoutAlign="center center">
                     <span class="mat-caption text-uppercase">Requests ({{ friendRequestCount > 99 ? '99+' : friendRequestCount }})</span>
                   </div>
@@ -52,28 +52,28 @@
                 <div fxLayout="column" fxFill>
                   <ow-friend-requests fxFill></ow-friend-requests>
                 </div>
-              </md-tab>
-            </md-tab-group>
-          </md-tab>
-        </md-tab-group>
+              </mat-tab>
+            </mat-tab-group>
+          </mat-tab>
+        </mat-tab-group>
         <span class="copyright mat-caption px-2 py-3">&copy; Stop The Payload 2017, an independently operated subsidiary of Hard Carry Gaming Inc (NRG Esports). All Rights Reserved to their respective owners.</span>
       </div>
-    </md-drawer>
+    </mat-drawer>
     <div class="pt-2" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="8px" fxFlex="56px">
       <div class="py-3" fxLayout="row" fxLayoutAlign="center center">
         <a routerLink="./">
-          <md-icon class="md-36" svgIcon="logo"></md-icon>
+          <mat-icon class="md-36" svgIcon="logo"></mat-icon>
         </a>
       </div>
-      <button md-icon-button (click)="sidebarDrawer.toggle()">
-        <md-icon>menu</md-icon>
+      <button mat-icon-button (click)="sidebarDrawer.toggle()">
+        <mat-icon>menu</mat-icon>
       </button>
-      <button md-icon-button (click)="sidebarTabGroup.selectedIndex = 0">
-        <md-icon>dashboard</md-icon>
+      <button mat-icon-button (click)="sidebarTabGroup.selectedIndex = 0">
+        <mat-icon>dashboard</mat-icon>
       </button>
-      <button md-icon-button (click)="sidebarTabGroup.selectedIndex = 1" *ngIf="userLoggedIn | async">
-        <md-icon>people_outline</md-icon>
+      <button mat-icon-button (click)="sidebarTabGroup.selectedIndex = 1" *ngIf="userLoggedIn | async">
+        <mat-icon>people_outline</mat-icon>
       </button>
     </div>
-  </md-drawer-container>
+  </mat-drawer-container>
 </div>

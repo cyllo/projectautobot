@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MdSort } from '@angular/material';
+import { MatSort } from '@angular/material';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 
@@ -54,7 +54,7 @@ class TableDataSource extends DataSource<any> {
 
   data: HeroesLeaderboardDataEntry[] = [];
 
-  constructor(private _sort: MdSort) {
+  constructor(private _sort: MatSort) {
     super(); // must be called before accessing 'this'
     for (let i = 0; i < 40; ++i) {
       this.data.push(
@@ -108,7 +108,7 @@ class TableDataSource extends DataSource<any> {
 })
 export class HeroesTableComponent implements OnInit {
 
-  @ViewChild(MdSort) sort: MdSort;
+  @ViewChild(MatSort) sort: MatSort;
   dataSource: TableDataSource | null;
 
   displayedColumns = [

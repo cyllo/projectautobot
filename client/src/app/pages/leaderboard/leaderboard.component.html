@@ -9,19 +9,19 @@
 
   <div fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap>
     <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="20%" fxFlex.md>
-      <md-select placeholder="Platform" [(ngModel)]="selectedPlatform">
-         <md-option *ngFor="let platform of platforms" [value]="platform.value">{{ platform.name }}</md-option>
-      </md-select>
+      <mat-select placeholder="Platform" [(ngModel)]="selectedPlatform">
+         <mat-option *ngFor="let platform of platforms" [value]="platform.value">{{ platform.name }}</mat-option>
+      </mat-select>
     </div>
     <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="20%" fxFlex.md>
-      <md-select placeholder="Region" [(ngModel)]="selectedRegion">
-         <md-option *ngFor="let region of regions" [value]="region.value">{{ region.name }}</md-option>
-      </md-select>
+      <mat-select placeholder="Region" [(ngModel)]="selectedRegion">
+         <mat-option *ngFor="let region of regions" [value]="region.value">{{ region.name }}</mat-option>
+      </mat-select>
     </div>
     <div class="pt-3 px-3" fxLayout="column" fxFlex.lg="20%" fxFlex.md>
-      <md-select placeholder="Game Mode" [(ngModel)]="selectedGameMode">
-         <md-option *ngFor="let gameMode of gameModes" [value]="gameMode.value">{{ gameMode.name }}</md-option>
-      </md-select>
+      <mat-select placeholder="Game Mode" [(ngModel)]="selectedGameMode">
+         <mat-option *ngFor="let gameMode of gameModes" [value]="gameMode.value">{{ gameMode.name }}</mat-option>
+      </mat-select>
     </div>
   </div>
 
@@ -29,8 +29,8 @@
 
   <ow-leaderboard-table [platform]="selectedPlatform" [region]="selectedRegion" [gamemode]="selectedGameMode"></ow-leaderboard-table>
 
-  <button md-button>
-    <md-icon>more_horiz</md-icon>
+  <button mat-button>
+    <mat-icon>more_horiz</mat-icon>
     <span class="mat-caption">Load more entries</span>
   </button>
 

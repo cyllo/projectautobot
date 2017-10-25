@@ -16,12 +16,12 @@
     </div>
     <div class="pt-3 px-3" fxLayout="column" fxFlex>
       <div fxLayout="row" fxLayoutAlign.gt-md="end center" fxLayoutGap="8px">
-        <button class="ow-primary" md-button (click)="reScrapeProfile$.next()">
-          <md-icon>refresh</md-icon>
+        <button class="ow-primary" mat-button (click)="reScrapeProfile$.next()">
+          <mat-icon>refresh</mat-icon>
           <span class="text-uppercase ml-1">Renew</span>
         </button>
-        <button class="battle-net" md-button routerLink="/register">
-          <md-icon>link</md-icon>
+        <button class="battle-net" mat-button routerLink="/register">
+          <mat-icon>link</mat-icon>
           <span class="text-uppercase ml-1">Claim via Battle.net</span>
         </button>
       </div>
@@ -31,36 +31,36 @@
   <ow-profile-career [profile]="currentProfile" [modeIndicator]="modeIndicator | async"></ow-profile-career>
 
   <div fxLayout="row">
-    <md-tab-group [(selectedIndex)]="selectedTabIndex" fxFlex>
-      <md-tab label="Overview">
+    <mat-tab-group [(selectedIndex)]="selectedTabIndex" fxFlex>
+      <mat-tab label="Overview">
         <div class="py-3 px-3" fxLayout="column" fxFlex>
           <ow-profile-overview 
             [profile]="currentProfile"
             [modeIndicator]="modeIndicator">
           </ow-profile-overview>
         </div>
-      </md-tab>
+      </mat-tab>
 
-      <md-tab label="Heroes">
+      <mat-tab label="Heroes">
         <div class="py-3 px-3" fxLayout="column" fxFlex>
           <ow-profile-heroes></ow-profile-heroes>
         </div>
-      </md-tab>
+      </mat-tab>
 
-      <md-tab label="Trends">
+      <mat-tab label="Trends">
         <div class="py-3 px-3" fxLayout="column" fxFlex>
           <ow-profile-trends [modeIndicator]="modeIndicator"></ow-profile-trends>
         </div>
-      </md-tab>
+      </mat-tab>
       
-      <md-tab label="Sessions">
+      <mat-tab label="Sessions">
         <div class="py-3 px-3" fxLayout="column" fxFlex *ngIf="selectedTabIndex == 3">
           <ow-snapshots-history
             [modeIndicator]="modeIndicator">
           </ow-snapshots-history>
         </div>
-      </md-tab>
-    </md-tab-group>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </div>
 

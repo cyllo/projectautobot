@@ -7,25 +7,25 @@
     <div fxLayout="column" fxFlex.gt-sm="1 1 510px" fxFlex.sm="75%" fxFlex.xs>
       <p class="mat-display-1">Why, hello there ;)</p>
       <form class="login-form" fxLayout="column" fxLayoutGap="30px" [formGroup]="loginForm" (ngSubmit)="loginForm$.next(loginForm.value)">
-        <md-form-field fxFlexFill>
-          <input mdInput type="email" placeholder="E-mail" formControlName="email">
-          <md-error *ngIf="loginForm.controls.email.hasError('pattern')">
+        <mat-form-field fxFlexFill>
+          <input matInput type="email" placeholder="E-mail" formControlName="email">
+          <mat-error *ngIf="loginForm.controls.email.hasError('pattern')">
             Please enter a valid email address.
-          </md-error>
-          <md-error *ngIf="loginForm.controls.email.hasError('required')">
+          </mat-error>
+          <mat-error *ngIf="loginForm.controls.email.hasError('required')">
             Email is <strong>required</strong>
-          </md-error>
-        </md-form-field>
-        <md-form-field fxFlexFill>
-          <input mdInput type="password" placeholder="Password" formControlName="password">
-          <md-error *ngIf="loginForm.controls.password.hasError('pattern')">
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlexFill>
+          <input matInput type="password" placeholder="Password" formControlName="password">
+          <mat-error *ngIf="loginForm.controls.password.hasError('pattern')">
             Please enter a valid password.
-          </md-error>
-          <md-error *ngIf="loginForm.controls.password.hasError('required')">
+          </mat-error>
+          <mat-error *ngIf="loginForm.controls.password.hasError('required')">
             Password is <strong>required</strong>
-          </md-error>
-        </md-form-field>
-        <button class="ow-primary" type="submit" md-button [disabled]="!loginForm.valid">Login</button>
+          </mat-error>
+        </mat-form-field>
+        <button class="ow-primary" type="submit" mat-button [disabled]="!loginForm.valid">Login</button>
         <p class="mat-caption">Don’t you have an account? <a routerLink="/register">Sign Up Now!</a> it’s really simple and you can start enjoing all the benefits!</p>
       </form>
     </div>

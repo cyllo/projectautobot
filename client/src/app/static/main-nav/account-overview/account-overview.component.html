@@ -1,26 +1,26 @@
 <div class="account-overview" fxLayout="column" *ngIf="currentUser$ | async as currentUser">
 
-  <md-menu yPosition="below" [overlapTrigger]="false" #appMenu="mdMenu">
+  <mat-menu yPosition="below" [overlapTrigger]="false" #appMenu="matMenu">
     <div class="pt-2" fxLayout="column" fxLayoutGap="14px" fxFlex="1 1 280px">
       <ow-profile-list [battleNetTag]="currentUser.battleNetTag"></ow-profile-list>
-      <md-nav-list>
-        <a md-list-item routerLink="/account">
+      <mat-nav-list>
+        <a mat-list-item routerLink="/account">
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex="1 1 100%">
             <span>Account Settings</span>
-            <md-icon>settings</md-icon>
+            <mat-icon>settings</mat-icon>
           </div>
         </a>
-        <a md-list-item (click)="signOut()">
+        <a mat-list-item (click)="signOut()">
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex="1 1 100%">
             <span>Log Out</span>
-            <md-icon>exit_to_app</md-icon>
+            <mat-icon>exit_to_app</mat-icon>
           </div>
         </a>
-      </md-nav-list>
+      </mat-nav-list>
     </div>
-  </md-menu>
+  </mat-menu>
 
-  <button class="btn-user" md-button [mdMenuTriggerFor]="appMenu">
+  <button class="btn-user" mat-button [matMenuTriggerFor]="appMenu">
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap.gt-sm="14px" fxFlex.gt-sm="1 1 224px" fxFlex.lt-md>
       <div fxLayout="column" *ngIf="currentUser.primaryGamerTag; else noPrimaryGamerTagBlock;">
         <img class="md-image md-image-36" [src]="currentUser.primaryGamerTag?.portraitUrl">
@@ -31,7 +31,7 @@
       <div fxLayout="column" fxFlex>
         <span class="mat-caption text-overflow" fxHide.lt-md><strong>{{currentUser.displayName}}</strong></span>
       </div>
-      <md-icon>more_vert</md-icon>
+      <mat-icon>more_vert</mat-icon>
     </div>
   </button>
 

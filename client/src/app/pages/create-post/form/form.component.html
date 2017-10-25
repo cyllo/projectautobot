@@ -1,16 +1,16 @@
 <form [formGroup]='postForm' (ngSubmit)="onSubmit(postForm.value)">
   <div fxLayout="column" fxLayoutGap="36px">
     <div fxLayout="row" fxFlex="noshrink">
-      <md-form-field>
-        <input mdInput placeholder="Title" formControlName="title">
-        <md-error>This field is required</md-error>
-      </md-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Title" formControlName="title">
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
     </div>
 
     <div fxLayout="row" fxFlex="noshrink">
       <label>Blog Categories</label>
-      <!-- <md-error *ngIf="postCategories"> -->
-      <!-- </md-error> -->
+      <!-- <mat-error *ngIf="postCategories"> -->
+      <!-- </mat-error> -->
       <tag-input formControlName='blogCategories'>
         <tag-input-dropdown [autocompleteItems]="blogCategories">
         </tag-input-dropdown>
@@ -18,38 +18,38 @@
     </div>
 
     <div fxLayout="row" fxFlex="noshrink">
-      <md-form-field>
-        <input mdInput type="url" placeholder="Thumbnail URL" formControlName="thumbnailUrl">
-        <md-error>This field is required</md-error>
-      </md-form-field>
+      <mat-form-field>
+        <input matInput type="url" placeholder="Thumbnail URL" formControlName="thumbnailUrl">
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
     </div>
 
     <div fxLayout="row" fxFlex="noshrink">
-      <md-form-field>
-        <input mdInput type="url" placeholder="Hero Image URL" formControlName="heroImageUrl">
-        <md-error>This field is required</md-error>
-      </md-form-field>
+      <mat-form-field>
+        <input matInput type="url" placeholder="Hero Image URL" formControlName="heroImageUrl">
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
     </div>
 
     <div fxLayout="row" fxFlex="noshrink">
-      <md-form-field>
-        <textarea mdInput placeholder="Summary" height='300px' width='500px' formControlName="summary"></textarea>
-        <md-error>This field is required</md-error>
-      </md-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Summary" height='300px' width='500px' formControlName="summary"></textarea>
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
     </div>
 
     <div fxLayout="row" fxFlex="noshrink">
       <label>Content</label>
-      <md-error
+      <mat-error
         *ngIf="postForm.get('content').invalid && postForm.get('content').touched">
         This field is required
-      </md-error>
+      </mat-error>
       <quill-editor formControlName="content"></quill-editor>
     </div>
 
     <div fxLayout="row" fxFlex="noshrink">
       <button
-        md-raised-button
+        mat-raised-button
         [disabled]="postForm.invalid"
         color="primary">
         Submit

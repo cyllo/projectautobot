@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, Input, ViewChild } from '@angular/core';
-import { MdSort } from '@angular/material';
+import { MatSort } from '@angular/material';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 import { LeaderboardService } from '../../../services';
@@ -16,7 +16,7 @@ export class LeaderboardTableDataSource extends DataSource<any> {
 
   data: PlayerLeaderboardDataEntry[] = [];
 
-  constructor(private _data: Observable<PlayerLeaderboardDataEntry[]>, private _sort: MdSort) {
+  constructor(private _data: Observable<PlayerLeaderboardDataEntry[]>, private _sort: MatSort) {
     super(); // must be called before accessing 'this'
     console.log(this._sort);
   }
@@ -42,7 +42,7 @@ export class LeaderboardTableComponent implements OnInit, OnChanges {
   @Input() gamemode: string;
   leaderboard: Observable<PlayerLeaderboardDataEntry[]>;
 
-  @ViewChild(MdSort) sort: MdSort;
+  @ViewChild(MatSort) sort: MatSort;
   dataSource: LeaderboardTableDataSource | null;
 
   displayedColumns = [

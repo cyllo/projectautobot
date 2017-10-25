@@ -21,11 +21,11 @@
           </div>
           <div class="flex-layout pt-1" fxLayout="row">
             <div class="flex-layout" fxLayout="column" fxFlex>
-              <md-radio-group fxLayoutGap="8px" [ngModel]="player.platform" (change)="changePlatform(player, $event)">
-                <md-radio-button [disabled]="hasPlatform(player, 'pc')" value="pc">PC</md-radio-button>
-                <md-radio-button [disabled]="hasPlatform(player, 'psn')" value="psn">PSN</md-radio-button>
-                <md-radio-button [disabled]="hasPlatform(player, 'xbl')" value="xbl">XBL</md-radio-button>
-              </md-radio-group>
+              <mat-radio-group fxLayoutGap="8px" [ngModel]="player.platform" (change)="changePlatform(player, $event)">
+                <mat-radio-button [disabled]="hasPlatform(player, 'pc')" value="pc">PC</mat-radio-button>
+                <mat-radio-button [disabled]="hasPlatform(player, 'psn')" value="psn">PSN</mat-radio-button>
+                <mat-radio-button [disabled]="hasPlatform(player, 'xbl')" value="xbl">XBL</mat-radio-button>
+              </mat-radio-group>
             </div>
           </div>
         </div>
@@ -37,13 +37,13 @@
           </div>
           <div class="flex-layout pt-1" fxLayout="row">
             <div class="flex-layout" fxLayout="column" fxFlex>
-              <md-radio-group fxLayoutGap="8px" [ngModel]="player.region" (change)="changeRegion(player, $event)">
-                <md-radio-button [disabled]="hasRegion(player, 'us')" value="us">US</md-radio-button>
-                <md-radio-button [disabled]="hasRegion(player, 'eu')" value="eu">EU</md-radio-button>
-                <md-radio-button [disabled]="hasRegion(player, 'kr')" value="kr">KR</md-radio-button>
-                <md-radio-button [disabled]="hasRegion(player, 'ch')" value="ch">CH</md-radio-button>
-                <md-radio-button [disabled]="hasRegion(player, '')" value="">GBL</md-radio-button>
-              </md-radio-group>
+              <mat-radio-group fxLayoutGap="8px" [ngModel]="player.region" (change)="changeRegion(player, $event)">
+                <mat-radio-button [disabled]="hasRegion(player, 'us')" value="us">US</mat-radio-button>
+                <mat-radio-button [disabled]="hasRegion(player, 'eu')" value="eu">EU</mat-radio-button>
+                <mat-radio-button [disabled]="hasRegion(player, 'kr')" value="kr">KR</mat-radio-button>
+                <mat-radio-button [disabled]="hasRegion(player, 'ch')" value="ch">CH</mat-radio-button>
+                <mat-radio-button [disabled]="hasRegion(player, '')" value="">GBL</mat-radio-button>
+              </mat-radio-group>
             </div>
           </div>
         </div>

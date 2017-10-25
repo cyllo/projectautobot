@@ -7,7 +7,7 @@
          fxLayout="column"
          fxFlex="0 0 auto"
          *ngFor="let hero of heroes">
-      <md-button-toggle fxFlexAlign="start" [checked]="selectedHeroes[hero.id]" [value]="hero.id" (change)="selectedChange($event)">
+      <mat-button-toggle fxFlexAlign="start" [checked]="selectedHeroes[hero.id]" [value]="hero.id" (change)="selectedChange($event)">
         <div class="flex-layout py-3" fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center">
           <div class="flex-layout" fxLayout="column" fxFlex="noshrink">
             <img class="md-image md-image-36" [src]="hero.portraitUrl">
@@ -16,7 +16,7 @@
             <span class="mat-caption">{{ hero.name }}</span>
           </div>
         </div>
-      </md-button-toggle>
+      </mat-button-toggle>
     </div>
   </div>
 </div>

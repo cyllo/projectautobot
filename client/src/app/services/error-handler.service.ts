@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { ApolloError } from 'apollo-client';
 import { pathOr, split, trim, last, compose } from 'ramda';
 
@@ -9,7 +9,7 @@ const cleanMessage = compose(trim, last, <any>split(':'), filterGraphqlMessage);
 @Injectable()
 export class ErrorHandlerService {
 
-  constructor(private snackBar: MdSnackBar) {}
+  constructor(private snackBar: MatSnackBar) {}
 
   show(error: string|ApolloError): void {
     const display = error instanceof Error

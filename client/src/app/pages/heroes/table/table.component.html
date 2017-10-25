@@ -7,59 +7,59 @@
       </div>
     </div>
 
-    <md-table #table [dataSource]="dataSource" mdSort>
+    <mat-table #table [dataSource]="dataSource" matSort>
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
 
       <!-- position column -->
-      <ng-container mdColumnDef="position">
-        <md-header-cell *mdHeaderCellDef md-sort-header>Rank</md-header-cell>
-        <md-cell *mdCellDef="let row">{{row.position}}</md-cell>
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Rank</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.position}}</mat-cell>
       </ng-container>
 
       <!-- hero column -->
-      <ng-container mdColumnDef="hero">
-        <md-header-cell *mdHeaderCellDef md-sort-header>Hero</md-header-cell>
-        <md-cell *mdCellDef="let row" fxLayoutAlign="start center">
+      <ng-container matColumnDef="hero">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Hero</mat-header-cell>
+        <mat-cell *matCellDef="let row" fxLayoutAlign="start center">
           <ow-hero-portrait [hero]="row.hero"></ow-hero-portrait>
           <span class="ml-1"><strong>{{row.hero.name}}</strong></span>
-        </md-cell>
+        </mat-cell>
       </ng-container>
 
       <!-- pick rate column -->
-      <ng-container mdColumnDef="pickRate">
-        <md-header-cell *mdHeaderCellDef md-sort-header>Pick Rate</md-header-cell>
-        <md-cell *mdCellDef="let row">
+      <ng-container matColumnDef="pickRate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Pick Rate</mat-header-cell>
+        <mat-cell *matCellDef="let row">
           <span>{{row.pickRate.gamesPlayed/row.pickRate.totalHeroesGamesPlayed | number : '1.2-2'}}%</span>
-        </md-cell>
+        </mat-cell>
       </ng-container>
 
       <!-- win rate column -->
-      <ng-container mdColumnDef="winRate">
-        <md-header-cell *mdHeaderCellDef md-sort-header>Win Rate</md-header-cell>
-        <md-cell *mdCellDef="let row">
+      <ng-container matColumnDef="winRate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Win Rate</mat-header-cell>
+        <mat-cell *matCellDef="let row">
           <span>{{row.winRate.gamesWon / row.winRate.gamesPlayed  | number : '1.2-2'}}% ({{row.winRate.gamesWon}}-{{row.winRate.gamesLost}})</span>
-        </md-cell>
+        </mat-cell>
       </ng-container>
 
       <!-- on fire column -->
-      <ng-container mdColumnDef="timeOnFire">
-        <md-header-cell *mdHeaderCellDef md-sort-header>On Fire</md-header-cell>
-        <md-cell *mdCellDef="let row">
+      <ng-container matColumnDef="timeOnFire">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>On Fire</mat-header-cell>
+        <mat-cell *matCellDef="let row">
           <span>{{row.timeOnFire.timeOnFire}}</span>
-        </md-cell>
+        </mat-cell>
       </ng-container>
 
       <!-- kd ratio column -->
-      <ng-container mdColumnDef="kdRatio">
-        <md-header-cell *mdHeaderCellDef md-sort-header>K/D Ratio</md-header-cell>
-        <md-cell *mdCellDef="let row">
+      <ng-container matColumnDef="kdRatio">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>K/D Ratio</mat-header-cell>
+        <mat-cell *matCellDef="let row">
           <span>{{row.kdRatio.finalBlows/row.kdRatio.deaths | number : '1.2-2'}}:1</span>
-        </md-cell>
+        </mat-cell>
       </ng-container>
 
-      <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
-      <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
-    </md-table>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
   </div>
 </div>

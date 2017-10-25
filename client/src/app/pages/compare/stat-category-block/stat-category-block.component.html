@@ -7,7 +7,7 @@
     </div>
     <div class="flex-layout" fxLayout="row" *ngFor="let stat of block.stats">
       <div class="flex-layout" fxLayout="column" fxFlex>
-        <md-checkbox [(ngModel)]="stat.selected" (change)="onChangeSelected()">{{stat.name}}</md-checkbox>
+        <mat-checkbox [(ngModel)]="stat.selected" (change)="onChangeSelected()">{{stat.name}}</mat-checkbox>
       </div>
     </div>
   </div>

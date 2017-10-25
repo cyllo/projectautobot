@@ -1,16 +1,16 @@
 <div class="main-search-results pt-3 px-3" fxLayout="column" fxLayoutGap="14px" fxFlex *ngIf="openDisplay && searchResults">
   <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" *ngIf="!searchResults; else showSearchResults;">
     <span class="mat-body">No search results found.</span>
-    <button md-button (click)="onClose()">
-      <md-icon>close</md-icon>
+    <button mat-button (click)="onClose()">
+      <mat-icon>close</mat-icon>
       <span>Close</span>
     </button>
   </div>
   <ng-template #showSearchResults>
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
       <span class="mat-body">{{ searchResults.length }} result{{ searchResults.length > 1  ? 's' : '' }} found.</span>
-      <button md-button (click)="onClose()">
-        <md-icon>close</md-icon>
+      <button mat-button (click)="onClose()">
+        <mat-icon>close</mat-icon>
         <span>Close</span>
       </button>
     </div>

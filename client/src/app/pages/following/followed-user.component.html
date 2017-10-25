@@ -1,15 +1,15 @@
-<md-card>
-  <md-card-header>
-    <md-card-title>{{ followedUser.displayName }}</md-card-title>
-  </md-card-header>
-  <md-card-content>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ followedUser.displayName }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
     <div *ngFor="let gamerTag of followedUser.gamerTags">
       <ow-gamer-tag-card [gamerTag]="gamerTag" [profileMode]="false"></ow-gamer-tag-card>
     </div>
-  </md-card-content>
-  <md-card-actions>
-    <button class="min-width-0" color="warn" (click)="unfollow(followedUser.id)" md-button mdTooltip="Unfollow">
-      <md-icon>favorite_border</md-icon>
+  </mat-card-content>
+  <mat-card-actions>
+    <button class="min-width-0" color="warn" (click)="unfollow(followedUser.id)" mat-button matTooltip="Unfollow">
+      <mat-icon>favorite_border</mat-icon>
     </button>
-  </md-card-actions>
-</md-card>
+  </mat-card-actions>
+</mat-card>

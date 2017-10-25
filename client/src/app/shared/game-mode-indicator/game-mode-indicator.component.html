@@ -1,10 +1,10 @@
 <div class="game-mode-indicator pt-3" fxLayout="column" fxLayoutGap="8px" fxFlex *ngIf="modeIndicator | async as modeIndicator">
   <span class="mat-caption text-uppercase">Game Mode</span>
-  <md-slide-toggle
+  <mat-slide-toggle
     color="primary"
     [checked]="modeIndicator.mode === 'competitive'"
     (change)="gameModeToggle$.next($event.checked)"
     [disabled]="modeIndicator.disabled">
     <span class="mat-caption text-uppercase">{{ modeIndicator.mode === 'competitive' ? 'Competitive Play' : 'Quick Play' }}</span>
-  </md-slide-toggle>
+  </mat-slide-toggle>
 </div>

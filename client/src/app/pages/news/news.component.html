@@ -1,7 +1,7 @@
 <div class="news" fxLayout="column" fxLayoutGap="30px" fxFlex *ngIf="newsPagination$ | async as paginationParams">
-  <md-toolbar *ngIf="newsFilters$ | async as filters">
+  <mat-toolbar *ngIf="newsFilters$ | async as filters">
     <ow-page-filters [filters]="filters" (change)="onPageFilterChange($event)"></ow-page-filters>
-  </md-toolbar>
+  </mat-toolbar>
   <div fxLayout="row"
        fxLayoutWrap
        infiniteScroll
@@ -20,7 +20,7 @@
       <ow-news-post-card [post]="post"></ow-news-post-card>
     </div>
     <div class="pt-3 px-3" fxLayout="column" fxFlex="100%" *ngIf="blogPosts.length; else noitems">
-      <button md-button (click)="onScrollDown(paginationParams, blogPosts)">
+      <button mat-button (click)="onScrollDown(paginationParams, blogPosts)">
         <span>Load More</span>
       </button>
     </div>

@@ -7,12 +7,12 @@
   <div class="post-body" fxLayout="column" fxLayoutGap="14px" fxFlex="grow">
 
     <div class="categories" fxLayout="row" fxLayoutAlign="center start" fxFlex="noshrink">
-      <md-chip-list>
-        <md-chip class="text-uppercase mx-2 mb-2"
+      <mat-chip-list>
+        <mat-chip class="text-uppercase mx-2 mb-2"
                  *ngFor="let category of post.blogCategories">
           {{ category.name }}
-        </md-chip>
-      </md-chip-list>
+        </mat-chip>
+      </mat-chip-list>
     </div>
 
     <div class="title" fxLayout="row" fxLayoutAlign="center start" fxFlex="noshrink">

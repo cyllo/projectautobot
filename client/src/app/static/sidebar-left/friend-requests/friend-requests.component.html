@@ -1,7 +1,7 @@
 <div class="friend-requests pt-2" fxLayout="column" fxLayoutGap="14px" fxFlex *ngIf="friendRequests | async as requests; else noFriendRequests;">
   <div class="scroll-content px-2 pb-2" fxLayout="column" fxFlex [perfect-scrollbar]>
-    <md-list>
-      <md-list-item *ngFor="let friendship of requests">
+    <mat-list>
+      <mat-list-item *ngFor="let friendship of requests">
 
         <div fxLayout="column" fxLayoutGap="8px" fxFlex *ngIf="friendship.primaryGamerTag; else noStatsBlock">
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
@@ -29,17 +29,17 @@
 
         <div fxLayout="column" fxLayoutAlign="center end">
           <div fxLayout="row" fxLayoutGap="8px">
-            <button md-icon-button mdTooltip="Ignore" (click)="ignore(friendship.friend.id, friendship.id)">
-              <md-icon>close</md-icon>
+            <button mat-icon-button matTooltip="Ignore" (click)="ignore(friendship.friend.id, friendship.id)">
+              <mat-icon>close</mat-icon>
             </button>
-            <button md-icon-button mdTooltip="Accept" (click)="accept(friendship.friend.id, friendship.id)">
-              <md-icon>check</md-icon>
+            <button mat-icon-button matTooltip="Accept" (click)="accept(friendship.friend.id, friendship.id)">
+              <mat-icon>check</mat-icon>
             </button>
           </div>
         </div>
 
-      </md-list-item>
-    </md-list>
+      </mat-list-item>
+    </mat-list>
   </div>
 </div>
 

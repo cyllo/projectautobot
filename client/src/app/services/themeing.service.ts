@@ -40,7 +40,7 @@ export class ThemeingService {
   load() {}
 
   loadTheme(theme: AppTheme): void {
-    this.overlayContainer.themeClass = theme.selector;
+    this.overlayContainer.getContainerElement().classList.add(theme.selector);
     if (!this.currentTheme) {
       this.addTheme(theme);
     } else {

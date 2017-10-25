@@ -1,13 +1,13 @@
 <div class="main-nav" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="14px" fxFill>
   <div fxLayout="column" fxHide.gt-sm>
-    <md-menu #appMenu="mdMenu">
-      <button md-menu-item *ngFor="let link of navLinks">
-        <md-icon>{{link.iconName}}</md-icon>
+    <mat-menu #appMenu="matMenu">
+      <button mat-menu-item *ngFor="let link of navLinks">
+        <mat-icon>{{link.iconName}}</mat-icon>
         <span>{{link.name}}</span>
       </button>
-    </md-menu>
-    <button md-icon-button [mdMenuTriggerFor]="appMenu">
-      <md-icon>menu</md-icon>
+    </mat-menu>
+    <button mat-icon-button [matMenuTriggerFor]="appMenu">
+      <mat-icon>menu</mat-icon>
     </button>
   </div>
   <div fxLayout="column" fxFlex>
@@ -22,26 +22,26 @@
     </div>
   </div>
   <div fxLayout="column" *ngIf="!userLoggedIn; else accountOverview;">
-    <md-menu #userActionsMenu="mdMenu">
-      <button md-menu-item routerLink="/register">
-        <md-icon>link</md-icon>
+    <mat-menu #userActionsMenu="matMenu">
+      <button mat-menu-item routerLink="/register">
+        <mat-icon>link</mat-icon>
         <span>Sign Up via Battle.net</span>
       </button>
-      <button md-menu-item routerLink="/login">
-        <md-icon>account_box</md-icon>
+      <button mat-menu-item routerLink="/login">
+        <mat-icon>account_box</mat-icon>
         <span>Login</span>
       </button>
-    </md-menu>
-    <button md-icon-button [mdMenuTriggerFor]="userActionsMenu" fxHide.gt-sm>
-      <md-icon>account_box</md-icon>
+    </mat-menu>
+    <button mat-icon-button [matMenuTriggerFor]="userActionsMenu" fxHide.gt-sm>
+      <mat-icon>account_box</mat-icon>
     </button>
     <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px" fxHide.lt-md>
-      <button class="battle-net" md-button routerLink="/register">
-        <md-icon>link</md-icon>
+      <button class="battle-net" mat-button routerLink="/register">
+        <mat-icon>link</mat-icon>
         <span>Sign Up via Battle.net</span>
       </button>
-      <button md-button routerLink="/login">
-        <md-icon>account_box</md-icon>
+      <button mat-button routerLink="/login">
+        <mat-icon>account_box</mat-icon>
         <span>Login</span>
       </button>
     </div>
