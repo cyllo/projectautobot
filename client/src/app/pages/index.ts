@@ -9,7 +9,6 @@ export * from './news';
 export * from './post';
 export * from './friends';
 export * from './profile';
-export * from './login';
 export * from './compare';
 export * from './404';
 export * from './registration';

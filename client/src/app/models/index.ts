@@ -3,7 +3,6 @@ export * from './heroes.model';
 export * from './blog.model';
 export * from './user.model';
 export * from './owherodata.model';
-export * from './authorization-credentials.model';
 export * from './current-session.model';
 export * from './chartdata.model';
 export * from './graphql-response.model';

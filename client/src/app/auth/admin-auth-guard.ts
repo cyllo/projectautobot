@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { isNil } from 'ramda';
 
 import { CurrentSession, User } from '../models';
-import { AuthorizationService } from '../services';
+import { AuthorizationService } from './index';
 import { ReducerStack } from '../reducers';
 
 @Injectable()

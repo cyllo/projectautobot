@@ -1,0 +1,22 @@
+#import "../gamertag/gamer-tag-fields.gql"
+#import "../gamertag/profile-snapshot-statistic.gql"
+
+fragment UserFields on User {
+  id
+  email
+  isAdmin
+  updatedAt
+  insertedAt
+  displayName
+  battleNetId
+  battleNetTag
+  primaryGamerTagId
+  primaryGamerTag {
+    ...GamerTagFields
+    snapshotStatistics(last: 1) {
+      id
+      gamerTagId
+      ...ProfileStatistic
+    }
+  }
+}

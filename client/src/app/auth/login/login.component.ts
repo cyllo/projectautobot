@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthorizationService } from '../../services';
-import { Credentials } from '../../models';
+import { AuthorizationService } from '../index';
+import { Credentials } from '../index';
 import { Location } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
 import { compose, not, isNil } from 'ramda';

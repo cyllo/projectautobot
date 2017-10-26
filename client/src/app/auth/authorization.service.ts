@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { Credentials, GraphqlResponse, User, GamerTag } from '../models';
+import { GraphqlResponse, User, GamerTag } from '../models';
 import { Login, Logout, CurrentUser } from './queries';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { dissoc, prop, propEq } from 'ramda';
-import { listFollowedUsers, listFollowedGamerTags, login, ReducerStack } from '../reducers';
+import { login } from './current-session.reducer';
+import { listFollowedUsers, listFollowedGamerTags, ReducerStack } from '../reducers';
 import * as Cookies from 'js-cookie';
-import { ErrorHandlerService } from './error-handler.service';
+import { ErrorHandlerService } from '../services';
 import { Observable } from 'rxjs/Observable';
 import { ApolloError } from 'apollo-client';
+
+export interface Credentials {
+  email: string;
+  password: string;
+}
 
 const getUserProps = user => dissoc('following', user);
 const getFollowedUsers = user => <User[]>prop('following', user);

@@ -1,14 +1,13 @@
 import { routerReducer } from '@ngrx/router-store';
 import { ActionReducerMap } from '@ngrx/store';
 import { propEq } from 'ramda';
-import { Hero, CurrentHero, CurrentSession } from '../models';
+import { Hero, CurrentHero } from '../models';
 
 export * from './profiles.reducer';
 export * from './search.reducer';
 export * from './heroes.reducer';
 export * from './current-hero.reducer';
 export * from './blog-post.reducer';
-export * from './current-session.reducer';
 export * from './friendship.reducer';
 export * from './clubs.reducer';
 export * from './following-user.reducer';
@@ -22,7 +21,6 @@ import { searchPlayerTag, SearchState } from './search.reducer';
 import { heroesData } from './heroes.reducer';
 import { currentHeroData } from './current-hero.reducer';
 import { blogPosts, BlogPostState } from './blog-post.reducer';
-import { currentSession } from './current-session.reducer';
 import { friendships, FriendshipState } from './friendship.reducer';
 import { clubs, ClubState } from './clubs.reducer';
 import { followedUsers, FollowingUserState } from './following-user.reducer';
@@ -45,7 +43,6 @@ export interface ReducerStack {
   heroes: Hero[];
   currentHero: CurrentHero;
   blogPosts: BlogPostState;
-  currentSession: CurrentSession;
   friendships: FriendshipState;
   clubs: ClubState;
   followedUsers: FollowingUserState;
@@ -62,7 +59,6 @@ export const reducerStack: ActionReducerMap<ReducerStack> = {
   heroes: heroesData,
   currentHero: currentHeroData,
   blogPosts,
-  currentSession: clearable(currentSession, undefined),
   friendships: clearable(friendships, {}),
   clubs: clearable(clubs, {}),
   followedUsers: clearable(followedUsers, {}),
