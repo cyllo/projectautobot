@@ -16,6 +16,7 @@ function App () {
       families: ['Roboto:300,400,500']
     }
   });
+
   return platformBrowserDynamic().bootstrapModule(AppModule);
 }
 

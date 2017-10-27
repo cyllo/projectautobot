@@ -187,6 +187,7 @@ module.exports = function makeWebpackConfig() {
       'process.env': {
         ENV: JSON.stringify(ENV),
         NODE_ENV: JSON.stringify(NODE_ENV),
+        PROD_SOCKET_URL: JSON.stringify(process.env.PROD_SOCKET_URL),
         BATTLE_NET_CLIENT_ID: JSON.stringify(process.env[`${NODE_ENV === 'production' ? 'PROD' : 'DEV'}_BATTLE_NET_CLIENT_ID`]),
         GRAPHQL_URL: JSON.stringify(process.env.NODE_ENV === 'production' ? process.env.PROD_SERVER_URL : '/graphql')
       }
@@ -294,7 +295,7 @@ module.exports = function makeWebpackConfig() {
           ContentEncoding: ifElse(test(/\.js$/), always('gzip'), always(null))
         },
         cdnizerOptions: {
-          defaultCDNBase: 'drn6lp26l2cc2.cloudfront.net'
+          defaultCDNBase: '//drn6lp26l2cc2.cloudfront.net'
         }
       })
     );

@@ -8,7 +8,8 @@ defmodule Api.Web.UserSocket do
   if Mix.env() === :prod do
     transport :websocket, Phoenix.Transports.WebSocket,
       check_origin: [
-        "//stopthepayload.gg"
+        "//stopthepayload.gg",
+        "//www.stopthepayload.gg"
       ]
   else
     transport :websocket, Phoenix.Transports.WebSocket

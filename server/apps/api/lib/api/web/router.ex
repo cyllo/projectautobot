@@ -3,12 +3,6 @@ defmodule Api.Web.Router do
 
   # @max_complexity 500
 
-  pipeline :browser do
-    plug :accepts, ["html"]
-
-    # plug :protect_from_forgery
-    # plug :put_secure_browser_headers
-  end
 
   pipeline :graphql do
     plug Api.Context
@@ -17,6 +11,7 @@ defmodule Api.Web.Router do
   scope "/" do
     pipe_through :graphql
 
+    forward "/heartbeat", Api.HeartbeatPlug
     forward "/graphql", Absinthe.Plug,
       schema: Api.Schema
       # max_complexity: @max_complexity,

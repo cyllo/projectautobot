@@ -27,7 +27,7 @@ defmodule Api.Web.Endpoint do
 
   plug Corsica,
     allow_headers: ["authorization", "content-type"],
-    origins: ["http://stopthepayload.gg.s3-website-us-west-2.amazonaws.com", "https://stopthepayload.gg"]
+    origins: Application.get_env(:api, :host_origins)
 
 
   plug Plug.MethodOverride

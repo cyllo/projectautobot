@@ -15,14 +15,18 @@ use Mix.Config
 # which you typically run after static files are built.
 config :api, Api.Web.Endpoint,
   on_init: {Api.Web.Endpoint, :load_from_system_env, []},
-  url: [host: "stopthepayload.gg", port: 4000],
-  server: true,
-  http: [compress: true],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  secret_key_base: "${API_SECRET_KEY_BASE}",
+  url: [host: "api.stopthepayload.gg", port: 4000],
+  server: true
 
 config :api,
   joken_secret: "${JOKEN_SECRET}",
-  secret_key_base: "${API_SECRET_KEY_BASE}"
+  host_origins: [
+      "http://stopthepayload.gg.s3-website-us-west-2.amazonaws.com",
+      "https://stopthepayload.gg",
+      "https://www.stopthepayload.gg",
+      "https://localhost:8080"
+    ]
 
 config :api, :environment, :prod
 

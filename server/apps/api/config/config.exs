@@ -8,7 +8,8 @@ use Mix.Config
 # General application configuration
 config :api,
   namespace: Api,
-  ecto_repos: []
+  ecto_repos: [],
+  host_origins: ["//localhost:8080"]
 
 # Configures the endpoint
 config :api, Api.Web.Endpoint,
